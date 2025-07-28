@@ -3,8 +3,8 @@ import { tools } from '@/lib/tools';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { ArrowRight, Sparkles } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
 import HomepageAd from '@/components/ads/HomepageAd';
+import NewsletterForm from '@/components/NewsletterForm';
 
 export default function Home() {
   return (
@@ -79,17 +79,7 @@ export default function Home() {
             <p className="mt-4 text-lg text-muted-foreground">
               Subscribe to our newsletter for the latest AI tool reviews, tutorials, and industry news.
             </p>
-            <form className="mt-6 flex flex-col sm:flex-row items-center gap-4">
-              <Input
-                type="email"
-                placeholder="Enter your email"
-                className="flex-1 bg-secondary"
-                aria-label="Email for newsletter"
-              />
-              <Button type="submit" size="lg" className="w-full sm:w-auto">
-                Subscribe
-              </Button>
-            </form>
+            <NewsletterForm />
             <p className="mt-3 text-xs text-muted-foreground">
               We respect your privacy. No spam.
             </p>
