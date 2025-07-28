@@ -9,7 +9,7 @@ const Header = () => {
           <div className="p-2 bg-primary rounded-lg text-primary-foreground transition-transform group-hover:scale-110">
             <Layers3 className="h-6 w-6" />
           </div>
-          <h1 className="text-2xl font-bold text-foreground tracking-tighter">Toolify</h1>
+          <h1 className="text-xl md:text-2xl font-bold text-foreground tracking-tighter">Toolify</h1>
         </Link>
         <p className="hidden md:block text-muted-foreground font-medium">
           Your All-in-One AI Toolkit

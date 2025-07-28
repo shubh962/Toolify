@@ -2,7 +2,6 @@ import type {Metadata} from 'next';
 import './globals.css';
 import { Toaster } from "@/components/ui/toaster"
 import Header from "@/components/Header"
-import Link from 'next/link';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { AlertTriangle } from 'lucide-react';
@@ -52,7 +51,7 @@ export default function RootLayout({
         <Toaster />
         <footer className="py-6 text-center text-muted-foreground">
           <div className="container mx-auto px-6">
-            <div className="flex flex-col sm:flex-row justify-center items-center gap-4">
+            <div className="flex flex-col sm:flex-row justify-center items-center gap-2 sm:gap-4">
               <p>Developed with ❤️ by Shubham Gautam</p>
               <span className="hidden sm:inline">|</span>
               <Dialog>
@@ -106,9 +105,10 @@ export default function RootLayout({
                 </DialogContent>
               </Dialog>
             </div>
-            <p className="mt-2 text-xs">© 2025 Toolify — All Rights Reserved</p>
+            <p className="mt-4 text-xs">© 2025 Toolify — All Rights Reserved</p>
           </div>
         </footer>
       </body>
     </html>
   );
+}

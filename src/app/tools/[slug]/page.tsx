@@ -43,14 +43,14 @@ export default function ToolPage({ params }: { params: { slug: string } }) {
     notFound();
   }
 
-  const ToolComponent = toolComponentMap[tool.slug];
+  const ToolComponent = tool.isPlaceholder ? PlaceholderTool : toolComponentMap[tool.slug];
 
   return (
     <main className="flex-1 py-12 md:py-16">
       <div className="container mx-auto px-6">
         <div className="text-center mb-12">
-          <h1 className="text-4xl md:text-5xl font-extrabold font-headline tracking-tight text-foreground">{tool.title}</h1>
-          <p className="mt-3 text-lg text-muted-foreground max-w-2xl mx-auto">{tool.description}</p>
+          <h1 className="text-3xl md:text-5xl font-extrabold font-headline tracking-tight text-foreground">{tool.title}</h1>
+          <p className="mt-3 text-base md:text-lg text-muted-foreground max-w-2xl mx-auto">{tool.description}</p>
         </div>
         
         {ToolComponent ? (

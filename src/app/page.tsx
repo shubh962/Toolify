@@ -18,7 +18,7 @@ export default function Home() {
           </p>
           <div className="mt-8 flex justify-center">
             <Button size="lg" asChild className="bg-primary-foreground text-primary hover:bg-primary-foreground/90 transition-transform hover:scale-105">
-              <Link href="#tools">Explore All Tools</Link>
+              <Link href="#tools" prefetch={false}>Explore All Tools</Link>
             </Button>
           </div>
         </div>
@@ -34,7 +34,7 @@ export default function Home() {
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
             {tools.map((tool) => (
-              <Link href={`/tools/${tool.slug}`} key={tool.slug} className="group flex" prefetch={true}>
+              <Link href={`/tools/${tool.slug}`} key={tool.slug} className="group flex" prefetch={!tool.isPlaceholder}>
                 <Card className="w-full flex flex-col transition-all duration-300 hover:shadow-xl hover:-translate-y-2 border-2 border-transparent hover:border-primary bg-card">
                   <CardHeader>
                     <div className="flex justify-between items-start mb-4">
