@@ -78,7 +78,7 @@ export default function MergePdf() {
         ) : (
           <div className="space-y-4">
             <h3 className="font-semibold text-lg">Selected Files ({files.length})</h3>
-            <div className="grid grid-cols-2 gap-4 max-h-60 overflow-y-auto p-2 rounded-md border">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-h-60 overflow-y-auto p-2 rounded-md border">
               {files.map((file, index) => (
                 <div key={index} className="flex items-center gap-2 p-2 bg-secondary rounded">
                   <FileText className="h-5 w-5 text-primary" />
