@@ -60,45 +60,25 @@ export default function ToolPage({ params }: { params: { slug: string } }) {
           <PlaceholderTool title={tool.title} />
         )}
 
-        <div className="mt-16">
-          <div className="flex justify-center items-center gap-4 flex-wrap">
+        <div className="mt-16 flex justify-center">
             <div>
-              <Script id="ad-script-3-config" strategy="lazyOnload">
-                {`
-                  atOptions = {
-                    'key' : '8264ae6a7e43a03596b991bae2a4f902',
-                    'format' : 'iframe',
-                    'height' : 300,
-                    'width' : 160,
-                    'params' : {}
-                  };
-                `}
-              </Script>
-              <Script
-                id="ad-script-3-src"
-                strategy="lazyOnload"
-                src="//www.highperformanceformat.com/8264ae6a7e43a03596b991bae2a4f902/invoke.js"
-              />
+                <Script id="ad-script-toolpage-config" strategy="lazyOnload">
+                    {`
+                        atOptions = {
+                            'key' : '9602d78406999a799d459a069811c5ca',
+                            'format' : 'iframe',
+                            'height' : 90,
+                            'width' : 728,
+                            'params' : {}
+                        };
+                    `}
+                </Script>
+                <Script 
+                    id="ad-script-toolpage-src" 
+                    strategy="lazyOnload"
+                    src="//www.highperformanceformat.com/9602d78406999a799d459a069811c5ca/invoke.js" 
+                />
             </div>
-             <div>
-              <Script id="ad-script-4-config" strategy="lazyOnload">
-                {`
-                  atOptions = {
-                    'key' : '8264ae6a7e43a03596b991bae2a4f902',
-                    'format' : 'iframe',
-                    'height' : 300,
-                    'width' : 160,
-                    'params' : {}
-                  };
-                `}
-              </Script>
-              <Script
-                id="ad-script-4-src"
-                strategy="lazyOnload"
-                src="//www.highperformanceformat.com/8264ae6a7e43a03596b991bae2a4f902/invoke.js"
-              />
-            </div>
-          </div>
         </div>
 
       </div>
