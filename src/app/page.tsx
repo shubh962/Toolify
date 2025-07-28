@@ -4,7 +4,7 @@ import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/componen
 import { ArrowRight, Sparkles } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import Script from 'next/script';
+import HomepageAd from '@/components/ads/HomepageAd';
 
 export default function Home() {
   return (
@@ -68,18 +68,7 @@ export default function Home() {
 
       <section className="py-16 md:py-24 bg-secondary">
         <div className="container mx-auto px-6 text-center">
-          <div id="container-1bdf27e23718c91dfaf3d2a9b10a4bcf"></div>
-          <Script id="ad-script-homepage" strategy="lazyOnload">
-            {`
-              (function(d, s, id, src) {
-                var js, fjs = d.getElementsByTagName(s)[0];
-                if (d.getElementById(id)) return;
-                js = d.createElement(s); js.id = id;
-                js.src = src;
-                fjs.parentNode.insertBefore(js, fjs);
-              }(document, 'script', 'native-ad-script', '//pl27284932.profitableratecpm.com/1bdf27e23718c91dfaf3d2a9b10a4bcf/invoke.js'));
-            `}
-          </Script>
+          <HomepageAd />
         </div>
       </section>
 

@@ -7,7 +7,7 @@ import PlaceholderTool from '@/components/tools/PlaceholderTool';
 import PdfToWord from '@/components/tools/PdfToWord';
 import MergePdf from '@/components/tools/MergePdf';
 import ImageCompressor from '@/components/tools/ImageCompressor';
-import Script from 'next/script';
+import ToolPageAd from '@/components/ads/ToolPageAd';
 
 export async function generateStaticParams() {
   return tools.map((tool) => ({
@@ -61,24 +61,7 @@ export default function ToolPage({ params }: { params: { slug: string } }) {
         )}
 
         <div className="mt-16 flex justify-center">
-            <div>
-                <Script id="ad-script-toolpage-config" strategy="lazyOnload">
-                    {`
-                        atOptions = {
-                            'key' : '9602d78406999a799d459a069811c5ca',
-                            'format' : 'iframe',
-                            'height' : 90,
-                            'width' : 728,
-                            'params' : {}
-                        };
-                    `}
-                </Script>
-                <Script 
-                    id="ad-script-toolpage-src" 
-                    strategy="lazyOnload"
-                    src="//www.highperformanceformat.com/9602d78406999a799d459a069811c5ca/invoke.js" 
-                />
-            </div>
+            <ToolPageAd />
         </div>
 
       </div>
