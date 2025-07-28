@@ -41,7 +41,7 @@ export default function RootLayout({
         {children}
         <Toaster />
         <footer className="py-6 text-center text-muted-foreground">
-          Developed by Shubham Gautam — All Rights Reserved
+          Developed with ❤️ by Shubham Gautam — All Rights Reserved
         </footer>
       </body>
     </html>
