@@ -4,6 +4,7 @@ import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/componen
 import { ArrowRight, Sparkles } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import Script from 'next/script';
 
 export default function Home() {
   return (
@@ -66,6 +67,13 @@ export default function Home() {
       </section>
 
       <section className="py-16 md:py-24 bg-secondary">
+        <div className="container mx-auto px-6 text-center">
+          <div id="container-1bdf27e23718c91dfaf3d2a9b10a4bcf"></div>
+          <Script async src="//pl27284932.profitableratecpm.com/1bdf27e23718c91dfaf3d2a9b10a4bcf/invoke.js" />
+        </div>
+      </section>
+
+      <section className="py-16 md:py-24 bg-background">
         <div className="container mx-auto px-6">
           <div className="max-w-2xl mx-auto text-center">
             <h2 className="text-3xl font-bold tracking-tight text-foreground">Stay Ahead of the Curve</h2>
@@ -76,7 +84,7 @@ export default function Home() {
               <Input
                 type="email"
                 placeholder="Enter your email"
-                className="flex-1 bg-background"
+                className="flex-1 bg-secondary"
                 aria-label="Email for newsletter"
               />
               <Button type="submit" size="lg" className="w-full sm:w-auto">
