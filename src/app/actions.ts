@@ -4,6 +4,7 @@ import { removeBackground } from '@/ai/flows/background-remover';
 import { imageToTextOcr } from '@/ai/flows/image-to-text-ocr';
 import { paraphraseText } from '@/ai/flows/text-paraphraser';
 import { pdfToWord } from '@/ai/flows/pdf-to-word';
+import { mergePdfToWord } from '@/ai/flows/merge-pdf-to-word';
 
 export async function handleBackgroundRemoval(photoDataUri: string) {
   if (!photoDataUri) {
@@ -55,4 +56,17 @@ export async function handlePdfToWord(pdfDataUri: string) {
     console.error('PDF to Word error:', error);
     return { success: false, error: 'Failed to convert PDF to Word. The AI model may be unavailable.' };
   }
+}
+
+export async function handleMergePdfs(pdfDataUris: string[]) {
+    if (!pdfDataUris || pdfDataUris.length < 2) {
+        return { success: false, error: 'Please select at least two PDFs to merge.' };
+    }
+    try {
+        const result = await mergePdfToWord({ pdfDataUris });
+        return { success: true, data: result };
+    } catch (error) {
+        console.error('PDF Merge error:', error);
+        return { success: false, error: 'Failed to merge PDFs. The AI model may be unavailable.' };
+    }
 }

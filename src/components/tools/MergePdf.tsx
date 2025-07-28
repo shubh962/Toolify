@@ -4,11 +4,14 @@ import { Card, CardContent, CardFooter } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { useToast } from '@/hooks/use-toast';
-import { Upload, Combine, Trash2, Loader2, Wand2, FileText } from 'lucide-react';
+import { Upload, Combine, Trash2, Loader2, Download, FileText } from 'lucide-react';
+import { handleMergePdfs } from '@/app/actions';
 
 export default function MergePdf() {
   const { toast } = useToast();
   const [files, setFiles] = useState<File[]>([]);
+  const [fileDataUris, setFileDataUris] = useState<string[]>([]);
+  const [convertedDoc, setConvertedDoc] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -26,25 +29,60 @@ export default function MergePdf() {
         }
         return true;
       });
-      setFiles(prevFiles => [...prevFiles, ...newFiles]);
+
+      const allFiles = [...files, ...newFiles];
+      setFiles(allFiles);
+      setConvertedDoc(null);
+
+      const uris: string[] = [];
+      const readerPromises = newFiles.map(file => {
+        return new Promise<string>((resolve) => {
+          const reader = new FileReader();
+          reader.onload = (e) => {
+            resolve(e.target?.result as string);
+          };
+          reader.readAsDataURL(file);
+        });
+      });
+      
+      Promise.all(readerPromises).then(newUris => {
+        setFileDataUris(prevUris => [...prevUris, ...newUris]);
+      });
     }
   };
 
   const handleSubmit = async () => {
-    if (files.length < 2) {
+    if (fileDataUris.length < 2) {
       toast({ title: "Not enough files", description: "Please upload at least two PDF files to merge.", variant: "destructive" });
       return;
     }
     setIsLoading(true);
-    // Placeholder for merge logic
-    setTimeout(() => {
-      setIsLoading(false);
-      toast({ title: "Coming Soon!", description: "PDF merging is not yet implemented." });
-    }, 2000);
+    setConvertedDoc(null);
+    const result = await handleMergePdfs(fileDataUris);
+    setIsLoading(false);
+
+    if (result.success && result.data?.wordDataUri) {
+      setConvertedDoc(result.data.wordDataUri);
+      toast({ title: "Success!", description: "PDFs merged into a Word document." });
+    } else {
+      toast({ title: "Error", description: result.error, variant: "destructive" });
+    }
+  };
+
+  const handleDownload = () => {
+    if (!convertedDoc) return;
+    const link = document.createElement('a');
+    link.href = convertedDoc;
+    link.download = 'merged_document.docx';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
   };
 
   const handleReset = () => {
     setFiles([]);
+    setFileDataUris([]);
+    setConvertedDoc(null);
     setIsLoading(false);
     if (fileInputRef.current) {
       fileInputRef.current.value = '';
@@ -97,13 +135,16 @@ export default function MergePdf() {
           <Button variant="outline" onClick={handleReset} disabled={isLoading}>
             <Trash2 className="mr-2 h-4 w-4" /> Reset
           </Button>
-          <Button onClick={handleSubmit} disabled={isLoading || files.length < 2}>
+          <Button onClick={handleSubmit} disabled={isLoading || files.length < 2 || !!convertedDoc}>
             {isLoading ? (
               <Loader2 className="mr-2 h-4 w-4 animate-spin" />
             ) : (
               <Combine className="mr-2 h-4 w-4" />
             )}
-            Merge PDFs
+            Merge to Word
+          </Button>
+          <Button onClick={handleDownload} disabled={!convertedDoc || isLoading}>
+            <Download className="mr-2 h-4 w-4" /> Download
           </Button>
         </CardFooter>
       )}
