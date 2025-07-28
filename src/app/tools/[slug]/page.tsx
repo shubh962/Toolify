@@ -63,7 +63,7 @@ export default function ToolPage({ params }: { params: { slug: string } }) {
         <div className="mt-16">
           <div className="flex justify-center items-center gap-4 flex-wrap">
             <div>
-              <Script id="ad-script-3-config">
+              <Script id="ad-script-3-config" strategy="lazyOnload">
                 {`
                   atOptions = {
                     'key' : '8264ae6a7e43a03596b991bae2a4f902',
@@ -76,11 +76,12 @@ export default function ToolPage({ params }: { params: { slug: string } }) {
               </Script>
               <Script
                 id="ad-script-3-src"
+                strategy="lazyOnload"
                 src="//www.highperformanceformat.com/8264ae6a7e43a03596b991bae2a4f902/invoke.js"
               />
             </div>
              <div>
-              <Script id="ad-script-4-config">
+              <Script id="ad-script-4-config" strategy="lazyOnload">
                 {`
                   atOptions = {
                     'key' : '8264ae6a7e43a03596b991bae2a4f902',
@@ -93,6 +94,7 @@ export default function ToolPage({ params }: { params: { slug: string } }) {
               </Script>
               <Script
                 id="ad-script-4-src"
+                strategy="lazyOnload"
                 src="//www.highperformanceformat.com/8264ae6a7e43a03596b991bae2a4f902/invoke.js"
               />
             </div>
