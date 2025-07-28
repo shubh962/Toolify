@@ -4,11 +4,14 @@ import { Card, CardContent, CardFooter } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { useToast } from '@/hooks/use-toast';
-import { Upload, FileText, Trash2, Loader2, Wand2 } from 'lucide-react';
+import { Upload, FileText, Trash2, Loader2, Download, Wand2 } from 'lucide-react';
+import { handlePdfToText } from '@/app/actions';
 
 export default function PdfToWord() {
   const { toast } = useToast();
   const [file, setFile] = useState<File | null>(null);
+  const [fileDataUri, setFileDataUri] = useState<string | null>(null);
+  const [convertedText, setConvertedText] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -23,25 +26,60 @@ export default function PdfToWord() {
         });
         return;
       }
+      if (selectedFile.size > 10 * 1024 * 1024) { // 10MB limit
+        toast({
+          title: 'File too large',
+          description: 'Please upload a PDF smaller than 10MB.',
+          variant: 'destructive',
+        });
+        return;
+      }
       setFile(selectedFile);
+      setConvertedText(null);
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        setFileDataUri(e.target?.result as string);
+      };
+      reader.readAsDataURL(selectedFile);
     }
   };
 
   const handleSubmit = async () => {
-    if (!file) {
+    if (!fileDataUri) {
       toast({ title: "No file selected", description: "Please upload a PDF file first.", variant: "destructive" });
       return;
     }
     setIsLoading(true);
-    // Placeholder for conversion logic
-    setTimeout(() => {
-      setIsLoading(false);
-      toast({ title: "Coming Soon!", description: "PDF to Word conversion is not yet implemented." });
-    }, 2000);
+    setConvertedText(null);
+    const result = await handlePdfToText(fileDataUri);
+    setIsLoading(false);
+    
+    if (result.success && result.data?.extractedText) {
+      setConvertedText(result.data.extractedText);
+      toast({ title: "Success!", description: "PDF converted successfully." });
+    } else {
+      toast({ title: "Error", description: result.error, variant: "destructive" });
+    }
   };
 
+  const handleDownload = () => {
+    if (!convertedText) return;
+    const blob = new Blob([convertedText], { type: 'text/plain;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    const originalFileName = file?.name.replace(/\.pdf$/i, '') || 'converted';
+    link.download = `${originalFileName}.txt`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+  };
+  
   const handleReset = () => {
     setFile(null);
+    setFileDataUri(null);
+    setConvertedText(null);
     setIsLoading(false);
     if (fileInputRef.current) {
       fileInputRef.current.value = '';
@@ -84,13 +122,16 @@ export default function PdfToWord() {
           <Button variant="outline" onClick={handleReset} disabled={isLoading}>
             <Trash2 className="mr-2 h-4 w-4" /> Reset
           </Button>
-          <Button onClick={handleSubmit} disabled={isLoading}>
+          <Button onClick={handleSubmit} disabled={isLoading || !!convertedText}>
             {isLoading ? (
               <Loader2 className="mr-2 h-4 w-4 animate-spin" />
             ) : (
               <Wand2 className="mr-2 h-4 w-4" />
             )}
             Convert to Word
+          </Button>
+          <Button onClick={handleDownload} disabled={!convertedText || isLoading}>
+            <Download className="mr-2 h-4 w-4" /> Download
           </Button>
         </CardFooter>
       )}
