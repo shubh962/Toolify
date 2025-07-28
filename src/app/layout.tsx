@@ -3,6 +3,10 @@ import './globals.css';
 import { Toaster } from "@/components/ui/toaster"
 import Header from "@/components/Header"
 import Link from 'next/link';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { AlertTriangle } from 'lucide-react';
+
 
 export const metadata: Metadata = {
   title: 'Toolify | Your All-in-One AI Toolkit',
@@ -48,9 +52,56 @@ export default function RootLayout({
             <div className="flex flex-col sm:flex-row justify-center items-center gap-4">
               <p>Developed with ❤️ by Shubham Gautam</p>
               <span className="hidden sm:inline">|</span>
-              <Link href="/about" className="hover:text-primary underline-offset-4 hover:underline">
-                About & Copyright
-              </Link>
+              <Dialog>
+                <DialogTrigger asChild>
+                  <button className="hover:text-primary underline-offset-4 hover:underline">
+                    About & Copyright
+                  </button>
+                </DialogTrigger>
+                <DialogContent className="max-w-3xl">
+                  <DialogHeader>
+                    <DialogTitle className="text-2xl text-center mb-4">About Toolify</DialogTitle>
+                  </DialogHeader>
+                  <div className="space-y-6">
+                    <Card className="shadow-lg border">
+                      <CardHeader>
+                        <CardTitle className="text-xl">Our Mission</CardTitle>
+                      </CardHeader>
+                      <CardContent className="space-y-3 text-sm text-muted-foreground">
+                        <p>
+                          <strong>Toolify</strong> is a digital platform crafted to simplify your daily online tasks with smart, reliable, and user-friendly tools. Founded by <strong>Shubham Gautam</strong>, Toolify aims to empower creators, developers, and everyday users through minimal design and maximum functionality.
+                        </p>
+                        <p>
+                          We believe in delivering seamless experiences, respecting user privacy, and constantly evolving to serve better. Whether you're optimizing productivity or exploring new utilities, Toolify is built to support you — anytime, anywhere.
+                        </p>
+                        <p className="pt-3 text-center font-semibold text-base text-foreground/90 italic">
+                          Toolify – Simple Tools. Smarter Life.
+                        </p>
+                      </CardContent>
+                    </Card>
+
+                    <Card className="shadow-lg border-destructive/50">
+                      <CardHeader>
+                        <CardTitle className="flex items-center gap-2 text-destructive text-xl">
+                          <AlertTriangle className="h-5 w-5" />
+                          Copyright Warning
+                        </CardTitle>
+                      </CardHeader>
+                      <CardContent className="space-y-3 text-sm text-muted-foreground">
+                        <p>
+                          <strong>© 2025 Toolify. All rights reserved.</strong>
+                        </p>
+                        <p>
+                          Unauthorized reproduction, redistribution, or modification of any part of this website, its tools, content, or code is strictly prohibited and may result in legal action.
+                        </p>
+                        <p>
+                          Toolify, its logo, and related services are intellectual property of Shubham Gautam.
+                        </p>
+                      </CardContent>
+                    </Card>
+                  </div>
+                </DialogContent>
+              </Dialog>
             </div>
             <p className="mt-2 text-xs">© 2025 Toolify — All Rights Reserved</p>
           </div>
