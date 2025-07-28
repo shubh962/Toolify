@@ -34,7 +34,7 @@ export default function Home() {
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
             {tools.map((tool) => (
-              <Link href={`/tools/${tool.slug}`} key={tool.slug} className="group flex">
+              <Link href={`/tools/${tool.slug}`} key={tool.slug} className="group flex" prefetch={true}>
                 <Card className="w-full flex flex-col transition-all duration-300 hover:shadow-xl hover:-translate-y-2 border-2 border-transparent hover:border-primary bg-card">
                   <CardHeader>
                     <div className="flex justify-between items-start mb-4">
