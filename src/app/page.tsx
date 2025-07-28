@@ -7,7 +7,7 @@ import { Input } from '@/components/ui/input';
 
 export default function Home() {
   return (
-    <main className="flex-1">
+    <>
       <section className="py-20 md:py-32 text-center bg-gradient-to-br from-primary via-primary/90 to-accent">
         <div className="container mx-auto px-6">
           <h1 className="text-4xl md:text-6xl font-extrabold font-headline tracking-tight text-primary-foreground">
@@ -89,6 +89,6 @@ export default function Home() {
           </div>
         </div>
       </section>
-    </main>
+    </>
   );
 }

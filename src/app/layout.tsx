@@ -2,6 +2,7 @@ import type {Metadata} from 'next';
 import './globals.css';
 import { Toaster } from "@/components/ui/toaster"
 import Header from "@/components/Header"
+import Link from 'next/link';
 
 export const metadata: Metadata = {
   title: 'Toolify | Your All-in-One AI Toolkit',
@@ -38,10 +39,21 @@ export default function RootLayout({
       </head>
       <body className="font-body antialiased min-h-screen flex flex-col">
         <Header />
-        {children}
+        <main className="flex-1">
+          {children}
+        </main>
         <Toaster />
         <footer className="py-6 text-center text-muted-foreground">
-          Developed with ❤️ by Shubham Gautam — All Rights Reserved
+          <div className="container mx-auto px-6">
+            <div className="flex flex-col sm:flex-row justify-center items-center gap-4">
+              <p>Developed with ❤️ by Shubham Gautam</p>
+              <span className="hidden sm:inline">|</span>
+              <Link href="/about" className="hover:text-primary underline-offset-4 hover:underline">
+                About & Copyright
+              </Link>
+            </div>
+            <p className="mt-2 text-xs">© 2025 Toolify — All Rights Reserved</p>
+          </div>
         </footer>
       </body>
     </html>
