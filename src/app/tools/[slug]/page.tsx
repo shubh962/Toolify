@@ -61,22 +61,41 @@ export default function ToolPage({ params }: { params: { slug: string } }) {
         )}
 
         <div className="mt-16">
-          <div className="mx-auto w-[300px]">
-            <Script id="ad-script-2-config">
-              {`
-                atOptions = {
-                  'key' : 'adda6883dcafe170b460e46bc3c99d31',
-                  'format' : 'iframe',
-                  'height' : 250,
-                  'width' : 300,
-                  'params' : {}
-                };
-              `}
-            </Script>
-            <Script
-              id="ad-script-2-src"
-              src="//www.highperformanceformat.com/adda6883dcafe170b460e46bc3c99d31/invoke.js"
-            />
+          <div className="flex justify-center items-center gap-4 flex-wrap">
+            <div>
+              <Script id="ad-script-3-config">
+                {`
+                  atOptions = {
+                    'key' : '8264ae6a7e43a03596b991bae2a4f902',
+                    'format' : 'iframe',
+                    'height' : 300,
+                    'width' : 160,
+                    'params' : {}
+                  };
+                `}
+              </Script>
+              <Script
+                id="ad-script-3-src"
+                src="//www.highperformanceformat.com/8264ae6a7e43a03596b991bae2a4f902/invoke.js"
+              />
+            </div>
+             <div>
+              <Script id="ad-script-4-config">
+                {`
+                  atOptions = {
+                    'key' : '8264ae6a7e43a03596b991bae2a4f902',
+                    'format' : 'iframe',
+                    'height' : 300,
+                    'width' : 160,
+                    'params' : {}
+                  };
+                `}
+              </Script>
+              <Script
+                id="ad-script-4-src"
+                src="//www.highperformanceformat.com/8264ae6a7e43a03596b991bae2a4f902/invoke.js"
+              />
+            </div>
           </div>
         </div>
 
