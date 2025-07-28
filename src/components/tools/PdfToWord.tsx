@@ -5,13 +5,13 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { useToast } from '@/hooks/use-toast';
 import { Upload, FileText, Trash2, Loader2, Download, Wand2 } from 'lucide-react';
-import { handlePdfToText } from '@/app/actions';
+import { handlePdfToWord } from '@/app/actions';
 
 export default function PdfToWord() {
   const { toast } = useToast();
   const [file, setFile] = useState<File | null>(null);
   const [fileDataUri, setFileDataUri] = useState<string | null>(null);
-  const [convertedText, setConvertedText] = useState<string | null>(null);
+  const [convertedDoc, setConvertedDoc] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -35,7 +35,7 @@ export default function PdfToWord() {
         return;
       }
       setFile(selectedFile);
-      setConvertedText(null);
+      setConvertedDoc(null);
       const reader = new FileReader();
       reader.onload = (e) => {
         setFileDataUri(e.target?.result as string);
@@ -50,12 +50,12 @@ export default function PdfToWord() {
       return;
     }
     setIsLoading(true);
-    setConvertedText(null);
-    const result = await handlePdfToText(fileDataUri);
+    setConvertedDoc(null);
+    const result = await handlePdfToWord(fileDataUri);
     setIsLoading(false);
     
-    if (result.success && result.data?.extractedText) {
-      setConvertedText(result.data.extractedText);
+    if (result.success && result.data?.wordDataUri) {
+      setConvertedDoc(result.data.wordDataUri);
       toast({ title: "Success!", description: "PDF converted successfully." });
     } else {
       toast({ title: "Error", description: result.error, variant: "destructive" });
@@ -63,23 +63,20 @@ export default function PdfToWord() {
   };
 
   const handleDownload = () => {
-    if (!convertedText) return;
-    const blob = new Blob([convertedText], { type: 'text/plain;charset=utf-8' });
-    const url = URL.createObjectURL(blob);
+    if (!convertedDoc) return;
     const link = document.createElement('a');
-    link.href = url;
+    link.href = convertedDoc;
     const originalFileName = file?.name.replace(/\.pdf$/i, '') || 'converted';
-    link.download = `${originalFileName}.txt`;
+    link.download = `${originalFileName}.docx`;
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
-    URL.revokeObjectURL(url);
   };
   
   const handleReset = () => {
     setFile(null);
     setFileDataUri(null);
-    setConvertedText(null);
+    setConvertedDoc(null);
     setIsLoading(false);
     if (fileInputRef.current) {
       fileInputRef.current.value = '';
@@ -122,7 +119,7 @@ export default function PdfToWord() {
           <Button variant="outline" onClick={handleReset} disabled={isLoading}>
             <Trash2 className="mr-2 h-4 w-4" /> Reset
           </Button>
-          <Button onClick={handleSubmit} disabled={isLoading || !!convertedText}>
+          <Button onClick={handleSubmit} disabled={isLoading || !!convertedDoc}>
             {isLoading ? (
               <Loader2 className="mr-2 h-4 w-4 animate-spin" />
             ) : (
@@ -130,7 +127,7 @@ export default function PdfToWord() {
             )}
             Convert to Word
           </Button>
-          <Button onClick={handleDownload} disabled={!convertedText || isLoading}>
+          <Button onClick={handleDownload} disabled={!convertedDoc || isLoading}>
             <Download className="mr-2 h-4 w-4" /> Download
           </Button>
         </CardFooter>

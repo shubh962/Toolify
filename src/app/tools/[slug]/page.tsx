@@ -43,7 +43,7 @@ export default function ToolPage({ params }: { params: { slug: string } }) {
     notFound();
   }
 
-  const ToolComponent = tool.isPlaceholder ? PlaceholderTool : toolComponentMap[tool.slug];
+  const ToolComponent = toolComponentMap[tool.slug];
 
   return (
     <main className="flex-1 py-12 md:py-16">

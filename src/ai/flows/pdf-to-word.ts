@@ -9,6 +9,7 @@
 
 import {ai} from '@/ai/genkit';
 import {z} from 'genkit';
+import {textToWord} from '@/ai/flows/text-to-word';
 
 const PdfToTextInputSchema = z.object({
   pdfDataUri: z
@@ -19,32 +20,40 @@ const PdfToTextInputSchema = z.object({
 });
 export type PdfToTextInput = z.infer<typeof PdfToTextInputSchema>;
 
-const PdfToTextOutputSchema = z.object({
-  extractedText: z.string().describe('The text extracted from the PDF.'),
+const PdfToWordOutputSchema = z.object({
+  wordDataUri: z.string().describe('The Word document as a data URI.'),
 });
-export type PdfToTextOutput = z.infer<typeof PdfToTextOutputSchema>;
+export type PdfToWordOutput = z.infer<typeof PdfToWordOutputSchema>;
 
-export async function pdfToText(input: PdfToTextInput): Promise<PdfToTextOutput> {
-  return pdfToTextFlow(input);
+export async function pdfToWord(input: PdfToTextInput): Promise<PdfToWordOutput> {
+  return pdfToWordFlow(input);
 }
 
-const prompt = ai.definePrompt({
+const pdfToTextPrompt = ai.definePrompt({
   name: 'pdfToTextPrompt',
   input: {schema: PdfToTextInputSchema},
-  output: {schema: PdfToTextOutputSchema},
+  output: {schema: z.object({
+    extractedText: z.string().describe('The text extracted from the PDF.'),
+  })},
   prompt: `You are an expert at extracting text from documents. Please extract all the text content from the following PDF file.
   
 PDF File: {{media url=pdfDataUri}}`,
 });
 
-const pdfToTextFlow = ai.defineFlow(
+const pdfToWordFlow = ai.defineFlow(
   {
-    name: 'pdfToTextFlow',
+    name: 'pdfToWordFlow',
     inputSchema: PdfToTextInputSchema,
-    outputSchema: PdfToTextOutputSchema,
+    outputSchema: PdfToWordOutputSchema,
   },
   async input => {
-    const {output} = await prompt(input);
-    return output!;
+    const {output} = await pdfToTextPrompt(input);
+    if (!output) {
+      throw new Error('Failed to extract text from PDF.');
+    }
+    const wordOutput = await textToWord({text: output.extractedText});
+    return {
+      wordDataUri: wordOutput.wordDataUri,
+    };
   }
 );

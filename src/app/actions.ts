@@ -3,7 +3,7 @@
 import { removeBackground } from '@/ai/flows/background-remover';
 import { imageToTextOcr } from '@/ai/flows/image-to-text-ocr';
 import { paraphraseText } from '@/ai/flows/text-paraphraser';
-import { pdfToText } from '@/ai/flows/pdf-to-word';
+import { pdfToWord } from '@/ai/flows/pdf-to-word';
 
 export async function handleBackgroundRemoval(photoDataUri: string) {
   if (!photoDataUri) {
@@ -44,15 +44,15 @@ export async function handleTextParaphrasing(text: string) {
   }
 }
 
-export async function handlePdfToText(pdfDataUri: string) {
+export async function handlePdfToWord(pdfDataUri: string) {
   if (!pdfDataUri) {
     return { success: false, error: 'No PDF provided.' };
   }
   try {
-    const result = await pdfToText({ pdfDataUri });
+    const result = await pdfToWord({ pdfDataUri });
     return { success: true, data: result };
   } catch (error) {
-    console.error('PDF to text error:', error);
-    return { success: false, error: 'Failed to extract text from PDF. The AI model may be unavailable.' };
+    console.error('PDF to Word error:', error);
+    return { success: false, error: 'Failed to convert PDF to Word. The AI model may be unavailable.' };
   }
 }
