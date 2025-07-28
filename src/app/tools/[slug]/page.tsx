@@ -60,8 +60,8 @@ export default function ToolPage({ params }: { params: { slug: string } }) {
           <PlaceholderTool title={tool.title} />
         )}
 
-        <div className="mt-16 flex justify-center">
-          <div>
+        <div className="mt-16">
+          <div className="mx-auto w-[300px]">
             <Script id="ad-script-2-config">
               {`
                 atOptions = {
