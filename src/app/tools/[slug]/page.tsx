@@ -7,6 +7,7 @@ import PlaceholderTool from '@/components/tools/PlaceholderTool';
 import PdfToWord from '@/components/tools/PdfToWord';
 import MergePdf from '@/components/tools/MergePdf';
 import ImageCompressor from '@/components/tools/ImageCompressor';
+import Script from 'next/script';
 
 export async function generateStaticParams() {
   return tools.map((tool) => ({
@@ -58,6 +59,27 @@ export default function ToolPage({ params }: { params: { slug: string } }) {
         ) : (
           <PlaceholderTool title={tool.title} />
         )}
+
+        <div className="mt-16 flex justify-center">
+          <div>
+            <Script id="ad-script-2-config">
+              {`
+                atOptions = {
+                  'key' : 'adda6883dcafe170b460e46bc3c99d31',
+                  'format' : 'iframe',
+                  'height' : 250,
+                  'width' : 300,
+                  'params' : {}
+                };
+              `}
+            </Script>
+            <Script
+              id="ad-script-2-src"
+              src="//www.highperformanceformat.com/adda6883dcafe170b460e46bc3c99d31/invoke.js"
+            />
+          </div>
+        </div>
+
       </div>
     </main>
   );
