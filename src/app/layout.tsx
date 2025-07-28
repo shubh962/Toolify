@@ -60,7 +60,7 @@ export default function RootLayout({
                     About & Copyright
                   </button>
                 </DialogTrigger>
-                <DialogContent className="max-w-3xl">
+                <DialogContent className="max-w-3xl max-h-[90vh] overflow-y-auto">
                   <DialogHeader>
                     <DialogTitle className="text-2xl text-center mb-4">About Toolify</DialogTitle>
                   </DialogHeader>
