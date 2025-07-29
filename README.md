@@ -1,8 +1,8 @@
 # 🚀 Firebase Studio Starter – Next.js 14 + Tailwind + Firebase + Firestore
 
-A professional-grade, blazing fast starter template built with **Next.js 14 App Router**, **Firebase Studio**, **Firestore**, and **Tailwind CSS**. Perfect for developers, freelancers, startups, or indie hackers looking to launch scalable AI tools or SaaS products in minutes.
+A professional-grade, blazing fast starter template built with **Next.js 14 App Router**, **Firestore**, and **Tailwind CSS**. Perfect for developers, freelancers, startups, or indie hackers looking to launch scalable AI tools or SaaS products in minutes.
 
-![Banner](https://toolify-liard.vercel.app/)
+(https://toolify-liard.vercel.app/)
 
 ---
 
