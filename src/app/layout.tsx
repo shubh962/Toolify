@@ -33,6 +33,32 @@ export const metadata: Metadata = {
   },
 };
 
+export const metadata = {
+  title: "Toolify – Free Online Tools | Background Remover, Compressor & More",
+  description: "Toolify offers background remover, image compressor, and other useful online tools. 100% free and fast.",
+  keywords: "background remover, image compressor, online tools, Toolify",
+  robots: "index, follow",
+  verification: {
+    google: "j1D8UM6F1hAWIwPinZ9EQaAhrXkIf662vG7Aj6OR4JU"
+  },
+  openGraph: {
+    title: "Toolify – Free Online Tools",
+    description: "Remove backgrounds, compress images, and more with Toolify.",
+    url: "https://toolify.vercel.app",
+    siteName: "Toolify",
+    images: [
+      {
+        url: "https://toolify.vercel.app/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "Toolify Banner",
+      },
+    ],
+    locale: "en_US",
+    type: "website",
+  },
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{
