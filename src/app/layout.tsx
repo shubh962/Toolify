@@ -33,32 +33,6 @@ export const metadata: Metadata = {
   },
 };
 
-export const metadata = {
-  title: "Toolify – Free Online Tools | Background Remover, Compressor & More",
-  description: "Toolify offers background remover, image compressor, and other useful online tools. 100% free and fast.",
-  keywords: "background remover, image compressor, online tools, Toolify",
-  robots: "index, follow",
-  verification: {
-    google: "j1D8UM6F1hAWIwPinZ9EQaAhrXkIf662vG7Aj6OR4JU"
-  },
-  openGraph: {
-    title: "Toolify – Free Online Tools",
-    description: "Remove backgrounds, compress images, and more with Toolify.",
-    url: "https://toolify.vercel.app",
-    siteName: "Toolify",
-    images: [
-      {
-        url: "https://toolify.vercel.app/og-image.png",
-        width: 1200,
-        height: 630,
-        alt: "Toolify Banner",
-      },
-    ],
-    locale: "en_US",
-    type: "website",
-  },
-};
-
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -111,31 +85,4 @@ export default function RootLayout({
                     <Card className="shadow-lg border-destructive/50">
                       <CardHeader>
                         <CardTitle className="flex items-center gap-2 text-destructive text-xl">
-                          <AlertTriangle className="h-5 w-5" />
-                          Copyright Warning
-                        </CardTitle>
-                      </CardHeader>
-                      <CardContent className="space-y-3 text-sm text-muted-foreground">
-                        <p>
-                          <strong>© 2025 Toolify. All rights reserved.</strong>
-                        </p>
-                        <p>
-                          Unauthorized reproduction, redistribution, or modification of any part of this website, its tools, content, or code is strictly prohibited and may result in legal action.
-                        </p>
-                        <p>
-                          Toolify, its logo, and related services are intellectual property of Shubham Gautam.
-                        </p>
-                      </CardContent>
-                    </Card>
-                  </div>
-                </DialogContent>
-              </Dialog>
-            </div>
-            <p 
-className="mt-4 text-xs">© 2025 Toolify — All Rights Reserved</p>
-          </div>
-        </footer>
-      </body>
-    </html>
-  );
-}
+                          <AlertTriangle classNa
