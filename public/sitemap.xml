@@ -1,37 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://your-website-url.com/</loc>
+    <loc>https://toolify-liard.vercel.app/</loc>
     <lastmod>2024-01-01</lastmod>
     <priority>1.00</priority>
   </url>
   <url>
-    <loc>https://your-website-url.com/tools/background-remover</loc>
+    <loc>https://toolify-liard.vercel.app/tools/background-remover</loc>
     <lastmod>2024-01-01</lastmod>
     <priority>0.80</priority>
   </url>
   <url>
-    <loc>https://your-website-url.com/tools/image-to-text</loc>
+    <loc>https://toolify-liard.vercel.app/tools/image-to-text</loc>
     <lastmod>2024-01-01</lastmod>
     <priority>0.80</priority>
   </url>
   <url>
-    <loc>https://your-website-url.com/tools/text-paraphraser</loc>
+    <loc>https://toolify-liard.vercel.app/tools/text-paraphraser</loc>
     <lastmod>2024-01-01</lastmod>
     <priority>0.80</priority>
   </url>
   <url>
-    <loc>https://your-website-url.com/tools/pdf-to-word</loc>
+    <loc>https://toolify-liard.vercel.app/tools/pdf-to-word</loc>
     <lastmod>2024-01-01</lastmod>
     <priority>0.80</priority>
   </url>
   <url>
-    <loc>https://your-website-url.com/tools/merge-pdf</loc>
+    <loc>https://toolify-liard.vercel.app/tools/merge-pdf</loc>
     <lastmod>2024-01-01</lastmod>
     <priority>0.80</priority>
   </url>
   <url>
-    <loc>https://your-website-url.com/tools/image-compressor</loc>
+    <loc>https://toolify-liard.vercel.app/tools/image-compressor</loc>
     <lastmod>2024-01-01</lastmod>
     <priority>0.80</priority>
   </url>
