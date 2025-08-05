@@ -19,7 +19,8 @@ export const metadata: Metadata = {
   keywords: 'background remover, image compressor, online tools, Toolify, free tools',
   robots: 'index, follow',
   verification: {
-    <meta name="google-site-verification" content="XhRtp6rO2MNQX-BucHlUxVhNLbBPfdis_RzXY5ZodlU" />// ✅ Your updated code
+  google: "XhRtp6rO2MNQX-BucHlUxVhNLbBPfdis_RzXY5ZodlU"
+},  // ✅ Your updated code
       },
   openGraph: {
     title: 'Toolify – Free Online Tools',
