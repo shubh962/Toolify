@@ -12,18 +12,17 @@ const inter = Inter({
   display: 'swap',
   variable: '--font-inter',
 });
-
 export const metadata: Metadata = {
-  title: 'Toolify – Free Online Tools | Background Remover, Compressor & More',
-  description: 'Toolify offers background remover, image compressor, and other useful online tools. 100% free and fast.',
-  keywords: 'background remover, image compressor, online tools, Toolify, free tools',
+  title: 'Toolify – Free Background Remover & Image Compressor Tools',
+  description: 'Use Toolify’s free online tools like background remover, image compressor, and PDF converter. No login required. Fast & 100% free!',
+  keywords: 'free online tools, background remover, image compressor, compress jpg png, remove image background, Toolify, pdf to word, text tools',
   robots: 'index, follow',
   verification: {
     google: "XhRtp6rO2MNQX-BucHlUxVhNLbBPfdis_RzXY5ZodlU"
   },
   openGraph: {
-    title: 'Toolify – Free Online Tools',
-    description: 'Remove backgrounds, compress images, and more with Toolify.',
+    title: 'Toolify – Free Background Remover, Image Compressor & More',
+    description: 'Toolify offers AI-powered online tools like background remover, image compressor, word counter, and more – all free!',
     url: 'https://toolify.vercel.app',
     siteName: 'Toolify',
     images: [
@@ -31,14 +30,13 @@ export const metadata: Metadata = {
         url: 'https://toolify.vercel.app/og-image.png',
         width: 1200,
         height: 630,
-        alt: 'Toolify Banner',
+        alt: 'Toolify – Free Online Tools Banner',
       },
     ],
     locale: 'en_US',
     type: 'website',
   },
 };
-
 export default function RootLayout({
   children,
 }: Readonly<{
