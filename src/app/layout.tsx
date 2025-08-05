@@ -19,9 +19,8 @@ export const metadata: Metadata = {
   keywords: 'background remover, image compressor, online tools, Toolify, free tools',
   robots: 'index, follow',
   verification: {
-  google: "XhRtp6rO2MNQX-BucHlUxVhNLbBPfdis_RzXY5ZodlU"
-},  // ✅ Your updated code
-      },
+    google: "XhRtp6rO2MNQX-BucHlUxVhNLbBPfdis_RzXY5ZodlU"
+  },
   openGraph: {
     title: 'Toolify – Free Online Tools',
     description: 'Remove backgrounds, compress images, and more with Toolify.',
@@ -47,9 +46,6 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${inter.variable} dark`}>
-      <head>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      </head>
       <body className="font-body antialiased min-h-screen flex flex-col">
         <Header />
         <main className="flex-1">
@@ -78,17 +74,16 @@ export default function RootLayout({
                       </CardHeader>
                       <CardContent className="space-y-3 text-sm text-muted-foreground">
                         <p>
-                          <strong>Toolify</strong> is a digital platform crafted to simplify your daily online tasks with smart, reliable, and user-friendly tools. Founded by <strong>Shubham Gautam</strong>, Toolify aims to empower creators, developers, and everyday users through minimal design and maximum functionality.
+                          <strong>Toolify</strong> is a digital platform crafted to simplify your daily online tasks with smart, reliable, and user-friendly tools. Founded by <strong>Shubham Gautam</strong>.
                         </p>
                         <p>
-                          We believe in delivering seamless experiences, respecting user privacy, and constantly evolving to serve better. Whether you're optimizing productivity or exploring new utilities, Toolify is built to support you — anytime, anywhere.
+                          We believe in delivering seamless experiences, respecting user privacy, and constantly evolving to serve better. Whether you're optimizing productivity or exploring new utilities, Toolify is here for you.
                         </p>
                         <p className="pt-3 text-center font-semibold text-base text-foreground/90 italic">
                           Toolify – Simple Tools. Smarter Life.
                         </p>
                       </CardContent>
                     </Card>
-
                     <Card className="shadow-lg border-destructive/50">
                       <CardHeader>
                         <CardTitle className="flex items-center gap-2 text-destructive text-xl">
