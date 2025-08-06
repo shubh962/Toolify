@@ -35,11 +35,6 @@ export default function BackgroundRemover() {
       reader.readAsDataURL(file);
     }
   };
-  <Head>
-  <title>Background Remover - TaskGuru</title>
-  <link rel="canonical" href="https://www.taskguru.online/tools/background-remover" />
-</Head>
-
   const handleSubmit = async () => {
     if (!originalImage) {
       toast({ title: "No image selected", description: "Please upload an image first.", variant: "destructive" });
