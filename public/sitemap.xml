@@ -1,38 +1,70 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <!-- Homepage -->
   <url>
     <loc>https://taskguru.online/</loc>
-    <lastmod>2024-01-01</lastmod>
+    <lastmod>2025-08-06</lastmod>
     <priority>1.00</priority>
   </url>
+
+  <!-- Blog -->
+  <url>
+    <loc>https://taskguru.online/blog</loc>
+    <lastmod>2025-08-06</lastmod>
+    <priority>0.85</priority>
+  </url>
+
+  <!-- Static Info Pages -->
+  <url>
+    <loc>https://taskguru.online/about</loc>
+    <lastmod>2025-08-06</lastmod>
+    <priority>0.60</priority>
+  </url>
+  <url>
+    <loc>https://taskguru.online/privacy-policy</loc>
+    <lastmod>2025-08-06</lastmod>
+    <priority>0.50</priority>
+  </url>
+  <url>
+    <loc>https://taskguru.online/terms</loc>
+    <lastmod>2025-08-06</lastmod>
+    <priority>0.50</priority>
+  </url>
+  <url>
+    <loc>https://taskguru.online/help</loc>
+    <lastmod>2025-08-06</lastmod>
+    <priority>0.50</priority>
+  </url>
+
+  <!-- Tools -->
   <url>
     <loc>https://taskguru.online/tools/background-remover</loc>
-    <lastmod>2024-01-01</lastmod>
+    <lastmod>2025-08-06</lastmod>
     <priority>0.80</priority>
   </url>
   <url>
     <loc>https://taskguru.online/tools/image-to-text</loc>
-    <lastmod>2024-01-01</lastmod>
+    <lastmod>2025-08-06</lastmod>
     <priority>0.80</priority>
   </url>
   <url>
     <loc>https://taskguru.online/tools/text-paraphraser</loc>
-    <lastmod>2024-01-01</lastmod>
+    <lastmod>2025-08-06</lastmod>
     <priority>0.80</priority>
   </url>
   <url>
     <loc>https://taskguru.online/tools/pdf-to-word</loc>
-    <lastmod>2024-01-01</lastmod>
+    <lastmod>2025-08-06</lastmod>
     <priority>0.80</priority>
   </url>
   <url>
     <loc>https://taskguru.online/tools/merge-pdf</loc>
-    <lastmod>2024-01-01</lastmod>
+    <lastmod>2025-08-06</lastmod>
     <priority>0.80</priority>
   </url>
   <url>
     <loc>https://taskguru.online/tools/image-compressor</loc>
-    <lastmod>2024-01-01</lastmod>
+    <lastmod>2025-08-06</lastmod>
     <priority>0.80</priority>
   </url>
 </urlset>
