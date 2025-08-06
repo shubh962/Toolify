@@ -1,3 +1,4 @@
+import Head from "next/head";
 import Link from 'next/link';
 import { tools } from '@/lib/tools';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
@@ -9,6 +10,55 @@ import NewsletterForm from '@/components/NewsletterForm';
 export default function Home() {
   return (
     <>
+      {/* ✅ SEO Meta Tags */}
+      <Head>
+        <title>TaskGuru - Free AI Tools for PDF, Images & Text</title>
+        <meta
+          name="description"
+          content="TaskGuru offers free AI-powered tools like image compressor, background remover, PDF merge, PDF to Word, and more. Fast, secure, and easy to use."
+        />
+        <meta
+          name="keywords"
+          content="AI tools, PDF tools, image tools, text tools, TaskGuru, free tools, background remover, image compressor, merge PDF, convert PDF"
+        />
+        <meta name="robots" content="index, follow" />
+        <meta property="og:title" content="TaskGuru - Free AI Tools" />
+        <meta
+          property="og:description"
+          content="Discover the best AI-powered tools for images, PDFs, and text processing. Free and easy to use."
+        />
+        <meta property="og:url" content="https://www.taskguru.online" />
+        <meta property="og:type" content="website" />
+        <meta property="og:image" content="https://www.taskguru.online/og-image.png" />
+        <link rel="canonical" href="https://www.taskguru.online" />
+
+        {/* ✅ JSON-LD Structured Data */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "WebSite",
+              "name": "TaskGuru",
+              "url": "https://www.taskguru.online",
+              "description": "TaskGuru offers free AI-powered tools for PDFs, images, and text processing.",
+              "publisher": {
+                "@type": "Organization",
+                "name": "TaskGuru",
+                "url": "https://www.taskguru.online",
+                "logo": "https://www.taskguru.online/logo.png"
+              },
+              "potentialAction": {
+                "@type": "SearchAction",
+                "target": "https://www.taskguru.online/search?q={search_term_string}",
+                "query-input": "required name=search_term_string"
+              }
+            }),
+          }}
+        />
+      </Head>
+
+      {/* ✅ Page Content */}
       <section className="py-20 md:py-32 text-center bg-gradient-to-br from-primary via-primary/90 to-accent">
         <div className="container mx-auto px-6">
           <h1 className="text-4xl md:text-6xl font-extrabold font-headline tracking-tight text-primary-foreground">
@@ -18,7 +68,11 @@ export default function Home() {
             Discover, review, and master the best free & premium AI tools. Your definitive guide to the world of artificial intelligence, curated for creators, developers, and innovators.
           </p>
           <div className="mt-8 flex justify-center">
-            <Button size="lg" asChild className="bg-primary-foreground text-primary hover:bg-primary-foreground/90 transition-transform hover:scale-105">
+            <Button
+              size="lg"
+              asChild
+              className="bg-primary-foreground text-primary hover:bg-primary-foreground/90 transition-transform hover:scale-105"
+            >
               <Link href="#tools" prefetch={false}>Explore All Tools</Link>
             </Button>
           </div>
@@ -35,7 +89,12 @@ export default function Home() {
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
             {tools.map((tool) => (
-              <Link href={`/tools/${tool.slug}`} key={tool.slug} className="group flex" prefetch={!tool.isPlaceholder}>
+              <Link
+                href={`/tools/${tool.slug}`}
+                key={tool.slug}
+                className="group flex"
+                prefetch={!tool.isPlaceholder}
+              >
                 <Card className="w-full flex flex-col transition-all duration-300 hover:shadow-xl hover:-translate-y-2 border-2 border-transparent hover:border-primary bg-card">
                   <CardHeader>
                     <div className="flex justify-between items-start mb-4">
