@@ -1,5 +1,6 @@
 'use client';
 import { useState, useRef } from 'react';
+import Head from 'next/head';
 import Image from 'next/image';
 import { Card, CardContent, CardFooter } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -71,69 +72,139 @@ export default function ImageToText() {
   };
 
   return (
-    <Card className="w-full max-w-4xl mx-auto shadow-lg">
-      <CardContent className="p-6">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div className="flex flex-col space-y-4">
-            <h3 className="font-semibold text-lg text-center">Your Image</h3>
-            {image ? (
-              <div className="relative aspect-video w-full rounded-lg overflow-hidden border">
-                <Image src={image} alt="Uploaded for OCR" layout="fill" objectFit="contain" />
-              </div>
-            ) : (
-              <div
-                className="flex flex-col items-center justify-center space-y-4 p-12 border-2 border-dashed rounded-lg cursor-pointer hover:border-primary transition-colors h-full"
-                onClick={() => fileInputRef.current?.click()}
-              >
-                <div className="p-4 bg-secondary rounded-full">
-                  <Upload className="w-10 h-10 text-muted-foreground" />
+    <>
+      <Head>
+        <title>Image to Text - Extract Text from Images Online | TaskGuru</title>
+        <meta
+          name="description"
+          content="Convert images to text online with TaskGuru's free OCR tool. Extract text from PNG, JPG, or WEBP images instantly."
+        />
+        <meta
+          name="keywords"
+          content="image to text, OCR, extract text from image, convert image to text, text recognition, online OCR, TaskGuru tools"
+        />
+        <link
+          rel="canonical"
+          href="https://www.taskguru.online/tools/image-to-text"
+        />
+
+        {/* Open Graph */}
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content="Image to Text - TaskGuru" />
+        <meta
+          property="og:description"
+          content="Extract text from images using TaskGuru's free OCR tool. Supports JPG, PNG, WEBP formats. Fast and accurate."
+        />
+        <meta
+          property="og:url"
+          content="https://www.taskguru.online/tools/image-to-text"
+        />
+        <meta
+          property="og:image"
+          content="https://www.taskguru.online/og-image-to-text.jpg"
+        />
+
+        {/* Twitter Card */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Image to Text - TaskGuru" />
+        <meta
+          name="twitter:description"
+          content="Free OCR tool to extract text from images online. Upload JPG, PNG, WEBP and get editable text instantly."
+        />
+        <meta
+          name="twitter:image"
+          content="https://www.taskguru.online/og-image-to-text.jpg"
+        />
+
+        {/* JSON-LD Structured Data */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              '@context': 'https://schema.org',
+              '@type': 'WebPage',
+              name: 'Image to Text - TaskGuru',
+              description:
+                'Extract text from images using TaskGuru’s free OCR tool. Convert JPG, PNG, WEBP to editable text online.',
+              url: 'https://www.taskguru.online/tools/image-to-text',
+              publisher: {
+                '@type': 'Organization',
+                name: 'TaskGuru',
+                url: 'https://www.taskguru.online',
+                logo: {
+                  '@type': 'ImageObject',
+                  url: 'https://www.taskguru.online/logo.png',
+                },
+              },
+            }),
+          }}
+        />
+      </Head>
+
+      <Card className="w-full max-w-4xl mx-auto shadow-lg">
+        <CardContent className="p-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="flex flex-col space-y-4">
+              <h3 className="font-semibold text-lg text-center">Your Image</h3>
+              {image ? (
+                <div className="relative aspect-video w-full rounded-lg overflow-hidden border">
+                  <Image src={image} alt="Uploaded for OCR" layout="fill" objectFit="contain" />
                 </div>
-                <div className="text-center">
-                  <p className="font-semibold">Click to upload or drag and drop</p>
-                  <p className="text-sm text-muted-foreground">PNG, JPG, WEBP (Max 4MB)</p>
+              ) : (
+                <div
+                  className="flex flex-col items-center justify-center space-y-4 p-12 border-2 border-dashed rounded-lg cursor-pointer hover:border-primary transition-colors h-full"
+                  onClick={() => fileInputRef.current?.click()}
+                >
+                  <div className="p-4 bg-secondary rounded-full">
+                    <Upload className="w-10 h-10 text-muted-foreground" />
+                  </div>
+                  <div className="text-center">
+                    <p className="font-semibold">Click to upload or drag and drop</p>
+                    <p className="text-sm text-muted-foreground">PNG, JPG, WEBP (Max 4MB)</p>
+                  </div>
                 </div>
-              </div>
-            )}
-            <Input
-              ref={fileInputRef}
-              type="file"
-              className="hidden"
-              accept="image/png, image/jpeg, image/webp"
-              onChange={handleFileChange}
-            />
-          </div>
-          <div className="flex flex-col space-y-4">
-            <h3 className="font-semibold text-lg text-center">Extracted Text</h3>
-            <div className="relative h-full">
-              {isLoading && <Skeleton className="absolute inset-0" />}
-              <Textarea
-                className="h-full min-h-[200px] resize-none"
-                placeholder={isLoading ? "Extracting text, please wait..." : "Text from your image will appear here."}
-                value={extractedText}
-                readOnly
+              )}
+              <Input
+                ref={fileInputRef}
+                type="file"
+                className="hidden"
+                accept="image/png, image/jpeg, image/webp"
+                onChange={handleFileChange}
               />
             </div>
-            <Button onClick={handleCopy} disabled={!extractedText || isLoading} variant="outline">
-              <Copy className="mr-2 h-4 w-4" /> Copy Text
-            </Button>
+            <div className="flex flex-col space-y-4">
+              <h3 className="font-semibold text-lg text-center">Extracted Text</h3>
+              <div className="relative h-full">
+                {isLoading && <Skeleton className="absolute inset-0" />}
+                <Textarea
+                  className="h-full min-h-[200px] resize-none"
+                  placeholder={isLoading ? "Extracting text, please wait..." : "Text from your image will appear here."}
+                  value={extractedText}
+                  readOnly
+                />
+              </div>
+              <Button onClick={handleCopy} disabled={!extractedText || isLoading} variant="outline">
+                <Copy className="mr-2 h-4 w-4" /> Copy Text
+              </Button>
+            </div>
           </div>
-        </div>
-      </CardContent>
-      {image && (
-        <CardFooter className="flex justify-center gap-4 bg-muted/50 p-4 border-t">
-          <Button variant="outline" onClick={handleReset}>
-            <Trash2 className="mr-2 h-4 w-4" /> Reset
-          </Button>
-          <Button onClick={handleSubmit} disabled={isLoading || !!extractedText}>
-            {isLoading ? (
-              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-            ) : (
-              <ScanText className="mr-2 h-4 w-4" />
-            )}
-            Extract Text
-          </Button>
-        </CardFooter>
-      )}
-    </Card>
+        </CardContent>
+        {image && (
+          <CardFooter className="flex justify-center gap-4 bg-muted/50 p-4 border-t">
+            <Button variant="outline" onClick={handleReset}>
+              <Trash2 className="mr-2 h-4 w-4" /> Reset
+            </Button>
+            <Button onClick={handleSubmit} disabled={isLoading || !!extractedText}>
+              {isLoading ? (
+                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+              ) : (
+                <ScanText className="mr-2 h-4 w-4" />
+              )}
+              Extract Text
+            </Button>
+          </CardFooter>
+        )}
+      </Card>
+    </>
   );
 }
