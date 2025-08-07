@@ -20,7 +20,7 @@ export const metadata: Metadata = {
     siteName: "TaskGuru",
     images: [
       {
-        url: "https://www.taskguru.online/og-image.png",
+        url: "https://www.taskguru.online/",
         width: 1200,
         height: 630,
         alt: "AI Image Translator by TaskGuru",
