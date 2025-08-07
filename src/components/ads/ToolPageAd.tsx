@@ -1,42 +1,37 @@
-'use client';
+use client';
 
 import { useEffect, useState } from 'react';
 import Script from 'next/script';
 
 export default function ToolPageAd() {
-  const [isClient, setIsClient] = useState(false);
+    const [isClient, setIsClient] = useState(false);
 
-  useEffect(() => {
-    setIsClient(true);
-    try {
-      (window.adsbygoogle = window.adsbygoogle || []).push({});
-    } catch (e) {
-      console.error('Adsense Error:', e);
+    useEffect(() => {
+        setIsClient(true);
+    }, []);
+
+    if (!isClient) {
+        return null;
     }
-  }, []);
 
-  if (!isClient) return null;
-
-  return (
-    <>
-      {/* Google AdSense script */}
-      <Script
-        id="adsense-script"
-        async
-        strategy="afterInteractive"
-        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2427221337462218"
-        crossOrigin="anonymous"
-      />
-
-      {/* Ad Unit */}
-      <ins
-        className="adsbygoogle"
-        style={{ display: 'block', textAlign: 'center' }}
-        data-ad-client="ca-pub-2427221337462218"
-        data-ad-slot="1234567890" // Replace with real Ad Slot ID
-        data-ad-format="auto"
-        data-full-width-responsive="true"
-      />
-    </>
-  );
-}
+    return (
+        <div>
+            <Script id="ad-script-toolpage-config" strategy="lazyOnload">
+                {`
+                    atOptions = {
+                        'key' : '9602d78406999a799d459a069811c5ca',
+                        'format' : 'iframe',
+                        'height' : 90,
+                        'width' : 728,
+                        'params' : {}
+                    };
+                `}
+            </Script>
+            <Script 
+                id="ad-script-toolpage-src" 
+                strategy="lazyOnload"
+                src="//www.highperformanceformat.com/9602d78406999a799d459a069811c5ca/invoke.js" 
+            />
+        </div>
+    )
+} This is toolpagead.tsx
