@@ -34,4 +34,4 @@ export default function ToolPageAd() {
             />
         </div>
     )
-} This is toolpagead.tsx
+}
