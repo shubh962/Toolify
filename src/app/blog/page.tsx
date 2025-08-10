@@ -1,164 +1,176 @@
-import React from "react";
-import { Helmet } from "react-helmet";
+import { NextPage } from "next";
+import Head from "next/head";
 
-const tools = [
-  {
-    name: "Background Remover",
-    emoji: "🖼️❌",
-    url: "https://taskguru.online/tools/background-remover",
-    purpose:
-      "Remove the background from any image instantly. Perfect for e-commerce, graphic design, and social media content.",
-    steps: [
-      "Visit the Background Remover tool",
-      "Upload your image",
-      "Click Remove Background",
-      "Download the result",
-    ],
-  },
-  {
-    name: "Image to Text (OCR)",
-    emoji: "🖼️➡️📄",
-    url: "https://taskguru.online/tools/image-to-text",
-    purpose:
-      "Extract text from images, scanned documents, or screenshots instantly using AI-powered OCR.",
-    steps: [
-      "Visit the Image to Text tool",
-      "Upload your image",
-      "Click Extract Text",
-      "Copy the output",
-    ],
-  },
-  {
-    name: "Text Paraphraser",
-    emoji: "✍️",
-    url: "https://taskguru.online/tools/text-paraphraser",
-    purpose:
-      "Rephrase text in a unique style while keeping the original meaning — ideal for students & content creators.",
-    steps: [
-      "Visit the Text Paraphraser tool",
-      "Paste your text",
-      "Click Paraphrase",
-      "Copy the new version",
-    ],
-  },
-  {
-    name: "PDF to Word Converter",
-    emoji: "📄➡️📝",
-    url: "https://taskguru.online/tools/pdf-to-word",
-    purpose:
-      "Convert PDF files into fully editable Word documents in seconds.",
-    steps: [
-      "Visit the PDF to Word Converter",
-      "Upload your PDF",
-      "Click Convert",
-      "Download the Word file",
-    ],
-  },
-  {
-    name: "Merge PDF",
-    emoji: "📄➕📄",
-    url: "https://taskguru.online/tools/merge-pdf",
-    purpose:
-      "Combine multiple PDF documents into a single file — quick and easy.",
-    steps: [
-      "Visit the Merge PDF tool",
-      "Upload your PDFs",
-      "Click Merge",
-      "Download the merged file",
-    ],
-  },
-  {
-    name: "Image Compressor",
-    emoji: "📉🖼️",
-    url: "https://taskguru.online/tools/image-compressor",
-    purpose:
-      "Reduce image file size without losing quality — great for faster uploads.",
-    steps: [
-      "Visit the Image Compressor tool",
-      "Upload your image",
-      "Click Compress",
-      "Download the optimized image",
-    ],
-  },
-];
+const Blog: NextPage = () => {
+  const tools = [
+    {
+      name: "Text Paraphraser ✍️",
+      description:
+        "Rewrite text in unique words without changing its meaning. Perfect for students, bloggers, and professionals.",
+      steps: [
+        "Visit Tools → Text Paraphraser",
+        "Paste or type your text into the input box",
+        "Choose the desired language and tone",
+        "Click Paraphrase",
+        "Review and copy/download the result",
+      ],
+      link: "https://taskguru.online/tools/text-paraphraser",
+    },
+    {
+      name: "Image to Text (OCR) 🖼️➡️📄",
+      description:
+        "Extract text from images, scanned documents, or screenshots.",
+      steps: [
+        "Visit Tools → Image to Text",
+        "Click Upload Image and select your file (JPG, PNG, etc.)",
+        "Choose the output language",
+        "Click Extract Text",
+        "Copy or save the extracted text",
+      ],
+      link: "https://taskguru.online/tools/image-to-text",
+    },
+    {
+      name: "Background Remover 🖼️❌",
+      description:
+        "Remove the background from any image instantly. Ideal for product photos, profile pictures, and graphic design.",
+      steps: [
+        "Visit Tools → Background Remover",
+        "Upload your image",
+        "Click Remove Background",
+        "Wait for AI processing",
+        "Download the image with a transparent background",
+      ],
+      link: "https://taskguru.online/tools/background-remover",
+    },
+    {
+      name: "Code Formatter 💻✨",
+      description:
+        "Format messy code into clean, readable structure for any programming language.",
+      steps: [
+        "Visit Tools → Code Formatter",
+        "Paste your code into the editor",
+        "Select the programming language",
+        "Click Format",
+        "Copy or download the cleaned code",
+      ],
+      link: "https://taskguru.online/tools/code-formatter",
+    },
+    {
+      name: "Text to Speech 🔊",
+      description:
+        "Convert written text into natural-sounding spoken audio.",
+      steps: [
+        "Visit Tools → Text to Speech",
+        "Paste your text into the input box",
+        "Choose a voice and speed",
+        "Click Generate Audio",
+        "Play online or download as MP3",
+      ],
+      link: "https://taskguru.online/tools/text-to-speech",
+    },
+    {
+      name: "PDF to Word Converter 📄➡️📝",
+      description:
+        "Convert PDF documents into editable Word files.",
+      steps: [
+        "Visit Tools → PDF to Word Converter",
+        "Upload your PDF file",
+        "Click Convert",
+        "Download the Word document",
+      ],
+      link: "https://taskguru.online/tools/pdf-to-word",
+    },
+  ];
 
-export default function TaskGuruBlog() {
   return (
-    <div className="bg-gray-50 min-h-screen">
-      <Helmet>
-        <title>TaskGuru Tools – Free AI Utilities for Productivity</title>
+    <>
+      <Head>
+        <title>How to Use TaskGuru Tools – Step-by-Step Guide</title>
         <meta
           name="description"
-          content="Use TaskGuru's free AI tools for background removal, image to text conversion, paraphrasing, PDF to Word, merging PDFs, and compressing images."
+          content="Learn how to use TaskGuru's free AI-powered tools with step-by-step instructions, pro tips, and quick access links."
         />
-        <meta property="og:title" content="TaskGuru – Free AI Tools" />
         <meta
-          property="og:description"
-          content="Instant online tools for background removal, text extraction, paraphrasing, PDF conversion, and more."
+          name="keywords"
+          content="TaskGuru, AI tools, text paraphraser, background remover, OCR, PDF to Word, code formatter, text to speech"
         />
-        <meta property="og:url" content="https://taskguru.online/blog" />
-        <meta property="og:type" content="website" />
-      </Helmet>
+        <meta name="robots" content="index, follow" />
+      </Head>
 
       {/* Hero Section */}
-      <header className="bg-gradient-to-r from-blue-600 to-purple-600 text-white py-12 px-6 text-center">
-        <h1 className="text-4xl md:text-5xl font-extrabold mb-4">
-          🚀 TaskGuru Tools – Step-by-Step Guide
+      <section className="bg-gradient-to-r from-blue-600 to-indigo-700 text-white py-16 px-6 text-center">
+        <h1 className="text-4xl md:text-5xl font-bold mb-4">
+          How to Use TaskGuru Tools – Step-by-Step Guide 🛠️
         </h1>
-        <p className="max-w-2xl mx-auto text-lg opacity-90">
-          Free AI-powered tools to simplify your work. Convert, edit, and optimize files in seconds — no signup required.
+        <p className="max-w-3xl mx-auto text-lg opacity-90">
+          Boost your productivity with TaskGuru's free AI-powered tools. Follow our simple
+          instructions and start using them today!
         </p>
-      </header>
+      </section>
 
-      <main className="max-w-6xl mx-auto p-6">
-        {/* Quick Links Grid */}
-        <section className="mb-12">
-          <h2 className="text-2xl font-bold mb-4">📌 Quick Tool Links</h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+      {/* Quick Links */}
+      <section className="py-10 bg-gray-50">
+        <div className="max-w-6xl mx-auto px-4">
+          <h2 className="text-2xl font-bold mb-6 text-gray-800">Quick Tool Links</h2>
+          <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-4">
             {tools.map((tool) => (
               <a
-                key={tool.url}
-                href={tool.url}
+                key={tool.name}
+                href={tool.link}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="bg-white border border-gray-200 rounded-lg p-4 shadow-sm hover:shadow-lg transition text-center"
+                className="bg-white shadow-md rounded-lg p-4 text-center border border-gray-200 hover:shadow-lg hover:border-blue-500 transition"
               >
-                <div className="text-3xl mb-2">{tool.emoji}</div>
-                <h3 className="font-semibold">{tool.name}</h3>
+                {tool.name}
               </a>
             ))}
           </div>
-        </section>
+        </div>
+      </section>
 
-        {/* Tool Details */}
-        {tools.map((tool) => (
-          <section
-            key={tool.url}
-            className="bg-white rounded-lg shadow-md p-6 mb-8 border border-gray-200"
-          >
-            <h2 className="text-2xl font-bold mb-2">
-              {tool.name} {tool.emoji}
-            </h2>
-            <p className="text-gray-700 mb-4">
-              <strong>Purpose:</strong> {tool.purpose}
-            </p>
-            <h3 className="text-lg font-semibold mb-2">How to Use:</h3>
-            <ol className="list-decimal list-inside space-y-1 text-gray-700 mb-4">
-              {tool.steps.map((step, idx) => (
-                <li key={idx}>{step}</li>
-              ))}
-            </ol>
-            <a
-              href={tool.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-block bg-blue-600 text-white px-5 py-2 rounded-lg hover:bg-blue-700 transition"
+      {/* Tool Details */}
+      <section className="py-10 bg-white">
+        <div className="max-w-6xl mx-auto px-4 space-y-8">
+          {tools.map((tool) => (
+            <div
+              key={tool.name}
+              className="bg-white rounded-xl shadow-md border border-gray-200 p-6 hover:shadow-lg transition"
             >
-              Try This Tool →
-            </a>
-          </section>
-        ))}
-      </main>
-    </div>
+              <h3 className="text-xl font-bold text-gray-900 mb-2">{tool.name}</h3>
+              <p className="text-gray-700 mb-4">{tool.description}</p>
+              <ol className="list-decimal list-inside space-y-1 text-gray-600 mb-4">
+                {tool.steps.map((step, idx) => (
+                  <li key={idx}>{step}</li>
+                ))}
+              </ol>
+              <a
+                href={tool.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-block bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-lg transition"
+              >
+                Try This Tool →
+              </a>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Pro Tips */}
+      <section className="bg-gray-50 py-12">
+        <div className="max-w-4xl mx-auto px-4 text-center">
+          <h2 className="text-2xl font-bold mb-4">📌 Pro Tips for Best Results</h2>
+          <ul className="list-disc list-inside text-gray-700 space-y-2">
+            <li>Always double-check the final output before publishing or sharing.</li>
+            <li>Bookmark your favorite tools for faster access.</li>
+            <li>
+              Use high-quality images for better OCR and background removal results.
+            </li>
+          </ul>
+        </div>
+      </section>
+    </>
   );
-}
+};
+
+export default Blog;
