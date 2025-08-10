@@ -107,8 +107,8 @@ const Blog: NextPage = () => {
           instructions and start using them today!
         </p>
       </section>
-
-      {/* Quick Links */}
+      
+{/* Quick Links */}
 <section className="py-10 bg-gray-50">
   <div className="max-w-6xl mx-auto px-4">
     <h2 className="text-2xl font-bold mb-6 text-gray-800">Quick Tool Links</h2>
@@ -119,9 +119,12 @@ const Blog: NextPage = () => {
           href={tool.link}
           target="_blank"
           rel="noopener noreferrer"
-          className="flex items-center justify-center gap-2 bg-white shadow-md rounded-lg p-4 text-gray-800 font-semibold text-lg border border-gray-200 hover:shadow-lg hover:border-blue-500 transition"
+          className="flex items-center justify-center gap-2 bg-white shadow-md rounded-lg p-4 
+                     text-gray-800 font-semibold text-lg border border-gray-200 
+                     hover:bg-blue-50 hover:border-blue-500 hover:text-blue-600 
+                     hover:shadow-lg hover:scale-105 transition-all duration-200 ease-in-out"
         >
-          <span className="text-2xl">{tool.name.split(" ")[tool.name.split(" ").length - 1]}</span>
+          <span className="text-2xl">{tool.emoji}</span>
           <span className="whitespace-normal">{tool.name}</span>
         </a>
       ))}
