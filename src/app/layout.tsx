@@ -6,12 +6,14 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from 
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { AlertTriangle } from 'lucide-react';
 import { Inter } from 'next/font/google';
+import Script from "next/script"; // ✅ Added import
 
 const inter = Inter({
   subsets: ['latin'],
   display: 'swap',
   variable: '--font-inter',
 });
+
 export const metadata: Metadata = {
   title: 'Toolify – Free Background Remover & Image Compressor Tools',
   description: 'Use Toolify’s free online tools like background remover, image compressor, and PDF converter. No login required. Fast & 100% free!',
@@ -37,6 +39,7 @@ export const metadata: Metadata = {
     type: 'website',
   },
 };
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -45,6 +48,17 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${inter.variable} dark`}>
       <body className="font-body antialiased min-h-screen flex flex-col">
+
+        {/* ✅ Propeller Ads MultiTag Script */}
+        <Script
+          id="propellerads-multitag"
+          src="https://fpyf8.com/88/tag.min.js"
+          strategy="afterInteractive"
+          async
+          data-cfasync="false"
+          data-zone="162492"
+        />
+
         <Header />
         <main className="flex-1">
           {children}
