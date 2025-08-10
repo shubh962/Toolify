@@ -48,17 +48,8 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${inter.variable} dark`}>
       <body className="font-body antialiased min-h-screen flex flex-col">
-
-        {/* ✅ Propeller Ads MultiTag Script */}
-        <Script
-          id="propellerads-multitag"
-          src="https://fpyf8.com/88/tag.min.js"
-          strategy="afterInteractive"
-          async
-          data-cfasync="false"
-          data-zone="162492"
-        />
-
+//ads
+      
         <Header />
         <main className="flex-1">
           {children}
