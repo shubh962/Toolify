@@ -25,11 +25,11 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Toolify – Free Background Remover, Image Compressor & More',
     description: 'Toolify offers AI-powered online tools like background remover, image compressor, word counter, and more – all free!',
-    url: 'https://toolify.vercel.app',
+    url: 'https://taskguru.online',
     siteName: 'Toolify',
     images: [
       {
-        url: 'https://toolify.vercel.app/og-image.png',
+        url: 'https://taskguru.online/og-image.png',
         width: 1200,
         height: 630,
         alt: 'Toolify – Free Online Tools Banner',
