@@ -48,8 +48,14 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${inter.variable} dark`}>
       <body className="font-body antialiased min-h-screen flex flex-col">
-//ads
-      
+
+        <Script id="interstitial-ad" strategy="afterInteractive">
+  {`(function(d,z,s){
+      s.src='https://'+d+'/401/'+z;
+      try{(document.body||document.documentElement).appendChild(s)}catch(e){}
+    })('groleegni.net',9694211,document.createElement('script'));`}
+</Script>
+    
         <Header />
         <main className="flex-1">
           {children}
