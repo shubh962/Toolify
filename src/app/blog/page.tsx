@@ -109,26 +109,27 @@ const Blog: NextPage = () => {
       </section>
 
       {/* Quick Links */}
-      <section className="py-10 bg-gray-50">
-        <div className="max-w-6xl mx-auto px-4">
-          <h2 className="text-2xl font-bold mb-6 text-gray-800">Quick Tool Links</h2>
-          <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-4">
-            {tools.map((tool) => (
-              <a
-                key={tool.name}
-                href={tool.link}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="bg-white shadow-md rounded-lg p-4 text-center border border-gray-200 hover:shadow-lg hover:border-blue-500 transition"
-              >
-                {tool.name}
-              </a>
-            ))}
-          </div>
-        </div>
-      </section>
+<section className="py-10 bg-gray-50">
+  <div className="max-w-6xl mx-auto px-4">
+    <h2 className="text-2xl font-bold mb-6 text-gray-800">Quick Tool Links</h2>
+    <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-4">
+      {tools.map((tool) => (
+        <a
+          key={tool.name}
+          href={tool.link}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex items-center justify-center gap-2 bg-white shadow-md rounded-lg p-4 text-gray-800 font-semibold text-lg border border-gray-200 hover:shadow-lg hover:border-blue-500 transition"
+        >
+          <span className="text-2xl">{tool.name.split(" ")[tool.name.split(" ").length - 1]}</span>
+          <span className="whitespace-normal">{tool.name}</span>
+        </a>
+      ))}
+    </div>
+  </div>
+</section>
 
-      {/* Tool Details */}
+ {/* Tool Details */}
       <section className="py-10 bg-white">
         <div className="max-w-6xl mx-auto px-4 space-y-8">
           {tools.map((tool) => (
