@@ -6,7 +6,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from 
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { AlertTriangle } from 'lucide-react';
 import { Inter } from 'next/font/google';
-import Script from "next/script"; // ✅ Added import
+import Script from "next/script";
 
 const inter = Inter({
   subsets: ['latin'],
@@ -14,17 +14,21 @@ const inter = Inter({
   variable: '--font-inter',
 });
 
+// ✅ Global SEO Metadata
 export const metadata: Metadata = {
-  title: 'Toolify – Free Background Remover & Image Compressor Tools',
-  description: 'Use Toolify’s free online tools like background remover, image compressor, and PDF converter. No login required. Fast & 100% free!',
-  keywords: 'free online tools, background remover, image compressor, compress jpg png, remove image background, Toolify, pdf to word, text tools',
+  title: 'Toolify – Free Background Remover, Image Compressor, PDF to Word & More',
+  description: 'Use Toolify’s free online tools like Background Remover, Image Compressor, PDF to Word Converter, Text Paraphraser, and Image to Text Converter. 100% Free & No Login Required!',
+  keywords: 'free online tools, background remover, image compressor, compress jpg png, pdf to word, text paraphraser, image to text converter, Toolify, taskguru',
   robots: 'index, follow',
+  alternates: {
+    canonical: 'https://taskguru.online',
+  },
   verification: {
-    google: "XhRtp6rO2MNQX-BucHlUxVhNLbBPfdis_RzXY5ZodlU"
+    google: "XhRtp6rO2MNQX-BucHlUxVhNLbBPfdis_RzXY5ZodlU",
   },
   openGraph: {
-    title: 'Toolify – Free Background Remover, Image Compressor & More',
-    description: 'Toolify offers AI-powered online tools like background remover, image compressor, word counter, and more – all free!',
+    title: 'Toolify – Free Online Tools (Image Compressor, PDF Converter, Paraphraser)',
+    description: 'AI-powered tools like Background Remover, Image Compressor, PDF to Word Converter, Text Paraphraser & more – all free!',
     url: 'https://taskguru.online',
     siteName: 'Toolify',
     images: [
@@ -38,6 +42,12 @@ export const metadata: Metadata = {
     locale: 'en_US',
     type: 'website',
   },
+  twitter: {
+    card: "summary_large_image",
+    title: "Toolify – Free Online Tools",
+    description: "Free online tools like Background Remover, Image Compressor, PDF to Word & more.",
+    images: ["https://taskguru.online/og-image.png"],
+  },
 };
 
 export default function RootLayout({
@@ -47,20 +57,46 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${inter.variable} dark`}>
+      <head>
+        {/* ✅ JSON-LD Structured Data for Google Rich Results */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "WebSite",
+              "url": "https://taskguru.online",
+              "name": "Toolify",
+              "description": "Free tools like Background Remover, Image Compressor, PDF to Word Converter, and Text Paraphraser.",
+              "publisher": {
+                "@type": "Person",
+                "name": "Shubham Gautam"
+              },
+              "potentialAction": {
+                "@type": "SearchAction",
+                "target": "https://taskguru.online/tools/{search_term_string}",
+                "query-input": "required name=search_term_string"
+              }
+            }),
+          }}
+        />
+      </head>
       <body className="font-body antialiased min-h-screen flex flex-col">
 
+        {/* ✅ Interstitial Ad Script */}
         <Script id="interstitial-ad" strategy="afterInteractive">
-  {`(function(d,z,s){
-      s.src='https://'+d+'/401/'+z;
-      try{(document.body||document.documentElement).appendChild(s)}catch(e){}
-    })('groleegni.net',9694211,document.createElement('script'));`}
-</Script>
-    
+          {`(function(d,z,s){
+              s.src='https://'+d+'/401/'+z;
+              try{(document.body||document.documentElement).appendChild(s)}catch(e){}
+            })('groleegni.net',9694211,document.createElement('script'));`}
+        </Script>
+
         <Header />
         <main className="flex-1">
           {children}
         </main>
         <Toaster />
+
         <footer className="py-6 text-center text-muted-foreground">
           <div className="container mx-auto px-6">
             <div className="flex flex-col sm:flex-row justify-center items-center gap-2 sm:gap-4">
