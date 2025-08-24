@@ -75,22 +75,28 @@ export default function TextParaphraser() {
     <>
       {/* ✅ SEO Meta Tags */}
       <Head>
-        <title>AI Text Paraphraser | Rewrite Text Online Free | TaskGuru</title>
+        <title>AI Text Paraphraser | Free Online Paraphrasing Tool | TaskGuru</title>
         <meta
           name="description"
-          content="Free AI text paraphraser by TaskGuru. Rewrite sentences, articles, and essays while keeping the original meaning. Perfect for bloggers, students, and professionals."
+          content="Use TaskGuru's free AI text paraphraser to rewrite text, articles, and essays instantly. Trusted by students, writers, and professionals worldwide."
         />
         <meta
           name="keywords"
-          content="text paraphraser, rewrite text, AI paraphrasing tool, free paraphraser, TaskGuru paraphrasing"
+          content="
+            text paraphraser, ai text paraphraser, free paraphrasing tool,
+            online paraphraser, text paraphraser free, best paraphrasing tool,
+            rewrite sentences online, academic paraphrasing tool,
+            plagiarism remover tool, essay rewriter,
+            how to paraphrase text online?, free text rewriter,
+            sentence rephraser, TaskGuru text tools"
         />
         <link rel="canonical" href="https://taskguru.online/text-paraphraser" />
 
         {/* ✅ Open Graph Tags */}
-        <meta property="og:title" content="AI Text Paraphraser | Rewrite Text Online Free" />
+        <meta property="og:title" content="AI Text Paraphraser | Free Online Tool" />
         <meta
           property="og:description"
-          content="Instantly paraphrase your text with AI. Rewrite your content while preserving the original meaning."
+          content="Paraphrase your text instantly with TaskGuru's free AI-powered paraphraser. Rewrite essays, articles, and assignments online."
         />
         <meta property="og:url" content="https://taskguru.online/text-paraphraser" />
         <meta property="og:image" content="https://taskguru.online/og-image.png" />
@@ -98,10 +104,10 @@ export default function TextParaphraser() {
 
         {/* ✅ Twitter Card Meta */}
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="AI Text Paraphraser | Rewrite Text Online Free" />
+        <meta name="twitter:title" content="AI Text Paraphraser | Rewrite Sentences Online Free" />
         <meta
           name="twitter:description"
-          content="Free online AI paraphrasing tool to rewrite your text instantly."
+          content="Free AI paraphrasing tool to rewrite your sentences while preserving meaning. Perfect for essays & blogs."
         />
         <meta name="twitter:image" content="https://taskguru.online/og-image.png" />
       </Head>
@@ -113,9 +119,11 @@ export default function TextParaphraser() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdSchema) }}
       />
 
+      {/* ✅ Page Content */}
       <Card className="w-full max-w-4xl mx-auto shadow-lg">
         <CardContent className="p-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
+            {/* Input Side */}
             <div className="flex flex-col space-y-2">
               <label htmlFor="input-text" className="font-semibold text-lg">Your Text</label>
               <Textarea
@@ -128,6 +136,8 @@ export default function TextParaphraser() {
               />
               <p className="text-sm text-muted-foreground text-right">{charCount} / 5000 characters</p>
             </div>
+
+            {/* Output Side */}
             <div className="flex flex-col space-y-2">
               <div className="flex justify-between items-center">
                 <label htmlFor="output-text" className="font-semibold text-lg">Paraphrased Text</label>
@@ -145,10 +155,10 @@ export default function TextParaphraser() {
                   readOnly
                 />
               </div>
-              <p className="text-sm text-muted-foreground text-right">&nbsp;</p>
             </div>
           </div>
         </CardContent>
+
         <CardFooter className="flex justify-center gap-4 bg-muted/50 p-4 border-t">
           <Button variant="outline" onClick={handleReset} disabled={isLoading}>
             <Trash2 className="mr-2 h-4 w-4" /> Reset
@@ -163,6 +173,29 @@ export default function TextParaphraser() {
           </Button>
         </CardFooter>
       </Card>
+
+      {/* ✅ FAQ Section for SEO */}
+      <section className="max-w-4xl mx-auto my-10 p-6 bg-muted/30 rounded-lg shadow">
+        <h2 className="text-2xl font-bold mb-4">Frequently Asked Questions</h2>
+        <div className="space-y-4">
+          <div>
+            <h3 className="font-semibold">❓ What is a text paraphraser?</h3>
+            <p>A text paraphraser is an AI tool that rewrites your text in a new way while keeping the meaning intact. TaskGuru offers a free paraphrasing tool for students, bloggers, and professionals.</p>
+          </div>
+          <div>
+            <h3 className="font-semibold">❓ Is TaskGuru’s paraphrasing tool free?</h3>
+            <p>✅ Yes! TaskGuru’s paraphraser is completely free to use with no login required.</p>
+          </div>
+          <div>
+            <h3 className="font-semibold">❓ How accurate is AI text paraphrasing?</h3>
+            <p>TaskGuru uses AI to generate natural, accurate rewrites while preserving the original meaning of your content.</p>
+          </div>
+          <div>
+            <h3 className="font-semibold">❓ Can it help me avoid plagiarism?</h3>
+            <p>Yes, paraphrasing tools help reduce plagiarism by rewriting sentences into unique variations. However, we recommend checking your work with a plagiarism checker for academic use.</p>
+          </div>
+        </div>
+      </section>
     </>
   );
 }
