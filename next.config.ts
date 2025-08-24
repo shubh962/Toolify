@@ -1,13 +1,15 @@
 import type { NextConfig } from "next";
-import withCritters from "next-plugin-critters";
 
 const nextConfig: NextConfig = {
+  // ✅ Prevent build breaking on TS/ESLint warnings
   typescript: {
     ignoreBuildErrors: true,
   },
   eslint: {
     ignoreDuringBuilds: true,
   },
+
+  // ✅ Optimize images
   images: {
     remotePatterns: [
       {
@@ -16,18 +18,24 @@ const nextConfig: NextConfig = {
         port: "",
         pathname: "/**",
       },
+      {
+        protocol: "https",
+        hostname: "taskguru.online",
+        port: "",
+        pathname: "/**",
+      },
     ],
   },
+
+  // ✅ Performance optimizations
+  compress: true,       // gzip & brotli
+  swcMinify: true,      // faster JS
   experimental: {
-    optimizeCss: true, // ✅ Enable Next.js CSS optimizer
+    optimizeCss: true,  // Next.js built-in CSS optimizer
   },
+
+  // ✅ Better SEO
+  poweredByHeader: false, // remove "X-Powered-By: Next.js"
 };
 
-// ✅ Wrap with Critters plugin
-export default withCritters({
-  ...nextConfig,
-  critters: {
-    preload: "swap", // Preload fonts properly
-    compress: true, // Minify CSS
-  },
-});
+export default nextConfig;
