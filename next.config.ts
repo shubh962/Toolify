@@ -1,35 +1,33 @@
 import type { NextConfig } from "next";
+import withCritters from "next-plugin-critters";
 
 const nextConfig: NextConfig = {
-  reactStrictMode: true,
-
   typescript: {
     ignoreBuildErrors: true,
   },
   eslint: {
     ignoreDuringBuilds: true,
   },
-
   images: {
     remotePatterns: [
       {
         protocol: "https",
         hostname: "placehold.co",
-        pathname: "/**",
-      },
-      {
-        protocol: "https",
-        hostname: "taskguru.online",
+        port: "",
         pathname: "/**",
       },
     ],
   },
-
-  // ✅ Enable Critters for CSS optimization
   experimental: {
-    optimizeCss: true,
-    optimizePackageImports: ["lucide-react"],
+    optimizeCss: true, // ✅ Enable Next.js CSS optimizer
   },
 };
 
-export default nextConfig;
+// ✅ Wrap with Critters plugin
+export default withCritters({
+  ...nextConfig,
+  critters: {
+    preload: "swap", // Preload fonts properly
+    compress: true, // Minify CSS
+  },
+});
