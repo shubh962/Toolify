@@ -87,7 +87,7 @@ export default function PdfToWord() {
     if (fileInputRef.current) fileInputRef.current.value = '';
   };
 
-  // ✅ FAQ Schema (includes all question keywords)
+  // ✅ FAQ Schema
   const faqSchema = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
@@ -102,46 +102,21 @@ export default function PdfToWord() {
       },
       {
         "@type": "Question",
-        "name": "How to convert Word to PDF?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Use Word’s built-in Export as PDF or upload a .docx file to TaskGuru’s Word to PDF converter to download a PDF in seconds."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "How to convert Word file to PDF?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Open the document, go to File → Save As → choose PDF. For a quick online method, use TaskGuru’s free Word to PDF tool."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "How to convert Word to PDF in laptop?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "On a laptop, you can export from Microsoft Word or use TaskGuru’s online Word to PDF converter in your browser."
-        }
-      },
-      {
-        "@type": "Question",
         "name": "How to convert PDF to Word in laptop?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Open TaskGuru in your laptop’s browser, upload the PDF, click Convert to Word, then download the .docx file."
+          "text": "Open TaskGuru in your laptop browser, upload the PDF, and download the .docx file instantly."
         }
       }
     ]
   };
 
-  // ✅ Organization/WebApp Schema (lightweight)
   const webappSchema = {
     "@context": "https://schema.org",
     "@type": "WebApplication",
     "name": "PDF to Word Converter",
     "url": "https://taskguru.online/pdf-to-word",
-    "description": "Free online PDF to Word converter by TaskGuru. Convert PDF into editable Word documents instantly. Also convert Word to PDF.",
+    "description": "Free online PDF to Word converter by TaskGuru. Convert PDF into editable Word documents instantly.",
     "applicationCategory": "Utility",
     "operatingSystem": "All",
     "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
@@ -157,29 +132,16 @@ export default function PdfToWord() {
     <>
       {/* ✅ SEO Meta Tags */}
       <Head>
-        <title>Free PDF to Word Converter Online | Convert PDF to Word & Word to PDF | TaskGuru</title>
+        <title>Free PDF to Word Converter Online | TaskGuru</title>
         <meta
           name="description"
-          content="Convert PDF to Word online with TaskGuru. Free, fast PDF to Word converter that preserves formatting. Also convert Word to PDF with one click."
+          content="Convert PDF to Word online with TaskGuru. Free, fast PDF to Word converter that preserves formatting."
         />
         <meta
           name="keywords"
-          content="pdf to word, pdf to word converter, convert pdf to word, word to pdf, word to pdf converter, free pdf converter, edit pdf, convert pdf, online pdf tools, convert word to pdf, convert pdf to word in laptop, convert word to pdf in laptop, how to convert pdf to word, how to convert word to pdf, how to convert word file to pdf"
+          content="pdf to word, pdf to word converter, convert pdf to word, free pdf converter, edit pdf, convert pdf, online pdf tools, convert pdf to word in laptop"
         />
         <link rel="canonical" href="https://taskguru.online/pdf-to-word" />
-
-        {/* OG Meta */}
-        <meta property="og:title" content="Free PDF to Word Converter | TaskGuru" />
-        <meta property="og:description" content="Easily convert PDFs to editable Word documents or back to PDF for free. No signup." />
-        <meta property="og:url" content="https://taskguru.online/pdf-to-word" />
-        <meta property="og:image" content="https://taskguru.online/og-image-pdf-word.jpg" />
-        <meta property="og:type" content="website" />
-
-        {/* Twitter Card */}
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Free PDF to Word Converter Online" />
-        <meta name="twitter:description" content="Convert PDF to Word & Word to PDF free online with TaskGuru." />
-        <meta name="twitter:image" content="https://taskguru.online/og-image-pdf-word.jpg" />
       </Head>
 
       {/* ✅ Structured Data */}
@@ -187,11 +149,11 @@ export default function PdfToWord() {
       <Script id="webapp-schema" type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(webappSchema) }} />
 
       {/* ✅ Converter UI */}
-      <Card className="w-full max-w-2xl mx-auto shadow-lg">
-        <CardContent className="p-6">
+      <Card className="w-full max-w-2xl mx-auto shadow-lg my-6">
+        <CardContent className="p-4 sm:p-6">
           {!file ? (
             <div
-              className={`flex flex-col items-center justify-center space-y-4 p-12 border-2 border-dashed rounded-lg cursor-pointer transition-colors ${
+              className={`flex flex-col items-center justify-center space-y-4 p-8 sm:p-12 border-2 border-dashed rounded-lg cursor-pointer transition-colors ${
                 isDragging ? 'border-primary bg-primary/5' : 'hover:border-primary'
               }`}
               onClick={() => fileInputRef.current?.click()}
@@ -200,7 +162,7 @@ export default function PdfToWord() {
               onDrop={handleDrop}
             >
               <div className="p-4 bg-secondary rounded-full">
-                <Upload className="w-10 h-10 text-muted-foreground" />
+                <Upload className="w-8 h-8 sm:w-10 sm:h-10 text-muted-foreground" />
               </div>
               <div className="text-center">
                 <p className="font-semibold">Click to upload or drag & drop</p>
@@ -215,16 +177,16 @@ export default function PdfToWord() {
               />
             </div>
           ) : (
-            <div className="flex flex-col items-center justify-center space-y-4 p-12">
-              <FileText className="w-16 h-16 text-primary" />
-              <p className="font-semibold text-center">{file.name}</p>
+            <div className="flex flex-col items-center justify-center space-y-4 p-8 sm:p-12">
+              <FileText className="w-12 h-12 sm:w-16 sm:h-16 text-primary" />
+              <p className="font-semibold text-center break-words">{file.name}</p>
               <p className="text-sm text-muted-foreground">{(file.size / (1024 * 1024)).toFixed(2)} MB</p>
             </div>
           )}
         </CardContent>
 
         {file && (
-          <CardFooter className="flex justify-center gap-4 bg-muted/50 p-4 border-t">
+          <CardFooter className="flex flex-wrap justify-center gap-3 sm:gap-4 bg-muted/50 p-4 border-t">
             <Button variant="outline" onClick={handleReset} disabled={isLoading}>
               <Trash2 className="mr-2 h-4 w-4" /> Reset
             </Button>
@@ -240,13 +202,9 @@ export default function PdfToWord() {
       </Card>
 
       {/* ✅ Internal Linking Block */}
-      <section className="max-w-3xl mx-auto my-12 p-6 bg-muted/50 rounded-lg shadow">
-        <h2 className="text-xl font-bold mb-4">You may also like</h2>
-        <ul className="list-disc list-inside space-y-2">
-          <li><a href="/word-to-pdf" className="text-primary hover:underline">Convert Word to PDF</a></li>
-          <li><a href="/pdf-compressor" className="text-primary hover:underline">Compress PDF Files</a></li>
-          <li><a href="/merge-pdf" className="text-primary hover:underline">Merge PDF Files</a></li>
-          <li><a href="/split-pdf" className="text-primary hover:underline">Split PDF into Pages</a></li>
+      <section className="max-w-3xl mx-auto my-8 sm:my-12 p-4 sm:p-6 bg-muted/50 rounded-lg shadow">
+        <h2 className="text-lg sm:text-xl font-bold mb-4">You may also like</h2>
+        <ul className="grid grid-cols-1 sm:grid-cols-2 gap-3 list-disc list-inside">
           <li><a href="/tools/image-compressor" className="text-primary hover:underline">Image Compressor</a></li>
           <li><a href="/tools/background-remover" className="text-primary hover:underline">Background Remover</a></li>
           <li><a href="/tools/image-to-text" className="text-primary hover:underline">Image to Text (OCR)</a></li>
@@ -254,25 +212,13 @@ export default function PdfToWord() {
         </ul>
       </section>
 
-      {/* ✅ Visible FAQ Section */}
-      <section className="max-w-3xl mx-auto my-12 p-6 bg-white shadow rounded-lg">
-        <h2 className="text-2xl font-bold mb-6">Frequently Asked Questions</h2>
+      {/* ✅ FAQ Section */}
+      <section className="max-w-3xl mx-auto my-8 sm:my-12 p-4 sm:p-6 bg-white shadow rounded-lg">
+        <h2 className="text-xl sm:text-2xl font-bold mb-6">Frequently Asked Questions</h2>
         <div className="space-y-4 text-left">
           <div>
             <h3 className="font-semibold">How to convert PDF to Word?</h3>
             <p>Upload your PDF file, click <em>Convert to Word</em>, and download the editable .docx instantly using TaskGuru.</p>
-          </div>
-          <div>
-            <h3 className="font-semibold">How to convert Word to PDF?</h3>
-            <p>Use Word’s Export as PDF, or upload your .docx to TaskGuru’s Word to PDF tool to download a PDF in seconds.</p>
-          </div>
-          <div>
-            <h3 className="font-semibold">How to convert Word file to PDF?</h3>
-            <p>Open the file in Word → File → Save As → PDF. For a quick online method, use TaskGuru’s free converter.</p>
-          </div>
-          <div>
-            <h3 className="font-semibold">How to convert Word to PDF in laptop?</h3>
-            <p>On a laptop, either export from Microsoft Word or use TaskGuru’s browser-based Word to PDF converter.</p>
           </div>
           <div>
             <h3 className="font-semibold">How to convert PDF to Word in laptop?</h3>
