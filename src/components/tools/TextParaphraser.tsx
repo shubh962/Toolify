@@ -179,20 +179,20 @@ export default function TextParaphraser() {
         <h2 className="text-2xl font-bold mb-4">Frequently Asked Questions</h2>
         <div className="space-y-4">
           <div>
-            <h3 className="font-semibold">❓ What is a text paraphraser?</h3>
-            <p>A text paraphraser is an AI tool that rewrites your text in a new way while keeping the meaning intact. TaskGuru offers a free paraphrasing tool for students, bloggers, and professionals.</p>
+            <h3 className="font-semibold"> 1. What is a text paraphraser?</h3>
+            <p>A. A text paraphraser is an AI tool that rewrites your text in a new way while keeping the meaning intact. TaskGuru offers a free paraphrasing tool for students, bloggers, and professionals.</p>
           </div>
           <div>
-            <h3 className="font-semibold">❓ Is TaskGuru’s paraphrasing tool free?</h3>
+            <h3 className="font-semibold"> 2. Is TaskGuru’s paraphrasing tool free?</h3>
             <p>✅ Yes! TaskGuru’s paraphraser is completely free to use with no login required.</p>
           </div>
           <div>
-            <h3 className="font-semibold">❓ How accurate is AI text paraphrasing?</h3>
-            <p>TaskGuru uses AI to generate natural, accurate rewrites while preserving the original meaning of your content.</p>
+            <h3 className="font-semibold"> 3. How accurate is AI text paraphrasing?</h3>
+            <p>A. TaskGuru uses AI to generate natural, accurate rewrites while preserving the original meaning of your content.</p>
           </div>
           <div>
-            <h3 className="font-semibold">❓ Can it help me avoid plagiarism?</h3>
-            <p>Yes, paraphrasing tools help reduce plagiarism by rewriting sentences into unique variations. However, we recommend checking your work with a plagiarism checker for academic use.</p>
+            <h3 className="font-semibold"> 4. Can it help me avoid plagiarism?</h3>
+            <p>A. Yes, paraphrasing tools help reduce plagiarism by rewriting sentences into unique variations. However, we recommend checking your work with a plagiarism checker for academic use.</p>
           </div>
         </div>
       </section>
