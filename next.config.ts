@@ -25,7 +25,7 @@ const nextConfig: NextConfig = {
     ],
   },
 
-  // ✅ Enable Critters (CSS inlining) safely
+  // ✅ Enable Critters for CSS optimization
   experimental: {
     optimizeCss: true,
     optimizePackageImports: ["lucide-react"],
