@@ -21,7 +21,7 @@ export default function ImageToText() {
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
-      if (file.size > 4 * 1024 * 1024) { // 4MB limit
+      if (file.size > 4 * 1024 * 1024) {
         toast({
           title: 'File too large',
           description: 'Please upload an image smaller than 4MB.',
@@ -55,7 +55,7 @@ export default function ImageToText() {
       toast({ title: "Error", description: result.error, variant: "destructive" });
     }
   };
-  
+
   const handleCopy = () => {
     if (!extractedText) return;
     navigator.clipboard.writeText(extractedText);
@@ -74,69 +74,72 @@ export default function ImageToText() {
   return (
     <>
       <Head>
-        <title>Image to Text - Extract Text from Images Online | TaskGuru</title>
+        <title>Free Image to Text Converter Online | Extract Text from Images - TaskGuru</title>
         <meta
           name="description"
-          content="Convert images to text online with TaskGuru's free OCR tool. Extract text from PNG, JPG, or WEBP images instantly."
+          content="Convert images to text online free with TaskGuru OCR tool. Extract text from JPG, PNG, WEBP instantly. Best image to text converter with OCR. How to extract text from image? Use TaskGuru online converter."
         />
         <meta
           name="keywords"
-          content="image to text, OCR, extract text from image, convert image to text, text recognition, online OCR, TaskGuru tools"
+          content="image to text, image to text converter online, extract text from image, OCR online, convert image to text, best image to text converter, free image to text tool, scan image to text, photo to text converter, picture to text online, how to convert image to text, what is OCR, extract text online free, text recognition from images"
         />
-        <link
-          rel="canonical"
-          href="https://www.taskguru.online/tools/image-to-text"
-        />
+        <link rel="canonical" href="https://www.taskguru.online/tools/image-to-text" />
 
         {/* Open Graph */}
         <meta property="og:type" content="website" />
-        <meta property="og:title" content="Image to Text - TaskGuru" />
-        <meta
-          property="og:description"
-          content="Extract text from images using TaskGuru's free OCR tool. Supports JPG, PNG, WEBP formats. Fast and accurate."
-        />
-        <meta
-          property="og:url"
-          content="https://www.taskguru.online/tools/image-to-text"
-        />
-        <meta
-          property="og:image"
-          content="https://www.taskguru.online/og-image-to-text.jpg"
-        />
+        <meta property="og:title" content="Free Image to Text Converter Online | TaskGuru" />
+        <meta property="og:description" content="Extract text from images online free. Upload JPG, PNG, WEBP and convert into editable text instantly using OCR." />
+        <meta property="og:url" content="https://www.taskguru.online/tools/image-to-text" />
+        <meta property="og:image" content="https://www.taskguru.online/og-image-to-text.jpg" />
 
         {/* Twitter Card */}
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Image to Text - TaskGuru" />
-        <meta
-          name="twitter:description"
-          content="Free OCR tool to extract text from images online. Upload JPG, PNG, WEBP and get editable text instantly."
-        />
-        <meta
-          name="twitter:image"
-          content="https://www.taskguru.online/og-image-to-text.jpg"
-        />
+        <meta name="twitter:title" content="Image to Text Converter Online Free | TaskGuru" />
+        <meta name="twitter:description" content="Free OCR tool to extract text from images online. How to convert image to text? Use TaskGuru now." />
+        <meta name="twitter:image" content="https://www.taskguru.online/og-image-to-text.jpg" />
 
-        {/* JSON-LD Structured Data */}
+        {/* JSON-LD FAQ Schema with question keywords */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
             __html: JSON.stringify({
-              '@context': 'https://schema.org',
-              '@type': 'WebPage',
-              name: 'Image to Text - TaskGuru',
-              description:
-                'Extract text from images using TaskGuru’s free OCR tool. Convert JPG, PNG, WEBP to editable text online.',
-              url: 'https://www.taskguru.online/tools/image-to-text',
-              publisher: {
-                '@type': 'Organization',
-                name: 'TaskGuru',
-                url: 'https://www.taskguru.online',
-                logo: {
-                  '@type': 'ImageObject',
-                  url: 'https://www.taskguru.online/logo.png',
+              "@context": "https://schema.org",
+              "@type": "FAQPage",
+              "mainEntity": [
+                {
+                  "@type": "Question",
+                  "name": "How to extract text from image online?",
+                  "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "You can extract text from image online free using TaskGuru’s Image to Text Converter. Upload PNG, JPG, or WEBP and get editable text instantly."
+                  }
                 },
-              },
-            }),
+                {
+                  "@type": "Question",
+                  "name": "Which is the best free image to text converter?",
+                  "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "TaskGuru provides the best free image to text converter online using OCR. Fast, accurate, and no login required."
+                  }
+                },
+                {
+                  "@type": "Question",
+                  "name": "Can I convert a scanned photo to text?",
+                  "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Yes, TaskGuru’s OCR image to text tool can extract text from scanned photos and pictures."
+                  }
+                },
+                {
+                  "@type": "Question",
+                  "name": "How do I convert a picture into editable text?",
+                  "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Simply upload your picture (JPG, PNG, WEBP) to TaskGuru’s free converter and click Extract. The tool will give you editable text."
+                  }
+                }
+              ]
+            })
           }}
         />
       </Head>
@@ -145,7 +148,7 @@ export default function ImageToText() {
         <CardContent className="p-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="flex flex-col space-y-4">
-              <h3 className="font-semibold text-lg text-center">Your Image</h3>
+              <h1 className="font-semibold text-xl text-center">Image to Text Converter Online Free</h1>
               {image ? (
                 <div className="relative aspect-video w-full rounded-lg overflow-hidden border">
                   <Image src={image} alt="Uploaded for OCR" layout="fill" objectFit="contain" />
@@ -173,7 +176,7 @@ export default function ImageToText() {
               />
             </div>
             <div className="flex flex-col space-y-4">
-              <h3 className="font-semibold text-lg text-center">Extracted Text</h3>
+              <h2 className="font-semibold text-lg text-center">Extracted Text Result</h2>
               <div className="relative h-full">
                 {isLoading && <Skeleton className="absolute inset-0" />}
                 <Textarea
