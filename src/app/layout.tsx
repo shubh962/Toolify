@@ -84,6 +84,20 @@ export default function RootLayout({
             }),
           }}
         />
+
+        {/* ✅ Google Analytics Script */}
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-XE6BHLH4J6"
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-XE6BHLH4J6');
+          `}
+        </Script>
       </head>
       <body className="font-body antialiased min-h-screen flex flex-col">
         {/* ✅ Interstitial Ad Script */}
