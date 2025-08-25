@@ -60,16 +60,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${inter.variable} dark`}>
-      <head>
-        <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-XE6BHLH4J6"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-XE6BHLH4J6');
-</script>
+      <head>  
         {/* ✅ JSON-LD Structured Data for Google Rich Results */}
         <script
           type="application/ld+json"
