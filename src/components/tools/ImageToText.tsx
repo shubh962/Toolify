@@ -1,205 +1,98 @@
 "use client";
 
 import { useState } from "react";
-import Head from "next/head";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Upload, Loader2, Copy } from "lucide-react";
+import { Loader2, Upload, Copy } from "lucide-react";
 
 export default function ImageToText() {
-  const [file, setFile] = useState<File | null>(null);
+  const [image, setImage] = useState<File | null>(null);
+  const [text, setText] = useState<string>("");
   const [loading, setLoading] = useState(false);
-  const [result, setResult] = useState<string>("");
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files?.[0]) {
-      setFile(e.target.files[0]);
+    if (e.target.files && e.target.files[0]) {
+      setImage(e.target.files[0]);
     }
   };
 
   const handleExtractText = async () => {
-    if (!file) return;
+    if (!image) return;
     setLoading(true);
 
-    // Fake delay for demo – replace with real OCR API call later
+    // Simulate OCR process (replace with API call)
     setTimeout(() => {
-      setResult(
-        "Extracted text will appear here. (Connect OCR API for real output)"
-      );
+      setText("This is the extracted text from your uploaded image.");
       setLoading(false);
-    }, 1500);
+    }, 2000);
   };
 
   const handleCopy = () => {
-    if (result) {
-      navigator.clipboard.writeText(result);
-    }
+    navigator.clipboard.writeText(text);
+    alert("Text copied to clipboard ✅");
   };
 
   return (
-    <>
-      {/* ✅ SEO Meta Tags */}
-      <Head>
-        <title>
-          Free Image to Text Converter Online | Extract Text from Images - TaskGuru
-        </title>
-        <meta
-          name="description"
-          content="Convert images to text online free with TaskGuru OCR tool. Extract text from JPG, PNG, WEBP instantly. Best image to text converter with OCR."
-        />
-        <meta
-          name="keywords"
-          content="image to text, image to text converter online, extract text from image, OCR online, convert image to text, free image to text tool, scan image to text, photo to text converter, picture to text online"
-        />
-        <link
-          rel="canonical"
-          href="https://www.taskguru.online/tools/image-to-text"
-        />
+    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-gray-100 p-6">
+      {/* SEO + H1 */}
+      <h1 className="text-3xl font-bold text-center mb-8 text-gray-800">
+        Image to Text Converter (OCR Online)
+      </h1>
 
-        {/* Open Graph */}
-        <meta property="og:type" content="website" />
-        <meta
-          property="og:title"
-          content="Free Image to Text Converter Online | TaskGuru"
-        />
-        <meta
-          property="og:description"
-          content="Extract text from images online free. Upload JPG, PNG, WEBP and convert into editable text instantly using OCR."
-        />
-        <meta
-          property="og:url"
-          content="https://www.taskguru.online/tools/image-to-text"
-        />
-        <meta
-          property="og:image"
-          content="https://www.taskguru.online/og-image-to-text.jpg"
-        />
+      <Card className="max-w-2xl mx-auto shadow-xl rounded-2xl border">
+        <CardHeader>
+          <CardTitle className="text-xl font-semibold text-gray-900">
+            Upload Image & Extract Text
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="space-y-6">
+            {/* Upload Section */}
+            <div className="flex flex-col items-center justify-center border-2 border-dashed border-gray-300 rounded-xl p-6 bg-white hover:border-blue-500 transition cursor-pointer">
+              <Upload className="w-10 h-10 text-gray-500 mb-3" />
+              <p className="text-gray-600 mb-2">Drag & Drop or Click to Upload</p>
+              <input
+                type="file"
+                accept="image/*"
+                onChange={handleFileChange}
+                className="hidden"
+                id="fileInput"
+              />
+              <label
+                htmlFor="fileInput"
+                className="cursor-pointer bg-blue-600 text-white px-4 py-2 rounded-lg text-sm hover:bg-blue-700 transition"
+              >
+                Choose File
+              </label>
+              {image && <p className="text-sm text-gray-500 mt-2">{image.name}</p>}
+            </div>
 
-        {/* Twitter Card */}
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta
-          name="twitter:title"
-          content="Image to Text Converter Online Free | TaskGuru"
-        />
-        <meta
-          name="twitter:description"
-          content="Free OCR tool to extract text from images online. How to convert image to text? Use TaskGuru now."
-        />
-        <meta
-          name="twitter:image"
-          content="https://www.taskguru.online/og-image-to-text.jpg"
-        />
+            {/* Extract Button */}
+            <Button
+              onClick={handleExtractText}
+              disabled={!image || loading}
+              className="w-full flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700"
+            >
+              {loading ? <Loader2 className="animate-spin w-5 h-5" /> : "Extract Text"}
+            </Button>
 
-        {/* ✅ FAQ Schema for Google */}
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "FAQPage",
-              "mainEntity": [
-                {
-                  "@type": "Question",
-                  "name": "How to extract text from image online?",
-                  "acceptedAnswer": {
-                    "@type": "Answer",
-                    "text":
-                      "You can extract text from image online free using TaskGuru’s Image to Text Converter. Upload PNG, JPG, or WEBP and get editable text instantly.",
-                  },
-                },
-                {
-                  "@type": "Question",
-                  "name": "Which is the best free image to text converter?",
-                  "acceptedAnswer": {
-                    "@type": "Answer",
-                    "text":
-                      "TaskGuru provides the best free image to text converter online using OCR. Fast, accurate, and no login required.",
-                  },
-                },
-                {
-                  "@type": "Question",
-                  "name": "Can I convert a scanned photo to text?",
-                  "acceptedAnswer": {
-                    "@type": "Answer",
-                    "text":
-                      "Yes, TaskGuru’s OCR image to text tool can extract text from scanned photos and pictures.",
-                  },
-                },
-                {
-                  "@type": "Question",
-                  "name": "How do I convert a picture into editable text?",
-                  "acceptedAnswer": {
-                    "@type": "Answer",
-                    "text":
-                      "Simply upload your picture (JPG, PNG, WEBP) to TaskGuru’s free converter and click Extract. The tool will give you editable text.",
-                  },
-                },
-              ],
-            }),
-          }}
-        />
-      </Head>
-
-      {/* ✅ Main UI */}
-      <div className="min-h-screen bg-gradient-to-b from-white to-gray-50 p-6">
-        <div className="max-w-3xl mx-auto">
-          <h1 className="text-3xl font-bold text-center mb-6 text-gray-800">
-            Free Image to Text Converter Online (OCR Tool)
-          </h1>
-
-          <Card className="shadow-lg rounded-2xl border border-gray-200">
-            <CardHeader>
-              <CardTitle className="text-lg font-semibold text-gray-700">
-                Upload Image to Extract Text
-              </CardTitle>
-            </CardHeader>
-
-            <CardContent>
-              <div className="flex flex-col items-center gap-4">
-                <input
-                  type="file"
-                  accept="image/*"
-                  onChange={handleFileChange}
-                  className="border p-2 rounded-lg w-full"
-                />
-
+            {/* Extracted Text Output */}
+            {text && (
+              <div className="bg-gray-50 border rounded-lg p-4 shadow-inner relative">
+                <pre className="whitespace-pre-wrap text-gray-800">{text}</pre>
                 <Button
-                  onClick={handleExtractText}
-                  disabled={!file || loading}
-                  className="flex items-center gap-2 px-6 py-2 rounded-lg"
+                  onClick={handleCopy}
+                  size="sm"
+                  className="absolute top-2 right-2 flex items-center gap-1"
+                  variant="outline"
                 >
-                  {loading ? (
-                    <Loader2 className="w-4 h-4 animate-spin" />
-                  ) : (
-                    <Upload className="w-4 h-4" />
-                  )}
-                  {loading ? "Extracting..." : "Extract Text"}
+                  <Copy className="w-4 h-4" /> Copy
                 </Button>
-
-                {result && (
-                  <div className="mt-4 w-full">
-                    <h2 className="text-lg font-medium text-gray-800 mb-2">
-                      Extracted Text:
-                    </h2>
-                    <textarea
-                      readOnly
-                      value={result}
-                      className="w-full p-3 border rounded-lg h-40 resize-none"
-                    />
-                    <Button
-                      onClick={handleCopy}
-                      variant="outline"
-                      className="mt-3 flex items-center gap-2"
-                    >
-                      <Copy className="w-4 h-4" /> Copy Text
-                    </Button>
-                  </div>
-                )}
               </div>
-            </CardContent>
-          </Card>
-        </div>
-      </div>
-    </>
+            )}
+          </div>
+        </CardContent>
+      </Card>
+    </div>
   );
 }
