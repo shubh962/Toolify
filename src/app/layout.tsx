@@ -22,8 +22,9 @@ export const metadata: Metadata = {
   keywords:
     "free online tools, background remover, image compressor, compress jpg png, pdf to word, text paraphraser, image to text converter, Toolify, taskguru",
   robots: "index, follow",
+  metadataBase: new URL("https://taskguru.online"), // ✅ अब हर page का canonical dynamic बनेगा
   alternates: {
-    canonical: "https://taskguru.online",
+    canonical: "/", // ✅ '/' + metadataBase = full canonical url per page
   },
   verification: {
     google: "XhRtp6rO2MNQX-BucHlUxVhNLbBPfdis_RzXY5ZodlU",
@@ -60,7 +61,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${inter.variable} dark`}>
-      <head>  
+      <head>
         {/* ✅ JSON-LD Structured Data for Google Rich Results */}
         <script
           type="application/ld+json"
