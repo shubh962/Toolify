@@ -13,36 +13,39 @@ import {
   Trash2,
   Wand2,
   ImageIcon,
+  ChevronDown,
 } from 'lucide-react';
 import { Slider } from '@/components/ui/slider';
 import { Label } from '@/components/ui/label';
 
 // ✅ Page-level SEO metadata
 export const metadata: Metadata = {
-  title: 'Image Compressor - Compress Images Online Free | TaskGuru',
+  title: 'Free Online Image Compressor Tool | TaskGuru',
   description:
-    "Compress JPG, PNG, WEBP images online using TaskGuru's free AI image compressor. Reduce file size without losing quality. Fast & 100% free.",
+    "Compress JPG, PNG, WEBP images online with TaskGuru's free AI-powered image compressor. Reduce image file size without losing quality. Fast, secure & 100% free.",
   keywords: [
-    'image compressor',
-    'compress jpg',
-    'compress png',
+    'free image compressor',
+    'compress jpg online',
+    'compress png online',
     'webp compressor',
-    'reduce image size',
-    'online image compression',
-    'TaskGuru tools',
+    'reduce image file size',
+    'image optimizer',
+    'online photo compressor',
+    'TaskGuru image tools'
   ],
+  robots: 'index, follow',
   alternates: {
     canonical: 'https://taskguru.online/tools/image-compressor',
   },
   openGraph: {
-    title: 'Image Compressor - TaskGuru',
+    title: 'Free Online Image Compressor Tool | TaskGuru',
     description:
-      'Compress images online with our free AI-powered image compressor. Supports JPG, PNG, and WEBP. Fast and secure.',
+      'Compress images online using TaskGuru’s free AI-powered tool. Supports JPG, PNG, and WEBP formats. Reduce size without losing quality.',
     url: 'https://taskguru.online/tools/image-compressor',
     siteName: 'TaskGuru',
     images: [
       {
-        url: 'https://taskguru.online/og-image-compressor.jpg',
+        url: 'https://taskguru.online/assets/og-image-compressor.png',
         width: 1200,
         height: 630,
         alt: 'Free Image Compressor Tool',
@@ -52,14 +55,13 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Image Compressor - TaskGuru',
+    title: 'Free Online Image Compressor | TaskGuru',
     description:
-      'Free online image compressor to reduce size without losing quality. Works with JPG, PNG, WEBP formats.',
-    images: ['https://taskguru.online/og-image-compressor.jpg'],
+      'Reduce image file size instantly with TaskGuru’s free online image compressor. Works with JPG, PNG, WEBP formats.',
+    images: ['https://taskguru.online/assets/og-image-compressor.png'],
   },
 };
 
-// ✅ Actual Component
 export default function ImageCompressor() {
   const { toast } = useToast();
   const [originalImage, setOriginalImage] = useState<string | null>(null);
@@ -172,106 +174,168 @@ export default function ImageCompressor() {
   };
 
   return (
-    <Card className="w-full max-w-5xl mx-auto shadow-lg">
-      <CardContent className="p-6">
-        {!originalImage ? (
-          <div
-            className="flex flex-col items-center justify-center space-y-4 p-12 border-2 border-dashed rounded-lg cursor-pointer hover:border-primary transition-colors"
-            onClick={() => fileInputRef.current?.click()}
-          >
-            <div className="p-4 bg-secondary rounded-full">
-              <Upload className="w-10 h-10 text-muted-foreground" />
-            </div>
-            <div className="text-center">
-              <p className="font-semibold">Click to upload or drag and drop</p>
-              <p className="text-sm text-muted-foreground">PNG, JPG, WEBP</p>
-            </div>
-            <Input
-              ref={fileInputRef}
-              type="file"
-              className="hidden"
-              accept="image/png, image/jpeg, image/webp"
-              onChange={handleFileChange}
-            />
-          </div>
-        ) : (
-          <div className="space-y-6">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
-              <div className="space-y-4">
-                <h3 className="font-semibold text-lg text-center">Original Image</h3>
-                <div className="relative aspect-video w-full rounded-lg overflow-hidden border">
-                  <Image src={originalImage} alt="Original" fill className="object-contain" />
-                </div>
-                <p className="text-center text-sm font-medium">
-                  {formatBytes(originalFile?.size ?? 0)}
-                </p>
-              </div>
-              <div className="space-y-4">
-                <h3 className="font-semibold text-lg text-center">Compressed Image</h3>
-                <div className="relative aspect-video w-full rounded-lg overflow-hidden border bg-muted">
-                  {isLoading && (
-                    <div className="absolute inset-0 flex items-center justify-center flex-col gap-4 bg-background/80 z-10">
-                      <Loader2 className="w-12 h-12 animate-spin text-primary" />
-                      <p className="text-muted-foreground">Compressing...</p>
-                    </div>
-                  )}
-                  {compressedImage ? (
-                    <Image src={compressedImage} alt="Compressed" fill className="object-contain" />
-                  ) : (
-                    !isLoading && (
-                      <div className="flex items-center justify-center h-full text-muted-foreground">
-                        <ImageIcon className="w-16 h-16" />
-                      </div>
-                    )
-                  )}
-                </div>
-                <p className="text-center text-sm font-medium text-primary">
-                  {formatBytes(compressedSize)}
-                </p>
-              </div>
-            </div>
+    <div className="space-y-12">
+      {/* ✅ SEO H1 Heading */}
+      <h1 className="text-3xl font-bold text-center">
+        Free Online Image Compressor – Reduce JPG, PNG, WEBP File Size Instantly
+      </h1>
+      <p className="text-center text-muted-foreground max-w-2xl mx-auto">
+        TaskGuru’s AI-powered Image Compressor reduces file size while keeping your photos sharp.
+        Upload JPG, PNG, or WEBP images and download a lightweight version instantly. 100% Free – No signup required.
+      </p>
 
-            <div className="max-w-md mx-auto space-y-4 pt-4">
-              <div className="flex justify-between items-center">
-                <Label htmlFor="quality" className="font-semibold">
-                  Quality
-                </Label>
-                <span className="px-2 py-1 text-sm rounded-md bg-secondary text-secondary-foreground font-medium">
-                  {quality}%
-                </span>
+      {/* Main Tool */}
+      <Card className="w-full max-w-5xl mx-auto shadow-lg">
+        <CardContent className="p-6">
+          {!originalImage ? (
+            <div
+              className="flex flex-col items-center justify-center space-y-4 p-12 border-2 border-dashed rounded-lg cursor-pointer hover:border-primary transition-colors"
+              onClick={() => fileInputRef.current?.click()}
+            >
+              <div className="p-4 bg-secondary rounded-full">
+                <Upload className="w-10 h-10 text-muted-foreground" />
               </div>
-              <Slider
-                id="quality"
-                min={10}
-                max={100}
-                step={5}
-                value={[quality]}
-                onValueChange={(value) => setQuality(value[0])}
-                disabled={isLoading}
+              <div className="text-center">
+                <p className="font-semibold">Click to upload or drag and drop</p>
+                <p className="text-sm text-muted-foreground">PNG, JPG, WEBP</p>
+              </div>
+              <Input
+                ref={fileInputRef}
+                type="file"
+                className="hidden"
+                accept="image/png, image/jpeg, image/webp"
+                onChange={handleFileChange}
               />
             </div>
-          </div>
-        )}
-      </CardContent>
+          ) : (
+            <div className="space-y-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
+                <div className="space-y-4">
+                  <h3 className="font-semibold text-lg text-center">Original Image</h3>
+                  <div className="relative aspect-video w-full rounded-lg overflow-hidden border">
+                    <Image src={originalImage} alt="Original" fill className="object-contain" />
+                  </div>
+                  <p className="text-center text-sm font-medium">
+                    {formatBytes(originalFile?.size ?? 0)}
+                  </p>
+                </div>
+                <div className="space-y-4">
+                  <h3 className="font-semibold text-lg text-center">Compressed Image</h3>
+                  <div className="relative aspect-video w-full rounded-lg overflow-hidden border bg-muted">
+                    {isLoading && (
+                      <div className="absolute inset-0 flex items-center justify-center flex-col gap-4 bg-background/80 z-10">
+                        <Loader2 className="w-12 h-12 animate-spin text-primary" />
+                        <p className="text-muted-foreground">Compressing...</p>
+                      </div>
+                    )}
+                    {compressedImage ? (
+                      <Image src={compressedImage} alt="Compressed" fill className="object-contain" />
+                    ) : (
+                      !isLoading && (
+                        <div className="flex items-center justify-center h-full text-muted-foreground">
+                          <ImageIcon className="w-16 h-16" />
+                        </div>
+                      )
+                    )}
+                  </div>
+                  <p className="text-center text-sm font-medium text-primary">
+                    {formatBytes(compressedSize)}
+                  </p>
+                </div>
+              </div>
 
-      {originalImage && (
-        <CardFooter className="flex justify-center gap-4 bg-muted/50 p-4 border-t">
-          <Button variant="outline" onClick={handleReset} disabled={isLoading}>
-            <Trash2 className="mr-2 h-4 w-4" /> Reset
-          </Button>
-          <Button onClick={compressImage} disabled={isLoading}>
-            {isLoading ? (
-              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-            ) : (
-              <Wand2 className="mr-2 h-4 w-4" />
-            )}
-            Compress
-          </Button>
-          <Button onClick={handleDownload} disabled={!compressedImage || isLoading}>
-            <Download className="mr-2 h-4 w-4" /> Download
-          </Button>
-        </CardFooter>
-      )}
-    </Card>
+              <div className="max-w-md mx-auto space-y-4 pt-4">
+                <div className="flex justify-between items-center">
+                  <Label htmlFor="quality" className="font-semibold">
+                    Quality
+                  </Label>
+                  <span className="px-2 py-1 text-sm rounded-md bg-secondary text-secondary-foreground font-medium">
+                    {quality}%
+                  </span>
+                </div>
+                <Slider
+                  id="quality"
+                  min={10}
+                  max={100}
+                  step={5}
+                  value={[quality]}
+                  onValueChange={(value) => setQuality(value[0])}
+                  disabled={isLoading}
+                />
+              </div>
+            </div>
+          )}
+        </CardContent>
+
+        {originalImage && (
+          <CardFooter className="flex justify-center gap-4 bg-muted/50 p-4 border-t">
+            <Button variant="outline" onClick={handleReset} disabled={isLoading}>
+              <Trash2 className="mr-2 h-4 w-4" /> Reset
+            </Button>
+            <Button onClick={compressImage} disabled={isLoading}>
+              {isLoading ? (
+                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+              ) : (
+                <Wand2 className="mr-2 h-4 w-4" />
+              )}
+              Compress
+            </Button>
+            <Button onClick={handleDownload} disabled={!compressedImage || isLoading}>
+              <Download className="mr-2 h-4 w-4" /> Download
+            </Button>
+          </CardFooter>
+        )}
+      </Card>
+
+      {/* ✅ FAQ Section */}
+      <section className="max-w-4xl mx-auto px-4">
+        <h2 className="text-2xl font-bold mb-6 text-center">❓ Frequently Asked Questions</h2>
+        <FAQItem question="Is TaskGuru’s Image Compressor free to use?">
+          Yes! It’s 100% free and works directly in your browser.
+        </FAQItem>
+        <FAQItem question="Which file formats are supported?">
+          You can upload <strong>JPG, PNG, WEBP</strong> images.
+        </FAQItem>
+        <FAQItem question="Will compression reduce image quality?">
+          No, our tool uses smart compression to reduce size while keeping high quality.
+        </FAQItem>
+        <FAQItem question="Do I need to create an account?">
+          Nope! TaskGuru’s tool works without signup.
+        </FAQItem>
+        <FAQItem question="Can I adjust the compression level?">
+          Yes, you can control image quality from 10% to 100%.
+        </FAQItem>
+        <FAQItem question="Does it work on mobile devices?">
+          Absolutely! It works on desktop, tablet, and mobile.
+        </FAQItem>
+        <FAQItem question="Is it safe to compress my photos here?">
+          Yes. Processing happens in-browser, and your images are never stored on our servers.
+        </FAQItem>
+      </section>
+    </div>
+  );
+}
+
+// ✅ FAQ Accordion
+function FAQItem({ question, children }: { question: string; children: React.ReactNode }) {
+  const [open, setOpen] = useState(false);
+
+  return (
+    <div className="border-b py-4">
+      <button
+        onClick={() => setOpen(!open)}
+        className="flex justify-between items-center w-full text-left font-medium text-lg"
+      >
+        {question}
+        <ChevronDown className={`w-5 h-5 transition-transform ${open ? 'rotate-180' : ''}`} />
+      </button>
+      <div
+        className={`mt-2 text-muted-foreground transition-all duration-300 ease-in-out ${
+          open ? 'max-h-40 opacity-100' : 'max-h-0 opacity-0 overflow-hidden'
+        }`}
+      >
+        {children}
+      </div>
+    </div>
   );
 }
