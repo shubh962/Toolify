@@ -27,15 +27,37 @@ const nextConfig: NextConfig = {
     ],
   },
 
-  // ✅ Performance optimizations
-  compress: true,       // gzip & brotli
-  swcMinify: true,      // faster JS
-  experimental: {
-    optimizeCss: true,  // Next.js built-in CSS optimizer
+  // ✅ Redirect Vercel subdomain to main domain
+  async redirects() {
+    return [
+      {
+        source: "/:path*",
+        has: [
+          {
+            type: "host",
+            value: "toolify-liard.vercel.app", // <- Vercel subdomain
+          },
+        ],
+        destination: "https://taskguru.online/:path*", // <- Your main domain
+        permanent: true,
+      },
+    ];
   },
 
-  // ✅ Better SEO
-  poweredByHeader: false, // remove "X-Powered-By: Next.js"
+  // ✅ Force canonical hostname (for Next.js App Router SEO)
+  async headers() {
+    return [
+      {
+        source: "/:path*",
+        headers: [
+          {
+            key: "x-robots-tag",
+            value: "index, follow",
+          },
+        ],
+      },
+    ];
+  },
 };
 
 export default nextConfig;
