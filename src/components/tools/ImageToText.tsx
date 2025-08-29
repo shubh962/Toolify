@@ -3,96 +3,175 @@
 import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Loader2, Upload, Copy } from "lucide-react";
+import { Upload, Loader2 } from "lucide-react";
 
 export default function ImageToText() {
-  const [image, setImage] = useState<File | null>(null);
-  const [text, setText] = useState<string>("");
+  const [file, setFile] = useState<File | null>(null);
   const [loading, setLoading] = useState(false);
+  const [result, setResult] = useState<string>("");
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files && e.target.files[0]) {
-      setImage(e.target.files[0]);
+    if (e.target.files?.[0]) {
+      setFile(e.target.files[0]);
     }
   };
 
   const handleExtractText = async () => {
-    if (!image) return;
+    if (!file) return;
     setLoading(true);
 
-    // Simulate OCR process (replace with API call)
+    // Fake delay for demo – replace with real OCR API call later
     setTimeout(() => {
-      setText("This is the extracted text from your uploaded image.");
+      setResult("Extracted text will appear here. (Connect OCR API for real output)");
       setLoading(false);
-    }, 2000);
-  };
-
-  const handleCopy = () => {
-    navigator.clipboard.writeText(text);
-    alert("Text copied to clipboard ✅");
+    }, 1500);
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-gray-100 p-6">
-      {/* SEO + H1 */}
-      <h1 className="text-3xl font-bold text-center mb-8 text-gray-800">
-        Image to Text Converter (OCR Online)
-      </h1>
+    <div className="min-h-screen bg-gradient-to-b from-white to-gray-50 p-6">
+      {/* SEO */}
+      <head>
+        <title>Image to Text - Free Online OCR Tool | TaskGuru</title>
+        <meta
+          name="description"
+          content="Extract text from images instantly with TaskGuru's free Image to Text (OCR) tool. Upload an image and convert it to editable text online."
+        />
+        <link rel="canonical" href="https://www.taskguru.online/tools/image-to-text" />
+      </head>
 
-      <Card className="max-w-2xl mx-auto shadow-xl rounded-2xl border">
-        <CardHeader>
-          <CardTitle className="text-xl font-semibold text-gray-900">
-            Upload Image & Extract Text
-          </CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="space-y-6">
-            {/* Upload Section */}
-            <div className="flex flex-col items-center justify-center border-2 border-dashed border-gray-300 rounded-xl p-6 bg-white hover:border-blue-500 transition cursor-pointer">
-              <Upload className="w-10 h-10 text-gray-500 mb-3" />
-              <p className="text-gray-600 mb-2">Drag & Drop or Click to Upload</p>
+      {/* Main Content */}
+      <div className="max-w-3xl mx-auto">
+        <h1 className="text-3xl font-bold text-center mb-6 text-gray-800">
+          Image to Text (Free OCR Tool)
+        </h1>
+
+        <Card className="shadow-lg rounded-2xl border border-gray-200">
+          <CardHeader>
+            <CardTitle className="text-lg font-semibold text-gray-700">
+              Upload Image to Extract Text
+            </CardTitle>
+          </CardHeader>
+
+          <CardContent>
+            <div className="flex flex-col items-center gap-4">
               <input
                 type="file"
                 accept="image/*"
                 onChange={handleFileChange}
-                className="hidden"
-                id="fileInput"
+                className="border p-2 rounded-lg w-full"
               />
-              <label
-                htmlFor="fileInput"
-                className="cursor-pointer bg-blue-600 text-white px-4 py-2 rounded-lg text-sm hover:bg-blue-700 transition"
+
+              <Button
+                onClick={handleExtractText}
+                disabled={!file || loading}
+                className="flex items-center gap-2 px-6 py-2 rounded-lg"
               >
-                Choose File
-              </label>
-              {image && <p className="text-sm text-gray-500 mt-2">{image.name}</p>}
+                {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : <Upload className="w-4 h-4" />}
+                {loading ? "Extracting..." : "Extract Text"}
+              </Button>
+
+              {result && (
+                <div className="mt-4 w-full">
+                  <h2 className="text-lg font-medium text-gray-800 mb-2">Extracted Text:</h2>
+                  <textarea
+                    readOnly
+                    value={result}
+                    className="w-full p-3 border rounded-lg h-40 resize-none"
+                  />
+                </div>
+              )}
             </div>
+          </CardContent>
+        </Card>
+      </div>
+    </div>
+  );
+}"use client";
 
-            {/* Extract Button */}
-            <Button
-              onClick={handleExtractText}
-              disabled={!image || loading}
-              className="w-full flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700"
-            >
-              {loading ? <Loader2 className="animate-spin w-5 h-5" /> : "Extract Text"}
-            </Button>
+import { useState } from "react";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Upload, Loader2 } from "lucide-react";
 
-            {/* Extracted Text Output */}
-            {text && (
-              <div className="bg-gray-50 border rounded-lg p-4 shadow-inner relative">
-                <pre className="whitespace-pre-wrap text-gray-800">{text}</pre>
-                <Button
-                  onClick={handleCopy}
-                  size="sm"
-                  className="absolute top-2 right-2 flex items-center gap-1"
-                  variant="outline"
-                >
-                  <Copy className="w-4 h-4" /> Copy
-                </Button>
-              </div>
-            )}
-          </div>
-        </CardContent>
-      </Card>
+export default function ImageToText() {
+  const [file, setFile] = useState<File | null>(null);
+  const [loading, setLoading] = useState(false);
+  const [result, setResult] = useState<string>("");
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files?.[0]) {
+      setFile(e.target.files[0]);
+    }
+  };
+
+  const handleExtractText = async () => {
+    if (!file) return;
+    setLoading(true);
+
+    // Fake delay for demo – replace with real OCR API call later
+    setTimeout(() => {
+      setResult("Extracted text will appear here. (Connect OCR API for real output)");
+      setLoading(false);
+    }, 1500);
+  };
+
+  return (
+    <div className="min-h-screen bg-gradient-to-b from-white to-gray-50 p-6">
+      {/* SEO */}
+      <head>
+        <title>Image to Text - Free Online OCR Tool | TaskGuru</title>
+        <meta
+          name="description"
+          content="Extract text from images instantly with TaskGuru's free Image to Text (OCR) tool. Upload an image and convert it to editable text online."
+        />
+        <link rel="canonical" href="https://www.taskguru.online/tools/image-to-text" />
+      </head>
+
+      {/* Main Content */}
+      <div className="max-w-3xl mx-auto">
+        <h1 className="text-3xl font-bold text-center mb-6 text-gray-800">
+          Image to Text (Free OCR Tool)
+        </h1>
+
+        <Card className="shadow-lg rounded-2xl border border-gray-200">
+          <CardHeader>
+            <CardTitle className="text-lg font-semibold text-gray-700">
+              Upload Image to Extract Text
+            </CardTitle>
+          </CardHeader>
+
+          <CardContent>
+            <div className="flex flex-col items-center gap-4">
+              <input
+                type="file"
+                accept="image/*"
+                onChange={handleFileChange}
+                className="border p-2 rounded-lg w-full"
+              />
+
+              <Button
+                onClick={handleExtractText}
+                disabled={!file || loading}
+                className="flex items-center gap-2 px-6 py-2 rounded-lg"
+              >
+                {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : <Upload className="w-4 h-4" />}
+                {loading ? "Extracting..." : "Extract Text"}
+              </Button>
+
+              {result && (
+                <div className="mt-4 w-full">
+                  <h2 className="text-lg font-medium text-gray-800 mb-2">Extracted Text:</h2>
+                  <textarea
+                    readOnly
+                    value={result}
+                    className="w-full p-3 border rounded-lg h-40 resize-none"
+                  />
+                </div>
+              )}
+            </div>
+          </CardContent>
+        </Card>
+      </div>
     </div>
   );
 }
