@@ -98,7 +98,7 @@ export default function ImageToText() {
         <meta name="twitter:description" content="Free OCR tool to extract text from images online. How to convert image to text? Use TaskGuru now." />
         <meta name="twitter:image" content="https://www.taskguru.online/og-image-to-text.jpg" />
 
-        {/* JSON-LD FAQ Schema with question keywords */}
+        {/* JSON-LD FAQ Schema */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -144,11 +144,22 @@ export default function ImageToText() {
         />
       </Head>
 
+      {/* Intro Section */}
+      <section className="max-w-4xl mx-auto py-8 text-center space-y-4">
+        <h1 className="text-2xl font-bold">Free Image to Text Converter (OCR) Online</h1>
+        <p className="text-muted-foreground">
+          Convert images into editable text instantly with our free <strong>Image to Text Converter</strong>. 
+          Upload PNG, JPG, or WEBP files and extract text using powerful <strong>OCR (Optical Character Recognition)</strong> technology. 
+          No signup required — fast, accurate, and secure.
+        </p>
+      </section>
+
+      {/* OCR Tool */}
       <Card className="w-full max-w-4xl mx-auto shadow-lg">
         <CardContent className="p-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="flex flex-col space-y-4">
-              <h1 className="font-semibold text-xl text-center">Image to Text Converter Online Free</h1>
+              <h2 className="font-semibold text-xl text-center">Upload Image</h2>
               {image ? (
                 <div className="relative aspect-video w-full rounded-lg overflow-hidden border">
                   <Image src={image} alt="Uploaded for OCR" layout="fill" objectFit="contain" />
@@ -208,6 +219,73 @@ export default function ImageToText() {
           </CardFooter>
         )}
       </Card>
+
+      {/* Features Section */}
+      <section className="max-w-4xl mx-auto py-10 grid md:grid-cols-2 gap-8">
+        <div>
+          <h2 className="text-xl font-semibold">Why use TaskGuru Image to Text Converter?</h2>
+          <ul className="list-disc list-inside text-muted-foreground space-y-2 mt-4">
+            <li>✔ 100% Free online OCR tool</li>
+            <li>✔ Extract text from images (JPG, PNG, WEBP)</li>
+            <li>✔ Convert scanned photos into editable text</li>
+            <li>✔ Copy and download text easily</li>
+            <li>✔ Works on mobile & desktop</li>
+            <li>✔ No registration required</li>
+          </ul>
+        </div>
+        <div>
+          <h2 className="text-xl font-semibold">Supported Use Cases</h2>
+          <ul className="list-disc list-inside text-muted-foreground space-y-2 mt-4">
+            <li>📸 Extract notes from handwritten images</li>
+            <li>📄 Convert scanned documents into text</li>
+            <li>📚 Digitize books, receipts, or forms</li>
+            <li>🌐 Translate text after extraction</li>
+            <li>📧 Copy text directly into Word or Email</li>
+          </ul>
+        </div>
+      </section>
+
+      {/* How To Guide */}
+      <section className="max-w-4xl mx-auto py-10">
+        <h2 className="text-xl font-semibold text-center">How to Convert Image to Text Online?</h2>
+        <ol className="list-decimal list-inside text-muted-foreground space-y-2 mt-4">
+          <li>Upload your image (JPG, PNG, WEBP) by clicking the upload box.</li>
+          <li>Click on <strong>Extract Text</strong> to start OCR processing.</li>
+          <li>Copy or download the extracted text instantly.</li>
+        </ol>
+        <p className="mt-4 text-center">
+          That’s it! Your image is now converted into editable text for free.
+        </p>
+      </section>
+
+      {/* FAQ */}
+      <section className="max-w-4xl mx-auto py-10">
+        <h2 className="text-xl font-semibold text-center">Frequently Asked Questions (FAQ)</h2>
+        <div className="mt-4 space-y-4">
+          <details className="border rounded-lg p-4">
+            <summary className="font-semibold cursor-pointer">Is TaskGuru Image to Text Converter free?</summary>
+            <p className="text-muted-foreground mt-2">Yes, our tool is 100% free and requires no registration.</p>
+          </details>
+          <details className="border rounded-lg p-4">
+            <summary className="font-semibold cursor-pointer">Does it support scanned PDFs?</summary>
+            <p className="text-muted-foreground mt-2">Currently, we support JPG, PNG, and WEBP images. PDF OCR support will be added soon.</p>
+          </details>
+          <details className="border rounded-lg p-4">
+            <summary className="font-semibold cursor-pointer">Can I use it on mobile?</summary>
+            <p className="text-muted-foreground mt-2">Yes, TaskGuru OCR works seamlessly on both mobile and desktop devices.</p>
+          </details>
+        </div>
+      </section>
+
+      {/* Footer Links */}
+      <footer className="max-w-4xl mx-auto py-10 text-center text-muted-foreground">
+        <p>
+          Try our other free tools:{" "}
+          <a href="/tools/pdf-to-word" className="text-primary underline">PDF to Word Converter</a>,{" "}
+          <a href="/tools/text-summarizer" className="text-primary underline">Text Summarizer</a>,{" "}
+          <a href="/tools/word-counter" className="text-primary underline">Word Counter</a>.
+        </p>
+      </footer>
     </>
   );
 }
