@@ -10,35 +10,49 @@ import { Loader2, Upload, FileText, Download } from 'lucide-react';
 export default function PdfToWord() {
   const [file, setFile] = useState<File | null>(null);
   const [isConverting, setIsConverting] = useState(false);
-  const [converted, setConverted] = useState(false);
+  const [convertedFile, setConvertedFile] = useState<string | null>(null);
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files?.[0]) {
       setFile(e.target.files[0]);
-      setConverted(false);
+      setConvertedFile(null);
     }
   };
 
-  const handleConvert = () => {
+  // 🔥 Yaha tera original conversion logic hi chalega
+  const handleConvert = async () => {
     if (!file) return;
     setIsConverting(true);
-    setTimeout(() => {
+
+    try {
+      const formData = new FormData();
+      formData.append('file', file);
+
+      const response = await fetch('/api/pdf-to-word', {
+        method: 'POST',
+        body: formData,
+      });
+
+      if (!response.ok) throw new Error('Conversion failed');
+
+      const blob = await response.blob();
+      const url = URL.createObjectURL(blob);
+      setConvertedFile(url);
+    } catch (error) {
+      console.error(error);
+      alert('❌ Conversion failed. Please try again.');
+    } finally {
       setIsConverting(false);
-      setConverted(true);
-    }, 2000);
+    }
   };
 
   const handleDownload = () => {
-    // Temporary download (replace with backend-generated file)
-    const blob = new Blob(['Sample Word Content'], {
-      type: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
-    });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = 'converted.docx';
-    a.click();
-    URL.revokeObjectURL(url);
+    if (convertedFile) {
+      const a = document.createElement('a');
+      a.href = convertedFile;
+      a.download = 'converted.docx';
+      a.click();
+    }
   };
 
   return (
@@ -52,33 +66,23 @@ export default function PdfToWord() {
         />
         <meta
           name="keywords"
-          content="
-            pdf to word,
-            convert pdf online,
-            pdf to docx free,
-            online pdf converter,
-            pdf to word without watermark,
-            free pdf tools,
-            taskguru pdf to word converter"
+          content="pdf to word, convert pdf online, pdf to docx free, online pdf converter, pdf to word without watermark, best pdf to word converter, free pdf tools, taskguru pdf to word converter"
         />
         <link rel="canonical" href="https://taskguru.online/tools/pdf-to-word" />
       </Head>
 
-      {/* ✅ Hero Section */}
-      <section className="max-w-4xl mx-auto text-center py-10 space-y-4">
-        <h1 className="text-4xl font-bold tracking-tight">
-          Free PDF to Word Converter
-        </h1>
-        <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-          Convert your PDF documents into fully editable Word files instantly.  
-          <strong>No watermarks, no signup, 100% free.</strong>
+      {/* ✅ Intro Section */}
+      <section className="max-w-3xl mx-auto text-center my-10 space-y-4">
+        <h1 className="text-3xl sm:text-4xl font-bold">Free PDF to Word Converter Online</h1>
+        <p className="text-lg text-muted-foreground">
+          Convert your PDFs into fully editable Word documents instantly with TaskGuru’s 
+          <strong> PDF to Word Converter</strong>. No watermarks, no signup, 100% free.
         </p>
       </section>
 
       {/* ✅ Main Card */}
       <Card className="w-full max-w-3xl mx-auto shadow-xl border rounded-2xl">
         <CardContent className="p-8 text-center space-y-6">
-          {/* Upload Box */}
           <label
             htmlFor="file-upload"
             className="flex flex-col items-center justify-center w-full h-40 cursor-pointer border-2 border-dashed rounded-xl hover:bg-muted/30 transition"
@@ -96,7 +100,6 @@ export default function PdfToWord() {
             />
           </label>
 
-          {/* File Selected */}
           {file && (
             <div className="flex items-center justify-center gap-2 text-sm text-muted-foreground bg-muted/20 p-2 rounded-md">
               <FileText className="h-4 w-4" />
@@ -105,7 +108,6 @@ export default function PdfToWord() {
           )}
         </CardContent>
 
-        {/* Action Buttons */}
         <CardFooter className="flex flex-col sm:flex-row justify-center gap-4 bg-muted/50 border-t p-6">
           <Button
             size="lg"
@@ -121,7 +123,7 @@ export default function PdfToWord() {
             {isConverting ? 'Converting...' : 'Convert to Word'}
           </Button>
 
-          {converted && (
+          {convertedFile && (
             <Button
               size="lg"
               onClick={handleDownload}
@@ -163,64 +165,25 @@ export default function PdfToWord() {
         </ul>
       </section>
 
-      {/* ✅ Footer with internal links */}
+      {/* ✅ Footer Links */}
       <footer className="max-w-4xl mx-auto py-10 mt-12 text-center text-muted-foreground">
         <p>
           Explore more on{' '}
-          <a href="https://taskguru.online" className="text-primary underline">
-            TaskGuru
-          </a>
-          :{' '}
-          <a href="https://taskguru.online/blog" className="text-primary underline">
-            Blog
-          </a>{' '}
-          |{' '}
-          <a href="https://taskguru.online/about" className="text-primary underline">
-            About
-          </a>{' '}
-          |{' '}
-          <a href="https://taskguru.online/help" className="text-primary underline">
-            Help
-          </a>
+          <a href="https://taskguru.online" className="text-primary underline">TaskGuru</a>:{' '}
+          <a href="https://taskguru.online/blog" className="text-primary underline">Blog</a> |{' '}
+          <a href="https://taskguru.online/about" className="text-primary underline">About</a> |{' '}
+          <a href="https://taskguru.online/help" className="text-primary underline">Help</a>
         </p>
         <p className="mt-2">
           Try other free tools:{' '}
-          <a
-            href="https://taskguru.online/tools/text-paraphraser"
-            className="text-primary underline"
-          >
-            Text Paraphraser
-          </a>
-          ,{' '}
-          <a
-            href="https://taskguru.online/tools/image-compressor"
-            className="text-primary underline"
-          >
-            Image Compressor
-          </a>
-          ,{' '}
-          <a
-            href="https://taskguru.online/tools/background-remover"
-            className="text-primary underline"
-          >
-            Background Remover
-          </a>
-          ,{' '}
-          <a
-            href="https://taskguru.online/tools/merge-pdf"
-            className="text-primary underline"
-          >
-            Merge PDF
-          </a>
+          <a href="https://taskguru.online/tools/text-paraphraser" className="text-primary underline">Text Paraphraser</a>,{' '}
+          <a href="https://taskguru.online/tools/image-compressor" className="text-primary underline">Image Compressor</a>,{' '}
+          <a href="https://taskguru.online/tools/background-remover" className="text-primary underline">Background Remover</a>,{' '}
+          <a href="https://taskguru.online/tools/merge-pdf" className="text-primary underline">Merge PDF</a>
         </p>
         <p className="mt-4 text-xs">
-          <a href="https://taskguru.online/privacy-policy" className="underline">
-            Privacy Policy
-          </a>{' '}
-          |{' '}
-          <a href="https://taskguru.online/terms" className="underline">
-            Terms
-          </a>
+          <a href="https://taskguru.online/privacy-policy" className="underline">Privacy Policy</a> |{' '}
+          <a href="https://taskguru.online/terms" className="underline">Terms</a>
         </p>
       </footer>
     </>
