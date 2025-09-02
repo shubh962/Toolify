@@ -83,13 +83,13 @@ export default function ImageToText() {
           name="keywords"
           content="image to text, image to text converter online, extract text from image, OCR online, convert image to text, best image to text converter, free image to text tool, scan image to text, photo to text converter, picture to text online, how to convert image to text, what is OCR, extract text online free, text recognition from images"
         />
-        <link rel="canonical" href="https://www.taskguru.online/tools/image-to-text" />
+        <link rel="canonical" href="https://taskguru.online/tools/image-to-text" />
 
         {/* Open Graph */}
         <meta property="og:type" content="website" />
         <meta property="og:title" content="Free Image to Text Converter Online | TaskGuru" />
         <meta property="og:description" content="Extract text from images online free. Upload JPG, PNG, WEBP and convert into editable text instantly using OCR." />
-        <meta property="og:url" content="https://www.taskguru.online/tools/image-to-text" />
+        <meta property="og:url" content="https://taskguru.online/tools/image-to-text" />
         <meta property="og:image" content="https://www.taskguru.online/og-image-to-text.jpg" />
 
         {/* Twitter Card */}
@@ -277,13 +277,25 @@ export default function ImageToText() {
         </div>
       </section>
 
-      {/* Footer Links */}
+      {/* Footer Sitemap Links */}
       <footer className="max-w-4xl mx-auto py-10 text-center text-muted-foreground">
         <p>
-          Try our other free tools:{" "}
-          <a href="/tools/pdf-to-word" className="text-primary underline">PDF to Word Converter</a>,{" "}
-          <a href="/tools/text-summarizer" className="text-primary underline">Text Summarizer</a>,{" "}
-          <a href="/tools/word-counter" className="text-primary underline">Word Counter</a>.
+          Explore more on{" "}
+          <a href="https://taskguru.online" className="text-primary underline">TaskGuru</a>:{" "}
+          <a href="https://taskguru.online/blog" className="text-primary underline">Blog</a> |{" "}
+          <a href="https://taskguru.online/about" className="text-primary underline">About Us</a> |{" "}
+          <a href="https://taskguru.online/help" className="text-primary underline">Help</a>
+        </p>
+        <p className="mt-2">
+          Try our free tools:{" "}
+          <a href="https://taskguru.online/tools/background-remover" className="text-primary underline">Background Remover</a>,{" "}
+          <a href="https://taskguru.online/tools/text-paraphraser" className="text-primary underline">Text Paraphraser</a>,{" "}
+          <a href="https://taskguru.online/tools/pdf-to-word" className="text-primary underline">PDF to Word Converter</a>,{" "}
+          <a href="https://taskguru.online/tools/image-compressor" className="text-primary underline">Image Compressor</a>
+        </p>
+        <p className="mt-4 text-xs">
+          <a href="https://taskguru.online/privacy-policy" className="underline">Privacy Policy</a> |{" "}
+          <a href="https://taskguru.online/terms" className="underline">Terms of Service</a>
         </p>
       </footer>
     </>
