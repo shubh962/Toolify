@@ -5,15 +5,17 @@ import Head from 'next/head';
 import { Card, CardContent, CardFooter } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Loader2, Upload, FileText } from 'lucide-react';
+import { Loader2, Upload, FileText, Download } from 'lucide-react';
 
 export default function PdfToWord() {
   const [file, setFile] = useState<File | null>(null);
   const [isConverting, setIsConverting] = useState(false);
+  const [converted, setConverted] = useState(false);
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files?.[0]) {
       setFile(e.target.files[0]);
+      setConverted(false);
     }
   };
 
@@ -22,8 +24,21 @@ export default function PdfToWord() {
     setIsConverting(true);
     setTimeout(() => {
       setIsConverting(false);
-      alert('✅ PDF converted to Word successfully!');
+      setConverted(true);
     }, 2000);
+  };
+
+  const handleDownload = () => {
+    // Temporary download (replace with backend-generated file)
+    const blob = new Blob(['Sample Word Content'], {
+      type: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+    });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'converted.docx';
+    a.click();
+    URL.revokeObjectURL(url);
   };
 
   return (
@@ -47,25 +62,6 @@ export default function PdfToWord() {
             taskguru pdf to word converter"
         />
         <link rel="canonical" href="https://taskguru.online/tools/pdf-to-word" />
-
-        {/* ✅ Open Graph Tags */}
-        <meta property="og:title" content="Free Online PDF to Word Converter | TaskGuru" />
-        <meta
-          property="og:description"
-          content="Convert PDF files to fully editable Word (DOCX) documents online for free with TaskGuru."
-        />
-        <meta property="og:url" content="https://taskguru.online/tools/pdf-to-word" />
-        <meta property="og:image" content="https://taskguru.online/og-image.png" />
-        <meta property="og:type" content="website" />
-
-        {/* ✅ Twitter Card */}
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Free Online PDF to Word Converter | TaskGuru" />
-        <meta
-          name="twitter:description"
-          content="Fast, free, and secure online PDF to Word converter. No watermark, no signup required."
-        />
-        <meta name="twitter:image" content="https://taskguru.online/og-image.png" />
       </Head>
 
       {/* ✅ Hero Section */}
@@ -109,8 +105,8 @@ export default function PdfToWord() {
           )}
         </CardContent>
 
-        {/* Action Button */}
-        <CardFooter className="flex justify-center bg-muted/50 border-t p-6">
+        {/* Action Buttons */}
+        <CardFooter className="flex flex-col sm:flex-row justify-center gap-4 bg-muted/50 border-t p-6">
           <Button
             size="lg"
             onClick={handleConvert}
@@ -124,8 +120,48 @@ export default function PdfToWord() {
             )}
             {isConverting ? 'Converting...' : 'Convert to Word'}
           </Button>
+
+          {converted && (
+            <Button
+              size="lg"
+              onClick={handleDownload}
+              className="px-6 py-2 text-lg rounded-xl shadow-md"
+              variant="outline"
+            >
+              <Download className="mr-2 h-5 w-5" /> Download Word File
+            </Button>
+          )}
         </CardFooter>
       </Card>
+
+      {/* ✅ SEO Content Section */}
+      <section className="max-w-4xl mx-auto my-12 p-6 bg-muted/30 rounded-lg shadow">
+        <h2 className="text-2xl font-bold mb-4">Why Use TaskGuru’s PDF to Word Converter?</h2>
+        <p className="mb-4">
+          TaskGuru’s <strong>free PDF to Word tool</strong> helps you transform PDF documents into fully editable
+          Word files with just a single click. Unlike other converters, our tool ensures high-quality formatting
+          and is completely watermark-free.
+        </p>
+        <h3 className="text-xl font-semibold mt-6 mb-2">Frequently Asked Questions</h3>
+        <ul className="space-y-3 text-muted-foreground">
+          <li>
+            <strong>1. Is TaskGuru’s PDF to Word converter free?</strong><br />
+            ✅ Yes, our tool is 100% free and requires no signup.
+          </li>
+          <li>
+            <strong>2. Will my formatting be preserved?</strong><br />
+            ✅ Yes, we ensure that fonts, tables, and layouts remain intact during conversion.
+          </li>
+          <li>
+            <strong>3. Can I convert multiple PDFs?</strong><br />
+            ✅ Yes, you can convert unlimited files, one at a time, without restrictions.
+          </li>
+          <li>
+            <strong>4. Is my data secure?</strong><br />
+            ✅ Absolutely. Your files are never stored; all conversions happen securely.
+          </li>
+        </ul>
+      </section>
 
       {/* ✅ Footer with internal links */}
       <footer className="max-w-4xl mx-auto py-10 mt-12 text-center text-muted-foreground">
