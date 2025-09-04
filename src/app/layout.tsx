@@ -2,7 +2,13 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { Toaster } from "@/components/ui/toaster";
 import Header from "@/components/Header";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { AlertTriangle } from "lucide-react";
 import { Inter } from "next/font/google";
@@ -14,25 +20,26 @@ const inter = Inter({
   variable: "--font-inter",
 });
 
-// ✅ Global SEO Metadata
+// ✅ Global SEO Metadata (shortened & optimized)
 export const metadata: Metadata = {
-  title: "Toolify – Free Background Remover, Image Compressor, PDF to Word & More",
+  title: "Toolify – Free Online Tools for PDF, Images & Text",
   description:
-    "Use Toolify’s free online tools like Background Remover, Image Compressor, PDF to Word Converter, Text Paraphraser, and Image to Text Converter. 100% Free & No Login Required!",
+    "Free tools: Background Remover, Image Compressor, PDF to Word, Text Paraphraser & Image to Text. No login required.",
   keywords:
-    "free online tools, background remover, image compressor, compress jpg png, pdf to word, text paraphraser, image to text converter, Toolify, taskguru",
+    "free online tools, background remover, image compressor, pdf to word, text paraphraser, image to text, toolify, taskguru",
   robots: "index, follow",
-  metadataBase: new URL("https://taskguru.online"), // ✅ अब हर page का canonical dynamic बनेगा
+  metadataBase: new URL("https://taskguru.online"),
   alternates: {
-    canonical: "/", // ✅ '/' + metadataBase = full canonical url per page
+    canonical: "/",
+    languages: { en: "/" }, // ✅ hreflang
   },
   verification: {
     google: "XhRtp6rO2MNQX-BucHlUxVhNLbBPfdis_RzXY5ZodlU",
   },
   openGraph: {
-    title: "Toolify – Free Online Tools (Image Compressor, PDF Converter, Paraphraser)",
+    title: "Toolify – Free Online Tools",
     description:
-      "AI-powered tools like Background Remover, Image Compressor, PDF to Word Converter, Text Paraphraser & more – all free!",
+      "Free Background Remover, Compressor, PDF, Text Paraphraser & more.",
     url: "https://taskguru.online",
     siteName: "Toolify",
     images: [
@@ -40,7 +47,7 @@ export const metadata: Metadata = {
         url: "https://taskguru.online/og-image.png",
         width: 1200,
         height: 630,
-        alt: "Toolify – Free Online Tools Banner",
+        alt: "Toolify – Free Online Tools",
       },
     ],
     locale: "en_US",
@@ -49,20 +56,20 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Toolify – Free Online Tools",
-    description: "Free online tools like Background Remover, Image Compressor, PDF to Word & more.",
+    description:
+      "Free Background Remover, Compressor, PDF tools, Paraphraser & more.",
     images: ["https://taskguru.online/og-image.png"],
+    creator: "@YourHandle",
   },
 };
 
 export default function RootLayout({
   children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+}: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en" className={`${inter.variable} dark`}>
       <head>
-        {/* ✅ JSON-LD Structured Data for Google Rich Results */}
+        {/* ✅ JSON-LD Structured Data */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -86,7 +93,7 @@ export default function RootLayout({
           }}
         />
 
-        {/* ✅ Google Analytics Script */}
+        {/* ✅ Google Analytics */}
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-XE6BHLH4J6"
           strategy="afterInteractive"
@@ -101,8 +108,8 @@ export default function RootLayout({
         </Script>
       </head>
       <body className="font-body antialiased min-h-screen flex flex-col">
-        {/* ✅ Interstitial Ad Script */}
-        <Script id="interstitial-ad" strategy="afterInteractive">
+        {/* ✅ Interstitial Ad Script (lazy loaded) */}
+        <Script id="interstitial-ad" strategy="lazyOnload">
           {`(function(d,z,s){
               s.src='https://'+d+'/401/'+z;
               try{(document.body||document.documentElement).appendChild(s)}catch(e){}
@@ -116,7 +123,7 @@ export default function RootLayout({
         <main className="flex-1">{children}</main>
         <Toaster />
 
-        {/* ✅ Footer with Accessibility Fixes */}
+        {/* ✅ Footer with Accessibility & Social */}
         <footer className="py-6 text-center text-gray-700">
           <div className="container mx-auto px-6">
             <div className="flex flex-col sm:flex-row justify-center items-center gap-2 sm:gap-4">
@@ -133,7 +140,9 @@ export default function RootLayout({
                 </DialogTrigger>
                 <DialogContent className="max-w-3xl max-h-[90vh] overflow-y-auto">
                   <DialogHeader>
-                    <DialogTitle className="text-2xl text-center mb-4">About Toolify</DialogTitle>
+                    <DialogTitle className="text-2xl text-center mb-4">
+                      About Toolify
+                    </DialogTitle>
                   </DialogHeader>
                   <div className="space-y-6">
                     <Card className="shadow-lg border">
@@ -142,13 +151,15 @@ export default function RootLayout({
                       </CardHeader>
                       <CardContent className="space-y-3 text-sm text-muted-foreground">
                         <p>
-                          <strong>Toolify</strong> is a digital platform crafted to simplify your daily online tasks with
-                          smart, reliable, and user-friendly tools. Founded by <strong>Shubham Gautam</strong>.
+                          <strong>Toolify</strong> is a digital platform crafted
+                          to simplify your daily online tasks with smart,
+                          reliable, and user-friendly tools. Founded by{" "}
+                          <strong>Shubham Gautam</strong>.
                         </p>
                         <p>
-                          We believe in delivering seamless experiences, respecting user privacy, and constantly evolving
-                          to serve better. Whether you're optimizing productivity or exploring new utilities, Toolify is
-                          here for you.
+                          We believe in delivering seamless experiences,
+                          respecting user privacy, and constantly evolving to
+                          serve better.
                         </p>
                         <p className="pt-3 text-center font-semibold text-base text-foreground/90 italic">
                           Toolify – Simple Tools. Smarter Life.
@@ -167,17 +178,66 @@ export default function RootLayout({
                           <strong>© 2025 Toolify. All rights reserved.</strong>
                         </p>
                         <p>
-                          Unauthorized reproduction, redistribution, or modification of any part of this website, its
-                          tools, content, or code is strictly prohibited and may result in legal action.
+                          Unauthorized reproduction, redistribution, or
+                          modification of any part of this website, its tools,
+                          content, or code is strictly prohibited.
                         </p>
-                        <p>Toolify, its logo, and related services are intellectual property of Shubham Gautam.</p>
+                        <p>
+                          Toolify, its logo, and related services are
+                          intellectual property of Shubham Gautam.
+                        </p>
                       </CardContent>
                     </Card>
                   </div>
                 </DialogContent>
               </Dialog>
             </div>
-            <p className="mt-4 text-xs">© 2025 Toolify — All Rights Reserved</p>
+
+            {/* ✅ Social links for SEO */}
+            <nav
+              className="mt-4 flex gap-4 justify-center text-sm"
+              aria-label="Social links"
+            >
+              <a
+                href="https://www.facebook.com/yourpage"
+                target="_blank"
+                rel="noopener"
+              >
+                Facebook
+              </a>
+              <a
+                href="https://x.com/yourhandle"
+                target="_blank"
+                rel="noopener"
+              >
+                X
+              </a>
+              <a
+                href="https://www.instagram.com/yourhandle"
+                target="_blank"
+                rel="noopener"
+              >
+                Instagram
+              </a>
+              <a
+                href="https://www.linkedin.com/company/yourcompany"
+                target="_blank"
+                rel="noopener"
+              >
+                LinkedIn
+              </a>
+              <a
+                href="https://www.youtube.com/@yourchannel"
+                target="_blank"
+                rel="noopener"
+              >
+                YouTube
+              </a>
+            </nav>
+
+            <p className="mt-4 text-xs">
+              © 2025 Toolify — All Rights Reserved
+            </p>
           </div>
         </footer>
       </body>
