@@ -199,14 +199,14 @@ export default function RootLayout({
               aria-label="Social links"
             >
               <a
-                href="https://www.facebook.com/yourpage"
+                href="https://www.facebook.com/share/1K97T5Q5wp/"
                 target="_blank"
                 rel="noopener"
               >
                 Facebook
               </a>
               <a
-                href="https://x.com/yourhandle"
+                href="https://x.com/Shubham_962?t=SvZlxFtavmlWZSp2o4H-bA&s=09"
                 target="_blank"
                 rel="noopener"
               >
@@ -220,14 +220,14 @@ export default function RootLayout({
                 Instagram
               </a>
               <a
-                href="https://www.linkedin.com/company/yourcompany"
+                href="https://www.linkedin.com/in/Shubh962"
                 target="_blank"
                 rel="noopener"
               >
                 LinkedIn
               </a>
               <a
-                href="https://www.youtube.com/@yourchannel"
+                href="https://youtube.com/@factfusions0-x4k?si=dmeUAuYn7I9TxRgy"
                 target="_blank"
                 rel="noopener"
               >
