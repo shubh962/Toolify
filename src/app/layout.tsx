@@ -213,7 +213,7 @@ export default function RootLayout({
                 X
               </a>
               <a
-                href="https://www.instagram.com/yourhandle"
+                href="https://www.instagram.com/fact_fusion_s?igsh=a29wZG5uaXpscTlw"
                 target="_blank"
                 rel="noopener"
               >
