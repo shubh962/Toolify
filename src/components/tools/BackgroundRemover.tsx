@@ -1,6 +1,7 @@
 'use client';
 import { useState, useRef } from 'react';
 import Image from 'next/image';
+import Script from 'next/script';
 import type { Metadata } from 'next';
 import { Card, CardContent, CardFooter } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -14,18 +15,6 @@ export const metadata: Metadata = {
   title: 'Free Online Background Remover Tool | TaskGuru',
   description:
     "Remove image backgrounds instantly with TaskGuru's free online background remover. Upload JPG, PNG, WEBP and download transparent images in seconds. 100% Free AI-powered background eraser.",
-  keywords: [
-    'free online background remover',
-    'remove background from image',
-    'AI background remover',
-    'transparent background maker',
-    'remove bg online',
-    'image background remover tool',
-    'jpg png webp background remover',
-    'free background eraser',
-    'online photo background remover',
-    'TaskGuru background remover'
-  ],
   robots: 'index, follow',
   alternates: {
     canonical: 'https://taskguru.online/tools/background-remover',
@@ -41,7 +30,7 @@ export const metadata: Metadata = {
         url: 'https://taskguru.online/assets/bg-remover-og.png',
         width: 1200,
         height: 630,
-        alt: 'Background Remover Tool',
+        alt: 'Background Remover Tool | TaskGuru',
       },
     ],
     type: 'website',
@@ -113,8 +102,36 @@ export default function BackgroundRemover() {
     if (fileInputRef.current) fileInputRef.current.value = '';
   };
 
+  const toolSchema = {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    name: "Free Online Background Remover Tool | TaskGuru",
+    applicationCategory: "Multimedia",
+    operatingSystem: "Any",
+    url: "https://taskguru.online/tools/background-remover",
+    description:
+      "Remove backgrounds from images instantly with TaskGuru’s AI-powered background remover. Upload JPG, PNG, WEBP and download transparent PNG.",
+    offers: {
+      "@type": "Offer",
+      price: "0",
+      priceCurrency: "USD",
+    },
+    publisher: {
+      "@type": "Organization",
+      name: "TaskGuru",
+      url: "https://taskguru.online",
+    },
+  };
+
   return (
     <div className="space-y-12">
+      {/* ✅ JSON-LD Schema */}
+      <Script
+        id="background-remover-schema"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(toolSchema) }}
+      />
+
       {/* Intro */}
       <section className="max-w-4xl mx-auto py-6 text-center space-y-4">
         <h1 className="text-3xl font-bold">Free Online Background Remover – Erase Image Backgrounds Instantly</h1>
@@ -128,22 +145,30 @@ export default function BackgroundRemover() {
       <Card className="w-full max-w-4xl mx-auto shadow-lg">
         <CardContent className="p-6">
           {!originalImage ? (
-            <div className="flex flex-col items-center justify-center space-y-4 p-12 border-2 border-dashed rounded-lg cursor-pointer hover:border-primary"
-              onClick={() => fileInputRef.current?.click()}>
+            <div
+              className="flex flex-col items-center justify-center space-y-4 p-12 border-2 border-dashed rounded-lg cursor-pointer hover:border-primary"
+              onClick={() => fileInputRef.current?.click()}
+              aria-label="Upload image to remove background"
+            >
               <div className="p-4 bg-secondary rounded-full">
-                <Upload className="w-10 h-10 text-muted-foreground" />
+                <Upload className="w-10 h-10 text-muted-foreground" aria-hidden="true" />
               </div>
               <p className="font-semibold">Click to upload or drag and drop</p>
               <p className="text-sm text-muted-foreground">PNG, JPG, WEBP (Max 4MB)</p>
-              <Input ref={fileInputRef} type="file" className="hidden"
-                accept="image/png, image/jpeg, image/webp" onChange={handleFileChange} />
+              <Input
+                ref={fileInputRef}
+                type="file"
+                className="hidden"
+                accept="image/png, image/jpeg, image/webp"
+                onChange={handleFileChange}
+              />
             </div>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
                 <h3 className="text-lg font-semibold text-center">Original</h3>
                 <div className="relative aspect-square border rounded-lg overflow-hidden">
-                  <Image src={originalImage} alt="Original image" fill className="object-contain" />
+                  <Image src={originalImage} alt="Uploaded original image" fill className="object-contain" />
                 </div>
               </div>
               <div>
@@ -151,8 +176,10 @@ export default function BackgroundRemover() {
                 <div className="relative aspect-square border rounded-lg bg-muted overflow-hidden">
                   {isLoading && <Loader2 className="w-12 h-12 animate-spin absolute inset-0 m-auto text-primary" />}
                   {processedImage ? (
-                    <Image src={processedImage} alt="Background removed" fill className="object-contain" />
-                  ) : !isLoading && <ImageIcon className="w-16 h-16 m-auto text-muted-foreground" />}
+                    <Image src={processedImage} alt="Background removed result image" fill className="object-contain" />
+                  ) : (
+                    !isLoading && <ImageIcon className="w-16 h-16 m-auto text-muted-foreground" aria-hidden="true" />
+                  )}
                 </div>
               </div>
             </div>
@@ -160,12 +187,20 @@ export default function BackgroundRemover() {
         </CardContent>
         {originalImage && (
           <CardFooter className="flex justify-center gap-4 bg-muted/50 border-t p-4">
-            <Button variant="outline" onClick={handleReset}><Trash2 className="mr-2 h-4 w-4" /> Reset</Button>
-            <Button onClick={handleSubmit} disabled={isLoading || !!processedImage}>
-              {isLoading ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Sparkles className="mr-2 h-4 w-4" />}
+            <Button variant="outline" onClick={handleReset} aria-label="Reset uploaded image">
+              <Trash2 className="mr-2 h-4 w-4" /> Reset
+            </Button>
+            <Button onClick={handleSubmit} disabled={isLoading || !!processedImage} aria-label="Remove background">
+              {isLoading ? (
+                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+              ) : (
+                <Sparkles className="mr-2 h-4 w-4" />
+              )}
               Remove Background
             </Button>
-            <Button onClick={handleDownload} disabled={!processedImage || isLoading}><Download className="mr-2 h-4 w-4" /> Download</Button>
+            <Button onClick={handleDownload} disabled={!processedImage || isLoading} aria-label="Download processed image">
+              <Download className="mr-2 h-4 w-4" /> Download
+            </Button>
           </CardFooter>
         )}
       </Card>
@@ -206,32 +241,19 @@ export default function BackgroundRemover() {
       {/* FAQ */}
       <section className="max-w-4xl mx-auto px-4">
         <h2 className="text-2xl font-bold mb-6 text-center">❓ Frequently Asked Questions</h2>
-        <FAQItem question="Is TaskGuru’s Background Remover free?">Yes, 100% free and no signup required.</FAQItem>
-        <FAQItem question="Which file formats are supported?">JPG, PNG, and WEBP images up to 4MB.</FAQItem>
-        <FAQItem question="Can I use it on mobile?">Yes, works on desktop, tablet, and mobile browsers.</FAQItem>
-        <FAQItem question="Does it reduce quality?">No, it keeps high image quality with transparent background.</FAQItem>
+        <FAQItem question="Is TaskGuru’s Background Remover free?">
+          Yes, 100% free and no signup required.
+        </FAQItem>
+        <FAQItem question="Which file formats are supported?">
+          JPG, PNG, and WEBP images up to 4MB.
+        </FAQItem>
+        <FAQItem question="Can I use it on mobile?">
+          Yes, works on desktop, tablet, and mobile browsers.
+        </FAQItem>
+        <FAQItem question="Does it reduce quality?">
+          No, it keeps high image quality with transparent background.
+        </FAQItem>
       </section>
-
-      {/* Footer */}
-      <footer className="max-w-4xl mx-auto py-10 text-center text-muted-foreground">
-        <p>
-          Explore more on <a href="https://taskguru.online" className="text-primary underline">TaskGuru</a>:{" "}
-          <a href="https://taskguru.online/blog" className="text-primary underline">Blog</a> |{" "}
-          <a href="https://taskguru.online/about" className="text-primary underline">About</a> |{" "}
-          <a href="https://taskguru.online/help" className="text-primary underline">Help</a>
-        </p>
-        <p className="mt-2">
-          Try other free tools:{" "}
-          <a href="https://taskguru.online/tools/image-to-text" className="text-primary underline">Image to Text</a>,{" "}
-          <a href="https://taskguru.online/tools/text-paraphraser" className="text-primary underline">Text Paraphraser</a>,{" "}
-          <a href="https://taskguru.online/tools/pdf-to-word" className="text-primary underline">PDF to Word</a>,{" "}
-          <a href="https://taskguru.online/tools/image-compressor" className="text-primary underline">Image Compressor</a>
-        </p>
-        <p className="mt-4 text-xs">
-          <a href="https://taskguru.online/privacy-policy" className="underline">Privacy Policy</a> |{" "}
-          <a href="https://taskguru.online/terms" className="underline">Terms</a>
-        </p>
-      </footer>
     </div>
   );
 }
@@ -248,11 +270,19 @@ function FAQItem({ question, children }: { question: string; children: React.Rea
   const [open, setOpen] = useState(false);
   return (
     <div className="border-b py-4">
-      <button onClick={() => setOpen(!open)} className="flex justify-between items-center w-full text-left font-medium text-lg">
+      <button
+        onClick={() => setOpen(!open)}
+        className="flex justify-between items-center w-full text-left font-medium text-lg"
+        aria-expanded={open}
+        aria-controls={question.replace(/\s+/g, "-").toLowerCase()}
+      >
         {question}
         <ChevronDown className={`w-5 h-5 transition-transform ${open ? 'rotate-180' : ''}`} />
       </button>
-      <div className={`mt-2 text-muted-foreground transition-all ${open ? 'max-h-40 opacity-100' : 'max-h-0 opacity-0 overflow-hidden'}`}>
+      <div
+        id={question.replace(/\s+/g, "-").toLowerCase()}
+        className={`mt-2 text-muted-foreground transition-all ${open ? 'max-h-40 opacity-100' : 'max-h-0 opacity-0 overflow-hidden'}`}
+      >
         {children}
       </div>
     </div>
