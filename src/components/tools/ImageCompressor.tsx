@@ -5,8 +5,6 @@ import type { Metadata } from 'next';
 import { Card, CardContent, CardFooter } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Slider } from '@/components/ui/slider';
 import { useToast } from '@/hooks/use-toast';
 import { Upload, Download, Loader2, Image as ImageIcon, Trash2, ChevronDown } from 'lucide-react';
 import { handleImageCompression } from '@/app/actions';
@@ -15,7 +13,18 @@ import { handleImageCompression } from '@/app/actions';
 export const metadata: Metadata = {
   title: 'Free Online Image Compressor Tool | TaskGuru',
   description:
-    "Compress images (JPG, PNG, WEBP) online for free with TaskGuru's AI-powered image compressor. Reduce image size up to 80% without losing quality. Fast & secure.",
+    "Compress JPG, PNG, and WEBP images online with TaskGuru's free image compressor. Reduce size up to 80% without losing quality. Fast, secure, and 100% free.",
+  keywords: [
+    'free image compressor',
+    'compress jpg online',
+    'compress png online',
+    'compress webp online',
+    'reduce image size',
+    'online image optimizer',
+    'TaskGuru image compressor',
+    'shrink image online',
+    'best image compression tool'
+  ],
   robots: 'index, follow',
   alternates: {
     canonical: 'https://taskguru.online/tools/image-compressor',
@@ -23,7 +32,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Free Online Image Compressor Tool | TaskGuru',
     description:
-      'Optimize and compress images instantly with TaskGuru’s free AI-powered tool. Upload JPG, PNG, WEBP and reduce file size without quality loss.',
+      'Compress JPG, PNG, WEBP images instantly using TaskGuru’s free AI-powered image compressor. Reduce file size up to 80% without losing quality.',
     url: 'https://taskguru.online/tools/image-compressor',
     siteName: 'TaskGuru',
     images: [
@@ -31,7 +40,7 @@ export const metadata: Metadata = {
         url: 'https://taskguru.online/assets/image-compressor-og.png',
         width: 1200,
         height: 630,
-        alt: 'TaskGuru Image Compressor Tool',
+        alt: 'Image Compressor Tool',
       },
     ],
     type: 'website',
@@ -40,7 +49,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Free Online Image Compressor | TaskGuru',
     description:
-      'Compress images online instantly with TaskGuru’s free AI-powered tool. Reduce JPG, PNG, WEBP file size up to 80% without quality loss.',
+      'Compress images online instantly with TaskGuru’s free tool. Supports JPG, PNG, WEBP with up to 80% size reduction.',
     images: ['https://taskguru.online/assets/image-compressor-og.png'],
   },
 };
@@ -50,14 +59,14 @@ export default function ImageCompressor() {
   const [originalImage, setOriginalImage] = useState<string | null>(null);
   const [compressedImage, setCompressedImage] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
-  const [quality, setQuality] = useState<number>(80);
+  const [quality, setQuality] = useState(80); // slider quality %
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
-      if (file.size > 4 * 1024 * 1024) {
-        toast({ title: 'File too large', description: 'Max 4MB allowed.', variant: 'destructive' });
+      if (file.size > 5 * 1024 * 1024) {
+        toast({ title: 'File too large', description: 'Max 5MB allowed.', variant: 'destructive' });
         return;
       }
       const reader = new FileReader();
@@ -76,7 +85,8 @@ export default function ImageCompressor() {
     }
     setIsLoading(true);
     setCompressedImage(null);
-    const result = await handleImageCompression(originalImage, quality);
+
+    const result = await handleImageCompression(originalImage, quality); // 👈 original function intact
     setIsLoading(false);
 
     if (result.success && result.data?.compressedDataUri) {
@@ -101,7 +111,6 @@ export default function ImageCompressor() {
     setOriginalImage(null);
     setCompressedImage(null);
     setIsLoading(false);
-    setQuality(80);
     if (fileInputRef.current) fileInputRef.current.value = '';
   };
 
@@ -109,41 +118,33 @@ export default function ImageCompressor() {
     <div className="space-y-12">
       {/* Intro */}
       <section className="max-w-4xl mx-auto py-6 text-center space-y-4">
-        <h1 className="text-3xl font-bold">Free Online Image Compressor – Reduce File Size Without Losing Quality</h1>
+        <h1 className="text-3xl font-bold">Free Online Image Compressor – Reduce Size Without Losing Quality</h1>
         <p className="text-muted-foreground">
-          TaskGuru’s <strong>AI Image Compressor</strong> reduces file size for JPG, PNG, and WEBP images by up to 80% while keeping sharp quality.
-          Upload, select compression quality, and download in seconds – free and secure.
+          TaskGuru’s <strong>Image Compressor</strong> helps you shrink JPG, PNG, and WEBP images online. 
+          Reduce file size up to <strong>80%</strong> while keeping high-quality resolution. No signup required.
         </p>
       </section>
 
       {/* Main Tool */}
       <Card className="w-full max-w-4xl mx-auto shadow-lg">
-        <CardContent className="p-6 space-y-6">
+        <CardContent className="p-6">
           {!originalImage ? (
-            <label
-              htmlFor="file-upload"
-              className="flex flex-col items-center justify-center space-y-4 p-12 border-2 border-dashed rounded-lg cursor-pointer hover:border-primary"
-            >
+            <div className="flex flex-col items-center justify-center space-y-4 p-12 border-2 border-dashed rounded-lg cursor-pointer hover:border-primary"
+              onClick={() => fileInputRef.current?.click()}>
               <div className="p-4 bg-secondary rounded-full">
                 <Upload className="w-10 h-10 text-muted-foreground" />
               </div>
               <p className="font-semibold">Click to upload or drag and drop</p>
-              <p className="text-sm text-muted-foreground">PNG, JPG, WEBP (Max 4MB)</p>
-              <Input
-                id="file-upload"
-                ref={fileInputRef}
-                type="file"
-                className="hidden"
-                accept="image/png, image/jpeg, image/webp"
-                onChange={handleFileChange}
-              />
-            </label>
+              <p className="text-sm text-muted-foreground">PNG, JPG, WEBP (Max 5MB)</p>
+              <Input ref={fileInputRef} type="file" className="hidden"
+                accept="image/png, image/jpeg, image/webp" onChange={handleFileChange} />
+            </div>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
                 <h3 className="text-lg font-semibold text-center">Original</h3>
                 <div className="relative aspect-square border rounded-lg overflow-hidden">
-                  <Image src={originalImage} alt="Original uploaded image before compression" fill className="object-contain" />
+                  <Image src={originalImage} alt="Original image" fill className="object-contain" />
                 </div>
               </div>
               <div>
@@ -151,7 +152,7 @@ export default function ImageCompressor() {
                 <div className="relative aspect-square border rounded-lg bg-muted overflow-hidden">
                   {isLoading && <Loader2 className="w-12 h-12 animate-spin absolute inset-0 m-auto text-primary" />}
                   {compressedImage ? (
-                    <Image src={compressedImage} alt="Compressed image optimized with TaskGuru" fill className="object-contain" />
+                    <Image src={compressedImage} alt="Compressed image" fill className="object-contain" />
                   ) : !isLoading && <ImageIcon className="w-16 h-16 m-auto text-muted-foreground" />}
                 </div>
               </div>
@@ -159,33 +160,32 @@ export default function ImageCompressor() {
           )}
         </CardContent>
 
-        {/* ✅ Slider */}
         {originalImage && (
-          <div className="max-w-md mx-auto space-y-4 px-6 pb-6">
-            <div className="flex justify-between">
-              <Label htmlFor="quality" className="font-semibold">Quality</Label>
-              <span className="text-sm bg-secondary px-2 rounded">{quality}%</span>
+          <CardFooter className="flex flex-col gap-4 bg-muted/50 border-t p-4">
+            {/* Quality Slider */}
+            <div className="w-full">
+              <label htmlFor="quality" className="block text-sm font-medium mb-2">Compression Quality: {quality}%</label>
+              <input
+                id="quality"
+                type="range"
+                min="10"
+                max="100"
+                step="5"
+                value={quality}
+                onChange={(e) => setQuality(Number(e.target.value))}
+                className="w-full accent-primary"
+              />
             </div>
-            <Slider
-              id="quality"
-              min={10}
-              max={100}
-              step={5}
-              value={[quality]}
-              onValueChange={(v) => setQuality(v[0])}
-              disabled={isLoading}
-            />
-          </div>
-        )}
 
-        {originalImage && (
-          <CardFooter className="flex justify-center gap-4 bg-muted/50 border-t p-4">
-            <Button variant="outline" onClick={handleReset}><Trash2 className="mr-2 h-4 w-4" /> Reset</Button>
-            <Button onClick={handleSubmit} disabled={isLoading || !!compressedImage}>
-              {isLoading ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Sparkles className="mr-2 h-4 w-4" />}
-              Compress Image
-            </Button>
-            <Button onClick={handleDownload} disabled={!compressedImage || isLoading}><Download className="mr-2 h-4 w-4" /> Download</Button>
+            {/* Action Buttons */}
+            <div className="flex justify-center gap-4 flex-wrap">
+              <Button variant="outline" onClick={handleReset}><Trash2 className="mr-2 h-4 w-4" /> Reset</Button>
+              <Button onClick={handleSubmit} disabled={isLoading || !!compressedImage}>
+                {isLoading ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Sparkles className="mr-2 h-4 w-4" />}
+                Compress Image
+              </Button>
+              <Button onClick={handleDownload} disabled={!compressedImage || isLoading}><Download className="mr-2 h-4 w-4" /> Download</Button>
+            </div>
           </CardFooter>
         )}
       </Card>
@@ -195,20 +195,20 @@ export default function ImageCompressor() {
         <div>
           <h2 className="text-xl font-semibold">Why Use TaskGuru Image Compressor?</h2>
           <ul className="list-disc list-inside text-muted-foreground space-y-2 mt-4">
-            <li>✔ 100% Free online image compressor</li>
-            <li>✔ AI-powered compression for high-quality results</li>
+            <li>✔ Free online image compressor</li>
+            <li>✔ Reduces file size up to 80%</li>
             <li>✔ Supports JPG, PNG, WEBP formats</li>
-            <li>✔ No signup or software install needed</li>
+            <li>✔ No signup or installation needed</li>
             <li>✔ Works on desktop & mobile</li>
           </ul>
         </div>
         <div>
           <h2 className="text-xl font-semibold">Common Use Cases</h2>
           <ul className="list-disc list-inside text-muted-foreground space-y-2 mt-4">
-            <li>🛍 Optimize product images for eCommerce</li>
-            <li>👤 Reduce image size for profile pictures & resumes</li>
-            <li>🎨 Prepare images for web & graphic design</li>
-            <li>📸 Faster uploads for social media & sharing</li>
+            <li>🛍 Optimize product photos for e-commerce</li>
+            <li>🌐 Speed up websites with lighter images</li>
+            <li>📤 Upload faster to social media & emails</li>
+            <li>📸 Save storage space on your device</li>
           </ul>
         </div>
       </section>
@@ -217,20 +217,20 @@ export default function ImageCompressor() {
       <section className="max-w-4xl mx-auto py-10">
         <h2 className="text-xl font-semibold text-center">How to Compress Images Online?</h2>
         <ol className="list-decimal list-inside text-muted-foreground space-y-2 mt-4">
-          <li>Upload your image (JPG, PNG, WEBP).</li>
-          <li>Select desired quality with the slider.</li>
-          <li>Click <strong>Compress Image</strong> to start optimization.</li>
-          <li>Download your smaller file instantly.</li>
+          <li>Upload your image (JPG, PNG, WEBP up to 5MB).</li>
+          <li>Adjust the <strong>compression quality</strong> slider.</li>
+          <li>Click <strong>Compress Image</strong> to start processing.</li>
+          <li>Download your optimized image instantly.</li>
         </ol>
       </section>
 
       {/* FAQ */}
       <section className="max-w-4xl mx-auto px-4">
         <h2 className="text-2xl font-bold mb-6 text-center">❓ Frequently Asked Questions</h2>
-        <FAQItem question="Is TaskGuru’s Image Compressor free?">Yes, 100% free and no signup required.</FAQItem>
-        <FAQItem question="Which file formats are supported?">JPG, PNG, and WEBP images up to 4MB.</FAQItem>
-        <FAQItem question="Can I use it on mobile?">Yes, works on desktop, tablet, and mobile browsers.</FAQItem>
-        <FAQItem question="Does it reduce quality?">No, it reduces size while preserving sharp quality.</FAQItem>
+        <FAQItem question="Is TaskGuru’s Image Compressor free?">Yes, it’s 100% free and requires no signup.</FAQItem>
+        <FAQItem question="Which file formats are supported?">JPG, PNG, and WEBP up to 5MB.</FAQItem>
+        <FAQItem question="Does it reduce image quality?">No, our tool balances small file size with high resolution.</FAQItem>
+        <FAQItem question="Can I use it on mobile?">Yes, works on desktop, tablets, and smartphones.</FAQItem>
       </section>
 
       {/* Footer */}
@@ -244,9 +244,9 @@ export default function ImageCompressor() {
         <p className="mt-2">
           Try other free tools:{" "}
           <a href="https://taskguru.online/tools/background-remover" className="text-primary underline">Background Remover</a>,{" "}
+          <a href="https://taskguru.online/tools/image-to-text" className="text-primary underline">Image to Text</a>,{" "}
           <a href="https://taskguru.online/tools/text-paraphraser" className="text-primary underline">Text Paraphraser</a>,{" "}
-          <a href="https://taskguru.online/tools/pdf-to-word" className="text-primary underline">PDF to Word</a>,{" "}
-          <a href="https://taskguru.online/tools/image-to-text" className="text-primary underline">Image to Text</a>
+          <a href="https://taskguru.online/tools/pdf-to-word" className="text-primary underline">PDF to Word</a>
         </p>
         <p className="mt-4 text-xs">
           <a href="https://taskguru.online/privacy-policy" className="underline">Privacy Policy</a> |{" "}
@@ -269,8 +269,8 @@ function FAQItem({ question, children }: { question: string; children: React.Rea
   const [open, setOpen] = useState(false);
   return (
     <div className="border-b py-4">
-      <button onClick={() => setOpen(!open)} className="flex justify-between items-center w-full text-left font-medium text-lg" aria-expanded={open}>
-        <h3 className="font-medium text-lg">{question}</h3>
+      <button onClick={() => setOpen(!open)} className="flex justify-between items-center w-full text-left font-medium text-lg">
+        {question}
         <ChevronDown className={`w-5 h-5 transition-transform ${open ? 'rotate-180' : ''}`} />
       </button>
       <div className={`mt-2 text-muted-foreground transition-all ${open ? 'max-h-40 opacity-100' : 'max-h-0 opacity-0 overflow-hidden'}`}>
