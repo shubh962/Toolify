@@ -1,71 +1,29 @@
-import Head from "next/head";
-import Link from 'next/link';
-import { tools } from '@/lib/tools';
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
-import { ArrowRight, Sparkles } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import HomepageAd from '@/components/ads/HomepageAd';
-import NewsletterForm from '@/components/NewsletterForm';
+import Link from "next/link";
+import { tools } from "@/lib/tools";
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { ArrowRight, Sparkles } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import HomepageAd from "@/components/ads/HomepageAd";
+import NewsletterForm from "@/components/NewsletterForm";
 
 export default function Home() {
   return (
     <>
-      {/* ✅ SEO Meta Tags */}
-      <Head>
-        <title>TaskGuru - Free AI Tools for PDF, Images & Text</title>
-        <meta
-          name="description"
-          content="TaskGuru offers free AI-powered tools like image compressor, background remover, PDF merge, PDF to Word, and more. Fast, secure, and easy to use."
-        />
-        <meta
-          name="keywords"
-          content="AI tools, PDF tools, image tools, text tools, TaskGuru, free tools, background remover, image compressor, merge PDF, convert PDF"
-        />
-        <meta name="robots" content="index, follow" />
-        <meta property="og:title" content="TaskGuru - Free AI Tools" />
-        <meta
-          property="og:description"
-          content="Discover the best AI-powered tools for images, PDFs, and text processing. Free and easy to use."
-        />
-        <meta property="og:url" content="https://www.taskguru.online" />
-        <meta property="og:type" content="website" />
-        <meta property="og:image" content="https://www.taskguru.online/og-image.png" />
-        <link rel="canonical" href="https://www.taskguru.online" />
-
-        {/* ✅ JSON-LD Structured Data */}
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "WebSite",
-              "name": "TaskGuru",
-              "url": "https://www.taskguru.online",
-              "description": "TaskGuru offers free AI-powered tools for PDFs, images, and text processing.",
-              "publisher": {
-                "@type": "Organization",
-                "name": "TaskGuru",
-                "url": "https://www.taskguru.online",
-                "logo": "https://www.taskguru.online/logo.png"
-              },
-              "potentialAction": {
-                "@type": "SearchAction",
-                "target": "https://www.taskguru.online/search?q={search_term_string}",
-                "query-input": "required name=search_term_string"
-              }
-            }),
-          }}
-        />
-      </Head>
-
-      {/* ✅ Page Content */}
+      {/* ✅ Hero Section */}
       <section className="py-20 md:py-32 text-center bg-gradient-to-br from-primary via-primary/90 to-accent">
         <div className="container mx-auto px-6">
           <h1 className="text-4xl md:text-6xl font-extrabold font-headline tracking-tight text-primary-foreground">
             The Ultimate AI Tools Hub
           </h1>
           <p className="mt-6 text-lg md:text-xl max-w-3xl mx-auto text-primary-foreground/80">
-            Discover, review, and master the best free & premium AI tools. Your definitive guide to the world of artificial intelligence, curated for creators, developers, and innovators.
+            Discover and master the best free AI-powered tools for images, PDFs,
+            and text. Curated for creators, developers, and innovators.
           </p>
           <div className="mt-8 flex justify-center">
             <Button
@@ -73,18 +31,24 @@ export default function Home() {
               asChild
               className="bg-primary-foreground text-primary hover:bg-primary-foreground/90 transition-transform hover:scale-105"
             >
-              <Link href="#tools" prefetch={false}>Explore All Tools</Link>
+              <Link href="#tools" prefetch={false}>
+                Explore All Tools
+              </Link>
             </Button>
           </div>
         </div>
       </section>
 
+      {/* ✅ Tools Grid */}
       <section id="tools" className="py-16 md:py-24 bg-background">
         <div className="container mx-auto px-6">
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold">Curated AI-Powered Tools</h2>
+            <h2 className="text-3xl md:text-4xl font-bold">
+              Curated AI-Powered Tools
+            </h2>
             <p className="mt-3 text-lg text-muted-foreground max-w-2xl mx-auto">
-              From content creation to data analysis, find the perfect tool to elevate your projects.
+              From content creation to file conversion, find the perfect tool to
+              simplify your workflow.
             </p>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -108,14 +72,19 @@ export default function Home() {
                         </span>
                       )}
                     </div>
-                    <CardTitle className="pt-2 text-xl font-semibold">{tool.title}</CardTitle>
+                    <CardTitle className="pt-2 text-xl font-semibold">
+                      {tool.title}
+                    </CardTitle>
                   </CardHeader>
                   <CardContent className="flex-grow">
-                    <p className="text-base text-muted-foreground">{tool.description}</p>
+                    <p className="text-base text-muted-foreground">
+                      {tool.description}
+                    </p>
                   </CardContent>
                   <CardFooter>
                     <div className="flex items-center text-sm font-semibold text-primary">
-                      Use Tool <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+                      Use Tool{" "}
+                      <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
                     </div>
                   </CardFooter>
                 </Card>
@@ -125,23 +94,89 @@ export default function Home() {
         </div>
       </section>
 
+      {/* ✅ Ad Section */}
       <section className="py-16 md:py-24 bg-secondary">
         <div className="container mx-auto px-6 text-center">
           <HomepageAd />
         </div>
       </section>
 
+      {/* ✅ Newsletter Section */}
       <section className="py-16 md:py-24 bg-background">
         <div className="container mx-auto px-6">
           <div className="max-w-2xl mx-auto text-center">
-            <h2 className="text-3xl font-bold tracking-tight text-foreground">Stay Ahead of the Curve</h2>
+            <h2 className="text-3xl font-bold tracking-tight text-foreground">
+              Stay Ahead of the Curve
+            </h2>
             <p className="mt-4 text-lg text-muted-foreground">
-              Subscribe to our newsletter for the latest AI tool reviews, tutorials, and industry news.
+              Subscribe to our newsletter for the latest AI tool reviews,
+              tutorials, and industry news.
             </p>
             <NewsletterForm />
             <p className="mt-3 text-xs text-muted-foreground">
               We respect your privacy. No spam.
             </p>
+          </div>
+        </div>
+      </section>
+
+      {/* ✅ Extra Content for SEO (fix thin content + header hierarchy) */}
+      <section className="py-16 md:py-24 bg-muted">
+        <div className="container mx-auto px-6">
+          <h2 className="text-3xl md:text-4xl font-bold mb-8 text-center">
+            How Toolify Helps You
+          </h2>
+          <div className="grid md:grid-cols-3 gap-8 text-center">
+            <div>
+              <h3 className="text-xl font-semibold mb-3">1. Pick a Tool</h3>
+              <p className="text-muted-foreground">
+                Choose from tools like Background Remover, Image Compressor, PDF
+                to Word, and more.
+              </p>
+            </div>
+            <div>
+              <h3 className="text-xl font-semibold mb-3">2. Upload Your File</h3>
+              <p className="text-muted-foreground">
+                Process images, PDFs, or text securely in your browser. No login
+                needed.
+              </p>
+            </div>
+            <div>
+              <h3 className="text-xl font-semibold mb-3">3. Download Results</h3>
+              <p className="text-muted-foreground">
+                Get optimized outputs instantly, with no data stored on our
+                servers.
+              </p>
+            </div>
+          </div>
+
+          <h2 className="text-3xl md:text-4xl font-bold mt-16 mb-8 text-center">
+            Frequently Asked Questions
+          </h2>
+          <div className="space-y-6 max-w-3xl mx-auto">
+            <div>
+              <h3 className="text-xl font-semibold">Is Toolify free?</h3>
+              <p className="text-muted-foreground">
+                Yes, all tools are completely free with no signup required.
+              </p>
+            </div>
+            <div>
+              <h3 className="text-xl font-semibold">
+                Are my files safe when I upload them?
+              </h3>
+              <p className="text-muted-foreground">
+                Yes. Files are processed securely in real time and not stored on
+                our servers.
+              </p>
+            </div>
+            <div>
+              <h3 className="text-xl font-semibold">
+                What file formats do you support?
+              </h3>
+              <p className="text-muted-foreground">
+                We support popular formats like JPG, PNG, PDF, DOCX, and TXT.
+              </p>
+            </div>
           </div>
         </div>
       </section>
