@@ -5,6 +5,8 @@ import type { Metadata } from 'next';
 import { Card, CardContent, CardFooter } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Slider } from '@/components/ui/slider';
 import { useToast } from '@/hooks/use-toast';
 import { Upload, Download, Loader2, Image as ImageIcon, Trash2, ChevronDown } from 'lucide-react';
 import { handleImageCompression } from '@/app/actions';
@@ -14,16 +16,6 @@ export const metadata: Metadata = {
   title: 'Free Online Image Compressor Tool | TaskGuru',
   description:
     "Compress images (JPG, PNG, WEBP) online for free with TaskGuru's AI-powered image compressor. Reduce image size up to 80% without losing quality. Fast & secure.",
-  keywords: [
-    'free online image compressor',
-    'compress jpg png webp online',
-    'reduce image size',
-    'lossless image compressor',
-    'AI image optimizer',
-    'image compression tool',
-    'TaskGuru image compressor',
-    'make image smaller online'
-  ],
   robots: 'index, follow',
   alternates: {
     canonical: 'https://taskguru.online/tools/image-compressor',
@@ -58,6 +50,7 @@ export default function ImageCompressor() {
   const [originalImage, setOriginalImage] = useState<string | null>(null);
   const [compressedImage, setCompressedImage] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [quality, setQuality] = useState<number>(80);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -83,7 +76,7 @@ export default function ImageCompressor() {
     }
     setIsLoading(true);
     setCompressedImage(null);
-    const result = await handleImageCompression(originalImage);
+    const result = await handleImageCompression(originalImage, quality);
     setIsLoading(false);
 
     if (result.success && result.data?.compressedDataUri) {
@@ -108,6 +101,7 @@ export default function ImageCompressor() {
     setOriginalImage(null);
     setCompressedImage(null);
     setIsLoading(false);
+    setQuality(80);
     if (fileInputRef.current) fileInputRef.current.value = '';
   };
 
@@ -117,14 +111,14 @@ export default function ImageCompressor() {
       <section className="max-w-4xl mx-auto py-6 text-center space-y-4">
         <h1 className="text-3xl font-bold">Free Online Image Compressor – Reduce File Size Without Losing Quality</h1>
         <p className="text-muted-foreground">
-          TaskGuru’s <strong>AI Image Compressor</strong> reduces file size for JPG, PNG, and WEBP images by up to 80% while keeping sharp quality. 
-          Upload, compress, and download in seconds – free and secure.
+          TaskGuru’s <strong>AI Image Compressor</strong> reduces file size for JPG, PNG, and WEBP images by up to 80% while keeping sharp quality.
+          Upload, select compression quality, and download in seconds – free and secure.
         </p>
       </section>
 
       {/* Main Tool */}
       <Card className="w-full max-w-4xl mx-auto shadow-lg">
-        <CardContent className="p-6">
+        <CardContent className="p-6 space-y-6">
           {!originalImage ? (
             <label
               htmlFor="file-upload"
@@ -164,6 +158,26 @@ export default function ImageCompressor() {
             </div>
           )}
         </CardContent>
+
+        {/* ✅ Slider */}
+        {originalImage && (
+          <div className="max-w-md mx-auto space-y-4 px-6 pb-6">
+            <div className="flex justify-between">
+              <Label htmlFor="quality" className="font-semibold">Quality</Label>
+              <span className="text-sm bg-secondary px-2 rounded">{quality}%</span>
+            </div>
+            <Slider
+              id="quality"
+              min={10}
+              max={100}
+              step={5}
+              value={[quality]}
+              onValueChange={(v) => setQuality(v[0])}
+              disabled={isLoading}
+            />
+          </div>
+        )}
+
         {originalImage && (
           <CardFooter className="flex justify-center gap-4 bg-muted/50 border-t p-4">
             <Button variant="outline" onClick={handleReset}><Trash2 className="mr-2 h-4 w-4" /> Reset</Button>
@@ -204,6 +218,7 @@ export default function ImageCompressor() {
         <h2 className="text-xl font-semibold text-center">How to Compress Images Online?</h2>
         <ol className="list-decimal list-inside text-muted-foreground space-y-2 mt-4">
           <li>Upload your image (JPG, PNG, WEBP).</li>
+          <li>Select desired quality with the slider.</li>
           <li>Click <strong>Compress Image</strong> to start optimization.</li>
           <li>Download your smaller file instantly.</li>
         </ol>
@@ -263,4 +278,4 @@ function FAQItem({ question, children }: { question: string; children: React.Rea
       </div>
     </div>
   );
-            }
+}
