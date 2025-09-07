@@ -185,21 +185,21 @@ export default function Home() {
             Why Choose Toolify?
           </h2>
           <p>
-            Toolify isn’t just another set of online utilities. It’s a carefully
-            designed hub where each tool is crafted to save you time, protect
-            your privacy, and boost your productivity. Unlike other free sites
-            cluttered with intrusive ads, Toolify is minimal, fast, and built
-            with modern web technology. Whether you’re editing images, handling
-            PDFs, or paraphrasing text, you can count on smooth performance
-            across desktop and mobile.
+            Toolify isn’t just another collection of free utilities. It’s a
+            carefully designed hub where each tool is optimized to save time,
+            protect user privacy, and boost productivity. Unlike many sites that
+            slow you down with intrusive ads, Toolify focuses on speed,
+            simplicity, and a clean interface. Whether you’re editing images,
+            compressing files, or paraphrasing text, Toolify delivers
+            professional-grade results in seconds.
           </p>
           <p>
-            Students use Toolify for assignments, professionals rely on it for
-            quick document conversions, and designers love the instant image
-            editing features. Because everything runs in the browser, there’s no
-            need for heavy software downloads or constant updates. Toolify
-            represents the future of lightweight, secure, and accessible online
-            tools.
+            Toolify is built on modern web technologies, ensuring seamless
+            performance on both desktop and mobile. Because tools run directly
+            in the browser, there’s no need for software downloads, heavy
+            updates, or complicated installations. Our AI-powered utilities give
+            creators, students, and businesses the edge they need in today’s
+            fast-moving digital world.
           </p>
 
           <h2 className="text-3xl md:text-4xl font-bold mt-16 mb-8 text-center">
@@ -208,19 +208,62 @@ export default function Home() {
           <ul className="list-disc pl-6 space-y-2">
             <li>
               <strong>Students:</strong> Convert PDFs to Word, paraphrase text,
-              and compress images for projects.
+              compress images for assignments, and generate clean study notes.
             </li>
             <li>
               <strong>Professionals:</strong> Merge PDFs, extract text from
-              images, and prepare presentations faster.
+              images, format resumes, and create presentations faster.
             </li>
             <li>
-              <strong>Designers & Creators:</strong> Remove image backgrounds
-              and optimize files for web publishing.
+              <strong>Designers & Creators:</strong> Remove image backgrounds,
+              resize images, and optimize visuals for web publishing.
             </li>
             <li>
-              <strong>Businesses:</strong> Improve workflows with fast, free,
-              and secure document tools.
+              <strong>Businesses:</strong> Improve workflows with secure
+              document conversions, image optimizations, and productivity
+              boosters.
+            </li>
+          </ul>
+
+          <h2 className="text-3xl md:text-4xl font-bold mt-16 mb-8 text-center">
+            Toolify vs Other Tools
+          </h2>
+          <p>
+            Popular alternatives like Canva, TinyPNG, SmallPDF, and Quillbot
+            often lock features behind paywalls or require sign-ups. Toolify
+            stands out by offering free, no-login, ad-light tools that respect
+            your privacy. Every feature is streamlined for quick use so you
+            don’t waste time navigating cluttered dashboards. Unlike competitors
+            that store files, Toolify processes everything securely with
+            temporary handling or in-browser execution.
+          </p>
+          <p>
+            By combining multiple utilities in one place, Toolify eliminates the
+            need to jump between different websites. From PDF to Word
+            conversion, paraphrasing text, compressing files, to AI-powered
+            background removal — everything is accessible in a single, unified
+            platform.
+          </p>
+
+          <h2 className="text-3xl md:text-4xl font-bold mt-16 mb-8 text-center">
+            Tips to Get the Best Results
+          </h2>
+          <ul className="list-disc pl-6 space-y-2">
+            <li>Upload high-quality images for the best background removal.</li>
+            <li>
+              For paraphrasing, provide complete sentences for more natural AI
+              rewrites.
+            </li>
+            <li>
+              When compressing files, balance size and quality to suit your
+              needs.
+            </li>
+            <li>
+              Use PDF conversion for editable content, then format in Word for
+              professional results.
+            </li>
+            <li>
+              Bookmark Toolify so your favorite tools are always one click away.
             </li>
           </ul>
 
@@ -231,32 +274,69 @@ export default function Home() {
             <div>
               <h3 className="text-xl font-semibold">Is Toolify really free?</h3>
               <p>
-                Yes, every tool is completely free. You don’t need to create an
-                account or install software. Just open the tool, upload your
-                file, and get instant results.
+                Yes, all tools are completely free with no hidden charges. You
+                don’t need to create an account or install software. Just upload
+                your file and get instant results.
               </p>
             </div>
             <div>
               <h3 className="text-xl font-semibold">Will my files be safe?</h3>
               <p>
-                Security is a top priority. Your files are processed
-                client-side or temporarily on secure servers and never stored
-                permanently. Once processed, they’re immediately discarded.
+                Security is our top priority. Files are processed in-browser or
+                on secure servers and are never permanently stored. They are
+                automatically discarded after processing.
               </p>
             </div>
             <div>
-              <h3 className="text-xl font-semibold">Which devices can I use?</h3>
+              <h3 className="text-xl font-semibold">Which devices are supported?</h3>
               <p>
-                Toolify works on desktop, tablet, and mobile devices. All you
-                need is a modern browser like Chrome, Safari, or Edge.
+                Toolify works seamlessly on desktops, tablets, and smartphones.
+                All you need is a modern browser such as Chrome, Safari, or
+                Edge.
               </p>
             </div>
             <div>
               <h3 className="text-xl font-semibold">What makes Toolify unique?</h3>
               <p>
-                Unlike many free tool websites that overload you with popups,
-                Toolify prioritizes clean UI, speed, and privacy. Plus, it keeps
-                evolving with new AI-powered features.
+                Unlike competitors that bombard users with ads, Toolify focuses
+                on speed, minimalism, and privacy. Our AI-powered tools evolve
+                regularly to meet new user needs.
+              </p>
+            </div>
+            <div>
+              <h3 className="text-xl font-semibold">
+                Do I need technical knowledge to use Toolify?
+              </h3>
+              <p>
+                No, Toolify is built for everyone — from students to IT
+                professionals. The simple design ensures anyone can use it
+                instantly.
+              </p>
+            </div>
+            <div>
+              <h3 className="text-xl font-semibold">Can Toolify replace paid apps?</h3>
+              <p>
+                For many everyday tasks like compressing, converting, or
+                paraphrasing, Toolify offers features comparable to paid apps
+                without subscriptions or limits.
+              </p>
+            </div>
+            <div>
+              <h3 className="text-xl font-semibold">
+                Does Toolify support multiple languages?
+              </h3>
+              <p>
+                Yes, many tools work with English, Hindi, and other global
+                languages. We are expanding support for more languages soon.
+              </p>
+            </div>
+            <div>
+              <h3 className="text-xl font-semibold">
+                How often are new tools added?
+              </h3>
+              <p>
+                We continuously expand Toolify by introducing new tools and AI
+                features based on user feedback and trending needs.
               </p>
             </div>
           </div>
