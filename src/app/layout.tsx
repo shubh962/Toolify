@@ -20,36 +20,26 @@ const inter = Inter({
   variable: "--font-inter",
 });
 
-// ✅ Global SEO Metadata (shortened & optimized)
 export const metadata: Metadata = {
-  title: "Toolify – Free Online Tools for PDF, Images & Text",
+  metadataBase: new URL("https://taskguru.online"),
+  title: {
+    default: "Toolify – Free Online Tools (PDF, Images & Text)",
+    template: "%s • Toolify",
+  },
   description:
     "Free tools: Background Remover, Image Compressor, PDF to Word, Text Paraphraser & Image to Text. No login required.",
   keywords:
     "free online tools, background remover, image compressor, pdf to word, text paraphraser, image to text, toolify, taskguru",
   robots: "index, follow",
-  metadataBase: new URL("https://taskguru.online"),
-  alternates: {
-    canonical: "/",
-    languages: { en: "/" }, // ✅ hreflang
-  },
-  verification: {
-    google: "XhRtp6rO2MNQX-BucHlUxVhNLbBPfdis_RzXY5ZodlU",
-  },
+  alternates: { canonical: "/" },
+  verification: { google: "XhRtp6rO2MNQX-BucHlUxVhNLbBPfdis_RzXY5ZodlU" },
   openGraph: {
     title: "Toolify – Free Online Tools",
     description:
       "Free Background Remover, Compressor, PDF, Text Paraphraser & more.",
     url: "https://taskguru.online",
     siteName: "Toolify",
-    images: [
-      {
-        url: "https://taskguru.online/og-image.png",
-        width: 1200,
-        height: 630,
-        alt: "Toolify – Free Online Tools",
-      },
-    ],
+    images: [{ url: "https://taskguru.online/og-image.png", width: 1200, height: 630 }],
     locale: "en_US",
     type: "website",
   },
@@ -63,34 +53,33 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
-  children,
-}: Readonly<{ children: React.ReactNode }>) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
+  const siteLdJson = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    url: "https://taskguru.online",
+    name: "Toolify",
+    description:
+      "Free tools like Background Remover, Image Compressor, PDF to Word Converter, and Text Paraphraser.",
+    publisher: {
+      "@type": "Organization",
+      name: "Toolify",
+      logo: "https://taskguru.online/logo.png",
+    },
+    potentialAction: {
+      "@type": "SearchAction",
+      target: "https://taskguru.online/tools/{search_term_string}",
+      "query-input": "required name=search_term_string",
+    },
+  };
+
   return (
     <html lang="en" className={`${inter.variable} dark`}>
       <head>
-        {/* ✅ JSON-LD Structured Data */}
+        {/* ✅ JSON-LD (Website + Organization) */}
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "WebSite",
-              url: "https://taskguru.online",
-              name: "Toolify",
-              description:
-                "Free tools like Background Remover, Image Compressor, PDF to Word Converter, and Text Paraphraser.",
-              publisher: {
-                "@type": "Person",
-                name: "Shubham Gautam",
-              },
-              potentialAction: {
-                "@type": "SearchAction",
-                target: "https://taskguru.online/tools/{search_term_string}",
-                "query-input": "required name=search_term_string",
-              },
-            }),
-          }}
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(siteLdJson) }}
         />
 
         {/* ✅ Google Analytics */}
@@ -106,29 +95,21 @@ export default function RootLayout({
             gtag('config', 'G-XE6BHLH4J6');
           `}
         </Script>
+
+        {/* ✅ One global ad tag (you can toggle per-page ads later) */}
+        <Script id="ads-multitag" src="https://fpyf8.com/88/tag.min.js" strategy="afterInteractive" />
       </head>
       <body className="font-body antialiased min-h-screen flex flex-col">
-        {/* ✅ Interstitial Ad Script (lazy loaded) */}
-        <Script id="interstitial-ad" strategy="lazyOnload">
-          {`(function(d,z,s){
-              s.src='https://'+d+'/401/'+z;
-              try{(document.body||document.documentElement).appendChild(s)}catch(e){}
-            })('groleegni.net',9694211,document.createElement('script'));`}
-        </Script>
-
-        {/* ✅ Header */}
         <Header />
-
-        {/* ✅ Main Content */}
         <main className="flex-1">{children}</main>
         <Toaster />
 
-        {/* ✅ Footer with Accessibility & Social */}
         <footer className="py-6 text-center text-gray-700">
           <div className="container mx-auto px-6">
             <div className="flex flex-col sm:flex-row justify-center items-center gap-2 sm:gap-4">
               <p>Developed with ❤️ by Shubham Gautam</p>
               <span className="hidden sm:inline">|</span>
+
               <Dialog>
                 <DialogTrigger asChild>
                   <button
@@ -151,18 +132,12 @@ export default function RootLayout({
                       </CardHeader>
                       <CardContent className="space-y-3 text-sm text-muted-foreground">
                         <p>
-                          <strong>Toolify</strong> is a digital platform crafted
-                          to simplify your daily online tasks with smart,
-                          reliable, and user-friendly tools. Founded by{" "}
+                          <strong>Toolify</strong> simplifies daily online tasks
+                          with smart, user-friendly tools. Founded by{" "}
                           <strong>Shubham Gautam</strong>.
                         </p>
                         <p>
-                          We believe in delivering seamless experiences,
-                          respecting user privacy, and constantly evolving to
-                          serve better.
-                        </p>
-                        <p className="pt-3 text-center font-semibold text-base text-foreground/90 italic">
-                          Toolify – Simple Tools. Smarter Life.
+                          We value seamless UX, privacy, and constant evolution.
                         </p>
                       </CardContent>
                     </Card>
@@ -174,18 +149,8 @@ export default function RootLayout({
                         </CardTitle>
                       </CardHeader>
                       <CardContent className="space-y-3 text-sm text-muted-foreground">
-                        <p>
-                          <strong>© 2025 Toolify. All rights reserved.</strong>
-                        </p>
-                        <p>
-                          Unauthorized reproduction, redistribution, or
-                          modification of any part of this website, its tools,
-                          content, or code is strictly prohibited.
-                        </p>
-                        <p>
-                          Toolify, its logo, and related services are
-                          intellectual property of Shubham Gautam.
-                        </p>
+                        <p><strong>© 2025 Toolify. All rights reserved.</strong></p>
+                        <p>Unauthorized reproduction or modification prohibited.</p>
                       </CardContent>
                     </Card>
                   </div>
@@ -193,51 +158,21 @@ export default function RootLayout({
               </Dialog>
             </div>
 
-            {/* ✅ Social links for SEO */}
+            {/* ✅ Accessible footer navigation */}
             <nav
               className="mt-4 flex gap-4 justify-center text-sm"
-              aria-label="Social links"
+              aria-label="Footer navigation"
             >
-              <a
-                href="https://www.facebook.com/share/1K97T5Q5wp/"
-                target="_blank"
-                rel="noopener"
-              >
-                Facebook
-              </a>
-              <a
-                href="https://x.com/Shubham_962?t=SvZlxFtavmlWZSp2o4H-bA&s=09"
-                target="_blank"
-                rel="noopener"
-              >
-                X
-              </a>
-              <a
-                href="https://www.instagram.com/fact_fusion_s?igsh=a29wZG5uaXpscTlw"
-                target="_blank"
-                rel="noopener"
-              >
-                Instagram
-              </a>
-              <a
-                href="https://www.linkedin.com/in/Shubh962"
-                target="_blank"
-                rel="noopener"
-              >
-                LinkedIn
-              </a>
-              <a
-                href="https://youtube.com/@factfusions0-x4k?si=dmeUAuYn7I9TxRgy"
-                target="_blank"
-                rel="noopener"
-              >
-                YouTube
-              </a>
+              <ul className="flex gap-4">
+                <li><a href="https://www.facebook.com/share/1K97T5Q5wp/" target="_blank" rel="noopener">Facebook</a></li>
+                <li><a href="https://x.com/Shubham_962" target="_blank" rel="noopener">X</a></li>
+                <li><a href="https://www.instagram.com/fact_fusion_s" target="_blank" rel="noopener">Instagram</a></li>
+                <li><a href="https://www.linkedin.com/in/Shubh962" target="_blank" rel="noopener">LinkedIn</a></li>
+                <li><a href="https://youtube.com/@factfusions0-x4k" target="_blank" rel="noopener">YouTube</a></li>
+              </ul>
             </nav>
 
-            <p className="mt-4 text-xs">
-              © 2025 Toolify — All Rights Reserved
-            </p>
+            <p className="mt-4 text-xs">© 2025 Toolify — All Rights Reserved</p>
           </div>
         </footer>
       </body>
