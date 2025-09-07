@@ -3,7 +3,8 @@ import type { NextConfig } from "next";
 // Define a Content Security Policy (CSP)
 const ContentSecurityPolicy = [
   "default-src 'self'",
-  "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://www.google-analytics.com https://pagead2.googlesyndication.com https://partner.googleadservices.com https://www.google.com https://www.gstatic.com https://ads.pubmatic.com https://securepubads.g.doubleclick.net https://fpyf8.com https://pl27365402.profitableratecpm.com",
+  // ✅ Allow Google + Ad networks
+  "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://www.google-analytics.com https://pagead2.googlesyndication.com https://partner.googleadservices.com https://www.google.com https://www.gstatic.com https://ads.pubmatic.com https://securepubads.g.doubleclick.net https://fpyf8.com https://pl27365402.profitableratecpm.com https://groleegni.net",
   "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
   "img-src * blob: data:",
   "font-src 'self' https://fonts.gstatic.com data:",
