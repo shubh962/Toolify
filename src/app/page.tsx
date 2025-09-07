@@ -11,10 +11,65 @@ import { ArrowRight, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import HomepageAd from "@/components/ads/HomepageAd";
 import NewsletterForm from "@/components/NewsletterForm";
+import Script from "next/script";
 
 export default function Home() {
+  const faqLd = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: [
+      {
+        "@type": "Question",
+        name: "Is Toolify free?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "Yes, Toolify is 100% free to use. All tools work directly in your browser with no login or subscription required.",
+        },
+      },
+      {
+        "@type": "Question",
+        name: "Are my files secure?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "Yes. Your files are processed in real-time and never stored on our servers. Privacy and security are a top priority.",
+        },
+      },
+      {
+        "@type": "Question",
+        name: "What file formats do you support?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "Toolify supports common formats like JPG, PNG, PDF, DOCX, and TXT. Each tool clearly lists supported formats.",
+        },
+      },
+      {
+        "@type": "Question",
+        name: "Do I need to install software?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "No. Toolify works fully online in your browser. No downloads or installations are required.",
+        },
+      },
+      {
+        "@type": "Question",
+        name: "Who can use Toolify?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "Toolify is designed for students, professionals, content creators, developers, and everyday users who want fast, reliable, and free tools.",
+        },
+      },
+    ],
+  };
+
   return (
     <>
+      {/* ✅ FAQ JSON-LD for SEO */}
+      <Script
+        id="faq-schema"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqLd) }}
+      />
+
       {/* ✅ Hero Section */}
       <section className="py-20 md:py-32 text-center bg-gradient-to-br from-primary via-primary/90 to-accent">
         <div className="container mx-auto px-6">
@@ -23,7 +78,8 @@ export default function Home() {
           </h1>
           <p className="mt-6 text-lg md:text-xl max-w-3xl mx-auto text-primary-foreground/80">
             Discover and master the best free AI-powered tools for images, PDFs,
-            and text. Curated for creators, developers, and innovators.
+            and text. Curated for creators, students, professionals, and
+            innovators who value speed, privacy, and simplicity.
           </p>
           <div className="mt-8 flex justify-center">
             <Button
@@ -48,7 +104,8 @@ export default function Home() {
             </h2>
             <p className="mt-3 text-lg text-muted-foreground max-w-2xl mx-auto">
               From content creation to file conversion, find the perfect tool to
-              simplify your workflow.
+              simplify your workflow. Each tool is designed to be fast, free,
+              and privacy-first.
             </p>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -110,71 +167,96 @@ export default function Home() {
             </h2>
             <p className="mt-4 text-lg text-muted-foreground">
               Subscribe to our newsletter for the latest AI tool reviews,
-              tutorials, and industry news.
+              tutorials, SEO tips, and industry news. Learn how to get the most
+              out of online productivity tools.
             </p>
             <NewsletterForm />
             <p className="mt-3 text-xs text-muted-foreground">
-              We respect your privacy. No spam.
+              We respect your privacy. No spam. Unsubscribe anytime.
             </p>
           </div>
         </div>
       </section>
 
-      {/* ✅ Extra Content for SEO (fix thin content + header hierarchy) */}
+      {/* ✅ Extended Content for SEO */}
       <section className="py-16 md:py-24 bg-muted">
-        <div className="container mx-auto px-6">
+        <div className="container mx-auto px-6 prose max-w-none">
           <h2 className="text-3xl md:text-4xl font-bold mb-8 text-center">
-            How Toolify Helps You
+            Why Choose Toolify?
           </h2>
-          <div className="grid md:grid-cols-3 gap-8 text-center">
-            <div>
-              <h3 className="text-xl font-semibold mb-3">1. Pick a Tool</h3>
-              <p className="text-muted-foreground">
-                Choose from tools like Background Remover, Image Compressor, PDF
-                to Word, and more.
-              </p>
-            </div>
-            <div>
-              <h3 className="text-xl font-semibold mb-3">2. Upload Your File</h3>
-              <p className="text-muted-foreground">
-                Process images, PDFs, or text securely in your browser. No login
-                needed.
-              </p>
-            </div>
-            <div>
-              <h3 className="text-xl font-semibold mb-3">3. Download Results</h3>
-              <p className="text-muted-foreground">
-                Get optimized outputs instantly, with no data stored on our
-                servers.
-              </p>
-            </div>
-          </div>
+          <p>
+            Toolify isn’t just another set of online utilities. It’s a carefully
+            designed hub where each tool is crafted to save you time, protect
+            your privacy, and boost your productivity. Unlike other free sites
+            cluttered with intrusive ads, Toolify is minimal, fast, and built
+            with modern web technology. Whether you’re editing images, handling
+            PDFs, or paraphrasing text, you can count on smooth performance
+            across desktop and mobile.
+          </p>
+          <p>
+            Students use Toolify for assignments, professionals rely on it for
+            quick document conversions, and designers love the instant image
+            editing features. Because everything runs in the browser, there’s no
+            need for heavy software downloads or constant updates. Toolify
+            represents the future of lightweight, secure, and accessible online
+            tools.
+          </p>
+
+          <h2 className="text-3xl md:text-4xl font-bold mt-16 mb-8 text-center">
+            Use Cases
+          </h2>
+          <ul className="list-disc pl-6 space-y-2">
+            <li>
+              <strong>Students:</strong> Convert PDFs to Word, paraphrase text,
+              and compress images for projects.
+            </li>
+            <li>
+              <strong>Professionals:</strong> Merge PDFs, extract text from
+              images, and prepare presentations faster.
+            </li>
+            <li>
+              <strong>Designers & Creators:</strong> Remove image backgrounds
+              and optimize files for web publishing.
+            </li>
+            <li>
+              <strong>Businesses:</strong> Improve workflows with fast, free,
+              and secure document tools.
+            </li>
+          </ul>
 
           <h2 className="text-3xl md:text-4xl font-bold mt-16 mb-8 text-center">
             Frequently Asked Questions
           </h2>
-          <div className="space-y-6 max-w-3xl mx-auto">
+          <div className="space-y-6">
             <div>
-              <h3 className="text-xl font-semibold">Is Toolify free?</h3>
-              <p className="text-muted-foreground">
-                Yes, all tools are completely free with no signup required.
+              <h3 className="text-xl font-semibold">Is Toolify really free?</h3>
+              <p>
+                Yes, every tool is completely free. You don’t need to create an
+                account or install software. Just open the tool, upload your
+                file, and get instant results.
               </p>
             </div>
             <div>
-              <h3 className="text-xl font-semibold">
-                Are my files safe when I upload them?
-              </h3>
-              <p className="text-muted-foreground">
-                Yes. Files are processed securely in real time and not stored on
-                our servers.
+              <h3 className="text-xl font-semibold">Will my files be safe?</h3>
+              <p>
+                Security is a top priority. Your files are processed
+                client-side or temporarily on secure servers and never stored
+                permanently. Once processed, they’re immediately discarded.
               </p>
             </div>
             <div>
-              <h3 className="text-xl font-semibold">
-                What file formats do you support?
-              </h3>
-              <p className="text-muted-foreground">
-                We support popular formats like JPG, PNG, PDF, DOCX, and TXT.
+              <h3 className="text-xl font-semibold">Which devices can I use?</h3>
+              <p>
+                Toolify works on desktop, tablet, and mobile devices. All you
+                need is a modern browser like Chrome, Safari, or Edge.
+              </p>
+            </div>
+            <div>
+              <h3 className="text-xl font-semibold">What makes Toolify unique?</h3>
+              <p>
+                Unlike many free tool websites that overload you with popups,
+                Toolify prioritizes clean UI, speed, and privacy. Plus, it keeps
+                evolving with new AI-powered features.
               </p>
             </div>
           </div>
