@@ -95,6 +95,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             gtag('config', 'G-XE6BHLH4J6');
           `}
         </Script>
+        
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2427221337462218"
+     crossorigin="anonymous"></script>
 
         {/* ✅ One global ad tag (you can toggle per-page ads later) */}
         <Script id="ads-multitag" src="https://fpyf8.com/88/tag.min.js" strategy="afterInteractive" />
