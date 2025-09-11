@@ -13,7 +13,7 @@ export default function PrivacyPolicyPage() {
   return (
     <main className="max-w-3xl mx-auto p-6">
       <h1 className="text-3xl font-bold mb-4">Privacy Policy for Listify</h1>
-      <p><strong>Effective Date:</strong> September 11, 2025</p>
+      <p><strong>Effective Date:</strong> September 25, 2025</p>
 
       <h2 className="text-xl font-semibold mt-4">Information We Collect</h2>
       <p>We do not collect, store, or share any personal information from users of our app.</p>
@@ -50,7 +50,7 @@ export default function PrivacyPolicyPage() {
       <p>
         If you have any questions about this Privacy Policy, you can contact us at:{" "}
         <a href="mailto:your-email@example.com" className="text-blue-600 underline">
-          your-email@example.com
+          gautamshubham962@gmail.com
         </a>
       </p>
     </main>
