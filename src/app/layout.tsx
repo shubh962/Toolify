@@ -100,7 +100,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
      crossorigin="anonymous"></script>
 
         {/* ✅ One global ad tag (you can toggle per-page ads later) */}
-        <Script id="ads-multitag" src="https://fpyf8.com/88/tag.min.js" strategy="afterInteractive" />
       </head>
       <body className="font-body antialiased min-h-screen flex flex-col">
         <Header />
