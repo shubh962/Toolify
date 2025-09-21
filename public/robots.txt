@@ -1,4 +1,12 @@
+# public/robots.txt
 User-agent: *
 Allow: /
 
+# Block internal API endpoints (optional)
+Disallow: /api/
+
+# Sitemap location
 Sitemap: https://taskguru.online/sitemap.xml
+
+# Host (optional)
+Host: https://taskguru.online
