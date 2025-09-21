@@ -31,15 +31,21 @@ export const metadata: Metadata = {
   keywords:
     "free online tools, background remover, image compressor, pdf to word, text paraphraser, image to text, toolify, taskguru",
   robots: "index, follow",
-  alternates: { canonical: "/" },
-  verification: { google: "XhRtp6rO2MNQX-BucHlUxVhNLbBPfdis_RzXY5ZodlU" },
+  alternates: {
+    canonical: "https://taskguru.online",
+  },
+  verification: {
+    google: "XhRtp6rO2MNQX-BucHlUxVhNLbBPfdis_RzXY5ZodlU",
+  },
   openGraph: {
     title: "Toolify – Free Online Tools",
     description:
       "Free Background Remover, Compressor, PDF, Text Paraphraser & more.",
     url: "https://taskguru.online",
     siteName: "Toolify",
-    images: [{ url: "https://taskguru.online/og-image.png", width: 1200, height: 630 }],
+    images: [
+      { url: "https://taskguru.online/og-image.png", width: 1200, height: 630 },
+    ],
     locale: "en_US",
     type: "website",
   },
@@ -73,13 +79,30 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     },
   };
 
+  const orgLdJson = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    url: "https://taskguru.online",
+    name: "Toolify",
+    logo: "https://taskguru.online/logo.png",
+    sameAs: [
+      "https://www.facebook.com/share/1K97T5Q5wp/",
+      "https://x.com/Shubham_962",
+      "https://www.instagram.com/fact_fusion_s",
+      "https://www.linkedin.com/in/Shubh962",
+      "https://youtube.com/@factfusions0-x4k",
+    ],
+  };
+
   return (
     <html lang="en" className={`${inter.variable} dark`}>
       <head>
         {/* ✅ JSON-LD (Website + Organization) */}
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(siteLdJson) }}
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify([siteLdJson, orgLdJson]),
+          }}
         />
 
         {/* ✅ Google Analytics */}
@@ -95,11 +118,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             gtag('config', 'G-XE6BHLH4J6');
           `}
         </Script>
-        
-        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2427221337462218"
-     crossorigin="anonymous"></script>
 
-        {/* ✅ One global ad tag (you can toggle per-page ads later) */}
+        {/* ✅ Google Ads (global) */}
+        <script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2427221337462218"
+          crossOrigin="anonymous"
+        ></script>
       </head>
       <body className="font-body antialiased min-h-screen flex flex-col">
         <Header />
@@ -151,8 +176,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                         </CardTitle>
                       </CardHeader>
                       <CardContent className="space-y-3 text-sm text-muted-foreground">
-                        <p><strong>© 2025 Toolify. All rights reserved.</strong></p>
-                        <p>Unauthorized reproduction or modification prohibited.</p>
+                        <p>
+                          <strong>© 2025 Toolify. All rights reserved.</strong>
+                        </p>
+                        <p>
+                          Unauthorized reproduction or modification prohibited.
+                        </p>
                       </CardContent>
                     </Card>
                   </div>
@@ -166,11 +195,51 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               aria-label="Footer navigation"
             >
               <ul className="flex gap-4">
-                <li><a href="https://www.facebook.com/share/1K97T5Q5wp/" target="_blank" rel="noopener">Facebook</a></li>
-                <li><a href="https://x.com/Shubham_962" target="_blank" rel="noopener">X</a></li>
-                <li><a href="https://www.instagram.com/fact_fusion_s" target="_blank" rel="noopener">Instagram</a></li>
-                <li><a href="https://www.linkedin.com/in/Shubh962" target="_blank" rel="noopener">LinkedIn</a></li>
-                <li><a href="https://youtube.com/@factfusions0-x4k" target="_blank" rel="noopener">YouTube</a></li>
+                <li>
+                  <a
+                    href="https://www.facebook.com/share/1K97T5Q5wp/"
+                    target="_blank"
+                    rel="noopener"
+                  >
+                    Facebook
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://x.com/Shubham_962"
+                    target="_blank"
+                    rel="noopener"
+                  >
+                    X
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://www.instagram.com/fact_fusion_s"
+                    target="_blank"
+                    rel="noopener"
+                  >
+                    Instagram
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://www.linkedin.com/in/Shubh962"
+                    target="_blank"
+                    rel="noopener"
+                  >
+                    LinkedIn
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://youtube.com/@factfusions0-x4k"
+                    target="_blank"
+                    rel="noopener"
+                  >
+                    YouTube
+                  </a>
+                </li>
               </ul>
             </nav>
 
