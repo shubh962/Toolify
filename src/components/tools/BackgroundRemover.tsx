@@ -1,6 +1,6 @@
 'use client';
 import { useState, useRef } from 'react';
-import Image from 'next/image';
+// import Image from 'next/image'; // 🛑 NEXT/IMAGE हटा दिया गया
 import Script from 'next/script';
 import type { Metadata } from 'next';
 import { Card, CardContent, CardFooter } from '@/components/ui/card';
@@ -10,7 +10,7 @@ import { useToast } from '@/hooks/use-toast';
 import { Upload, Download, Loader2, Image as ImageIcon, Trash2 } from 'lucide-react';
 import { handleBackgroundRemoval } from '@/app/actions';
 
-// ✅ SEO Metadata (यह `page.tsx` में होना चाहिए, कंपोनेंट में नहीं, पर हमने इसे रखा है)
+// ✅ SEO Metadata (No Change)
 export const metadata: Metadata = {
   title: 'Free Online Background Remover Tool | TaskGuru',
   description:
@@ -104,7 +104,7 @@ export default function BackgroundRemover() {
   };
   // 🛑 WORKING CODE ENDS 🛑
 
-  // ✅ NEW/UPDATED FAQ Schema (High-Content for SEO/AdSense)
+  // ✅ FAQ Schema (High-Content for SEO/AdSense)
   const faqSchema = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
@@ -157,9 +157,16 @@ export default function BackgroundRemover() {
     },
   };
 
+  // Sparkles icon (Keep the utility component definition)
+  const Sparkles = (props: React.SVGProps<SVGSVGElement>) => (
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2" {...props}>
+      <path d="M12 2v2M4 12H2m20 0h-2M12 20v2m-7.07-7.07-1.41 1.41M19.07 4.93l-1.41 1.41M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41" />
+    </svg>
+  );
+
   return (
     <div className="space-y-12">
-      {/* ✅ JSON-LD Schema (Added FAQ Schema) */}
+      {/* ✅ JSON-LD Schema */}
       <Script
         id="background-remover-schema"
         type="application/ld+json"
@@ -208,7 +215,8 @@ export default function BackgroundRemover() {
               <div>
                 <h3 className="text-lg font-semibold text-center">Original</h3>
                 <div className="relative aspect-square border rounded-lg overflow-hidden">
-                  <Image src={originalImage} alt="Uploaded original image" fill className="object-contain" />
+                  {/* ✅ ORIGINAL IMAGE (Simple <img> tag) */}
+                  <img src={originalImage} alt="Uploaded original image" className="object-contain w-full h-full absolute top-0 left-0" />
                 </div>
               </div>
               <div>
@@ -216,7 +224,8 @@ export default function BackgroundRemover() {
                 <div className="relative aspect-square border rounded-lg bg-muted overflow-hidden">
                   {isLoading && <Loader2 className="w-12 h-12 animate-spin absolute inset-0 m-auto text-primary" />}
                   {processedImage ? (
-                    <Image src={processedImage} alt="Background removed result image" fill className="object-contain" />
+                    // ✅ PROCESSED IMAGE (Simple <img> tag)
+                    <img src={processedImage} alt="Background removed result image" className="object-contain w-full h-full absolute top-0 left-0" />
                   ) : (
                     !isLoading && <ImageIcon className="w-16 h-16 m-auto text-muted-foreground" aria-hidden="true" />
                   )}
@@ -278,7 +287,7 @@ export default function BackgroundRemover() {
         </ol>
       </section>
 
-      {/* ✅ UPDATED FAQ Section (Simple structure, high-content, no accordion) */}
+      {/* ✅ UPDATED FAQ Section (High-content, simple structure) */}
       <section className="max-w-4xl mx-auto my-8 sm:my-12 p-6 bg-white dark:bg-gray-900 shadow rounded-lg border border-gray-100 dark:border-gray-800">
         <h2 className="text-xl sm:text-2xl font-bold mb-6 text-gray-900 dark:text-white">Frequently Asked Questions</h2>
         <div className="space-y-6 text-left">
@@ -290,15 +299,6 @@ export default function BackgroundRemover() {
           ))}
         </div>
       </section>
-      
-      {/* 🛑 DELETED: Old FAQItem and Sparkles Components */}
     </div>
   );
-}
-
-// Sparkles icon
-const Sparkles = (props: React.SVGProps<SVGSVGElement>) => (
-  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2" {...props}>
-    <path d="M12 2v2M4 12H2m20 0h-2M12 20v2m-7.07-7.07-1.41 1.41M19.07 4.93l-1.41 1.41M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41" />
-  </svg>
-);
+      }
