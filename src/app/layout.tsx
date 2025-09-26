@@ -13,6 +13,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { AlertTriangle } from "lucide-react";
 import { Inter } from "next/font/google";
 import Script from "next/script";
+import Link from "next/link"; // ✅ यहाँ LINK IMPORT किया गया है
 
 const inter = Inter({
   subsets: ["latin"],
@@ -131,8 +132,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <main className="flex-1">{children}</main>
         <Toaster />
 
-        <footer className="py-6 text-center text-gray-700">
+        {/* ✅ यहाँ से आपका FINAL FOOTER कोड शुरू होता है, जिसमें लीगल लिंक्स हैं */}
+        <footer className="py-6 text-center text-gray-700 bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800">
           <div className="container mx-auto px-6">
+            
+            {/* 1. Developer/Copyright/About Section */}
             <div className="flex flex-col sm:flex-row justify-center items-center gap-2 sm:gap-4">
               <p>Developed with ❤️ by Shubham Gautam</p>
               <span className="hidden sm:inline">|</span>
@@ -147,7 +151,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                   </button>
                 </DialogTrigger>
                 <DialogContent className="max-w-3xl max-h-[90vh] overflow-y-auto">
-                  <DialogHeader>
+                   <DialogHeader>
                     <DialogTitle className="text-2xl text-center mb-4">
                       About Toolify
                     </DialogTitle>
@@ -189,7 +193,28 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               </Dialog>
             </div>
 
-            {/* ✅ Accessible footer navigation */}
+            {/* ✅ 2. FIX: LEGAL LINKS (AdSense Required) */}
+            <nav
+              className="mt-6 flex gap-4 justify-center text-sm font-medium"
+              aria-label="Legal Navigation"
+            >
+              <Link
+                href="/privacy-policy" 
+                className="text-gray-600 hover:text-primary transition-colors dark:text-gray-400 dark:hover:text-indigo-400"
+              >
+                Privacy Policy
+              </Link>
+              <span className="text-gray-400 dark:text-gray-600">|</span>
+              <Link
+                href="/terms" 
+                className="text-gray-600 hover:text-primary transition-colors dark:text-gray-400 dark:hover:text-indigo-400"
+              >
+                Terms of Service
+              </Link>
+            </nav>
+            {/* ------------------------------------------- */}
+
+            {/* 3. Social Media Links */}
             <nav
               className="mt-4 flex gap-4 justify-center text-sm"
               aria-label="Footer navigation"
