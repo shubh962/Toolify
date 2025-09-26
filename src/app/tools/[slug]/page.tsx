@@ -8,6 +8,7 @@ import PdfToWord from '@/components/tools/PdfToWord';
 import MergePdf from '@/components/tools/MergePdf';
 import ImageCompressor from '@/components/tools/ImageCompressor';
 import ToolPageAd from '@/components/ads/ToolPageAd';
+import MoreTools from '@/components/MoreTools'; // ✅ नया कंपोनेंट इंपोर्ट किया गया
 
 export async function generateStaticParams() {
   return tools.map((tool) => ({
@@ -65,6 +66,10 @@ export default function ToolPage({ params }: { params: { slug: string } }) {
         </div>
 
       </div>
+      
+      {/* ✅ NEW: More Tools सेक्शन जोड़ा गया */}
+      <MoreTools /> 
+      
     </main>
   );
 }
