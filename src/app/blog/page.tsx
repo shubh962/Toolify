@@ -9,42 +9,26 @@ export default function BlogPage() {
     "mainEntity": [
       {
         "@type": "Question",
-        "name": "Which is the best free PDF to Word converter online?",
+        "name": "Can AI tools replace professional software like Photoshop?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "The best free PDF to Word converter is TaskGuru’s tool. It preserves formatting, works online in your browser, and requires no signup."
+          "text": "For specific tasks like background removal, image compression, and text extraction, AI tools on TaskGuru offer faster and more efficient results than traditional, heavy software, making them a great free replacement for everyday tasks."
         }
       },
       {
         "@type": "Question",
-        "name": "How can I remove background from an image online?",
+        "name": "Is it safe to upload my files to TaskGuru's free tools?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "TaskGuru offers an AI-powered Background Remover that removes backgrounds instantly from images without Photoshop or complex editing."
+          "text": "Yes. TaskGuru is designed for privacy. Your files are processed instantly and deleted immediately from the server, ensuring your data is secure and never permanently stored."
         }
       },
       {
         "@type": "Question",
-        "name": "How do I compress images without losing quality?",
+        "name": "How does AI Paraphrasing help writers and students?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "With TaskGuru’s Image Compressor, you can reduce JPG, PNG, and WebP file sizes while maintaining sharp quality, perfect for faster uploads."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "What is an AI text paraphraser and why use it?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "An AI text paraphraser rewrites text in a smarter way while keeping the meaning intact. TaskGuru provides a free paraphrasing tool for essays, blogs, and professional writing."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "How do I extract text from images?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "TaskGuru’s Image to Text OCR tool lets you upload images and copy the extracted text instantly, useful for scanned notes, receipts, and photos."
+          "text": "AI paraphrasing helps writers overcome writer's block, rephrase complex sentences for clarity, and generate unique content ideas, helping students create original and plagiarism-free academic papers."
         }
       }
     ]
@@ -52,107 +36,83 @@ export default function BlogPage() {
 
   return (
     <>
-      {/* ✅ FAQ Schema (specific to blog page) */}
+      {/* ✅ Updated FAQ Schema for New Content */}
       <Script
         id="faq-schema-blog"
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
       />
 
-      {/* ✅ Blog Content */}
+      {/* ✅ New, Detailed Blog Content */}
       <main className="max-w-4xl mx-auto px-4 sm:px-6 py-10">
         <article className="prose prose-lg max-w-none">
-          <h1 className="text-3xl sm:text-4xl font-bold mb-6">
-            🚀 The Ultimate Free Online Tools You Need in 2025
-          </h1>
-          <p className="mb-6">
-            Welcome to <strong>TaskGuru</strong> – your one-stop platform for
-            free, powerful, and AI-powered online tools. Whether you need to{" "}
-            <em>convert PDFs, edit images, compress files, paraphrase content,</em>{" "}
-            or <em>extract text</em>, we’ve got you covered. Everything works
-            online, no software downloads required.
+          <header className="text-center mb-12">
+            <h1 className="text-3xl sm:text-4xl font-extrabold text-primary mb-4">
+              ✨ The AI Productivity Edge: Why TaskGuru's Free Tools Beat the Paid Competition
+            </h1>
+            <p className="text-lg text-muted-foreground">
+              Discover how AI-powered tools are revolutionizing productivity and why you don't need expensive subscriptions anymore.
+            </p>
+            <hr className="mt-4" />
+          </header>
+
+          <p>
+            The digital world moves fast. Whether you're a student rushing a paper, a freelancer optimizing product photos, or a developer trying to speed up a website, you need tools that are **fast, free, and smart**. For too long, powerful tools meant expensive subscriptions and heavy software like Photoshop or paid PDF editors.
           </p>
 
-          {/* PDF to Word */}
-          <h2 className="text-2xl font-semibold mt-10">
-            📄 Free PDF to Word Converter
-          </h2>
           <p>
-            Need to edit a PDF? With the{" "}
-            <a
-              href="https://taskguru.online/tools/pdf-to-word"
-              className="text-primary underline"
-            >
-              PDF to Word Converter
-            </a>{" "}
-            from TaskGuru, you can turn PDFs into fully editable Word documents
-            instantly. Unlike many tools that mess up formatting, our converter
-            keeps your layout, fonts, and tables intact.
+            <strong>TaskGuru</strong> changes that. By leveraging modern **AI technology** and efficient cloud computing, we offer a suite of professional-grade tools that run entirely in your browser—completely free. This isn't just a list of features; it’s a commitment to efficiency, quality, and user **privacy**.
           </p>
 
-          {/* Background Remover */}
+          {/* New Section 1: The AI Advantage - Focus on Speed & Quality */}
           <h2 className="text-2xl font-semibold mt-10">
-            🖼️ Free AI Background Remover
+            🧠 AI vs. Traditional Tools: Speed and Precision
           </h2>
           <p>
-            Editing images doesn’t need to be hard. Our{" "}
-            <a
-              href="https://taskguru.online/tools/background-remover"
-              className="text-primary underline"
-            >
-              Background Remover
-            </a>{" "}
-            uses AI to cut out image backgrounds automatically. Perfect for
-            product photos, profile pictures, or creative designs.
+            Traditional file converters often rely on outdated code, leading to messy formatting and slow processing. TaskGuru's tools use advanced AI models trained on millions of files.
           </p>
 
-          {/* Image Compressor */}
+          <ul className="list-disc pl-6 space-y-2">
+            <li>
+              <strong>Instant Background Removal:</strong> Our <a href="/tools/background-remover">AI Background Remover</a> can perfectly isolate a subject in seconds, a task that used to take minutes in Photoshop.
+            </li>
+            <li>
+              <strong>Flawless PDF Conversion:</strong> The <a href="/tools/pdf-to-word">PDF to Word Converter</a> intelligently maps fonts and layouts, ensuring the output document is truly editable and not just a static image.
+            </li>
+            <li>
+              <strong>Smarter Rewriting:</strong> The <a href="/tools/text-paraphraser">AI Text Paraphraser</a> doesn't just swap words; it understands the context, creating grammatically correct, plagiarism-free alternatives for essays and reports.
+            </li>
+          </ul>
+
+          {/* New Section 2: Privacy and Security - Addressing User Trust */}
           <h2 className="text-2xl font-semibold mt-10">
-            📉 Free Image Compressor
+            🔒 Your Data Stays Yours: A Privacy-First Approach
           </h2>
           <p>
-            Big images slow down websites and uploads. With TaskGuru’s{" "}
-            <a
-              href="https://taskguru.online/tools/image-compressor"
-              className="text-primary underline"
-            >
-              Image Compressor
-            </a>
-            , you can shrink image file sizes up to 80% while keeping
-            high-quality resolution.
+            In a world where data theft is common, privacy is non-negotiable. Many online tools permanently store your uploaded files. **TaskGuru operates differently.**
+          </p>
+          <p>
+            We guarantee that all files you upload for compression, conversion, or background removal are **processed instantly and permanently deleted** from our servers right after the job is done. Your scanned receipts, personal documents, and photos are never stored or shared. This is a crucial difference between our free service and many others.
           </p>
 
-          {/* Text Paraphraser */}
+          {/* New Section 3: The TaskGuru Ecosystem - Cross-Tool Efficiency */}
           <h2 className="text-2xl font-semibold mt-10">
-            ✍️ Free AI Text Paraphraser
+            🔗 Unlocking Workflow Efficiency
           </h2>
           <p>
-            Struggling with essays or blog writing? TaskGuru’s{" "}
-            <a
-              href="https://taskguru.online/tools/text-paraphraser"
-              className="text-primary underline"
-            >
-              AI Text Paraphraser
-            </a>{" "}
-            helps you rewrite content while preserving the original meaning.
-            Ideal for students, writers, and professionals looking for
-            plagiarism-free alternatives.
+            Why jump between three different websites when you can do it all in one place? The true value of TaskGuru lies in its unified ecosystem:
+          </p>
+          <ol className="list-decimal pl-6 space-y-2">
+            <li>Use the <a href="/tools/image-to-text">Image to Text OCR</a> to extract text from a scanned receipt.</li>
+            <li>Use the <a href="/tools/text-paraphraser">Paraphraser</a> to instantly rewrite that text for a report.</li>
+            <li>Finally, use the <a href="/tools/image-compressor">Image Compressor</a> to optimize the report's cover photo for fast website loading.</li>
+          </ol>
+          <p>
+            This seamless flow saves you hours every week. **Stop paying for complexity; start using AI for simplicity.**
           </p>
 
-          {/* Image to Text */}
-          <h2 className="text-2xl font-semibold mt-10">
-            🔠 Free Image to Text (OCR)
-          </h2>
-          <p>
-            Turn images into editable text with our{" "}
-            <a
-              href="https://taskguru.online/tools/image-to-text"
-              className="text-primary underline"
-            >
-              Image to Text OCR
-            </a>
-            . Whether it’s scanned notes, receipts, or photos, TaskGuru’s OCR
-            extracts accurate text that you can copy and use right away.
+          <p className="mt-8 text-center bg-accent/10 p-4 border-l-4 border-primary font-semibold">
+            Ready to experience the future of productivity? Start using TaskGuru’s free, AI-powered tools today and achieve professional results instantly.
           </p>
 
           {/* FAQ Section */}
@@ -160,48 +120,14 @@ export default function BlogPage() {
             <h2 className="text-2xl sm:text-3xl font-bold mb-6">
               ❓ Frequently Asked Questions (FAQ)
             </h2>
+            {/* The actual FAQ items will render here based on the faqSchema */}
             <div className="space-y-6">
-              <div>
-                <h3 className="font-semibold">
-                  Which is the best free PDF to Word converter online?
-                </h3>
-                <p>
-                  TaskGuru’s PDF to Word Converter is free, secure, and
-                  preserves document formatting.
-                </p>
-              </div>
-              <div>
-                <h3 className="font-semibold">
-                  How can I remove background from an image online?
-                </h3>
-                <p>
-                  Upload your image to TaskGuru’s Background Remover and
-                  download a transparent PNG instantly.
-                </p>
-              </div>
-              <div>
-                <h3 className="font-semibold">
-                  How do I compress images without losing quality?
-                </h3>
-                <p>
-                  TaskGuru’s Image Compressor reduces file size while keeping
-                  high resolution intact.
-                </p>
-              </div>
-              <div>
-                <h3 className="font-semibold">What is an AI text paraphraser?</h3>
-                <p>
-                  It’s a tool that rewrites text smartly. TaskGuru’s paraphraser
-                  creates plagiarism-free versions instantly.
-                </p>
-              </div>
-              <div>
-                <h3 className="font-semibold">How do I extract text from images?</h3>
-                <p>
-                  Use TaskGuru’s Image-to-Text OCR to upload images and copy
-                  extracted text within seconds.
-                </p>
-              </div>
+              {faqSchema.mainEntity.map((item, index) => (
+                <div key={index}>
+                  <h3 className="font-semibold">{item.name}</h3>
+                  <p>{item.acceptedAnswer.text}</p>
+                </div>
+              ))}
             </div>
           </section>
         </article>
