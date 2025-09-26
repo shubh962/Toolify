@@ -12,6 +12,7 @@ import { handlePdfToWord } from '@/app/actions';
 
 export default function PdfToWord() {
   const { toast } = useToast();
+  // Working Code (State)
   const [file, setFile] = useState<File | null>(null);
   const [fileDataUri, setFileDataUri] = useState<string | null>(null);
   const [convertedDoc, setConvertedDoc] = useState<string | null>(null);
@@ -21,6 +22,7 @@ export default function PdfToWord() {
 
   const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10MB
 
+  // Working Code (Handlers)
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFile = event.target.files?.[0];
     validateAndSetFile(selectedFile);
@@ -57,7 +59,8 @@ export default function PdfToWord() {
     }
     setIsLoading(true);
     setConvertedDoc(null);
-    const result = await handlePdfToWord(fileDataUri);
+    // 🛑 WORKING CODE UNTOUCHED 🛑
+    const result = await handlePdfToWord(fileDataUri); 
     setIsLoading(false);
 
     if (result.success && result.data?.wordDataUri) {
@@ -86,26 +89,35 @@ export default function PdfToWord() {
     setIsLoading(false);
     if (fileInputRef.current) fileInputRef.current.value = '';
   };
+  // 🛑 WORKING CODE ENDS 🛑
 
-  // ✅ FAQ Schema
+  // ✅ UPDATED FAQ Schema for SEO/AdSense
   const faqSchema = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
     "mainEntity": [
       {
         "@type": "Question",
-        "name": "How to convert PDF to Word?",
+        "name": "Is TaskGuru's PDF to Word converter free, and is there a file size limit?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Upload your PDF to TaskGuru’s PDF to Word converter, click Convert to Word, and download the editable DOCX instantly."
+          "text": "Yes, our converter is 100% free with no sign-up required. The maximum file size supported is 10MB to ensure fast processing and optimal server performance."
         }
       },
       {
         "@type": "Question",
-        "name": "How to convert PDF to Word in laptop?",
+        "name": "Will the document formatting be preserved during the conversion?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Open TaskGuru in your laptop browser, upload the PDF, and download the .docx file instantly."
+          "text": "TaskGuru uses advanced conversion technology designed to preserve the original PDF layout, fonts, images, and tables as accurately as possible when converting to an editable DOCX format."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is it safe and secure to upload confidential PDF documents?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes, your security is our priority. Uploaded files are processed over a secure connection and are immediately deleted from our servers after the conversion is complete, ensuring your data remains private."
         }
       }
     ]
@@ -115,8 +127,8 @@ export default function PdfToWord() {
     "@context": "https://schema.org",
     "@type": "WebApplication",
     "name": "PDF to Word Converter",
-    "url": "https://taskguru.online/pdf-to-word",
-    "description": "Free online PDF to Word converter by TaskGuru. Convert PDF into editable Word documents instantly.",
+    "url": "https://taskguru.online/tools/pdf-to-word",
+    "description": "Free online PDF to Word converter by TaskGuru. Convert PDF into editable Word documents instantly while preserving formatting.",
     "applicationCategory": "Utility",
     "operatingSystem": "All",
     "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
@@ -135,13 +147,13 @@ export default function PdfToWord() {
         <title>Free PDF to Word Converter Online | TaskGuru</title>
         <meta
           name="description"
-          content="Convert PDF to Word online with TaskGuru. Free, fast PDF to Word converter that preserves formatting."
+          content="Convert PDF to Word online with TaskGuru. Free, fast PDF to Word converter that preserves formatting and is 100% secure."
         />
         <meta
           name="keywords"
-          content="pdf to word, pdf to word converter, convert pdf to word, free pdf converter, edit pdf, convert pdf, online pdf tools, convert pdf to word in laptop"
+          content="pdf to word, pdf to word converter, convert pdf to word, free pdf converter, edit pdf, convert pdf, online pdf tools, pdf to docx, pdf formatting"
         />
-        <link rel="canonical" href="https://taskguru.online/pdf-to-word" />
+        <link rel="canonical" href="https://taskguru.online/tools/pdf-to-word" />
       </Head>
 
       {/* ✅ Structured Data */}
@@ -201,29 +213,18 @@ export default function PdfToWord() {
         )}
       </Card>
 
-      {/* ✅ Internal Linking Block */}
-      <section className="max-w-3xl mx-auto my-8 sm:my-12 p-4 sm:p-6 bg-muted/50 rounded-lg shadow">
-        <h2 className="text-lg sm:text-xl font-bold mb-4">You may also like</h2>
-        <ul className="grid grid-cols-1 sm:grid-cols-2 gap-3 list-disc list-inside">
-          <li><a href="/tools/image-compressor" className="text-primary hover:underline">Image Compressor</a></li>
-          <li><a href="/tools/background-remover" className="text-primary hover:underline">Background Remover</a></li>
-          <li><a href="/tools/image-to-text" className="text-primary hover:underline">Image to Text (OCR)</a></li>
-          <li><a href="/text-paraphraser" className="text-primary hover:underline">AI Text Paraphraser</a></li>
-        </ul>
-      </section>
+      {/* 🛑 DELETED: Old "You may also like" Section (क्योंकि अब MoreTools है) */}
 
-      {/* ✅ FAQ Section */}
-      <section className="max-w-3xl mx-auto my-8 sm:my-12 p-4 sm:p-6 bg-white shadow rounded-lg">
-        <h2 className="text-xl sm:text-2xl font-bold mb-6">Frequently Asked Questions</h2>
-        <div className="space-y-4 text-left">
-          <div>
-            <h3 className="font-semibold">How to convert PDF to Word?</h3>
-            <p>Upload your PDF file, click <em>Convert to Word</em>, and download the editable .docx instantly using TaskGuru.</p>
-          </div>
-          <div>
-            <h3 className="font-semibold">How to convert PDF to Word in laptop?</h3>
-            <p>Open TaskGuru in your browser, upload the PDF, click Convert, and download the .docx file—all on your laptop.</p>
-          </div>
+      {/* ✅ UPDATED FAQ Section (Simple structure to solve the copy issue) */}
+      <section className="max-w-3xl mx-auto my-8 sm:my-12 p-6 bg-white dark:bg-gray-900 shadow rounded-lg border border-gray-100 dark:border-gray-800">
+        <h2 className="text-xl sm:text-2xl font-bold mb-6 text-gray-900 dark:text-white">Frequently Asked Questions</h2>
+        <div className="space-y-6 text-left">
+          {faqSchema.mainEntity.map((item, index) => (
+            <div key={index} className="border-b pb-4 last:border-b-0">
+              <h3 className="font-semibold text-lg text-gray-900 dark:text-white">{item.name}</h3>
+              <p className="text-gray-600 dark:text-gray-400 mt-2">{item.acceptedAnswer.text}</p>
+            </div>
+          ))}
         </div>
       </section>
     </>
