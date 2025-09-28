@@ -1,6 +1,6 @@
 'use client';
 import { useState, useRef } from 'react';
-// import Image from 'next/image'; // 🛑 NEXT/IMAGE हटा दिया गया
+// import Image from 'next/image'; 
 import Script from 'next/script';
 import type { Metadata } from 'next';
 import { Card, CardContent, CardFooter } from '@/components/ui/card';
@@ -12,9 +12,9 @@ import { handleBackgroundRemoval } from '@/app/actions';
 
 // ✅ SEO Metadata (No Change)
 export const metadata: Metadata = {
-  title: 'Free Online Background Remover Tool | TaskGuru',
+  title: 'Free Online Background Remover Tool | Erase Photo Background | TaskGuru',
   description:
-    "Remove image backgrounds instantly with TaskGuru's free online background remover. Upload JPG, PNG, WEBP and download transparent images in seconds. 100% Free AI-powered background eraser.",
+    "Remove image backgrounds instantly with TaskGuru's free AI-powered background remover. Upload JPG, PNG, WEBP and download transparent images in seconds. 100% Free AI-powered background eraser.",
   robots: 'index, follow',
   alternates: {
     canonical: 'https://taskguru.online/tools/background-remover',
@@ -22,7 +22,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Free Online Background Remover Tool | TaskGuru',
     description:
-      'Erase image backgrounds instantly using TaskGuru’s free AI-powered background remover tool. Upload PNG, JPG, WEBP and download transparent images without signup.',
+      'Erase photo backgrounds instantly using TaskGuru’s free AI-powered background remover tool. Download transparent images without signup.',
     url: 'https://taskguru.online/tools/background-remover',
     siteName: 'TaskGuru',
     images: [
@@ -181,7 +181,8 @@ export default function BackgroundRemover() {
 
       {/* Intro */}
       <section className="max-w-4xl mx-auto py-6 text-center space-y-4">
-        <h1 className="text-3xl font-bold">Free Online Background Remover – Erase Image Backgrounds Instantly</h1>
+        {/* ✅ H1 को H3 में बदला गया (SEO Fix) */}
+        <h3 className="text-3xl font-bold">Free Online Background Remover – Erase Image Backgrounds Instantly</h3>
         <p className="text-muted-foreground">
           TaskGuru’s <strong>AI Background Remover</strong> lets you remove backgrounds from JPG, PNG, WEBP images online free.  
           Upload your photo, click remove, and download a transparent background instantly — no signup required.
@@ -257,37 +258,40 @@ export default function BackgroundRemover() {
       {/* Features */}
       <section className="max-w-4xl mx-auto py-10 grid md:grid-cols-2 gap-8">
         <div>
-          <h2 className="text-xl font-semibold">Why Use TaskGuru Background Remover?</h2>
+          {/* ✅ Features को H3 में बदला गया (SEO Fix) */}
+          <h3 className="text-xl font-semibold">Why Use TaskGuru Background Remover?</h3>
           <ul className="list-disc list-inside text-muted-foreground space-y-2 mt-4">
-            <li>✔ 100% Free online background remover</li>
-            <li>✔ AI-powered accuracy for clean results</li>
+            <li>✔ 100% **Free online background remover**</li>
+            <li>✔ **AI-powered accuracy** for clean results</li>
             <li>✔ Supports JPG, PNG, WEBP images</li>
             <li>✔ No signup or software install needed</li>
             <li>✔ Works on desktop & mobile</li>
           </ul>
         </div>
         <div>
-          <h2 className="text-xl font-semibold">Common Use Cases</h2>
+          {/* ✅ Use Cases को H3 में बदला गया (SEO Fix) */}
+          <h3 className="text-xl font-semibold">Common Use Cases</h3>
           <ul className="list-disc list-inside text-muted-foreground space-y-2 mt-4">
-            <li>🛍 Create product images with white/transparent background</li>
-            <li>👤 Make profile pictures clean & professional</li>
-            <li>🎨 Graphic design & marketing creatives</li>
-            <li>📸 Remove unwanted backgrounds from photos</li>
+            <li>🛍 Create **product images** with **white/transparent background**</li>
+            <li>👤 Make **profile pictures** clean & professional</li>
+            <li>🎨 Graphic **design & marketing** creatives</li>
+            <li>📸 **Remove unwanted backgrounds** from photos</li>
           </ul>
         </div>
       </section>
 
       {/* How To Guide */}
       <section className="max-w-4xl mx-auto py-10">
+        {/* H2 मेंटेन रखा गया (नया सेक्शन) */}
         <h2 className="text-xl font-semibold text-center">How to Remove Background from an Image Online?</h2>
         <ol className="list-decimal list-inside text-muted-foreground space-y-2 mt-4">
           <li>Upload your image (JPG, PNG, WEBP).</li>
           <li>Click <strong>Remove Background</strong> to start processing.</li>
-          <li>Download your transparent background image instantly.</li>
+          <li>Download your **transparent background image** instantly.</li>
         </ol>
       </section>
 
-      {/* ✅ UPDATED FAQ Section (High-content, simple structure) */}
+      {/* ✅ UPDATED FAQ Section (H2 मेंटेन रखा गया) */}
       <section className="max-w-4xl mx-auto my-8 sm:my-12 p-6 bg-white dark:bg-gray-900 shadow rounded-lg border border-gray-100 dark:border-gray-800">
         <h2 className="text-xl sm:text-2xl font-bold mb-6 text-gray-900 dark:text-white">Frequently Asked Questions</h2>
         <div className="space-y-6 text-left">
@@ -301,4 +305,4 @@ export default function BackgroundRemover() {
       </section>
     </div>
   );
-      }
+}
