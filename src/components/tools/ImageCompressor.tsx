@@ -255,7 +255,7 @@ export default function ImageCompressor() {
 
       {/* Intro */}
       <section className="max-w-4xl mx-auto py-6 text-center space-y-4">
-        <h1 className="text-3xl font-bold">Free Image Compressor Online – Optimize Images for Web Speed</h1>
+        <h3 className="text-3xl font-bold">Free Image Compressor Online – Optimize Images for Web Speed</h3>
         <p className="text-muted-foreground">
           TaskGuru’s <strong>Image Compressor</strong> reduces the file size of your JPG, PNG, and WEBP images up to 80% without noticeable quality loss. Fast, secure, and free for all your web optimization needs.
         </p>
