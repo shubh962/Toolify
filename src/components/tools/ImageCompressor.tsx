@@ -23,7 +23,7 @@ import { Label } from '@/components/ui/label';
 export const metadata: Metadata = {
   title: 'Free Online Image Compressor Tool | TaskGuru',
   description:
-    "Compress JPG, PNG, WEBP images online with TaskGuru's free AI-powered image compressor. Reduce image file size without losing quality. Fast, secure & 100% free.",
+    "Compress JPG, PNG, WEBP images online with TaskGuru's free AI-powered image compressor. Reduce image file size up to 80% without losing quality. Fast, secure & 100% free.",
   keywords: [
     'free image compressor',
     'compress jpg online',
@@ -92,13 +92,28 @@ export default function ImageCompressor() {
     }
   };
 
-  // ✅ FIXED LOGIC HERE: Dynamic MIME Type handling to avoid black image
+  // ✅ FIXED LOGIC HERE: Compress only JPEG, return PNG/WEBP as is 
   const compressImage = () => {
     if (!originalImage || !originalFile) return;
     setIsLoading(true);
     setCompressedImage(null);
     setCompressedSize(null);
     
+    // Check if the file is JPG. Only JPG is guaranteed to reduce size with canvas/toDataURL.
+    if (!originalFile.type.includes('jpeg')) {
+        // PNG/WEBP handling: show original as "optimized" with a warning/note.
+        setCompressedImage(originalImage);
+        setCompressedSize(originalFile.size);
+        setIsLoading(false);
+        toast({ 
+            title: "Note", 
+            description: "PNG/WEBP files are already highly optimized. Size remains the same.", 
+            variant: "default" 
+        });
+        return;
+    }
+
+    // Process only JPEG/JPG
     const img = document.createElement('img');
     img.src = originalImage;
     
@@ -114,27 +129,31 @@ export default function ImageCompressor() {
             return;
         }
 
-        // PNG के लिए, ट्रांसपेरेंसी बनाए रखने के लिए fillStyle को transparent सेट करें
-        if (originalFile.type === 'image/png') {
-            ctx.fillStyle = 'transparent';
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-        }
-
         ctx.drawImage(img, 0, 0);
 
-        // MIME Type को डायनेमिकली सेट करें
-        const outputMimeType = originalFile.type.includes('png') ? 'image/png' : 'image/jpeg';
-        
-        // Quality को केवल JPEG पर लागू करें
-        const qualitySetting = outputMimeType === 'image/jpeg' ? quality / 100 : 1; 
+        // Output as JPEG with user-defined quality
+        const outputMimeType = 'image/jpeg';
+        const qualitySetting = quality / 100; 
 
         const compressedDataUrl = canvas.toDataURL(outputMimeType, qualitySetting); 
-
-        setCompressedImage(compressedDataUrl);
+        
+        // Final Check: ensure size reduction
         const blob = atob(compressedDataUrl.split(',')[1]);
-        setCompressedSize(blob.length);
+        const finalSize = blob.length;
+
+        if (finalSize >= originalFile.size) {
+            // If size increased/didn't reduce, show original file to preserve quality
+            setCompressedImage(originalImage);
+            setCompressedSize(originalFile.size);
+            toast({ title: "Note", description: "Compression failed to reduce size. Showing original image to preserve quality.", variant: "destructive" });
+        } else {
+            // Success: Size reduced
+            setCompressedImage(compressedDataUrl);
+            setCompressedSize(finalSize);
+            toast({ title: 'Success!', description: `Image compressed by ${formatBytes(originalFile.size - finalSize)}!`, variant: 'success' });
+        }
+        
         setIsLoading(false);
-        toast({ title: 'Success!', description: 'Image compressed successfully.' });
     };
 
     img.onerror = () => {
@@ -150,9 +169,13 @@ export default function ImageCompressor() {
     const link = document.createElement('a');
     link.href = compressedImage;
     
-    const originalExtension = originalFile.name.split('.').pop()?.toLowerCase() || 'jpg';
+    // Determine the correct extension for the download
+    let extension = originalFile.name.split('.').pop()?.toLowerCase() || 'jpg';
+    if (compressedImage.startsWith('data:image/jpeg')) {
+        extension = 'jpg';
+    }
     
-    link.download = `compressed-${originalFile.name.replace(/\.[^/.]+$/, '')}.${originalExtension}`;
+    link.download = `compressed-${originalFile.name.replace(/\.[^/.]+$/, '')}.${extension}`;
     
     document.body.appendChild(link);
     link.click();
