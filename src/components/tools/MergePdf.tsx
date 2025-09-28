@@ -146,7 +146,7 @@ export default function MergePdf() {
     <div className="space-y-12">
       {/* Intro */}
       <section className="max-w-4xl mx-auto py-6 text-center space-y-4">
-        <h1 className="text-3xl font-bold">Free Online PDF Merger – Combine PDF Files Instantly</h1>
+        <h3 className="text-3xl font-bold">Free Online PDF Merger – Combine PDF Files Instantly</h3>
         <p className="text-muted-foreground">
           TaskGuru’s <strong>PDF Merger</strong> lets you upload multiple PDFs and combine them into one file.  
           It’s fast, secure, 100% free, and works on all devices with no watermarks.
