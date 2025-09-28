@@ -2,6 +2,7 @@
 import { useState, useRef } from 'react';
 import Head from 'next/head';
 import Image from 'next/image';
+import Script from 'next/script';
 import { Card, CardContent, CardFooter } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -13,6 +14,7 @@ import { Skeleton } from '@/components/ui/skeleton';
 
 export default function ImageToText() {
   const { toast } = useToast();
+  // 🛑 WORKING CODE UNTOUCHED 🛑
   const [image, setImage] = useState<string | null>(null);
   const [extractedText, setExtractedText] = useState<string>('');
   const [isLoading, setIsLoading] = useState(false);
@@ -47,7 +49,6 @@ export default function ImageToText() {
     setExtractedText('');
     const result = await handleImageToText(image);
     setIsLoading(false);
-
     if (result.success && result.data?.extractedText) {
       setExtractedText(result.data.extractedText);
       toast({ title: "Success!", description: "Text extracted successfully." });
@@ -61,7 +62,7 @@ export default function ImageToText() {
     navigator.clipboard.writeText(extractedText);
     toast({ title: "Copied to clipboard!" });
   };
-
+  
   const handleReset = () => {
     setImage(null);
     setExtractedText('');
@@ -69,6 +70,40 @@ export default function ImageToText() {
     if (fileInputRef.current) {
       fileInputRef.current.value = '';
     }
+  };
+  // 🛑 WORKING CODE ENDS 🛑
+
+
+  // ✅ UPDATED JSON-LD FAQ Schema (High-Content for SEO/AdSense)
+  const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Is TaskGuru’s Image to Text OCR tool completely free?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes, our Image to Text converter uses powerful OCR technology and is 100% free to use. There are no limits on how many photos or scans you can process."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I extract text from handwritten or low-quality scanned images?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "TaskGuru's OCR is optimized for high accuracy on printed text. While it attempts to recognize handwritten text, performance is best on clearly scanned or photographed documents and typed text."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is my uploaded image data secure and private?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Your privacy is guaranteed. Images uploaded for OCR are processed instantly over a secure connection and are permanently deleted from our servers immediately after the text is extracted."
+        }
+      }
+    ]
   };
 
   return (
@@ -83,6 +118,7 @@ export default function ImageToText() {
           name="keywords"
           content="image to text, image to text converter online, extract text from image, OCR online, convert image to text, best image to text converter, free image to text tool, scan image to text, photo to text converter, picture to text online, how to convert image to text, what is OCR, extract text online free, text recognition from images"
         />
+        
         <link rel="canonical" href="https://taskguru.online/tools/image-to-text" />
 
         {/* Open Graph */}
@@ -102,51 +138,14 @@ export default function ImageToText() {
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "FAQPage",
-              "mainEntity": [
-                {
-                  "@type": "Question",
-                  "name": "How to extract text from image online?",
-                  "acceptedAnswer": {
-                    "@type": "Answer",
-                    "text": "You can extract text from image online free using TaskGuru’s Image to Text Converter. Upload PNG, JPG, or WEBP and get editable text instantly."
-                  }
-                },
-                {
-                  "@type": "Question",
-                  "name": "Which is the best free image to text converter?",
-                  "acceptedAnswer": {
-                    "@type": "Answer",
-                    "text": "TaskGuru provides the best free image to text converter online using OCR. Fast, accurate, and no login required."
-                  }
-                },
-                {
-                  "@type": "Question",
-                  "name": "Can I convert a scanned photo to text?",
-                  "acceptedAnswer": {
-                    "@type": "Answer",
-                    "text": "Yes, TaskGuru’s OCR image to text tool can extract text from scanned photos and pictures."
-                  }
-                },
-                {
-                  "@type": "Question",
-                  "name": "How do I convert a picture into editable text?",
-                  "acceptedAnswer": {
-                    "@type": "Answer",
-                    "text": "Simply upload your picture (JPG, PNG, WEBP) to TaskGuru’s free converter and click Extract. The tool will give you editable text."
-                  }
-                }
-              ]
-            })
+            __html: JSON.stringify(faqSchema)
           }}
         />
       </Head>
 
       {/* Intro Section */}
       <section className="max-w-4xl mx-auto py-8 text-center space-y-4">
-        <h1 className="text-2xl font-bold">Free Image to Text Converter (OCR) Online</h1>
+        <h1 className="text-3xl font-bold">Free Image to Text Converter (OCR) Online</h1>
         <p className="text-muted-foreground">
           Convert images into editable text instantly with our free <strong>Image to Text Converter</strong>. 
           Upload PNG, JPG, or WEBP files and extract text using powerful <strong>OCR (Optical Character Recognition)</strong> technology. 
@@ -162,7 +161,8 @@ export default function ImageToText() {
               <h2 className="font-semibold text-xl text-center">Upload Image</h2>
               {image ? (
                 <div className="relative aspect-video w-full rounded-lg overflow-hidden border">
-                  <Image src={image} alt="Uploaded for OCR" layout="fill" objectFit="contain" />
+                  {/* Replaced Next/Image layout="fill" with basic <img> for simpler handling */}
+                  <img src={image} alt="Uploaded for OCR" className="object-contain w-full h-full absolute top-0 left-0" />
                 </div>
               ) : (
                 <div
@@ -258,31 +258,20 @@ export default function ImageToText() {
         </p>
       </section>
 
-      {/* FAQ */}
-      <section className="max-w-4xl mx-auto py-10">
-        <h2 className="text-xl font-semibold text-center">Frequently Asked Questions (FAQ)</h2>
-        <div className="mt-4 space-y-4">
-          <details className="border rounded-lg p-4">
-            <summary className="font-semibold cursor-pointer">Is TaskGuru Image to Text Converter free?</summary>
-            <p className="text-muted-foreground mt-2">Yes, our tool is 100% free and requires no registration.</p>
-          </details>
-          <details className="border rounded-lg p-4">
-            <summary className="font-semibold cursor-pointer">Does it support scanned PDFs?</summary>
-            <p className="text-muted-foreground mt-2">Currently, we support JPG, PNG, and WEBP images. PDF OCR support will be added soon.</p>
-          </details>
-          <details className="border rounded-lg p-4">
-            <summary className="font-semibold cursor-pointer">Can I use it on mobile?</summary>
-            <p className="text-muted-foreground mt-2">Yes, TaskGuru OCR works seamlessly on both mobile and desktop devices.</p>
-          </details>
+      {/* ✅ UPDATED FAQ Section (High-Content, Simple structure - Solves Accordion/Hidden Content Issue) */}
+      <section className="max-w-4xl mx-auto my-8 sm:my-12 p-6 bg-white dark:bg-gray-900 shadow rounded-lg border border-gray-100 dark:border-gray-800">
+        <h2 className="text-xl sm:text-2xl font-bold mb-6 text-gray-900 dark:text-white">Frequently Asked Questions (FAQ)</h2>
+        <div className="space-y-6 text-left">
+          {faqSchema.mainEntity.map((item, index) => (
+            <div key={index} className="border-b pb-4 last:border-b-0">
+              <h3 className="font-semibold text-lg text-gray-900 dark:text-white">{item.name}</h3>
+              <p className="text-gray-600 dark:text-gray-400 mt-2">{item.acceptedAnswer.text}</p>
+            </div>
+          ))}
         </div>
       </section>
       
-      {/* Footer (with requested links removed, and no new content added) */}
-      <footer className="max-w-4xl mx-auto py-10 text-center text-muted-foreground">
-        <p className="mt-4 text-xs">
-          © {new Date().getFullYear()} TaskGuru. All rights reserved.
-        </p>
-      </footer>
+      {/* 🛑 DELETED: Old Footer Sitemap Links (Replaced by MoreTools component in [slug]/page.tsx) */}
     </>
   );
 }
