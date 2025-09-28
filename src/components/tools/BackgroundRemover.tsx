@@ -261,8 +261,8 @@ export default function BackgroundRemover() {
           {/* ✅ Features को H3 में बदला गया (SEO Fix) */}
           <h3 className="text-xl font-semibold">Why Use TaskGuru Background Remover?</h3>
           <ul className="list-disc list-inside text-muted-foreground space-y-2 mt-4">
-            <li>✔ 100% **Free online background remover**</li>
-            <li>✔ **AI-powered accuracy** for clean results</li>
+            <li>✔ 100% Free online background remover</li>
+            <li>✔ AI-powered accuracy for clean results</li>
             <li>✔ Supports JPG, PNG, WEBP images</li>
             <li>✔ No signup or software install needed</li>
             <li>✔ Works on desktop & mobile</li>
@@ -272,10 +272,10 @@ export default function BackgroundRemover() {
           {/* ✅ Use Cases को H3 में बदला गया (SEO Fix) */}
           <h3 className="text-xl font-semibold">Common Use Cases</h3>
           <ul className="list-disc list-inside text-muted-foreground space-y-2 mt-4">
-            <li>🛍 Create **product images** with **white/transparent background**</li>
-            <li>👤 Make **profile pictures** clean & professional</li>
-            <li>🎨 Graphic **design & marketing** creatives</li>
-            <li>📸 **Remove unwanted backgrounds** from photos</li>
+            <li>🛍 Create product images with white/transparent background</li>
+            <li>👤 Make profile pictures clean & professional</li>
+            <li>🎨 Graphic design & marketing creatives</li>
+            <li>📸 Remove unwanted backgrounds from photos</li>
           </ul>
         </div>
       </section>
@@ -287,7 +287,7 @@ export default function BackgroundRemover() {
         <ol className="list-decimal list-inside text-muted-foreground space-y-2 mt-4">
           <li>Upload your image (JPG, PNG, WEBP).</li>
           <li>Click <strong>Remove Background</strong> to start processing.</li>
-          <li>Download your **transparent background image** instantly.</li>
+          <li>Download your transparent background image instantly.</li>
         </ol>
       </section>
 
