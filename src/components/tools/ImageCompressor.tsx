@@ -372,7 +372,7 @@ export default function ImageCompressor() {
         <ol className="list-decimal list-inside text-muted-foreground space-y-2 mt-4 text-left max-w-lg mx-auto">
           <li>Upload your image (JPG, PNG, or WEBP).</li>
           <li>Set compression quality (default 80%).</li>
-          <li>Click **Compress Image**.</li>
+          <li>Click Compress Image.</li>
           <li>Download your smaller, optimized image instantly.</li>
         </ol>
       </section>
