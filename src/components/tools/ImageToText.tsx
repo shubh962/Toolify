@@ -276,6 +276,23 @@ export default function ImageToText() {
           </details>
         </div>
       </section>
+      
+      {/* Footer Sitemap Links */}
+      <footer className="max-w-4xl mx-auto py-10 text-center text-muted-foreground">
+        <p>
+          Explore more on{" "}
+          <a href="https://taskguru.online" className="text-primary underline">TaskGuru</a>:{" "}
+          <a href="https://taskguru.online/blog" className="text-primary underline">Blog</a> |{" "}
+          <a href="https://taskguru.online/about" className="text-primary underline">About Us</a> |{" "}
+          <a href="https://taskguru.online/help" className="text-primary underline">Help</a>
+        </p>
+        <p className="mt-2">
+          Try our free tools:{" "}
+          <a href="https://taskguru.online/tools/background-remover" className="text-primary underline">Background Remover</a>,{" "}
+          <a href="https://taskguru.online/tools/text-paraphraser" className="text-primary underline">Text Paraphraser</a>,{" "}
+          <a href="https://taskguru.online/tools/pdf-to-word" className="text-primary underline">PDF to Word Converter</a>,{" "}
+          <a href="https://taskguru.online/tools/image-compressor" className="text-primary underline">Image Compressor</a>
+        </p>
         <p className="mt-4 text-xs">
           <a href="https://taskguru.online/privacy-policy" className="underline">Privacy Policy</a> |{" "}
           <a href="https://taskguru.online/terms" className="underline">Terms of Service</a>
