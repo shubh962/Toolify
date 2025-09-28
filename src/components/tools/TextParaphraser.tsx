@@ -50,8 +50,7 @@ export default function TextParaphraser() {
   const charCount = inputText.length;
   // 🛑 WORKING CODE ENDS 🛑
   
-  // ✅ UPDATED JSON-LD Schema & Content for SEO/AdSense (High-Content)
-  
+  // ✅ FIX: JSON-LD Schema (Error was fixed by wrapping the value in a new object)
   const faqSchema = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
@@ -61,7 +60,7 @@ export default function TextParaphraser() {
         "name": "How does AI text paraphrasing help me avoid plagiarism?",
         "acceptedAnswer": {
           "@type": "Answer",
-          [span_0](start_span)"text": "The AI rewrites your source material into entirely new sentence structures and vocabulary. This significantly reduces similarity scores, helping students and writers ensure their work is original and unique.[span_0](end_span)"
+          "text": "The AI rewrites your source material into entirely new sentence structures and vocabulary. This significantly reduces similarity scores, helping students and writers ensure their work is original and unique."
         }
       },
       {
@@ -69,7 +68,7 @@ export default function TextParaphraser() {
         "name": "Is TaskGuru’s paraphrasing tool completely free to use without limits?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Yes, TaskGuru provides its AI text paraphrasing tool completely free, with no signup and no daily usage limits. [span_1](start_span)We are committed to making high-quality AI accessible to everyone.[span_1](end_span)"
+          "text": "Yes, TaskGuru provides its AI text paraphrasing tool completely free, with no signup and no daily usage limits. We are committed to making high-quality AI accessible to everyone."
         }
       },
       {
@@ -77,7 +76,7 @@ export default function TextParaphraser() {
         "name": "How accurate is the AI in preserving the original meaning of the text?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Our AI uses advanced semantic analysis to focus on the original text's core meaning. [span_2](start_span)It generates natural, accurate rewrites while preserving the intended message of your content.[span_2](end_span)"
+          "text": "Our AI uses advanced semantic analysis to focus on the original text's core meaning. It generates natural, accurate rewrites while preserving the intended message of your content."
         }
       },
       {
@@ -95,7 +94,7 @@ export default function TextParaphraser() {
     "@context": "https://schema.org",
     "@type": "WebApplication",
     "name": "AI Text Paraphraser",
-    "url": "https://taskguru.online/tools/text-paraphraser", // ✅ URL फिक्स
+    "url": "https://taskguru.online/tools/text-paraphraser",
     "description": "Free online AI-powered text paraphraser by TaskGuru. Rewrite your content instantly while maintaining the original meaning.",
     "applicationCategory": "Utility",
     "operatingSystem": "All",
@@ -122,7 +121,7 @@ export default function TextParaphraser() {
         <meta
           name="description"
           content="Use TaskGuru's free AI text paraphraser to rewrite text, articles, and essays instantly. Trusted by students, writers, and professionals worldwide."
-          [span_3](start_span)
+         
         />
         <meta
           name="keywords"
@@ -134,16 +133,16 @@ export default function TextParaphraser() {
             how to paraphrase text online?, free text rewriter,
             sentence rephraser, TaskGuru text tools
           "
-          [span_3](end_span)
+         
         />
-        <link rel="canonical" href="https://taskguru.online/tools/text-paraphraser" /> {/* ✅ Canonical Fix */}
+        <link rel="canonical" href="https://taskguru.online/tools/text-paraphraser" />
 
         {/* ✅ Open Graph Tags */}
-        [span_4](start_span)<meta property="og:title" content="AI Text Paraphraser | Free Online Tool"[span_4](end_span) />
+        <meta property="og:title" content="AI Text Paraphraser | Free Online Tool" />
         <meta
           property="og:description"
           content="Paraphrase your text instantly with TaskGuru's free AI-powered paraphraser. Rewrite essays, articles, and assignments online."
-          [span_5](start_span)
+         
         />
         <meta property="og:url" content="https://taskguru.online/tools/text-paraphraser" />
         <meta property="og:image" content="https://taskguru.online/og-image.png" />
@@ -151,11 +150,11 @@ export default function TextParaphraser() {
 
         {/* ✅ Twitter Card Meta */}
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="AI Text Paraphraser | Rewrite Sentences Online Free"[span_5](end_span) />
+        <meta name="twitter:title" content="AI Text Paraphraser | Rewrite Sentences Online Free" />
         <meta
           name="twitter:description"
           content="Free AI paraphrasing tool to rewrite your sentences while preserving meaning. Perfect for essays & blogs."
-          [span_6](start_span)
+         
         />
         <meta name="twitter:image" content="https://taskguru.online/og-image.png" />
       </Head>
@@ -174,7 +173,7 @@ export default function TextParaphraser() {
 
 
       {/* ✅ Page Content */}
-      <Card className="w-full max-w-4xl mx-auto shadow-lg"[span_6](end_span) >
+      <Card className="w-full max-w-4xl mx-auto shadow-lg" >
         <CardContent className="p-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
             {/* Input Side */}
@@ -187,7 +186,7 @@ export default function TextParaphraser() {
                 value={inputText}
                 onChange={(e) => setInputText(e.target.value)}
                 disabled={isLoading}
-                [span_7](start_span)
+               
               />
               <p className="text-sm text-muted-foreground text-right">{charCount} / 5000 characters</p>
             </div>
@@ -196,7 +195,7 @@ export default function TextParaphraser() {
             <div className="flex flex-col space-y-2">
               <div className="flex justify-between items-center">
                 <label htmlFor="output-text" className="font-semibold text-lg">Paraphrased Text</label>
-                <Button onClick={handleCopy} disabled={!outputText || isLoading} variant="ghost" size="sm"[span_7](end_span)>
+                <Button onClick={handleCopy} disabled={!outputText || isLoading} variant="ghost" size="sm">
                   <Copy className="mr-2 h-4 w-4" /> Copy
                 </Button>
               </div>
@@ -208,18 +207,18 @@ export default function TextParaphraser() {
                   placeholder={isLoading ? "Paraphrasing, please wait..." : "Your rewritten text will appear here."}
                   value={outputText}
                   readOnly
-                  [span_8](start_span)
+                 
                 />
               </div>
             </div>
           </div>
         </CardContent>
 
-        <CardFooter className="flex justify-center gap-4 bg-muted/50 p-4 border-t"[span_8](end_span)>
+        <CardFooter className="flex justify-center gap-4 bg-muted/50 p-4 border-t">
           <Button variant="outline" onClick={handleReset} disabled={isLoading}>
             <Trash2 className="mr-2 h-4 w-4" /> Reset
           </Button>
-          <Button onClick={handleSubmit} disabled={isLoading || [span_9](start_span)!inputText}[span_9](end_span)>
+          <Button onClick={handleSubmit} disabled={isLoading || !inputText}>
             {isLoading ? (
               <Loader2 className="mr-2 h-4 w-4 animate-spin" />
             ) : (
@@ -246,5 +245,4 @@ export default function TextParaphraser() {
       {/* 🛑 DELETED: Old Footer with duplicate internal links (MoreTools handles this) */}
     </>
   );
-                }
-      
+}
