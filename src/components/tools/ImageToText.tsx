@@ -145,7 +145,7 @@ export default function ImageToText() {
 
       {/* Intro Section */}
       <section className="max-w-4xl mx-auto py-8 text-center space-y-4">
-        <h1 className="text-3xl font-bold">Free Image to Text Converter (OCR) Online</h1>
+        <h3 className="text-3xl font-bold">Free Image to Text Converter (OCR) Online</h3>
         <p className="text-muted-foreground">
           Convert images into editable text instantly with our free <strong>Image to Text Converter</strong>. 
           Upload PNG, JPG, or WEBP files and extract text using powerful <strong>OCR (Optical Character Recognition)</strong> technology. 
