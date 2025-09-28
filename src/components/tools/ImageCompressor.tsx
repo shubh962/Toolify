@@ -1,7 +1,7 @@
-'use client'; // ✅ सुनिश्चित करें कि यह लाइन सबसे ऊपर है!
+'use client';
 import { useState, useRef } from 'react';
 import Image from 'next/image';
-import Script from 'next/script'; 
+import Script from 'next/script';
 import type { Metadata } from 'next';
 import { Card, CardContent, CardFooter } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -18,10 +18,6 @@ import {
 } from 'lucide-react';
 import { Slider } from '@/components/ui/slider';
 import { Label } from '@/components/ui/label';
-// 🛑 WARNING: handleImageCompression का इंपोर्ट मिसिंग हो सकता है
-// अगर आपकी actions.ts में इमेज कंप्रेशन का लॉजिक नहीं है, तो इसे हटा दें या अपनी actions.ts को चेक करें।
-// import { handleImageCompression } from '@/app/actions'; // अगर आप इसका इस्तेमाल नहीं कर रहे हैं तो इसे कमेंट करें
-
 
 // ✅ SEO Metadata (No Change)
 export const metadata: Metadata = {
@@ -69,7 +65,7 @@ export const metadata: Metadata = {
 
 export default function ImageCompressor() {
   const { toast } = useToast();
-  // 🛑 WORKING CODE UNTOUCHED 🛑 (Logic and State)
+  // 🛑 WORKING CODE UNTOUCHED 🛑 (State)
   const [originalImage, setOriginalImage] = useState<string | null>(null);
   const [originalFile, setOriginalFile] = useState<File | null>(null);
   const [compressedImage, setCompressedImage] = useState<string | null>(null);
@@ -77,11 +73,7 @@ export default function ImageCompressor() {
   const [isLoading, setIsLoading] = useState(false);
   const [quality, setQuality] = useState(80);
   const fileInputRef = useRef<HTMLInputElement>(null);
-  
-  // Handlers and logic are unchanged.
-  // ... (handleFileChange, compressImage, handleDownload, handleReset, formatBytes functions remain the same)
-  // ... (The rest of the component JSX remains the same)
-  
+
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
@@ -100,49 +92,73 @@ export default function ImageCompressor() {
     }
   };
 
+  // ✅ FIXED LOGIC HERE: Dynamic MIME Type handling to avoid black image
   const compressImage = () => {
     if (!originalImage || !originalFile) return;
     setIsLoading(true);
     setCompressedImage(null);
     setCompressedSize(null);
+    
     const img = document.createElement('img');
     img.src = originalImage;
+    
     img.onload = () => {
-      const canvas = document.createElement('canvas');
-      canvas.width = img.width;
-      canvas.height = img.height;
-      const ctx = canvas.getContext('2d');
-      if (!ctx) {
-        toast({ title: 'Error', description: 'Could not process image.', variant: 'destructive' });
+        const canvas = document.createElement('canvas');
+        canvas.width = img.width;
+        canvas.height = img.height;
+        const ctx = canvas.getContext('2d');
+        
+        if (!ctx) {
+            toast({ title: 'Error', description: 'Could not process image.', variant: 'destructive' });
+            setIsLoading(false);
+            return;
+        }
+
+        // PNG के लिए, ट्रांसपेरेंसी बनाए रखने के लिए fillStyle को transparent सेट करें
+        if (originalFile.type === 'image/png') {
+            ctx.fillStyle = 'transparent';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+        }
+
+        ctx.drawImage(img, 0, 0);
+
+        // MIME Type को डायनेमिकली सेट करें
+        const outputMimeType = originalFile.type.includes('png') ? 'image/png' : 'image/jpeg';
+        
+        // Quality को केवल JPEG पर लागू करें
+        const qualitySetting = outputMimeType === 'image/jpeg' ? quality / 100 : 1; 
+
+        const compressedDataUrl = canvas.toDataURL(outputMimeType, qualitySetting); 
+
+        setCompressedImage(compressedDataUrl);
+        const blob = atob(compressedDataUrl.split(',')[1]);
+        setCompressedSize(blob.length);
         setIsLoading(false);
-        return;
-      }
-      // Compression logic: preserves the original file type for download
-      const mimeType = originalFile.type === 'image/png' ? 'image/png' : 'image/jpeg';
-      const compressedDataUrl = canvas.toDataURL(mimeType, quality / 100);
-      setCompressedImage(compressedDataUrl);
-      const blob = atob(compressedDataUrl.split(',')[1]);
-      setCompressedSize(blob.length);
-      setIsLoading(false);
-      toast({ title: 'Success!', description: 'Image compressed successfully.' });
+        toast({ title: 'Success!', description: 'Image compressed successfully.' });
     };
+
     img.onerror = () => {
       toast({ title: 'Error', description: 'Failed to load image.', variant: 'destructive' });
       setIsLoading(false);
     };
   };
+  // 🛑 WORKING CODE ENDS 🛑
 
+  // ✅ FIXED DOWNLOAD LOGIC
   const handleDownload = () => {
-    if (!compressedImage) return;
+    if (!compressedImage || !originalFile) return;
     const link = document.createElement('a');
     link.href = compressedImage;
-    // Download using original filename with "compressed-" prefix
-    link.download = `compressed-${originalFile?.name.replace(/\.[^/.]+$/, '')}.${originalFile?.type.split('/')[1] || 'jpg'}`;
+    
+    const originalExtension = originalFile.name.split('.').pop()?.toLowerCase() || 'jpg';
+    
+    link.download = `compressed-${originalFile.name.replace(/\.[^/.]+$/, '')}.${originalExtension}`;
+    
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
   };
-
+  
   const handleReset = () => {
     setOriginalImage(null);
     setOriginalFile(null);
