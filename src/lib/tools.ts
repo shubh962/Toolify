@@ -8,6 +8,7 @@ export interface Tool {
   icon: LucideIcon;
   isGenAI: boolean;
   isPlaceholder?: boolean;
+  imageUrl?: string; 
 }
 
 export const tools: Tool[] = [
@@ -17,6 +18,7 @@ export const tools: Tool[] = [
     description: 'Automatically erase image backgrounds with our AI-powered tool. Perfect for product photos and portraits.',
     icon: ImageMinus,
     isGenAI: true,
+    imageUrl: '/tool-previews/bg-remover.png', 
   },
   {
     slug: 'image-to-text',
@@ -24,6 +26,7 @@ export const tools: Tool[] = [
     description: 'Extract text from images accurately. Digitize documents and notes with our free online OCR tool.',
     icon: ScanText,
     isGenAI: true,
+    imageUrl: '/tool-previews/ocr-tool.png',
   },
   {
     slug: 'text-paraphraser',
@@ -31,6 +34,7 @@ export const tools: Tool[] = [
     description: 'Rewrite and rephrase your text to enhance clarity and style. Ideal for content creators and students.',
     icon: PenSquare,
     isGenAI: true,
+    imageUrl: '/tool-previews/paraphraser.png',
   },
   {
     slug: 'pdf-to-word',
@@ -39,6 +43,7 @@ export const tools: Tool[] = [
     icon: FileText,
     isGenAI: false,
     isPlaceholder: false,
+    imageUrl: '/tool-previews/pdf-to-word.png',
   },
   {
     slug: 'merge-pdf',
@@ -47,6 +52,7 @@ export const tools: Tool[] = [
     icon: Combine,
     isGenAI: false,
     isPlaceholder: false,
+    imageUrl: '/tool-previews/merge-pdf.png',
   },
   {
     slug: 'image-compressor',
@@ -55,5 +61,6 @@ export const tools: Tool[] = [
     icon: Minimize,
     isGenAI: false,
     isPlaceholder: false,
+    imageUrl: '/tool-previews/compressor.png',
   },
 ];
