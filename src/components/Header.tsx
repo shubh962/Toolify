@@ -1,9 +1,12 @@
 import Link from 'next/link';
 import { Layers3 } from 'lucide-react';
-// ✅ IMPORT FIX: ThemeToggle और Header एक ही फ़ोल्डर में हैं, इसलिए रिलेटिव पाथ सही है।
-import { ThemeToggle } from "./ThemeToggle"; 
 
-const Header = () => {
+// ✅ Header को ThemeToggle को prop के रूप में स्वीकार करने के लिए अपडेट किया गया
+interface HeaderProps {
+  themeToggle: React.ReactNode; 
+}
+
+const Header = ({ themeToggle }: HeaderProps) => {
   return (
     <header className="py-4 px-6 md:px-12 bg-card border-b sticky top-0 z-50">
       <div className="container mx-auto flex items-center justify-between">
@@ -22,8 +25,8 @@ const Header = () => {
             Your All-in-One AI Toolkit
           </p>
           
-          {/* ✅ Theme Toggle बटन यहाँ जोड़ा गया */}
-          <ThemeToggle /> 
+          {/* ✅ Theme Toggle बटन को Prop के रूप में रेंडर किया गया */}
+          {themeToggle} 
         </div>
         
       </div>
