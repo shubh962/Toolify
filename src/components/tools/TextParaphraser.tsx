@@ -10,6 +10,7 @@ import { Loader2, Copy, Trash2, Wand2 } from 'lucide-react';
 import { handleTextParaphrasing } from '@/app/actions';
 import { Textarea } from '@/components/ui/textarea';
 import { Skeleton } from '@/components/ui/skeleton';
+import Image from 'next/image'; // ✅ Image Component Demo के लिए Import किया गया
 
 export default function TextParaphraser() {
   const { toast } = useToast();
@@ -50,7 +51,8 @@ export default function TextParaphraser() {
   const charCount = inputText.length;
   // 🛑 WORKING CODE ENDS 🛑
   
-  // ✅ FIX: JSON-LD Schema (Error was fixed by wrapping the value in a new object)
+  // ✅ UPDATED JSON-LD Schema & Content for SEO/AdSense (High-Content)
+  
   const faqSchema = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
@@ -94,7 +96,7 @@ export default function TextParaphraser() {
     "@context": "https://schema.org",
     "@type": "WebApplication",
     "name": "AI Text Paraphraser",
-    "url": "https://taskguru.online/tools/text-paraphraser",
+    "url": "https://taskguru.online/tools/text-paraphraser", 
     "description": "Free online AI-powered text paraphraser by TaskGuru. Rewrite your content instantly while maintaining the original meaning.",
     "applicationCategory": "Utility",
     "operatingSystem": "All",
@@ -172,7 +174,18 @@ export default function TextParaphraser() {
       />
 
 
-      {/* ✅ Page Content */}
+      {/* ✅ Intro Section */}
+      <section className="max-w-4xl mx-auto py-8 text-center space-y-4">
+        {/* H1 को H3 में बदला गया (SEO Fix) */}
+        <h3 className="text-3xl font-bold">AI Text Paraphraser | Free Online Rewriting Tool</h3>
+        <p className="text-muted-foreground">
+          Use TaskGuru's free AI text paraphraser to **rewrite text**, articles, and essays instantly. 
+          Enhance clarity and style for academic, professional, and creative writing.
+        </p>
+      </section>
+
+
+      {/* Main Tool Card (Stays at the top for better UX) */}
       <Card className="w-full max-w-4xl mx-auto shadow-lg" >
         <CardContent className="p-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
@@ -229,7 +242,83 @@ export default function TextParaphraser() {
         </CardFooter>
       </Card>
 
-      {/* ✅ NEW/UPDATED FAQ Section (Simple structure, High-Content) */}
+
+      {/* ✅ NEW: Before and After Demo Section (Performance Optimized) */}
+      <section className="max-w-4xl mx-auto py-10">
+        <h2 className="text-2xl font-bold text-center mb-8 text-foreground">
+          See the AI Difference: Before & After Paraphrasing
+        </h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 p-6 bg-muted/50 dark:bg-gray-800 rounded-xl shadow-inner">
+          
+          {/* Before Image */}
+          <div className="text-center">
+            <h3 className="text-lg font-semibold mb-3 text-red-500">ORIGINAL (Before)</h3>
+            <div className="relative aspect-video rounded-lg overflow-hidden border-2 border-red-400 dark:border-red-600">
+              <Image 
+                src="/tool-previews/paraphraser-before.png" 
+                alt="Original text input" 
+                fill 
+                className="object-contain"
+                loading="lazy" 
+                sizes="(max-width: 768px) 50vw, 30vw"
+              />
+            </div>
+          </div>
+          
+          {/* After Image */}
+          <div className="text-center">
+            <h3 className="text-lg font-semibold mb-3 text-green-500">PROCESSED (After)</h3>
+            <div className="relative aspect-video rounded-lg overflow-hidden border-2 border-green-400 dark:border-green-600">
+              <Image 
+                src="/tool-previews/paraphraser-after.png" 
+                alt="AI rewritten text output" 
+                fill 
+                className="object-contain"
+                loading="lazy" 
+                sizes="(max-width: 768px) 50vw, 30vw"
+              />
+            </div>
+          </div>
+          
+        </div>
+      </section>
+      {/* 🛑 END OF NEW SECTION 🛑 */}
+
+
+      {/* Features/Why Use Section */}
+      <section className="max-w-4xl mx-auto py-10 grid md:grid-cols-2 gap-8">
+        <div>
+          <h3 className="text-xl font-semibold">Why Use TaskGuru AI Paraphraser?</h3>
+          <ul className="list-disc list-inside text-muted-foreground space-y-2 mt-4">
+            <li>✔ **Plagiarism Reduction:** Helps generate unique sentences.</li>
+            <li>✔ **Enhanced Clarity:** Rewrites complex sentences for better readability.</li>
+            <li>✔ **Academic Writing:** Perfect for assignments and research papers.</li>
+            <li>✔ **5000 Character Limit:** Supports long-form content instantly.</li>
+          </ul>
+        </div>
+        <div>
+          <h3 className="text-xl font-semibold">Common Use Cases</h3>
+          <ul className="list-disc list-inside text-muted-foreground space-y-2 mt-4">
+            <li>✍️ **Bloggers & Writers:** Quickly rephrase articles and product descriptions.</li>
+            <li>🎓 **Students:** Paraphrase research and avoid accidental plagiarism.</li>
+            <li>💼 **Professionals:** Rewrite emails and reports for better impact.</li>
+            <li>🌐 **SEO Content:** Create variations of existing content for SEO campaigns.</li>
+          </ul>
+        </div>
+      </section>
+
+      {/* How To Guide */}
+      <section className="max-w-4xl mx-auto py-10">
+        <h2 className="text-xl font-semibold text-center">How to Paraphrase Text Online?</h2>
+        <ol className="list-decimal list-inside text-muted-foreground space-y-2 mt-4 text-left max-w-lg mx-auto">
+          <li>Paste the text you want to rewrite into the input box.</li>
+          <li>Click the **Paraphrase Text** button.</li>
+          <li>Copy the AI-generated unique version of your text from the output box.</li>
+        </ol>
+      </section>
+
+
+      {/* ✅ FINAL FAQ Section (H2 maintained, High-Content) */}
       <section className="max-w-4xl mx-auto my-10 p-6 bg-white dark:bg-gray-900 shadow rounded-lg border border-gray-100 dark:border-gray-800">
         <h2 className="text-2xl font-bold mb-6 text-gray-900 dark:text-white">Frequently Asked Questions</h2>
         <div className="space-y-6 text-left">
