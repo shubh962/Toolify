@@ -2,10 +2,11 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { Toaster } from "@/components/ui/toaster";
 import Header from "@/components/Header";
-// ✅ ThemeProvider और ThemeToggle दोनों को इंपोर्ट करें
+// Theme System Imports
 import { ThemeProvider } from "@/components/ThemeProvider"; 
 import { ThemeToggle } from "@/components/ThemeToggle"; 
 
+// Lucide Icons for Social Links and UI
 import {
   Dialog,
   DialogContent,
@@ -14,7 +15,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { AlertTriangle } from "lucide-react";
+import { AlertTriangle, Facebook, Twitter, Instagram, Linkedin, Youtube } from "lucide-react"; // ✅ Social Icons Imported
 import { Inter } from "next/font/google";
 import Script from "next/script";
 import Link from "next/link"; 
@@ -105,7 +106,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   
 
   return (
-    // 🛑 OLD: <html lang="en" className={`${inter.variable} dark`}>
     <html lang="en" suppressHydrationWarning> 
       <head>
         {/* ✅ JSON-LD (Website + Organization) */}
@@ -144,12 +144,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           defaultTheme="system" 
           enableSystem
         > 
-          {/* ✅ ThemeToggle को इंपोर्ट करें और Header में प्रॉप के रूप में पास करें */}
+          {/* ✅ Header में ThemeToggle पास किया गया */}
           <Header themeToggle={<ThemeToggle />} /> 
           <main className="flex-1">{children}</main>
           <Toaster />
 
-          {/* ✅ यहाँ से आपका FINAL FOOTER कोड शुरू होता है, जिसमें लीगल लिंक्स हैं */}
+          {/* ✅ FINAL FOOTER CODE WITH BLOG LINK AND ICONS */}
           <footer className="py-6 text-center text-gray-700 bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800">
             <div className="container mx-auto px-6">
               
@@ -210,11 +210,19 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 </Dialog>
               </div>
 
-              {/* ✅ 2. FIX: LEGAL LINKS (AdSense Required) */}
+              {/* 2. LEGAL LINKS AND BLOG LINK HERE */}
               <nav
                 className="mt-6 flex gap-4 justify-center text-sm font-medium"
                 aria-label="Legal Navigation"
               >
+                {/* BLOG LINK ADDED */}
+                <Link
+                  href="/blog" 
+                  className="text-gray-600 hover:text-primary transition-colors dark:text-gray-400 dark:hover:text-indigo-400"
+                >
+                  Blog
+                </Link>
+                <span className="text-gray-400 dark:text-gray-600">|</span>
                 <Link
                   href="/privacy-policy" 
                   className="text-gray-600 hover:text-primary transition-colors dark:text-gray-400 dark:hover:text-indigo-400"
@@ -228,58 +236,44 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 >
                   Terms of Service
                 </Link>
+                <span className="text-gray-400 dark:text-gray-600">|</span>
+                 <Link
+                  href="/help" 
+                  className="text-gray-600 hover:text-primary transition-colors dark:text-gray-400 dark:hover:text-indigo-400"
+                >
+                  Help
+                </Link>
               </nav>
-              {/* ------------------------------------------- */}
 
-              {/* 3. Social Media Links */}
+              {/* 3. SOCIAL MEDIA LINKS WITH ICONS */}
               <nav
-                className="mt-4 flex gap-4 justify-center text-sm"
-                aria-label="Footer navigation"
+                className="mt-4 flex gap-6 justify-center text-sm"
+                aria-label="Footer social links"
               >
                 <ul className="flex gap-4">
                   <li>
-                    <a
-                      href="https://www.facebook.com/share/1K97T5Q5wp/"
-                      target="_blank"
-                      rel="noopener"
-                    >
-                      Facebook
+                    <a href="https://www.facebook.com/share/1K97T5Q5wp/" target="_blank" rel="noopener" className="flex items-center gap-1.5 text-gray-600 hover:text-primary transition-colors dark:text-gray-400 dark:hover:text-indigo-400">
+                      <Facebook className="w-4 h-4" /> Facebook
                     </a>
                   </li>
                   <li>
-                    <a
-                      href="https://x.com/Shubham_962"
-                      target="_blank"
-                      rel="noopener"
-                    >
-                      X
+                    <a href="https://x.com/Shubham_962" target="_blank" rel="noopener" className="flex items-center gap-1.5 text-gray-600 hover:text-primary transition-colors dark:text-gray-400 dark:hover:text-indigo-400">
+                      <Twitter className="w-4 h-4" /> X
                     </a>
                   </li>
                   <li>
-                    <a
-                      href="https://www.instagram.com/fact_fusion_s"
-                      target="_blank"
-                      rel="noopener"
-                    >
-                      Instagram
+                    <a href="https://www.instagram.com/fact_fusion_s" target="_blank" rel="noopener" className="flex items-center gap-1.5 text-gray-600 hover:text-primary transition-colors dark:text-gray-400 dark:hover:text-indigo-400">
+                      <Instagram className="w-4 h-4" /> Instagram
                     </a>
                   </li>
                   <li>
-                    <a
-                      href="https://www.linkedin.com/in/Shubh962"
-                      target="_blank"
-                      rel="noopener"
-                    >
-                      LinkedIn
+                    <a href="https://www.linkedin.com/in/Shubh962" target="_blank" rel="noopener" className="flex items-center gap-1.5 text-gray-600 hover:text-primary transition-colors dark:text-gray-400 dark:hover:text-indigo-400">
+                      <Linkedin className="w-4 h-4" /> LinkedIn
                     </a>
                   </li>
                   <li>
-                    <a
-                      href="https://youtube.com/@factfusions0-x4k"
-                      target="_blank"
-                      rel="noopener"
-                    >
-                      YouTube
+                    <a href="https://youtube.com/@factfusions0-x4k" target="_blank" rel="noopener" className="flex items-center gap-1.5 text-gray-600 hover:text-primary transition-colors dark:text-gray-400 dark:hover:text-indigo-400">
+                      <Youtube className="w-4 h-4" /> YouTube
                     </a>
                   </li>
                 </ul>
