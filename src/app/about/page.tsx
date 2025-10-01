@@ -18,10 +18,10 @@ export default function AboutPage() {
       {/* Intro Section */}
       <section className="mt-8 space-y-6 text-lg text-gray-700 dark:text-gray-300 border-b pb-8">
         <p>
-          Welcome to **TaskGuru** – your comprehensive toolkit for smart online productivity. We believe that professional-grade tools for tasks like PDF conversion, image editing, and content writing should be **free and instantly accessible** to everyone.
+          Welcome to TaskGuru – your comprehensive toolkit for smart online productivity. We believe that professional-grade tools for tasks like PDF conversion, image editing, and content writing should be **free and instantly accessible** to everyone.
         </p>
         <p>
-          TaskGuru was founded by **Shubham Gautam** with a single goal: to eliminate the need for complicated software subscriptions and messy installations. We focus on delivering high-speed results directly through your browser.
+          TaskGuru was founded by Shubham Gautam with a single goal: to eliminate the need for complicated software subscriptions and messy installations. We focus on delivering high-speed results directly through your browser.
         </p>
       </section>
 
@@ -39,8 +39,8 @@ export default function AboutPage() {
               <Code className="w-5 h-5" /> Modern Technology Foundation
             </h3>
             <ul className="list-disc list-inside text-gray-700 dark:text-gray-400 space-y-1">
-              <li>Built on Next.js 14 for **blazing-fast speed** and excellent SEO.</li>
-              <li>Utilizes **AI (Artificial Intelligence)** for accurate tasks like background removal and text paraphrasing.</li>
+              <li>Built on Next.js 14 for blazing-fast speed and excellent SEO.</li>
+              <li>Utilizes AI (Artificial Intelligence) for accurate tasks like background removal and text paraphrasing.</li>
               <li>Mobile-first design ensures a perfect experience on all devices.</li>
             </ul>
           </div>
@@ -51,7 +51,7 @@ export default function AboutPage() {
               <ShieldCheck className="w-5 h-5" /> Our Commitment to Privacy
             </h3>
             <ul className="list-disc list-inside text-gray-700 dark:text-gray-400 space-y-1">
-              <li>**Zero File Storage:** All uploaded files are deleted immediately after processing.</li>
+              <li>Zero File Storage: All uploaded files are deleted immediately after processing.</li>
               <li>No mandatory sign-ups, keeping your usage anonymous.</li>
               <li>Clear <Link href="/privacy-policy" className="text-primary underline">Privacy Policy</Link> and <Link href="/terms" className="text-primary underline">Terms of Service</Link> available.</li>
             </ul>
