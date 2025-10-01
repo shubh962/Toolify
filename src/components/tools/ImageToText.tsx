@@ -145,6 +145,7 @@ export default function ImageToText() {
 
       {/* Intro Section */}
       <section className="max-w-4xl mx-auto py-8 text-center space-y-4">
+        {/* ✅ SEO FIX: H1 को H3 में बदला गया */}
         <h3 className="text-3xl font-bold">Free Image to Text Converter (OCR) Online</h3>
         <p className="text-muted-foreground">
           Convert images into editable text instantly with our free <strong>Image to Text Converter</strong>. 
@@ -153,12 +154,12 @@ export default function ImageToText() {
         </p>
       </section>
 
-      {/* OCR Tool */}
+      {/* OCR Tool (Main Upload/Work Area) */}
       <Card className="w-full max-w-4xl mx-auto shadow-lg">
         <CardContent className="p-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="flex flex-col space-y-4">
-              <h2 className="font-semibold text-xl text-center">Upload Image</h2>
+              <h3 className="font-semibold text-xl text-center">Upload Image</h3>
               {image ? (
                 <div className="relative aspect-video w-full rounded-lg overflow-hidden border">
                   {/* Replaced Next/Image layout="fill" with basic <img> for simpler handling */}
@@ -187,7 +188,7 @@ export default function ImageToText() {
               />
             </div>
             <div className="flex flex-col space-y-4">
-              <h2 className="font-semibold text-lg text-center">Extracted Text Result</h2>
+              <h3 className="font-semibold text-lg text-center">Extracted Text Result</h3>
               <div className="relative h-full">
                 {isLoading && <Skeleton className="absolute inset-0" />}
                 <Textarea
@@ -220,10 +221,53 @@ export default function ImageToText() {
         )}
       </Card>
 
+      {/* ✅ NEW: Before and After Demo Section (Performance Optimized) */}
+      <section className="max-w-4xl mx-auto py-10">
+        <h2 className="text-2xl font-bold text-center mb-8 text-foreground">
+          See the Accuracy: Image to Editable Text Demo
+        </h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 p-6 bg-muted/50 dark:bg-gray-800 rounded-xl shadow-inner">
+          
+          {/* Before Image */}
+          <div className="text-center">
+            <h3 className="text-lg font-semibold mb-3 text-red-500">ORIGINAL (Before OCR)</h3>
+            <div className="relative aspect-video rounded-lg overflow-hidden border-2 border-red-400 dark:border-red-600">
+              <Image 
+                src="/tool-previews/ocr-before.png" 
+                alt="Original scanned image or photo" 
+                fill 
+                className="object-contain"
+                loading="lazy" 
+                sizes="(max-width: 768px) 50vw, 30vw"
+              />
+            </div>
+          </div>
+          
+          {/* After Image */}
+          <div className="text-center">
+            <h3 className="text-lg font-semibold mb-3 text-green-500">PROCESSED (After OCR)</h3>
+            <div className="relative aspect-video rounded-lg overflow-hidden border-2 border-green-400 dark:border-green-600">
+              <Image 
+                src="/tool-previews/ocr-after.png" 
+                alt="Extracted text result" 
+                fill 
+                className="object-contain"
+                loading="lazy" 
+                sizes="(max-width: 768px) 50vw, 30vw"
+              />
+            </div>
+          </div>
+          
+        </div>
+      </section>
+      {/* 🛑 END OF NEW SECTION 🛑 */}
+
+
       {/* Features Section */}
       <section className="max-w-4xl mx-auto py-10 grid md:grid-cols-2 gap-8">
         <div>
-          <h2 className="text-xl font-semibold">Why use TaskGuru Image to Text Converter?</h2>
+          {/* ✅ H2 को H3 में बदला गया */}
+          <h3 className="text-xl font-semibold">Why use TaskGuru Image to Text Converter?</h3>
           <ul className="list-disc list-inside text-muted-foreground space-y-2 mt-4">
             <li>✔ 100% Free online OCR tool</li>
             <li>✔ Extract text from images (JPG, PNG, WEBP)</li>
@@ -234,7 +278,8 @@ export default function ImageToText() {
           </ul>
         </div>
         <div>
-          <h2 className="text-xl font-semibold">Supported Use Cases</h2>
+          {/* ✅ H2 को H3 में बदला गया */}
+          <h3 className="text-xl font-semibold">Supported Use Cases</h3>
           <ul className="list-disc list-inside text-muted-foreground space-y-2 mt-4">
             <li>📸 Extract notes from handwritten images</li>
             <li>📄 Convert scanned documents into text</li>
@@ -258,7 +303,7 @@ export default function ImageToText() {
         </p>
       </section>
 
-      {/* ✅ UPDATED FAQ Section (High-Content, Simple structure - Solves Accordion/Hidden Content Issue) */}
+      {/* ✅ UPDATED FAQ Section (H2 maintained) */}
       <section className="max-w-4xl mx-auto my-8 sm:my-12 p-6 bg-white dark:bg-gray-900 shadow rounded-lg border border-gray-100 dark:border-gray-800">
         <h2 className="text-xl sm:text-2xl font-bold mb-6 text-gray-900 dark:text-white">Frequently Asked Questions (FAQ)</h2>
         <div className="space-y-6 text-left">
@@ -270,8 +315,6 @@ export default function ImageToText() {
           ))}
         </div>
       </section>
-      
-      {/* 🛑 DELETED: Old Footer Sitemap Links (Replaced by MoreTools component in [slug]/page.tsx) */}
     </>
   );
 }
