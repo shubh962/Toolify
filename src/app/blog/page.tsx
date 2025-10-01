@@ -79,7 +79,7 @@ export default function BlogPage() {
         {/* ✅ 4. FAQ Section for Listing Page */}
         <section className="mt-14 pt-10 border-t border-gray-100">
             <h2 className="text-3xl sm:text-3xl font-bold mb-6 text-center">
-              ❓ Frequently Asked Questions (FAQ)
+               Frequently Asked Questions (FAQ)❓
             </h2>
             <div className="space-y-6">
               {faqSchema.mainEntity.map((item, index) => (
