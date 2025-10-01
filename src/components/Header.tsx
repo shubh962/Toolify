@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { Layers3 } from 'lucide-react';
-import { ThemeToggle } from "./ThemeToggle"; // ✅ ThemeToggle कंपोनेंट इंपोर्ट किया गया
+import { ThemeToggle } from "@/components/ThemeToggle"; 
 
 const Header = () => {
   return (
@@ -16,7 +16,7 @@ const Header = () => {
         </Link>
         
         {/* Toolkit Tagline and Theme Toggle */}
-        <div className="flex items-center gap-4"> {/* ✅ नया Flex Container बनाया गया */}
+        <div className="flex items-center gap-4">
           <p className="hidden md:block text-muted-foreground font-medium">
             Your All-in-One AI Toolkit
           </p>
