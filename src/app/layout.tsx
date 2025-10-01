@@ -26,7 +26,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  // ... (Metadata content remains the same)
+  // ... (Metadata content)
   metadataBase: new URL("https://taskguru.online"),
   title: {
     default: "Toolify – Free Online Tools (PDF, Images & Text)",
