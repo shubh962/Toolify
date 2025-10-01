@@ -184,8 +184,8 @@ export default function BackgroundRemover() {
         {/* H1 को H3 में बदला गया (SEO Fix) */}
         <h3 className="text-3xl font-bold">Free Online Background Remover – Erase Image Backgrounds Instantly</h3>
         <p className="text-muted-foreground">
-          TaskGuru’s <strong>AI Background Remover</strong> lets you remove backgrounds from **JPG**, **PNG**, **WEBP** images online free.  
-          Upload your photo, click remove, and download a **transparent background** instantly — no signup required.
+          TaskGuru’s <strong>AI Background Remover</strong> lets you remove backgrounds from JPG, PNG, WEBP images online free.  
+          Upload your photo, click remove, and download a transparent background instantly — no signup required.
         </p>
       </section>
 
