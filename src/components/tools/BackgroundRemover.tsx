@@ -1,6 +1,6 @@
 'use client';
 import { useState, useRef } from 'react';
-// import Image from 'next/image'; 
+import Image from 'next/image'; // ✅ Image Component Import किया गया
 import Script from 'next/script';
 import type { Metadata } from 'next';
 import { Card, CardContent, CardFooter } from '@/components/ui/card';
@@ -181,13 +181,55 @@ export default function BackgroundRemover() {
 
       {/* Intro */}
       <section className="max-w-4xl mx-auto py-6 text-center space-y-4">
-        {/* ✅ H1 को H3 में बदला गया (SEO Fix) */}
+        {/* H1 को H3 में बदला गया (SEO Fix) */}
         <h3 className="text-3xl font-bold">Free Online Background Remover – Erase Image Backgrounds Instantly</h3>
         <p className="text-muted-foreground">
           TaskGuru’s <strong>AI Background Remover</strong> lets you remove backgrounds from JPG, PNG, WEBP images online free.  
           Upload your photo, click remove, and download a transparent background instantly — no signup required.
         </p>
       </section>
+
+      {/* ✅ NEW: Before and After Demo Section (Performance Optimized) */}
+      <section className="max-w-4xl mx-auto py-10">
+        <h2 className="text-2xl font-bold text-center mb-8 text-foreground">
+          See the AI Difference: Before & After
+        </h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 p-6 bg-muted/50 dark:bg-gray-800 rounded-xl shadow-inner">
+          
+          {/* Before Image */}
+          <div className="text-center">
+            <h3 className="text-lg font-semibold mb-3 text-red-500">ORIGINAL (Before)</h3>
+            <div className="relative aspect-square rounded-lg overflow-hidden border-2 border-red-400 dark:border-red-600">
+              <Image 
+                src="/tool-previews/bg-remover-before.png" 
+                alt="Original image with background" 
+                fill 
+                className="object-contain"
+                loading="lazy" // ✅ Performance Fix
+                sizes="(max-width: 768px) 50vw, 30vw" // ✅ Performance Fix
+              />
+            </div>
+          </div>
+          
+          {/* After Image */}
+          <div className="text-center">
+            <h3 className="text-lg font-semibold mb-3 text-green-500">PROCESSED (After)</h3>
+            <div className="relative aspect-square rounded-lg overflow-hidden border-2 border-green-400 dark:border-green-600">
+              <Image 
+                src="/tool-previews/bg-remover-after.png" 
+                alt="Image with transparent background" 
+                fill 
+                className="object-contain"
+                loading="lazy" // ✅ Performance Fix
+                sizes="(max-width: 768px) 50vw, 30vw" // ✅ Performance Fix
+              />
+            </div>
+          </div>
+          
+        </div>
+      </section>
+      {/* 🛑 END OF NEW SECTION 🛑 */}
+
 
       {/* Main Tool */}
       <Card className="w-full max-w-4xl mx-auto shadow-lg">
@@ -216,7 +258,7 @@ export default function BackgroundRemover() {
               <div>
                 <h3 className="text-lg font-semibold text-center">Original</h3>
                 <div className="relative aspect-square border rounded-lg overflow-hidden">
-                  {/* ✅ ORIGINAL IMAGE (Simple <img> tag) */}
+                  {/* ORIGINAL IMAGE (Simple <img> tag) */}
                   <img src={originalImage} alt="Uploaded original image" className="object-contain w-full h-full absolute top-0 left-0" />
                 </div>
               </div>
@@ -225,7 +267,7 @@ export default function BackgroundRemover() {
                 <div className="relative aspect-square border rounded-lg bg-muted overflow-hidden">
                   {isLoading && <Loader2 className="w-12 h-12 animate-spin absolute inset-0 m-auto text-primary" />}
                   {processedImage ? (
-                    // ✅ PROCESSED IMAGE (Simple <img> tag)
+                    // PROCESSED IMAGE (Simple <img> tag)
                     <img src={processedImage} alt="Background removed result image" className="object-contain w-full h-full absolute top-0 left-0" />
                   ) : (
                     !isLoading && <ImageIcon className="w-16 h-16 m-auto text-muted-foreground" aria-hidden="true" />
@@ -258,24 +300,24 @@ export default function BackgroundRemover() {
       {/* Features */}
       <section className="max-w-4xl mx-auto py-10 grid md:grid-cols-2 gap-8">
         <div>
-          {/* ✅ Features को H3 में बदला गया (SEO Fix) */}
+          {/* Features को H3 में बदला गया (SEO Fix) */}
           <h3 className="text-xl font-semibold">Why Use TaskGuru Background Remover?</h3>
           <ul className="list-disc list-inside text-muted-foreground space-y-2 mt-4">
-            <li>✔ 100% Free online background remover</li>
-            <li>✔ AI-powered accuracy for clean results</li>
+            <li>✔ 100% **Free online background remover**</li>
+            <li>✔ **AI-powered accuracy** for clean results</li>
             <li>✔ Supports JPG, PNG, WEBP images</li>
             <li>✔ No signup or software install needed</li>
             <li>✔ Works on desktop & mobile</li>
           </ul>
         </div>
         <div>
-          {/* ✅ Use Cases को H3 में बदला गया (SEO Fix) */}
+          {/* Use Cases को H3 में बदला गया (SEO Fix) */}
           <h3 className="text-xl font-semibold">Common Use Cases</h3>
           <ul className="list-disc list-inside text-muted-foreground space-y-2 mt-4">
-            <li>🛍 Create product images with white/transparent background</li>
-            <li>👤 Make profile pictures clean & professional</li>
-            <li>🎨 Graphic design & marketing creatives</li>
-            <li>📸 Remove unwanted backgrounds from photos</li>
+            <li>🛍 Create **product images** with **white/transparent background**</li>
+            <li>👤 Make **profile pictures** clean & professional</li>
+            <li>🎨 Graphic **design & marketing** creatives</li>
+            <li>📸 **Remove unwanted backgrounds** from photos</li>
           </ul>
         </div>
       </section>
@@ -287,11 +329,11 @@ export default function BackgroundRemover() {
         <ol className="list-decimal list-inside text-muted-foreground space-y-2 mt-4">
           <li>Upload your image (JPG, PNG, WEBP).</li>
           <li>Click <strong>Remove Background</strong> to start processing.</li>
-          <li>Download your transparent background image instantly.</li>
+          <li>Download your **transparent background image** instantly.</li>
         </ol>
       </section>
 
-      {/* ✅ UPDATED FAQ Section (H2 मेंटेन रखा गया) */}
+      {/* UPDATED FAQ Section (H2 मेंटेन रखा गया) */}
       <section className="max-w-4xl mx-auto my-8 sm:my-12 p-6 bg-white dark:bg-gray-900 shadow rounded-lg border border-gray-100 dark:border-gray-800">
         <h2 className="text-xl sm:text-2xl font-bold mb-6 text-gray-900 dark:text-white">Frequently Asked Questions</h2>
         <div className="space-y-6 text-left">
