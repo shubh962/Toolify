@@ -23,7 +23,7 @@ import { Label } from '@/components/ui/label';
 export const metadata: Metadata = {
   title: 'Free Online Image Compressor Tool | TaskGuru',
   description:
-    "Compress JPG, PNG, WEBP images online with TaskGuru's free AI-powered image compressor. Reduce image file size up to 80% without losing quality. Fast, secure & 100% free.",
+    "Compress JPG, PNG, WEBP images online with TaskGuru's free AI-powered image compressor. Reduce image file size without losing quality. Fast, secure & 100% free.",
   keywords: [
     'free image compressor',
     'compress jpg online',
@@ -65,7 +65,7 @@ export const metadata: Metadata = {
 
 export default function ImageCompressor() {
   const { toast } = useToast();
-  // 🛑 WORKING CODE UNTOUCHED 🛑 (State)
+  // 🛑 WORKING CODE UNTOUCHED 🛑 (Logic and State)
   const [originalImage, setOriginalImage] = useState<string | null>(null);
   const [originalFile, setOriginalFile] = useState<File | null>(null);
   const [compressedImage, setCompressedImage] = useState<string | null>(null);
@@ -92,7 +92,6 @@ export default function ImageCompressor() {
     }
   };
 
-  // ✅ FIXED LOGIC HERE: Compress only JPEG, return PNG/WEBP as is 
   const compressImage = () => {
     if (!originalImage || !originalFile) return;
     setIsLoading(true);
@@ -255,13 +254,14 @@ export default function ImageCompressor() {
 
       {/* Intro */}
       <section className="max-w-4xl mx-auto py-6 text-center space-y-4">
+        {/* H1 को H3 में बदला गया (SEO Fix) */}
         <h3 className="text-3xl font-bold">Free Image Compressor Online – Optimize Images for Web Speed</h3>
         <p className="text-muted-foreground">
           TaskGuru’s <strong>Image Compressor</strong> reduces the file size of your JPG, PNG, and WEBP images up to 80% without noticeable quality loss. Fast, secure, and free for all your web optimization needs.
         </p>
       </section>
 
-      {/* Tool */}
+      {/* Main Tool Card (Stays at the top for better UX) */}
       <Card className="w-full max-w-4xl mx-auto shadow-lg">
         <CardContent className="p-6">
           {!originalImage ? (
@@ -343,10 +343,52 @@ export default function ImageCompressor() {
         )}
       </Card>
 
+      {/* ✅ NEW: Before and After Demo Section (Shifted BELOW Main Tool Card) */}
+      <section className="max-w-4xl mx-auto py-10">
+        <h2 className="text-2xl font-bold text-center mb-8 text-foreground">
+          See the Difference: Image Size Reduction Demo
+        </h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 p-6 bg-muted/50 dark:bg-gray-800 rounded-xl shadow-inner">
+          
+          {/* Before Image */}
+          <div className="text-center">
+            <h3 className="text-lg font-semibold mb-3 text-red-500">ORIGINAL (Large Size)</h3>
+            <div className="relative aspect-square rounded-lg overflow-hidden border-2 border-red-400 dark:border-red-600">
+              <Image 
+                src="/tool-previews/compressor-before.png" 
+                alt="Original large image file" 
+                fill 
+                className="object-contain"
+                loading="lazy" 
+                sizes="(max-width: 768px) 50vw, 30vw"
+              />
+            </div>
+          </div>
+          
+          {/* After Image */}
+          <div className="text-center">
+            <h3 className="text-lg font-semibold mb-3 text-green-500">OPTIMIZED (Reduced Size)</h3>
+            <div className="relative aspect-square rounded-lg overflow-hidden border-2 border-green-400 dark:border-green-600">
+              <Image 
+                src="/tool-previews/compressor-after.png" 
+                alt="Compressed smaller image file" 
+                fill 
+                className="object-contain"
+                loading="lazy" 
+                sizes="(max-width: 768px) 50vw, 30vw"
+              />
+            </div>
+          </div>
+          
+        </div>
+      </section>
+      {/* 🛑 END OF NEW SECTION 🛑 */}
+
+
       {/* Features */}
       <section className="max-w-4xl mx-auto py-10 grid md:grid-cols-2 gap-8">
         <div>
-          <h2 className="text-xl font-semibold">Why Use TaskGuru Image Compressor?</h2>
+          <h3 className="text-xl font-semibold">Why Use TaskGuru Image Compressor?</h3>
           <ul className="list-disc list-inside text-muted-foreground space-y-2 mt-4">
             <li>✔ Reduce file size up to 80%</li>
             <li>✔ Supports JPG, PNG, WEBP formats</li>
@@ -356,7 +398,7 @@ export default function ImageCompressor() {
           </ul>
         </div>
         <div>
-          <h2 className="text-xl font-semibold">Common Use Cases</h2>
+          <h3 className="text-xl font-semibold">Common Use Cases</h3>
           <ul className="list-disc list-inside text-muted-foreground space-y-2 mt-4">
             <li>⚡ Speed up website loading times (SEO benefit)</li>
             <li>📧 Compress images for email attachments</li>
@@ -372,12 +414,12 @@ export default function ImageCompressor() {
         <ol className="list-decimal list-inside text-muted-foreground space-y-2 mt-4 text-left max-w-lg mx-auto">
           <li>Upload your image (JPG, PNG, or WEBP).</li>
           <li>Set compression quality (default 80%).</li>
-          <li>Click Compress Image.</li>
+          <li>Click **Compress Image**.</li>
           <li>Download your smaller, optimized image instantly.</li>
         </ol>
       </section>
 
-      {/* ✅ UPDATED FAQ Section (Simple structure, high-content, solves accordion/copy issue) */}
+      {/* ✅ UPDATED FAQ Section (H2 maintained) */}
       <section className="max-w-4xl mx-auto my-8 sm:my-12 p-6 bg-white dark:bg-gray-900 shadow rounded-lg border border-gray-100 dark:border-gray-800">
         <h2 className="text-xl sm:text-2xl font-bold mb-6 text-gray-900 dark:text-white">Frequently Asked Questions</h2>
         <div className="space-y-6 text-left">
