@@ -14,24 +14,6 @@ const posts = [
     summary: 'Stop juggling multiple apps! Discover TaskGuru\'s complete suite of free AI tools: PDF conversion, background removal, image compression, and more.',
     date: 'October 2, 2025',
   },
-  {
-    slug: 'compress-images-for-seo', // आपकी SEO/Compression Post
-    title: 'SEO Secrets: Why Compressing Images is Key to Google Ranking',
-    summary: 'Learn how image file size directly impacts your website speed and Google ranking. Optimize photos for better SEO performance.',
-    date: 'October 2, 2025',
-  },
-  {
-    slug: 'top-5-ai-tools', // आपकी Top 5 Post
-    title: 'Top 5 Free AI Tools from TaskGuru for Instant Productivity',
-    summary: 'Discover the best free AI-powered tools on TaskGuru for background removal, text paraphrasing, and PDF conversion.',
-    date: 'September 26, 2025',
-  },
-  {
-    slug: 'the-ai-productivity-edge', // आपकी Original Post
-    title: 'The AI Productivity Edge: Why TaskGuru\'s Free Tools Beat the Paid Competition',
-    summary: 'A deep dive into how AI tools are revolutionizing productivity and why our free tools deliver better results than expensive subscriptions.',
-    date: 'September 25, 2025',
-  },
 ];
 
 // ✅ 2. FAQ SCHEMA FOR THE LISTING PAGE
