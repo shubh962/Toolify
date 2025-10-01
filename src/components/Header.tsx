@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { Layers3 } from 'lucide-react';
-import { ThemeToggle } from "@/components/ThemeToggle"; 
+import { ThemeToggle } from "./ThemeToggle"; 
 
 const Header = () => {
   return (
