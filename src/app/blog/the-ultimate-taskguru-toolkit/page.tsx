@@ -1,5 +1,3 @@
-// src/app/blog/the-ultimate-taskguru-toolkit/page.tsx
-
 import Script from 'next/script';
 import Link from 'next/link';
 import { Zap, FileText, Crop, Minimize, Combine, ScanText, ArrowRight } from 'lucide-react';
@@ -55,7 +53,7 @@ export default function UltimateToolkitPost() {
           </header>
 
           <p className="lead text-xl mb-8">
-            Stop juggling multiple websites for different tasks. TaskGuru provides a complete suite of **6 powerful, free AI-powered tools** designed to simplify everything from file conversion to image editing. Here is your definitive guide to the ultimate online toolkit.
+            Stop juggling multiple websites for different tasks. TaskGuru provides a complete suite of 6 powerful, free AI-powered tools designed to simplify everything from file conversion to image editing. Here is your definitive guide to the ultimate online toolkit.
           </p>
 
           {/* Tool 1: Background Remover */}
@@ -63,7 +61,7 @@ export default function UltimateToolkitPost() {
             <Crop className="w-6 h-6" /> 1. AI Background Remover (Image)
           </h2>
           <p>
-            Need **perfect product photos** or a clean profile picture? Our AI uses advanced deep learning to instantly remove backgrounds from JPG, PNG, and WEBP files with professional accuracy. It’s ideal for e-commerce and graphic design tasks.
+            Need perfect product photos or a clean profile picture? Our AI uses advanced deep learning to instantly remove backgrounds from JPG, PNG, and WEBP files with professional accuracy. It’s ideal for e-commerce and graphic design tasks.
             <Link href="/tools/background-remover" className="inline-flex items-center text-primary hover:underline ml-2">Use Tool <ArrowRight className="w-3 h-3 ml-1"/></Link>
           </p>
 
@@ -72,7 +70,7 @@ export default function UltimateToolkitPost() {
             <Minimize className="w-6 h-6" /> 2. Image Compressor (PNG, JPG)
           </h2>
           <p>
-            **Website speed is vital for Google SEO.** This tool reduces the file size of your images (up to 80%) without losing noticeable quality. Use it to ensure your web pages load instantly.
+            Website speed is vital for Google SEO. This tool reduces the file size of your images (up to 80%) without losing noticeable quality. Use it to ensure your web pages load instantly.
             <Link href="/tools/image-compressor" className="inline-flex items-center text-primary hover:underline ml-2">Use Tool <ArrowRight className="w-3 h-3 ml-1"/></Link>
           </p>
 
@@ -81,7 +79,7 @@ export default function UltimateToolkitPost() {
             <FileText className="w-6 h-6" /> 3. Free PDF to Word Converter
           </h2>
           <p>
-            Convert rigid PDF files into **fully editable DOCX documents**. This is a lifesaver for students and professionals who need to quickly modify reports, resumes, or contracts.
+            Convert rigid PDF files into fully editable DOCX documents. This is a lifesaver for students and professionals who need to quickly modify reports, resumes, or contracts.
             <Link href="/tools/pdf-to-word" className="inline-flex items-center text-primary hover:underline ml-2">Use Tool <ArrowRight className="w-3 h-3 ml-1"/></Link>
           </p>
 
@@ -90,7 +88,7 @@ export default function UltimateToolkitPost() {
             <Combine className="w-6 h-6" /> 4. Merge PDF Files Online
           </h2>
           <p>
-            Easily **combine multiple PDF files** (like invoices or chapters of a book) into one single, organized document. Simple, secure, and always free of watermarks.
+            Easily combine multiple PDF files (like invoices or chapters of a book) into one single, organized document. Simple, secure, and always free of watermarks.
             <Link href="/tools/merge-pdf" className="inline-flex items-center text-primary hover:underline ml-2">Use Tool <ArrowRight className="w-3 h-3 ml-1"/></Link>
           </p>
           
@@ -99,7 +97,7 @@ export default function UltimateToolkitPost() {
             <ScanText className="w-6 h-6" /> 5. AI Text Paraphraser & Rewriter
           </h2>
           <p>
-            Generate unique content variations instantly. This tool is essential for **avoiding plagiarism** in academic work and rapidly creating unique blog content for SEO campaigns.
+            Generate unique content variations instantly. This tool is essential for avoiding plagiarism in academic work and rapidly creating unique blog content for SEO campaigns.
             <Link href="/tools/text-paraphraser" className="inline-flex items-center text-primary hover:underline ml-2">Use Tool <ArrowRight className="w-3 h-3 ml-1"/></Link>
           </p>
 
@@ -108,7 +106,7 @@ export default function UltimateToolkitPost() {
             <FileText className="w-6 h-6" /> 6. Image to Text Converter (OCR)
           </h2>
           <p>
-            Quickly **digitize scanned documents, receipts, or notes**. Our OCR (Optical Character Recognition) accurately extracts text from any image file, making it editable and searchable.
+            Quickly digitize scanned documents, receipts, or notes. Our OCR (Optical Character Recognition) accurately extracts text from any image file, making it editable and searchable.
             <Link href="/tools/image-to-text" className="inline-flex items-center text-primary hover:underline ml-2">Use Tool <ArrowRight className="w-3 h-3 ml-1"/></Link>
           </p>
 
