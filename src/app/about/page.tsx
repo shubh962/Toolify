@@ -18,7 +18,7 @@ export default function AboutPage() {
       {/* Intro Section */}
       <section className="mt-8 space-y-6 text-lg text-gray-700 dark:text-gray-300 border-b pb-8">
         <p>
-          Welcome to TaskGuru – your comprehensive toolkit for smart online productivity. We believe that professional-grade tools for tasks like PDF conversion, image editing, and content writing should be **free and instantly accessible** to everyone.
+          Welcome to TaskGuru – your comprehensive toolkit for smart online productivity. We believe that professional-grade tools for tasks like PDF conversion, image editing, and content writing should be free and instantly accessible to everyone.
         </p>
         <p>
           TaskGuru was founded by Shubham Gautam with a single goal: to eliminate the need for complicated software subscriptions and messy installations. We focus on delivering high-speed results directly through your browser.
