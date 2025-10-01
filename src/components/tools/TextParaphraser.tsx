@@ -179,7 +179,7 @@ export default function TextParaphraser() {
         {/* H1 को H3 में बदला गया (SEO Fix) */}
         <h3 className="text-3xl font-bold">AI Text Paraphraser | Free Online Rewriting Tool</h3>
         <p className="text-muted-foreground">
-          Use TaskGuru's free AI text paraphraser to **rewrite text**, articles, and essays instantly. 
+          Use TaskGuru's free AI text paraphraser to rewrite text, articles, and essays instantly. 
           Enhance clarity and style for academic, professional, and creative writing.
         </p>
       </section>
@@ -290,19 +290,19 @@ export default function TextParaphraser() {
         <div>
           <h3 className="text-xl font-semibold">Why Use TaskGuru AI Paraphraser?</h3>
           <ul className="list-disc list-inside text-muted-foreground space-y-2 mt-4">
-            <li>✔ **Plagiarism Reduction:** Helps generate unique sentences.</li>
-            <li>✔ **Enhanced Clarity:** Rewrites complex sentences for better readability.</li>
-            <li>✔ **Academic Writing:** Perfect for assignments and research papers.</li>
-            <li>✔ **5000 Character Limit:** Supports long-form content instantly.</li>
+            <li>✔ Plagiarism Reduction: Helps generate unique sentences.</li>
+            <li>✔ Enhanced Clarity: Rewrites complex sentences for better readability.</li>
+            <li>✔ Academic Writing: Perfect for assignments and research papers.</li>
+            <li>✔ 5000 Character Limit: Supports long-form content instantly.</li>
           </ul>
         </div>
         <div>
           <h3 className="text-xl font-semibold">Common Use Cases</h3>
           <ul className="list-disc list-inside text-muted-foreground space-y-2 mt-4">
-            <li>✍️ **Bloggers & Writers:** Quickly rephrase articles and product descriptions.</li>
-            <li>🎓 **Students:** Paraphrase research and avoid accidental plagiarism.</li>
-            <li>💼 **Professionals:** Rewrite emails and reports for better impact.</li>
-            <li>🌐 **SEO Content:** Create variations of existing content for SEO campaigns.</li>
+            <li>✍️ Bloggers & Writers: Quickly rephrase articles and product descriptions.</li>
+            <li>🎓 Students: Paraphrase research and avoid accidental plagiarism.</li>
+            <li>💼 Professionals: Rewrite emails and reports for better impact.</li>
+            <li>🌐 SEO Content: Create variations of existing content for SEO campaigns.</li>
           </ul>
         </div>
       </section>
@@ -312,7 +312,7 @@ export default function TextParaphraser() {
         <h2 className="text-xl font-semibold text-center">How to Paraphrase Text Online?</h2>
         <ol className="list-decimal list-inside text-muted-foreground space-y-2 mt-4 text-left max-w-lg mx-auto">
           <li>Paste the text you want to rewrite into the input box.</li>
-          <li>Click the **Paraphrase Text** button.</li>
+          <li>Click the Paraphrase Text button.</li>
           <li>Copy the AI-generated unique version of your text from the output box.</li>
         </ol>
       </section>
