@@ -2,6 +2,7 @@ import { MetadataRoute } from "next";
 
 const blogSlugs = [
     "the-ultimate-taskguru-toolkit", 
+    "projects-presentations-ai-toolkit",
 ];
 
 const toolSlugs = [
