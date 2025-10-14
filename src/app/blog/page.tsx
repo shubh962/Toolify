@@ -6,19 +6,28 @@ import Link from 'next/link';
 import { ArrowRight, Zap } from 'lucide-react'; 
 import Script from "next/script";
 
-// ✅ 1. ALL BLOG POSTS ARE DEFINED HERE (UPDATED WITH NEW POST)
+// ✅ 1. ALL BLOG POSTS ARE DEFINED HERE (NOW 3 POSTS)
 const posts = [
+  // 1st Post (Your Original)
   {
-    slug: 'the-ultimate-taskguru-toolkit', // Your Master Post
+    slug: 'the-ultimate-taskguru-toolkit', 
     title: 'The Ultimate TaskGuru Toolkit: 6 Free AI Tools for Students & Professionals',
     summary: 'Stop juggling multiple apps! Discover TaskGuru\'s complete suite of free AI tools: PDF conversion, background removal, image compression, and more.',
     date: 'October 2, 2025',
   },
+  // 2nd Post (Your Previous Draft)
   {
-    slug: 'projects-presentations-ai-toolkit', // ⭐ YOUR NEW BLOG POST ⭐
+    slug: 'projects-presentations-ai-toolkit',
     title: 'Beyond Essays: How TaskGuru\'s Free AI Tools Revolutionize Your Projects & Presentations',
     summary: 'Elevate your academic and professional projects with TaskGuru\'s free AI tools. From image optimization to document management and text rewriting, learn how to create stunning presentations and reports with ease.',
-    date: 'October 9, 2025', // Make sure this date matches your blogSchema.datePublished
+    date: 'October 9, 2025',
+  },
+  // 3rd Post (The New, Improved Post)
+  {
+    slug: 'the-ultimate-digital-productivity-toolkit', 
+    title: 'The Ultimate Digital Productivity Toolkit: 6 Free AI Tools to Save You Hours',
+    summary: 'Unleash peak efficiency with TaskGuru’s FREE AI productivity suite. Instantly convert PDF to Word, compress images, remove backgrounds, and use the AI Text Paraphraser to create unique content faster than ever.',
+    date: 'October 15, 2025',
   },
 ];
 
@@ -83,15 +92,15 @@ export default function BlogPage() {
         </div>
         
         {/* ✅ 4. FAQ Section for Listing Page */}
-        <section className="mt-14 pt-10 border-t border-gray-100 dark:border-gray-700"> {/* Added dark mode border */}
-            <h2 className="text-3xl sm:text-3xl font-bold mb-6 text-center text-foreground"> {/* Added text-foreground */}
+        <section className="mt-14 pt-10 border-t border-gray-100 dark:border-gray-700">
+            <h2 className="text-3xl sm:text-3xl font-bold mb-6 text-center text-foreground">
                Frequently Asked Questions (FAQ)❓
             </h2>
             <div className="space-y-6">
               {faqSchema.mainEntity.map((item, index) => (
-                <div key={index} className="border-b pb-3 dark:border-gray-700"> {/* Added dark mode border */}
-                  <h3 className="font-bold text-lg text-gray-900 dark:text-gray-100">{item.name}</h3> {/* Added dark mode text */}
-                  <p className="text-gray-700 mt-1 dark:text-gray-300">{item.acceptedAnswer.text}</p> {/* Added dark mode text */}
+                <div key={index} className="border-b pb-3 dark:border-gray-700">
+                  <h3 className="font-bold text-lg text-gray-900 dark:text-gray-100">{item.name}</h3>
+                  <p className="text-gray-700 mt-1 dark:text-gray-300">{item.acceptedAnswer.text}</p>
                 </div>
               ))}
             </div>
