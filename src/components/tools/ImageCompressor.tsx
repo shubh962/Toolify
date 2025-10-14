@@ -15,14 +15,14 @@ import {
   Wand2,
   ImageIcon,
   SlidersHorizontal,
-  Zap, // Added for content section
-  ShieldCheck, // Added for security emphasis
+  Zap,
+  ShieldCheck,
 } from 'lucide-react';
 import { Slider } from '@/components/ui/slider';
 import { Label } from '@/components/ui/label';
-import Link from 'next/link'; // Added for internal linking
+import Link from 'next/link';
 
-// ✅ UNIQUE METADATA (Kept Unchanged - It is already unique)
+// ✅ UNIQUE METADATA - Global Audience
 export const metadata: Metadata = {
   title: 'Free Online Image Compressor Tool | Reduce JPG/PNG/WEBP Size | TaskGuru',
   description:
@@ -47,22 +47,7 @@ export const metadata: Metadata = {
       'Compress images online using TaskGuru’s free AI-powered tool. Supports JPG, PNG, and WEBP formats. Reduce size without losing quality.',
     url: 'https://taskguru.online/tools/image-compressor',
     siteName: 'TaskGuru',
-    images: [
-      {
-        url: 'https://taskguru.online/assets/og-image-compressor.png',
-        width: 1200,
-        height: 630,
-        alt: 'Free Image Compressor Tool',
-      },
-    ],
     type: 'website',
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: 'Free Online Image Compressor | TaskGuru',
-    description:
-      'Reduce image file size instantly with TaskGuru’s free online image compressor. Works with JPG, PNG, WEBP formats.',
-    images: ['https://taskguru.online/assets/og-image-compressor.png'],
   },
 };
 
@@ -362,9 +347,9 @@ export default function ImageCompressor() {
                   1. How to Use TaskGuru's Image Compressor in 3 Simple Steps
               </h3>
               <ol className="list-decimal list-inside ml-4 space-y-3">
-                  <li>Upload Your Image: Click the upload box or drag and drop your image file (JPG, PNG, or WEBP). The tool supports up to 8MB per file.</li>
-                  <li>Select Compression Quality: Use the **Quality Slider** to choose your compression level. **80% quality** is often the perfect balance for JPGs, giving massive size reduction with almost no visible quality loss. Lower quality leads to smaller files; higher quality preserves more detail.</li>
-                  <li>Compress and Download: Click the **'Compress Image'** button. Our client-side processing technology ensures fast execution. Once compressed, download your optimized image. The tool automatically names the file for easy organization.</li>
+                  <li>**Upload Your Image:** Click the upload box or drag and drop your image file (JPG, PNG, or WEBP). The tool supports up to 8MB per file.</li>
+                  <li>**Select Compression Quality:** Use the **Quality Slider** to choose your compression level. **80% quality** is often the perfect balance for JPGs, giving massive size reduction with almost no visible quality loss. Lower quality leads to smaller files; higher quality preserves more detail.</li>
+                  <li>**Compress and Download:** Click the **'Compress Image'** button. Our client-side processing technology ensures fast execution. Once compressed, download your optimized image. The tool automatically names the file for easy organization.</li>
               </ol>
 
               {/* UNIQUE VALUE - Why Compression is Vital (SEO and UX focus) */}
@@ -392,4 +377,66 @@ export default function ImageCompressor() {
                   **Workflow Synergy:** This compressor works perfectly with our other tools. If you use the **<Link href="/tools/background-remover" className="text-primary hover:underline font-semibold">Background Remover</Link>** to get a transparent cutout, immediately run the resulting PNG through the Image Compressor to optimize its file size before publishing.
               </p>
               <p className="pt-4 text-center font-semibold text-xl text-primary">
-                  Start optimizing your digital presence today. TaskGuru makes image compression simple, fre
+                  Start optimizing your digital presence today. TaskGuru makes image compression simple, free, and effective for everyone, everywhere.
+              </p>
+
+          </div>
+      </section>
+      {/* --- END OF ADMENSE HIGH-VALUE CONTENT SECTION --- */}
+
+{/* Before and After Demo Section */}
+      <section className="max-w-4xl mx-auto py-10">
+        <h2 className="text-2xl font-bold text-center mb-8 text-foreground">
+          See the Difference: Image Size Reduction Demo
+        </h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 p-6 bg-muted/50 dark:bg-gray-800 rounded-xl shadow-inner">
+          
+          {/* Before Image */}
+          <div className="text-center">
+            <h3 className="text-lg font-semibold mb-3 text-red-500">ORIGINAL (Large Size)</h3>
+            <div className="relative aspect-square rounded-lg overflow-hidden border-2 border-red-400 dark:border-red-600">
+              <Image 
+                src="/tool-previews/compressor-before.png" 
+                alt="Original large image file" 
+                fill 
+                className="object-contain"
+                loading="lazy" 
+                sizes="(max-width: 768px) 50vw, 30vw"
+              />
+            </div>
+          </div>
+          
+          {/* After Image */}
+          <div className="text-center">
+            <h3 className="text-lg font-semibold mb-3 text-green-500">OPTIMIZED (Reduced Size)</h3>
+            <div className="relative aspect-square rounded-lg overflow-hidden border-2 border-green-400 dark:border-green-600">
+              <Image 
+                src="/tool-previews/compressor-after.png" 
+                alt="Compressed smaller image file" 
+                fill 
+                className="object-contain"
+                loading="lazy" 
+                sizes="(max-width: 768px) 50vw, 30vw"
+              />
+            </div>
+          </div>
+          
+        </div>
+      </section>
+
+
+      {/* UPDATED FAQ Section */}
+      <section className="max-w-4xl mx-auto my-8 sm:my-12 p-6 bg-white dark:bg-gray-900 shadow rounded-lg border border-gray-100 dark:border-gray-800">
+        <h2 className="text-xl sm:text-2xl font-bold mb-6 text-gray-900 dark:text-white">Frequently Asked Questions</h2>
+        <div className="space-y-6 text-left">
+          {faqSchema.mainEntity.map((item, index) => (
+            <div key={index} className="border-b pb-4 last:border-b-0">
+              <h3 className="font-semibold text-lg text-gray-900 dark:text-white">{item.name}</h3>
+              <p className="text-gray-600 dark:text-gray-400 mt-2">{item.acceptedAnswer.text}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+    </div>
+  );
+}
