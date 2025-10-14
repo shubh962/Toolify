@@ -1,6 +1,6 @@
 // src/app/blog/page.tsx
 
-'use client'; // Keep this as a client component for direct copy-paste
+'use client';
 
 import Link from 'next/link';
 import { ArrowRight, Zap } from 'lucide-react'; 
@@ -11,29 +11,29 @@ const posts = [
   // 1st Post (Your Original)
   {
     slug: 'the-ultimate-taskguru-toolkit', 
-    title: 'The Ultimate TaskGuru Toolkit: 6 Free AI Tools for Students & Professionals',
-    summary: 'Stop juggling multiple apps! Discover TaskGuru\'s complete suite of free AI tools: PDF conversion, background removal, image compression, and more.',
+    title: "The Ultimate TaskGuru Toolkit: 6 Free AI Tools for Students & Professionals",
+    summary: "Stop juggling multiple apps! Discover TaskGuru's complete suite of free AI tools: PDF conversion, background removal, image compression, and more.",
     date: 'October 2, 2025',
   },
   // 2nd Post (Your Previous Draft)
   {
     slug: 'projects-presentations-ai-toolkit',
-    title: 'Beyond Essays: How TaskGuru\'s Free AI Tools Revolutionize Your Projects & Presentations',
-    summary: 'Elevate your academic and professional projects with TaskGuru\'s free AI tools. From image optimization to document management and text rewriting, learn how to create stunning presentations and reports with ease.',
+    title: "Beyond Essays: How TaskGuru's Free AI Tools Revolutionize Your Projects & Presentations",
+    summary: "Elevate your academic and professional projects with TaskGuru's free AI tools. From image optimization to document management and text rewriting, learn how to create stunning presentations and reports with ease.",
     date: 'October 9, 2025',
   },
-  // 3rd Post (The New, Improved Post)
+  // 3rd Post (The New, PROFESSIONAL Post)
   {
     slug: 'streamline-remote-workflow',
-    title: 'Committed to delivering high-quality, data-driven solutions, I specialize in optimizing workflow efficiency and fostering collaborative team environments to exceed established performance metrics.',
-    summary: 'Elevate your academic and professional projects instantly with TaskGuru's free AI tools. This is the Updated data for peak productivity.',
+    title: "TaskGuru: The Professional's Free AI Toolkit",
+    summary: "Elevate your academic and professional projects instantly with TaskGuru's free AI tools. This is the Updated data for peak productivity.",
     date: 'October 21, 2025',
   },
 ];
 
 // ✅ 2. FAQ SCHEMA FOR THE LISTING PAGE
 const faqSchema = {
-    // ... (Your original FAQ Schema remains the same)
+// ... (Your original FAQ Schema remains the same)
     "@context": "https://schema.org",
     "@type": "FAQPage",
     "mainEntity": [
