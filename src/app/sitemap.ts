@@ -3,6 +3,7 @@ import { MetadataRoute } from "next";
 const blogSlugs = [
     "the-ultimate-taskguru-toolkit", 
     "projects-presentations-ai-toolkit",
+    "streamline-remote-workflow",
 ];
 
 const toolSlugs = [
