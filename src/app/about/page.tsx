@@ -21,10 +21,10 @@ export default function AboutPage() {
       {/* Intro Section - Expanded for Clarity */}
       <section className="mt-8 space-y-6 text-lg text-gray-700 dark:text-gray-300 border-b pb-8">
         <p>
-          Welcome to **TaskGuru** – your comprehensive toolkit for smart online productivity. We believe that professional-grade tools for tasks like PDF conversion, image editing, and content writing should be **free, secure, and instantly accessible** to everyone, regardless of their technical background.
+          Welcome to TaskGuru – your comprehensive toolkit for smart online productivity. We believe that professional-grade tools for tasks like PDF conversion, image editing, and content writing should be free, secure, and instantly accessible to everyone, regardless of their technical background.
         </p>
         <p>
-          TaskGuru was founded by **Shubham Gautam** with a single, clear goal: to eliminate the need for complicated software subscriptions and messy installations. Our platform is built from the ground up to deliver **high-speed, accurate results** directly through your browser, making complex tasks feel effortless.
+          TaskGuru was founded by Shubham Gautam with a single, clear goal: to eliminate the need for complicated software subscriptions and messy installations. Our platform is built from the ground up to deliver high-speed, accurate results directly through your browser, making complex tasks feel effortless.
         </p>
       </section>
 
@@ -39,12 +39,12 @@ export default function AboutPage() {
             Meet the Founder: Shubham Gautam
           </h3>
           <p className="text-gray-700 dark:text-gray-300 mb-4">
-            TaskGuru is a passion project led by Shubham Gautam, a professional with **extensive 7+ years of experience in full-stack development, Next.js, and secure data handling**. 
-            This background ensures that every tool on TaskGuru is developed not just with speed in mind, but also with a focus on **data accuracy, security, and enterprise-level reliability**. We don't just use AI; we understand how to integrate it safely and effectively.
+            TaskGuru is a passion project led by Shubham Gautam, a professional with extensive 1+ years of experience in full-stack development, Next.js, and secure data handling. 
+            This background ensures that every tool on TaskGuru is developed not just with speed in mind, but also with a focus on data accuracy, security, and enterprise-level reliability. We don't just use AI; we understand how to integrate it safely and effectively.
           </p>
           <ul className="list-disc list-inside text-sm text-gray-600 dark:text-gray-400 space-y-1">
-            <li>Focus on **real-world problem-solving** for developers and creative professionals.</li>
-            <li>Commitment to using only **ethical and tested AI models** for all features.</li>
+            <li>Focus on real-world problem-solving for developers and creative professionals.</li>
+            <li>Commitment to using only ethical and tested AI models for all features.</li>
           </ul>
         </div>
       </section>
