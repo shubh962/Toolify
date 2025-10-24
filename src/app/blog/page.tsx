@@ -30,12 +30,12 @@ const posts = [
     date: 'October 21, 2025',
   },
   // 🌟 NEW 4th Post (The latest optimized post) 🌟
-  {
-    slug: '5-free-ai-tools-productivity-workflow',
-    title: "5 Free AI Tools: Supercharge Productivity & Workflow",
-    summary: "Discover the 5 essential TaskGuru AI tools (Paraphraser, OCR, PDF Merger) that simplify complex tasks, enhance productivity, and save time for students and professionals.",
-    date: 'October 24, 2025',
-  },
+  //{
+  //  slug: '5-free-ai-tools-productivity-workflow',
+   // title: "5 Free AI Tools: Supercharge Productivity & Workflow",
+  //  summary: "Discover the 5 essential TaskGuru AI tools (Paraphraser, OCR, PDF Merger) that simplify complex tasks, enhance productivity, and save time for students and professionals.",
+   // date: 'October 24, 2025',
+ // },
 ];
 
 // ✅ 2. FAQ SCHEMA FOR THE LISTING PAGE
