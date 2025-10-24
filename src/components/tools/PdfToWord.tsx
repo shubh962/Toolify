@@ -142,16 +142,16 @@ export default function PdfToWord() {
 
   return (
     <>
-      {/* ✅ SEO Meta Tags */}
+      {/* ✅ SEO Meta Tags (High-Reach Keywords) */}
       <Head>
-        <title>Free PDF to Word Converter Online | TaskGuru</title>
+        <title>Free PDF to Word Converter Online: Keep Formatting | TaskGuru DOCX Tool</title>
         <meta
           name="description"
-          content="Convert PDF to Word online with TaskGuru. Free, fast PDF to Word converter that preserves formatting and is 100% secure."
+          content="Free, fast & secure tool to convert PDF to Word online (DOCX). Preserve all original formatting, tables, and images. Get editable Word files instantly."
         />
         <meta
           name="keywords"
-          content="pdf to word, pdf to word converter, convert pdf to word, free pdf converter, edit pdf, convert pdf, online pdf tools, pdf to docx, pdf formatting"
+          content="pdf to word, pdf to word converter, convert pdf to word, free pdf converter, edit pdf, convert pdf, online pdf tools, pdf to docx, pdf formatting, convert pdf to editable word, pdf to microsoft word free, pdf to docx online free"
         />
         <link rel="canonical" href="https://taskguru.online/tools/pdf-to-word" />
       </Head>
