@@ -6,28 +6,35 @@ import Link from 'next/link';
 import { ArrowRight, Zap } from 'lucide-react'; 
 import Script from "next/script";
 
-// ✅ 1. ALL BLOG POSTS ARE DEFINED HERE (NOW 3 POSTS)
+// ✅ 1. ALL BLOG POSTS ARE DEFINED HERE (NOW 4 POSTS)
 const posts = [
-  // 1st Post (Your Original)
+  // 1st Post 
   {
     slug: 'the-ultimate-taskguru-toolkit', 
     title: "The Ultimate TaskGuru Toolkit: 6 Free AI Tools for Students & Professionals",
     summary: "Stop juggling multiple apps! Discover TaskGuru's complete suite of free AI tools: PDF conversion, background removal, image compression, and more.",
     date: 'October 2, 2025',
   },
-  // 2nd Post (Your Previous Draft)
+  // 2nd Post 
   {
     slug: 'projects-presentations-ai-toolkit',
     title: "Beyond Essays: How TaskGuru's Free AI Tools Revolutionize Your Projects & Presentations",
     summary: "Elevate your academic and professional projects with TaskGuru's free AI tools. From image optimization to document management and text rewriting, learn how to create stunning presentations and reports with ease.",
     date: 'October 9, 2025',
   },
-  // 3rd Post (The New, PROFESSIONAL Post)
+  // 3rd Post 
   {
     slug: 'streamline-remote-workflow',
     title: "TaskGuru: The Professional's Free AI Toolkit",
     summary: "Elevate your academic and professional projects instantly with TaskGuru's free AI tools. This is the Updated data for peak productivity.",
     date: 'October 21, 2025',
+  },
+  // 🌟 NEW 4th Post (The latest optimized post) 🌟
+  {
+    slug: '5-free-ai-tools-productivity-workflow',
+    title: "5 Free AI Tools: Supercharge Productivity & Workflow",
+    summary: "Discover the 5 essential TaskGuru AI tools (Paraphraser, OCR, PDF Merger) that simplify complex tasks, enhance productivity, and save time for students and professionals.",
+    date: 'October 24, 2025',
   },
 ];
 
