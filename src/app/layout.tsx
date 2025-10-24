@@ -149,7 +149,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <main className="flex-1">{children}</main>
           <Toaster />
 
-          {/* ✅ FINAL FOOTER CODE WITH BLOG LINK AND ICONS */}
+          {/* ✅ FINAL FOOTER CODE WITH ALL LINKS */}
           <footer className="py-6 text-center text-gray-700 bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800">
             <div className="container mx-auto px-6">
               
@@ -210,12 +210,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 </Dialog>
               </div>
 
-              {/* 2. LEGAL LINKS AND BLOG LINK HERE */}
+              {/* 2. LEGAL LINKS AND BLOG LINK HERE (ABOUT ADDED) */}
               <nav
                 className="mt-6 flex gap-4 justify-center text-sm font-medium"
                 aria-label="Legal Navigation"
               >
-                {/* BLOG LINK ADDED */}
+                {/* BLOG LINK */}
                 <Link
                   href="/blog" 
                   className="text-gray-600 hover:text-primary transition-colors dark:text-gray-400 dark:hover:text-indigo-400"
@@ -236,6 +236,15 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 >
                   Terms of Service
                 </Link>
+                {/* 👇👇 ABOUT LINK ADDED HERE 👇👇 */}
+                <span className="text-gray-400 dark:text-gray-600">|</span>
+                <Link
+                  href="/about" 
+                  className="text-gray-600 hover:text-primary transition-colors dark:text-gray-400 dark:hover:text-indigo-400"
+                >
+                  About
+                </Link>
+                {/* 👆👆 ABOUT LINK ADDED HERE 👆👆 */}
                 <span className="text-gray-400 dark:text-gray-600">|</span>
                  <Link
                   href="/help" 
