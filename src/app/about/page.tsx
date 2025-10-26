@@ -2,14 +2,12 @@ import Link from 'next/link';
 import { Lightbulb, Code, ShieldCheck, Zap, UserCheck } from 'lucide-react';
 import type { Metadata } from 'next';
 
-// --- ENHANCED METADATA FOR SEO ---
 export const metadata: Metadata = {
   title: 'About TaskGuru | Mission, Expertise, and Founder Story',
   description: 'TaskGuru is committed to simplifying digital tasks with free, secure, and AI-powered tools. Learn about our founder, Shubham Gautam, and our deep expertise in web development and AI integration.',
   robots: 'index, follow',
   keywords: ['TaskGuru about us', 'Shubham Gautam founder', 'online tool expertise', 'Next.js tools', 'free AI tools'],
 };
-// ---------------------------------
 
 export default function AboutPage() {
   return (
@@ -64,8 +62,8 @@ export default function AboutPage() {
               <Code className="w-5 h-5" /> Modern Technology Foundation
             </h3>
             <ul className="list-disc list-inside text-gray-700 dark:text-gray-400 space-y-1">
-              <li>Built on **Next.js 14** for blazing-fast speed and excellent SEO performance.</li>
-              <li>Utilizes cutting-edge **AI (Artificial Intelligence)** for accurate and complex tasks like background removal and text paraphrasing.</li>
+              <li>Built on Next.js 14 for blazing-fast speed and excellent SEO performance.</li>
+              <li>Utilizes cutting-edge AI (Artificial Intelligence) for accurate and complex tasks like background removal and text paraphrasing.</li>
               <li>Mobile-first design ensures a perfect experience on all devices.</li>
             </ul>
           </div>
@@ -76,7 +74,7 @@ export default function AboutPage() {
               <ShieldCheck className="w-5 h-5" /> Our Commitment to Privacy
             </h3>
             <ul className="list-disc list-inside text-gray-700 dark:text-gray-400 space-y-1">
-              <li>**Zero File Storage:** All uploaded files are deleted immediately after processing is complete (reinforcing your unique value).</li>
+              <li>Zero File Storage: All uploaded files are deleted immediately after processing is complete (reinforcing your unique value).</li>
               <li>No mandatory sign-ups, keeping your usage anonymous and private.</li>
               <li>Clear <Link href="/privacy-policy" className="text-primary underline font-medium">Privacy Policy</Link> and <Link 
                 href="/terms" className="text-primary underline font-medium">Terms of Service</Link> available for transparency.</li>
