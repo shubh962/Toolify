@@ -339,7 +339,7 @@ export default function ImageCompressor() {
           <div className="space-y-6 text-lg text-gray-700 dark:text-gray-300 leading-relaxed">
               
               <p>
-                  In the world of web development and digital marketing, **image compression** is the single most effective way to improve your website's performance and search engine ranking. Google prioritizes fast-loading sites, and oversized images are the number one killer of speed. TaskGuru's Image Compressor is designed to solve this global problem by reducing file sizes by up to 80% while employing smart algorithms to maintain visual integrity, giving your users a seamless, fast experience.
+                  In the world of web development and digital marketing, image compression is the single most effective way to improve your website's performance and search engine ranking. Google prioritizes fast-loading sites, and oversized images are the number one killer of speed. TaskGuru's Image Compressor is designed to solve this global problem by reducing file sizes by up to 80% while employing smart algorithms to maintain visual integrity, giving your users a seamless, fast experience.
               </p>
               
               {/* DETAILED GUIDE - The How-To and Mechanics */}
@@ -347,9 +347,9 @@ export default function ImageCompressor() {
                   1. How to Use TaskGuru's Image Compressor in 3 Simple Steps
               </h3>
               <ol className="list-decimal list-inside ml-4 space-y-3">
-                  <li>**Upload Your Image:** Click the upload box or drag and drop your image file (JPG, PNG, or WEBP). The tool supports up to 8MB per file.</li>
-                  <li>**Select Compression Quality:** Use the **Quality Slider** to choose your compression level. **80% quality** is often the perfect balance for JPGs, giving massive size reduction with almost no visible quality loss. Lower quality leads to smaller files; higher quality preserves more detail.</li>
-                  <li>**Compress and Download:** Click the **'Compress Image'** button. Our client-side processing technology ensures fast execution. Once compressed, download your optimized image. The tool automatically names the file for easy organization.</li>
+                  <li>Upload Your Image: Click the upload box or drag and drop your image file (JPG, PNG, or WEBP). The tool supports up to 8MB per file.</li>
+                  <li>Select Compression Quality: Use the Quality Slider to choose your compression level. 80% quality is often the perfect balance for JPGs, giving massive size reduction with almost no visible quality loss. Lower quality leads to smaller files; higher quality preserves more detail.</li>
+                  <li>Compress and Download: Click the 'Compress Image' button. Our client-side processing technology ensures fast execution. Once compressed, download your optimized image. The tool automatically names the file for easy organization.</li>
               </ol>
 
               {/* UNIQUE VALUE - Why Compression is Vital (SEO and UX focus) */}
@@ -357,13 +357,13 @@ export default function ImageCompressor() {
                   2. Why Professional Image Optimization is Non-Negotiable
               </h3>
               <ul className="list-disc list-outside ml-6 space-y-3">
-                  <li>**Massive SEO Boost:** Google uses **Core Web Vitals** (like Largest Contentful Paint - LCP) as a key ranking factor. Large image files directly impact LCP. Compressing your images is the quickest way to pass Google's speed tests.</li>
-                  <li>**Reduced Bandwidth Costs:** If you host a high-traffic website, smaller image files mean less data transferred, which directly lowers your hosting and CDN costs globally.</li>
-                  <li>**Improved User Experience (UX):** Users often leave a website if it takes more than 3 seconds to load. Optimized images ensure your content appears instantly, drastically reducing bounce rates.</li>
-                  <li>**Faster Email & Messaging:** Professionals can use the tool to shrink images before attaching them to emails, avoiding bounces and large inboxes.</li>
+                  <li>Massive SEO Boost: Google uses Core Web Vitals (like Largest Contentful Paint - LCP) as a key ranking factor. Large image files directly impact LCP. Compressing your images is the quickest way to pass Google's speed tests.</li>
+                  <li>Reduced Bandwidth Costs: If you host a high-traffic website, smaller image files mean less data transferred, which directly lowers your hosting and CDN costs globally.</li>
+                  <li>Improved User Experience (UX): Users often leave a website if it takes more than 3 seconds to load. Optimized images ensure your content appears instantly, drastically reducing bounce rates.</li>
+                  <li>Faster Email & Messaging: Professionals can use the tool to shrink images before attaching them to emails, avoiding bounces and large inboxes.</li>
               </ul>
               <p>
-                  **Format Strategy:** It's important to understand the file type. **JPG** is ideal for photos (lossy compression), while **PNG** is better for graphics or logos with transparency (lossless). Our tool handles both intelligently, though the most dramatic reductions are seen in JPG compression.
+                  Format Strategy: It's important to understand the file type. JPG is ideal for photos (lossy compression), while PNG is better for graphics or logos with transparency (lossless). Our tool handles both intelligently, though the most dramatic reductions are seen in JPG compression.
               </p>
 
               {/* TRUST AND SECURITY - Privacy and Internal Links */}
@@ -371,10 +371,10 @@ export default function ImageCompressor() {
                   <ShieldCheck className='h-5 w-5'/> Security, Technology, and Cross-Tool Efficiency
               </h3>
               <p>
-                  **Client-Side Processing:** For maximum privacy and speed, compression mainly occurs directly within your browser. **Your files are never permanently stored on our servers.** We only use a secure connection for necessary processing. To learn more about our commitment to user privacy, please visit our **<Link href="/privacy-policy" className="text-primary hover:underline font-semibold">Privacy Policy</Link>**.
+                  Client-Side Processing: For maximum privacy and speed, compression mainly occurs directly within your browser. Your files are never permanently stored on our servers. We only use a secure connection for necessary processing. To learn more about our commitment to user privacy, please visit our <Link href="/privacy-policy" className="text-primary hover:underline font-semibold">Privacy Policy</Link>.
               </p>
               <p>
-                  **Workflow Synergy:** This compressor works perfectly with our other tools. If you use the **<Link href="/tools/background-remover" className="text-primary hover:underline font-semibold">Background Remover</Link>** to get a transparent cutout, immediately run the resulting PNG through the Image Compressor to optimize its file size before publishing.
+                  Workflow Synergy: This compressor works perfectly with our other tools. If you use the <Link href="/tools/background-remover" className="text-primary hover:underline font-semibold">Background Remover</Link> to get a transparent cutout, immediately run the resulting PNG through the Image Compressor to optimize its file size before publishing.
               </p>
               <p className="pt-4 text-center font-semibold text-xl text-primary">
                   Start optimizing your digital presence today. TaskGuru makes image compression simple, free, and effective for everyone, everywhere.
