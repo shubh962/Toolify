@@ -254,10 +254,10 @@ export default function BackgroundRemover() {
                   1. Step-by-Step Guide to Removing Your Image Background
               </h3>
               <ol className="list-decimal list-inside ml-4 space-y-3">
-                  <li>**Upload Your Image:** Drag and drop your JPG, PNG, or WEBP file (max 4MB) into the box above or click to select the file. Our tool works on any device and browser.</li>
-                  <li>**AI Processing Starts:** The moment you click "Remove Background," our powerful AI model takes over. It analyzes the image pixels using sophisticated algorithms to isolate the foreground subject from the background, ensuring a clean separation.</li>
-                  <li>**Review and Verify:** The result is instantly displayed next to your original image. You can verify the clean edges and perfect cutout before downloading.</li>
-                  <li>**Download Your PNG:** Download your new image. We recommend the **PNG format** as it fully supports the transparency created by the background removal.</li>
+                  <li>Upload Your Image: Drag and drop your JPG, PNG, or WEBP file (max 4MB) into the box above or click to select the file. Our tool works on any device and browser.</li>
+                  <li>AI Processing Starts: The moment you click "Remove Background," our powerful AI model takes over. It analyzes the image pixels using sophisticated algorithms to isolate the foreground subject from the background, ensuring a clean separation.</li>
+                  <li>Review and Verify: The result is instantly displayed next to your original image. You can verify the clean edges and perfect cutout before downloading.</li>
+                  <li>Download Your PNG: Download your new image. We recommend the PNG format as it fully supports the transparency created by the background removal.</li>
               </ol>
 
               {/* UNIQUE VALUE - Creative Use Cases */}
@@ -265,11 +265,11 @@ export default function BackgroundRemover() {
                   2. Beyond the Profile Picture: 5 Creative Uses for Your Cutouts
               </h3>
               <ul className="list-disc list-outside ml-6 space-y-3">
-                  <li>**E-commerce Product Photography:** Quickly generate product photos with **pure white or transparent backgrounds**, essential for platforms like Amazon, eBay, and your own online store.</li>
-                  <li>**Marketing and Social Media:** Create eye-catching **YouTube Thumbnails** or compelling Instagram stories by placing the subject over a dynamic, custom background.</li>
-                  <li>**Web Design and Development:** Speed up your website's load time by using transparent PNGs. After removing the background, use our **<Link href="/tools/image-compressor" className="text-primary hover:underline font-semibold">Image Compressor</Link>** to further reduce the file size without losing quality.</li>
-                  <li>**Digital Art and Collages:** Extract subjects from multiple photos to create complex digital art pieces, montages, or fun collages easily.</li>
-                  <li>**Professional Documents:** Instantly adjust photos for professional resumes or ID purposes by removing distracting elements and adding a clean, solid background color in an external editor.</li>
+                  <li>E-commerce Product Photography: Quickly generate product photos with pure white or transparent backgrounds, essential for platforms like Amazon, eBay, and your own online store.</li>
+                  <li>Marketing and Social Media: Create eye-catching YouTube Thumbnails or compelling Instagram stories by placing the subject over a dynamic, custom background.</li>
+                  <li>Web Design and Development: Speed up your website's load time by using transparent PNGs. After removing the background, use our <Link href="/tools/image-compressor" className="text-primary hover:underline font-semibold">Image Compressor</Link> to further reduce the file size without losing quality.</li>
+                  <li>Digital Art and Collages: Extract subjects from multiple photos to create complex digital art pieces, montages, or fun collages easily.</li>
+                  <li>Professional Documents: Instantly adjust photos for professional resumes or ID purposes by removing distracting elements and adding a clean, solid background color in an external editor.</li>
               </ul>
 
               {/* TRUST AND SECURITY - Privacy Link */}
@@ -277,10 +277,10 @@ export default function BackgroundRemover() {
                   <ShieldCheck className='h-5 w-5'/> Security, Privacy, and AI Accuracy
               </h3>
               <p>
-                  **Zero Storage Policy:** We understand file privacy is critical, especially for a global audience. **TaskGuru does not permanently store any uploaded images.** Your files are processed instantly and are deleted from our servers immediately after the operation is complete. For complete details, please refer to our **<Link href="/privacy-policy" className="text-primary hover:underline font-semibold">Privacy Policy</Link>**.
+                  Zero Storage Policy: We understand file privacy is critical, especially for a global audience. TaskGuru does not permanently store any uploaded images. Your files are processed instantly and are deleted from our servers immediately after the operation is complete. For complete details, please refer to our <Link href="/privacy-policy" className="text-primary hover:underline font-semibold">Privacy Policy</Link>.
               </p>
               <p>
-                  **Unmatched AI Accuracy:** Unlike simple tools that only look for contrast, our AI is trained to handle tricky scenarios—shadows, complex textures, and subtle transitions—to give you a clean, usable image every time. This expertise is what Google AdSense seeks in high-value content.
+                  Unmatched AI Accuracy: Unlike simple tools that only look for contrast, our AI is trained to handle tricky scenarios—shadows, complex textures, and subtle transitions—to give you a clean, usable image every time. This expertise is what Google AdSense seeks in high-value content.
               </p>
 
               {/* Conclusion and CTA */}
