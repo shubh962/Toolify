@@ -2,7 +2,6 @@ import React from 'react';
 import Link from 'next/link';
 import type { Metadata } from 'next';
 
-// --- ENHANCED METADATA FOR SEO & INDEXING ---
 export const metadata: Metadata = {
   title: 'गोपनीयता नीति (Privacy Policy) | TaskGuru',
   description: 'TaskGuru की गोपनीयता नीति: हम आपके डेटा को कैसे एकत्र, उपयोग और सुरक्षित करते हैं। Google AdSense और आपकी फ़ाइल सुरक्षा (जीरो स्टोरेज) की जानकारी।',
@@ -24,7 +23,7 @@ export default function PrivacyPolicyPage() {
       <div className="space-y-8 text-lg leading-relaxed text-gray-700 dark:text-gray-300">
         
         <p>
-          Toolify (या TaskGuru) पर, आपकी व्यक्तिगत जानकारी की सुरक्षा हमारी **सर्वोच्च प्राथमिकता** है। यह नीति विस्तार से बताती है कि जब आप हमारी सेवाओं का उपयोग करते हैं तो हम आपकी जानकारी को कैसे संभालते हैं। हमारी साइट का उपयोग करके, आप इस नीति की शर्तों से सहमत होते हैं।
+          Toolify (या TaskGuru) पर, आपकी व्यक्तिगत जानकारी की सुरक्षा हमारी सर्वोच्च प्राथमिकता है। यह नीति विस्तार से बताती है कि जब आप हमारी सेवाओं का उपयोग करते हैं तो हम आपकी जानकारी को कैसे संभालते हैं। हमारी साइट का उपयोग करके, आप इस नीति की शर्तों से सहमत होते हैं।
         </p>
 
         {/* 1. जानकारी संग्रह / Information Collection (Clearly Explained) */}
@@ -41,7 +40,7 @@ export default function PrivacyPolicyPage() {
               व्यक्तिगत जानकारी (Email & Name): हम यह जानकारी तभी एकत्र करते हैं जब आप स्वेच्छा से हमारे न्यूज़लेटर के लिए साइन अप करते हैं या सीधे हमसे संपर्क करते हैं।
             </li>
             <li>
-              उपयोग डेटा (Anonymous Analytics): हम Google Analytics जैसे टूल का उपयोग करके आपके द्वारा देखे गए पेज, साइट पर बिताया गया समय और आपके डिवाइस का प्रकार (जैसे, मोबाइल या डेस्कटॉप) जैसी जानकारी एकत्र करते हैं। **यह डेटा पूरी तरह से अनाम होता है** और इसका उपयोग केवल साइट के प्रदर्शन को समझने और सुधारने के लिए किया जाता है।
+              उपयोग डेटा (Anonymous Analytics): हम Google Analytics जैसे टूल का उपयोग करके आपके द्वारा देखे गए पेज, साइट पर बिताया गया समय और आपके डिवाइस का प्रकार (जैसे, मोबाइल या डेस्कटॉप) जैसी जानकारी एकत्र करते हैं। यह डेटा पूरी तरह से अनाम होता है और इसका उपयोग केवल साइट के प्रदर्शन को समझने और सुधारने के लिए किया जाता है।
             </li>
           </ul>
         </section>
@@ -56,13 +55,13 @@ export default function PrivacyPolicyPage() {
           </p>
           <ul className="list-disc list-inside ml-4 space-y-3">
             <li>
-              **कुकीज़ (Cookies):** Google (एक तृतीय-पक्ष विक्रेता के रूप में) आपकी पिछली विज़िट्स के आधार पर आपको प्रासंगिक विज्ञापन दिखाने के लिए कुकीज़ का उपयोग करता है।
+              कुकीज़ (Cookies): Google (एक तृतीय-पक्ष विक्रेता के रूप में) आपकी पिछली विज़िट्स के आधार पर आपको प्रासंगिक विज्ञापन दिखाने के लिए कुकीज़ का उपयोग करता है।
             </li>
             <li>
-              **DART कुकी:** AdSense, DART कुकी का उपयोग करता है जो TaskGuru और इंटरनेट पर अन्य साइटों पर आपकी विज़िट्स के आधार पर विज्ञापन दिखाने में मदद करता है।
+              DART कुकी: AdSense, DART कुकी का उपयोग करता है जो TaskGuru और इंटरनेट पर अन्य साइटों पर आपकी विज़िट्स के आधार पर विज्ञापन दिखाने में मदद करता है।
             </li>
             <li>
-              **आपका विज्ञापन नियंत्रण:** आप कभी भी <a href="https://policies.google.com/technologies/ads" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline font-medium">Google की विज्ञापन नीति पृष्ठ</a> पर जाकर DART कुकी के उपयोग से बाहर निकल सकते हैं (Opt-Out)।
+              आपका विज्ञापन नियंत्रण: आप कभी भी <a href="https://policies.google.com/technologies/ads" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline font-medium">Google की विज्ञापन नीति पृष्ठ</a> पर जाकर DART कुकी के उपयोग से बाहर निकल सकते हैं (Opt-Out)।
             </li>
           </ul>
         </section>
@@ -77,15 +76,15 @@ export default function PrivacyPolicyPage() {
           </p>
           <ul className="list-disc list-inside ml-4 space-y-3">
             <li>
-              **शून्य भंडारण (Zero Storage):** आपके द्वारा हमारे AI/इमेज टूल्स में अपलोड की गई फ़ाइलें हमारे सर्वर पर **स्थायी रूप से संग्रहीत (permanently stored) नहीं की जाती हैं**। वे केवल प्रोसेसिंग के लिए उपयोग की जाती हैं और कार्य पूरा होने के तुरंत बाद **स्वचालित रूप से हटा दी जाती हैं**।
+              शून्य भंडारण (Zero Storage): आपके द्वारा हमारे AI/इमेज टूल्स में अपलोड की गई फ़ाइलें हमारे सर्वर पर स्थायी रूप से संग्रहीत (permanently stored) नहीं की जाती हैं। वे केवल प्रोसेसिंग के लिए उपयोग की जाती हैं और कार्य पूरा होने के तुरंत बाद स्वचालित रूप से हटा दी जाती हैं।
             </li>
             <li>
-              **ब्राउज़र प्रोसेसिंग:** हमारे कई उपकरण फ़ाइल को आपके सर्वर के बजाय सीधे आपके **ब्राउज़र (Client-Side)** में प्रोसेस करते हैं, जिससे आपका संवेदनशील डेटा आपके डिवाइस को कभी नहीं छोड़ता है।
+              ब्राउज़र प्रोसेसिंग: हमारे कई उपकरण फ़ाइल को आपके सर्वर के बजाय सीधे आपके ब्राउज़र (Client-Side) में प्रोसेस करते हैं, जिससे आपका संवेदनशील डेटा आपके डिवाइस को कभी नहीं छोड़ता है।
             </li>
           </ul>
           
           <div className="p-4 bg-yellow-50 dark:bg-yellow-900 border-l-4 border-yellow-500 dark:border-yellow-700 rounded-md text-yellow-800 dark:text-yellow-200 my-6 text-sm font-medium">
-            **अस्वीकरण (Disclaimer):** हम Next.js और Firebase की सर्वोत्तम प्रथाओं का उपयोग करते हैं, लेकिन इंटरनेट पर कोई भी डेटा ट्रांसमिशन 100% सुरक्षित नहीं हो सकता। आप अपने जोखिम पर डेटा अपलोड करते हैं।
+            अस्वीकरण (Disclaimer): हम Next.js और Firebase की सर्वोत्तम प्रथाओं का उपयोग करते हैं, लेकिन इंटरनेट पर कोई भी डेटा ट्रांसमिशन 100% सुरक्षित नहीं हो सकता। आप अपने जोखिम पर डेटा अपलोड करते हैं।
           </div>
         </section>
 
@@ -105,7 +104,7 @@ export default function PrivacyPolicyPage() {
       </div> {/* End of main content container */}
       
       <p className="text-sm text-gray-500 mt-10 text-center">
-        अंतिम अद्यतन (Last updated): 13 अक्टूबर 2025
+        अंतिम अद्यतन (Last updated): 30 अक्टूबर 2025
       </p>
     </main>
   );
