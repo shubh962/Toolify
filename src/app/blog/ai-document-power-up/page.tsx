@@ -1,204 +1,163 @@
-// src/app/blog/ai-document-power-up/page.tsx (CORRECTED)
+// src/app/blog/ai-document-power-up/page.tsx
 
-'use client'; // <-- Now this is allowed!
+'use client'; 
 
 import Script from 'next/script';
 import Link from 'next/link';
-import { Bot, FileText, Zap, MessageSquare, BookOpen, ArrowRight, Clock, Shield } from 'lucide-react';
+import { Lightbulb, BookOpen, Presentation, FileText, Crop, Minimize, Combine, ScanText, ArrowRight } from 'lucide-react';
 
-// REMOVED: export const metadata = { ... }
+// NOTE: Metadata for this new page must be exported from its corresponding layout.tsx file.
 
-// The rest of the schemas and component logic remains the same.
 const blogSchema = {
-// ... (blogSchema remains the same)
-    "@context": "https://schema.org",
-    "@type": "BlogPosting",
-    "mainEntityOfPage": {
-        "@type": "WebPage",
-        "@id": "https://taskguru.online/blog/ai-document-power-up"
-    },
-    "headline": "AI Document Power-Up: Free Tools to Summarize & Chat with Any Document (PDF, Word, Text)",
-    "image": "https://taskguru.online/assets/ai-document-featured.png", 
-    "author": {
-        "@type": "Person",
-        "name": "Shubham Gautam"
-    },
-    "datePublished": "2025-11-09", 
-    "dateModified": "2025-11-09",
-    "publisher": {
-        "@type": "Organization",
-        "name": "TaskGuru",
-        "logo": {
-            "@type": "ImageObject",
-            "url": "https://taskguru.online/logo.png"
-        }
-    }
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://www.taskguru.online/blog/ai-document-power-up"
+    },
+    "headline": "AI Document Power-Up: Mastering Compliance, Workflow, and Digital Transformation",
+    "image": "https://taskguru.online/assets/ai-document-power-up-featured.png", // New featured image
+    "author": {
+        "@type": "Person",
+        "name": "Shubham Gautam"
+    },
+    "datePublished": "2025-11-09", 
+    "dateModified": "2025-11-09", 
+    "publisher": {
+        "@type": "Organization",
+        "name": "TaskGuru",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://taskguru.online/logo.png"
+        }
+    }
 };
 
-const internalFaqSchema = {
-// ... (internalFaqSchema remains the same)
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-      {
-        "@type": "Question",
-        "name": "How is the TaskGuru AI PDF Summarizer tool completely free?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "TaskGuru is committed to providing essential productivity tools to students and professionals without cost. Our AI PDF Summarizer is completely free to use, requires no sign-up, and has no limits on document size or usage frequency, unlike premium alternatives."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "What file types can TaskGuru's AI Document Power-Up handle?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Our AI document tools are engineered to process a wide range of formats, including PDF, Microsoft Word (.docx), and plain text (.txt). This flexibility ensures you can analyze research papers, legal contracts, meeting transcripts, and eBooks seamlessly."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Is my data secure when I upload a document to chat with?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Security is TaskGuru’s top priority. All documents uploaded for AI analysis (including the 'Chat with Document' feature) are processed immediately and deleted shortly after. We do not store your documents or conversations, ensuring complete privacy for sensitive or proprietary information."
-        }
-      }
-    ]
-};
+export default function AIDocumentPowerUpPost() {
+  return (
+    <>
+      <Script
+        id="blog-schema-ai-document-power-up"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(blogSchema) }}
+      />
+      <main className="max-w-4xl mx-auto px-4 py-16">
+        <article className="prose prose-lg max-w-none dark:prose-invert">
+          
+          {/* Header */}
+          <header className="text-center mb-10">
+            <h1 className="text-4xl font-extrabold text-primary mb-3">
+              **AI Document Power-Up:** Mastering Compliance, Workflow, and Digital Transformation
+            </h1>
+            <p className="text-lg text-muted-foreground">Published: November 9, 2025 | Unlock **Hyper-Efficiency** in Document Management</p>
+          </header>
 
+          <p className="lead text-xl mb-8">
+            In the modern enterprise, **documents are the lifeblood of business**. From contracts and invoices to regulatory reports and research papers, efficient **Document Lifecycle Management (DLM)** is the cornerstone of **operational excellence**. Yet, many organizations remain bogged down by manual document handling, risking **compliance errors** and hindering **digital transformation** efforts. TaskGuru’s free, **AI-augmented toolkit** provides the necessary **power-up** to automate tedious tasks, enhance data integrity, and ensure audit-readiness. We're moving beyond simple file viewing to enable **AI-driven insights** and **hyper-efficiency**.
+          </p>
+            
+            <hr />
 
-export default function AIDocumentPost() {
-    return (
-        <>
-            {/* ... (The rest of the component body remains the same as your 1000+ word version) */}
-            <Script
-                id="blog-schema-document"
-                type="application/ld+json"
-                dangerouslySetInnerHTML={{ __html: JSON.stringify(blogSchema) }}
-            />
-             <Script
-                id="faq-schema-document-internal"
-                type="application/ld+json"
-                dangerouslySetInnerHTML={{ __html: JSON.stringify(internalFaqSchema) }}
-            />
+          {/* Section 1: The Foundation of Digital Document Mastery */}
+          <h2 className="text-3xl font-bold mt-10 flex items-center gap-3 text-emerald-600 dark:text-emerald-400">
+            <BookOpen className="w-6 h-6" /> 📚 Document Ingestion and Data Integrity
+          </h2>
+          <p>
+            The journey to digital efficiency starts with converting incoming data—whether scanned, photographed, or natively created—into a flexible, editable, and searchable format. This process, known as **document ingestion**, is where AI delivers immediate and substantial **productivity gains**.
+          </p>
 
-            <main className="max-w-4xl mx-auto px-4 py-16">
-                <article className="prose prose-lg max-w-none dark:prose-invert">
-                    
-                    {/* Header */}
-                    <header className="text-center mb-10">
-                        <h1 className="text-4xl font-extrabold text-primary mb-3">
-                            <Bot className="w-8 h-8 inline-block mr-2 text-indigo-500" /> **AI Document Power-Up:** Free Tools to Summarize & Chat with Any Document (PDF, Word, Text)
-                        </h1>
-                        <p className="text-lg text-muted-foreground">Published: November 9, 2025 | Stop Reading, Start Understanding.</p>
-                    </header>
+          <h3 className="text-2xl font-semibold mt-6 flex items-center gap-2 text-indigo-600 dark:text-indigo-400">
+            <ScanText className="w-5 h-5" /> 1. Extracting Unstructured Data with AI-OCR
+          </h3>
+          <p>
+            Financial reports, legal archives, and academic research often rely on paper records or static images. Relying on manual data entry is slow, expensive, and a major source of error. Our **Image to Text Converter (OCR)** uses sophisticated **Optical Character Recognition** models to convert these visual files into fully editable, searchable text, effectively turning paper into usable data. This is a non-negotiable step toward **data accessibility** and **document automation**.
+            <Link href="/tools/image-to-text" className="text-primary hover:underline font-bold ml-1">Image to Text Converter (OCR)</Link>
+            <Link href="/tools/image-to-text" className="inline-flex items-center text-primary hover:underline ml-2">Use Tool <ArrowRight className="w-3 h-3 ml-1"/></Link>
+          </p>
 
-                    <p className="lead text-xl mb-8">
-                        In the age of information overload, your time is your most valuable resource. The biggest challenge isn't finding data—it's processing it. **TaskGuru** introduces its revolutionary suite of **free AI document tools** for students, researchers, and professionals to conquer documents instantly. From lengthy **PDFs** to dense Word reports, here’s how to use the *AI Document Power-Up* to save literally hours of reading time every week and instantly boost your comprehension.
-                    </p>
+          <h3 className="text-2xl font-semibold mt-6 flex items-center gap-2 text-green-600 dark:text-green-400">
+            <FileText className="w-5 h-5" /> 2. Seamlessly Transforming PDF Workflows
+          </h3>
+          <p>
+            PDFs are standard for final presentation, but they create a bottleneck when editing or updating is required. Our **Free PDF to Word Converter** ensures that when compliance standards change or a document needs localized modification, you can instantly break free from the static PDF format. By accurately mapping the document structure to a DOCX file, the tool saves hours of reformatting, enabling quicker **response times** and maintaining high **document fidelity** throughout the conversion process.
+            <Link href="/tools/pdf-to-word" className="inline-flex items-center text-primary hover:underline ml-2 font-bold">Use Tool <ArrowRight className="w-3 h-3 ml-1"/></Link>
+          </p>
+            
+            <hr />
 
-                    <p>
-                        We’ve designed this suite to eliminate the "scan and skim" method that often leads to missed details. With the ability to analyze and interact with files like **PDF, DOCX, and TXT**, TaskGuru transforms the way you approach academic research, market analysis, and legal document review.
-                    </p>
+          {/* Section 2: Compliance, Collaboration, and Data Security */}
+          <h2 className="text-3xl font-bold mt-10 flex items-center gap-3 text-orange-600 dark:text-orange-400">
+            <Presentation className="w-6 h-6" /> 🛡️ Compliance, Collaboration, and Data Security
+          </h2>
+          <p>
+            Effective document management is not just about moving files; it’s about control. In regulated industries, maintaining **audit trails** and ensuring **data security** are paramount. TaskGuru's tools help control the final output and ensure digital documents are optimized for shared environments.
+          </p>
 
-                    {/* --- */}
-                    <h2 className="text-3xl font-bold mt-10 flex items-center gap-3 text-blue-600 dark:text-blue-400">
-                        <BookOpen className="w-6 h-6" /> 1. The **Free AI PDF Summarizer** for Deep Comprehension
-                    </h2>
-                    <p>
-                        Tired of slogging through 50-page research papers or complex contracts? Our AI Document Summarizer uses advanced Natural Language Processing (NLP) models to distill any long document into three essential formats: a **concise abstract**, a series of **key bullet points**, or a **custom-length summary** based on your needs. This is the **best free AI PDF summarizer** tool available, designed to save students and busy professionals countless hours.
-                    </p>
+          <h3 className="text-2xl font-semibold mt-6 flex items-center gap-2 text-purple-600 dark:text-purple-400">
+            <Combine className="w-5 h-5" /> 3. Consolidating Records for Audit Readiness
+          </h3>
+          <p>
+            When responding to regulatory requests or performing internal reviews, having all related documents in a single, chronologically ordered file is essential. The **Merge PDF Files Online** tool allows teams to consolidate scattered reports, contracts, and legal disclaimers into one cohesive document. This significantly simplifies **record-keeping**, reducing the time spent preparing for an audit from days to mere minutes, ensuring **regulatory compliance** is effortless.
+            <Link href="/tools/merge-pdf" className="inline-flex items-center text-primary hover:underline ml-2 font-bold">Use Tool <ArrowRight className="w-3 h-3 ml-1"/></Link>
+          </p>
 
-                    <p>
-                        ### **How it Works & Key Benefits**
-                        * **Speed:** Upload your **PDF** and receive the summary in seconds, not minutes. Ideal for quickly assessing the relevance of a research article.
-                        * **Customization:** Choose the length of the summary. Need a one-paragraph overview? Done. Need a detailed, chapter-by-chapter outline? It can do that too.
-                        * **Accuracy:** Unlike basic summarizers, TaskGuru's tool focuses on extracting the **core argument and evidence**, ensuring the essential context of the document remains intact.
-                        * **Accessibility:** It handles PDFs, DOCX, and TXT files, making it a universal tool for document analysis.
-                    </p>
-                    <Link href="/tools/document-summarizer" className="inline-flex items-center text-primary hover:underline ml-2 font-medium">Click here to use the Free AI PDF Summarizer <ArrowRight className="w-4 h-4 ml-1"/></Link>
+          <h3 className="text-2xl font-semibold mt-6 flex items-center gap-2 text-yellow-600 dark:text-yellow-400">
+            <Minimize className="w-5 h-5" /> 4. Optimizing for Secure Collaboration and Cloud Storage
+          </h3>
+          <p>
+            Large, uncompressed files drain cloud storage resources and slow down synchronization, especially for **remote teams** collaborating on shared platforms like SharePoint or Google Drive. Our **Image Compressor** ensures that all embedded visual assets—graphs, charts, and diagrams—are optimized, guaranteeing fast document loading times and efficient use of shared resources. This directly impacts **resource management** and enhances the **user experience** across low-bandwidth connections.
+            <Link href="/tools/image-compressor" className="inline-flex items-center text-primary hover:underline ml-2 font-bold">Use Tool <ArrowRight className="w-3 h-3 ml-1"/></Link>
+          </p>
+            
+            <hr />
 
-                    <blockquote className='bg-blue-50 dark:bg-blue-900/50 p-3 mt-4 rounded-lg border-l-4 border-blue-500'>
-                        💡 **Pro Tip for Students:** Use the AI PDF Summarizer before a lecture to quickly grasp the main concepts of a reading assignment, giving you a massive advantage in class discussions.
-                    </blockquote>
-                    
-                    {/* --- */}
-                    <h2 className="text-3xl font-bold mt-10 flex items-center gap-3 text-green-600 dark:text-green-400">
-                        <MessageSquare className="w-6 h-6" /> 2. **Chat with Any Document** (Your Personal AI Q&A Assistant)
-                    </h2>
-                    <p>
-                        This tool fundamentally changes how you interact with files. Imagine having a dedicated research assistant who has already memorized your entire document. Simply upload any contract, paper, or book, and then **ask it specific questions** in plain English.
-                    </p>
+          {/* Section 3: AI Augmentation for Content Quality */}
+          <h2 className="text-3xl font-bold mt-10 flex items-center gap-3 text-blue-600 dark:text-blue-400">
+            <ScanText className="w-6 h-6" /> 💡 AI Augmentation for Content Quality and Consistency
+          </h2>
+          <p>
+            The final layer of the AI Document Power-Up is ensuring the content itself is clear, original, and adheres to the highest standards of communication. This is crucial for reports, proposals, and **smart contracts** where semantic clarity is vital.
+          </p>
 
-                    <p>
-                        For example, instead of searching manually, you can ask a question like: *“What are the three main causes of climate change mentioned in Section 4?”* or *“What are the deadlines for termination in this contract?”*
-                    </p>
+          <h3 className="text-2xl font-semibold mt-6 flex items-center gap-2 text-blue-600 dark:text-blue-400">
+            <ScanText className="w-5 h-5" /> 5. Ensuring Originality and Clarity in Documentation
+          </h3>
+          <p>
+            When synthesizing legal text, technical specifications, or research findings, writers must often rephrase source material while preserving its technical accuracy. Our **AI Text Paraphraser & Rewriter** employs sophisticated **Natural Language Processing (NLP)** to generate unique structural and lexical variations, eliminating accidental **plagiarism** risks and ensuring **content freshness**. This guarantees that all internal and external documentation maintains a high standard of **editorial integrity**.
+            <Link href="/tools/text-paraphraser" className="inline-flex items-center text-primary hover:underline ml-2 font-bold">Use Tool <ArrowRight className="w-3 h-3 ml-1"/></Link>
+          </p>
 
-                    ### **Why TaskGuru's Chat is Superior**
-                    * **Contextual Accuracy:** The AI is trained to understand the *full context* of your document, providing answers that are highly relevant, unlike general chatbots.
-                    * **Direct Citations:** TaskGuru’s Chat feature can often point you to the exact section or page number where the answer is found, making verification simple and fast.
-                    * **Explain Complex Sections:** If a paragraph is full of jargon, simply ask the AI, *“Explain the third paragraph of the conclusion in simple terms.”* It simplifies complexity instantly.
-                    <Link href="/tools/chat-with-document" className="inline-flex items-center text-primary hover:underline ml-2 font-medium">Start Chatting with Your Document Now <ArrowRight className="w-4 h-4 ml-1"/></Link>
-                    
-                    {/* --- */}
-                    <h2 className="text-3xl font-bold mt-10 flex items-center gap-3 text-purple-600 dark:text-purple-400">
-                        <FileText className="w-6 h-6" /> 3. The **Document Key Takeaways Generator** for Action
-                    </h2>
-                    <p>
-                        In professional settings, the goal of document review is usually to determine **what to do next**. This tool bridges the gap between passive reading and active execution. Instantly transform meeting minutes, lecture notes, or web articles into a prioritized list of **actionable takeaways** and next steps.
-                    </p>
+          <h3 className="text-2xl font-semibold mt-6 flex items-center gap-2 text-indigo-600 dark:text-indigo-400">
+            <Crop className="w-5 h-5" /> 6. Fine-Tuning Visual Evidence (Signatures and Stamps)
+          </h3>
+          <p>
+            In digital document verification, signatures, corporate stamps, or specific seals are critical components. Isolating these elements cleanly for use in templates or for secure digital embedding is a detailed process. The **AI Background Remover** uses precise edge detection to isolate these critical visual markers from any noisy background, maintaining the professionalism and integrity required for legally binding or formal documentation. This enables quick creation of clean digital assets necessary for **e-signature workflows**.
+            <Link href="/tools/background-remover" className="inline-flex items-center text-primary hover:underline ml-2 font-bold">Use Tool <ArrowRight className="w-3 h-3 ml-1"/></Link>
+          </p>
 
-                    <p>
-                        Project managers use it to quickly convert a long client brief into a task list. Students use it to transform lecture transcripts into study guides. The output is a clean, focused list of bullet points that are ready to be copied into your to-do list or calendar.
-                        <Link href="/tools/key-takeaways-generator" className="inline-flex items-center text-primary hover:underline ml-2 font-medium">Generate Actionable Takeaways <ArrowRight className="w-4 h-4 ml-1"/></Link>
-                    </p>
+            <p className="mt-8">
+                The **AI Document Power-Up** strategy is simple: automate the repetitive, control the flow, and augment the quality. By integrating TaskGuru's free tools—which span the entire document journey from messy ingestion (OCR) to final consolidation (Merge PDF) and content refinement (Paraphraser)—your workflow achieves **end-to-end optimization**. This approach is scalable, cost-effective, and critical for achieving true **digital agility** in a fast-paced environment. Stop managing documents and start extracting value from your data.
+            </p>
+            
+            <p className="mb-4">
+                The shift toward **intelligent document processing (IDP)** is not optional; it is the standard for competitive advantage. TaskGuru provides the entry point, free of charge, to empower your teams with the **AI tools** necessary to meet the demands of modern **data governance** and high-volume **transaction processing**.
+            </p>
 
-                    {/* --- */}
-                    <h2 className="text-3xl font-bold mt-10 flex items-center gap-3 text-indigo-600 dark:text-indigo-400">
-                        <Shield className="w-6 h-6" /> Why Choose TaskGuru's Free AI Document Analysis Tools?
-                    </h2>
-                    <p>
-                        There are many AI tools emerging, but TaskGuru stands apart by focusing on **free access, privacy, and speed**.
-                    </p>
-                    
-                    <ul className="list-disc ml-6 space-y-2">
-                        <li><span className="font-semibold text-gray-900 dark:text-gray-100">No Cost, No Limits:</span> We believe these essential tools should be free. There are **no hidden fees**, no document size limits, and no frustrating watermarks. Use our **AI PDF Summarizer** as much as you need.</li>
-                        <li><span className="font-semibold text-gray-900 dark:text-gray-100">Unmatched Privacy:</span> Your documents contain sensitive information. We guarantee that all uploaded documents are **immediately processed and permanently deleted** from our servers shortly after analysis. We never store or share your data.</li>
-                        <li><span className="font-semibold text-gray-900 dark:text-gray-100">Speed and Efficiency:</span> Built on a high-speed infrastructure, you can upload and analyze massive documents in the time it takes other tools to load.</li>
-                    </ul>
+          {/* Conclusion & CTA */}
+          <section className="mt-12 p-6 bg-primary/10 rounded-xl border-l-4 border-primary">
+             <h3 className="text-2xl font-bold mb-4 flex items-center gap-2">
+                <Lightbulb className="w-5 h-5"/> Ready to Master Document Automation?
+             </h3>
+             <p className="mb-4">
+                TaskGuru is your free partner in **document intelligence**. We offer the essential utilities to streamline every step of your process, freeing up valuable human capital for strategic work. Begin your journey toward **workflow automation** and robust **compliance infrastructure** today.
+             </p>
+             <Link href="/" className="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-primary hover:bg-indigo-700 transition duration-300">
+                 Explore All Free Tools <ArrowRight className="w-4 h-4 ml-2" />
+             </Link>
+          </section>
 
-                    {/* --- */}
-                    <section className="mt-14 pt-10 border-t border-gray-100 dark:border-gray-700">
-                        <h2 className="text-3xl sm:text-3xl font-bold mb-6 text-center text-foreground">
-                            Frequently Asked Questions (FAQ) about TaskGuru's AI Document Tools
-                        </h2>
-                        <div className="space-y-6">
-                        {internalFaqSchema.mainEntity.map((item, index) => (
-                            <div key={index} className="border-b pb-3 dark:border-gray-700">
-                                <h3 className="font-bold text-lg text-gray-900 dark:text-gray-100">{item.name}</h3>
-                                <p className="text-gray-700 mt-1 dark:text-gray-300">{item.acceptedAnswer.text}</p>
-                            </div>
-                        ))}
-                        </div>
-                    </section>
-                    
-                    {/* --- */}
-                    {/* Conclusion & CTA */}
-                    <section className="mt-12 p-6 bg-primary/10 rounded-xl border-l-4 border-primary">
-                        <h3 className="text-2xl font-bold mb-4 flex items-center gap-2">
-                            <Zap className="w-5 h-5"/> Accelerate Your Research & Workflow Today
-                        </h3>
-                        <p className="mb-4">
-                            The era of mindlessly scrolling through pages of text is over. TaskGuru's **AI Document Power-Up** is a free, secure, and fast solution designed for the modern knowledge worker. Stop wasting time reading every line and instantly find the information, summaries, and key takeaways you need to succeed. Try the tools now and feel the difference.
-                        </p>
-                        <Link href="/tools" className="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-primary hover:bg-indigo-700 transition duration-300">
-                            Start Summarizing and Chatting with Documents <ArrowRight className="w-4 h-4 ml-2" />
-                        </Link>
-                    </section>
-
-                </article>
-            </main>
-        </>
-    );
+        </article>
+      </main>
+    </>
+  );
 }
