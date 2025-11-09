@@ -1,20 +1,16 @@
-// src/app/blog/ai-document-power-up/page.tsx
+// src/app/blog/ai-document-power-up/page.tsx (CORRECTED)
 
-'use client';
+'use client'; // <-- Now this is allowed!
 
 import Script from 'next/script';
 import Link from 'next/link';
 import { Bot, FileText, Zap, MessageSquare, BookOpen, ArrowRight, Clock, Shield } from 'lucide-react';
 
-// Trending Keywords for High GSC Impressions:
-// 'AI PDF Summarizer', 'Chat with PDF Free', 'AI Document Analysis Tool', 'Summarize Long Documents'
-export const metadata = {
-    title: 'AI Document Power-Up: Free Tools to Summarize & Chat with Any Document (PDF, Word, Text)',
-    description: 'Instantly summarize PDFs, generate key takeaways, and chat with your documents using TaskGuru’s new suite of free AI document tools. Perfect for students and researchers.',
-    robots: 'index, follow',
-};
+// REMOVED: export const metadata = { ... }
 
+// The rest of the schemas and component logic remains the same.
 const blogSchema = {
+// ... (blogSchema remains the same)
     "@context": "https://schema.org",
     "@type": "BlogPosting",
     "mainEntityOfPage": {
@@ -40,6 +36,7 @@ const blogSchema = {
 };
 
 const internalFaqSchema = {
+// ... (internalFaqSchema remains the same)
     "@context": "https://schema.org",
     "@type": "FAQPage",
     "mainEntity": [
@@ -74,12 +71,12 @@ const internalFaqSchema = {
 export default function AIDocumentPost() {
     return (
         <>
+            {/* ... (The rest of the component body remains the same as your 1000+ word version) */}
             <Script
                 id="blog-schema-document"
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(blogSchema) }}
             />
-            {/* Added a separate FAQ Schema for the post, which is better practice for SEO */}
              <Script
                 id="faq-schema-document-internal"
                 type="application/ld+json"
@@ -110,7 +107,7 @@ export default function AIDocumentPost() {
                         <BookOpen className="w-6 h-6" /> 1. The **Free AI PDF Summarizer** for Deep Comprehension
                     </h2>
                     <p>
-                        Tired of slogging through 50-page research papers or complex contracts? Our **AI Document Summarizer** uses advanced Natural Language Processing (NLP) models to distill any long document into three essential formats: a **concise abstract**, a series of **key bullet points**, or a **custom-length summary** based on your needs. This is the **best free AI PDF summarizer** tool available, designed to save students and busy professionals countless hours.
+                        Tired of slogging through 50-page research papers or complex contracts? Our AI Document Summarizer uses advanced Natural Language Processing (NLP) models to distill any long document into three essential formats: a **concise abstract**, a series of **key bullet points**, or a **custom-length summary** based on your needs. This is the **best free AI PDF summarizer** tool available, designed to save students and busy professionals countless hours.
                     </p>
 
                     <p>
