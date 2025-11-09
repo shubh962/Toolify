@@ -4,6 +4,7 @@ const blogSlugs = [
     "the-ultimate-taskguru-toolkit", 
     "projects-presentations-ai-toolkit",
     "streamline-remote-workflow",
+    "ai-document-power-up",
 ];
 
 const toolSlugs = [
