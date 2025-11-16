@@ -39,8 +39,11 @@ const inter = Inter({
   variable: "--font-inter",
 });
 
+// -------------------------------
+// 🔥 FIX #1 — metadataBase + canonical PERFECT
+// -------------------------------
 export const metadata: Metadata = {
-  metadataBase: new URL("https://www.taskguru.online"), // ✅ FIXED (WWW ONLY)
+  metadataBase: new URL("https://www.taskguru.online"),
 
   title: {
     default: "Toolify – Free Online Tools (PDF, Images & Text)",
@@ -48,31 +51,30 @@ export const metadata: Metadata = {
   },
 
   description:
-    "Free tools: Background Remover, Image Compressor, PDF to Word, Text Paraphraser & Image to Text. No login required.",
-
-  keywords:
-    "free online tools, background remover, image compressor, pdf to word, text paraphraser, image to text, toolify, taskguru",
+    "Free tools: Background Remover, Image Compressor, PDF to Word, Text Paraphraser & Image to Text.",
 
   robots: "index, follow",
 
-  // ✅ CANONICAL FIXED (auto-expands using metadataBase)
   alternates: {
-    canonical: "/",
+    canonical: "/", // Auto expands using metadataBase
   },
 
   verification: {
     google: "XhRtp6rO2MNQX-BucHlUxVhNLbBPfdis_RzXY5ZodlU",
   },
 
+  keywords:
+    "free online tools, background remover, image compressor, pdf to word, paraphraser, image to text, toolify, taskguru",
+
   openGraph: {
     title: "Toolify – Free Online Tools",
     description:
       "Free Background Remover, Compressor, PDF, Text Paraphraser & more.",
-    url: "https://www.taskguru.online", // ✅ FIXED
+    url: "https://www.taskguru.online",
     siteName: "Toolify",
     images: [
       {
-        url: "https://www.taskguru.online/og-image.png", // ✅ FIXED
+        url: "https://www.taskguru.online/og-image.png",
         width: 1200,
         height: 630,
       },
@@ -86,17 +88,15 @@ export const metadata: Metadata = {
     title: "Toolify – Free Online Tools",
     description:
       "Free Background Remover, Compressor, PDF tools, Paraphraser & more.",
-    images: ["https://www.taskguru.online/og-image.png"], // ✅ FIXED
+    images: ["https://www.taskguru.online/og-image.png"],
     creator: "@YourHandle",
   },
 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
-  // 🔥 JSON-LD FIXED (all URLs now www version)
+export default function RootLayout({ children }: { children: React.ReactNode }) {
+  // -------------------------------
+  // 🔥 FIX #2 JSON-LD — Approved schema
+  // -------------------------------
   const siteLdJson = {
     "@context": "https://schema.org",
     "@type": "WebSite",
@@ -104,11 +104,6 @@ export default function RootLayout({
     name: "Toolify",
     description:
       "Free tools like Background Remover, Image Compressor, PDF to Word Converter, and Text Paraphraser.",
-    publisher: {
-      "@type": "Organization",
-      name: "Toolify",
-      logo: "https://www.taskguru.online/logo.png",
-    },
     potentialAction: {
       "@type": "SearchAction",
       target: "https://www.taskguru.online/tools/{search_term_string}",
@@ -228,43 +223,19 @@ export default function RootLayout({
 
               {/* LEGAL LINKS */}
               <nav className="mt-6 flex gap-4 justify-center text-sm font-medium">
-                <Link
-                  href="/blog"
-                  className="text-gray-600 hover:text-primary dark:text-gray-400 dark:hover:text-indigo-400"
-                >
-                  Blog
-                </Link>
-                <span className="text-gray-400 dark:text-gray-600">|</span>
-                <Link
-                  href="/privacy-policy"
-                  className="text-gray-600 hover:text-primary dark:text-gray-400 dark:hover:text-indigo-400"
-                >
-                  Privacy Policy
-                </Link>
+                <Link href="/blog">Blog</Link>
+                <span>|</span>
 
-                <span className="text-gray-400 dark:text-gray-600">|</span>
-                <Link
-                  href="/terms"
-                  className="text-gray-600 hover:text-primary dark:text-gray-400 dark:hover:text-indigo-400"
-                >
-                  Terms of Service
-                </Link>
+                <Link href="/privacy-policy">Privacy Policy</Link>
+                <span>|</span>
 
-                <span className="text-gray-400 dark:text-gray-600">|</span>
-                <Link
-                  href="/about"
-                  className="text-gray-600 hover:text-primary dark:text-gray-400 dark:hover:text-indigo-400"
-                >
-                  About
-                </Link>
+                <Link href="/terms">Terms of Service</Link>
+                <span>|</span>
 
-                <span className="text-gray-400 dark:text-gray-600">|</span>
-                <Link
-                  href="/help"
-                  className="text-gray-600 hover:text-primary dark:text-gray-400 dark:hover:text-indigo-400"
-                >
-                  Help
-                </Link>
+                <Link href="/about">About</Link>
+                <span>|</span>
+
+                <Link href="/help">Help</Link>
               </nav>
 
               {/* SOCIAL LINKS */}
@@ -275,7 +246,6 @@ export default function RootLayout({
                       href="https://www.facebook.com/share/1K97T5Q5wp/"
                       target="_blank"
                       rel="noopener"
-                      className="flex items-center gap-1.5 text-gray-600 hover:text-primary dark:text-gray-400 dark:hover:text-indigo-400"
                     >
                       <Facebook className="w-4 h-4" /> Facebook
                     </a>
@@ -286,7 +256,6 @@ export default function RootLayout({
                       href="https://x.com/Shubham_962"
                       target="_blank"
                       rel="noopener"
-                      className="flex items-center gap-1.5 text-gray-600 hover:text-primary dark:text-gray-400 dark:hover:text-indigo-400"
                     >
                       <Twitter className="w-4 h-4" /> X
                     </a>
@@ -297,7 +266,6 @@ export default function RootLayout({
                       href="https://www.instagram.com/fact_fusion_s"
                       target="_blank"
                       rel="noopener"
-                      className="flex items-center gap-1.5 text-gray-600 hover:text-primary dark:text-gray-400 dark:hover:text-indigo-400"
                     >
                       <Instagram className="w-4 h-4" /> Instagram
                     </a>
@@ -308,7 +276,6 @@ export default function RootLayout({
                       href="https://www.linkedin.com/in/Shubh962"
                       target="_blank"
                       rel="noopener"
-                      className="flex items-center gap-1.5 text-gray-600 hover:text-primary dark:text-gray-400 dark:hover:text-indigo-400"
                     >
                       <Linkedin className="w-4 h-4" /> LinkedIn
                     </a>
@@ -319,7 +286,6 @@ export default function RootLayout({
                       href="https://youtube.com/@factfusions0-x4k"
                       target="_blank"
                       rel="noopener"
-                      className="flex items-center gap-1.5 text-gray-600 hover:text-primary dark:text-gray-400 dark:hover:text-indigo-400"
                     >
                       <Youtube className="w-4 h-4" /> YouTube
                     </a>
