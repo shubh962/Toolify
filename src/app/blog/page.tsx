@@ -36,6 +36,13 @@ const posts = [
         summary: "Instantly summarize lengthy PDFs, generate key takeaways, and ask questions to your documents using TaskGuru’s new, free AI document analysis tool. Essential for research and study.",
         date: 'November 9, 2025', // Updated date to reflect the latest post
     },
+{
+    slug: 'free-ai-tools-for-students-2025',
+    title: "Top 10 Free AI Tools for Students in 2025 (No Login Required)",
+    summary: "Discover the most powerful free AI tools every student must use in 2025. Rewrite notes, convert PDFs, extract text, compress files, and boost productivity using TaskGuru’s fast, no-login tools.",
+    date: 'December 3, 2025',
+},
+    
 ];
 
 // ✅ 2. FAQ SCHEMA FOR THE LISTING PAGE (Updated with a highly relevant AI question)
