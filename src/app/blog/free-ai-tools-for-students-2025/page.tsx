@@ -5,7 +5,7 @@ import { Zap, BrainCircuit, FileText, Crop, Minimize, Combine, ScanText, ArrowRi
 export const metadata = {
   title: 'Top Free AI Tools for Students in 2025 (No Login Required)',
   description:
-    'Supercharge your academic workflow using the best free AI tools for students in 2025. Rewrite notes, extract text, convert PDFs, design clean visuals and more — all with fast, no-login TaskGuru tools.',
+    'Work smarter with clean, simple, and fast AI tools designed for students in 2025. Rewrite notes, extract text, convert PDFs, and create project-ready visuals—no login required.',
   robots: 'index, follow',
 };
 
@@ -46,64 +46,115 @@ export default function FreeAiTools2025Post() {
               Top Free AI Tools for Students in 2025 (No Login Required)
             </h1>
             <p className="text-muted-foreground mt-3">
-              Published: December 2025 • Elevate your academic productivity with the fastest AI tools.
+              Published: December 2025 • Simple tools that make study life easier.
             </p>
           </header>
 
           {/* INTRO */}
           <section className="mb-12">
             <p className="text-xl leading-relaxed">
-              2025 is redefining how students study, create, write, and submit assignments. 
-              AI tools are no longer “optional shortcuts” — they’re essential companions that 
-              save time, improve clarity, and make academic tasks feel effortless.
+              Student life is fast. Assignments, projects, notes, submissions—everything demands time,
+              clarity, and clean work. AI makes this easier. Not by replacing effort, but by removing friction.
+            </p>
+
+            <p className="mt-4">
+              TaskGuru offers a set of tools designed to do exactly that.  
+              Clean. Fast. Free. No logins. Just smooth workflows.
             </p>
 
             <div className="p-5 rounded-xl bg-primary/10 border border-primary/20 mt-6">
               <p className="text-lg">
-                <strong>TaskGuru brings a modern suite of powerful, fast, free, and no-login AI tools</strong> 
-                designed to support students across schools, colleges, and competitive exam environments.
+                Think of these tools as a quiet, reliable assistant—helping you finish work faster
+                while keeping everything neat and professional.
               </p>
             </div>
           </section>
 
           {/* WHY AI SECTION */}
-          <section className="mb-14">
-            <h2 className="text-3xl font-bold text-primary">Why Every Student Needs AI Tools in 2025</h2>
+          <section className="mb-16">
+            <h2 className="text-3xl font-bold text-primary">Why AI Matters for Students in 2025</h2>
 
             <p className="mt-3 leading-relaxed">
-              Academic workloads are increasing, digital submissions are now standard, and the need for clean, 
-              readable documents is higher than ever. AI tools bridge the gap between speed and quality, enabling you to:
+              Education is shifting. Digital submissions are standard.  
+              Clean formatting is expected.  
+              And speed is essential.
             </p>
 
+            <p className="mt-3">AI tools help you:</p>
+
             <ul className="grid grid-cols-1 md:grid-cols-2 gap-3 mt-5">
-              <li>✔ Quickly rewrite complex paragraphs</li>
-              <li>✔ Create clean project-ready visuals</li>
-              <li>✔ Extract text from handwritten notes</li>
-              <li>✔ Convert PDFs or compress files instantly</li>
-              <li>✔ Organize study materials more efficiently</li>
+              <li>✔ Rewrite complicated paragraphs</li>
+              <li>✔ Extract text instead of retyping</li>
+              <li>✔ Clean up images for presentations</li>
+              <li>✔ Convert and merge PDFs instantly</li>
+              <li>✔ Stay organized with less effort</li>
             </ul>
           </section>
 
-          <hr className="my-14 opacity-50" />
+          {/* ADVANTAGES SECTION */}
+          <section className="mb-20">
+            <h2 className="text-3xl font-bold text-primary">Why TaskGuru Stands Out</h2>
+
+            <div className="p-6 mt-5 rounded-xl bg-primary/10 border border-primary/20 space-y-6">
+
+              <div>
+                <h3 className="font-semibold text-lg">✨ No Accounts. No Delays.</h3>
+                <p className="mt-1">
+                  Most websites ask for a sign-up. TaskGuru doesn’t.  
+                  You open a tool. You use it. That’s it.
+                </p>
+              </div>
+
+              <div>
+                <h3 className="font-semibold text-lg">✨ Free. Fully.</h3>
+                <p className="mt-1">
+                  No hidden tiers. No premium walls.  
+                  Everything you see is free to use.
+                </p>
+              </div>
+
+              <div>
+                <h3 className="font-semibold text-lg">✨ Clean Output</h3>
+                <p className="mt-1">
+                  Your files stay yours—without watermarks or branding.
+                </p>
+              </div>
+
+              <div>
+                <h3 className="font-semibold text-lg">✨ Works Everywhere</h3>
+                <p className="mt-1">
+                  Tools load fast on any device, even low-end phones.
+                </p>
+              </div>
+
+              <div>
+                <h3 className="font-semibold text-lg">✨ Built for Students</h3>
+                <p className="mt-1">
+                  Every tool solves a real academic need—notes, PDFs, images, writing… everything.
+                </p>
+              </div>
+
+            </div>
+          </section>
 
           {/* TOOL 1 */}
-          <section className="mb-14">
+          <section className="mb-20">
             <h2 className="text-3xl font-bold flex items-center gap-3 text-blue-600 dark:text-blue-400">
-              <BrainCircuit className="w-7 h-7" /> 1. AI Paraphraser — Clean, Clear & Unique Writing
+              <BrainCircuit className="w-7 h-7" /> 1. AI Paraphraser
             </h2>
 
             <p className="mt-3">
-              The AI Paraphraser helps you transform any long or complicated text into clean, polished, 
-              plagiarism-free content — perfect for assignments, essays, and project write-ups.
+              A quiet upgrade to your writing.  
+              Paste a paragraph, and it comes out clearer, cleaner, and more academic.
             </p>
 
             <div className="mt-5 p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg border-l-4 border-blue-500">
-              <h3 className="font-semibold mb-2">✨ Why it's powerful</h3>
+              <h3 className="font-semibold mb-2">Best for</h3>
               <ul className="space-y-1">
-                <li>• Makes writing clearer and more professional</li>
-                <li>• Avoids repetitive or copied content</li>
-                <li>• Helps convert informal notes into academic tone</li>
-                <li>• Saves hours of manual rewriting</li>
+                <li>• Assignments</li>
+                <li>• Essays</li>
+                <li>• Project descriptions</li>
+                <li>• Notes made readable</li>
               </ul>
             </div>
 
@@ -114,50 +165,50 @@ export default function FreeAiTools2025Post() {
           </section>
 
           {/* TOOL 2 */}
-          <section className="mb-14">
+          <section className="mb-20">
             <h2 className="text-3xl font-bold flex items-center gap-3 text-teal-600 dark:text-teal-400">
-              <ScanText className="w-7 h-7" /> 2. Image to Text (OCR) — Digitize Notes Instantly
+              <ScanText className="w-7 h-7" /> 2. Image to Text (OCR)
             </h2>
 
             <p className="mt-3">
-              Stop rewriting notes manually. Simply upload a captured photo of handwritten notes or class whiteboards —
-              the OCR tool extracts clean, editable text in seconds.
+              Take a photo of your notes. Upload it. Get editable text.  
+              Simple. Quietly powerful.
             </p>
 
             <div className="mt-5 p-4 bg-teal-50 dark:bg-teal-900/20 rounded-lg border-l-4 border-teal-500">
-              <h3 className="font-semibold mb-2">✨ Best use cases</h3>
+              <h3 className="font-semibold mb-2">Perfect when</h3>
               <ul className="space-y-1">
-                <li>• Convert handwritten class notes</li>
-                <li>• Extract text from books or PDFs</li>
-                <li>• Convert screenshots into editable text</li>
-                <li>• Save time during online exams</li>
+                <li>• You want digital notes</li>
+                <li>• You captured a board photo</li>
+                <li>• You don’t want to type manually</li>
+                <li>• You’re revising quickly</li>
               </ul>
             </div>
 
             <Link href="https://www.taskguru.online/tools/image-to-text"
               className="inline-flex items-center mt-4 text-primary font-medium hover:underline">
-              Extract Text Now <ArrowRight className="w-4 h-4 ml-1" />
+              Extract Text <ArrowRight className="w-4 h-4 ml-1" />
             </Link>
           </section>
 
           {/* TOOL 3 */}
-          <section className="mb-14">
+          <section className="mb-20">
             <h2 className="text-3xl font-bold flex items-center gap-3 text-indigo-600 dark:text-indigo-400">
-              <Crop className="w-7 h-7" /> 3. Background Remover — Clean Graphics for Projects
+              <Crop className="w-7 h-7" /> 3. Background Remover
             </h2>
 
             <p className="mt-3">
-              Clean visuals elevate the quality of any school or college project. This AI tool instantly removes 
-              distracting backgrounds, making your images presentation-ready.
+              Clean, distraction-free visuals. Ideal for presentations, project covers, or creative work.  
+              One upload, one clean PNG.
             </p>
 
             <div className="mt-5 p-4 bg-indigo-50 dark:bg-indigo-900/20 rounded-lg border-l-4 border-indigo-500">
-              <h3 className="font-semibold mb-2">✨ Perfect for</h3>
+              <h3 className="font-semibold mb-2">Great for</h3>
               <ul className="space-y-1">
-                <li>• Project cover pages</li>
-                <li>• Science diagrams</li>
-                <li>• LinkedIn/Resume photos</li>
                 <li>• Presentation slides</li>
+                <li>• Profile/ID photos</li>
+                <li>• Science diagrams</li>
+                <li>• Creative projects</li>
               </ul>
             </div>
 
@@ -168,23 +219,22 @@ export default function FreeAiTools2025Post() {
           </section>
 
           {/* TOOL 4 */}
-          <section className="mb-14">
+          <section className="mb-20">
             <h2 className="text-3xl font-bold flex items-center gap-3 text-green-600 dark:text-green-400">
-              <Minimize className="w-7 h-7" /> 4. Image Compressor — Reduce File Sizes Quickly
+              <Minimize className="w-7 h-7" /> 4. Image Compressor
             </h2>
 
             <p className="mt-3">
-              School & college portals often reject images due to size limits. The Image Compressor reduces file size 
-              by up to 80% while keeping high clarity.
+              When a portal rejects your image because it’s “too large,” this tool fixes it—without killing quality.
             </p>
 
             <div className="mt-5 p-4 bg-green-50 dark:bg-green-900/20 rounded-lg border-l-4 border-green-600">
-              <h3 className="font-semibold mb-2">✨ Benefits</h3>
+              <h3 className="font-semibold mb-2">Useful for</h3>
               <ul className="space-y-1">
-                <li>• No quality loss</li>
-                <li>• Faster uploads & sharing</li>
-                <li>• Ideal for exam form submissions</li>
-                <li>• Works offline screenshots & photos</li>
+                <li>• Form uploads</li>
+                <li>• Project submissions</li>
+                <li>• Email attachments</li>
+                <li>• PDFs with images</li>
               </ul>
             </div>
 
@@ -195,22 +245,22 @@ export default function FreeAiTools2025Post() {
           </section>
 
           {/* TOOL 5 */}
-          <section className="mb-14">
+          <section className="mb-20">
             <h2 className="text-3xl font-bold flex items-center gap-3 text-red-600 dark:text-red-400">
-              <FileText className="w-7 h-7" /> 5. PDF to Word — Edit PDFs with Total Freedom
+              <FileText className="w-7 h-7" /> 5. PDF to Word
             </h2>
 
             <p className="mt-3">
-              Need to modify PDFs? Convert them to editable Word documents within seconds — no software required.
+              PDFs don’t bend easily. Word files do. Convert instantly and edit however you want.
             </p>
 
             <div className="mt-5 p-4 bg-red-50 dark:bg-red-900/20 rounded-lg border-l-4 border-red-500">
-              <h3 className="font-semibold mb-2">✨ You can easily</h3>
+              <h3 className="font-semibold mb-2">You can</h3>
               <ul className="space-y-1">
-                <li>• Edit assignments</li>
-                <li>• Add or remove text</li>
-                <li>• Correct teacher-shared PDFs</li>
-                <li>• Modify project files</li>
+                <li>• Fix mistakes</li>
+                <li>• Modify assignments</li>
+                <li>• Add missing details</li>
+                <li>• Edit teacher-provided material</li>
               </ul>
             </div>
 
@@ -221,23 +271,23 @@ export default function FreeAiTools2025Post() {
           </section>
 
           {/* TOOL 6 */}
-          <section className="mb-16">
+          <section className="mb-20">
             <h2 className="text-3xl font-bold flex items-center gap-3 text-purple-600 dark:text-purple-400">
-              <Combine className="w-7 h-7" /> 6. Merge PDF — Organize Notes & Study Material
+              <Combine className="w-7 h-7" /> 6. Merge PDF
             </h2>
 
             <p className="mt-3">
-              Combine multiple PDFs into a clean, organized single document — perfect for exam prep bundles or 
-              multi-chapter submissions.
+              When your notes live in multiple PDFs, merge them into one clean document.  
+              Simple, organized, ready for revision.
             </p>
 
             <div className="mt-5 p-4 bg-purple-50 dark:bg-purple-900/20 rounded-lg border-l-4 border-purple-500">
-              <h3 className="font-semibold mb-2">✨ Ideal for</h3>
+              <h3 className="font-semibold mb-2">Ideal for</h3>
               <ul className="space-y-1">
-                <li>• Combining class notes</li>
-                <li>• Creating single study PDFs</li>
-                <li>• Organizing subject materials</li>
-                <li>• Attaching multiple answer sheets</li>
+                <li>• Chapter bundles</li>
+                <li>• Multi-page assignments</li>
+                <li>• Combined class notes</li>
+                <li>• Organized exam prep</li>
               </ul>
             </div>
 
@@ -248,37 +298,25 @@ export default function FreeAiTools2025Post() {
           </section>
 
           {/* FAQ SECTION */}
-          <section className="mb-16">
-            <h2 className="text-3xl font-bold text-primary">Frequently Asked Questions</h2>
+          <section className="mb-20">
+            <h2 className="text-3xl font-bold text-primary">FAQ</h2>
 
             <div className="space-y-6 mt-6">
-              <p>
-                <strong>1. Are TaskGuru tools really free?</strong><br />
-                Yes. All TaskGuru tools are 100% free with no login or sign-up required.
-              </p>
-              <p>
-                <strong>2. Do these tools work on mobile?</strong><br />
-                Absolutely — every tool is mobile-friendly and optimized for fast performance.
-              </p>
-              <p>
-                <strong>3. Is my uploaded data safe?</strong><br />
-                Yes. Files are processed instantly and never stored on servers.
-              </p>
-              <p>
-                <strong>4. Who can use these tools?</strong><br />
-                Students, professionals, teachers — anyone who wants fast, clean document or image processing.
-              </p>
+              <p><strong>Are TaskGuru tools free?</strong><br/>Yes. Fully free.</p>
+              <p><strong>Do they work on mobile?</strong><br/>Yes. Smooth and fast.</p>
+              <p><strong>Are files stored?</strong><br/>No. Everything is processed instantly.</p>
+              <p><strong>Who are these tools for?</strong><br/>Students, teachers, creators, and anyone who works with PDFs or images.</p>
             </div>
           </section>
 
           {/* CTA SECTION */}
           <section className="p-6 bg-primary/10 rounded-xl border-l-4 border-primary mb-8">
             <h3 className="text-2xl font-bold mb-3 flex items-center gap-2">
-              <Zap className="w-6 h-6" /> Boost Your Productivity with TaskGuru
+              <Zap className="w-6 h-6" /> Work Smarter with TaskGuru
             </h3>
             <p className="mb-4 leading-relaxed">
-              All tools are fast, secure, beautifully designed, and accessible from any device. 
-              Take your study workflow to the next level with TaskGuru’s AI-powered utilities.
+              Simple tools. No friction. No limits.  
+              Designed to make your academic workflow lighter and cleaner.
             </p>
 
             <Link
