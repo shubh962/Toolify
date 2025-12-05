@@ -7,33 +7,39 @@ import { PDFDocument } from "pdf-lib";
 
 export default function ImageToPdf() {
   const [image, setImage] = useState<string | null>(null);
+  const [fileName, setFileName] = useState<string | null>(null);
   const [pdfDataUri, setPdfDataUri] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
-  const [fileName, setFileName] = useState("");
 
-  // ⭐ MAX SAFE SIZE = 5 MB
   const MAX_SIZE_MB = 5;
+  const SUPPORTED_TYPES = ["image/jpeg", "image/jpg", "image/png"];
 
+  // 📌 Upload Image
   const uploadImage = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
 
-    const fileMB = file.size / (1024 * 1024);
-
-    if (fileMB > MAX_SIZE_MB) {
-      alert(
-        `⚠️ Image too large!\n\nYour file: ${fileMB.toFixed(2)} MB\nAllowed: ${MAX_SIZE_MB} MB\n\nPlease compress the image and try again.`
-      );
+    // ❌ Unsupported type
+    if (!SUPPORTED_TYPES.includes(file.type)) {
+      alert("Only JPG, JPEG, PNG files are supported.");
       return;
     }
 
-    setFileName(file.name.replace(/\.[^/.]+$/, "")); // remove extension
+    // ❌ File too large
+    const fileSizeMB = file.size / (1024 * 1024);
+    if (fileSizeMB > MAX_SIZE_MB) {
+      alert(`Image too large! Max allowed size is ${MAX_SIZE_MB} MB.`);
+      return;
+    }
+
+    setFileName(file.name);
 
     const reader = new FileReader();
     reader.onload = () => setImage(reader.result as string);
     reader.readAsDataURL(file);
   };
 
+  // 📌 Convert image → PDF
   const convertToPdf = async () => {
     if (!image) return;
 
@@ -44,151 +50,158 @@ export default function ImageToPdf() {
       const base64 = image.split(",")[1];
       const bytes = Uint8Array.from(atob(base64), (c) => c.charCodeAt(0));
 
-      let img;
+      let embeddedImg;
       if (image.startsWith("data:image/png")) {
-        img = await pdfDoc.embedPng(bytes);
+        embeddedImg = await pdfDoc.embedPng(bytes);
       } else {
-        img = await pdfDoc.embedJpg(bytes);
+        embeddedImg = await pdfDoc.embedJpg(bytes);
       }
 
-      // Auto-resize page for massive images (prevents crash)
-      const maxWidth = 1500;
-      const scale = img.width > maxWidth ? maxWidth / img.width : 1;
+      const page = pdfDoc.addPage([embeddedImg.width, embeddedImg.height]);
 
-      const page = pdfDoc.addPage([img.width * scale, img.height * scale]);
-
-      page.drawImage(img, {
+      page.drawImage(embeddedImg, {
         x: 0,
         y: 0,
-        width: img.width * scale,
-        height: img.height * scale,
+        width: embeddedImg.width,
+        height: embeddedImg.height,
       });
 
       const pdfBytes = await pdfDoc.save();
-      const uri = "data:application/pdf;base64," + btoa(String.fromCharCode(...pdfBytes));
+      const uri =
+        "data:application/pdf;base64," +
+        btoa(String.fromCharCode(...pdfBytes));
 
       setPdfDataUri(uri);
       setLoading(false);
     } catch (error) {
       console.error(error);
-
-      alert(
-        "❌ Failed to convert image.\n\nPossible reasons:\n• Image too large\n• Low device memory\n• Unsupported format (like HEIC)\n\nTry compressing the image or using a smaller one."
-      );
-
+      alert("Failed to convert image to PDF. Try using a smaller image.");
       setLoading(false);
     }
   };
 
   return (
-    <div className="max-w-4xl mx-auto py-10 px-6">
-      <Card className="shadow-lg border border-purple-200">
-        <CardContent>
+    <div className="max-w-3xl mx-auto py-10 px-4 md:px-6">
 
-          {/* TITLE */}
-          <h1 className="text-4xl font-extrabold text-center mb-3 bg-gradient-to-r from-purple-500 to-blue-600 bg-clip-text text-transparent">
+      {/* MAIN CARD */}
+      <Card className="shadow-lg border rounded-2xl">
+        <CardContent className="py-8">
+
+          <h1 className="text-4xl font-extrabold text-center mb-3 text-primary">
             Image to PDF Converter
           </h1>
 
           <p className="text-center text-muted-foreground mb-6 text-lg">
-            Convert JPG or PNG images into high-quality PDF files instantly.
-            <br />
-            <span className="font-semibold">Private, Fast & 100% Secure — all processing happens in your device.</span>
+            Convert JPG or PNG images into high-quality PDF files instantly.  
+            <br/>100% secure — all processing happens on your device.
           </p>
 
-          {/* FILE INPUT */}
-          <div className="flex flex-col items-center mb-6">
+          {/* FILE UPLOAD */}
+          <div className="flex flex-col items-center">
             <input
               type="file"
-              accept="image/*"
+              accept="image/png, image/jpeg"
               onChange={uploadImage}
-              className="block text-sm text-gray-600 cursor-pointer 
-              file:mr-4 file:py-2 file:px-4 
-              file:rounded-lg file:border-0 
-              file:text-sm file:font-semibold 
-              file:bg-purple-600 file:text-white 
-              hover:file:bg-purple-700"
+              className="mb-3"
             />
-            <p className="text-xs text-muted-foreground mt-2">
-              Maximum size: <strong>5 MB</strong>
+            {fileName && (
+              <p className="text-sm text-gray-600">
+                <strong>Selected:</strong> {fileName}
+              </p>
+            )}
+            <p className="text-xs text-gray-500 mt-1">
+              Supported: JPG, JPEG, PNG | Max size: {MAX_SIZE_MB} MB
             </p>
           </div>
 
           {/* PREVIEW */}
           {image && (
-            <div className="flex justify-center mb-4">
-              <img
-                src={image}
-                alt="Preview"
-                className="rounded-lg shadow-md border w-full max-w-lg"
-              />
-            </div>
+            <img
+              src={image}
+              alt="Preview"
+              className="rounded-lg border mt-6 mb-6 w-full shadow-sm"
+            />
           )}
 
-          {/* BUTTON */}
+          {/* CONVERT BUTTON */}
           <Button
             onClick={convertToPdf}
             disabled={!image || loading}
-            className="w-full py-4 text-lg font-semibold bg-purple-600 hover:bg-purple-700"
+            className="w-full py-3 text-lg"
           >
             {loading ? "Converting..." : "Convert to PDF"}
           </Button>
 
-          {/* DOWNLOAD */}
+          {/* DOWNLOAD LINK */}
           {pdfDataUri && (
             <a
               href={pdfDataUri}
-              download={`${fileName || "converted"}.pdf`}
-              className="block mt-5 text-center text-blue-600 underline font-medium text-lg"
+              download="converted.pdf"
+              className="block mt-5 text-center text-primary font-semibold underline"
             >
-              ⬇ Download PDF
+              Download PDF
             </a>
           )}
         </CardContent>
       </Card>
 
-      {/* SEO CONTENT */}
-      <section className="prose max-w-none mt-12">
-        <h2>Free Image to PDF Converter – Fast, Secure & Reliable</h2>
-        <p>
-          Toolify’s Image to PDF Converter is a modern, browser-based tool built for
-          students, professionals, teachers, freelancers, and everyday users who need a
-          fast, secure, and high-quality PDF creator. No uploads, no tracking, and no
-          watermarks — everything runs locally on your device.
-        </p>
+      {/* SEO CONTENT SECTION */}
+      <section className="mt-14 bg-white border rounded-2xl shadow-sm p-8 md:p-12 max-w-4xl mx-auto">
+        <div className="prose max-w-none prose-headings:text-gray-900 prose-li:text-gray-700 prose-p:text-gray-700">
 
-        <h3>Why This Tool Is Better</h3>
-        <ul>
-          <li>No login required</li>
-          <li>Fully private — nothing is uploaded</li>
-          <li>Maintains original resolution</li>
-          <li>Instant performance</li>
-          <li>Perfect for mobile, laptop, and tablets</li>
-        </ul>
+          <h2 className="text-3xl font-bold mb-6 text-center">
+            Free Image to PDF Converter – Fast, Secure & Reliable
+          </h2>
 
-        <h3>Common Use Cases</h3>
-        <ul>
-          <li>Convert scanned notes to PDF</li>
-          <li>Digital assignments for school/college</li>
-          <li>Submit documents in PDF format</li>
-          <li>Create eBooks from photos</li>
-          <li>Convert receipts, ID cards & certificates</li>
-        </ul>
+          <p className="leading-relaxed text-lg">
+            Toolify’s Image to PDF Converter is built for students, professionals,
+            freelancers, teachers, and anyone needing a clean, fast, and secure way
+            to convert images into PDF documents. No uploads — everything is processed
+            inside your browser, ensuring maximum privacy and instant performance.
+          </p>
 
-        <h3>Frequently Asked Questions</h3>
+          <h3 className="text-2xl font-semibold mt-10 mb-3">⭐ Why This Tool Is Better</h3>
+          <ul className="list-disc pl-6 space-y-2">
+            <li>No login or signup required</li>
+            <li>No watermark — 100% free forever</li>
+            <li>Your image never leaves your device</li>
+            <li>High-quality PDF output with original resolution</li>
+            <li>Works on Android, iPhone, tablet & desktop</li>
+            <li>Super fast conversion</li>
+          </ul>
 
-        <h4>Is this tool free?</h4>
-        <p>Yes, it is 100% free forever.</p>
+          <h3 className="text-2xl font-semibold mt-10 mb-3">📌 Supported Formats</h3>
+          <ul className="list-disc pl-6 space-y-2">
+            <li>JPG</li>
+            <li>JPEG</li>
+            <li>PNG</li>
+          </ul>
+          <p className="text-red-600 font-medium">
+            HEIC (iPhone images) is currently not supported.
+          </p>
 
-        <h4>Do my files get uploaded to a server?</h4>
-        <p>No, everything happens locally in your browser.</p>
+          <h3 className="text-2xl font-semibold mt-8 mb-3">📏 Maximum File Size</h3>
+          <p className="leading-relaxed text-lg">
+            Maximum recommended image size is <strong>5 MB</strong>.
+          </p>
 
-        <h4>What is the size limit?</h4>
-        <p>The maximum recommended image size is <strong>5 MB</strong>.</p>
+          <h3 className="text-2xl font-semibold mt-10 mb-3">❓ Frequently Asked Questions (FAQ)</h3>
 
-        <h4>Will multi-image to PDF be added?</h4>
-        <p>Yes — batch image-to-PDF support is coming soon.</p>
+          <h4 className="text-xl font-semibold mt-6 mb-1">Is this tool free?</h4>
+          <p>Yes, it's 100% free with no hidden limits.</p>
+
+          <h4 className="text-xl font-semibold mt-6 mb-1">Do my files upload to a server?</h4>
+          <p>No. Everything happens in your browser — nothing is uploaded.</p>
+
+          <h4 className="text-xl font-semibold mt-6 mb-1">Does it work on mobile?</h4>
+          <p>Yes, fully compatible with all Android & iPhone devices.</p>
+
+          <h4 className="text-xl font-semibold mt-6 mb-1">Will batch image-to-PDF be added?</h4>
+          <p>Yes — coming soon as a major update.</p>
+
+        </div>
       </section>
+
     </div>
   );
 }
