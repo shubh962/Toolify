@@ -63,4 +63,10 @@ export const tools: Tool[] = [
     isPlaceholder: false,
     imageUrl: '/tool-previews/compressor.png',
   },
+  {
+  title: "Image to PDF Converter",
+  slug: "image-to-pdf",
+  icon: FileIcon,
+  description: "Convert JPG or PNG images into a high-quality PDF instantly.",
+},
 ];
