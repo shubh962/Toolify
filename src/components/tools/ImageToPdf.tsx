@@ -10,6 +10,7 @@ import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
+
 import {
   Upload,
   Download,
@@ -21,11 +22,10 @@ import {
   ShieldCheck,
 } from "lucide-react";
 
-// 🔥 Helper: safely resize image before PDF (mobile-friendly)
+// 🔥 Resize image safely for both mobile & desktop (max ~2500px)
 async function resizeImage(
   imageBase64: string,
-  maxWidth = 1600,
-  maxHeight = 1600
+  maxSize = 2500
 ): Promise<string> {
   return new Promise((resolve, reject) => {
     const img = new Image();
@@ -34,10 +34,11 @@ async function resizeImage(
     img.onload = () => {
       let { width, height } = img;
 
-      if (width > maxWidth || height > maxHeight) {
-        const scale = Math.min(maxWidth / width, maxHeight / height);
-        width *= scale;
-        height *= scale;
+      // Scale down if larger than maxSize
+      if (width > maxSize || height > maxSize) {
+        const scale = Math.min(maxSize / width, maxSize / height);
+        width = width * scale;
+        height = height * scale;
       }
 
       const canvas = document.createElement("canvas");
@@ -45,13 +46,16 @@ async function resizeImage(
       canvas.height = height;
 
       const ctx = canvas.getContext("2d");
-      if (!ctx) return reject("Canvas not supported");
+      if (!ctx) {
+        reject("Canvas not supported");
+        return;
+      }
 
       ctx.drawImage(img, 0, 0, width, height);
 
-      // Convert to JPEG for stability & smaller size
-      const resizedDataUrl = canvas.toDataURL("image/jpeg", 0.9);
-      resolve(resizedDataUrl);
+      // Convert to JPEG with ~85% quality for good balance
+      const optimized = canvas.toDataURL("image/jpeg", 0.85);
+      resolve(optimized);
     };
 
     img.onerror = () => reject("Failed to load image");
@@ -68,27 +72,31 @@ export default function ImageToPdf() {
 
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  const MAX_SIZE_MB = 5;
+  // ✅ Max 50MB allowed
+  const MAX_SIZE_MB = 50;
   const SUPPORTED_TYPES = ["image/jpeg", "image/jpg", "image/png"];
 
+  // 📂 Handle file upload
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (!file) return;
 
+    // Type check
     if (!SUPPORTED_TYPES.includes(file.type)) {
       toast({
-        title: "Unsupported format",
-        description: "Only JPG, JPEG and PNG images are supported. HEIC is not supported.",
+        title: "Unsupported file type",
+        description: "Only JPG, JPEG and PNG images are supported. HEIC is not supported yet.",
         variant: "destructive",
       });
       return;
     }
 
-    const fileSizeMB = file.size / (1024 * 1024);
-    if (fileSizeMB > MAX_SIZE_MB) {
+    // Size check (up to 50MB)
+    const sizeMB = file.size / (1024 * 1024);
+    if (sizeMB > MAX_SIZE_MB) {
       toast({
-        title: "File too large",
-        description: `Max ${MAX_SIZE_MB} MB allowed. Your file is ${fileSizeMB.toFixed(
+        title: "Image too large",
+        description: `Maximum allowed size is ${MAX_SIZE_MB} MB. Your file is ${sizeMB.toFixed(
           2
         )} MB.`,
         variant: "destructive",
@@ -96,7 +104,7 @@ export default function ImageToPdf() {
       return;
     }
 
-    setFileName(file.name.replace(/\.[^/.]+$/, ""));
+    setFileName(file.name.replace(/\.[^/.]+$/, "")); // remove extension
     setPdfDataUri(null);
 
     const reader = new FileReader();
@@ -106,11 +114,12 @@ export default function ImageToPdf() {
     reader.readAsDataURL(file);
   };
 
+  // 📄 Convert to PDF (single-page)
   const handleConvert = async () => {
     if (!originalImage) {
       toast({
-        title: "No image selected",
-        description: "Please upload an image before converting to PDF.",
+        title: "No image",
+        description: "Please upload an image before converting.",
         variant: "destructive",
       });
       return;
@@ -120,9 +129,10 @@ export default function ImageToPdf() {
       setIsLoading(true);
       setPdfDataUri(null);
 
-      // 1️⃣ Resize image for mobile stability
-      const safeImage = await resizeImage(originalImage, 1600, 1600);
+      // 1️⃣ Resize big images safely for mobile & desktop
+      const safeImage = await resizeImage(originalImage, 2500);
 
+      // 2️⃣ Create PDF
       const pdfDoc = await PDFDocument.create();
       const base64 = safeImage.split(",")[1];
       const bytes = Uint8Array.from(atob(base64), (c) => c.charCodeAt(0));
@@ -131,12 +141,7 @@ export default function ImageToPdf() {
       const { width, height } = embeddedImg;
 
       const page = pdfDoc.addPage([width, height]);
-      page.drawImage(embeddedImg, {
-        x: 0,
-        y: 0,
-        width,
-        height,
-      });
+      page.drawImage(embeddedImg, { x: 0, y: 0, width, height });
 
       const pdfBytes = await pdfDoc.save();
       const pdfUri =
@@ -144,16 +149,17 @@ export default function ImageToPdf() {
         btoa(String.fromCharCode(...pdfBytes));
 
       setPdfDataUri(pdfUri);
+
       toast({
-        title: "PDF ready",
-        description: "Your image has been converted to PDF successfully.",
+        title: "PDF generated",
+        description: "Your image has been converted into a PDF successfully.",
       });
     } catch (error) {
       console.error(error);
       toast({
         title: "Conversion failed",
         description:
-          "We couldn't convert this image. Try using a smaller JPG/PNG file.",
+          "Something went wrong while converting. Try a smaller JPG/PNG image.",
         variant: "destructive",
       });
     } finally {
@@ -161,16 +167,18 @@ export default function ImageToPdf() {
     }
   };
 
+  // ⬇ Download PDF
   const handleDownload = () => {
     if (!pdfDataUri) return;
     const link = document.createElement("a");
     link.href = pdfDataUri;
-    link.download = `${fileName || "image"}-to-pdf.pdf`;
+    link.download = `${fileName || "image"}.pdf`;
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
   };
 
+  // ♻ Reset state
   const handleReset = () => {
     setOriginalImage(null);
     setPdfDataUri(null);
@@ -179,33 +187,33 @@ export default function ImageToPdf() {
     if (fileInputRef.current) fileInputRef.current.value = "";
   };
 
-  // ✅ Optional: Basic structured data for SEO (non-breaking)
+  // ✅ SEO: FAQ + Tool schema (lightweight)
   const faqSchema = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
     mainEntity: [
       {
         "@type": "Question",
-        name: "Is this Image to PDF Converter free?",
+        name: "Is the Image to PDF Converter free?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "Yes, the Toolify Image to PDF converter is 100% free to use with no login or watermark.",
+          text: "Yes. Toolify’s Image to PDF converter is 100% free to use with no login or watermark.",
         },
       },
       {
         "@type": "Question",
-        name: "Which image formats are supported?",
+        name: "What is the maximum supported image size?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "This tool supports JPG, JPEG and PNG image formats. HEIC is not supported yet.",
+          text: "You can upload images up to 50 MB. Larger images are automatically optimized and resized for stable conversion.",
         },
       },
       {
         "@type": "Question",
-        name: "Is my image uploaded to any server?",
+        name: "Are my images uploaded or stored on your server?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "No. All processing happens in your browser. Your files are not uploaded or stored on our servers.",
+          text: "No. All processing happens directly in your browser. We do not store or upload your images.",
         },
       },
     ],
@@ -214,21 +222,16 @@ export default function ImageToPdf() {
   const toolSchema = {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
-    name: "Free Image to PDF Converter | Toolify",
+    name: "Image to PDF Converter | Toolify",
     applicationCategory: "Utility",
     operatingSystem: "Any",
     url: "https://taskguru.online/tools/image-to-pdf",
     description:
-      "Convert JPG and PNG images into high-quality PDF files with Toolify’s free online Image to PDF converter. Fast, secure, and no signup required.",
+      "Convert JPG, JPEG and PNG images (up to 50 MB) into high-quality PDF files using Toolify’s free online image to PDF converter.",
     offers: {
       "@type": "Offer",
       price: "0",
       priceCurrency: "USD",
-    },
-    publisher: {
-      "@type": "Organization",
-      name: "Toolify",
-      url: "https://taskguru.online",
     },
   };
 
@@ -248,31 +251,31 @@ export default function ImageToPdf() {
 
   return (
     <div className="space-y-12">
-      {/* ✅ JSON-LD Schema */}
+      {/* 📦 JSON-LD */}
       <Script
-        id="image-to-pdf-schema"
+        id="tool-schema-image-to-pdf"
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(toolSchema) }}
       />
       <Script
-        id="image-to-pdf-faq"
+        id="faq-schema-image-to-pdf"
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
       />
 
-      {/* Intro (inside tool area – ToolPage already has main h1) */}
+      {/* Intro section (inside Tool page) */}
       <section className="max-w-4xl mx-auto py-4 text-center space-y-3">
         <h2 className="text-2xl md:text-3xl font-bold text-primary">
-          Convert Any Image to PDF in One Click
+          Convert Any Image to PDF — Up to 50 MB
         </h2>
         <p className="text-base md:text-lg text-muted-foreground">
-          Upload a JPG or PNG image, convert it into a high-quality PDF, and
-          download instantly. Fast, secure and{" "}
-          <strong>completely free — no signup required.</strong>
+          Upload JPG, JPEG or PNG images of any size up to 50 MB. We{" "}
+          <strong>automatically resize large images</strong> for safe, fast and
+          high-quality PDF conversion on both mobile and desktop.
         </p>
       </section>
 
-      {/* Main Tool Card */}
+      {/* MAIN TOOL CARD - BackgroundRemover style UI */}
       <Card className="w-full max-w-4xl mx-auto shadow-lg">
         <CardContent className="p-6">
           {!originalImage ? (
@@ -282,14 +285,11 @@ export default function ImageToPdf() {
               aria-label="Upload image to convert to PDF"
             >
               <div className="p-4 bg-secondary rounded-full">
-                <Upload
-                  className="w-10 h-10 text-muted-foreground"
-                  aria-hidden="true"
-                />
+                <Upload className="w-10 h-10 text-muted-foreground" />
               </div>
-              <p className="font-semibold">Click to upload or drag and drop</p>
+              <p className="font-semibold">Click to upload or drag & drop</p>
               <p className="text-sm text-muted-foreground">
-                Supported: JPG, JPEG, PNG (Max {MAX_SIZE_MB} MB)
+                Supported: JPG, JPEG, PNG • Max size: {MAX_SIZE_MB} MB
               </p>
               <Input
                 ref={fileInputRef}
@@ -301,35 +301,37 @@ export default function ImageToPdf() {
             </div>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {/* Original */}
+              {/* Original view */}
               <div>
                 <h3 className="text-lg font-semibold text-center">Original</h3>
                 <div className="relative aspect-square border rounded-lg overflow-hidden bg-muted">
                   <img
                     src={originalImage}
-                    alt="Uploaded image"
+                    alt="Uploaded original"
                     className="object-contain w-full h-full absolute top-0 left-0"
                   />
                 </div>
               </div>
 
-              {/* Result */}
+              {/* Result / PDF view */}
               <div>
-                <h3 className="text-lg font-semibold text-center">Result (PDF)</h3>
+                <h3 className="text-lg font-semibold text-center">PDF Output</h3>
                 <div className="relative aspect-square border rounded-lg bg-muted overflow-hidden flex items-center justify-center">
                   {isLoading && (
                     <Loader2 className="w-12 h-12 animate-spin text-primary" />
                   )}
+
                   {!isLoading && pdfDataUri && (
-                    <div className="flex flex-col items-center gap-2">
+                    <div className="flex flex-col items-center gap-2 px-4 text-center">
                       <FileText className="w-12 h-12 text-primary" />
-                      <p className="text-sm text-muted-foreground text-center px-4">
+                      <p className="text-sm text-muted-foreground">
                         Your PDF is ready. Click{" "}
-                        <span className="font-semibold">Download</span> below to
-                        save it.
+                        <span className="font-semibold">Download PDF</span>{" "}
+                        below to save it.
                       </p>
                     </div>
                   )}
+
                   {!isLoading && !pdfDataUri && (
                     <ImageIcon
                       className="w-12 h-12 text-muted-foreground"
@@ -342,19 +344,15 @@ export default function ImageToPdf() {
           )}
         </CardContent>
 
+        {/* Footer buttons */}
         {originalImage && (
           <CardFooter className="flex flex-wrap justify-center gap-4 bg-muted/50 border-t p-4">
-            <Button
-              variant="outline"
-              onClick={handleReset}
-              aria-label="Reset uploaded image"
-            >
+            <Button variant="outline" onClick={handleReset}>
               <Trash2 className="mr-2 h-4 w-4" /> Reset
             </Button>
             <Button
               onClick={handleConvert}
               disabled={isLoading || !!pdfDataUri}
-              aria-label="Convert image to PDF"
             >
               {isLoading ? (
                 <Loader2 className="mr-2 h-4 w-4 animate-spin" />
@@ -363,80 +361,64 @@ export default function ImageToPdf() {
               )}
               Convert to PDF
             </Button>
-            <Button
-              onClick={handleDownload}
-              disabled={!pdfDataUri || isLoading}
-              aria-label="Download PDF file"
-            >
+            <Button onClick={handleDownload} disabled={!pdfDataUri}>
               <Download className="mr-2 h-4 w-4" /> Download PDF
             </Button>
           </CardFooter>
         )}
       </Card>
 
-      {/* SEO / High-Value Content Section */}
+      {/* SEO / Info Content */}
       <section className="max-w-4xl mx-auto py-10 p-6 bg-white dark:bg-gray-900 shadow-xl rounded-2xl border border-indigo-100 dark:border-indigo-900">
         <h2 className="text-3xl font-extrabold mb-8 text-center text-indigo-700 dark:text-indigo-400 flex items-center justify-center gap-3">
-          <Zap className="w-6 h-6" /> Why Use Toolify’s Image to PDF Converter?
+          <Zap className="w-6 h-6" /> Why Toolify’s Image to PDF Converter is Different
         </h2>
 
         <div className="space-y-6 text-lg text-gray-700 dark:text-gray-300 leading-relaxed">
           <p>
-            Toolify’s Image to PDF Converter is designed for{" "}
-            <strong>students, professionals, freelancers, and creators</strong>{" "}
-            who want a clean, fast, and secure way to convert images into PDF
-            files. Unlike heavy desktop apps or spammy websites, this tool runs
-            directly in your browser and does not upload your files to any
-            server.
+            Most online image-to-PDF tools either compress your image too much,
+            upload it to unknown servers, or crash when you try uploading a big
+            file. Toolify solves all of that with a{" "}
+            <strong>browser-based, privacy-friendly converter</strong> that
+            automatically handles even large images up to 50 MB.
           </p>
 
-          <h3 className="text-2xl font-bold mt-8 mb-4 text-gray-800 dark:text-gray-200 border-b pb-2">
-            1. Simple Step-by-Step Workflow
-          </h3>
-          <ol className="list-decimal list-inside ml-4 space-y-3">
-            <li>Upload your JPG, JPEG, or PNG image.</li>
-            <li>The tool optimizes and prepares it for PDF generation.</li>
-            <li>Click on <strong>Convert to PDF</strong> to generate your file.</li>
-            <li>Download the ready-to-use PDF instantly.</li>
-          </ol>
-
-          <h3 className="text-2xl font-bold mt-8 mb-4 text-gray-800 dark:text-gray-200 border-b pb-2">
-            2. Perfect for Real-World Use Cases
-          </h3>
-          <ul className="list-disc list-outside ml-6 space-y-3">
-            <li>Scan notes or handwritten pages and turn them into a PDF.</li>
-            <li>Convert receipts or bills for expense tracking.</li>
-            <li>Create simple e-books from image pages.</li>
-            <li>Attach PDF documents in job applications or forms.</li>
-            <li>Standardize image documents for office workflows.</li>
+          <h3 className="text-2xl font-bold mt-4 mb-2">Key Benefits</h3>
+          <ul className="list-disc list-outside ml-6 space-y-2">
+            <li>Supports images from a few KBs up to 50 MB safely.</li>
+            <li>
+              Automatically resizes huge images (up to ~2500px) to prevent
+              freezing or crashing on mobile devices.
+            </li>
+            <li>No watermark, no account required, no hidden paywalls.</li>
+            <li>Everything runs inside your browser — images are never uploaded.</li>
+            <li>Perfect for documents, notes, receipts, ID photos and more.</li>
           </ul>
 
-          <h3 className="text-2xl font-bold mt-8 mb-4 text-gray-800 dark:text-gray-200 border-b pb-2 flex items-center gap-2">
-            <ShieldCheck className="h-5 w-5" /> Security & Privacy First
+          <h3 className="text-2xl font-bold mt-6 mb-2 flex items-center gap-2">
+            <ShieldCheck className="w-5 h-5" /> Built with Security & Privacy in Mind
           </h3>
           <p>
-            We follow a strict{" "}
-            <strong>no-upload, no-storage approach</strong> for this tool. All
-            operations happen inside your browser using secure, modern web
-            technologies. For even more optimization, you can combine this with
-            our{" "}
+            Because processing is done locally, your images stay on your device.
+            For further optimization, you can also use our{" "}
             <Link
               href="/tools/image-compressor"
-              className="text-primary hover:underline font-semibold"
+              className="text-primary font-semibold hover:underline"
             >
               Image Compressor
             </Link>{" "}
-            tool before or after PDF conversion.
+            before converting to PDF if you want even smaller final file sizes.
           </p>
 
           <p className="pt-4 text-center font-semibold text-xl text-primary">
-            Need to convert multiple images into a single PDF? Multi-page
-            support is coming soon to Toolify.
+            In future, you’ll also be able to combine{" "}
+            <strong>multiple images into a single multi-page PDF</strong> —
+            stay tuned!
           </p>
         </div>
       </section>
 
-      {/* FAQ Section */}
+      {/* FAQ section */}
       <section className="max-w-4xl mx-auto my-8 sm:my-12 p-6 bg-white dark:bg-gray-900 shadow rounded-lg border border-gray-100 dark:border-gray-800">
         <h2 className="text-xl sm:text-2xl font-bold mb-6 text-gray-900 dark:text-white">
           Frequently Asked Questions
