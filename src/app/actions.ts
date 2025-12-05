@@ -7,9 +7,6 @@ import { pdfToWord } from '@/ai/flows/pdf-to-word';
 import { mergePdfToWord } from '@/ai/flows/merge-pdf-to-word';
 import { PDFDocument } from "pdf-lib";
 
-// --------------------------------------------------------
-// BACKGROUND REMOVER
-// --------------------------------------------------------
 export async function handleBackgroundRemoval(photoDataUri: string) {
   if (!photoDataUri) {
     return { success: false, error: 'No image provided.' };
