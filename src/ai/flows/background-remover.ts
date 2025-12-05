@@ -1,58 +1,70 @@
 'use server';
 
 /**
- * @fileOverview Removes the background from an image.
- *
- * - removeBackground - A function that handles the background removal process.
- * - RemoveBackgroundInput - The input type for the removeBackground function.
- * - RemoveBackgroundOutput - The return type for the removeBackground function.
+ * Background Remover using remove.bg API
  */
 
-import {ai} from '@/ai/genkit';
-import {z} from 'genkit';
+import { z } from 'genkit';
+
+// ------------------ SCHEMAS ------------------
 
 const RemoveBackgroundInputSchema = z.object({
   photoDataUri: z
     .string()
-    .describe(
-      "A photo to remove the background from, as a data URI that must include a MIME type and use Base64 encoding. Expected format: 'data:<mimetype>;base64,<encoded_data>'."
-    ),
+    .describe("Image to remove background from, as a data URI (base64)."),
 });
+
 export type RemoveBackgroundInput = z.infer<typeof RemoveBackgroundInputSchema>;
 
 const RemoveBackgroundOutputSchema = z.object({
-  backgroundRemovedDataUri: z
-    .string()
-    .describe("The image with the background removed, as a data URI."),
+  backgroundRemovedDataUri: z.string(),
 });
+
 export type RemoveBackgroundOutput = z.infer<typeof RemoveBackgroundOutputSchema>;
 
-export async function removeBackground(input: RemoveBackgroundInput): Promise<RemoveBackgroundOutput> {
-  return removeBackgroundFlow(input);
-}
+// ------------------ MAIN FUNCTION ------------------
 
-const removeBackgroundFlow = ai.defineFlow(
-  {
-    name: 'removeBackgroundFlow',
-    inputSchema: RemoveBackgroundInputSchema,
-    outputSchema: RemoveBackgroundOutputSchema,
-  },
-  async input => {
-    const {media} = await ai.generate({
-      model: 'googleai/gemini-2.0-flash-preview-image-generation',
-      prompt: [
-        {media: {url: input.photoDataUri}},
-        {
-          text: 'Analyze the image to identify the main subject. Create a new image showing only the main subject with the background completely removed and made transparent. Return the result as a PNG image data URI.',
-        },
-      ],
-      config: {
-        responseModalities: ['TEXT', 'IMAGE'],
-      },
-    });
+export async function removeBackground(
+  input: RemoveBackgroundInput
+): Promise<RemoveBackgroundOutput> {
+  
+  const parsed = RemoveBackgroundInputSchema.parse(input);
 
-    return {
-      backgroundRemovedDataUri: media.url!,
-    };
+  const apiKey = process.env.BG_REMOVER_API_KEY;
+  const apiUrl =
+    process.env.BG_REMOVER_API_URL || 'https://api.remove.bg/v1.0/removebg';
+
+  if (!apiKey) throw new Error('Remove.bg API key missing in env');
+
+  // Extract Base64 from DataURI
+  const base64Data = parsed.photoDataUri.split(',')[1];
+
+  // Create formData for remove.bg
+  const formData = new FormData();
+  formData.append('image_file_b64', base64Data);
+  formData.append('size', 'auto');
+
+  const response = await fetch(apiUrl, {
+    method: 'POST',
+    headers: {
+      'X-Api-Key': apiKey,
+    },
+    body: formData,
+  });
+
+  if (!response.ok) {
+    const err = await response.text();
+    console.error('Remove.bg API Error →', err);
+    throw new Error('Failed to remove background using remove.bg');
   }
-);
+
+  // Convert binary output → base64 → data URI
+  const arrayBuffer = await response.arrayBuffer();
+  // @ts-ignore
+  const buffer = Buffer.from(arrayBuffer);
+  const outputBase64 = buffer.toString('base64');
+
+  return {
+    backgroundRemovedDataUri: `data:image/png;base64,${outputBase64}`,
+  };
+}
