@@ -15,15 +15,17 @@ export const tools: Tool[] = [
   {
     slug: 'background-remover',
     title: 'AI Background Remover',
-    description: 'Automatically erase image backgrounds with our AI-powered tool. Perfect for product photos and portraits.',
+    description:
+      'Automatically erase image backgrounds with our AI-powered tool. Perfect for product photos and portraits.',
     icon: ImageMinus,
     isGenAI: true,
-    imageUrl: '/tool-previews/bg-remover.png', 
+    imageUrl: '/tool-previews/bg-remover.png',
   },
   {
     slug: 'image-to-text',
     title: 'Image to Text Converter (OCR)',
-    description: 'Extract text from images accurately. Digitize documents and notes with our free online OCR tool.',
+    description:
+      'Extract text from images accurately. Digitize documents and notes with our free online OCR tool.',
     icon: ScanText,
     isGenAI: true,
     imageUrl: '/tool-previews/ocr-tool.png',
@@ -31,7 +33,8 @@ export const tools: Tool[] = [
   {
     slug: 'text-paraphraser',
     title: 'AI Text Paraphraser & Rewriter',
-    description: 'Rewrite and rephrase your text to enhance clarity and style. Ideal for content creators and students.',
+    description:
+      'Rewrite and rephrase your text to enhance clarity and style. Ideal for content creators and students.',
     icon: PenSquare,
     isGenAI: true,
     imageUrl: '/tool-previews/paraphraser.png',
@@ -39,7 +42,8 @@ export const tools: Tool[] = [
   {
     slug: 'pdf-to-word',
     title: 'Free PDF to Word Converter',
-    description: 'Convert PDF files into editable DOCX documents quickly and accurately. No registration required.',
+    description:
+      'Convert PDF files into editable DOCX documents quickly and accurately. No registration required.',
     icon: FileText,
     isGenAI: false,
     isPlaceholder: false,
@@ -48,7 +52,8 @@ export const tools: Tool[] = [
   {
     slug: 'merge-pdf',
     title: 'Merge PDF Files Online',
-    description: 'Combine multiple PDFs into a single, organized document. Easy to use and completely free.',
+    description:
+      'Combine multiple PDFs into a single, organized document. Easy to use and completely free.',
     icon: Combine,
     isGenAI: false,
     isPlaceholder: false,
@@ -57,16 +62,23 @@ export const tools: Tool[] = [
   {
     slug: 'image-compressor',
     title: 'Image Compressor (PNG, JPG)',
-    description: 'Reduce the file size of your images (PNG, JPG) while maintaining high quality. Faster loading websites await.',
+    description:
+      'Reduce the file size of your images (PNG, JPG) while maintaining high quality. Faster loading websites await.',
     icon: Minimize,
     isGenAI: false,
     isPlaceholder: false,
     imageUrl: '/tool-previews/compressor.png',
   },
+
+  // ⭐ NEW TOOL ADDED BELOW ⭐
   {
-  title: "Image to PDF Converter",
-  slug: "image-to-pdf",
-  icon: FileIcon,
-  description: "Convert JPG or PNG images into a high-quality PDF instantly.",
-},
+    slug: 'image-to-pdf',
+    title: 'Image to PDF Converter',
+    description:
+      'Convert JPG or PNG images into a high-quality PDF file instantly.',
+    icon: FileText, // already imported — safe
+    isGenAI: false,
+    isPlaceholder: false,
+    imageUrl: '/tool-previews/image-to-pdf.png',
+  },
 ];
