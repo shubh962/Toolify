@@ -15,6 +15,7 @@ const toolSlugs = [
   "pdf-to-word",
   "merge-pdf",
   "text-paraphraser",
+  "image-to-pdf",
 ];
 
 const staticPages = [
