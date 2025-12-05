@@ -24,7 +24,7 @@ export default function PlaceholderTool({ title }: PlaceholderToolProps) {
           </h3>
           
           <p className="mt-2 text-base text-gray-700 dark:text-gray-300 max-w-xs mx-auto">
-            हम {title} को और भी **ज़्यादा स्मार्ट और तेज़** बनाने के लिए बहुत मेहनत कर रहे हैं! यह जल्द ही उपलब्ध होगा।
+            हम {title} को और भी ज़्यादा स्मार्ट और तेज़ बनाने के लिए बहुत मेहनत कर रहे हैं! यह जल्द ही उपलब्ध होगा।
           </p>
           
           <p className="mt-4 text-sm text-muted-foreground">
