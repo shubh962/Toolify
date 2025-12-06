@@ -7,31 +7,32 @@ import { Input } from "@/components/ui/input";
 import { Upload, Loader2, RotateCcw } from "lucide-react";
 import { PDFDocument } from "pdf-lib";
 
-// ----------------------------
-// SAFE IMAGE → CANVAS LOADER
-// ----------------------------
-const loadImageToCanvas = (file: File): Promise<{ preview: string; canvas: HTMLCanvasElement }> => {
+//
+// SAFE CANVAS LOADER – removes EXIF, reduces extreme resolution
+//
+const loadSafeCanvas = (file: File): Promise<{ preview: string; canvas: HTMLCanvasElement }> => {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
 
-    reader.onload = (ev) => {
+    reader.onload = (event) => {
       const img = new Image();
       img.onload = () => {
         let w = img.width;
         let h = img.height;
 
-        // Mobile camera images are too large → shrink safely
+        // Maximum safe resolution for browsers
         const MAX = 2000;
-        const factor = Math.min(MAX / w, MAX / h, 1);
-        w *= factor;
-        h *= factor;
+        const scale = Math.min(MAX / w, MAX / h, 1);
+
+        w = Math.floor(w * scale);
+        h = Math.floor(h * scale);
 
         const canvas = document.createElement("canvas");
-        const ctx = canvas.getContext("2d")!;
         canvas.width = w;
         canvas.height = h;
 
-        ctx.drawImage(img, 0, 0, w, h);
+        const ctx = canvas.getContext("2d");
+        ctx!.drawImage(img, 0, 0, w, h);
 
         resolve({
           preview: canvas.toDataURL("image/jpeg", 0.9),
@@ -39,118 +40,116 @@ const loadImageToCanvas = (file: File): Promise<{ preview: string; canvas: HTMLC
         });
       };
 
-      img.onerror = () => reject("Invalid image");
-      img.src = ev.target?.result as string;
+      img.onerror = () => reject("Image decode failed.");
+      img.src = event.target?.result as string;
     };
 
-    reader.onerror = () => reject("File read error");
+    reader.onerror = () => reject("File read error.");
     reader.readAsDataURL(file);
   });
 };
 
 export default function ImageToPdf() {
-  const inputRef = useRef<HTMLInputElement>(null);
-
+  const fileInput = useRef<HTMLInputElement>(null);
   const [preview, setPreview] = useState<string | null>(null);
   const [canvas, setCanvas] = useState<HTMLCanvasElement | null>(null);
-  const [pdfUri, setPdfUri] = useState<string | null>(null);
   const [fileName, setFileName] = useState("");
+  const [pdfUrl, setPdfUrl] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
 
-  const MAX_SIZE = 50 * 1024 * 1024;
+  const MAX_FILE_SIZE = 50 * 1024 * 1024;
 
-  // ----------------------------
+  //
   // FILE UPLOAD
-  // ----------------------------
+  //
   const handleUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
 
     if (!file.type.startsWith("image/")) {
-      alert("Only images are allowed.");
+      alert("Only image files are allowed.");
       return;
     }
 
-    if (file.size > MAX_SIZE) {
-      alert("Max 50MB allowed.");
+    if (file.size > MAX_FILE_SIZE) {
+      alert("File size must be under 50MB.");
       return;
     }
 
     setLoading(true);
-
     try {
-      const clean = file.name.replace(/\.[^/.]+$/, "");
-      setFileName(clean);
+      const baseName = file.name.replace(/\.[^/.]+$/, "");
+      setFileName(baseName);
 
-      const data = await loadImageToCanvas(file);
-      setPreview(data.preview);
-      setCanvas(data.canvas);
+      const loaded = await loadSafeCanvas(file);
+      setPreview(loaded.preview);
+      setCanvas(loaded.canvas);
 
-      setPdfUri(null);
-    } catch (e) {
-      console.error(e);
+      setPdfUrl(null);
+    } catch (err) {
+      console.error(err);
       alert("Failed to load image.");
     }
-
     setLoading(false);
   };
 
-  // ----------------------------
-  // FIXED PDF GENERATOR (NO BASE64 atob ISSUES)
-  // ----------------------------
+  //
+  // CONVERT TO PDF (bulletproof version)
+  //
   const convertToPdf = async () => {
     if (!canvas) return;
-
     setLoading(true);
 
     try {
-      const pdfDoc = await PDFDocument.create();
+      const pdf = await PDFDocument.create();
 
       const A4_W = 595.28;
       const A4_H = 841.89;
 
-      const blob: Blob = await new Promise((resolve) =>
+      // Convert canvas → clean JPEG blob
+      const blob = await new Promise<Blob>((resolve) =>
         canvas.toBlob((b) => resolve(b!), "image/jpeg", 0.92)
       );
-
       const bytes = new Uint8Array(await blob.arrayBuffer());
-      const img = await pdfDoc.embedJpg(bytes);
+      const embedded = await pdf.embedJpg(bytes);
 
+      // Fit image inside A4 page
       const iw = canvas.width;
       const ih = canvas.height;
-
       const scale = Math.min(A4_W / iw, A4_H / ih);
       const fw = iw * scale;
       const fh = ih * scale;
 
-      const page = pdfDoc.addPage([A4_W, A4_H]);
-      page.drawImage(img, {
+      const page = pdf.addPage([A4_W, A4_H]);
+      page.drawImage(embedded, {
         x: (A4_W - fw) / 2,
         y: (A4_H - fh) / 2,
         width: fw,
         height: fh,
       });
 
-      const pdfBytes = await pdfDoc.save();
-      const uri =
-        "data:application/pdf;base64," +
-        btoa(String.fromCharCode(...pdfBytes));
+      // Save and encode
+      const pdfBytes = await pdf.save();
+      const pdfBase64 = btoa(String.fromCharCode(...pdfBytes));
 
-      setPdfUri(uri);
-    } catch (err) {
-      console.error(err);
+      setPdfUrl(`data:application/pdf;base64,${pdfBase64}`);
+    } catch (error) {
+      console.error(error);
       alert("PDF conversion failed.");
     }
 
     setLoading(false);
   };
 
-  const resetAll = () => {
+  //
+  // RESET
+  //
+  const resetTool = () => {
     setPreview(null);
     setCanvas(null);
-    setPdfUri(null);
+    setPdfUrl(null);
     setFileName("");
-    if (inputRef.current) inputRef.current.value = "";
+    if (fileInput.current) fileInput.current.value = "";
   };
 
   return (
@@ -162,49 +161,35 @@ export default function ImageToPdf() {
 
       <Card className="max-w-3xl mx-auto shadow-xl border">
         <CardContent className="p-10">
+
           {!preview ? (
             <div
-              className="flex flex-col items-center justify-center p-12 border-2 border-dashed rounded-xl cursor-pointer hover:border-primary"
-              onClick={() => inputRef.current?.click()}
+              onClick={() => fileInput.current?.click()}
+              className="p-12 border-2 border-dashed rounded-xl cursor-pointer hover:border-primary flex flex-col items-center"
             >
               <Upload className="w-12 h-12 text-muted-foreground" />
-              <p className="mt-3 font-semibold">Click to upload</p>
-              <p className="text-sm text-muted-foreground">JPG, PNG • Max 50MB</p>
+              <p className="mt-3 font-semibold">Click to upload or drag & drop</p>
+              <p className="text-sm text-muted-foreground">JPG, JPEG, PNG • Max 50MB</p>
 
-              <Input
-                type="file"
-                accept="image/*"
-                ref={inputRef}
-                className="hidden"
-                onChange={handleUpload}
-              />
+              <Input type="file" accept="image/*" ref={fileInput} className="hidden" onChange={handleUpload} />
             </div>
           ) : (
             <>
-              <img
-                src={preview}
-                className="max-h-96 mx-auto rounded-lg shadow-md object-contain"
-              />
+              <img src={preview} className="max-h-96 mx-auto rounded-lg shadow-md object-contain" />
 
               <div className="flex justify-center gap-4 mt-6">
                 <Button onClick={convertToPdf} disabled={loading}>
-                  {loading ? (
-                    <>
-                      <Loader2 className="w-4 h-4 animate-spin mr-2" /> Converting…
-                    </>
-                  ) : (
-                    "Convert to PDF"
-                  )}
+                  {loading ? <><Loader2 className="w-4 h-4 animate-spin mr-2" /> Converting…</> : "Convert to PDF"}
                 </Button>
 
-                <Button variant="outline" onClick={resetAll}>
+                <Button variant="outline" onClick={resetTool}>
                   <RotateCcw className="w-4 h-4 mr-2" /> Reset
                 </Button>
               </div>
 
-              {pdfUri && (
+              {pdfUrl && (
                 <a
-                  href={pdfUri}
+                  href={pdfUrl}
                   download={`${fileName}.pdf`}
                   className="text-primary underline block mt-4 font-semibold"
                 >
@@ -213,6 +198,7 @@ export default function ImageToPdf() {
               )}
             </>
           )}
+
         </CardContent>
       </Card>
     </div>
