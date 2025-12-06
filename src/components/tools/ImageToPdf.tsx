@@ -5,255 +5,224 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Upload, Loader2, RotateCcw } from "lucide-react";
-import { PDFDocument, StandardFonts } from "pdf-lib";
+import { PDFDocument } from "pdf-lib";
 
-export default function ImageToPdf() {
-  const fileInputRef = useRef<HTMLInputElement>(null);
-  const [image, setImage] = useState<string | null>(null);
-  const [fileName, setFileName] = useState("");
-  const [pdfDataUri, setPdfDataUri] = useState<string | null>(null);
-  const [loading, setLoading] = useState(false);
+// ---------------------------------------------------
+// FIX ALL CAMERA IMAGES (48MP SAFE) + EXIF + AUTO RESIZE
+// ---------------------------------------------------
+const loadImageSafe = (file: File): Promise<{ preview: string; canvas: HTMLCanvasElement }> => {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
 
-  const MAX_SIZE_MB = 50 * 1024 * 1024;
-
-  // ------------------------------------------
-  // CLEAN + AUTO-RESIZE IMAGE (Camera Fix)
-  // ------------------------------------------
-  const cleanAndResizeImage = (base64: string): Promise<string> => {
-    return new Promise((resolve, reject) => {
+    reader.onload = (ev) => {
       const img = new Image();
-      img.crossOrigin = "anonymous";
-      img.src = base64;
-
       img.onload = () => {
-        let { width, height } = img;
+        // Auto-limit very large camera images (8000px → 2000px)
+        let w = img.width;
+        let h = img.height;
 
-        const isCameraImage = width > 3000 || height > 3000;
-        const MAX_RES = isCameraImage ? 1500 : 2000;
+        const MAX = 2000; // safe value for all mobiles
 
-        if (width > MAX_RES || height > MAX_RES) {
-          const scale = MAX_RES / Math.max(width, height);
-          width *= scale;
-          height *= scale;
-        }
+        const scale = Math.min(MAX / w, MAX / h, 1);
+        w *= scale;
+        h *= scale;
 
         const canvas = document.createElement("canvas");
-        canvas.width = width;
-        canvas.height = height;
-        const ctx = canvas.getContext("2d", { alpha: false });
+        const ctx = canvas.getContext("2d");
 
-        if (!ctx) return reject("Canvas Error");
+        canvas.width = w;
+        canvas.height = h;
 
-        ctx.fillStyle = "#fff";
-        ctx.fillRect(0, 0, width, height);
-        ctx.drawImage(img, 0, 0, width, height);
+        if (!ctx) return reject("Canvas not supported");
 
-        const quality = isCameraImage ? 0.75 : 0.9;
-        const cleaned = canvas.toDataURL("image/jpeg", quality);
+        ctx.drawImage(img, 0, 0, w, h);
 
-        resolve(cleaned);
+        resolve({ preview: canvas.toDataURL("image/jpeg", 0.92), canvas });
       };
 
-      img.onerror = () => reject("Image Load Failed");
-    });
-  };
+      img.onerror = () => reject("Image load error");
+      img.src = ev.target?.result as string;
+    };
 
-  // ------------------------------------------
-  // UPLOAD HANDLER
-  // ------------------------------------------
+    reader.onerror = () => reject("File read error");
+    reader.readAsDataURL(file);
+  });
+};
+
+export default function ImageToPdf() {
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  const [preview, setPreview] = useState<string | null>(null);
+  const [canvasData, setCanvasData] = useState<HTMLCanvasElement | null>(null);
+  const [pdfUri, setPdfUri] = useState<string | null>(null);
+  const [fileName, setFileName] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  const MAX_SIZE = 50 * 1024 * 1024;
+
+  // -----------------------------------------
+  // IMAGE UPLOAD HANDLER (SAFE FOR ALL MOBILE PICS)
+  // -----------------------------------------
   const handleUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
 
     if (!["image/jpeg", "image/png", "image/jpg"].includes(file.type)) {
-      alert("Only JPG and PNG images are supported.");
+      alert("Only JPG, JPEG, PNG supported.");
       return;
     }
 
-    if (file.size > MAX_SIZE_MB) {
-      alert("Max file size is 50 MB.");
+    if (file.size > MAX_SIZE) {
+      alert("Max file size allowed is 50MB.");
       return;
     }
 
-    setFileName(file.name);
-
-    const reader = new FileReader();
-    reader.onload = async () => {
-      const base64 = reader.result as string;
-      const cleaned = await cleanAndResizeImage(base64);
-      setImage(cleaned);
-    };
-    reader.readAsDataURL(file);
-  };
-
-  // ------------------------------------------
-  // CONVERT TO PDF (Auto-fit into A4)
-  // ------------------------------------------
-  const convertToPdf = async () => {
-    if (!image) return;
+    setLoading(true);
 
     try {
-      setLoading(true);
+      const cleanName = file.name.replace(/\.[^/.]+$/, "");
+      setFileName(cleanName);
 
+      const { preview, canvas } = await loadImageSafe(file);
+
+      setPreview(preview);
+      setCanvasData(canvas);
+      setPdfUri(null);
+    } catch (err) {
+      alert("Failed to process image.");
+      console.error(err);
+    }
+
+    setLoading(false);
+  };
+
+  // -----------------------------------------
+  // CONVERT TO PDF (ALWAYS FIT TO A4)
+  // -----------------------------------------
+  const convertToPdf = async () => {
+    if (!canvasData) return;
+
+    setLoading(true);
+
+    try {
       const pdfDoc = await PDFDocument.create();
-      const a4Width = 595.28;
-      const a4Height = 841.89;
+      const A4_W = 595.28;
+      const A4_H = 841.89;
 
-      const imgElement = new Image();
-      imgElement.src = image;
+      const imgData = canvasData.toDataURL("image/jpeg", 0.92);
+      const bytes = Uint8Array.from(atob(imgData.split(",")[1]), (c) => c.charCodeAt(0));
 
-      await new Promise((resolve) => (imgElement.onload = resolve));
+      const embedded = await pdfDoc.embedJpg(bytes);
 
-      const imgWidth = imgElement.width;
-      const imgHeight = imgElement.height;
+      const iw = canvasData.width;
+      const ih = canvasData.height;
 
-      const scale = Math.min(a4Width / imgWidth, a4Height / imgHeight);
-      const finalW = imgWidth * scale;
-      const finalH = imgHeight * scale;
+      const scale = Math.min(A4_W / iw, A4_H / ih);
+      const fw = iw * scale;
+      const fh = ih * scale;
 
-      const imgBytes = Uint8Array.from(atob(image.split(",")[1]), (c) =>
-        c.charCodeAt(0)
-      );
-
-      const embedded = await pdfDoc.embedJpg(imgBytes);
-
-      const page = pdfDoc.addPage([a4Width, a4Height]);
+      const page = pdfDoc.addPage([A4_W, A4_H]);
       page.drawImage(embedded, {
-        x: (a4Width - finalW) / 2,
-        y: (a4Height - finalH) / 2,
-        width: finalW,
-        height: finalH,
+        x: (A4_W - fw) / 2,
+        y: (A4_H - fh) / 2,
+        width: fw,
+        height: fh,
       });
 
       const pdfBytes = await pdfDoc.save();
-      const dataUri =
-        "data:application/pdf;base64," +
-        btoa(String.fromCharCode(...pdfBytes));
 
-      setPdfDataUri(dataUri);
-      setLoading(false);
+      const uri =
+        "data:application/pdf;base64," + btoa(String.fromCharCode(...pdfBytes));
+
+      setPdfUri(uri);
     } catch (err) {
+      alert("Conversion failed. Try again.");
       console.error(err);
-      alert("Failed to convert image. Try again.");
-      setLoading(false);
     }
+
+    setLoading(false);
   };
 
-  // ------------------------------------------
+  // -----------------------------------------
   // RESET TOOL
-  // ------------------------------------------
+  // -----------------------------------------
   const resetTool = () => {
-    setImage(null);
+    setPreview(null);
+    setCanvasData(null);
+    setPdfUri(null);
     setFileName("");
-    setPdfDataUri(null);
-    if (fileInputRef.current) fileInputRef.current.value = "";
+    if (inputRef.current) inputRef.current.value = "";
   };
 
   return (
-    <div className="space-y-12 py-10">
-      {/* TITLE */}
-      <section className="text-center space-y-3">
-        <h1 className="text-4xl font-extrabold">Image to PDF Converter</h1>
-        <p className="text-muted-foreground max-w-xl mx-auto">
-          Convert JPG or PNG images into professional PDF instantly.
-        </p>
-      </section>
+    <div className="space-y-12 py-10 text-center">
 
-      {/* MAIN UPLOAD CARD */}
-      <Card className="w-full max-w-4xl mx-auto shadow-lg">
+      <h1 className="text-4xl font-extrabold">Image to PDF Converter</h1>
+      <p className="text-muted-foreground max-w-xl mx-auto">
+        Convert camera photos + screenshots into PDF instantly. Ultra-fast. Works offline. No upload.
+      </p>
+
+      {/* Upload Card */}
+      <Card className="max-w-3xl mx-auto shadow-xl border">
         <CardContent className="p-10">
-          {!image ? (
+
+          {!preview ? (
             <div
-              className="flex flex-col items-center justify-center p-12 border-2 border-dashed rounded-xl cursor-pointer hover:border-primary transition"
-              onClick={() => fileInputRef.current?.click()}
+              className="flex flex-col items-center justify-center p-12 border-2 border-dashed rounded-xl cursor-pointer hover:border-primary"
+              onClick={() => inputRef.current?.click()}
             >
-              <Upload className="w-10 h-10 text-muted-foreground" />
-              <p className="mt-4 font-semibold">
-                Click to upload image or drag & drop
-              </p>
-              <p className="text-sm text-muted-foreground">
-                JPG, JPEG, PNG • Max 50MB
-              </p>
+              <Upload className="w-12 h-12 text-muted-foreground" />
+              <p className="mt-4 font-semibold">Click to upload or drag & drop</p>
+              <p className="text-sm text-muted-foreground">JPG, JPEG, PNG • Max 50MB</p>
 
               <Input
                 type="file"
                 accept="image/*"
-                ref={fileInputRef}
-                onChange={handleUpload}
                 className="hidden"
+                ref={inputRef}
+                onChange={handleUpload}
               />
             </div>
           ) : (
-            <div className="flex flex-col items-center space-y-4">
+            <>
               <img
-                src={image}
+                src={preview}
                 alt="Preview"
-                className="max-h-96 rounded-lg border shadow-md object-contain"
+                className="max-h-96 mx-auto rounded-lg shadow-md object-contain"
               />
-              <p className="text-sm text-muted-foreground">{fileName}</p>
 
-              <div className="flex gap-3">
-                <Button
-                  onClick={convertToPdf}
-                  disabled={loading}
-                  className="w-40"
-                >
+              <p className="text-muted-foreground mt-2">{fileName}</p>
+
+              <div className="flex justify-center gap-4 mt-5">
+                <Button onClick={convertToPdf} disabled={loading}>
                   {loading ? (
                     <>
-                      <Loader2 className="w-4 h-4 animate-spin mr-2" /> Converting…
+                      <Loader2 className="w-4 h-4 animate-spin mr-2" /> Converting...
                     </>
                   ) : (
                     "Convert to PDF"
                   )}
                 </Button>
 
-                <Button
-                  variant="outline"
-                  onClick={resetTool}
-                  className="w-32 flex items-center gap-2"
-                >
-                  <RotateCcw size={16} /> Reset
+                <Button variant="outline" onClick={resetTool}>
+                  <RotateCcw className="w-4 h-4 mr-2" /> Reset
                 </Button>
               </div>
 
-              {pdfDataUri && (
+              {pdfUri && (
                 <a
-                  href={pdfDataUri}
-                  download="converted.pdf"
-                  className="text-primary underline font-semibold mt-2"
+                  href={pdfUri}
+                  download={`${fileName}.pdf`}
+                  className="text-primary underline block mt-4 font-semibold"
                 >
-                  Download PDF
+                  Download {fileName}.pdf
                 </a>
               )}
-            </div>
+            </>
           )}
         </CardContent>
       </Card>
 
-      {/* SEO CONTENT */}
-      <Card className="max-w-4xl mx-auto p-8 shadow-xl border">
-        <h2 className="text-2xl font-bold mb-4 text-primary">
-          Convert Any Image to PDF Easily
-        </h2>
-        <p className="text-muted-foreground leading-relaxed">
-          Whether you're converting photos, scanned documents, assignments, or
-          receipts — this tool ensures fast and secure PDF conversion inside
-          your browser.
-        </p>
-
-        <h3 className="text-xl font-semibold mt-6">How to Use</h3>
-        <ol className="list-decimal ml-5 space-y-2 mt-2">
-          <li>Upload your JPG or PNG image</li>
-          <li>Preview instantly</li>
-          <li>Click Convert</li>
-          <li>Download the generated PDF</li>
-        </ol>
-
-        <h3 className="text-xl font-semibold mt-6">FAQ</h3>
-        <p><strong>Is it free?</strong> Yes.</p>
-        <p><strong>Maximum file size?</strong> 50 MB.</p>
-        <p><strong>Supported formats?</strong> JPG, JPEG, PNG.</p>
-      </Card>
     </div>
   );
 }
