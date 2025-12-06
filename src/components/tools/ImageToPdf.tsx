@@ -1,8 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
-// Image Compressor से लाए गए नए कंपोनेंट्स और आइकन्स
-import { Card, CardContent, CardFooter } from '@/components/ui/card'; // CardFooter जोड़ा गया
+import { Card, CardContent, CardFooter } from '@/components/ui/card';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
@@ -10,12 +9,22 @@ import {
     Loader2,
     RotateCcw,
     FileText,
-    Download // Download आइकन जोड़ा गया
+    Download,
+    MoveRight, // नए टूल सेक्शन के लिए आइकन
+    Sparkles, // नए टूल सेक्शन के लिए आइकन
+    ImageIcon,
+    FileImage,
+    Scissors,
+    FileText as FileTextIcon,
+    FileSliders,
+    Merge,
+    Highlighter,
 } from "lucide-react";
 import { PDFDocument } from "pdf-lib";
-// useToast इम्पोर्ट नहीं किया गया, alert का उपयोग जारी रहेगा
+import Link from 'next/link'; // Link कंपोनेंट जोड़ा गया
 
-// ✅ Safely load image into canvas (removes EXIF + huge resolution) - UNTOUCHED
+// ... [loadSafeCanvas function UNTOUCHED] ...
+
 const loadSafeCanvas = (
   file: File
 ): Promise<{ preview: string; canvas: HTMLCanvasElement }> => {
@@ -61,6 +70,7 @@ const loadSafeCanvas = (
     reader.readAsDataURL(file);
   });
 };
+
 
 export default function ImageToPdf() {
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -183,36 +193,56 @@ export default function ImageToPdf() {
 
   const getDownloadFileName = () => `${fileName || "image"}.pdf`;
 
+  // ✅ New Component for Tool Link Card
+  const ToolLinkCard = ({ icon: Icon, title, description, href, ctaText }) => (
+    <Link href={href}>
+        <div className="flex flex-col justify-between p-4 border rounded-lg hover:shadow-lg transition cursor-pointer h-full">
+            <div className="flex items-start space-x-3">
+                <div className="p-3 rounded-full bg-primary/10">
+                    <Icon className="w-5 h-5 text-primary" />
+                </div>
+                <div>
+                    <h3 className="text-md font-bold">{title}</h3>
+                    <p className="text-xs text-muted-foreground mt-1">{description}</p>
+                </div>
+            </div>
+            <div className="mt-4 flex items-center text-sm font-semibold text-primary group">
+                {ctaText}
+                <MoveRight className="w-4 h-4 ml-1 transition-transform duration-300 group-hover:translate-x-1" />
+            </div>
+        </div>
+    </Link>
+  );
+
   return (
     <div className="space-y-12 py-10">
       
       {/* 🚀 Hero / Heading Section - Image Compressor Style */}
-      <section className="max-w-4xl mx-auto text-center space-y-4"> {/* max-w-4xl के लिए एडजस्ट किया गया */}
-        {/* H1 FIX: H3 को H1 में बदला गया - यह पेज का मुख्य शीर्षक है */}
+      <section className="max-w-4xl mx-auto text-center space-y-4">
         <h1 className="text-4xl font-extrabold text-primary">
           Image to PDF Converter – Turn Photos into Clean A4 PDFs
         </h1>
-        <p className="text-lg text-muted-foreground max-w-3xl mx-auto"> {/* text-lg और max-w-3xl के लिए एडजस्ट किया गया */}
+        <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
           TaskGuru का **Image to PDF** टूल आपकी **JPG, PNG** इमेजेज को तुरंत **A4 PDF** में बदलता है। सभी प्रोसेसिंग आपके ब्राउज़र में होती है, जिससे **100% प्राइवेसी** और **तेज़ स्पीड** मिलती है।
         </p>
       </section>
 
-      {/* 🖼️ Main Tool Card – Image Compressor Style */}
-      <Card className="w-full max-w-4xl mx-auto shadow-lg"> {/* max-w-4xl के लिए एडजस्ट किया गया */}
+      {/* 🖼️ Main Tool Card */}
+      <Card className="w-full max-w-4xl mx-auto shadow-lg">
         <CardContent className="p-6">
           {!preview ? (
-            // 🔹 Upload area (dashed box, like compressor)
+            // 🔹 Upload area
             <div
-              className="flex flex-col items-center justify-center space-y-4 p-12 border-2 border-dashed rounded-lg cursor-pointer hover:border-primary transition" // p-12 और space-y-4 एडजस्ट किया गया
+              className="flex flex-col items-center justify-center space-y-4 p-12 border-2 border-dashed rounded-lg cursor-pointer hover:border-primary transition"
               onClick={() => fileInputRef.current?.click()}
             >
-              <div className="p-4 bg-secondary rounded-full"> {/* आइकन के लिए कंटेनर जोड़ा गया */}
+              <div className="p-4 bg-secondary rounded-full">
                 <Upload className="w-10 h-10 text-muted-foreground" />
               </div>
               <p className="font-semibold">
                 Click to upload or drag and drop your image
               </p>
-              <p className="text-sm text-muted-foreground"> {/* text-sm एडजस्ट किया गया */}
+              <p className="text-sm text-muted-foreground">
                 Supported formats: <span className="font-semibold">JPG, JPEG, PNG</span> · Max size:{" "}
                 <span className="font-semibold">50 MB</span>
               </p>
@@ -227,23 +257,22 @@ export default function ImageToPdf() {
             </div>
           ) : (
             // 🔹 After upload – two-column layout (preview + controls)
-            <div className="grid gap-6 md:grid-cols-[minmax(0,1.5fr)_minmax(0,1fr)] items-start"> {/* gap-6 के लिए एडजस्ट किया गया */}
+            <div className="grid gap-6 md:grid-cols-[minmax(0,1.5fr)_minmax(0,1fr)] items-start">
               
               {/* Left: Image preview */}
               <div className="space-y-3">
-                <h3 className="text-lg font-semibold text-center"> {/* h2 को h3 और text-center किया गया */}
+                <h3 className="text-lg font-semibold text-center">
                   Preview – {fileName || "Selected image"}
                 </h3>
-                <div className="relative aspect-square border rounded-lg overflow-hidden bg-muted flex items-center justify-center"> {/* Image Compressor का स्टाइल: aspect-square और relative */}
-                  {/* Image Component का उपयोग नहीं किया जा सकता क्योंकि यह एक Data URL है, इसलिए <img> का उपयोग जारी रहेगा */}
+                <div className="relative aspect-square border rounded-lg overflow-hidden bg-muted flex items-center justify-center">
                   <img
                     src={preview}
                     alt="Preview"
                     className="max-h-[400px] w-full object-contain"
                   />
-                  {loading && <Loader2 className="w-12 h-12 animate-spin absolute inset-0 m-auto text-primary" />} {/* लोडिंग स्पिनर जोड़ा गया */}
+                  {loading && <Loader2 className="w-12 h-12 animate-spin absolute inset-0 m-auto text-primary" />}
                 </div>
-                <p className="text-center text-sm text-muted-foreground mt-2"> {/* text-center और mt-2 एडजस्ट किया गया */}
+                <p className="text-center text-sm text-muted-foreground mt-2">
                   Your image is safely processed in your browser.
                 </p>
               </div>
@@ -251,7 +280,7 @@ export default function ImageToPdf() {
               {/* Right: Actions panel */}
               <div className="space-y-4">
                 <div className="rounded-lg border bg-muted/40 p-4 text-left space-y-2">
-                  <h3 className="text-sm font-semibold flex items-center gap-2"> {/* h3 के साथ आइकन जोड़ा गया */}
+                  <h3 className="text-sm font-semibold flex items-center gap-2">
                     <FileText className="w-4 h-4 text-primary" /> Conversion Summary
                   </h3>
                   <ul className="text-xs text-muted-foreground list-disc pl-4 space-y-1">
@@ -261,41 +290,26 @@ export default function ImageToPdf() {
                   </ul>
                 </div>
 
-                <div className="flex flex-col gap-3">
-                  <Button
-                    onClick={convertToPdf}
-                    disabled={loading || !!pdfUrl} // PDF बन जाने के बाद डिसेबल किया गया
-                    className="w-full"
-                  >
-                    {loading ? (
-                      <>
-                        <Loader2 className="w-4 h-4 animate-spin mr-2" />
-                        Converting…
-                      </>
-                    ) : (
-                      "Convert to PDF"
-                    )}
-                  </Button>
-                </div>
+                {/* Convert/Download Button is now in CardFooter */}
               </div>
             </div>
           )}
         </CardContent>
         
-        {/* ⬇️ CardFooter - Reset और Download बटन के लिए Image Compressor Style */}
-        {preview && ( // अगर preview है तो Footer दिखाओ
+        {/* ⬇️ CardFooter - Reset और Download बटन */}
+        {preview && (
             <CardFooter className="flex justify-center gap-4 bg-muted/50 border-t p-4">
                 <Button variant="outline" onClick={handleReset} disabled={loading} aria-label="Reset tool">
                     <RotateCcw className="mr-2 h-4 w-4" /> Reset
                 </Button>
                 
-                {pdfUrl ? ( // PDF बनने के बाद Download बटन
+                {pdfUrl ? (
                     <Button asChild onClick={() => {}} aria-label="Download converted PDF">
                         <a href={pdfUrl} download={getDownloadFileName()}>
                             <Download className="mr-2 h-4 w-4" /> Download {getDownloadFileName()}
                         </a>
                     </Button>
-                ) : ( // PDF बनने से पहले, Convert बटन की जगह यह दिखाओ (अगर Convert बटन ऊपर है) या Convert बटन को यहाँ लाओ
+                ) : (
                     <Button onClick={convertToPdf} disabled={loading} aria-label="Convert to PDF">
                         {loading ? (
                             <Loader2 className="mr-2 h-4 w-4 animate-spin" />
@@ -310,7 +324,70 @@ export default function ImageToPdf() {
         )}
       </Card>
 
-      {/* 📚 SEO / Info Section - Image Compressor Style */}
+      {/* 🚀 New Section: Discover More Useful Tools (Image Compressor Style) */}
+      <section className="max-w-5xl mx-auto py-10">
+        <div className="text-center space-y-3 mb-8">
+            <h2 className="text-3xl font-bold flex items-center justify-center gap-3">
+                <Sparkles className="w-6 h-6 text-primary" /> Discover More Useful Tools
+            </h2>
+            <p className="text-muted-foreground max-w-3xl mx-auto">
+                Don&apos;t stop here! Explore our full suite of free, AI-powered utilities to simplify your workflow.
+            </p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {/* Tool 1: Image Compressor (Related to Image) */}
+            <ToolLinkCard 
+                icon={FileImage}
+                title="Image Compressor"
+                description="Reduce JPG, PNG, WEBP file size without losing visual quality."
+                href="/tools/image-compressor"
+                ctaText="Compress Now"
+            />
+            {/* Tool 2: AI Background Remover (Related to Image) */}
+            <ToolLinkCard 
+                icon={Scissors}
+                title="AI Background Remover"
+                description="Remove background from any image instantly using AI."
+                href="/tools/background-remover"
+                ctaText="Remove Now"
+            />
+            {/* Tool 3: PDF to Word Converter (Related to PDF) */}
+            <ToolLinkCard 
+                icon={FileTextIcon}
+                title="PDF to Word Converter"
+                description="Convert PDF files into fully editable Word documents."
+                href="/tools/pdf-to-word"
+                ctaText="Convert Now"
+            />
+            {/* Tool 4: Merge PDF (Related to PDF) */}
+            <ToolLinkCard 
+                icon={Merge}
+                title="Merge PDF"
+                description="Combine multiple PDF files into one single document."
+                href="/tools/merge-pdf"
+                ctaText="Merge Now"
+            />
+            {/* Tool 5: Image to Text OCR (Related to Image/Text) */}
+            <ToolLinkCard 
+                icon={ImageIcon}
+                title="Image to Text OCR"
+                description="Extract text from images, scanned notes, and photos."
+                href="/tools/image-to-text"
+                ctaText="Extract Now"
+            />
+            {/* Tool 6: AI Text Paraphraser (Related to Text) */}
+            <ToolLinkCard 
+                icon={Highlighter}
+                title="AI Text Paraphraser"
+                description="Rewrite text and essays instantly for unique content."
+                href="/tools/text-paraphraser"
+                ctaText="Paraphrase Now"
+            />
+        </div>
+      </section>
+
+      {/* 📚 SEO / Info Section - UNTOUCHED (moved down) */}
       <section className="max-w-4xl mx-auto py-10 p-6 bg-white dark:bg-gray-900 shadow-xl rounded-2xl border border-indigo-100 dark:border-indigo-900">
         <h2 className="text-3xl font-extrabold mb-8 text-center text-indigo-700 dark:text-indigo-400">
             Why use TaskGuru&apos;s Secure Image to PDF Converter?
@@ -344,4 +421,3 @@ export default function ImageToPdf() {
     </div>
   );
 }
-
