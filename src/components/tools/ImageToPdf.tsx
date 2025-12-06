@@ -1,330 +1,281 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Upload, Loader2, RotateCcw, FileText } from "lucide-react";
+import { Upload, Loader2, RefreshCw } from "lucide-react";
 import { PDFDocument } from "pdf-lib";
-
-// ✅ Safely load image into canvas (removes EXIF + huge resolution)
-const loadSafeCanvas = (
-  file: File
-): Promise<{ preview: string; canvas: HTMLCanvasElement }> => {
-  return new Promise((resolve, reject) => {
-    const reader = new FileReader();
-
-    reader.onload = (event) => {
-      const img = new Image();
-      img.onload = () => {
-        let w = img.width;
-        let h = img.height;
-
-        // Keep quality good but safe for mobile – max side 1600px
-        const MAX_SIDE = 1600;
-        const scale = Math.min(MAX_SIDE / w, MAX_SIDE / h, 1);
-
-        w = Math.round(w * scale);
-        h = Math.round(h * scale);
-
-        const canvas = document.createElement("canvas");
-        canvas.width = w;
-        canvas.height = h;
-
-        const ctx = canvas.getContext("2d");
-        if (!ctx) {
-          reject("Canvas context not available.");
-          return;
-        }
-
-        ctx.drawImage(img, 0, 0, w, h);
-
-        // Clean JPEG preview (no EXIF)
-        const preview = canvas.toDataURL("image/jpeg", 0.9);
-
-        resolve({ preview, canvas });
-      };
-
-      img.onerror = () => reject("Image decode failed.");
-      img.src = event.target?.result as string;
-    };
-
-    reader.onerror = () => reject("File read error.");
-    reader.readAsDataURL(file);
-  });
-};
 
 export default function ImageToPdf() {
   const fileInputRef = useRef<HTMLInputElement>(null);
-
-  const [preview, setPreview] = useState<string | null>(null);
-  const [canvas, setCanvas] = useState<HTMLCanvasElement | null>(null);
-  const [fileName, setFileName] = useState<string>("");
-  const [pdfUrl, setPdfUrl] = useState<string | null>(null);
+  const [image, setImage] = useState<string | null>(null);
+  const [fileName, setFileName] = useState("");
+  const [pdfDataUri, setPdfDataUri] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
 
-  const MAX_FILE_SIZE = 50 * 1024 * 1024; // 50 MB
+  const MAX_SIZE = 50 * 1024 * 1024; // 50 MB
 
-  // 🔁 Clean up old object URLs
-  useEffect(() => {
-    return () => {
-      if (pdfUrl) URL.revokeObjectURL(pdfUrl);
-    };
-  }, [pdfUrl]);
-
-  // 📂 Handle file upload
-  const handleUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+  // -------------------------
+  // HANDLE UPLOAD
+  // -------------------------
+  const handleUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
 
-    if (!file.type.startsWith("image/")) {
-      alert("Only image files are allowed.");
+    if (!["image/jpeg", "image/png", "image/jpg"].includes(file.type)) {
+      alert("Only JPG, JPEG or PNG files allowed.");
       return;
     }
 
-    if (file.size > MAX_FILE_SIZE) {
-      alert("File size must be under 50 MB.");
+    if (file.size > MAX_SIZE) {
+      alert("Image size must be less than 50 MB.");
       return;
     }
 
-    setLoading(true);
-    try {
-      const baseName = file.name.replace(/\.[^/.]+$/, "");
-      setFileName(baseName);
+    setFileName(file.name);
 
-      const { preview, canvas } = await loadSafeCanvas(file);
-      setPreview(preview);
-      setCanvas(canvas);
-
-      // clear old pdf url if any
-      if (pdfUrl) {
-        URL.revokeObjectURL(pdfUrl);
-        setPdfUrl(null);
-      }
-    } catch (err) {
-      console.error("Upload error:", err);
-      alert("Failed to load image. Please try a different file.");
-    }
-    setLoading(false);
+    const reader = new FileReader();
+    reader.onload = () => setImage(reader.result as string);
+    reader.readAsDataURL(file);
   };
 
-  // 🧾 Convert image → PDF (using Blob, NO base64)
+  // -------------------------
+  // CONVERT TO PDF
+  // -------------------------
   const convertToPdf = async () => {
-    if (!canvas) return;
+    if (!image) return;
 
-    setLoading(true);
     try {
+      setLoading(true);
+
       const pdfDoc = await PDFDocument.create();
+      const base64 = image.split(",")[1];
+      const bytes = Uint8Array.from(atob(base64), c => c.charCodeAt(0));
 
-      // A4 in points
-      const A4_W = 595.28;
-      const A4_H = 841.89;
+      let img;
+      const isPng = image.startsWith("data:image/png");
+      img = isPng ? await pdfDoc.embedPng(bytes) : await pdfDoc.embedJpg(bytes);
 
-      // Canvas → JPEG blob (clean, no EXIF)
-      const imgBlob: Blob = await new Promise((resolve, reject) => {
-        canvas.toBlob(
-          (blob) => {
-            if (!blob) {
-              reject("Failed to create image blob.");
-              return;
-            }
-            resolve(blob);
-          },
-          "image/jpeg",
-          0.9
-        );
-      });
+      // Autofit inside A4 page
+      const A4_WIDTH = 595;
+      const A4_HEIGHT = 842;
 
-      const imgBytes = new Uint8Array(await imgBlob.arrayBuffer());
-      const embedded = await pdfDoc.embedJpg(imgBytes);
+      let imgWidth = img.width;
+      let imgHeight = img.height;
 
-      const iw = canvas.width;
-      const ih = canvas.height;
-      const scale = Math.min(A4_W / iw, A4_H / ih, 1);
-      const w = iw * scale;
-      const h = ih * scale;
+      const scale = Math.min(A4_WIDTH / imgWidth, A4_HEIGHT / imgHeight);
 
-      const page = pdfDoc.addPage([A4_W, A4_H]);
-      page.drawImage(embedded, {
-        x: (A4_W - w) / 2,
-        y: (A4_H - h) / 2,
-        width: w,
-        height: h,
+      imgWidth *= scale;
+      imgHeight *= scale;
+
+      const page = pdfDoc.addPage([A4_WIDTH, A4_HEIGHT]);
+      page.drawImage(img, {
+        x: (A4_WIDTH - imgWidth) / 2,
+        y: (A4_HEIGHT - imgHeight) / 2,
+        width: imgWidth,
+        height: imgHeight,
       });
 
       const pdfBytes = await pdfDoc.save();
-      const blob = new Blob([pdfBytes], { type: "application/pdf" });
+      const pdfBase64 = btoa(String.fromCharCode(...pdfBytes));
 
-      // Old url cleanup
-      if (pdfUrl) URL.revokeObjectURL(pdfUrl);
+      const cleanName = fileName.replace(/\.[^/.]+$/, "");
+      setPdfDataUri(`data:application/pdf;base64,${pdfBase64}#${cleanName}`);
 
-      const url = URL.createObjectURL(blob);
-      setPdfUrl(url);
+      setLoading(false);
     } catch (err) {
-      console.error("PDF conversion error:", err);
+      console.error(err);
       alert("PDF conversion failed.");
+      setLoading(false);
     }
-    setLoading(false);
   };
 
-  // 🔄 Reset tool
-  const handleReset = () => {
-    setPreview(null);
-    setCanvas(null);
+  // RESET
+  const resetAll = () => {
+    setImage(null);
+    setPdfDataUri(null);
     setFileName("");
-    if (pdfUrl) {
-      URL.revokeObjectURL(pdfUrl);
-      setPdfUrl(null);
-    }
-    if (fileInputRef.current) {
-      fileInputRef.current.value = "";
-    }
+    if (fileInputRef.current) fileInputRef.current.value = "";
   };
 
   return (
-    <div className="space-y-12 py-10">
-      {/* ✅ Hero / Heading Section (like Image Compressor) */}
-      <section className="max-w-3xl mx-auto text-center space-y-3">
-        <div className="inline-flex items-center justify-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-semibold mb-2">
-          <FileText className="w-3 h-3" />
-          <span>Free Online Image to PDF Tool</span>
-        </div>
-        <h1 className="text-3xl md:text-4xl font-extrabold">
-          Convert Images to PDF Instantly
-        </h1>
-        <p className="text-muted-foreground text-sm md:text-base max-w-2xl mx-auto">
-          Turn your camera photos, scanned documents, and screenshots into clean A4 PDF files. 
-          Everything is processed locally in your browser for maximum privacy and speed.
-        </p>
-      </section>
+    <div className="space-y-16 py-10">
 
-      {/* ✅ Main Tool Card – styled similar to Image Compressor */}
-      <Card className="w-full max-w-5xl mx-auto shadow-lg border">
-        <CardContent className="p-6 md:p-8 space-y-6">
-          {!preview ? (
-            // 🔹 Upload area (dashed box, like compressor)
+      {/* Title */}
+      <div className="text-center space-y-3">
+        <h1 className="text-4xl font-extrabold">Image to PDF Converter</h1>
+        <p className="text-muted-foreground max-w-xl mx-auto">
+          Convert any camera photo, screenshot or document into a high-quality PDF — fast, private & 100% offline.
+        </p>
+      </div>
+
+      {/* Purple Heading */}
+      <h2 className="text-center text-2xl font-bold text-primary">
+        Free Image to PDF Converter – Convert Images Instantly
+      </h2>
+
+      {/* Upload Box */}
+      <Card className="w-full max-w-4xl mx-auto shadow-lg">
+        <CardContent className="p-10">
+
+          {!image ? (
             <div
-              className="flex flex-col items-center justify-center p-10 border-2 border-dashed rounded-xl cursor-pointer hover:border-primary transition"
+              className="flex flex-col items-center justify-center p-12 border-2 border-dashed rounded-xl cursor-pointer hover:border-primary transition"
               onClick={() => fileInputRef.current?.click()}
             >
               <Upload className="w-10 h-10 text-muted-foreground" />
-              <p className="mt-4 font-semibold">
-                Click to upload or drag &amp; drop your image
-              </p>
-              <p className="text-xs md:text-sm text-muted-foreground mt-1">
-                Supported formats: <span className="font-semibold">JPG, JPEG, PNG</span> · Max size:{" "}
-                <span className="font-semibold">50 MB</span>
+              <p className="mt-4 font-semibold">Click to upload or drag & drop</p>
+              <p className="text-sm text-muted-foreground">
+                JPG, JPEG, PNG • Max 50MB
               </p>
 
               <Input
-                ref={fileInputRef}
                 type="file"
                 accept="image/*"
-                className="hidden"
+                ref={fileInputRef}
                 onChange={handleUpload}
+                className="hidden"
               />
             </div>
           ) : (
-            // 🔹 After upload – two-column layout (preview + controls)
-            <div className="grid gap-8 md:grid-cols-[minmax(0,1.5fr)_minmax(0,1fr)] items-start">
-              {/* Left: Image preview */}
-              <div className="space-y-3">
-                <h2 className="text-lg font-semibold text-left">
-                  Preview – {fileName || "Selected image"}
-                </h2>
-                <div className="border rounded-lg overflow-hidden bg-muted flex items-center justify-center">
-                  <img
-                    src={preview}
-                    alt="Preview"
-                    className="max-h-[400px] w-full object-contain"
-                  />
-                </div>
-                <p className="text-xs text-muted-foreground text-left">
-                  Your image is safely processed in your browser. No upload, no storage — perfect for
-                  documents, ID cards, receipts, assignments, and more.
-                </p>
+            <div className="flex flex-col items-center space-y-4">
+              <img
+                src={image}
+                alt="Preview"
+                className="max-h-96 rounded-lg border shadow-md object-contain"
+              />
+
+              <p className="text-sm text-muted-foreground">{fileName}</p>
+
+              <div className="flex gap-4">
+                <Button onClick={convertToPdf} disabled={loading}>
+                  {loading && <Loader2 className="w-4 h-4 animate-spin mr-2" />}
+                  {loading ? "Converting..." : "Convert to PDF"}
+                </Button>
+
+                <Button
+                  variant="outline"
+                  onClick={resetAll}
+                >
+                  <RefreshCw className="w-4 h-4 mr-2" />
+                  Reset
+                </Button>
               </div>
 
-              {/* Right: Actions panel */}
-              <div className="space-y-4">
-                <div className="rounded-lg border bg-muted/40 p-4 text-left space-y-2">
-                  <h3 className="text-sm font-semibold">Conversion summary</h3>
-                  <ul className="text-xs text-muted-foreground list-disc pl-4 space-y-1">
-                    <li>Input: {fileName || "Image"}</li>
-                    <li>Output: A4 PDF (auto-fitted)</li>
-                    <li>Processing: 100% in-browser</li>
-                  </ul>
-                </div>
-
-                <div className="flex flex-col gap-3">
-                  <Button
-                    onClick={convertToPdf}
-                    disabled={loading}
-                    className="w-full"
-                  >
-                    {loading ? (
-                      <>
-                        <Loader2 className="w-4 h-4 animate-spin mr-2" />
-                        Converting…
-                      </>
-                    ) : (
-                      "Convert to PDF"
-                    )}
-                  </Button>
-
-                  <Button
-                    variant="outline"
-                    onClick={handleReset}
-                    disabled={loading}
-                    className="w-full flex items-center justify-center gap-2"
-                  >
-                    <RotateCcw className="w-4 h-4" />
-                    Reset
-                  </Button>
-
-                  {pdfUrl && (
-                    <Button asChild variant="outline" className="w-full">
-                      <a href={pdfUrl} download={`${fileName || "image"}.pdf`}>
-                        Download {fileName || "image"}.pdf
-                      </a>
-                    </Button>
-                  )}
-                </div>
-
-                <p className="text-[11px] text-muted-foreground">
-                  Tip: For the best text clarity, upload high-resolution scans or photos in good lighting.
-                </p>
-              </div>
+              {pdfDataUri && (
+                <a
+                  href={pdfDataUri.split("#")[0]}
+                  download={`${pdfDataUri.split("#")[1]}.pdf`}
+                  className="text-primary underline font-semibold mt-2"
+                >
+                  Download PDF
+                </a>
+              )}
             </div>
           )}
+
         </CardContent>
       </Card>
 
-      {/* ✅ Simple SEO / Info Section – like other tools (can upgrade later) */}
-      <Card className="w-full max-w-5xl mx-auto shadow-sm border bg-muted/40">
-        <CardContent className="p-6 md:p-8 space-y-4">
-          <h2 className="text-xl md:text-2xl font-bold text-left">
-            Why use TaskGuru&apos;s Image to PDF Converter?
-          </h2>
-          <p className="text-sm md:text-base text-muted-foreground text-left">
-            Many online converters upload your files to remote servers, which can be slow and risky for
-            sensitive documents. TaskGuru&apos;s Image to PDF tool runs entirely in your browser using
-            modern web technology and PDF generation, so your files never leave your device.
-          </p>
-          <div className="grid md:grid-cols-2 gap-4 text-sm text-muted-foreground">
-            <ul className="list-disc pl-4 space-y-1">
-              <li>Perfect for assignments, notes, and study material</li>
-              <li>Convert photos of documents into clean, shareable PDFs</li>
-              <li>Works great with camera images and screenshots</li>
-            </ul>
-            <ul className="list-disc pl-4 space-y-1">
-              <li>No signup, no watermark, no hidden limits</li>
-              <li>Optimized for both desktop and mobile use</li>
-              <li>Output is compatible with all major PDF viewers</li>
-            </ul>
-          </div>
-        </CardContent>
+      {/* SEO Content */}
+      <Card className="max-w-4xl mx-auto p-8 shadow-xl border">
+        <h2 className="text-2xl font-bold mb-4 text-primary">
+          The Essential Guide to Image-to-PDF Conversion
+        </h2>
+
+        <p className="text-muted-foreground leading-relaxed">
+          Converting images to PDF is essential for submitting documents, storing notes,
+          sending files professionally, or sharing captured photos with proper formatting.
+          This tool works offline, supports all images, and preserves clarity.
+        </p>
+
+        <h3 className="text-xl font-semibold mt-6">How to Use</h3>
+        <ol className="list-decimal ml-5 space-y-2 mt-2">
+          <li>Upload any JPG or PNG image.</li>
+          <li>Preview the image instantly.</li>
+          <li>Click “Convert to PDF”.</li>
+          <li>Download your PDF file.</li>
+        </ol>
+
+        <h3 className="text-xl font-semibold mt-6">Common Uses</h3>
+        <ul className="list-disc ml-5 space-y-2 mt-2">
+          <li>Camera photos → clean PDF</li>
+          <li>Handwritten notes</li>
+          <li>Receipts & bills</li>
+          <li>Assignments & documents</li>
+        </ul>
+
+        <h3 className="text-xl font-semibold mt-6">FAQ</h3>
+
+        <p><strong>Is it free?</strong> Yes, 100% free.</p>
+        <p><strong>Is my image uploaded?</strong> No — everything happens inside your device.</p>
+        <p><strong>Maximum file size?</strong> 50 MB.</p>
+        <p><strong>Formats supported?</strong> JPG, JPEG, PNG.</p>
       </Card>
+
+      {/* More Useful Tools */}
+      <section className="py-16 bg-muted/30 mt-10">
+        <h2 className="text-center text-2xl font-bold mb-4">
+          Discover More Useful Tools
+        </h2>
+        <p className="text-center text-muted-foreground mb-10">
+          Explore more free AI tools to simplify your workflow.
+        </p>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
+
+          <a href="/tools/background-remover" className="p-6 border rounded-xl shadow-sm hover:shadow-md transition bg-white">
+            <h3 className="text-lg font-semibold">AI Background Remover</h3>
+            <p className="text-muted-foreground text-sm mb-2">
+              Remove background instantly using AI.
+            </p>
+            <span className="text-primary font-semibold">Remove Now →</span>
+          </a>
+
+          <a href="/tools/image-compressor" className="p-6 border rounded-xl shadow-sm hover:shadow-md transition bg-white">
+            <h3 className="text-lg font-semibold">Image Compressor</h3>
+            <p className="text-muted-foreground text-sm mb-2">
+              Compress JPG/PNG without losing quality.
+            </p>
+            <span className="text-primary font-semibold">Compress Now →</span>
+          </a>
+
+          <a href="/tools/pdf-to-word" className="p-6 border rounded-xl shadow-sm hover:shadow-md transition bg-white">
+            <h3 className="text-lg font-semibold">PDF to Word Converter</h3>
+            <p className="text-muted-foreground text-sm mb-2">
+              Convert PDF files into editable Word files.
+            </p>
+            <span className="text-primary font-semibold">Convert Now →</span>
+          </a>
+
+          <a href="/tools/merge-pdf" className="p-6 border rounded-xl shadow-sm hover:shadow-md transition bg-white">
+            <h3 className="text-lg font-semibold">Merge PDF</h3>
+            <p className="text-muted-foreground text-sm mb-2">
+              Combine multiple PDFs into one.
+            </p>
+            <span className="text-primary font-semibold">Merge Now →</span>
+          </a>
+
+          <a href="/tools/text-paraphraser" className="p-6 border rounded-xl shadow-sm hover:shadow-md transition bg-white">
+            <h3 className="text-lg font-semibold">AI Text Paraphraser</h3>
+            <p className="text-muted-foreground text-sm mb-2">
+              Rewrite content in seconds.
+            </p>
+            <span className="text-primary font-semibold">Paraphrase Now →</span>
+          </a>
+
+          <a href="/tools/image-to-text" className="p-6 border rounded-xl shadow-sm hover:shadow-md transition bg-white">
+            <h3 className="text-lg font-semibold">Image to Text OCR</h3>
+            <p className="text-muted-foreground text-sm mb-2">
+              Extract text from images instantly.
+            </p>
+            <span className="text-primary font-semibold">Extract Now →</span>
+          </a>
+
+        </div>
+      </section>
+
     </div>
   );
 }
