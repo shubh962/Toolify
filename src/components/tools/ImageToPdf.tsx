@@ -4,7 +4,7 @@ import { useState, useRef, useEffect } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Upload, Loader2, RotateCcw } from "lucide-react";
+import { Upload, Loader2, RotateCcw, FileText } from "lucide-react";
 import { PDFDocument } from "pdf-lib";
 
 // ✅ Safely load image into canvas (removes EXIF + huge resolution)
@@ -182,28 +182,38 @@ export default function ImageToPdf() {
   };
 
   return (
-    <div className="space-y-12 py-10 text-center">
-      {/* Heading */}
-      <section className="space-y-3">
-        <h1 className="text-4xl font-extrabold">Image to PDF Converter</h1>
-        <p className="text-muted-foreground max-w-xl mx-auto">
-          Convert any camera photo or screenshot into a clean A4 PDF.
-          Processing is 100% local in your browser — fast, private and secure.
+    <div className="space-y-12 py-10">
+      {/* ✅ Hero / Heading Section (like Image Compressor) */}
+      <section className="max-w-3xl mx-auto text-center space-y-3">
+        <div className="inline-flex items-center justify-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-semibold mb-2">
+          <FileText className="w-3 h-3" />
+          <span>Free Online Image to PDF Tool</span>
+        </div>
+        <h1 className="text-3xl md:text-4xl font-extrabold">
+          Convert Images to PDF Instantly
+        </h1>
+        <p className="text-muted-foreground text-sm md:text-base max-w-2xl mx-auto">
+          Turn your camera photos, scanned documents, and screenshots into clean A4 PDF files. 
+          Everything is processed locally in your browser for maximum privacy and speed.
         </p>
       </section>
 
-      {/* Upload / Preview Card */}
-      <Card className="max-w-3xl mx-auto shadow-xl border">
-        <CardContent className="p-8 md:p-10">
+      {/* ✅ Main Tool Card – styled similar to Image Compressor */}
+      <Card className="w-full max-w-5xl mx-auto shadow-lg border">
+        <CardContent className="p-6 md:p-8 space-y-6">
           {!preview ? (
+            // 🔹 Upload area (dashed box, like compressor)
             <div
-              className="flex flex-col items-center justify-center p-12 border-2 border-dashed rounded-xl cursor-pointer hover:border-primary transition"
+              className="flex flex-col items-center justify-center p-10 border-2 border-dashed rounded-xl cursor-pointer hover:border-primary transition"
               onClick={() => fileInputRef.current?.click()}
             >
               <Upload className="w-10 h-10 text-muted-foreground" />
-              <p className="mt-4 font-semibold">Click to upload or drag &amp; drop</p>
-              <p className="text-sm text-muted-foreground">
-                JPG, JPEG, PNG • Max 50 MB
+              <p className="mt-4 font-semibold">
+                Click to upload or drag &amp; drop your image
+              </p>
+              <p className="text-xs md:text-sm text-muted-foreground mt-1">
+                Supported formats: <span className="font-semibold">JPG, JPEG, PNG</span> · Max size:{" "}
+                <span className="font-semibold">50 MB</span>
               </p>
 
               <Input
@@ -215,53 +225,104 @@ export default function ImageToPdf() {
               />
             </div>
           ) : (
-            <>
-              <img
-                src={preview}
-                alt="Preview"
-                className="max-h-96 w-full object-contain rounded-lg border shadow-md mx-auto"
-              />
-              <p className="mt-3 text-sm text-muted-foreground">
-                {fileName || "Selected image"}
-              </p>
-
-              <div className="flex flex-wrap justify-center gap-4 mt-6">
-                <Button
-                  onClick={convertToPdf}
-                  disabled={loading}
-                  className="min-w-[180px]"
-                >
-                  {loading ? (
-                    <>
-                      <Loader2 className="w-4 h-4 animate-spin mr-2" />
-                      Converting…
-                    </>
-                  ) : (
-                    "Convert to PDF"
-                  )}
-                </Button>
-                <Button
-                  variant="outline"
-                  onClick={handleReset}
-                  disabled={loading}
-                  className="min-w-[140px]"
-                >
-                  <RotateCcw className="w-4 h-4 mr-2" />
-                  Reset
-                </Button>
+            // 🔹 After upload – two-column layout (preview + controls)
+            <div className="grid gap-8 md:grid-cols-[minmax(0,1.5fr)_minmax(0,1fr)] items-start">
+              {/* Left: Image preview */}
+              <div className="space-y-3">
+                <h2 className="text-lg font-semibold text-left">
+                  Preview – {fileName || "Selected image"}
+                </h2>
+                <div className="border rounded-lg overflow-hidden bg-muted flex items-center justify-center">
+                  <img
+                    src={preview}
+                    alt="Preview"
+                    className="max-h-[400px] w-full object-contain"
+                  />
+                </div>
+                <p className="text-xs text-muted-foreground text-left">
+                  Your image is safely processed in your browser. No upload, no storage — perfect for
+                  documents, ID cards, receipts, assignments, and more.
+                </p>
               </div>
 
-              {pdfUrl && (
-                <a
-                  href={pdfUrl}
-                  download={`${fileName || "image"}.pdf`}
-                  className="mt-4 inline-block text-primary underline font-semibold"
-                >
-                  Download {fileName || "image"}.pdf
-                </a>
-              )}
-            </>
+              {/* Right: Actions panel */}
+              <div className="space-y-4">
+                <div className="rounded-lg border bg-muted/40 p-4 text-left space-y-2">
+                  <h3 className="text-sm font-semibold">Conversion summary</h3>
+                  <ul className="text-xs text-muted-foreground list-disc pl-4 space-y-1">
+                    <li>Input: {fileName || "Image"}</li>
+                    <li>Output: A4 PDF (auto-fitted)</li>
+                    <li>Processing: 100% in-browser</li>
+                  </ul>
+                </div>
+
+                <div className="flex flex-col gap-3">
+                  <Button
+                    onClick={convertToPdf}
+                    disabled={loading}
+                    className="w-full"
+                  >
+                    {loading ? (
+                      <>
+                        <Loader2 className="w-4 h-4 animate-spin mr-2" />
+                        Converting…
+                      </>
+                    ) : (
+                      "Convert to PDF"
+                    )}
+                  </Button>
+
+                  <Button
+                    variant="outline"
+                    onClick={handleReset}
+                    disabled={loading}
+                    className="w-full flex items-center justify-center gap-2"
+                  >
+                    <RotateCcw className="w-4 h-4" />
+                    Reset
+                  </Button>
+
+                  {pdfUrl && (
+                    <Button asChild variant="outline" className="w-full">
+                      <a href={pdfUrl} download={`${fileName || "image"}.pdf`}>
+                        Download {fileName || "image"}.pdf
+                      </a>
+                    </Button>
+                  )}
+                </div>
+
+                <p className="text-[11px] text-muted-foreground">
+                  Tip: For the best text clarity, upload high-resolution scans or photos in good lighting.
+                </p>
+              </div>
+            </div>
           )}
+        </CardContent>
+      </Card>
+
+      {/* ✅ Simple SEO / Info Section – like other tools (can upgrade later) */}
+      <Card className="w-full max-w-5xl mx-auto shadow-sm border bg-muted/40">
+        <CardContent className="p-6 md:p-8 space-y-4">
+          <h2 className="text-xl md:text-2xl font-bold text-left">
+            Why use TaskGuru&apos;s Image to PDF Converter?
+          </h2>
+          <p className="text-sm md:text-base text-muted-foreground text-left">
+            Many online converters upload your files to remote servers, which can be slow and risky for
+            sensitive documents. TaskGuru&apos;s Image to PDF tool runs entirely in your browser using
+            modern web technology and PDF generation, so your files never leave your device.
+          </p>
+          <div className="grid md:grid-cols-2 gap-4 text-sm text-muted-foreground">
+            <ul className="list-disc pl-4 space-y-1">
+              <li>Perfect for assignments, notes, and study material</li>
+              <li>Convert photos of documents into clean, shareable PDFs</li>
+              <li>Works great with camera images and screenshots</li>
+            </ul>
+            <ul className="list-disc pl-4 space-y-1">
+              <li>No signup, no watermark, no hidden limits</li>
+              <li>Optimized for both desktop and mobile use</li>
+              <li>Output is compatible with all major PDF viewers</li>
+            </ul>
+          </div>
         </CardContent>
       </Card>
     </div>
