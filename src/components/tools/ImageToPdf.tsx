@@ -1,10 +1,10 @@
 "use client";
 
 import { useState, useRef } from "react";
-import { Card, CardContent, CardFooter } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Upload, Loader2, Trash2, Download } from "lucide-react";
+import { Upload, Loader2, RotateCcw } from "lucide-react";
 import { PDFDocument } from "pdf-lib";
 
 export default function ImageToPdf() {
@@ -13,11 +13,28 @@ export default function ImageToPdf() {
   const [fileName, setFileName] = useState("");
   const [pdfDataUri, setPdfDataUri] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
-
   const MAX_SIZE = 50 * 1024 * 1024; // 50MB
 
-  // Upload Handler
-  const handleUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+  // Resize Image (Core Fix)
+  const resizeImage = (dataUrl: string, maxWidth = 2000) =>
+    new Promise<string>((resolve) => {
+      const img = new Image();
+      img.onload = () => {
+        const canvas = document.createElement("canvas");
+        const scale = maxWidth / img.width;
+        canvas.width = maxWidth;
+        canvas.height = img.height * scale;
+
+        const ctx = canvas.getContext("2d")!;
+        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+
+        resolve(canvas.toDataURL("image/jpeg", 0.9));
+      };
+      img.src = dataUrl;
+    });
+
+  // Handle Upload
+  const handleUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
 
@@ -27,17 +44,34 @@ export default function ImageToPdf() {
     }
 
     if (file.size > MAX_SIZE) {
-      alert("Image is too large. Maximum allowed size is 50MB.");
+      alert("This image is too large. Maximum allowed size is 50 MB.");
       return;
     }
 
     setFileName(file.name);
+
     const reader = new FileReader();
-    reader.onload = () => setImage(reader.result as string);
+    reader.onload = async () => {
+      const originalData = reader.result as string;
+
+      // Resize if too large resolution
+      const img = new Image();
+      img.onload = async () => {
+        let finalImage = originalData;
+
+        // Auto resize large resolution images
+        if (img.width > 2500) {
+          finalImage = await resizeImage(originalData, 2000);
+        }
+
+        setImage(finalImage);
+      };
+      img.src = originalData;
+    };
     reader.readAsDataURL(file);
   };
 
-  // Convert to PDF (Auto-fit)
+  // Convert to PDF
   const convertToPdf = async () => {
     if (!image) return;
 
@@ -46,36 +80,22 @@ export default function ImageToPdf() {
 
       const pdfDoc = await PDFDocument.create();
       const base64 = image.split(",")[1];
-      const bytes = Uint8Array.from(atob(base64), (c) => c.charCodeAt(0));
+      const bytes = Uint8Array.from(atob(base64), (c) =>
+        c.charCodeAt(0)
+      );
 
-      let img;
-      if (image.startsWith("data:image/png")) {
-        img = await pdfDoc.embedPng(bytes);
-      } else {
-        img = await pdfDoc.embedJpg(bytes);
-      }
+      const imgEmbed = await pdfDoc.embedJpg(bytes);
+      const pageWidth = 595; // A4 width
+      const scale = pageWidth / imgEmbed.width;
+      const pageHeight = imgEmbed.height * scale;
 
-      // Original size
-      let { width, height } = img;
+      const page = pdfDoc.addPage([pageWidth, pageHeight]);
 
-      // Auto-fit system
-      const MAX_WIDTH = 1440;
-      const MAX_HEIGHT = 1800;
-
-      let scale = Math.min(MAX_WIDTH / width, MAX_HEIGHT / height);
-
-      if (scale < 1) {
-        width = width * scale;
-        height = height * scale;
-      }
-
-      const page = pdfDoc.addPage([width, height]);
-
-      page.drawImage(img, {
+      page.drawImage(imgEmbed, {
         x: 0,
         y: 0,
-        width,
-        height,
+        width: pageWidth,
+        height: pageHeight,
       });
 
       const pdfBytes = await pdfDoc.save();
@@ -85,51 +105,45 @@ export default function ImageToPdf() {
 
       setPdfDataUri(uri);
       setLoading(false);
-    } catch (error) {
-      console.error(error);
+    } catch (err) {
+      console.error(err);
       alert("Failed to convert image. Try again.");
       setLoading(false);
     }
   };
 
-  // RESET
-  const handleReset = () => {
+  const reset = () => {
     setImage(null);
     setPdfDataUri(null);
     setFileName("");
-    if (fileInputRef.current) fileInputRef.current.value = "";
   };
 
   return (
     <div className="space-y-12 py-10">
-
-      {/* PAGE HEADER */}
       <section className="text-center space-y-3">
         <h1 className="text-4xl font-extrabold">Image to PDF Converter</h1>
         <p className="text-muted-foreground max-w-xl mx-auto">
-          Convert JPG or PNG images into high-quality PDFs instantly.
-          Private, fast & secure — everything happens inside your browser.
+          Convert JPG or PNG images into high-quality PDFs instantly. Private,
+          fast & secure — everything is processed inside your browser.
         </p>
       </section>
 
-      {/* MID HEADING */}
       <h2 className="text-center text-2xl font-bold text-primary">
-        Free Image to PDF Converter — Convert Images Instantly
+        Free Image to PDF Converter – Convert Images Instantly
       </h2>
 
-      {/* MAIN TOOL CARD */}
       <Card className="w-full max-w-4xl mx-auto shadow-lg">
         <CardContent className="p-10">
-
           {!image ? (
-            // UPLOAD UI
             <div
               className="flex flex-col items-center justify-center p-12 border-2 border-dashed rounded-xl cursor-pointer hover:border-primary transition"
               onClick={() => fileInputRef.current?.click()}
             >
               <Upload className="w-10 h-10 text-muted-foreground" />
               <p className="mt-4 font-semibold">Click to upload or drag & drop</p>
-              <p className="text-sm text-muted-foreground">JPG, JPEG, PNG • Max 50MB</p>
+              <p className="text-sm text-muted-foreground">
+                JPG, JPEG, PNG • Max 50MB
+              </p>
 
               <Input
                 type="file"
@@ -140,35 +154,29 @@ export default function ImageToPdf() {
               />
             </div>
           ) : (
-            // PREVIEW + BUTTONS
             <div className="flex flex-col items-center space-y-4">
-
               <img
                 src={image}
                 alt="Preview"
                 className="max-h-96 rounded-lg border shadow-md object-contain"
               />
-
               <p className="text-sm text-muted-foreground">{fileName}</p>
 
-              <div className="flex gap-4">
+              <div className="flex space-x-4">
                 <Button
                   onClick={convertToPdf}
+                  className="w-full"
                   disabled={loading}
-                  className="w-40"
                 >
-                  {loading ? (
+                  {loading && (
                     <Loader2 className="w-4 h-4 animate-spin mr-2" />
-                  ) : null}
+                  )}
                   {loading ? "Converting..." : "Convert to PDF"}
                 </Button>
 
-                <Button
-                  variant="outline"
-                  className="w-28"
-                  onClick={handleReset}
-                >
-                  <Trash2 className="mr-2 w-4 h-4" /> Reset
+                <Button variant="outline" onClick={reset}>
+                  <RotateCcw className="w-4 h-4 mr-2" />
+                  Reset
                 </Button>
               </div>
 
@@ -176,49 +184,14 @@ export default function ImageToPdf() {
                 <a
                   href={pdfDataUri}
                   download="converted.pdf"
-                  className="text-primary underline font-semibold mt-2 flex items-center gap-2"
+                  className="text-primary underline font-semibold mt-2"
                 >
-                  <Download className="w-5 h-5" /> Download PDF
+                  Download PDF
                 </a>
               )}
             </div>
           )}
         </CardContent>
-      </Card>
-
-      {/* SEO CONTENT */}
-      <Card className="max-w-4xl mx-auto p-8 shadow-xl border">
-        <h2 className="text-2xl font-bold mb-4 text-primary">
-          The Essential Guide to Image-to-PDF Conversion
-        </h2>
-
-        <p className="text-muted-foreground leading-relaxed">
-          Image to PDF conversion is essential for students, professionals,
-          freelancers, and businesses. Whether you're converting scanned notes,
-          ID cards, receipts, or documents — PDF ensures universal compatibility.
-        </p>
-
-        <h3 className="text-xl font-semibold mt-6">How to Use This Tool</h3>
-        <ol className="list-decimal ml-5 space-y-2 mt-2">
-          <li>Upload a JPG or PNG image</li>
-          <li>Preview it instantly</li>
-          <li>Click “Convert to PDF”</li>
-          <li>Download your PDF file</li>
-        </ol>
-
-        <h3 className="text-xl font-semibold mt-6">Common Uses</h3>
-        <ul className="list-disc ml-5 space-y-2 mt-2">
-          <li>Scanned documents</li>
-          <li>eBook pages</li>
-          <li>Assignments</li>
-          <li>ID cards, certificates & receipts</li>
-        </ul>
-
-        <h3 className="text-xl font-semibold mt-6">FAQ</h3>
-        <p><strong>Is it free?</strong> Yes, fully free.</p>
-        <p><strong>Do images upload to a server?</strong> No, processing is 100% local.</p>
-        <p><strong>Max file size?</strong> 50 MB</p>
-        <p><strong>Supported formats?</strong> JPG, JPEG, PNG</p>
       </Card>
     </div>
   );
