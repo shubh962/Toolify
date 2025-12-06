@@ -16,10 +16,36 @@ export default function ImageToPdf() {
   const [loading, setLoading] = useState(false);
 
   const MAX_SIZE = 50 * 1024 * 1024; // 50 MB
+  const MAX_RESOLUTION = 2000; // Prevent mobile crash
 
-  // --------------------------
-  // HANDLE IMAGE UPLOAD
-  // --------------------------
+  // Resize image BEFORE converting to PDF
+  const resizeImage = (base64: string): Promise<string> => {
+    return new Promise((resolve) => {
+      const img = new Image();
+      img.src = base64;
+
+      img.onload = () => {
+        let { width, height } = img;
+
+        // Only resize if very large
+        if (width > MAX_RESOLUTION || height > MAX_RESOLUTION) {
+          const scale = MAX_RESOLUTION / Math.max(width, height);
+          width = width * scale;
+          height = height * scale;
+        }
+
+        const canvas = document.createElement("canvas");
+        canvas.width = width;
+        canvas.height = height;
+
+        const ctx = canvas.getContext("2d")!;
+        ctx.drawImage(img, 0, 0, width, height);
+
+        resolve(canvas.toDataURL("image/jpeg", 0.9));
+      };
+    });
+  };
+
   const handleUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
@@ -42,9 +68,6 @@ export default function ImageToPdf() {
     reader.readAsDataURL(file);
   };
 
-  // --------------------------
-  // CONVERT → PDF (WITH AUTO-FIT)
-  // --------------------------
   const convertToPdf = async () => {
     if (!imagePreview || !imageFile) {
       alert("Please upload an image first.");
@@ -54,39 +77,31 @@ export default function ImageToPdf() {
     try {
       setLoading(true);
 
-      const pdfDoc = await PDFDocument.create();
+      // Auto resize large images
+      const safeBase64 = await resizeImage(imagePreview);
 
-      // Convert Base64 → byte array
-      const base64 = imagePreview.split(",")[1];
+      const pdfDoc = await PDFDocument.create();
+      const base64 = safeBase64.split(",")[1];
       const imgBytes = Uint8Array.from(atob(base64), (c) => c.charCodeAt(0));
 
-      let embeddedImg;
-      if (imageFile.type === "image/png") {
-        embeddedImg = await pdfDoc.embedPng(imgBytes);
-      } else {
-        embeddedImg = await pdfDoc.embedJpg(imgBytes);
-      }
+      let embeddedImg =
+        imageFile.type === "image/png"
+          ? await pdfDoc.embedPng(imgBytes)
+          : await pdfDoc.embedJpg(imgBytes);
 
       const { width, height } = embeddedImg;
 
-      // AUTO-FIT FOR A4
-      const A4_WIDTH = 595;  // portrait width
-      const A4_HEIGHT = 842; // height
-
-      let newWidth = width;
-      let newHeight = height;
+      const A4_WIDTH = 595;
+      const A4_HEIGHT = 842;
 
       const widthRatio = A4_WIDTH / width;
       const heightRatio = A4_HEIGHT / height;
       const scale = Math.min(widthRatio, heightRatio);
 
-      if (scale < 1) {
-        newWidth = width * scale;
-        newHeight = height * scale;
-      }
+      const newWidth = width * scale;
+      const newHeight = height * scale;
 
       const page = pdfDoc.addPage([A4_WIDTH, A4_HEIGHT]);
-
       page.drawImage(embeddedImg, {
         x: (A4_WIDTH - newWidth) / 2,
         y: (A4_HEIGHT - newHeight) / 2,
@@ -108,9 +123,6 @@ export default function ImageToPdf() {
     }
   };
 
-  // --------------------------
-  // RESET TOOL
-  // --------------------------
   const resetAll = () => {
     setImageFile(null);
     setImagePreview(null);
@@ -120,25 +132,21 @@ export default function ImageToPdf() {
 
   return (
     <div className="space-y-12 py-10">
-
-      {/* PAGE TITLE */}
+      {/* Title */}
       <section className="text-center space-y-3">
         <h1 className="text-4xl font-extrabold">Image to PDF Converter</h1>
         <p className="text-muted-foreground max-w-xl mx-auto">
-          Convert JPG or PNG images into high-quality PDF files instantly.
-          Fast, private & secure — everything is processed inside your browser.
+          Convert JPG or PNG images into high-quality PDFs — 100% local & secure.
         </p>
       </section>
 
-      {/* PURPLE MID HEADING */}
       <h2 className="text-center text-2xl font-bold text-primary">
-        Free Image to PDF Converter — Convert Images Instantly
+        Free Image to PDF Converter — Convert Instantly
       </h2>
 
-      {/* UPLOAD CARD */}
+      {/* Upload Card */}
       <Card className="w-full max-w-4xl mx-auto shadow-lg">
         <CardContent className="p-10">
-
           {!imagePreview ? (
             <div
               className="flex flex-col items-center justify-center p-12 border-2 border-dashed rounded-xl cursor-pointer hover:border-primary transition"
@@ -165,32 +173,21 @@ export default function ImageToPdf() {
               />
               <p className="text-sm text-muted-foreground">{fileName}</p>
 
-              {/* Convert Button */}
-              <Button
-                onClick={convertToPdf}
-                className="w-full max-w-sm"
-                disabled={loading}
-              >
+              <Button onClick={convertToPdf} disabled={loading} className="w-full max-w-sm">
                 {loading && <Loader2 className="w-4 h-4 animate-spin mr-2" />}
                 {loading ? "Converting..." : "Convert to PDF"}
               </Button>
 
-              {/* Download PDF */}
               {pdfDataUri && (
-                <a
-                  href={pdfDataUri}
-                  download="converted.pdf"
-                  className="text-primary underline font-semibold"
-                >
+                <a href={pdfDataUri} download="converted.pdf" className="text-primary underline font-semibold">
                   Download PDF
                 </a>
               )}
 
-              {/* RESET BUTTON */}
               <Button
-                onClick={resetAll}
                 variant="outline"
-                className="w-full max-w-sm flex items-center gap-2"
+                onClick={resetAll}
+                className="flex items-center gap-2 w-full max-w-sm"
               >
                 <RotateCcw className="w-4 h-4" /> Reset
               </Button>
@@ -199,31 +196,27 @@ export default function ImageToPdf() {
         </CardContent>
       </Card>
 
-      {/* SEO CONTENT CARD */}
+      {/* SEO Content */}
       <Card className="max-w-4xl mx-auto p-8 shadow-xl border">
-        <h2 className="text-2xl font-bold mb-4 text-primary">
-          The Essential Guide to Image-to-PDF Conversion
-        </h2>
+        <h2 className="text-2xl font-bold mb-4 text-primary">The Essential Guide to Image-to-PDF Conversion</h2>
 
         <p className="text-muted-foreground leading-relaxed">
-          Image to PDF conversion is a common requirement for students, professionals, freelancers,
-          and businesses. Whether you're scanning notes, converting receipts, or preparing official
-          documents — PDFs ensure universal compatibility.
+          Converting images into PDFs ensures universal compatibility and a professional format.
         </p>
 
         <h3 className="text-xl font-semibold mt-6">How to Use This Tool</h3>
         <ol className="list-decimal ml-5 space-y-2 mt-2">
-          <li>Upload your JPG or PNG image.</li>
-          <li>Preview the image instantly.</li>
-          <li>Click “Convert to PDF”.</li>
-          <li>Download your PDF file.</li>
+          <li>Upload your JPG or PNG image</li>
+          <li>Preview instantly</li>
+          <li>Click “Convert to PDF”</li>
+          <li>Download your file</li>
         </ol>
 
         <h3 className="text-xl font-semibold mt-6">FAQ</h3>
-        <p><strong>Is it free?</strong> Yes, fully free.</p>
-        <p><strong>Do images upload to a server?</strong> No, everything is 100% local.</p>
+        <p><strong>Is it free?</strong> Yes.</p>
+        <p><strong>Are images uploaded?</strong> No, 100% local.</p>
         <p><strong>Max file size?</strong> 50 MB.</p>
-        <p><strong>Supported formats?</strong> JPG, JPEG, PNG.</p>
+        <p><strong>Formats?</strong> JPG, JPEG, PNG.</p>
       </Card>
     </div>
   );
