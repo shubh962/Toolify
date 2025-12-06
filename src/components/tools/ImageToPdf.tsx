@@ -10,133 +10,141 @@ import { PDFDocument } from "pdf-lib";
 export default function ImageToPdf() {
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  const [image, setImage] = useState<string | null>(null);
-  const [fileName, setFileName] = useState("");
+  const [imageFile, setImageFile] = useState<File | null>(null);
+  const [imagePreview, setImagePreview] = useState<string | null>(null);
   const [pdfDataUri, setPdfDataUri] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
 
-  const MAX_SIZE = 50 * 1024 * 1024; // 50MB
+  const MAX_SIZE = 50 * 1024 * 1024; // 50MB allowed
 
-  // ------------------------------------------
-  // 1. IMAGE UPLOAD
-  // ------------------------------------------
+  // ------------------------------------------------
+  // 1. HANDLE FILE INPUT
+  // ------------------------------------------------
   const handleUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
 
-    if (!["image/jpeg", "image/png", "image/jpg"].includes(file.type)) {
-      alert("Only JPG and PNG images are supported.");
+    if (!["image/png", "image/jpeg", "image/jpg"].includes(file.type)) {
+      alert("Only JPG or PNG allowed.");
       return;
     }
 
     if (file.size > MAX_SIZE) {
-      alert("Max allowed image size is 50 MB.");
+      alert("Max allowed image size: 50 MB");
       return;
     }
 
-    setFileName(file.name);
+    setImageFile(file);
 
+    // SAFE PREVIEW  
     const reader = new FileReader();
-    reader.onload = () => setImage(reader.result as string);
+    reader.onload = () => setImagePreview(reader.result as string);
     reader.readAsDataURL(file);
   };
 
-  // ------------------------------------------
-  // 2. CANVAS RESIZE FUNCTION (IMPORTANT FIX)
-  // ------------------------------------------
-  const resizeImage = (dataUrl: string): Promise<string> => {
-    return new Promise((resolve) => {
-      const img = new Image();
-      img.src = dataUrl;
+  // ------------------------------------------------
+  // 2. SAFE IMAGE RESIZE FIX (NO CORS ERROR)
+  // ------------------------------------------------
+  const resizeImageSafely = (file: File): Promise<string> => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
 
-      img.onload = () => {
-        const MAX_WIDTH = 2000;  // keep high quality but safe memory
-        const scale = MAX_WIDTH / img.width;
+      reader.onload = () => {
+        const img = new Image();
+        img.crossOrigin = "anonymous"; // <— FIX FOR ALL CANVAS FAILURES
+        img.src = reader.result as string;
 
-        const canvas = document.createElement("canvas");
-        canvas.width = img.width > MAX_WIDTH ? MAX_WIDTH : img.width;
-        canvas.height = img.height * (img.width > MAX_WIDTH ? scale : 1);
+        img.onload = () => {
+          const MAX_WIDTH = 1600; // safe for all mobiles
+          const scale = img.width > MAX_WIDTH ? MAX_WIDTH / img.width : 1;
 
-        const ctx = canvas.getContext("2d");
-        ctx!.drawImage(img, 0, 0, canvas.width, canvas.height);
+          const canvas = document.createElement("canvas");
+          canvas.width = img.width * scale;
+          canvas.height = img.height * scale;
 
-        // Compress to 85% quality JPG for huge images
-        resolve(canvas.toDataURL("image/jpeg", 0.85));
+          const ctx = canvas.getContext("2d");
+
+          try {
+            ctx?.drawImage(img, 0, 0, canvas.width, canvas.height);
+
+            // Always convert to compressed JPEG
+            const resized = canvas.toDataURL("image/jpeg", 0.85);
+            resolve(resized);
+          } catch (e) {
+            reject("Canvas processing failed");
+          }
+        };
+
+        img.onerror = () => reject("Invalid image format");
       };
+
+      reader.onerror = () => reject("Failed to read file");
+      reader.readAsDataURL(file);
     });
   };
 
-  // ------------------------------------------
-  // 3. CONVERT IMAGE → PDF
-  // ------------------------------------------
+  // ------------------------------------------------
+  // 3. GENERATE PDF SAFELY
+  // ------------------------------------------------
   const convertToPdf = async () => {
-    if (!image) return;
-
-    setLoading(true);
-    setPdfDataUri(null);
+    if (!imageFile) return;
 
     try {
-      // resize first to avoid browser crash + pdf-lib crash
-      const optimizedImage = await resizeImage(image);
+      setLoading(true);
+      setPdfDataUri(null);
+
+      // Resize first — otherwise big images crash canvas + pdf-lib
+      const safeImg = await resizeImageSafely(imageFile);
 
       const pdfDoc = await PDFDocument.create();
 
-      const base64 = optimizedImage.split(",")[1];
-      const bytes = Uint8Array.from(atob(base64), (c) => c.charCodeAt(0));
+      const base64 = safeImg.split(",")[1];
+      const bytes = Uint8Array.from(atob(base64), c => c.charCodeAt(0));
+      const jpg = await pdfDoc.embedJpg(bytes);
 
-      const img = await pdfDoc.embedJpg(bytes);
-      const page = pdfDoc.addPage([img.width, img.height]);
-
-      page.drawImage(img, {
+      const page = pdfDoc.addPage([jpg.width, jpg.height]);
+      page.drawImage(jpg, {
         x: 0,
         y: 0,
-        width: img.width,
-        height: img.height,
+        width: jpg.width,
+        height: jpg.height,
       });
 
       const pdfBytes = await pdfDoc.save();
-      const uri =
-        "data:application/pdf;base64," +
+      const uri = "data:application/pdf;base64," +
         btoa(String.fromCharCode(...pdfBytes));
 
       setPdfDataUri(uri);
     } catch (err) {
       console.error(err);
-      alert("Image too large for conversion. Automatically compressing failed.");
+      alert("Image too large to process. Try another image.");
     }
 
     setLoading(false);
   };
 
+  // ------------------------------------------------
+  // UI
+  // ------------------------------------------------
   return (
     <div className="space-y-12 py-10">
-      {/* TITLE */}
-      <section className="text-center space-y-3">
+      <section className="text-center">
         <h1 className="text-4xl font-extrabold">Image to PDF Converter</h1>
         <p className="text-muted-foreground max-w-xl mx-auto">
-          Convert JPG or PNG images into high-quality PDF files instantly.
-          Private, fast & secure — all processing happens in your browser.
+          Convert JPG or PNG images into PDF instantly.
         </p>
       </section>
 
-      {/* SUBTITLE */}
-      <h2 className="text-center text-2xl font-bold text-primary">
-        Free Image to PDF Converter – Convert Images Instantly
-      </h2>
-
-      {/* UPLOAD CARD */}
       <Card className="w-full max-w-4xl mx-auto shadow-lg">
         <CardContent className="p-10">
-
-          {!image ? (
+          {!imagePreview ? (
             <div
-              className="flex flex-col items-center justify-center p-12
-              border-2 border-dashed rounded-xl cursor-pointer hover:border-primary transition"
+              className="flex flex-col items-center justify-center p-12 border-2 border-dashed rounded-xl cursor-pointer hover:border-primary"
               onClick={() => fileInputRef.current?.click()}
             >
               <Upload className="w-10 h-10 text-muted-foreground" />
-              <p className="mt-4 font-semibold">Click to upload or drag & drop</p>
-              <p className="text-sm text-muted-foreground">JPG, JPEG, PNG • Max 50MB</p>
+              <p className="mt-3 font-semibold">Click to upload</p>
+              <p className="text-sm text-muted-foreground">JPG, PNG • Max 50MB</p>
 
               <Input
                 type="file"
@@ -149,16 +157,14 @@ export default function ImageToPdf() {
           ) : (
             <div className="flex flex-col items-center space-y-4">
               <img
-                src={image}
-                alt="Preview"
-                className="max-h-96 rounded-lg border shadow-md object-contain"
+                src={imagePreview}
+                className="max-h-96 rounded-lg border shadow"
               />
-              <p className="text-sm text-muted-foreground">{fileName}</p>
 
               <Button
                 onClick={convertToPdf}
-                className="w-full max-w-sm"
                 disabled={loading}
+                className="w-full max-w-sm"
               >
                 {loading && <Loader2 className="w-4 h-4 animate-spin mr-2" />}
                 {loading ? "Converting..." : "Convert to PDF"}
@@ -166,9 +172,9 @@ export default function ImageToPdf() {
 
               {pdfDataUri && (
                 <a
-                  href={pdfDataUri}
                   download="converted.pdf"
-                  className="text-primary underline font-semibold mt-2"
+                  href={pdfDataUri}
+                  className="text-primary underline mt-2"
                 >
                   Download PDF
                 </a>
