@@ -15,7 +15,7 @@ export default function ImageToPdf() {
   const [loading, setLoading] = useState(false);
   const MAX_SIZE = 50 * 1024 * 1024; // 50MB
 
-  // IMAGE UPLOAD
+  // IMAGE
   const handleUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
