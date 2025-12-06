@@ -402,14 +402,14 @@ export default function ImageToPdf() {
             </h3>
             <div className="grid md:grid-cols-2 gap-4 text-sm text-muted-foreground">
                 <ul className="list-disc list-outside ml-6 space-y-2">
-                    <li>100% In-Browser Processing**: आपकी फ़ाइलें हमेशा निजी और सुरक्षित रहती हैं।</li>
-                    <li>Clean A4 Output**: आउटपुट PDF को प्रिंटिंग और शेयरिंग के लिए एक मानक A4 साइज़ पर ऑटो-फिट किया जाता है।</li>
-                    <li>High-Quality JPEG Embedding**: हम EXIF डेटा को हटाने के लिए इमेज को पहले एक सुरक्षित कैनवास में लोड करते हैं, जिससे एक साफ-सुथरा और ऑप्टिमाइज़्ड PDF बनता है।</li>
+                    <li>100% In-Browser Processing: आपकी फ़ाइलें हमेशा निजी और सुरक्षित रहती हैं।</li>
+                    <li>Clean A4 Output: आउटपुट PDF को प्रिंटिंग और शेयरिंग के लिए एक मानक A4 साइज़ पर ऑटो-फिट किया जाता है।</li>
+                    <li>High-Quality JPEG Embedding: हम EXIF डेटा को हटाने के लिए इमेज को पहले एक सुरक्षित कैनवास में लोड करते हैं, जिससे एक साफ-सुथरा और ऑप्टिमाइज़्ड PDF बनता है।</li>
                 </ul>
                 <ul className="list-disc list-outside ml-6 space-y-2">
-                    <li>No Watermark or Limits: कोई साइनअप नहीं, कोई वॉटरमार्क नहीं, और कोई छिपी हुई सीमा नहीं।</li>
+                    <li>No Watermark or Limits**: कोई साइनअप नहीं, कोई वॉटरमार्क नहीं, और कोई छिपी हुई सीमा नहीं।</li>
                     <li>Easy to Use: फोटो, रसीद, या नोट्स को तुरंत एक पेशेवर दस्तावेज़ में बदलें।</li>
-                    </li>Mobile Optimized: डेस्कटॉप और मोबाइल दोनों डिवाइसों पर शानदार काम करता है।</li>
+                    <li>Mobile Optimized: डेस्कटॉप और मोबाइल दोनों डिवाइसों पर शानदार काम करता है।</li>
                 </ul>
             </div>
             
@@ -420,4 +420,4 @@ export default function ImageToPdf() {
       </section>
     </div>
   );
-}
+                      }
