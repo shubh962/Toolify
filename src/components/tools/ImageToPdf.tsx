@@ -223,7 +223,7 @@ export default function ImageToPdf() {
           Image to PDF Converter – Turn Photos into Clean A4 PDFs
         </h1>
         <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
-          TaskGuru का **Image to PDF** टूल आपकी **JPG, PNG** इमेजेज को तुरंत **A4 PDF** में बदलता है। सभी प्रोसेसिंग आपके ब्राउज़र में होती है, जिससे **100% प्राइवेसी** और **तेज़ स्पीड** मिलती है।
+          TaskGuru का Image to PDF टूल आपकी JPG, PNG इमेजेज को तुरंत A4 PDF में बदलता है। सभी प्रोसेसिंग आपके ब्राउज़र में होती है, जिससे 100% प्राइवेसी और तेज़ स्पीड मिलती है।
         </p>
       </section>
 
@@ -394,7 +394,7 @@ export default function ImageToPdf() {
         </h2>
         <div className="space-y-6 text-lg text-gray-700 dark:text-gray-300 leading-relaxed">
             <p>
-                पारंपरिक ऑनलाइन कन्वर्टर अक्सर आपकी फ़ाइलों को रिमोट सर्वर पर अपलोड करते हैं, जो धीमा और संवेदनशील दस्तावेज़ों के लिए जोखिम भरा हो सकता है। **TaskGuru&apos;s Image to PDF** टूल पूरी तरह से आपके ब्राउज़र में चलता है, जिसका अर्थ है कि **आपकी फ़ाइलें कभी भी आपके डिवाइस को नहीं छोड़ती हैं**। हम अधिकतम **प्राइवेसी** और **तेज़ प्रोसेसिंग** की गारंटी देते हैं।
+                पारंपरिक ऑनलाइन कन्वर्टर अक्सर आपकी फ़ाइलों को रिमोट सर्वर पर अपलोड करते हैं, जो धीमा और संवेदनशील दस्तावेज़ों के लिए जोखिम भरा हो सकता है। TaskGuru&apos;s Image to PDF टूल पूरी तरह से आपके ब्राउज़र में चलता है, जिसका अर्थ है कि आपकी फ़ाइलें कभी भी आपके डिवाइस को नहीं छोड़ती हैं। हम अधिकतम प्राइवेसी और तेज़ प्रोसेसिंग की गारंटी देते हैं।
             </p>
             
             <h3 className="text-2xl font-bold mt-8 mb-4 text-gray-800 dark:text-gray-200 border-b pb-2">
@@ -402,14 +402,14 @@ export default function ImageToPdf() {
             </h3>
             <div className="grid md:grid-cols-2 gap-4 text-sm text-muted-foreground">
                 <ul className="list-disc list-outside ml-6 space-y-2">
-                    <li>**100% In-Browser Processing**: आपकी फ़ाइलें हमेशा निजी और सुरक्षित रहती हैं।</li>
-                    <li>**Clean A4 Output**: आउटपुट PDF को प्रिंटिंग और शेयरिंग के लिए एक मानक A4 साइज़ पर ऑटो-फिट किया जाता है।</li>
-                    <li>**High-Quality JPEG Embedding**: हम EXIF डेटा को हटाने के लिए इमेज को पहले एक सुरक्षित कैनवास में लोड करते हैं, जिससे एक साफ-सुथरा और ऑप्टिमाइज़्ड PDF बनता है।</li>
+                    <li>100% In-Browser Processing**: आपकी फ़ाइलें हमेशा निजी और सुरक्षित रहती हैं।</li>
+                    <li>Clean A4 Output**: आउटपुट PDF को प्रिंटिंग और शेयरिंग के लिए एक मानक A4 साइज़ पर ऑटो-फिट किया जाता है।</li>
+                    <li>High-Quality JPEG Embedding**: हम EXIF डेटा को हटाने के लिए इमेज को पहले एक सुरक्षित कैनवास में लोड करते हैं, जिससे एक साफ-सुथरा और ऑप्टिमाइज़्ड PDF बनता है।</li>
                 </ul>
                 <ul className="list-disc list-outside ml-6 space-y-2">
-                    <li>**No Watermark or Limits**: कोई साइनअप नहीं, कोई वॉटरमार्क नहीं, और कोई छिपी हुई सीमा नहीं।</li>
-                    <li>**Easy to Use**: फोटो, रसीद, या नोट्स को तुरंत एक पेशेवर दस्तावेज़ में बदलें।</li>
-                    <li>**Mobile Optimized**: डेस्कटॉप और मोबाइल दोनों डिवाइसों पर शानदार काम करता है।</li>
+                    <li>No Watermark or Limits: कोई साइनअप नहीं, कोई वॉटरमार्क नहीं, और कोई छिपी हुई सीमा नहीं।</li>
+                    <li>Easy to Use: फोटो, रसीद, या नोट्स को तुरंत एक पेशेवर दस्तावेज़ में बदलें।</li>
+                    </li>Mobile Optimized: डेस्कटॉप और मोबाइल दोनों डिवाइसों पर शानदार काम करता है।</li>
                 </ul>
             </div>
             
