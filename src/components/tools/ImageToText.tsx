@@ -8,7 +8,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { useToast } from '@/hooks/use-toast';
 import { Upload, Loader2, Copy, Trash2, ScanText } from 'lucide-react';
-import { handleImageToText } from '@/app/actions';
+import { handleImageToText as serverHandleImageToText } from '@/app/actions';
 import { Textarea } from '@/components/ui/textarea';
 import { Skeleton } from '@/components/ui/skeleton';
 
