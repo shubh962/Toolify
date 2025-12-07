@@ -28,16 +28,34 @@ export async function handleBackgroundRemoval(photoDataUri: string) {
 // --------------------------------------------------------
 export async function handleImageToText(photoDataUri: string) {
   if (!photoDataUri) {
-    return { success: false, error: 'No image provided.' };
+    return { success: false, error: "No image provided." };
   }
+
   try {
-    const result = await imageToTextOcr({ photoDataUri });
+    const base64 = photoDataUri.split(",")[1];
+
+    const result = await imageToTextOcr(
+      { photoDataUri },
+      {
+        attachments: [
+          {
+            name: "ocr_image",
+            mimeType: photoDataUri.startsWith("data:image/png")
+              ? "image/png"
+              : "image/jpeg",
+            data: Buffer.from(base64, "base64"),
+          },
+        ],
+      }
+    );
+
     return { success: true, data: result };
+
   } catch (error) {
-    console.error('Image to text error:', error);
+    console.error("OCR error:", error);
     return {
       success: false,
-      error: 'Failed to extract text from image. The AI model may be unavailable.',
+      error: "Failed to extract text from image.",
     };
   }
 }
