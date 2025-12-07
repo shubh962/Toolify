@@ -23,7 +23,7 @@ export async function handleBackgroundRemoval(photoDataUri: string) {
 }
 
 // --------------------------------------------------------
-// IMAGE → TEXT (OCR)
+// IMAGE → TEXT (OCR) - FIXED
 // --------------------------------------------------------
 export async function handleImageToText(photoDataUri: string) {
   if (!photoDataUri) {
@@ -31,6 +31,7 @@ export async function handleImageToText(photoDataUri: string) {
   }
 
   try {
+    // Note: यह मानते हुए कि imageToTextOcr अब त्रुटियों को स्पष्ट रूप से फेंकता है (throws errors)
     const result = await imageToTextOcr({ photoDataUri });
 
     return {
@@ -38,10 +39,21 @@ export async function handleImageToText(photoDataUri: string) {
       data: result,
     };
   } catch (err) {
-    console.error("🔥 OCR SERVER ERROR:", err);
+    console.error("🔥 OCR SERVER ERROR (CAUGHT):", err);
+    
+    // 🔥 FIX: सुनिश्चित करें कि यह त्रुटि क्लाइंट को संरचित JSON के रूप में जाती है
+    let errorMessage = "OCR failed on server. Please try again.";
+    
+    // यदि त्रुटि में 'Gemini rejected' है (जो कि image-to-text-ocr.ts से आना चाहिए)
+    if (err instanceof Error && err.message.includes("Gemini rejected")) {
+        errorMessage = "OCR failed on server — Gemini rejected the image (Safety/Quality issue).";
+    }
+
+    // यदि इमेज से कोई टेक्स्ट नहीं निकाला गया और result.extractedText खाली है,
+    // तो यह एरर client-side पर result.error के रूप में जाएगा।
     return {
       success: false,
-      error: "OCR failed on server — Gemini rejected the image.",
+      error: errorMessage,
     };
   }
 }
