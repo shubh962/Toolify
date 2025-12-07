@@ -25,18 +25,17 @@ export async function handleBackgroundRemoval(photoDataUri: string) {
 // --------------------------------------------------------
 // IMAGE → TEXT (OCR)
 // --------------------------------------------------------
-export async function handleImageToText(photoDataUri) {
+export async function handleImageToText(photoDataUri: string) {
+  if (!photoDataUri) {
+    return { success: false, error: "No image provided." };
+  }
+
   try {
-    console.log("📤 SERVER ACTION RECEIVED IMAGE LENGTH:", photoDataUri.length);
+    const result = await imageToTextOcr({ photoDataUri });
 
-    const response = await imageToTextOcr({ photoDataUri });
-
-    console.log("📥 SERVER OCR RESULT:", response);
-
-    return { success: true, data: response };
+    return { success: true, data: result };
   } catch (err) {
-    console.error("❌ SERVER OCR ERROR:", err);
-    return { success: false, error: "OCR_FAILED" };
+    return { success: false, error: "OCR failed on server." };
   }
 }
 
