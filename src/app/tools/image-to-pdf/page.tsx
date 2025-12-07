@@ -14,12 +14,23 @@ export const metadata = {
     "toolify image to pdf",
     "free image converter",
   ],
+  robots: "index, follow",
+  alternates: {
+    canonical: "https://www.taskguru.online/tools/image-to-pdf",
+  },
   openGraph: {
     title: "Free Image to PDF Converter | Toolify",
     description:
       "Convert images to PDF in seconds — 100% free, no signup, no watermark. Works entirely in your browser.",
     url: "https://www.taskguru.online/tools/image-to-pdf",
     type: "website",
+    images: [
+      {
+        url: "https://www.taskguru.online/assets/image-to-pdf-og.png",
+        width: 1200,
+        height: 630,
+      },
+    ],
   },
 };
 
