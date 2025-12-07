@@ -7,19 +7,18 @@ import { pdfToWord } from '@/ai/flows/pdf-to-word';
 import { mergePdfToWord } from '@/ai/flows/merge-pdf-to-word';
 import { PDFDocument } from "pdf-lib";
 
+// --------------------------------------------------------
+// BACKGROUND REMOVAL
+// --------------------------------------------------------
 export async function handleBackgroundRemoval(photoDataUri: string) {
-  if (!photoDataUri) {
-    return { success: false, error: 'No image provided.' };
-  }
+  if (!photoDataUri) return { success: false, error: 'No image provided.' };
+
   try {
     const result = await removeBackground({ photoDataUri });
     return { success: true, data: result };
   } catch (error) {
     console.error('Background removal error:', error);
-    return {
-      success: false,
-      error: 'Failed to remove background. The AI model may be unavailable.',
-    };
+    return { success: false, error: 'Failed to remove background.' };
   }
 }
 
@@ -27,35 +26,25 @@ export async function handleBackgroundRemoval(photoDataUri: string) {
 // IMAGE → TEXT (OCR)
 // --------------------------------------------------------
 export async function handleImageToText(photoDataUri: string) {
-  if (!photoDataUri) {
+  if (!photoDataUri)
     return { success: false, error: "No image provided." };
-  }
 
   try {
-    const base64 = photoDataUri.split(",")[1];
+    console.log("🟦 OCR Called with base64 length:", photoDataUri.length);
 
-    const result = await imageToTextOcr(
-      { photoDataUri },
-      {
-        attachments: [
-          {
-            name: "ocr_image",
-            mimeType: photoDataUri.startsWith("data:image/png")
-              ? "image/png"
-              : "image/jpeg",
-            data: Buffer.from(base64, "base64"),
-          },
-        ],
-      }
-    );
+    // Only send dataUri — Genkit automatically handles the media block
+    const result = await imageToTextOcr({ photoDataUri });
+
+    console.log("🟩 OCR RESULT:", result);
 
     return { success: true, data: result };
+  } catch (error: any) {
+    console.error("❌ OCR ERROR:", error);
 
-  } catch (error) {
-    console.error("OCR error:", error);
     return {
       success: false,
-      error: "Failed to extract text from image.",
+      error: error?.message || "Failed to extract text from image.",
+      details: JSON.stringify(error, null, 2),
     };
   }
 }
@@ -64,18 +53,15 @@ export async function handleImageToText(photoDataUri: string) {
 // TEXT PARAPHRASING
 // --------------------------------------------------------
 export async function handleTextParaphrasing(text: string) {
-  if (!text.trim()) {
-    return { success: false, error: 'Input text cannot be empty.' };
-  }
+  if (!text.trim())
+    return { success: false, error: "Input text cannot be empty." };
+
   try {
     const result = await paraphraseText({ text });
     return { success: true, data: result };
   } catch (error) {
-    console.error('Text paraphrasing error:', error);
-    return {
-      success: false,
-      error: 'Failed to paraphrase text. The AI model may be unavailable.',
-    };
+    console.error("Paraphrasing error:", error);
+    return { success: false, error: "Failed to paraphrase text." };
   }
 }
 
@@ -83,18 +69,15 @@ export async function handleTextParaphrasing(text: string) {
 // PDF → WORD
 // --------------------------------------------------------
 export async function handlePdfToWord(pdfDataUri: string) {
-  if (!pdfDataUri) {
-    return { success: false, error: 'No PDF provided.' };
-  }
+  if (!pdfDataUri)
+    return { success: false, error: "No PDF provided." };
+
   try {
     const result = await pdfToWord({ pdfDataUri });
     return { success: true, data: result };
   } catch (error) {
-    console.error('PDF to Word error:', error);
-    return {
-      success: false,
-      error: 'Failed to convert PDF to Word. The AI model may be unavailable.',
-    };
+    console.error("PDF to Word error:", error);
+    return { success: false, error: "Failed to convert PDF to Word." };
   }
 }
 
@@ -102,38 +85,31 @@ export async function handlePdfToWord(pdfDataUri: string) {
 // MERGE PDF
 // --------------------------------------------------------
 export async function handleMergePdf(pdfDataUris: string[]) {
-  if (!pdfDataUris || pdfDataUris.length < 2) {
-    return { success: false, error: 'Please select at least two PDFs to merge.' };
-  }
+  if (!pdfDataUris || pdfDataUris.length < 2)
+    return { success: false, error: "Please select at least two PDFs." };
+
   try {
     const result = await mergePdfToWord({ pdfDataUris });
     return { success: true, data: result };
   } catch (error) {
-    console.error('PDF Merge error:', error);
-    return {
-      success: false,
-      error: 'Failed to merge PDFs. The AI model may be unavailable.',
-    };
+    console.error("Merge PDF error:", error);
+    return { success: false, error: "Failed to merge PDFs." };
   }
 }
 
 // --------------------------------------------------------
-// ⭐ NEW: IMAGE → PDF CONVERTER
+// IMAGE → PDF
 // --------------------------------------------------------
 export async function handleImageToPdf(imageDataUri: string) {
-  if (!imageDataUri) {
+  if (!imageDataUri)
     return { success: false, error: "No image provided." };
-  }
 
   try {
-    // Create PDF
     const pdfDoc = await PDFDocument.create();
 
-    // Extract Base64
     const base64 = imageDataUri.split(",")[1];
     const bytes = Buffer.from(base64, "base64");
 
-    // Detect PNG / JPG
     let imgEmbed;
     if (imageDataUri.startsWith("data:image/png")) {
       imgEmbed = await pdfDoc.embedPng(bytes);
@@ -141,8 +117,8 @@ export async function handleImageToPdf(imageDataUri: string) {
       imgEmbed = await pdfDoc.embedJpg(bytes);
     }
 
-    // Create PDF page same size as image
     const page = pdfDoc.addPage([imgEmbed.width, imgEmbed.height]);
+
     page.drawImage(imgEmbed, {
       x: 0,
       y: 0,
@@ -150,7 +126,6 @@ export async function handleImageToPdf(imageDataUri: string) {
       height: imgEmbed.height,
     });
 
-    // Convert PDF → Base64
     const pdfBytes = await pdfDoc.save();
     const pdfBase64 = Buffer.from(pdfBytes).toString("base64");
 
@@ -160,9 +135,6 @@ export async function handleImageToPdf(imageDataUri: string) {
     };
   } catch (error) {
     console.error("Image to PDF error:", error);
-    return {
-      success: false,
-      error: "Failed to convert image to PDF.",
-    };
+    return { success: false, error: "Failed to convert image to PDF." };
   }
 }
