@@ -3,40 +3,45 @@
 import { ai } from "@/ai/genkit";
 import { z } from "genkit";
 
-const ImageToTextOcrInputSchema = z.object({
+const InputSchema = z.object({
   photoDataUri: z.string(),
 });
 
-const ImageToTextOcrOutputSchema = z.object({
+const OutputSchema = z.object({
   extractedText: z.string(),
 });
 
-export type ImageToTextOcrInput = z.infer<typeof ImageToTextOcrInputSchema>;
-export type ImageToTextOcrOutput = z.infer<typeof ImageToTextOcrOutputSchema>;
+export type ImageToTextOcrInput = z.infer<typeof InputSchema>;
+export type ImageToTextOcrOutput = z.infer<typeof OutputSchema>;
 
-export async function imageToTextOcr(input: ImageToTextOcrInput): Promise<ImageToTextOcrOutput> {
-  const { photoDataUri } = input;
+export const imageToTextOcr = ai.defineFlow(
+  {
+    name: "imageToTextOcr",
+    inputSchema: InputSchema,
+    outputSchema: OutputSchema,
+  },
+  async ({ photoDataUri }) => {
 
-  // 🔥 Extract base64 + detect type
-  const base64 = photoDataUri.split(",")[1];
-  const mimeType = photoDataUri.includes("png") ? "image/png" : "image/jpeg";
+    const [meta, base64] = photoDataUri.split(",");
+    const mimeType = meta.split(":")[1].split(";")[0];
 
-  const prompt = `
-Extract all readable text from this image.
-Return plain text only. No formatting.
+    const prompt = `
+You are an OCR engine. Extract ALL readable text from this image.
+Return *only plain text*, no formatting.
 `;
 
-  const result = await ai.run("gemini-pro-vision", {
-    prompt,
-    media: [
-      {
-        mimeType,
-        data: Buffer.from(base64, "base64")
-      }
-    ]
-  });
+    const result = await ai.prompt("gemini-1.5-flash", {
+      prompt,
+      media: [
+        {
+          mimeType,
+          data: Buffer.from(base64, "base64"),
+        },
+      ],
+    });
 
-  return {
-    extractedText: result.text || ""
-  };
-}
+    return {
+      extractedText: result.text ?? "",
+    };
+  }
+);
