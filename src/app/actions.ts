@@ -25,29 +25,21 @@ export async function handleBackgroundRemoval(photoDataUri: string) {
 // --------------------------------------------------------
 // IMAGE → TEXT (OCR)
 // --------------------------------------------------------
-export async function handleImageToText(photoDataUri: string) {
-  if (!photoDataUri)
-    return { success: false, error: "No image provided." };
-
+export async function handleImageToText(photoDataUri) {
   try {
-    console.log("🟦 OCR Called with base64 length:", photoDataUri.length);
+    console.log("📤 SERVER ACTION RECEIVED IMAGE LENGTH:", photoDataUri.length);
 
-    // Only send dataUri — Genkit automatically handles the media block
-    const result = await imageToTextOcr({ photoDataUri });
+    const response = await imageToTextOcr({ photoDataUri });
 
-    console.log("🟩 OCR RESULT:", result);
+    console.log("📥 SERVER OCR RESULT:", response);
 
-    return { success: true, data: result };
-  } catch (error: any) {
-    console.error("❌ OCR ERROR:", error);
-
-    return {
-      success: false,
-      error: error?.message || "Failed to extract text from image.",
-      details: JSON.stringify(error, null, 2),
-    };
+    return { success: true, data: response };
+  } catch (err) {
+    console.error("❌ SERVER OCR ERROR:", err);
+    return { success: false, error: "OCR_FAILED" };
   }
 }
+
 
 // --------------------------------------------------------
 // TEXT PARAPHRASING
