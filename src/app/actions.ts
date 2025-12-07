@@ -33,12 +33,18 @@ export async function handleImageToText(photoDataUri: string) {
   try {
     const result = await imageToTextOcr({ photoDataUri });
 
-    return { success: true, data: result };
+    return {
+      success: true,
+      data: result,
+    };
   } catch (err) {
-    return { success: false, error: "OCR failed on server." };
+    console.error("🔥 OCR SERVER ERROR:", err);
+    return {
+      success: false,
+      error: "OCR failed on server — Gemini rejected the image.",
+    };
   }
 }
-
 
 // --------------------------------------------------------
 // TEXT PARAPHRASING
