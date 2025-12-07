@@ -41,7 +41,15 @@ const imageToTextOcrFlow = ai.defineFlow(
     outputSchema: ImageToTextOcrOutputSchema,
   },
   async (input) => {
-    const { output } = await prompt(input);
-    return output!;
+    try {
+        // 🔥 FIX: Gemini API Call को try/catch में लपेटा गया
+        const { output } = await prompt(input);
+        return output!;
+    } catch (error) {
+        // यदि Gemini रिजेक्ट करता है (उदाहरण के लिए safety filter के कारण), 
+        // हम एक स्पष्ट त्रुटि फेंकते हैं जिसे हमारा actions.ts पकड़ लेगा
+        console.error("Gemini OCR Flow Error:", error);
+        throw new Error("Gemini rejected the image due to safety or quality issues.");
+    }
   }
 );
