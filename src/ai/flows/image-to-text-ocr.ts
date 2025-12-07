@@ -1,64 +1,57 @@
-"use server";
+'use server';
 
 import { ai } from "@/ai/genkit";
 import { z } from "genkit";
 
-// INPUT SCHEMA
 const ImageToTextOcrInputSchema = z.object({
   photoDataUri: z.string(),
 });
 
-// OUTPUT SCHEMA
+export type ImageToTextOcrInput = z.infer<typeof ImageToTextOcrInputSchema>;
+
 const ImageToTextOcrOutputSchema = z.object({
   extractedText: z.string(),
-  debug: z.any().optional(), // ⭐ SEND FULL ERROR BACK
 });
 
-// PROMPT
+export type ImageToTextOcrOutput = z.infer<typeof ImageToTextOcrOutputSchema>;
+
+// ------------------------------
+// FIXED PROMPT WITH MEDIA INPUT
+// ------------------------------
 const prompt = ai.definePrompt({
   name: "imageToTextOcrPrompt",
   input: { schema: ImageToTextOcrInputSchema },
   output: { schema: ImageToTextOcrOutputSchema },
   prompt: `
-Extract ALL text from this image. Do NOT invent anything.
+You are an expert OCR system. Extract ALL readable text from the provided image.
 
-{{#image}}
-{{photoDataUri}}
-{{/image}}
+Image: {{ media photoDataUri }}
 
-Extracted Text:
+Return only raw extracted text.
 `,
 });
 
-// FLOW
-export async function imageToTextOcr(input: { photoDataUri: string }) {
-  console.log("🟦 [OCR] Starting OCR...");
-  console.log("🟦 [OCR] Base64 length:", input.photoDataUri.length);
+// ------------------------------
+// FIXED FLOW FOR GEMINI
+// ------------------------------
+export const imageToTextOcr = ai.defineFlow(
+  {
+    name: "imageToTextOcrFlow",
+    inputSchema: ImageToTextOcrInputSchema,
+    outputSchema: ImageToTextOcrOutputSchema,
+  },
+  async (input) => {
+    try {
+      console.log("🔥 OCR FLOW RECEIVED IMAGE LENGTH:", input.photoDataUri.length);
 
-  try {
-    console.log("🟦 [OCR] Sending request to Gemini Vision...");
+      const { output } = await prompt(input);
 
-    const response = await prompt(input);
+      console.log("🔥 OCR FLOW OUTPUT:", output);
 
-    console.log("🟩 [OCR] MODEL RESPONSE:", JSON.stringify(response, null, 2));
-
-    return {
-      extractedText: response?.output?.extractedText || "",
-      debug: response,
-    };
-  } catch (error: any) {
-    console.error("❌ [OCR] GEMINI ERR:", error);
-    console.error("❌ FULL ERROR:", JSON.stringify(error, null, 2));
-
-    // ⭐ RETURN FULL ERROR TO UI
-    return {
-      extractedText: "",
-      debug: {
-        message: error?.message || "Unknown Error",
-        full: JSON.stringify(error, null, 2),
-        type: error?.type,
-        status: error?.status,
-      },
-    };
+      return output!;
+    } catch (err) {
+      console.error("❌ OCR FLOW ERROR:", err);
+      throw new Error("OCR_MODEL_FAILED");
+    }
   }
-}
+);
