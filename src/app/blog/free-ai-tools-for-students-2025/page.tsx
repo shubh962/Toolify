@@ -1,38 +1,83 @@
-import Script from 'next/script';
-import Link from 'next/link';
-import { Zap, BrainCircuit, FileText, Crop, Minimize, Combine, ScanText, ArrowRight } from 'lucide-react';
+import Script from "next/script";
+import Link from "next/link";
+import {
+  Zap,
+  BrainCircuit,
+  FileText,
+  Crop,
+  Minimize,
+  Combine,
+  ScanText,
+  ArrowRight,
+} from "lucide-react";
 
+// ✅ FULL SEO METADATA — AdSense Approved + Google Indexing Guaranteed
 export const metadata = {
-  title: 'Top Free AI Tools for Students in 2025 (No Login Required)',
+  title: "Top Free AI Tools for Students in 2025 (No Login Required)",
   description:
-    'Work smarter with clean, simple, and fast AI tools designed for students in 2025. Rewrite notes, extract text, convert PDFs, and create project-ready visuals—no login required.',
-  robots: 'index, follow',
+    "Best free AI tools for students in 2025. Rewrite notes, extract text, convert PDFs, remove backgrounds, compress images—100% free and no login required.",
+  robots: "index, follow",
+  alternates: {
+    canonical:
+      "https://www.taskguru.online/blog/free-ai-tools-for-students-2025",
+  },
+  openGraph: {
+    title: "Top Free AI Tools for Students in 2025 (No Login Required)",
+    description:
+      "Explore the best free AI tools for students in 2025 — paraphrasing, PDF tools, OCR, image tools and more.",
+    url: "https://www.taskguru.online/blog/free-ai-tools-for-students-2025",
+    type: "article",
+    images: [
+      {
+        url: "https://www.taskguru.online/assets/student-ai-tools-featured.png",
+        width: 1200,
+        height: 630,
+        alt: "AI Tools for Students 2025",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Top Free AI Tools for Students in 2025",
+    description:
+      "Use the best online AI tools for students — paraphraser, PDF tools, OCR, background remover, compressor & more.",
+    images: [
+      "https://www.taskguru.online/assets/student-ai-tools-featured.png",
+    ],
+  },
 };
 
+// ✅ JSON-LD Schema (Google News + AdSense safe)
 const blogSchema = {
   "@context": "https://schema.org",
   "@type": "BlogPosting",
-  "mainEntityOfPage": {
-    "@type": "WebPage",
-    "@id": "https://www.taskguru.online/blog/free-ai-tools-for-students-2025"
+  headline: "Top Free AI Tools for Students in 2025 (No Login Required)",
+  image:
+    "https://www.taskguru.online/assets/student-ai-tools-featured.png",
+  author: {
+    "@type": "Person",
+    name: "Shubham Gautam",
   },
-  "headline": "Top Free AI Tools for Students in 2025 (No Login Required)",
-  "image": "https://www.taskguru.online/assets/student-ai-tools-featured.png",
-  "author": { "@type": "Person", "name": "Shubham Gautam" },
-  "datePublished": "2025-12-01",
-  "dateModified": "2025-12-01",
-  "publisher": {
+  publisher: {
     "@type": "Organization",
-    "name": "TaskGuru",
-    "logo": { "@type": "ImageObject", "url": "https://www.taskguru.online/logo.png" }
-  }
+    name: "TaskGuru",
+    logo: {
+      "@type": "ImageObject",
+      url: "https://www.taskguru.online/logo.png",
+    },
+  },
+  url: "https://www.taskguru.online/blog/free-ai-tools-for-students-2025",
+  datePublished: "2025-12-01",
+  dateModified: "2025-12-01",
+  description:
+    "A complete guide to the best free AI tools for students in 2025.",
 };
 
 export default function FreeAiTools2025Post() {
   return (
     <>
       <Script
-        id="blog-schema-students-2025"
+        id="student-ai-blog-schema"
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(blogSchema) }}
       />
@@ -46,284 +91,217 @@ export default function FreeAiTools2025Post() {
               Top Free AI Tools for Students in 2025 (No Login Required)
             </h1>
             <p className="text-muted-foreground mt-3">
-              Published: December 2025 • Simple tools that make study life easier.
+              Published: December 2025 • Tools that make learning effortless.
             </p>
           </header>
 
           {/* INTRO */}
           <section className="mb-12">
             <p className="text-xl leading-relaxed">
-              Student life is fast. Assignments, projects, notes, submissions—everything demands time,
-              clarity, and clean work. AI makes this easier. Not by replacing effort, but by removing friction.
+              Student life moves fast — notes, projects, assignments,
+              presentations. AI helps you finish work faster, cleaner, and more confidently.
             </p>
 
             <p className="mt-4">
-              TaskGuru offers a set of tools designed to do exactly that.  
-              Clean. Fast. Free. No logins. Just smooth workflows.
+              TaskGuru provides free, fast, no-login tools designed for modern students.  
+              Explore more articles on our{" "}
+              <Link href="/blog" className="text-primary underline">
+                blog library
+              </Link>{" "}
+              or try{" "}
+              <Link href="/tools/text-paraphraser" className="text-primary underline">
+                AI Paraphraser
+              </Link>{" "}
+              instantly.
             </p>
 
             <div className="p-5 rounded-xl bg-primary/10 border border-primary/20 mt-6">
               <p className="text-lg">
-                Think of these tools as a quiet, reliable assistant—helping you finish work faster
-                while keeping everything neat and professional.
+                Think of these tools as your quiet assistant — helping you finish academic tasks with clarity and speed.
               </p>
             </div>
           </section>
 
-          {/* WHY AI SECTION */}
+          {/* WHY AI */}
           <section className="mb-16">
             <h2 className="text-3xl font-bold text-primary">Why AI Matters for Students in 2025</h2>
 
             <p className="mt-3 leading-relaxed">
-              Education is shifting. Digital submissions are standard.  
-              Clean formatting is expected.  
-              And speed is essential.
+              Digital submissions are now the norm — clean formatting and quick output are essential.
             </p>
 
-            <p className="mt-3">AI tools help you:</p>
-
             <ul className="grid grid-cols-1 md:grid-cols-2 gap-3 mt-5">
-              <li>✔ Rewrite complicated paragraphs</li>
-              <li>✔ Extract text instead of retyping</li>
-              <li>✔ Clean up images for presentations</li>
-              <li>✔ Convert and merge PDFs instantly</li>
-              <li>✔ Stay organized with less effort</li>
+              <li>✔ Rewrite and improve clarity</li>
+              <li>✔ Extract text instantly</li>
+              <li>✔ Clean presentation visuals</li>
+              <li>✔ Convert PDFs within seconds</li>
             </ul>
           </section>
 
-          {/* ADVANTAGES SECTION */}
+          {/* ----------- TOOL #1 ----------- */}
           <section className="mb-20">
-            <h2 className="text-3xl font-bold text-primary">Why TaskGuru Stands Out</h2>
-
-            <div className="p-6 mt-5 rounded-xl bg-primary/10 border border-primary/20 space-y-6">
-
-              <div>
-                <h3 className="font-semibold text-lg">✨ No Accounts. No Delays.</h3>
-                <p className="mt-1">
-                  Most websites ask for a sign-up. TaskGuru doesn’t.  
-                  You open a tool. You use it. That’s it.
-                </p>
-              </div>
-
-              <div>
-                <h3 className="font-semibold text-lg">✨ Free. Fully.</h3>
-                <p className="mt-1">
-                  No hidden tiers. No premium walls.  
-                  Everything you see is free to use.
-                </p>
-              </div>
-
-              <div>
-                <h3 className="font-semibold text-lg">✨ Clean Output</h3>
-                <p className="mt-1">
-                  Your files stay yours—without watermarks or branding.
-                </p>
-              </div>
-
-              <div>
-                <h3 className="font-semibold text-lg">✨ Works Everywhere</h3>
-                <p className="mt-1">
-                  Tools load fast on any device, even low-end phones.
-                </p>
-              </div>
-
-              <div>
-                <h3 className="font-semibold text-lg">✨ Built for Students</h3>
-                <p className="mt-1">
-                  Every tool solves a real academic need—notes, PDFs, images, writing… everything.
-                </p>
-              </div>
-
-            </div>
-          </section>
-
-          {/* TOOL 1 */}
-          <section className="mb-20">
-            <h2 className="text-3xl font-bold flex items-center gap-3 text-blue-600 dark:text-blue-400">
+            <h2 className="text-3xl font-bold flex items-center gap-3 text-blue-600">
               <BrainCircuit className="w-7 h-7" /> 1. AI Paraphraser
             </h2>
 
             <p className="mt-3">
-              A quiet upgrade to your writing.  
-              Paste a paragraph, and it comes out clearer, cleaner, and more academic.
+              Transform confusing paragraphs into simple, academic-ready writing.
             </p>
 
-            <div className="mt-5 p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg border-l-4 border-blue-500">
-              <h3 className="font-semibold mb-2">Best for</h3>
-              <ul className="space-y-1">
-                <li>• Assignments</li>
-                <li>• Essays</li>
-                <li>• Project descriptions</li>
-                <li>• Notes made readable</li>
-              </ul>
-            </div>
-
-            <Link href="https://www.taskguru.online/tools/text-paraphraser"
-              className="inline-flex items-center mt-4 text-primary font-medium hover:underline">
+            <Link
+              href="/tools/text-paraphraser"
+              className="inline-flex items-center mt-4 text-primary font-medium hover:underline"
+            >
               Try Paraphraser <ArrowRight className="w-4 h-4 ml-1" />
             </Link>
           </section>
 
-          {/* TOOL 2 */}
+          {/* ----------- TOOL #2 ----------- */}
           <section className="mb-20">
-            <h2 className="text-3xl font-bold flex items-center gap-3 text-teal-600 dark:text-teal-400">
+            <h2 className="text-3xl font-bold flex items-center gap-3 text-teal-600">
               <ScanText className="w-7 h-7" /> 2. Image to Text (OCR)
             </h2>
 
-            <p className="mt-3">
-              Take a photo of your notes. Upload it. Get editable text.  
-              Simple. Quietly powerful.
-            </p>
+            <p className="mt-3">Upload a photo — get editable text instantly.</p>
 
-            <div className="mt-5 p-4 bg-teal-50 dark:bg-teal-900/20 rounded-lg border-l-4 border-teal-500">
-              <h3 className="font-semibold mb-2">Perfect when</h3>
-              <ul className="space-y-1">
-                <li>• You want digital notes</li>
-                <li>• You captured a board photo</li>
-                <li>• You don’t want to type manually</li>
-                <li>• You’re revising quickly</li>
-              </ul>
-            </div>
-
-            <Link href="https://www.taskguru.online/tools/image-to-text"
-              className="inline-flex items-center mt-4 text-primary font-medium hover:underline">
+            <Link
+              href="/tools/image-to-text"
+              className="inline-flex items-center mt-4 text-primary font-medium hover:underline"
+            >
               Extract Text <ArrowRight className="w-4 h-4 ml-1" />
             </Link>
           </section>
 
-          {/* TOOL 3 */}
+          {/* ----------- TOOL #3 ----------- */}
           <section className="mb-20">
-            <h2 className="text-3xl font-bold flex items-center gap-3 text-indigo-600 dark:text-indigo-400">
+            <h2 className="text-3xl font-bold flex items-center gap-3 text-indigo-600">
               <Crop className="w-7 h-7" /> 3. Background Remover
             </h2>
 
             <p className="mt-3">
-              Clean, distraction-free visuals. Ideal for presentations, project covers, or creative work.  
-              One upload, one clean PNG.
+              Get clean PNGs for presentations, projects, and documents.
             </p>
 
-            <div className="mt-5 p-4 bg-indigo-50 dark:bg-indigo-900/20 rounded-lg border-l-4 border-indigo-500">
-              <h3 className="font-semibold mb-2">Great for</h3>
-              <ul className="space-y-1">
-                <li>• Presentation slides</li>
-                <li>• Profile/ID photos</li>
-                <li>• Science diagrams</li>
-                <li>• Creative projects</li>
-              </ul>
-            </div>
-
-            <Link href="https://www.taskguru.online/tools/background-remover"
-              className="inline-flex items-center mt-4 text-primary font-medium hover:underline">
+            <Link
+              href="/tools/background-remover"
+              className="inline-flex items-center mt-4 text-primary font-medium hover:underline"
+            >
               Remove Background <ArrowRight className="w-4 h-4 ml-1" />
             </Link>
           </section>
 
-          {/* TOOL 4 */}
+          {/* ----------- TOOL #4 ----------- */}
           <section className="mb-20">
-            <h2 className="text-3xl font-bold flex items-center gap-3 text-green-600 dark:text-green-400">
+            <h2 className="text-3xl font-bold flex items-center gap-3 text-green-600">
               <Minimize className="w-7 h-7" /> 4. Image Compressor
             </h2>
 
-            <p className="mt-3">
-              When a portal rejects your image because it’s “too large,” this tool fixes it—without killing quality.
-            </p>
+            <p className="mt-3">Reduce file size without losing quality.</p>
 
-            <div className="mt-5 p-4 bg-green-50 dark:bg-green-900/20 rounded-lg border-l-4 border-green-600">
-              <h3 className="font-semibold mb-2">Useful for</h3>
-              <ul className="space-y-1">
-                <li>• Form uploads</li>
-                <li>• Project submissions</li>
-                <li>• Email attachments</li>
-                <li>• PDFs with images</li>
-              </ul>
-            </div>
-
-            <Link href="https://www.taskguru.online/tools/image-compressor"
-              className="inline-flex items-center mt-4 text-primary font-medium hover:underline">
+            <Link
+              href="/tools/image-compressor"
+              className="inline-flex items-center mt-4 text-primary font-medium hover:underline"
+            >
               Compress Image <ArrowRight className="w-4 h-4 ml-1" />
             </Link>
           </section>
 
-          {/* TOOL 5 */}
+          {/* ----------- TOOL #5 ----------- */}
           <section className="mb-20">
-            <h2 className="text-3xl font-bold flex items-center gap-3 text-red-600 dark:text-red-400">
+            <h2 className="text-3xl font-bold flex items-center gap-3 text-red-600">
               <FileText className="w-7 h-7" /> 5. PDF to Word
             </h2>
 
-            <p className="mt-3">
-              PDFs don’t bend easily. Word files do. Convert instantly and edit however you want.
-            </p>
+            <p className="mt-3">Convert uneditable PDFs into Word files instantly.</p>
 
-            <div className="mt-5 p-4 bg-red-50 dark:bg-red-900/20 rounded-lg border-l-4 border-red-500">
-              <h3 className="font-semibold mb-2">You can</h3>
-              <ul className="space-y-1">
-                <li>• Fix mistakes</li>
-                <li>• Modify assignments</li>
-                <li>• Add missing details</li>
-                <li>• Edit teacher-provided material</li>
-              </ul>
-            </div>
-
-            <Link href="https://www.taskguru.online/tools/pdf-to-word"
-              className="inline-flex items-center mt-4 text-primary font-medium hover:underline">
+            <Link
+              href="/tools/pdf-to-word"
+              className="inline-flex items-center mt-4 text-primary font-medium hover:underline"
+            >
               Convert PDF <ArrowRight className="w-4 h-4 ml-1" />
             </Link>
           </section>
 
-          {/* TOOL 6 */}
+          {/* ----------- TOOL #6 ----------- */}
           <section className="mb-20">
-            <h2 className="text-3xl font-bold flex items-center gap-3 text-purple-600 dark:text-purple-400">
+            <h2 className="text-3xl font-bold flex items-center gap-3 text-purple-600">
               <Combine className="w-7 h-7" /> 6. Merge PDF
             </h2>
 
-            <p className="mt-3">
-              When your notes live in multiple PDFs, merge them into one clean document.  
-              Simple, organized, ready for revision.
-            </p>
+            <p className="mt-3">Combine multiple PDFs into one organized file.</p>
 
-            <div className="mt-5 p-4 bg-purple-50 dark:bg-purple-900/20 rounded-lg border-l-4 border-purple-500">
-              <h3 className="font-semibold mb-2">Ideal for</h3>
-              <ul className="space-y-1">
-                <li>• Chapter bundles</li>
-                <li>• Multi-page assignments</li>
-                <li>• Combined class notes</li>
-                <li>• Organized exam prep</li>
-              </ul>
-            </div>
-
-            <Link href="https://www.taskguru.online/tools/merge-pdf"
-              className="inline-flex items-center mt-4 text-primary font-medium hover:underline">
+            <Link
+              href="/tools/merge-pdf"
+              className="inline-flex items-center mt-4 text-primary font-medium hover:underline"
+            >
               Merge PDFs <ArrowRight className="w-4 h-4 ml-1" />
             </Link>
           </section>
 
-          {/* FAQ SECTION */}
+          {/* ----------- TOOL #7 (NEW) ----------- */}
           <section className="mb-20">
+            <h2 className="text-3xl font-bold flex items-center gap-3 text-orange-600">
+              <FileText className="w-7 h-7" /> 7. Image to PDF
+            </h2>
+
+            <p className="mt-3">
+              Convert photos, notes, diagrams or scanned pages into a clean PDF — ideal for homework and submissions.
+            </p>
+
+            <div className="mt-5 p-4 bg-orange-50 dark:bg-orange-900/20 rounded-lg border-l-4 border-orange-500">
+              <h3 className="font-semibold mb-2">Best uses</h3>
+              <ul className="space-y-1">
+                <li>• Convert book pages to PDF</li>
+                <li>• Submit handwritten assignments</li>
+                <li>• Combine multiple photos into one PDF</li>
+                <li>• Digital record keeping</li>
+              </ul>
+            </div>
+
+            <Link
+              href="/tools/image-to-pdf"
+              className="inline-flex items-center mt-4 text-primary font-medium hover:underline"
+            >
+              Convert Images to PDF <ArrowRight className="w-4 h-4 ml-1" />
+            </Link>
+          </section>
+
+          {/* AUTHOR BIO (Required for AdSense E-E-A-T compliance) */}
+          <section className="p-6 rounded-xl bg-gray-100 dark:bg-gray-800 mt-10 border border-gray-300 dark:border-gray-700">
+            <h3 className="text-xl font-bold mb-3">About the Author</h3>
+            <p>
+              This article is written by <strong>Shubham Gautam</strong>, creator of TaskGuru — 
+              a platform offering free productivity and AI tools for students and creators. 
+              Shubham works on simplifying digital workflows using clean, fast, no-login utilities.
+            </p>
+          </section>
+
+          {/* FAQ */}
+          <section className="mb-20 mt-14">
             <h2 className="text-3xl font-bold text-primary">FAQ</h2>
 
             <div className="space-y-6 mt-6">
-              <p><strong>Are TaskGuru tools free?</strong><br/>Yes. Fully free.</p>
-              <p><strong>Do they work on mobile?</strong><br/>Yes. Smooth and fast.</p>
-              <p><strong>Are files stored?</strong><br/>No. Everything is processed instantly.</p>
-              <p><strong>Who are these tools for?</strong><br/>Students, teachers, creators, and anyone who works with PDFs or images.</p>
+              <p><strong>Are TaskGuru tools free?</strong><br />Yes. Fully free.</p>
+              <p><strong>Do they work on mobile?</strong><br />Yes. Fast and smooth.</p>
+              <p><strong>Are files stored?</strong><br />No. Everything is processed instantly on the client side.</p>
+              <p><strong>Who can use these tools?</strong><br />Students, teachers, office users, and creators.</p>
             </div>
           </section>
 
-          {/* CTA SECTION */}
+          {/* CTA */}
           <section className="p-6 bg-primary/10 rounded-xl border-l-4 border-primary mb-8">
-            <h3 className="text-2xl font-bold mb-3 flex items-center gap-2">
-              <Zap className="w-6 h-6" /> Work Smarter with TaskGuru
+            <h3 className="text-2xl font-bold flex items-center gap-2 mb-3">
+              <Zap className="w-6 h-6" /> Explore More Tools
             </h3>
-            <p className="mb-4 leading-relaxed">
-              Simple tools. No friction. No limits.  
-              Designed to make your academic workflow lighter and cleaner.
+            <p className="leading-relaxed mb-4">
+              Free, fast & powerful tools designed to make your academic workflow easier.
             </p>
 
             <Link
-              href="https://www.taskguru.online/"
-              className="inline-flex items-center justify-center px-6 py-3 rounded-md shadow-sm text-white bg-primary hover:bg-indigo-700 transition duration-300"
+              href="/"
+              className="inline-flex items-center justify-center px-6 py-3 rounded-md text-white bg-primary hover:bg-indigo-700 transition"
             >
-              Explore All Tools <ArrowRight className="w-5 h-5 ml-2" />
+              Visit TaskGuru <ArrowRight className="w-5 h-5 ml-2" />
             </Link>
           </section>
 
