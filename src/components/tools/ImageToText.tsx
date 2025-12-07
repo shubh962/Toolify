@@ -50,7 +50,7 @@ export default function ImageToText() {
   };
 
   // ------------------------
-  // SUBMIT / OCR EXECUTION
+  // SUBMIT / OCR EXECUTION - FIXED
   // ------------------------
   const handleSubmit = async () => {
     if (!image) {
@@ -66,26 +66,24 @@ export default function ImageToText() {
       setIsLoading(true);
       setExtractedText('');
 
-      console.log("📤 Sending image to server action…");
-
-      // 🔥 FIX: Correct Next.js 15 server action invocation
       const result = await serverHandleImageToText(image);
-
-      console.log("📥 Server returned:", result);
 
       setIsLoading(false);
 
-      if (result?.success && result.data?.extractedText) {
+      // 🔥 FIX: सफलता की शर्त सख्त करें और खाली टेक्स्ट को विफलता मानें
+      if (result?.success && result.data?.extractedText && result.data.extractedText.trim().length > 0) {
         setExtractedText(result.data.extractedText);
-
         toast({
           title: "Success!",
           description: "Text extracted successfully.",
         });
       } else {
+        // यदि success: true है लेकिन टेक्स्ट खाली है (जैसे blank image)
+        const errorMessage = result?.error || "OCR failed to recognize any text. Try a clearer image.";
+
         toast({
           title: "Error",
-          description: result?.error || "OCR failed.",
+          description: errorMessage,
           variant: "destructive",
         });
       }
@@ -95,7 +93,7 @@ export default function ImageToText() {
 
       toast({
         title: "Unexpected Error",
-        description: "OCR process failed unexpectedly.",
+        description: "OCR process failed unexpectedly. Check server logs.",
         variant: "destructive",
       });
     }
