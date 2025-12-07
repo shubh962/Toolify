@@ -22,14 +22,14 @@ const ImageToTextOcrOutputSchema = z.object({
 export type ImageToTextOcrOutput = z.infer<typeof ImageToTextOcrOutputSchema>;
 
 // -----------------------
-// Prompt (Inline Base64 Media)
+// Prompt (Inline image)
 // -----------------------
 const prompt = ai.definePrompt({
   name: "imageToTextOcrPrompt",
   input: { schema: ImageToTextOcrInputSchema },
   output: { schema: ImageToTextOcrOutputSchema },
   prompt: `
-You are an OCR engine. Extract **only readable text** from the image below.
+You are an OCR engine. Extract all readable text from the image below. Do NOT imagine text.
 
 {{#image}}
 {{photoDataUri}}
@@ -40,18 +40,34 @@ Extracted Text:
 });
 
 // -----------------------
-// FLOW (NO ATTACHMENTS)
+// FLOW WITH FULL LOGGING
 // -----------------------
-export async function imageToTextOcr(input: ImageToTextOcrInput) {
+export async function imageToTextOcr(input: ImageToTextOcrInput): Promise<ImageToTextOcrOutput> {
+  console.log("🟦 [OCR] Starting OCR Flow...");
+  console.log("🟦 [OCR] Received Base64 length:", input.photoDataUri?.length);
+
+  if (!input.photoDataUri?.startsWith("data:image/")) {
+    console.error("❌ [OCR] Invalid Data URI format:", input.photoDataUri.slice(0, 50));
+  }
+
   try {
-    // Direct inline Base64 image inside prompt
-    const { output } = await prompt(input);
+    console.log("🟦 [OCR] Sending request to Gemini Vision...");
+
+    const response = await prompt(input);
+
+    console.log("🟩 [OCR] Raw Model Response:", JSON.stringify(response, null, 2));
+
+    if (!response?.output?.extractedText) {
+      console.warn("⚠️ [OCR] Model returned no text.");
+    }
 
     return {
-      extractedText: output?.extractedText ?? "",
+      extractedText: response?.output?.extractedText || "",
     };
-  } catch (error) {
-    console.error("OCR error:", error);
-    throw error;
+  } catch (error: any) {
+    console.error("❌ [OCR] Gemini Vision ERROR:", error);
+    console.error("❌ [OCR] Full Error Details:", JSON.stringify(error, null, 2));
+
+    throw new Error("Gemini OCR failed: " + (error?.message || "Unknown error"));
   }
 }
