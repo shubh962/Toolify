@@ -4,6 +4,7 @@ export const metadata = {
   title: "Image to PDF Converter – Free JPG/PNG to PDF Tool | Toolify",
   description:
     "Convert JPG and PNG images into high-quality PDF files instantly using Toolify’s free Image to PDF Converter. Fast, secure, no login required, and fully browser-based.",
+  robots: "index, follow",
   keywords: [
     "image to pdf",
     "jpg to pdf",
@@ -14,7 +15,6 @@ export const metadata = {
     "toolify image to pdf",
     "free image converter",
   ],
-  robots: "index, follow",
   alternates: {
     canonical: "https://www.taskguru.online/tools/image-to-pdf",
   },
