@@ -1,76 +1,77 @@
 'use server';
 
+/**
+ * @fileOverview An image-to-text OCR AI agent using Gemini Vision.
+ *
+ * Gemini Vision requires image to be passed via `attachments`.
+ */
+
 import { ai } from "@/ai/genkit";
 import { z } from "genkit";
 
-// ---------------------------
-// INPUT / OUTPUT SCHEMAS
-// ---------------------------
+// -------------------------
+// INPUT VALIDATION
+// -------------------------
 const ImageToTextOcrInputSchema = z.object({
   photoDataUri: z.string().describe(
-    "A Base64 data URI: 'data:image/png;base64,...'"
+    "A Base64 encoded image. Format: data:image/png;base64,xxx"
   ),
 });
-export type ImageToTextOcrInput = z.infer<typeof ImageToTextOcrInputSchema>;
 
+export type ImageToTextOcrInput = z.infer<
+  typeof ImageToTextOcrInputSchema
+>;
+
+// -------------------------
+// OUTPUT VALIDATION
+// -------------------------
 const ImageToTextOcrOutputSchema = z.object({
-  extractedText: z.string().describe("Text extracted from the image"),
+  extractedText: z.string().describe("Text extracted from the image."),
 });
-export type ImageToTextOcrOutput = z.infer<typeof ImageToTextOcrOutputSchema>;
 
-// ---------------------------
-// MAIN OCR FUNCTION
-// ---------------------------
-export async function imageToTextOcr(
-  input: ImageToTextOcrInput
-): Promise<ImageToTextOcrOutput> {
-  return imageToTextOcrFlow(input);
-}
+export type ImageToTextOcrOutput = z.infer<
+  typeof ImageToTextOcrOutputSchema
+>;
 
-// ---------------------------
-// PROMPT (NEW GEMINI FORMAT)
-// ---------------------------
+// -------------------------
+// PROMPT
+// -------------------------
 const prompt = ai.definePrompt({
   name: "imageToTextOcrPrompt",
   input: { schema: ImageToTextOcrInputSchema },
   output: { schema: ImageToTextOcrOutputSchema },
-  prompt:
-    `You are an expert OCR engine. Extract all readable text from the image. 
-Return only the extracted text, no explanation.`,
+
+  prompt: `
+You are an OCR engine. Extract ONLY readable text from this image. 
+
+Image: {{media url=photoDataUri}}
+
+Extracted Text:
+`,
 });
 
-// ---------------------------
-// FLOW (WITH NEW IMAGE FORMAT)
-// ---------------------------
-const imageToTextOcrFlow = ai.defineFlow(
-  {
-    name: "imageToTextOcrFlow",
-    inputSchema: ImageToTextOcrInputSchema,
-    outputSchema: ImageToTextOcrOutputSchema,
-  },
-  async (input) => {
-    const { photoDataUri } = input;
+// -------------------------
+// FLOW WITH ATTACHMENTS
+// -------------------------
+export async function imageToTextOcr(input: ImageToTextOcrInput) {
+  const { photoDataUri } = input;
 
-    // Clean Base64 for AI input
-    const base64 = photoDataUri.split(",")[1];
+  // Extract base64
+  const base64 = photoDataUri.split(",")[1];
 
-    const { output } = await prompt(
-      {
-        photoDataUri,
-      },
-      {
-        attachments: [
-          {
-            name: "inputImage",
-            mimeType: "image/png",
-            data: Buffer.from(base64, "base64"),
-          },
-        ],
-      }
-    );
+  const mime =
+    photoDataUri.startsWith("data:image/png") ? "image/png" : "image/jpeg";
 
-    return {
-      extractedText: output?.extractedText ?? "",
-    };
-  }
-);
+  const attachment = {
+    name: "uploaded_image",
+    mimeType: mime,
+    data: Buffer.from(base64, "base64"),
+  };
+
+  // Run Gemini with attachments
+  const { output } = await prompt(input, {
+    attachments: [attachment],
+  });
+
+  return output!;
+}
