@@ -7,51 +7,36 @@ const ImageToTextOcrInputSchema = z.object({
   photoDataUri: z.string(),
 });
 
-export type ImageToTextOcrInput = z.infer<typeof ImageToTextOcrInputSchema>;
-
 const ImageToTextOcrOutputSchema = z.object({
   extractedText: z.string(),
 });
 
+export type ImageToTextOcrInput = z.infer<typeof ImageToTextOcrInputSchema>;
 export type ImageToTextOcrOutput = z.infer<typeof ImageToTextOcrOutputSchema>;
 
-// ------------------------------
-// FIXED PROMPT WITH MEDIA INPUT
-// ------------------------------
-const prompt = ai.definePrompt({
-  name: "imageToTextOcrPrompt",
-  input: { schema: ImageToTextOcrInputSchema },
-  output: { schema: ImageToTextOcrOutputSchema },
-  prompt: `
-You are an expert OCR system. Extract ALL readable text from the provided image.
+export async function imageToTextOcr(input: ImageToTextOcrInput): Promise<ImageToTextOcrOutput> {
+  const { photoDataUri } = input;
 
-Image: {{ media photoDataUri }}
+  // 🔥 Extract base64 + detect type
+  const base64 = photoDataUri.split(",")[1];
+  const mimeType = photoDataUri.includes("png") ? "image/png" : "image/jpeg";
 
-Return only raw extracted text.
-`,
-});
+  const prompt = `
+Extract all readable text from this image.
+Return plain text only. No formatting.
+`;
 
-// ------------------------------
-// FIXED FLOW FOR GEMINI
-// ------------------------------
-export const imageToTextOcr = ai.defineFlow(
-  {
-    name: "imageToTextOcrFlow",
-    inputSchema: ImageToTextOcrInputSchema,
-    outputSchema: ImageToTextOcrOutputSchema,
-  },
-  async (input) => {
-    try {
-      console.log("🔥 OCR FLOW RECEIVED IMAGE LENGTH:", input.photoDataUri.length);
+  const result = await ai.run("gemini-pro-vision", {
+    prompt,
+    media: [
+      {
+        mimeType,
+        data: Buffer.from(base64, "base64")
+      }
+    ]
+  });
 
-      const { output } = await prompt(input);
-
-      console.log("🔥 OCR FLOW OUTPUT:", output);
-
-      return output!;
-    } catch (err) {
-      console.error("❌ OCR FLOW ERROR:", err);
-      throw new Error("OCR_MODEL_FAILED");
-    }
-  }
-);
+  return {
+    extractedText: result.text || ""
+  };
+}
