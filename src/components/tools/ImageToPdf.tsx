@@ -1,28 +1,4 @@
-// ⭐ SERVER PART (Required for Google Indexing)
-export const metadata = {
-  title: "Image to PDF Converter Online | Free JPG/PNG to PDF Tool - TaskGuru",
-  description:
-    "Convert JPG, PNG, and photos into high-quality A4 PDF instantly. 100% free, secure, no login, no watermark. Works perfectly on mobile.",
-  robots: "index, follow",
-  alternates: {
-    canonical: "https://www.taskguru.online/tools/image-to-pdf",
-  },
-  openGraph: {
-    title: "Free Image to PDF Converter | JPG to PDF Online - TaskGuru",
-    description:
-      "Convert images into PDF instantly — secure, fast, free, and works locally in your browser.",
-    url: "https://www.taskguru.online/tools/image-to-pdf",
-    images: [
-      {
-        url: "https://www.taskguru.online/assets/image-to-pdf-og.png",
-        width: 1200,
-        height: 630,
-      },
-    ],
-  },
-};
-
-"use client"; // ⭐ CLIENT MODE STARTS
+"use client";  // ⭐ MUST BE THE FIRST LINE — NOTHING ABOVE THIS
 
 import { useState, useRef, useEffect } from "react";
 import Script from "next/script";
@@ -49,36 +25,33 @@ import {
   Highlighter,
 } from "lucide-react";
 
-// ⭐ JSON-LD SCHEMA for GOOGLE
+// ⭐ SCHEMA (AFTER "use client")
 const schemaData = {
   "@context": "https://schema.org",
   "@type": "WebApplication",
-  name: "Image to PDF Converter - TaskGuru",
+  name: "Image to PDF Converter - Toolify",
   description:
-    "Convert images (JPG, PNG, WEBP) to PDF instantly. No login. No watermark.",
+    "Convert JPG and PNG images to clean A4 PDFs instantly. Free, secure, no login.",
   url: "https://www.taskguru.online/tools/image-to-pdf",
   applicationCategory: "Utility",
   operatingSystem: "All",
 };
 
-// ⭐ IMAGE LOADER (ORIGINAL LOGIC — UNTOUCHED)
-const loadSafeCanvas = (
-  file: File
-): Promise<{ preview: string; canvas: HTMLCanvasElement }> => {
-  return new Promise((resolve, reject) => {
+// ⭐ SAFE CANVAS LOADER
+const loadSafeCanvas = (file) =>
+  new Promise((resolve, reject) => {
     const reader = new FileReader();
-
-    reader.onload = (event) => {
+    reader.onload = (ev) => {
       const img = new Image();
       img.onload = () => {
-        let w = img.width;
-        let h = img.height;
+        let w = img.width,
+          h = img.height;
 
         const MAX_SIDE = 1600;
         const scale = Math.min(MAX_SIDE / w, MAX_SIDE / h, 1);
 
-        w = Math.round(w * scale);
-        h = Math.round(h * scale);
+        w *= scale;
+        h *= scale;
 
         const canvas = document.createElement("canvas");
         canvas.width = w;
@@ -89,48 +62,39 @@ const loadSafeCanvas = (
 
         ctx.drawImage(img, 0, 0, w, h);
 
-        const preview = canvas.toDataURL("image/jpeg", 0.9);
-        resolve({ preview, canvas });
+        resolve({ preview: canvas.toDataURL("image/jpeg", 0.9), canvas });
       };
-
-      img.onerror = () => reject("Failed decoding image");
-      img.src = event.target?.result as string;
+      img.onerror = () => reject("Decode error");
+      img.src = ev.target.result;
     };
-
-    reader.onerror = () => reject("File reading failed");
+    reader.onerror = () => reject("Read error");
     reader.readAsDataURL(file);
   });
-};
 
-// ⭐ MAIN PAGE COMPONENT
+// ⭐ MAIN COMPONENT
 export default function ImageToPdf() {
-  const fileInputRef = useRef<HTMLInputElement>(null);
-
-  const [preview, setPreview] = useState<string | null>(null);
-  const [canvas, setCanvas] = useState<HTMLCanvasElement | null>(null);
-  const [fileName, setFileName] = useState<string>("");
-  const [pdfUrl, setPdfUrl] = useState<string | null>(null);
+  const fileRef = useRef(null);
+  const [preview, setPreview] = useState(null);
+  const [canvas, setCanvas] = useState(null);
+  const [fileName, setFileName] = useState("");
+  const [pdfUrl, setPdfUrl] = useState(null);
   const [loading, setLoading] = useState(false);
 
-  const MAX_FILE_SIZE = 50 * 1024 * 1024;
-
   useEffect(() => {
-    return () => {
-      if (pdfUrl) URL.revokeObjectURL(pdfUrl);
-    };
+    return () => pdfUrl && URL.revokeObjectURL(pdfUrl);
   }, [pdfUrl]);
 
-  // ⭐ UPLOAD HANDLER — UNTOUCHED
-  const handleUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+  // ⭐ HANDLE UPLOAD
+  const handleUpload = async (e) => {
     const file = e.target.files?.[0];
     if (!file) return;
     if (!file.type.startsWith("image/")) return alert("Only images allowed");
-    if (file.size > MAX_FILE_SIZE) return alert("Max 50MB allowed");
+    if (file.size > 50 * 1024 * 1024) return alert("Max 50MB allowed");
 
     setLoading(true);
     try {
-      const name = file.name.replace(/\.[^/.]+$/, "");
-      setFileName(name);
+      const base = file.name.replace(/\.[^/.]+$/, "");
+      setFileName(base);
 
       const { preview, canvas } = await loadSafeCanvas(file);
       setPreview(preview);
@@ -139,124 +103,116 @@ export default function ImageToPdf() {
       if (pdfUrl) URL.revokeObjectURL(pdfUrl);
       setPdfUrl(null);
     } catch {
-      alert("Failed to upload");
+      alert("Upload failed");
     }
     setLoading(false);
   };
 
-  // ⭐ PDF CONVERSION — UNTOUCHED
+  // ⭐ CONVERT TO PDF
   const convertToPdf = async () => {
     if (!canvas) return;
 
     setLoading(true);
     try {
-      const pdfDoc = await PDFDocument.create();
-      const A4_W = 595.28;
-      const A4_H = 841.89;
+      const pdf = await PDFDocument.create();
+      const A4_W = 595.28,
+        A4_H = 841.89;
 
-      const imgBlob: Blob = await new Promise((res) =>
-        canvas.toBlob((b) => res(b!), "image/jpeg", 0.9)
+      const imgBlob = await new Promise((res) =>
+        canvas.toBlob((b) => res(b), "image/jpeg", 0.9)
       );
-
       const bytes = new Uint8Array(await imgBlob.arrayBuffer());
-      const embed = await pdfDoc.embedJpg(bytes);
+      const embedded = await pdf.embedJpg(bytes);
 
-      const iw = canvas.width;
-      const ih = canvas.height;
-      const scale = Math.min(A4_W / iw, A4_H / ih, 1);
+      const scale = Math.min(A4_W / canvas.width, A4_H / canvas.height);
+      const w = canvas.width * scale;
+      const h = canvas.height * scale;
 
-      const w = iw * scale;
-      const h = ih * scale;
-
-      const page = pdfDoc.addPage([A4_W, A4_H]);
-      page.drawImage(embed, {
+      const page = pdf.addPage([A4_W, A4_H]);
+      page.drawImage(embedded, {
         x: (A4_W - w) / 2,
         y: (A4_H - h) / 2,
         width: w,
         height: h,
       });
 
-      const pdfBytes = await pdfDoc.save();
+      const pdfBytes = await pdf.save();
       const blob = new Blob([pdfBytes], { type: "application/pdf" });
 
       if (pdfUrl) URL.revokeObjectURL(pdfUrl);
-      const url = URL.createObjectURL(blob);
-      setPdfUrl(url);
+      setPdfUrl(URL.createObjectURL(blob));
     } catch {
-      alert("Conversion failed");
+      alert("PDF conversion failed");
     }
-
     setLoading(false);
   };
 
-  // ⭐ RESET — UNTOUCHED
-  const handleReset = () => {
+  // ⭐ RESET
+  const reset = () => {
     setPreview(null);
     setCanvas(null);
     setFileName("");
     if (pdfUrl) URL.revokeObjectURL(pdfUrl);
     setPdfUrl(null);
-    if (fileInputRef.current) fileInputRef.current.value = "";
+    if (fileRef.current) fileRef.current.value = "";
   };
 
-  // ⭐ SMALL TOOL CARD COMPONENT
-  const ToolLinkCard = ({ icon: Icon, title, description, href, ctaText }) => (
+  // ⭐ TOOL CARD
+  const ToolCard = ({ icon: Icon, title, desc, href, cta }) => (
     <Link href={href}>
-      <div className="p-5 border rounded-xl hover:shadow-lg transition cursor-pointer bg-white dark:bg-gray-900">
+      <div className="p-4 border rounded-xl hover:shadow-md transition cursor-pointer bg-white dark:bg-gray-900">
         <div className="flex items-start gap-3">
           <div className="p-3 bg-primary/10 rounded-full">
-            <Icon className="w-6 h-6 text-primary" />
+            <Icon className="text-primary w-5 h-5" />
           </div>
           <div>
             <h3 className="font-bold">{title}</h3>
-            <p className="text-xs text-muted-foreground">{description}</p>
+            <p className="text-xs text-muted-foreground">{desc}</p>
           </div>
         </div>
-        <div className="mt-3 text-primary flex items-center text-sm">
-          {ctaText} <MoveRight className="w-4 h-4 ml-1" />
+        <div className="mt-3 text-sm text-primary flex items-center">
+          {cta} <MoveRight className="w-4 h-4 ml-1" />
         </div>
       </div>
     </Link>
   );
 
-  // ⭐ PREMIUM REDESIGNED UI (FULLY WORKING)
   return (
     <>
       <Script
-        type="application/ld+json"
         id="schema-image-to-pdf"
+        type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaData) }}
       />
 
-      <div className="pt-10 space-y-14">
+      <div className="space-y-16 py-12">
 
-        {/* ⭐ HERO */}
+        {/* HERO */}
         <section className="text-center space-y-3 max-w-3xl mx-auto px-4">
           <h1 className="text-4xl font-extrabold text-primary">
             Image to PDF Converter
           </h1>
           <p className="text-muted-foreground text-lg">
-            Convert your JPG, PNG, or scanned notes into clean PDFs instantly — free & secure.
+            Convert JPG & PNG images to clean A4 PDF instantly — Free & Secure.
           </p>
         </section>
 
-        {/* ⭐ TOOL CARD */}
+        {/* TOOL CARD */}
         <Card className="max-w-5xl mx-auto shadow-xl rounded-xl">
           <CardContent className="p-8">
 
             {!preview ? (
-              // ⭐ Upload Box
               <div
-                onClick={() => fileInputRef.current?.click()}
-                className="border-2 border-dashed rounded-2xl p-10 text-center cursor-pointer hover:border-primary transition"
+                onClick={() => fileRef.current?.click()}
+                className="p-10 border-2 border-dashed rounded-xl text-center cursor-pointer hover:border-primary transition"
               >
                 <Upload className="w-12 h-12 mx-auto text-primary mb-4" />
                 <p className="text-lg font-semibold">Upload Image</p>
                 <p className="text-sm text-muted-foreground">
-                  JPG, PNG • Max Size 50MB
+                  JPG, PNG • Max 50MB
                 </p>
                 <Input
-                  ref={fileInputRef}
+                  ref={fileRef}
                   type="file"
                   accept="image/*"
                   className="hidden"
@@ -264,14 +220,13 @@ export default function ImageToPdf() {
                 />
               </div>
             ) : (
-              // ⭐ After Upload
               <div className="grid md:grid-cols-2 gap-8">
 
                 <div>
                   <h3 className="font-semibold text-center mb-2">
                     Preview – {fileName}
                   </h3>
-                  <div className="border rounded-xl bg-muted flex items-center justify-center min-h-[300px]">
+                  <div className="border rounded-xl min-h-[300px] flex items-center justify-center bg-muted">
                     <img src={preview} className="max-h-[360px] object-contain" />
                   </div>
                 </div>
@@ -285,18 +240,18 @@ export default function ImageToPdf() {
                     <ul className="text-xs text-muted-foreground list-disc pl-4">
                       <li>Output: A4 PDF</li>
                       <li>Secure client-side processing</li>
+                      <li>No watermark</li>
                     </ul>
                   </div>
                 </div>
 
               </div>
             )}
-
           </CardContent>
 
           {preview && (
             <CardFooter className="flex justify-center gap-4 p-6 bg-muted/40 rounded-b-xl">
-              <Button variant="outline" onClick={handleReset}>
+              <Button variant="outline" onClick={reset}>
                 <RotateCcw className="mr-2 h-4 w-4" /> Reset
               </Button>
 
@@ -305,7 +260,7 @@ export default function ImageToPdf() {
                   {loading ? (
                     <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                   ) : (
-                    <>Convert to PDF</>
+                    "Convert to PDF"
                   )}
                 </Button>
               ) : (
@@ -319,54 +274,54 @@ export default function ImageToPdf() {
           )}
         </Card>
 
-        {/* ⭐ MORE TOOLS */}
+        {/* MORE TOOLS */}
         <section className="max-w-6xl mx-auto px-4">
           <h2 className="text-3xl font-bold text-center mb-5 flex items-center justify-center gap-2">
             <Sparkles className="w-6 h-6 text-primary" /> Explore More Tools
           </h2>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <ToolLinkCard
+            <ToolCard
               icon={FileImage}
               title="Image Compressor"
-              description="Reduce image size without losing quality."
+              desc="Reduce image size without losing quality."
               href="/tools/image-compressor"
-              ctaText="Compress"
+              cta="Compress"
             />
-            <ToolLinkCard
+            <ToolCard
               icon={Scissors}
               title="Background Remover"
-              description="Remove background instantly with AI."
+              desc="Remove background instantly using AI."
               href="/tools/background-remover"
-              ctaText="Remove BG"
+              cta="Remove BG"
             />
-            <ToolLinkCard
+            <ToolCard
               icon={Merge}
               title="Merge PDF"
-              description="Combine multiple PDFs into one."
+              desc="Combine multiple PDFs into one."
               href="/tools/merge-pdf"
-              ctaText="Merge"
+              cta="Merge"
             />
-            <ToolLinkCard
+            <ToolCard
               icon={FileTextIcon}
               title="PDF to Word"
-              description="Convert PDF into Word file."
+              desc="Convert PDF files into Word documents."
               href="/tools/pdf-to-word"
-              ctaText="Convert"
+              cta="Convert"
             />
-            <ToolLinkCard
+            <ToolCard
               icon={ImageIcon}
               title="Image to Text OCR"
-              description="Extract text from images."
+              desc="Extract text from scanned pages."
               href="/tools/image-to-text"
-              ctaText="Extract"
+              cta="Extract"
             />
-            <ToolLinkCard
+            <ToolCard
               icon={Highlighter}
               title="AI Paraphraser"
-              description="Rewrite text clearly."
+              desc="Rewrite text instantly."
               href="/tools/text-paraphraser"
-              ctaText="Rewrite"
+              cta="Rewrite"
             />
           </div>
         </section>
