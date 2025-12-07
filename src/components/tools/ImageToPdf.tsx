@@ -131,7 +131,7 @@ export default function ImageToPdf() {
       const page = pdf.addPage([A4_W, A4_H]);
       page.drawImage(embedded, {
         x: (A4_W - w) / 2,
-        y: (A4_H - h) / / 2,
+        y: (A4_H - h) / 2,
         width: w,
         height: h,
       });
