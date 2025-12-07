@@ -1,47 +1,47 @@
 'use server';
 
-import { ai } from "@/ai/genkit";
-import { z } from "genkit";
+import { ai } from '@/ai/genkit';
+import { z } from 'genkit';
 
-const InputSchema = z.object({
+const ImageToTextOcrInputSchema = z.object({
   photoDataUri: z.string(),
 });
 
-const OutputSchema = z.object({
+export type ImageToTextOcrInput = z.infer<typeof ImageToTextOcrInputSchema>;
+
+const ImageToTextOcrOutputSchema = z.object({
   extractedText: z.string(),
 });
 
-export type ImageToTextOcrInput = z.infer<typeof InputSchema>;
-export type ImageToTextOcrOutput = z.infer<typeof OutputSchema>;
+export type ImageToTextOcrOutput = z.infer<typeof ImageToTextOcrOutputSchema>;
 
-export const imageToTextOcr = ai.defineFlow(
+export async function imageToTextOcr(
+  input: ImageToTextOcrInput
+): Promise<ImageToTextOcrOutput> {
+  return imageToTextOcrFlow(input);
+}
+
+const prompt = ai.definePrompt({
+  name: 'imageToTextOcrPrompt',
+  input: { schema: ImageToTextOcrInputSchema },
+  output: { schema: ImageToTextOcrOutputSchema },
+  prompt: `
+You are an OCR expert. Extract all readable text from this image.
+
+Image: {{media url=photoDataUri}}
+
+Return only extracted text.
+`,
+});
+
+const imageToTextOcrFlow = ai.defineFlow(
   {
-    name: "imageToTextOcr",
-    inputSchema: InputSchema,
-    outputSchema: OutputSchema,
+    name: 'imageToTextOcrFlow',
+    inputSchema: ImageToTextOcrInputSchema,
+    outputSchema: ImageToTextOcrOutputSchema,
   },
-  async ({ photoDataUri }) => {
-
-    const [meta, base64] = photoDataUri.split(",");
-    const mimeType = meta.split(":")[1].split(";")[0];
-
-    const prompt = `
-You are an OCR engine. Extract ALL readable text from this image.
-Return *only plain text*, no formatting.
-`;
-
-    const result = await ai.prompt("gemini-1.5-flash", {
-      prompt,
-      media: [
-        {
-          mimeType,
-          data: Buffer.from(base64, "base64"),
-        },
-      ],
-    });
-
-    return {
-      extractedText: result.text ?? "",
-    };
+  async (input) => {
+    const { output } = await prompt(input);
+    return output!;
   }
 );
