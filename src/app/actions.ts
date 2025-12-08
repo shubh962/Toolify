@@ -8,9 +8,8 @@ import { mergePdfToWord } from '@/ai/flows/merge-pdf-to-word';
 import { PDFDocument } from "pdf-lib";
 
 // --------------------------------------------------------
-// BACKGROUND REMOVAL
+// BACKGROUND REMOVAL (FINAL CLEAN VERSION)
 // --------------------------------------------------------
-
 export async function handleBackgroundRemoval(photoDataUri: string) {
   if (!photoDataUri) {
     return { success: false, error: "No image provided." };
@@ -18,33 +17,18 @@ export async function handleBackgroundRemoval(photoDataUri: string) {
 
   try {
     const result = await removeBackground({ photoDataUri });
-
-    return {
-      success: true,
-      data: result,
-    };
-  } catch (error) {
-    console.error("🔥 Background Remover Error:", error);
-    return {
-      success: false,
-      error: "Failed to remove background. Please try again.",
-    };
-  }
-}
-
     return { success: true, data: result };
   } catch (error) {
-    console.error("🔥 REMOVE.BG FAIL:", error);
-
+    console.error("🔥 Background Removal Error:", error);
     return {
       success: false,
-      error:
-        "Background removal failed. Try a smaller image or clearer lighting.",
+      error: "Background removal failed. Try again with a clearer image.",
     };
   }
 }
+
 // --------------------------------------------------------
-// IMAGE → TEXT (OCR) - FIXED
+// IMAGE → TEXT (OCR)
 // --------------------------------------------------------
 export async function handleImageToText(photoDataUri: string) {
   if (!photoDataUri) {
@@ -52,30 +36,18 @@ export async function handleImageToText(photoDataUri: string) {
   }
 
   try {
-    // Note: यह मानते हुए कि imageToTextOcr अब त्रुटियों को स्पष्ट रूप से फेंकता है (throws errors)
     const result = await imageToTextOcr({ photoDataUri });
-
-    return {
-      success: true,
-      data: result,
-    };
+    return { success: true, data: result };
   } catch (err) {
-    console.error("🔥 OCR SERVER ERROR (CAUGHT):", err);
-    
-    // 🔥 FIX: सुनिश्चित करें कि यह त्रुटि क्लाइंट को संरचित JSON के रूप में जाती है
-    let errorMessage = "OCR failed on server. Please try again.";
-    
-    // यदि त्रुटि में 'Gemini rejected' है (जो कि image-to-text-ocr.ts से आना चाहिए)
+    console.error("🔥 OCR SERVER ERROR:", err);
+
+    let errorMessage = "OCR failed on server.";
+
     if (err instanceof Error && err.message.includes("Gemini rejected")) {
-        errorMessage = "OCR failed on server — Gemini rejected the image (Safety/Quality issue).";
+      errorMessage = "OCR failed — Gemini rejected the image.";
     }
 
-    // यदि इमेज से कोई टेक्स्ट नहीं निकाला गया और result.extractedText खाली है,
-    // तो यह एरर client-side पर result.error के रूप में जाएगा।
-    return {
-      success: false,
-      error: errorMessage,
-    };
+    return { success: false, error: errorMessage };
   }
 }
 
@@ -83,8 +55,9 @@ export async function handleImageToText(photoDataUri: string) {
 // TEXT PARAPHRASING
 // --------------------------------------------------------
 export async function handleTextParaphrasing(text: string) {
-  if (!text.trim())
+  if (!text.trim()) {
     return { success: false, error: "Input text cannot be empty." };
+  }
 
   try {
     const result = await paraphraseText({ text });
@@ -99,8 +72,9 @@ export async function handleTextParaphrasing(text: string) {
 // PDF → WORD
 // --------------------------------------------------------
 export async function handlePdfToWord(pdfDataUri: string) {
-  if (!pdfDataUri)
+  if (!pdfDataUri) {
     return { success: false, error: "No PDF provided." };
+  }
 
   try {
     const result = await pdfToWord({ pdfDataUri });
@@ -115,8 +89,9 @@ export async function handlePdfToWord(pdfDataUri: string) {
 // MERGE PDF
 // --------------------------------------------------------
 export async function handleMergePdf(pdfDataUris: string[]) {
-  if (!pdfDataUris || pdfDataUris.length < 2)
+  if (!pdfDataUris || pdfDataUris.length < 2) {
     return { success: false, error: "Please select at least two PDFs." };
+  }
 
   try {
     const result = await mergePdfToWord({ pdfDataUris });
@@ -131,8 +106,9 @@ export async function handleMergePdf(pdfDataUris: string[]) {
 // IMAGE → PDF
 // --------------------------------------------------------
 export async function handleImageToPdf(imageDataUri: string) {
-  if (!imageDataUri)
+  if (!imageDataUri) {
     return { success: false, error: "No image provided." };
+  }
 
   try {
     const pdfDoc = await PDFDocument.create();
@@ -140,12 +116,9 @@ export async function handleImageToPdf(imageDataUri: string) {
     const base64 = imageDataUri.split(",")[1];
     const bytes = Buffer.from(base64, "base64");
 
-    let imgEmbed;
-    if (imageDataUri.startsWith("data:image/png")) {
-      imgEmbed = await pdfDoc.embedPng(bytes);
-    } else {
-      imgEmbed = await pdfDoc.embedJpg(bytes);
-    }
+    let imgEmbed = imageDataUri.startsWith("data:image/png")
+      ? await pdfDoc.embedPng(bytes)
+      : await pdfDoc.embedJpg(bytes);
 
     const page = pdfDoc.addPage([imgEmbed.width, imgEmbed.height]);
 
