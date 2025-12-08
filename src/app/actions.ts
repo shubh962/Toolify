@@ -10,18 +10,38 @@ import { PDFDocument } from "pdf-lib";
 // --------------------------------------------------------
 // BACKGROUND REMOVAL
 // --------------------------------------------------------
-export async function handleBackgroundRemoval(photoDataUri: string) {
-  if (!photoDataUri) return { success: false, error: 'No image provided.' };
 
+export async function handleBackgroundRemoval(photoDataUri: string) {
   try {
-    const result = await removeBackground({ photoDataUri });
+    if (!photoDataUri) {
+      return { success: false, error: "No image provided" };
+    }
+
+    // ⭐ Convert Base64 → Buffer
+    const base64 = photoDataUri.split(",")[1];
+    const buffer = Buffer.from(base64, "base64");
+
+    // ⭐ Remove.bg requires binary buffer (NOT base64)
+    const result = await removeBackground({
+      imageFile: {
+        data: buffer,
+        mimeType: photoDataUri.startsWith("data:image/png")
+          ? "image/png"
+          : "image/jpeg",
+      },
+    });
+
     return { success: true, data: result };
   } catch (error) {
-    console.error('Background removal error:', error);
-    return { success: false, error: 'Failed to remove background.' };
+    console.error("🔥 REMOVE.BG FAIL:", error);
+
+    return {
+      success: false,
+      error:
+        "Background removal failed. Try a smaller image or clearer lighting.",
+    };
   }
 }
-
 // --------------------------------------------------------
 // IMAGE → TEXT (OCR) - FIXED
 // --------------------------------------------------------
