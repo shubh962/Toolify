@@ -1,245 +1,168 @@
-'use client';
+"use client";
 
-import { useState, useRef } from 'react';
-import Head from 'next/head';
-import Image from 'next/image';
-import { Card, CardContent, CardFooter } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Textarea } from '@/components/ui/textarea';
-import { useToast } from '@/hooks/use-toast';
-import { Skeleton } from '@/components/ui/skeleton';
-
-import { Upload, Loader2, Copy, Trash2, ScanText } from 'lucide-react';
-
-// IMPORTANT: rename import to avoid conflict (Next.js 15 server action calling fix)
-import { handleImageToText as serverHandleImageToText } from '@/app/actions';
-
+import { useState, useRef } from "react";
+import { Card, CardContent, CardFooter } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { useToast } from "@/hooks/use-toast";
+import { Upload, Loader2, Trash2, Copy, ScanText } from "lucide-react";
 
 export default function ImageToText() {
   const { toast } = useToast();
 
   const [image, setImage] = useState<string | null>(null);
-  const [extractedText, setExtractedText] = useState<string>('');
-  const [isLoading, setIsLoading] = useState(false);
+  const [extractedText, setExtractedText] = useState("");
+  const [loading, setLoading] = useState(false);
 
-  const fileInputRef = useRef<HTMLInputElement>(null);
+  const fileRef = useRef<HTMLInputElement>(null);
 
-  // ------------------------
-  // FILE UPLOAD HANDLER
-  // ------------------------
-  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
+  // -------------------------------
+  // Handle Image Upload
+  // -------------------------------
+  const handleUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
     if (!file) return;
 
     if (file.size > 4 * 1024 * 1024) {
       toast({
-        title: 'File too large',
-        description: 'Please upload an image smaller than 4MB.',
-        variant: 'destructive',
+        title: "File Too Large",
+        description: "Please upload an image below 4 MB.",
+        variant: "destructive",
       });
       return;
     }
 
     const reader = new FileReader();
-    reader.onload = (e) => {
-      setImage(e.target?.result as string);
-      setExtractedText('');
+    reader.onload = (ev) => {
+      setImage(ev.target?.result as string);
+      setExtractedText("");
     };
     reader.readAsDataURL(file);
   };
 
-  // ------------------------
-  // SUBMIT / OCR EXECUTION - FIXED
-  // ------------------------
-  const handleSubmit = async () => {
-    if (!image) {
-      toast({
-        title: "No image selected",
-        description: "Please upload an image first.",
-        variant: "destructive",
-      });
-      return;
-    }
-
-    try {
-      setIsLoading(true);
-      setExtractedText('');
-
-      const result = await serverHandleImageToText(image);
-
-      setIsLoading(false);
-
-      // 🔥 FIX: सफलता की शर्त सख्त करें और खाली टेक्स्ट को विफलता मानें
-      if (result?.success && result.data?.extractedText && result.data.extractedText.trim().length > 0) {
-        setExtractedText(result.data.extractedText);
-        toast({
-          title: "Success!",
-          description: "Text extracted successfully.",
-        });
-      } else {
-        // यदि success: true है लेकिन टेक्स्ट खाली है (जैसे blank image)
-        const errorMessage = result?.error || "OCR failed to recognize any text. Try a clearer image.";
-
-        toast({
-          title: "Error",
-          description: errorMessage,
-          variant: "destructive",
-        });
-      }
-    } catch (err) {
-      console.error("❌ Client-side OCR error:", err);
-      setIsLoading(false);
-
-      toast({
-        title: "Unexpected Error",
-        description: "OCR process failed unexpectedly. Check server logs.",
-        variant: "destructive",
-      });
-    }
+  // -------------------------------
+  // Extract Text (server logic added in Step 3)
+  // -------------------------------
+  const handleExtract = async () => {
+    toast({
+      title: "OCR Not Connected Yet",
+      description: "Step 3 will add working Gemini OCR.",
+    });
   };
 
-  // ------------------------
-  // COPY TO CLIPBOARD
-  // ------------------------
-  const handleCopy = () => {
-    if (!extractedText) return;
+  // -------------------------------
+  // Copy Text
+  // -------------------------------
+  const copyText = () => {
     navigator.clipboard.writeText(extractedText);
     toast({ title: "Copied!" });
   };
 
-  // ------------------------
-  // RESET TOOL
-  // ------------------------
-  const handleReset = () => {
+  // -------------------------------
+  // Reset Tool
+  // -------------------------------
+  const reset = () => {
     setImage(null);
-    setExtractedText('');
-    setIsLoading(false);
-    if (fileInputRef.current) fileInputRef.current.value = '';
-  };
-
-  // ------------------------
-  // SEO JSON-LD FAQ SCHEMA
-  // ------------------------
-  const faqSchema = {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-      {
-        "@type": "Question",
-        "name": "Is TaskGuru’s Image to Text OCR tool free?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Yes, it is 100% free with unlimited usage."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Is my uploaded image secure?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Your image is processed securely and never stored."
-        }
-      }
-    ]
+    setExtractedText("");
+    if (fileRef.current) fileRef.current.value = "";
   };
 
   return (
-    <>
-      <Head>
-        <title>Free Image to Text Converter | OCR Online - TaskGuru</title>
-        <meta name="description" content="Convert images to text online using free OCR. Supports JPG, PNG, WEBP. Fast, accurate & secure." />
-        <link rel="canonical" href="https://taskguru.online/tools/image-to-text" />
-
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
-        />
-      </Head>
+    <div className="py-10 space-y-10">
 
       {/* ---------------------- */}
-      {/* INTRO SECTION */}
+      {/* HERO SECTION */}
       {/* ---------------------- */}
-      <section className="max-w-4xl mx-auto py-8 text-center space-y-4">
-        <h3 className="text-3xl font-bold">Free Image to Text Converter (OCR) Online</h3>
-        <p className="text-muted-foreground">
-          Upload JPG, PNG, or WEBP and extract readable text instantly.  
-          Fast, accurate & secure OCR technology.
+      <div className="text-center space-y-2">
+        <h1 className="text-4xl font-extrabold text-primary">
+          Image to Text Converter (OCR)
+        </h1>
+        <p className="text-muted-foreground text-lg">
+          Upload JPG, PNG or WEBP and extract text instantly — Fast & Accurate.
         </p>
-      </section>
+      </div>
 
       {/* ---------------------- */}
-      {/* MAIN OCR TOOL UI */}
+      {/* MAIN TOOL CARD */}
       {/* ---------------------- */}
-      <Card className="w-full max-w-4xl mx-auto shadow-lg">
-        <CardContent className="p-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            
+      <Card className="max-w-5xl mx-auto shadow-xl">
+        <CardContent className="p-8">
 
-            {/* LEFT SIDE → Upload Image */}
-            <div className="flex flex-col space-y-4">
-              <h3 className="font-semibold text-xl text-center">Upload Image</h3>
+          <div className="grid md:grid-cols-2 gap-8">
 
-              {image ? (
-                <div className="relative aspect-video w-full rounded-lg overflow-hidden border">
-                  <img src={image} alt="Uploaded" className="object-contain w-full h-full absolute top-0 left-0" />
+            {/* Upload Section */}
+            <div className="space-y-4">
+              <h3 className="font-semibold text-lg text-center">Upload Image</h3>
+
+              {!image ? (
+                <div
+                  className="border-2 border-dashed rounded-xl p-10 flex flex-col items-center justify-center text-center cursor-pointer hover:border-primary transition"
+                  onClick={() => fileRef.current?.click()}
+                >
+                  <Upload className="w-12 h-12 text-primary mb-4" />
+                  <p className="font-semibold text-lg">Upload Image</p>
+                  <p className="text-sm text-muted-foreground">
+                    JPG, PNG, WEBP • Max 4MB
+                  </p>
                 </div>
               ) : (
-                <div
-                  className="flex flex-col items-center justify-center space-y-4 p-12 border-2 border-dashed rounded-lg cursor-pointer hover:border-primary transition"
-                  onClick={() => fileInputRef.current?.click()}
-                >
-                  <Upload className="w-10 h-10 text-muted-foreground" />
-                  <p className="font-semibold">Click to upload</p>
-                  <p className="text-sm text-muted-foreground">PNG, JPG, WEBP (Max 4MB)</p>
+                <div className="border rounded-xl overflow-hidden bg-muted h-[280px] flex items-center justify-center">
+                  <img
+                    src={image}
+                    className="max-h-[260px] object-contain"
+                  />
                 </div>
               )}
 
               <Input
-                ref={fileInputRef}
+                ref={fileRef}
                 type="file"
                 className="hidden"
                 accept="image/png, image/jpeg, image/webp"
-                onChange={handleFileChange}
+                onChange={handleUpload}
               />
             </div>
 
+            {/* Extracted Text Section */}
+            <div className="space-y-4">
+              <h3 className="font-semibold text-lg text-center">Extracted Text</h3>
 
-            {/* RIGHT SIDE → Extracted Text */}
-            <div className="flex flex-col space-y-4">
-              <h3 className="font-semibold text-lg text-center">Extracted Text Result</h3>
+              <Textarea
+                className="min-h-[280px] resize-none"
+                placeholder="Text will appear here..."
+                value={extractedText}
+                readOnly
+              />
 
-              <div className="relative h-full">
-                {isLoading && <Skeleton className="absolute inset-0" />}
-                <Textarea
-                  className="h-full min-h-[200px] resize-none"
-                  placeholder={isLoading ? "Extracting…" : "Text will appear here…"}
-                  value={extractedText}
-                  readOnly
-                />
-              </div>
-
-              <Button onClick={handleCopy} disabled={!extractedText || isLoading} variant="outline">
+              <Button
+                variant="outline"
+                onClick={copyText}
+                disabled={!extractedText}
+              >
                 <Copy className="mr-2 h-4 w-4" /> Copy Text
               </Button>
             </div>
+
           </div>
         </CardContent>
 
-        {image && (
-          <CardFooter className="flex justify-center gap-4 p-4 border-t bg-muted/50">
-            <Button variant="outline" onClick={handleReset}>
-              <Trash2 className="mr-2 h-4 w-4" /> Reset
-            </Button>
+        {/* FOOTER BUTTONS */}
+        <CardFooter className="flex justify-center gap-4 p-6 bg-muted/40 rounded-b-xl">
+          <Button variant="outline" onClick={reset}>
+            <Trash2 className="mr-2 h-4 w-4" /> Reset
+          </Button>
 
-            <Button onClick={handleSubmit} disabled={isLoading}>
-              {isLoading ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <ScanText className="mr-2 h-4 w-4" />}
-              Extract Text
-            </Button>
-          </CardFooter>
-        )}
+          <Button onClick={handleExtract} disabled={!image}>
+            {loading ? (
+              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+            ) : (
+              <ScanText className="mr-2 h-4 w-4" />
+            )}
+            Extract Text
+          </Button>
+        </CardFooter>
       </Card>
-
-    </>
+    </div>
   );
 }
