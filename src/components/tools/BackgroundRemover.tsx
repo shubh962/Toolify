@@ -41,8 +41,8 @@ export default function BackgroundRemover() {
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
-      if (file.size > 4 * 1024 * 1024) {
-        toast({ title: 'File too large', description: 'Max 4MB allowed.', variant: 'destructive' });
+      if (file.size > 8 * 1024 * 1024) {
+        toast({ title: 'File too large', description: 'Max 8MB allowed.', variant: 'destructive' });
         return;
       }
       const reader = new FileReader();
