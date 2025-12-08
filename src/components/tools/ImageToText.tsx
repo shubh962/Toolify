@@ -1,168 +1,269 @@
-"use client";
+'use client';
 
-import { useState, useRef } from "react";
-import { Card, CardContent, CardFooter } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { useToast } from "@/hooks/use-toast";
-import { Upload, Loader2, Trash2, Copy, ScanText } from "lucide-react";
+import { useState, useRef } from 'react';
+import Image from 'next/image';
+import { Card, CardContent, CardFooter } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Textarea } from '@/components/ui/textarea';
+import { useToast } from '@/hooks/use-toast';
+import { Skeleton } from '@/components/ui/skeleton';
+
+import { Upload, Loader2, Copy, Trash2, ScanText } from 'lucide-react';
+
+// ❗ NOTE: Ye version server actions / Gemini ka use nahin karta.
+// OCR pura client-side Tesseract.js se hota hai.
 
 export default function ImageToText() {
   const { toast } = useToast();
 
   const [image, setImage] = useState<string | null>(null);
-  const [extractedText, setExtractedText] = useState("");
-  const [loading, setLoading] = useState(false);
+  const [extractedText, setExtractedText] = useState<string>('');
+  const [isLoading, setIsLoading] = useState(false);
 
-  const fileRef = useRef<HTMLInputElement>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
-  // -------------------------------
-  // Handle Image Upload
-  // -------------------------------
-  const handleUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
+  // ------------------------
+  // FILE UPLOAD HANDLER
+  // ------------------------
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
     if (!file) return;
 
     if (file.size > 4 * 1024 * 1024) {
       toast({
-        title: "File Too Large",
-        description: "Please upload an image below 4 MB.",
-        variant: "destructive",
+        title: 'File too large',
+        description: 'Please upload an image smaller than 4MB.',
+        variant: 'destructive',
       });
       return;
     }
 
     const reader = new FileReader();
-    reader.onload = (ev) => {
-      setImage(ev.target?.result as string);
-      setExtractedText("");
+    reader.onload = (e) => {
+      setImage(e.target?.result as string);
+      setExtractedText('');
     };
     reader.readAsDataURL(file);
   };
 
-  // -------------------------------
-  // Extract Text (server logic added in Step 3)
-  // -------------------------------
-  const handleExtract = async () => {
-    toast({
-      title: "OCR Not Connected Yet",
-      description: "Step 3 will add working Gemini OCR.",
-    });
+  // ------------------------
+  // OCR VIA TESSERACT.JS
+  // ------------------------
+  const handleSubmit = async () => {
+    if (!image) {
+      toast({
+        title: 'No image selected',
+        description: 'Please upload an image first.',
+        variant: 'destructive',
+      });
+      return;
+    }
+
+    try {
+      setIsLoading(true);
+      setExtractedText('');
+
+      // ⚙️ Dynamic import so build safe rahe
+      const { createWorker } = await import('tesseract.js');
+
+      const worker = await createWorker('eng', 1, {
+        logger: (m) => {
+          // Optional: console me progress dekh sakte ho
+          // console.log(m);
+        },
+      });
+
+      const {
+        data: { text },
+      } = await worker.recognize(image);
+
+      await worker.terminate();
+
+      const cleanText = text.trim();
+
+      if (!cleanText) {
+        toast({
+          title: 'No text found',
+          description: 'OCR completed but no readable text was detected.',
+          variant: 'destructive',
+        });
+      }
+
+      setExtractedText(cleanText);
+
+      toast({
+        title: 'Success!',
+        description: 'Text extracted successfully using OCR.',
+      });
+    } catch (error) {
+      console.error('❌ Tesseract OCR error:', error);
+      toast({
+        title: 'OCR failed',
+        description:
+          'Failed to extract text from image. Please try with a clearer image.',
+        variant: 'destructive',
+      });
+    } finally {
+      setIsLoading(false);
+    }
   };
 
-  // -------------------------------
-  // Copy Text
-  // -------------------------------
-  const copyText = () => {
+  // ------------------------
+  // COPY TO CLIPBOARD
+  // ------------------------
+  const handleCopy = () => {
+    if (!extractedText) return;
     navigator.clipboard.writeText(extractedText);
-    toast({ title: "Copied!" });
+    toast({ title: 'Copied to clipboard!' });
   };
 
-  // -------------------------------
-  // Reset Tool
-  // -------------------------------
-  const reset = () => {
+  // ------------------------
+  // RESET TOOL
+  // ------------------------
+  const handleReset = () => {
     setImage(null);
-    setExtractedText("");
-    if (fileRef.current) fileRef.current.value = "";
+    setExtractedText('');
+    setIsLoading(false);
+    if (fileInputRef.current) fileInputRef.current.value = '';
   };
 
   return (
-    <div className="py-10 space-y-10">
-
-      {/* ---------------------- */}
-      {/* HERO SECTION */}
-      {/* ---------------------- */}
-      <div className="text-center space-y-2">
-        <h1 className="text-4xl font-extrabold text-primary">
+    <>
+      {/* Top intro, same vibe as other tools */}
+      <section className="max-w-4xl mx-auto py-8 text-center space-y-4">
+        <h1 className="text-3xl md:text-4xl font-extrabold text-primary">
           Image to Text Converter (OCR)
         </h1>
-        <p className="text-muted-foreground text-lg">
-          Upload JPG, PNG or WEBP and extract text instantly — Fast & Accurate.
+        <p className="text-muted-foreground">
+          Upload JPG, PNG, or WEBP and extract readable text instantly using
+          OCR. Works in your browser — no upload to any server.
         </p>
-      </div>
+      </section>
 
-      {/* ---------------------- */}
       {/* MAIN TOOL CARD */}
-      {/* ---------------------- */}
-      <Card className="max-w-5xl mx-auto shadow-xl">
-        <CardContent className="p-8">
+      <Card className="w-full max-w-4xl mx-auto shadow-xl">
+        <CardContent className="p-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {/* LEFT: IMAGE UPLOAD / PREVIEW */}
+            <div className="flex flex-col space-y-4">
+              <h2 className="font-semibold text-xl text-center">Upload Image</h2>
 
-          <div className="grid md:grid-cols-2 gap-8">
-
-            {/* Upload Section */}
-            <div className="space-y-4">
-              <h3 className="font-semibold text-lg text-center">Upload Image</h3>
-
-              {!image ? (
-                <div
-                  className="border-2 border-dashed rounded-xl p-10 flex flex-col items-center justify-center text-center cursor-pointer hover:border-primary transition"
-                  onClick={() => fileRef.current?.click()}
-                >
-                  <Upload className="w-12 h-12 text-primary mb-4" />
-                  <p className="font-semibold text-lg">Upload Image</p>
-                  <p className="text-sm text-muted-foreground">
-                    JPG, PNG, WEBP • Max 4MB
-                  </p>
-                </div>
-              ) : (
-                <div className="border rounded-xl overflow-hidden bg-muted h-[280px] flex items-center justify-center">
+              {image ? (
+                <div className="relative aspect-[3/5] w-full rounded-lg overflow-hidden border bg-muted">
+                  {/* Simple <img> so layout same rahe */}
                   <img
                     src={image}
-                    className="max-h-[260px] object-contain"
+                    alt="Uploaded for OCR"
+                    className="object-contain w-full h-full"
                   />
+                </div>
+              ) : (
+                <div
+                  className="flex flex-col items-center justify-center space-y-4 p-12 border-2 border-dashed rounded-lg cursor-pointer hover:border-primary transition-colors h-full bg-muted/40"
+                  onClick={() => fileInputRef.current?.click()}
+                >
+                  <div className="p-4 bg-secondary rounded-full">
+                    <Upload className="w-10 h-10 text-muted-foreground" />
+                  </div>
+                  <div className="text-center">
+                    <p className="font-semibold">Click to upload or drag & drop</p>
+                    <p className="text-sm text-muted-foreground">
+                      PNG, JPG, WEBP (Max 4MB)
+                    </p>
+                  </div>
                 </div>
               )}
 
               <Input
-                ref={fileRef}
+                ref={fileInputRef}
                 type="file"
                 className="hidden"
                 accept="image/png, image/jpeg, image/webp"
-                onChange={handleUpload}
+                onChange={handleFileChange}
               />
             </div>
 
-            {/* Extracted Text Section */}
-            <div className="space-y-4">
-              <h3 className="font-semibold text-lg text-center">Extracted Text</h3>
-
-              <Textarea
-                className="min-h-[280px] resize-none"
-                placeholder="Text will appear here..."
-                value={extractedText}
-                readOnly
-              />
-
+            {/* RIGHT: OCR RESULT */}
+            <div className="flex flex-col space-y-4">
+              <h2 className="font-semibold text-lg text-center">
+                Extracted Text Result
+              </h2>
+              <div className="relative h-full">
+                {isLoading && <Skeleton className="absolute inset-0" />}
+                <Textarea
+                  className="h-full min-h-[220px] resize-none"
+                  placeholder={
+                    isLoading
+                      ? 'Extracting text, please wait...'
+                      : 'Text from your image will appear here.'
+                  }
+                  value={extractedText}
+                  readOnly
+                />
+              </div>
               <Button
+                onClick={handleCopy}
+                disabled={!extractedText || isLoading}
                 variant="outline"
-                onClick={copyText}
-                disabled={!extractedText}
               >
                 <Copy className="mr-2 h-4 w-4" /> Copy Text
               </Button>
             </div>
-
           </div>
         </CardContent>
 
-        {/* FOOTER BUTTONS */}
-        <CardFooter className="flex justify-center gap-4 p-6 bg-muted/40 rounded-b-xl">
-          <Button variant="outline" onClick={reset}>
-            <Trash2 className="mr-2 h-4 w-4" /> Reset
-          </Button>
-
-          <Button onClick={handleExtract} disabled={!image}>
-            {loading ? (
-              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-            ) : (
-              <ScanText className="mr-2 h-4 w-4" />
-            )}
-            Extract Text
-          </Button>
-        </CardFooter>
+        {/* ACTION BUTTONS */}
+        {image && (
+          <CardFooter className="flex justify-center gap-4 bg-muted/50 p-4 border-t">
+            <Button variant="outline" onClick={handleReset}>
+              <Trash2 className="mr-2 h-4 w-4" /> Reset
+            </Button>
+            <Button onClick={handleSubmit} disabled={isLoading}>
+              {isLoading ? (
+                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+              ) : (
+                <ScanText className="mr-2 h-4 w-4" />
+              )}
+              Extract Text
+            </Button>
+          </CardFooter>
+        )}
       </Card>
-    </div>
+
+      {/* OPTIONAL: “More tools” section same as others — if you already
+          have a shared component for this, use that instead */}
+      <section className="max-w-6xl mx-auto px-4 mt-16">
+        <h2 className="text-2xl font-bold text-center mb-5">
+          Explore More Tools
+        </h2>
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <a href="/tools/pdf-to-word">
+            <div className="p-4 border rounded-xl hover:shadow-md transition cursor-pointer bg-card">
+              <h3 className="font-bold">PDF to Word</h3>
+              <p className="text-xs text-muted-foreground">
+                Convert PDF files into editable Word documents.
+              </p>
+            </div>
+          </a>
+          <a href="/tools/merge-pdf">
+            <div className="p-4 border rounded-xl hover:shadow-md transition cursor-pointer bg-card">
+              <h3 className="font-bold">Merge PDF</h3>
+              <p className="text-xs text-muted-foreground">
+                Combine multiple PDFs into one organized file.
+              </p>
+            </div>
+          </a>
+          <a href="/tools/image-to-pdf">
+            <div className="p-4 border rounded-xl hover:shadow-md transition cursor-pointer bg-card">
+              <h3 className="font-bold">Image to PDF</h3>
+              <p className="text-xs text-muted-foreground">
+                Turn JPG/PNG images into high-quality PDFs.
+              </p>
+            </div>
+          </a>
+        </div>
+      </section>
+    </>
   );
 }
