@@ -12,24 +12,25 @@ import { PDFDocument } from "pdf-lib";
 // --------------------------------------------------------
 
 export async function handleBackgroundRemoval(photoDataUri: string) {
+  if (!photoDataUri) {
+    return { success: false, error: "No image provided." };
+  }
+
   try {
-    if (!photoDataUri) {
-      return { success: false, error: "No image provided" };
-    }
+    const result = await removeBackground({ photoDataUri });
 
-    // ⭐ Convert Base64 → Buffer
-    const base64 = photoDataUri.split(",")[1];
-    const buffer = Buffer.from(base64, "base64");
-
-    // ⭐ Remove.bg requires binary buffer (NOT base64)
-    const result = await removeBackground({
-      imageFile: {
-        data: buffer,
-        mimeType: photoDataUri.startsWith("data:image/png")
-          ? "image/png"
-          : "image/jpeg",
-      },
-    });
+    return {
+      success: true,
+      data: result,
+    };
+  } catch (error) {
+    console.error("🔥 Background Remover Error:", error);
+    return {
+      success: false,
+      error: "Failed to remove background. Please try again.",
+    };
+  }
+}
 
     return { success: true, data: result };
   } catch (error) {
