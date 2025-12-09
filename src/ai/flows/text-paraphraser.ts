@@ -1,39 +1,51 @@
 'use server';
 
-import {ai} from '@/ai/genkit';
-import {z} from 'genkit';
+import { ai } from "@/ai/genkit";
+import { z } from "genkit";
 
+// Input schema
 const ParaphraseTextInputSchema = z.object({
-  text: z.string().describe('The text to be paraphrased.'),
+  text: z.string(),
 });
-export type ParaphraseTextInput = z.infer<typeof ParaphraseTextInputSchema>;
 
+// Output schema
 const ParaphraseTextOutputSchema = z.object({
-  paraphrasedText: z.string().describe('The paraphrased text.'),
+  paraphrasedText: z.string(),
 });
-export type ParaphraseTextOutput = z.infer<typeof ParaphraseTextOutputSchema>;
 
-export async function paraphraseText(input: ParaphraseTextInput): Promise<ParaphraseTextOutput> {
-  return paraphraseTextFlow(input);
-}
-
-// 👇 Dhyan dein: Maine yahan se 'model' line hata di hai.
-// Ab ye zabardasti koi galat naam nahi bhejega.
+// Prompt definition
 const paraphraseTextPrompt = ai.definePrompt({
-  name: 'paraphraseTextPrompt',
-  input: {schema: ParaphraseTextInputSchema},
-  output: {schema: ParaphraseTextOutputSchema},
-  prompt: `You are a helpful AI assistant that paraphrases text while preserving the original meaning. Rewrite the following text in a different style:\n\n{{text}}`,
+  name: "paraphraseTextPrompt",
+  input: { schema: ParaphraseTextInputSchema },
+  output: { schema: ParaphraseTextOutputSchema },
+  prompt: `
+Rewrite the following text clearly and professionally while keeping the meaning same:
+
+{{text}}
+`,
 });
 
-const paraphraseTextFlow = ai.defineFlow(
+// Flow definition
+export const paraphraseTextFlow = ai.defineFlow(
   {
-    name: 'paraphraseTextFlow',
+    name: "paraphraseTextFlow",
     inputSchema: ParaphraseTextInputSchema,
     outputSchema: ParaphraseTextOutputSchema,
   },
-  async input => {
-    const {output} = await paraphraseTextPrompt(input);
-    return output!;
+  async (input) => {
+    const result = await paraphraseTextPrompt(input);
+
+    // Handle different Genkit return formats safely
+    return {
+      paraphrasedText:
+        result.output?.paraphrasedText ||
+        result.output?.text ||
+        "AI returned no output.",
+    };
   }
 );
+
+// Callable wrapper
+export async function paraphraseText(input) {
+  return paraphraseTextFlow(input);
+}
