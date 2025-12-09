@@ -52,7 +52,7 @@ export async function handleBackgroundRemoval(photoDataUri: string) {
     console.error("🔥 Background Removal Error:", error);
     return {
       success: false,
-      error: "Background removal failed due to server or API error.",
+      error: error instanceof Error ? error.message : "Background removal failed.",
     };
   }
 }
@@ -72,8 +72,11 @@ export async function handleImageToText(photoDataUri: string) {
 
     let errorMessage = "OCR failed on server.";
 
-    if (err instanceof Error && err.message.includes("Gemini rejected")) {
-      errorMessage = "OCR failed — Gemini rejected the image.";
+    if (err instanceof Error) {
+        errorMessage = err.message; // Show real error
+        if (err.message.includes("Gemini rejected")) {
+             errorMessage = "OCR failed — Gemini rejected the image.";
+        }
     }
 
     return { success: false, error: errorMessage };
@@ -81,7 +84,7 @@ export async function handleImageToText(photoDataUri: string) {
 }
 
 /* ---------------------------------------------------------
-   TEXT PARAPHRASING
+   TEXT PARAPHRASING (UPDATED FOR DEBUGGING)
 --------------------------------------------------------- */
 export async function handleTextParaphrasing(text: string) {
   if (!text.trim())
@@ -92,7 +95,14 @@ export async function handleTextParaphrasing(text: string) {
     return { success: true, data: result };
   } catch (error) {
     console.error("Paraphrasing error:", error);
-    return { success: false, error: "Failed to paraphrase text." };
+    
+    // ✅ YAHAN CHANGE KIYA HAI: Ab ye asli error batayega
+    const realErrorMessage = error instanceof Error ? error.message : "Unknown error occurred";
+    
+    return { 
+        success: false, 
+        error: `Error: ${realErrorMessage}` 
+    };
   }
 }
 
@@ -108,7 +118,7 @@ export async function handlePdfToWord(pdfDataUri: string) {
     return { success: true, data: result };
   } catch (error) {
     console.error("PDF to Word error:", error);
-    return { success: false, error: "Failed to convert PDF to Word." };
+    return { success: false, error: error instanceof Error ? error.message : "Failed to convert PDF to Word." };
   }
 }
 
@@ -124,7 +134,7 @@ export async function handleMergePdf(pdfDataUris: string[]) {
     return { success: true, data: result };
   } catch (error) {
     console.error("Merge PDF error:", error);
-    return { success: false, error: "Failed to merge PDFs." };
+    return { success: false, error: error instanceof Error ? error.message : "Failed to merge PDFs." };
   }
 }
 
@@ -163,6 +173,6 @@ export async function handleImageToPdf(imageDataUri: string) {
     };
   } catch (error) {
     console.error("Image to PDF error:", error);
-    return { success: false, error: "Failed to convert image to PDF." };
+    return { success: false, error: error instanceof Error ? error.message : "Failed to convert image to PDF." };
   }
 }
