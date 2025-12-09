@@ -9,5 +9,6 @@ export const ai = createAI({
   ],
 
   // ⭐ Correct & universal model name (for all Genkit versions)
-  model: "models/gemini-1.5-flash-latest"
+  model: "models/gemini-1.5-flash"
+  
 });
