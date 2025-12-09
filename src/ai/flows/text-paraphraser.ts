@@ -1,9 +1,5 @@
 'use server';
 
-/**
- * @fileOverview Text paraphrasing AI agent.
- */
-
 import {ai} from '@/ai/genkit';
 import {z} from 'genkit';
 
@@ -21,7 +17,8 @@ export async function paraphraseText(input: ParaphraseTextInput): Promise<Paraph
   return paraphraseTextFlow(input);
 }
 
-// 👇 UPDATED: Maine 'model' line hata di hai. Ab ye genkit.ts wala model use karega.
+// 👇 UPDATED: Maine 'model' line hata di hai.
+// Ab ye zabardasti galat naam nahi bhejega.
 const paraphraseTextPrompt = ai.definePrompt({
   name: 'paraphraseTextPrompt',
   input: {schema: ParaphraseTextInputSchema},
