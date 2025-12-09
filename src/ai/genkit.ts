@@ -8,6 +8,6 @@ export const ai = createAI({
     }),
   ],
 
-  // 👇 Directly use model name (NO IMPORT)
-  model: "googleai/gemini-1.5-flash",
+  // ⭐ Correct & universal model name (for all Genkit versions)
+  model: "models/gemini-1.5-flash-latest",
 });
