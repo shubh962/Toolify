@@ -86,25 +86,33 @@ export async function handleImageToText(photoDataUri: string) {
 /* ---------------------------------------------------------
    TEXT PARAPHRASING (UPDATED FOR DEBUGGING)
 --------------------------------------------------------- */
+
+/* ---------------------------------------------------------
+   TEXT PARAPHRASING — FINAL WORKING VERSION
+--------------------------------------------------------- */
 export async function handleTextParaphrasing(text: string) {
-  if (!text.trim())
+  if (!text.trim()) {
     return { success: false, error: "Input text cannot be empty." };
+  }
 
   try {
     const result = await paraphraseText({ text });
-    return { success: true, data: result };
+
+    return {
+      success: true,
+      data: result,
+    };
   } catch (error) {
-    console.error("Paraphrasing error:", error);
-    
-    // ✅ YAHAN CHANGE KIYA HAI: Ab ye asli error batayega
-    const realErrorMessage = error instanceof Error ? error.message : "Unknown error occurred";
-    
-    return { 
-        success: false, 
-        error: `Error: ${realErrorMessage}` 
+    console.error("🔥 RAW SERVER ERROR:", error);
+
+    return {
+      success: false,
+      error:
+        error instanceof Error ? error.message : JSON.stringify(error, null, 2),
     };
   }
 }
+
 
 /* ---------------------------------------------------------
    PDF → WORD
