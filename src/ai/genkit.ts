@@ -2,6 +2,6 @@ import { genkit } from 'genkit';
 import { googleAI } from '@genkit-ai/googleai';
 
 export const ai = genkit({
-  plugins: [googleAI()], 
-  model: "googleai/gemini-pro" // ✅ Abhi ke liye 'gemini-pro' use karein
+  plugins: [googleAI()],
+  model: "gemini-1.5-flash" // ✅ Sirf ye hona chahiye (No 'googleai/')
 });
