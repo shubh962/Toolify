@@ -1,6 +1,5 @@
 import { createAI } from "genkit";
 import { googleAI } from "@genkit-ai/googleai";
-import { gemini15Flash } from "@genkit-ai/googleai/models";
 
 export const ai = createAI({
   plugins: [
@@ -9,6 +8,6 @@ export const ai = createAI({
     }),
   ],
 
-  // Correct model name
-  model: gemini15Flash,
+  // 👇 Directly use model name (NO IMPORT)
+  model: "googleai/gemini-1.5-flash",
 });
