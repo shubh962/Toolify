@@ -24,7 +24,7 @@ export async function paraphraseText(input: ParaphraseTextInput): Promise<Paraph
 // 👇 FIXED: Removed 'googleai/' prefix. This was causing the 404 error.
 const paraphraseTextPrompt = ai.definePrompt({
   name: 'paraphraseTextPrompt',
-  model: 'gemini-1.5-flash', // ✅ CORRECT MODEL NAME
+  model: 'gemini-1.5-flash', // ✅ CORRECT MODEL NAME (No prefix)
   input: {schema: ParaphraseTextInputSchema},
   output: {schema: ParaphraseTextOutputSchema},
   prompt: `You are a helpful AI assistant that paraphrases text while preserving the original meaning. Rewrite the following text in a different style:\n\n{{text}}`,
