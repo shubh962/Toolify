@@ -17,8 +17,8 @@ export async function paraphraseText(input: ParaphraseTextInput): Promise<Paraph
   return paraphraseTextFlow(input);
 }
 
-// 👇 UPDATED: Maine 'model' line hata di hai.
-// Ab ye zabardasti galat naam nahi bhejega.
+// 👇 Dhyan dein: Maine yahan se 'model' line hata di hai.
+// Ab ye zabardasti koi galat naam nahi bhejega.
 const paraphraseTextPrompt = ai.definePrompt({
   name: 'paraphraseTextPrompt',
   input: {schema: ParaphraseTextInputSchema},
