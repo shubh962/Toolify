@@ -7,8 +7,7 @@ import TextParaphraser from '@/components/tools/TextParaphraser';
 import PdfToWord from '@/components/tools/PdfToWord';
 import MergePdf from '@/components/tools/MergePdf';
 import ImageCompressor from '@/components/tools/ImageCompressor';
-import ImageToPdf from '@/components/tools/ImageToPdf';   // ⭐ NEW TOOL IMPORT
-
+import ImageToPdf from '@/components/tools/ImageToPdf';   
 import PlaceholderTool from '@/components/tools/PlaceholderTool';
 import MoreTools from '@/components/MoreTools';
 
@@ -31,7 +30,6 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   };
 }
 
-// ⭐ UPDATED COMPONENT MAP (IMPORTANT)
 const toolComponentMap: { [key: string]: React.ComponentType<any> } = {
   'background-remover': BackgroundRemover,
   'image-to-text': ImageToText,
@@ -39,7 +37,7 @@ const toolComponentMap: { [key: string]: React.ComponentType<any> } = {
   'pdf-to-word': PdfToWord,
   'merge-pdf': MergePdf,
   'image-compressor': ImageCompressor,
-  'image-to-pdf': ImageToPdf,  // ⭐ FIXED — Your new tool registered here
+  'image-to-pdf': ImageToPdf,
 };
 
 export default function ToolPage({ params }: { params: { slug: string } }) {
@@ -49,7 +47,6 @@ export default function ToolPage({ params }: { params: { slug: string } }) {
     notFound();
   }
 
-  // If tool has no real component → load placeholder
   const ToolComponent = tool.isPlaceholder
     ? PlaceholderTool
     : toolComponentMap[tool.slug];
@@ -72,9 +69,6 @@ export default function ToolPage({ params }: { params: { slug: string } }) {
           <PlaceholderTool title={tool.title} />
         )}
 
-        <div className="mt-16 flex justify-center">
-          <ToolPageAd />
-        </div>
       </div>
 
       {/* More Tools Section */}
