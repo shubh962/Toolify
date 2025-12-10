@@ -7,18 +7,20 @@ import { Card, CardContent, CardFooter } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { useToast } from '@/hooks/use-toast';
 import { Loader2, Copy, Trash2, Wand2 } from 'lucide-react';
-import { handleTextParaphrasing } from '@/app/actions';
+// 👇 This imports the Server Action we created above
+import { handleTextParaphrasing } from '@/app/actions'; 
 import { Textarea } from '@/components/ui/textarea';
 import { Skeleton } from '@/components/ui/skeleton';
-import Image from 'next/image'; // ✅ Image Component Demo के लिए Import किया गया
+import Image from 'next/image'; 
 
 export default function TextParaphraser() {
   const { toast } = useToast();
-  // 🛑 WORKING CODE UNTOUCHED 🛑
+  
+  // 🛑 STATE MANAGEMENT
   const [inputText, setInputText] = useState<string>('');
   const [outputText, setOutputText] = useState<string>('');
   const [isLoading, setIsLoading] = useState(false);
-  
+   
   const handleSubmit = async () => {
     if (!inputText.trim()) {
       toast({ title: "Text is empty", description: "Please enter some text to paraphrase.", variant: "destructive" });
@@ -26,22 +28,26 @@ export default function TextParaphraser() {
     }
     setIsLoading(true);
     setOutputText('');
+    
+    // Call the Server Action
     const result = await handleTextParaphrasing(inputText);
+    
     setIsLoading(false);
+    
     if (result.success && result.data?.paraphrasedText) {
       setOutputText(result.data.paraphrasedText);
       toast({ title: "Success!", description: "Text paraphrased successfully." });
     } else {
-      toast({ title: "Error", description: result.error, variant: "destructive" });
+      toast({ title: "Error", description: result.error || "Unknown error", variant: "destructive" });
     }
   };
-  
+   
   const handleCopy = () => {
     if (!outputText) return;
     navigator.clipboard.writeText(outputText);
     toast({ title: "Copied to clipboard!" });
   };
-  
+   
   const handleReset = () => {
     setInputText('');
     setOutputText('');
@@ -49,10 +55,8 @@ export default function TextParaphraser() {
   };
 
   const charCount = inputText.length;
-  // 🛑 WORKING CODE ENDS 🛑
-  
-  // ✅ UPDATED JSON-LD Schema & Content for SEO/AdSense (High-Content)
-  
+   
+  // ✅ JSON-LD Schema & Content for SEO/AdSense
   const faqSchema = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
@@ -123,19 +127,10 @@ export default function TextParaphraser() {
         <meta
           name="description"
           content="Use TaskGuru's free AI text paraphraser to rewrite text, articles, and essays instantly. Trusted by students, writers, and professionals worldwide."
-         
         />
         <meta
           name="keywords"
-          content="
-            text paraphraser, ai text paraphraser, free paraphrasing tool,
-            online paraphraser, text paraphraser free, best paraphrasing tool,
-            rewrite sentences online, academic paraphrasing tool,
-            plagiarism remover tool, essay rewriter,
-            how to paraphrase text online?, free text rewriter,
-            sentence rephraser, TaskGuru text tools
-          "
-         
+          content="text paraphraser, ai text paraphraser, free paraphrasing tool, online paraphraser, text paraphraser free, best paraphrasing tool, rewrite sentences online, academic paraphrasing tool, plagiarism remover tool, essay rewriter, how to paraphrase text online?, free text rewriter, sentence rephraser, TaskGuru text tools"
         />
         <link rel="canonical" href="https://taskguru.online/tools/text-paraphraser" />
 
@@ -144,7 +139,6 @@ export default function TextParaphraser() {
         <meta
           property="og:description"
           content="Paraphrase your text instantly with TaskGuru's free AI-powered paraphraser. Rewrite essays, articles, and assignments online."
-         
         />
         <meta property="og:url" content="https://taskguru.online/tools/text-paraphraser" />
         <meta property="og:image" content="https://taskguru.online/og-image.png" />
@@ -156,7 +150,6 @@ export default function TextParaphraser() {
         <meta
           name="twitter:description"
           content="Free AI paraphrasing tool to rewrite your sentences while preserving meaning. Perfect for essays & blogs."
-         
         />
         <meta name="twitter:image" content="https://taskguru.online/og-image.png" />
       </Head>
@@ -176,7 +169,6 @@ export default function TextParaphraser() {
 
       {/* ✅ Intro Section */}
       <section className="max-w-4xl mx-auto py-8 text-center space-y-4">
-        {/* H1 को H3 में बदला गया (SEO Fix) */}
         <h3 className="text-3xl font-bold">AI Text Paraphraser | Free Online Rewriting Tool</h3>
         <p className="text-muted-foreground">
           Use TaskGuru's free AI text paraphraser to rewrite text, articles, and essays instantly. 
@@ -185,7 +177,7 @@ export default function TextParaphraser() {
       </section>
 
 
-      {/* Main Tool Card (Stays at the top for better UX) */}
+      {/* Main Tool Card */}
       <Card className="w-full max-w-4xl mx-auto shadow-lg" >
         <CardContent className="p-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
@@ -199,7 +191,6 @@ export default function TextParaphraser() {
                 value={inputText}
                 onChange={(e) => setInputText(e.target.value)}
                 disabled={isLoading}
-               
               />
               <p className="text-sm text-muted-foreground text-right">{charCount} / 5000 characters</p>
             </div>
@@ -220,7 +211,6 @@ export default function TextParaphraser() {
                   placeholder={isLoading ? "Paraphrasing, please wait..." : "Your rewritten text will appear here."}
                   value={outputText}
                   readOnly
-                 
                 />
               </div>
             </div>
@@ -243,13 +233,13 @@ export default function TextParaphraser() {
       </Card>
 
 
-      {/* ✅ NEW: Before and After Demo Section (Performance Optimized) */}
+      {/* ✅ NEW: Before and After Demo Section */}
       <section className="max-w-4xl mx-auto py-10">
         <h2 className="text-2xl font-bold text-center mb-8 text-foreground">
           See the AI Difference: Before & After Paraphrasing
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 p-6 bg-muted/50 dark:bg-gray-800 rounded-xl shadow-inner">
-          
+           
           {/* Before Image */}
           <div className="text-center">
             <h3 className="text-lg font-semibold mb-3 text-red-500">ORIGINAL (Before)</h3>
@@ -264,7 +254,7 @@ export default function TextParaphraser() {
               />
             </div>
           </div>
-          
+           
           {/* After Image */}
           <div className="text-center">
             <h3 className="text-lg font-semibold mb-3 text-green-500">PROCESSED (After)</h3>
@@ -279,13 +269,11 @@ export default function TextParaphraser() {
               />
             </div>
           </div>
-          
+           
         </div>
       </section>
-      {/* 🛑 END OF NEW SECTION 🛑 */}
 
-
-      {/* Features/Why Use Section */}
+      {/* Features Section */}
       <section className="max-w-4xl mx-auto py-10 grid md:grid-cols-2 gap-8">
         <div>
           <h3 className="text-xl font-semibold">Why Use TaskGuru AI Paraphraser?</h3>
@@ -317,8 +305,7 @@ export default function TextParaphraser() {
         </ol>
       </section>
 
-
-      {/* ✅ FINAL FAQ Section (H2 maintained, High-Content) */}
+      {/* ✅ FAQ Section */}
       <section className="max-w-4xl mx-auto my-10 p-6 bg-white dark:bg-gray-900 shadow rounded-lg border border-gray-100 dark:border-gray-800">
         <h2 className="text-2xl font-bold mb-6 text-gray-900 dark:text-white">Frequently Asked Questions</h2>
         <div className="space-y-6 text-left">
@@ -330,8 +317,6 @@ export default function TextParaphraser() {
           ))}
         </div>
       </section>
-
-      {/* 🛑 DELETED: Old Footer with duplicate internal links (MoreTools handles this) */}
     </>
   );
 }
