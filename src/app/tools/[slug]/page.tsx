@@ -17,27 +17,34 @@ export async function generateStaticParams() {
   }));
 }
 
+// ⭐ UPDATED METADATA FOR GOOGLE + ADSENSE
 export async function generateMetadata({ params }: { params: { slug: string } }) {
   const tool = tools.find((t) => t.slug === params.slug);
+
   if (!tool) {
     return {
-      title: 'Tool Not Found',
+      title: "Tool Not Found | Toolify (TaskGuru)",
+      description: "The tool you are looking for does not exist on Toolify (TaskGuru).",
     };
   }
+
   return {
-    title: `${tool.title} | Toolify`,
+    title: `${tool.title} | Toolify (TaskGuru)`,
     description: tool.description,
+    alternates: {
+      canonical: `https://www.taskguru.online/tools/${tool.slug}`,
+    },
   };
 }
 
 const toolComponentMap: { [key: string]: React.ComponentType<any> } = {
-  'background-remover': BackgroundRemover,
-  'image-to-text': ImageToText,
-  'text-paraphraser': TextParaphraser,
-  'pdf-to-word': PdfToWord,
-  'merge-pdf': MergePdf,
-  'image-compressor': ImageCompressor,
-  'image-to-pdf': ImageToPdf,
+  "background-remover": BackgroundRemover,
+  "image-to-text": ImageToText,
+  "text-paraphraser": TextParaphraser,
+  "pdf-to-word": PdfToWord,
+  "merge-pdf": MergePdf,
+  "image-compressor": ImageCompressor,
+  "image-to-pdf": ImageToPdf,
 };
 
 export default function ToolPage({ params }: { params: { slug: string } }) {
@@ -71,7 +78,7 @@ export default function ToolPage({ params }: { params: { slug: string } }) {
 
       </div>
 
-      {/* More Tools Sections*/}
+      {/* More Tools Section */}
       <MoreTools />
     </main>
   );
