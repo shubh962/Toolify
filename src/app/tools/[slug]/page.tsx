@@ -71,7 +71,7 @@ export default function ToolPage({ params }: { params: { slug: string } }) {
 
       </div>
 
-      {/* More Tools Section */}
+      {/* More Tools Sections*/}
       <MoreTools />
     </main>
   );
