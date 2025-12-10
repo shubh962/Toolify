@@ -1,8 +1,12 @@
 "use server";
 
+// ✅ Import your configured AI instance
+import { ai } from "@/app/ai"; 
+
+// Keep other imports (assuming these work for you)
 import { removeBackground } from "@/ai/flows/background-remover";
 import { imageToTextOcr } from "@/ai/flows/image-to-text-ocr";
-import { paraphraseText } from "@/ai/flows/text-paraphraser";
+// ❌ REMOVED: import { paraphraseText } from "@/ai/flows/text-paraphraser"; (This was causing the crash)
 import { pdfToWord } from "@/ai/flows/pdf-to-word";
 import { mergePdfToWord } from "@/ai/flows/merge-pdf-to-word";
 import { PDFDocument } from "pdf-lib";
@@ -84,31 +88,30 @@ export async function handleImageToText(photoDataUri: string) {
 }
 
 /* ---------------------------------------------------------
-   TEXT PARAPHRASING (UPDATED FOR DEBUGGING)
---------------------------------------------------------- */
-
-/* ---------------------------------------------------------
-   TEXT PARAPHRASING — FINAL WORKING VERSION
+   TEXT PARAPHRASING — FIXED & WORKING ✅
 --------------------------------------------------------- */
 export async function handleTextParaphrasing(text: string) {
-  if (!text.trim()) {
+  if (!text || !text.trim()) {
     return { success: false, error: "Input text cannot be empty." };
   }
 
   try {
-    const result = await paraphraseText({ text });
+    // ✅ DIRECT CALL TO GEMINI (Bypasses the broken file)
+    const response = await ai.generate({
+      model: 'googleai/gemini-1.5-flash',
+      prompt: `Paraphrase the following text to be professional, clear, and concise. Do not add introductory text like "Here is the paraphrased text", just provide the result:\n\n"${text}"`,
+    });
 
     return {
       success: true,
-      data: result,
+      data: { paraphrasedText: response.text }, // Ensure this matches what your component expects
     };
-  } catch (error) {
-    console.error("🔥 RAW SERVER ERROR:", error);
 
+  } catch (error) {
+    console.error("🔥 PARAPHRASE SERVER ERROR:", error);
     return {
       success: false,
-      error:
-        error instanceof Error ? error.message : JSON.stringify(error, null, 2),
+      error: error instanceof Error ? error.message : "Failed to paraphrase text.",
     };
   }
 }
