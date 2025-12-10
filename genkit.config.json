@@ -1,0 +1,5 @@
+{
+  "root": ".",
+  "plugins": ["@genkit-ai/googleai"],
+  "flows": ["./src/ai/flows/*.ts"]
+}
