@@ -1,51 +1,58 @@
 'use server';
 
 import { ai } from "@/ai/genkit";
-import { z } from "genkit";
+import { z } from "zod";
 
-// Input schema
+// -----------------------------
+// ✅ 1. Schemas
+// -----------------------------
 const ParaphraseTextInputSchema = z.object({
   text: z.string(),
 });
 
-// Output schema
 const ParaphraseTextOutputSchema = z.object({
   paraphrasedText: z.string(),
 });
 
-// Prompt definition
-const paraphraseTextPrompt = ai.definePrompt({
-  name: "paraphraseTextPrompt",
-  input: { schema: ParaphraseTextInputSchema },
-  output: { schema: ParaphraseTextOutputSchema },
+// -----------------------------
+// ✅ 2. Prompt (Genkit v2 syntax)
+// -----------------------------
+const paraphraseTextPrompt = ai.prompt("paraphraseTextPrompt", {
+  input: ParaphraseTextInputSchema,
+  output: ParaphraseTextOutputSchema,
   prompt: `
-Rewrite the following text clearly and professionally while keeping the meaning same:
+Rewrite the following text in a clear, professional and natural tone.
+Keep the meaning same but improve readability.
 
-{{text}}
+Text:
+{{ text }}
 `,
 });
 
-// Flow definition
-export const paraphraseTextFlow = ai.defineFlow(
+// -----------------------------
+// ✅ 3. Flow (Genkit v2 syntax)
+// -----------------------------
+export const paraphraseTextFlow = ai.flow(
+  "paraphraseTextFlow",
   {
-    name: "paraphraseTextFlow",
-    inputSchema: ParaphraseTextInputSchema,
-    outputSchema: ParaphraseTextOutputSchema,
+    input: ParaphraseTextInputSchema,
+    output: ParaphraseTextOutputSchema,
   },
-  async (input) => {
-    const result = await paraphraseTextPrompt(input);
+  async ({ text }) => {
+    const response = await paraphraseTextPrompt({ text });
 
-    // Handle different Genkit return formats safely
     return {
       paraphrasedText:
-        result.output?.paraphrasedText ||
-        result.output?.text ||
-        "AI returned no output.",
+        response?.paraphrasedText || 
+        response?.text || 
+        "Unable to paraphrase text.",
     };
   }
 );
 
-// Callable wrapper
-export async function paraphraseText(input) {
+// -----------------------------
+// ✅ 4. Export Action for UI
+// -----------------------------
+export async function paraphraseText(input: { text: string }) {
   return paraphraseTextFlow(input);
 }
