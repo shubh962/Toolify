@@ -9,7 +9,6 @@ import {
 } from "@/components/ui/card";
 import { ArrowRight, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import HomepageAd from "@/components/ads/HomepageAd";
 import NewsletterForm from "@/components/NewsletterForm";
 import Script from "next/script";
 
