@@ -7,7 +7,7 @@ import TextParaphraser from '@/components/tools/TextParaphraser';
 import PdfToWord from '@/components/tools/PdfToWord';
 import MergePdf from '@/components/tools/MergePdf';
 import ImageCompressor from '@/components/tools/ImageCompressor';
-import ImageToPdf from '@/components/tools/ImageToPdf';   
+import ImageToPdf from '@/components/tools/ImageToPdf';
 import PlaceholderTool from '@/components/tools/PlaceholderTool';
 import MoreTools from '@/components/MoreTools';
 
