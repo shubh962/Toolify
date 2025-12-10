@@ -10,7 +10,6 @@ import ImageCompressor from '@/components/tools/ImageCompressor';
 import ImageToPdf from '@/components/tools/ImageToPdf';   // ⭐ NEW TOOL IMPORT
 
 import PlaceholderTool from '@/components/tools/PlaceholderTool';
-import ToolPageAd from '@/components/ads/ToolPageAd';
 import MoreTools from '@/components/MoreTools';
 
 export async function generateStaticParams() {
