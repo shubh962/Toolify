@@ -6,7 +6,7 @@ import { ai } from "@/app/ai";
 // Keep other imports (assuming these work for you)
 import { removeBackground } from "@/ai/flows/background-remover";
 import { imageToTextOcr } from "@/ai/flows/image-to-text-ocr";
-// ❌ REMOVED: import { paraphraseText } from "@/ai/flows/text-paraphraser"; (This was causing the crash)
+import { paraphraseText } from "@/ai/flows/text-paraphraser";
 import { pdfToWord } from "@/ai/flows/pdf-to-word";
 import { mergePdfToWord } from "@/ai/flows/merge-pdf-to-word";
 import { PDFDocument } from "pdf-lib";
