@@ -294,7 +294,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               </nav>
 
               <p className="mt-4 text-xs">
-                © 2025 Toolify — All Rights Reserved
+                © 2025 Toolify (TaskGuru) — All Rights Reserved
               </p>
             </div>
           </footer>
