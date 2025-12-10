@@ -1,8 +1,10 @@
-import { configureGenkit } from "genkit";
+import { genkit } from "genkit";
 import { googleAI } from "@genkit-ai/googleai";
-import { generate } from "@genkit-ai/googleai";
 
-configureGenkit({
+// -------------------------------
+// ✅ 1. Create AI Runtime (Genkit v2 way)
+// -------------------------------
+export const ai = genkit({
   plugins: [
     googleAI({
       apiKey: process.env.GOOGLE_GENAI_API_KEY!,
@@ -10,13 +12,15 @@ configureGenkit({
   ],
 });
 
-// ⭐ This function will replace old ai.generateText()
+// -------------------------------
+// ✅ 2. Optional helper function for simple generations
+// -------------------------------
 export async function generateText(prompt: string) {
-  const result = await generate({
-    model: "models/gemini-1.5-flash",
+  const response = await ai.generate({
+    model: "googleai/gemini-1.5-flash",
     prompt,
     temperature: 0.3,
   });
 
-  return result.outputText();
+  return response.text(); // Genkit v2 output method
 }
