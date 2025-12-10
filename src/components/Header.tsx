@@ -16,7 +16,7 @@ const Header = ({ themeToggle }: HeaderProps) => {
           <div className="p-2 bg-primary rounded-lg text-primary-foreground transition-transform group-hover:scale-110">
             <Layers3 className="h-6 w-6" />
           </div>
-          <h1 className="text-xl md:text-2xl font-bold text-foreground tracking-tighter">Toolify</h1>
+          <h1 className="text-xl md:text-2xl font-bold text-foreground tracking-tighter">Toolify (TaskGuru)</h1>
         </Link>
         
         {/* Toolkit Tagline and Theme Toggle */}
