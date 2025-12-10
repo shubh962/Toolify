@@ -1,58 +1,29 @@
 'use server';
 
-import { ai } from "@/ai/genkit";
 import { z } from "zod";
+import { generate } from "@genkit-ai/googleai";
 
-// -----------------------------
-// ✅ 1. Schemas
-// -----------------------------
-const ParaphraseTextInputSchema = z.object({
+// Schema
+const InputSchema = z.object({
   text: z.string(),
 });
 
-const ParaphraseTextOutputSchema = z.object({
-  paraphrasedText: z.string(),
-});
-
-// -----------------------------
-// ✅ 2. Prompt (Genkit v2 syntax)
-// -----------------------------
-const paraphraseTextPrompt = ai.prompt("paraphraseTextPrompt", {
-  input: ParaphraseTextInputSchema,
-  output: ParaphraseTextOutputSchema,
-  prompt: `
-Rewrite the following text in a clear, professional and natural tone.
-Keep the meaning same but improve readability.
-
-Text:
-{{ text }}
-`,
-});
-
-// -----------------------------
-// ✅ 3. Flow (Genkit v2 syntax)
-// -----------------------------
-export const paraphraseTextFlow = ai.flow(
-  "paraphraseTextFlow",
-  {
-    input: ParaphraseTextInputSchema,
-    output: ParaphraseTextOutputSchema,
-  },
-  async ({ text }) => {
-    const response = await paraphraseTextPrompt({ text });
-
-    return {
-      paraphrasedText:
-        response?.paraphrasedText || 
-        response?.text || 
-        "Unable to paraphrase text.",
-    };
-  }
-);
-
-// -----------------------------
-// ✅ 4. Export Action for UI
-// -----------------------------
+// Main function
 export async function paraphraseText(input: { text: string }) {
-  return paraphraseTextFlow(input);
+  const { text } = InputSchema.parse(input);
+
+  const result = await generate({
+    model: "models/gemini-1.5-flash",
+    prompt: `
+      Rewrite this text in a clearer, more professional way.
+      Maintain the meaning.
+
+      Text: "${text}"
+    `,
+    temperature: 0.2,
+  });
+
+  return {
+    paraphrasedText: result.outputText(),
+  };
 }
