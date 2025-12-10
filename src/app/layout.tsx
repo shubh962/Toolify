@@ -39,24 +39,25 @@ const inter = Inter({
   variable: "--font-inter",
 });
 
-// -------------------------------
-// 🔥 FIX #1 — metadataBase + canonical PERFECT
-// -------------------------------
+// ==========================================================
+// ✅ FIXED BRANDING + METADATA FOR TOOLIFY (TASKGURU)
+// ==========================================================
+
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.taskguru.online"),
 
   title: {
-    default: "Toolify – Free Online Tools (PDF, Images & Text)",
-    template: "%s • Toolify",
+    default: "Toolify (TaskGuru) – Free AI Tools for PDF, Images & Text",
+    template: "%s • Toolify (TaskGuru)",
   },
 
   description:
-    "Free tools: Background Remover, Image Compressor, PDF to Word, Text Paraphraser & Image to Text.",
+    "Toolify (TaskGuru) provides free AI tools including PDF converters, background remover, image compressor, OCR, paraphraser and productivity utilities. Fast, secure, and no login required.",
 
   robots: "index, follow",
 
   alternates: {
-    canonical: "/", // Auto expands using metadataBase
+    canonical: "/", 
   },
 
   verification: {
@@ -64,14 +65,14 @@ export const metadata: Metadata = {
   },
 
   keywords:
-    "free online tools, background remover, image compressor, pdf to word, paraphraser, image to text, toolify, taskguru",
+    "toolify taskguru, free online tools, ai tools, background remover, image compressor, pdf to word, paraphraser, ocr, image to text",
 
   openGraph: {
-    title: "Toolify – Free Online Tools",
+    title: "Toolify (TaskGuru) – Free Online Tools",
     description:
-      "Free Background Remover, Compressor, PDF, Text Paraphraser & more.",
+      "Use Toolify (TaskGuru) for Background Removal, Image Compression, PDF tools, AI paraphrasing & more.",
     url: "https://www.taskguru.online",
-    siteName: "Toolify",
+    siteName: "Toolify (TaskGuru)",
     images: [
       {
         url: "https://www.taskguru.online/og-image.png",
@@ -85,25 +86,27 @@ export const metadata: Metadata = {
 
   twitter: {
     card: "summary_large_image",
-    title: "Toolify – Free Online Tools",
+    title: "Toolify (TaskGuru) – Free Online Tools",
     description:
-      "Free Background Remover, Compressor, PDF tools, Paraphraser & more.",
+      "Free Background Remover, OCR, Image Compressor, PDF to Word, Paraphraser & AI utilities.",
     images: ["https://www.taskguru.online/og-image.png"],
     creator: "@YourHandle",
   },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
-  // -------------------------------
-  // 🔥 FIX #2 JSON-LD — Approved schema
-  // -------------------------------
+  
+  // ==========================================================
+  // ✅ UPDATED JSON-LD SCHEMA WITH TOOLIFY (TASKGURU)
+  // ==========================================================
+
   const siteLdJson = {
     "@context": "https://schema.org",
     "@type": "WebSite",
     url: "https://www.taskguru.online",
-    name: "Toolify",
+    name: "Toolify (TaskGuru)",
     description:
-      "Free tools like Background Remover, Image Compressor, PDF to Word Converter, and Text Paraphraser.",
+      "Toolify (TaskGuru) offers free AI tools like Background Remover, Image Compressor, PDF Converter, and Text Paraphraser.",
     potentialAction: {
       "@type": "SearchAction",
       target: "https://www.taskguru.online/tools/{search_term_string}",
@@ -115,7 +118,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     "@context": "https://schema.org",
     "@type": "Organization",
     url: "https://www.taskguru.online",
-    name: "Toolify",
+    name: "Toolify (TaskGuru)",
     logo: "https://www.taskguru.online/logo.png",
     sameAs: [
       "https://www.facebook.com/share/1K97T5Q5wp/",
@@ -129,7 +132,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
-        {/* JSON-LD Inject */}
+        {/* JSON-LD */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -161,14 +164,22 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 
       <body className="font-body antialiased min-h-screen flex flex-col">
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+          
+          {/* Header */}
           <Header themeToggle={<ThemeToggle />} />
 
+          {/* Page Content */}
           <main className="flex-1">{children}</main>
+
           <Toaster />
 
-          {/* FOOTER */}
+          {/* ----------------------------- */}
+          {/* FOOTER — Already Perfect */}
+          {/* ----------------------------- */}
+
           <footer className="py-6 text-center text-gray-700 bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800">
             <div className="container mx-auto px-6">
+
               <div className="flex flex-col sm:flex-row justify-center items-center gap-2 sm:gap-4">
                 <p>Developed with ❤️ by Shubham Gautam</p>
                 <span className="hidden sm:inline">|</span>
@@ -183,7 +194,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                   <DialogContent className="max-w-3xl max-h-[90vh] overflow-y-auto">
                     <DialogHeader>
                       <DialogTitle className="text-2xl text-center mb-4">
-                        About Toolify
+                        About Toolify (TaskGuru)
                       </DialogTitle>
                     </DialogHeader>
 
@@ -194,11 +205,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                         </CardHeader>
                         <CardContent className="space-y-3 text-sm text-muted-foreground">
                           <p>
-                            <strong>Toolify</strong> simplifies daily online
-                            tasks with smart, user-friendly tools. Founded by{" "}
+                            <strong>Toolify (TaskGuru)</strong> simplifies daily
+                            online tasks with smart, user-friendly AI tools. Founded by{" "}
                             <strong>Shubham Gautam</strong>.
                           </p>
-                          <p>We value seamless UX, privacy, and evolution.</p>
+                          <p>We value seamless UX, privacy, and innovation.</p>
                         </CardContent>
                       </Card>
 
@@ -211,7 +222,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                         </CardHeader>
                         <CardContent className="space-y-3 text-sm text-muted-foreground">
                           <p>
-                            <strong>© 2025 Toolify. All rights reserved.</strong>
+                            <strong>© 2025 Toolify (TaskGuru). All rights reserved.</strong>
                           </p>
                           <p>Unauthorized reproduction prohibited.</p>
                         </CardContent>
@@ -221,24 +232,20 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 </Dialog>
               </div>
 
-              {/* LEGAL LINKS */}
+              {/* Legal Links */}
               <nav className="mt-6 flex gap-4 justify-center text-sm font-medium">
                 <Link href="/blog">Blog</Link>
                 <span>|</span>
-
                 <Link href="/privacy-policy">Privacy Policy</Link>
                 <span>|</span>
-
                 <Link href="/terms">Terms of Service</Link>
                 <span>|</span>
-
                 <Link href="/about">About</Link>
                 <span>|</span>
-
                 <Link href="/help">Help</Link>
               </nav>
 
-              {/* SOCIAL LINKS */}
+              {/* Social Links */}
               <nav className="mt-4 flex gap-6 justify-center text-sm">
                 <ul className="flex gap-4">
                   <li>
@@ -298,6 +305,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               </p>
             </div>
           </footer>
+
         </ThemeProvider>
       </body>
     </html>
