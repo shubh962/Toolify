@@ -2,7 +2,10 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
-import { PDFDocument } from "pdf-lib";
+// WARNING: pdf-lib MUST be imported dynamically in Next.js/React to prevent client-side build errors
+// If the error persists, you must switch to Dynamic Import:
+// const { PDFDocument } = await import('pdf-lib');
+import { PDFDocument } from "pdf-lib"; 
 import Link from "next/link";
 import Script from "next/script";
 
@@ -26,7 +29,8 @@ import {
   Highlighter,
   Lock,
   Check,
-  FileAxis3D, // New icon for the main tool header
+  FileAxis3D,
+  Zap, // Used for 'More Tools' section title
 } from "lucide-react";
 
 // Structured data (unchanged)
@@ -43,34 +47,44 @@ const schemaData = {
 const loadSafeCanvas = (file: File): Promise<{ preview: string; canvas: HTMLCanvasElement }> =>
   new Promise((resolve, reject) => {
     const reader = new FileReader();
+
     reader.onload = (event) => {
       const img = new Image();
       img.onload = () => {
         let w = img.width;
         let h = img.height;
+
         const MAX_SIDE = 1600;
         const scale = Math.min(MAX_SIDE / w, MAX_SIDE / h, 1);
+
         w *= scale;
         h *= scale;
+
         const canvas = document.createElement("canvas");
         canvas.width = w;
         canvas.height = h;
+
         const ctx = canvas.getContext("2d");
         if (!ctx) return reject("Canvas context missing");
+
         ctx.drawImage(img, 0, 0, w, h);
+
         resolve({
           preview: canvas.toDataURL("image/jpeg", 0.9),
           canvas,
         });
       };
+
       img.onerror = () => reject("Image decode failed");
       img.src = event.target?.result as string;
     };
+
     reader.onerror = () => reject("File read error");
     reader.readAsDataURL(file);
   });
 
-// MAIN TOOL COMPONENT (Unchanged functionality)
+
+// MAIN TOOL COMPONENT 
 export default function ImageToPdf() {
   const fileRef = useRef<HTMLInputElement>(null);
   const [preview, setPreview] = useState<string | null>(null);
@@ -85,7 +99,6 @@ export default function ImageToPdf() {
 
   // Handlers (Unchanged)
   const handleUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    // ... upload logic remains the same
     const file = e.target.files?.[0];
     if (!file) return;
 
@@ -112,11 +125,11 @@ export default function ImageToPdf() {
   };
 
   const convertToPdf = async () => {
-    // ... conversion logic remains the same
     if (!canvas) return;
     setLoading(true);
 
     try {
+        // PDF-LIB logic remains the same
       const pdf = await PDFDocument.create();
       const A4_W = 595.28;
       const A4_H = 841.89;
@@ -146,15 +159,15 @@ export default function ImageToPdf() {
 
       if (pdfUrl) URL.revokeObjectURL(pdfUrl);
       setPdfUrl(URL.createObjectURL(blob));
-    } catch {
-      alert("Conversion failed");
+    } catch(error) {
+      console.error("PDF Conversion Error:", error);
+      alert("Conversion failed. Check browser console for details.");
     }
 
     setLoading(false);
   };
 
   const reset = () => {
-    // ... reset logic remains the same
     setPreview(null);
     setCanvas(null);
     setFileName("");
@@ -163,10 +176,10 @@ export default function ImageToPdf() {
     if (fileRef.current) fileRef.current.value = "";
   };
 
-  // Reusable Tool card (Unchanged)
+  // Reusable Tool card (Used in 'More Tools' section)
   const ToolCard = ({ icon: Icon, title, desc, href, cta }) => (
-    <Link href={href}>
-      <div className="p-4 border rounded-xl hover:shadow-lg transition cursor-pointer bg-card dark:bg-gray-800">
+    <Link href={href} prefetch={false}>
+      <div className="p-4 border rounded-xl hover:shadow-lg transition cursor-pointer bg-card dark:bg-gray-800 h-full">
         <div className="flex items-start gap-3">
           <div className="p-3 bg-primary/10 rounded-full">
             <Icon className="text-primary w-5 h-5" />
@@ -177,7 +190,7 @@ export default function ImageToPdf() {
           </div>
         </div>
         <div className="mt-3 text-sm text-primary flex items-center">
-          {cta} <MoveRight className="w-4 h-4 ml-1" />
+          {cta} <MoveRight className="w-4 h-4 ml-1 transition-transform group-hover:translate-x-1" />
         </div>
       </div>
     </Link>
@@ -205,19 +218,19 @@ export default function ImageToPdf() {
         </p>
       </header>
 
-      {/* TOOL CARD */}
-      <Card className="max-w-5xl mx-auto shadow-xl rounded-xl">
+      {/* TOOL CARD - Centered and Shadowed */}
+      <Card className="max-w-5xl mx-auto shadow-2xl rounded-xl border-t-4 border-primary/50">
         <CardContent className="p-8">
 
           {!preview ? (
-            // ⭐ Upload Section
+            // ⭐ Upload Section - Clean and Inviting
             <div
               onClick={() => fileRef.current?.click()}
-              className="p-10 border-2 border-dashed rounded-xl text-center cursor-pointer hover:border-primary transition bg-muted/20"
+              className="p-10 border-2 border-dashed rounded-xl text-center cursor-pointer hover:border-primary transition bg-muted/20 hover:bg-muted/50 min-h-[300px] flex flex-col items-center justify-center"
             >
               <Upload className="w-12 h-12 mx-auto text-primary mb-4" />
-              <p className="text-lg font-semibold">Click to Upload Image to Convert</p>
-              <p className="text-sm text-muted-foreground">JPG, PNG, WEBP • Max 50MB</p>
+              <p className="text-lg font-bold text-foreground">Click to Upload Image to Convert</p>
+              <p className="text-sm text-muted-foreground">JPG, PNG, WEBP • Max 50MB • Private Processing</p>
 
               <Input
                 ref={fileRef}
@@ -232,11 +245,11 @@ export default function ImageToPdf() {
             <div className="grid md:grid-cols-2 gap-8">
 
               <div>
-                <h3 className="font-semibold text-center mb-2">
+                <h3 className="font-semibold text-center mb-2 text-foreground">
                   Preview – {fileName}
                 </h3>
-                <div className="border rounded-xl min-h-[300px] flex items-center justify-center bg-muted/50">
-                  <img src={preview} className="max-h-[360px] object-contain p-2" alt="Image preview for PDF conversion" />
+                <div className="border rounded-xl min-h-[300px] flex items-center justify-center bg-muted/50 p-4">
+                  <img src={preview} className="max-h-[360px] object-contain rounded-lg shadow-inner" alt="Image preview for PDF conversion" />
                 </div>
               </div>
 
@@ -248,7 +261,7 @@ export default function ImageToPdf() {
                   </h4>
 
                   <ul className="text-sm text-muted-foreground list-disc pl-4 space-y-1">
-                    <li>Output Format: Standard A4 PDF</li>
+                    <li>Output Format: Standard A4 PDF (Optimized for Printing)</li>
                     <li>Security: Client-side processing (100% Private)</li>
                     <li>License: No watermark, Free to use</li>
                   </ul>
@@ -292,7 +305,7 @@ export default function ImageToPdf() {
         )}
       </Card>
 
-      {/* 🚀 SEO CONTENT SECTION (Unchanged, placed below the tool) */}
+      {/* 🚀 SEO CONTENT SECTION (Unchanged, Clean Pro Layout) */}
       <section className="max-w-5xl mx-auto px-4 mt-16 prose dark:prose-invert">
         <h2 className="text-3xl font-bold mb-4 text-foreground">
           The Best Free Image to PDF Converter Online
@@ -323,52 +336,52 @@ export default function ImageToPdf() {
         </p>
       </section>
 
-      {/* ⭐ More Tools Section (Professional Look) */}
+      {/* ⭐ More Tools Section - Enhanced Professional Grid */}
       <section className="max-w-5xl mx-auto px-4 mt-16 pt-10 border-t border-muted">
         <h2 className="text-3xl font-bold text-center mb-10 flex items-center justify-center gap-3 text-foreground">
-          <Sparkles className="w-6 h-6 text-primary" /> TaskGuru: Your AI Productivity Hub
+          <Zap className="w-6 h-6 text-primary" /> Explore More AI Productivity Tools
         </h2>
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
           <ToolCard
             icon={FileImage}
             title="Image Compressor"
-            desc="Reduce image size without losing quality."
+            desc="Reduce file size without losing quality for faster submissions."
             href="/tools/image-compressor"
             cta="Compress Now"
           />
           <ToolCard
             icon={Scissors}
             title="Background Remover"
-            desc="Remove background instantly using AI."
+            desc="AI-powered tool for clean professional images (PNG output)."
             href="/tools/background-remover"
             cta="Remove BG"
           />
           <ToolCard
             icon={Merge}
             title="Merge PDF"
-            desc="Combine multiple PDFs into one."
+            desc="Combine multiple PDF documents easily into one file."
             href="/tools/merge-pdf"
             cta="Merge Files"
           />
           <ToolCard
             icon={FileTextIcon}
             title="PDF to Word"
-            desc="Convert PDF files into editable Word documents."
+            desc="Convert non-editable PDF files into editable Word documents."
             href="/tools/pdf-to-word"
             cta="Convert Now"
           />
           <ToolCard
             icon={ImageIcon}
             title="Image to Text OCR"
-            desc="Extract text from scanned pages."
+            desc="Extract text from scanned pages or photos instantly."
             href="/tools/image-to-text"
             cta="Extract Text"
           />
           <ToolCard
             icon={Highlighter}
             title="AI Paraphraser"
-            desc="Rewrite text instantly for plagiarism check."
+            desc="Rewrite text instantly for plagiarism check and clarity."
             href="/tools/text-paraphraser"
             cta="Rewrite Text"
           />
