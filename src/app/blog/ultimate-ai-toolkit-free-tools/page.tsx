@@ -13,9 +13,9 @@ import {
     ScanText,
     ArrowRight,
     Lock,
-    Globe, // For Global/Indian appeal
-    ShieldCheck, // For Trust
-    Users // For user base
+    Globe, 
+    ShieldCheck, 
+    Users 
 } from "lucide-react";
 
 // ✅ FULL SEO METADATA (Global & Indian Focus)
@@ -91,14 +91,14 @@ export default function UltimateAiToolkitPost() {
                             द अल्टीमेट AI टूलकिट: छात्रों और पेशेवरों के लिए निःशुल्क ऑनलाइन उत्पादकता टूल को अनलॉक करें
                         </h1>
                         <p className="text-muted-foreground mt-3">
-                            Published: December 2025 • **डेटा सुरक्षा** और **उच्च गति** के साथ काम करें।
+                            Published: December 2025 • डेटा सुरक्षा और उच्च गति के साथ काम करें।
                         </p>
                     </header>
 
                     {/* INTRO - START */}
                     <section className="mb-12">
                         <p className="text-xl leading-relaxed font-semibold">
-                            आज के डिजिटल युग में, महंगे सॉफ्टवेयर या सब्सक्रिप्शन पर निर्भर रहना अब ज़रूरी नहीं है। TaskGuru आपको <strong className="text-primary">AI-संचालित उत्पादकता टूलकिट</strong> प्रदान करता है जो **भारत और विश्व भर** के उपयोगकर्ताओं के लिए गति, सुरक्षा और पूर्णतः मुफ्त एक्सेस पर केंद्रित है।
+                            आज के डिजिटल युग में, महंगे सॉफ्टवेयर या सब्सक्रिप्शन पर निर्भर रहना अब ज़रूरी नहीं है। TaskGuru आपको <strong className="text-primary">AI-संचालित उत्पादकता टूलकिट</strong> प्रदान करता है जो भारत और विश्व भर के उपयोगकर्ताओं के लिए गति, सुरक्षा और पूर्णतः मुफ्त एक्सेस पर केंद्रित है।
                         </p>
 
                         <p className="mt-4">
@@ -132,10 +132,10 @@ export default function UltimateAiToolkitPost() {
                             1. PDF से Word रूपांतरण (<Link href="/tools/pdf-to-word" className="underline hover:text-primary">/pdf-to-word</Link>)
                         </h3>
                         <p>
-                            भारतीय अकादमिक संस्थानों में संपादन योग्य `.docx` प्रारूप की मांग अधिक होती है। हमारा कनवर्टर PDF की जटिल लेआउटिंग को संरक्षित रखता है, जिससे आपको **अंतिम मिनट के संपादन** में आसानी होती है।
+                            भारतीय अकादमिक संस्थानों में संपादन योग्य `.docx` प्रारूप की मांग अधिक होती है। हमारा कनवर्टर PDF की जटिल लेआउटिंग को संरक्षित रखता है, जिससे आपको अंतिम मिनट के संपादन में आसानी होती है।
                         </p>
                         <p className="mt-3 text-sm text-muted-foreground">
-                            **SEO Keywords:** <code>PDF to Word free online</code>, <code>convert PDF to DOCX without software</code>.
+                            SEO Keywords: <code>PDF to Word free online</code>, <code>convert PDF to DOCX without software</code>.
                         </p>
 
                         {/* Merge PDF */}
@@ -146,7 +146,7 @@ export default function UltimateAiToolkitPost() {
                             अक्सर, एक प्रोजेक्ट रिपोर्ट कई अलग-अलग अध्यायों या स्रोतों से बनी होती है। <Link href="/tools/merge-pdf" className="underline hover:text-primary"><strong>Merge PDF</strong></Link> टूल ड्रैग-एंड-ड्रॉप के माध्यम से इन बिखरे दस्तावेज़ों को एक पेशेवर फ़ाइल में एकजुट करता है।
                         </p>
                         <p className="mt-3 text-sm text-muted-foreground">
-                            **SEO Keywords:** <code>Merge PDF files online free</code>, <code>combine multiple PDFs</code>.
+                            SEO Keywords: <code>Merge PDF files online free</code>, <code>combine multiple PDFs</code>.
                         </p>
 
                         {/* Image to PDF */}
@@ -154,7 +154,7 @@ export default function UltimateAiToolkitPost() {
                             3. इमेज को PDF में बदलना: हैंडराइटिंग असाइनमेंट के लिए (<Link href="/tools/image-to-pdf" className="underline hover:text-primary">/image-to-pdf</Link>)
                         </h3>
                         <p>
-                            भारत में कई प्रवेश परीक्षाएँ और असाइनमेंट अभी भी हस्तलिखित जमा किए जाते हैं। यह टूल आपके फ़ोन से खींची गई मल्टीपल इमेजेज़ को एक **साफ़, सबमिट करने योग्य PDF** में बदल देता है।
+                            भारत में कई प्रवेश परीक्षाएँ और असाइनमेंट अभी भी हस्तलिखित जमा किए जाते हैं। यह टूल आपके फ़ोन से खींची गई मल्टीपल इमेजेज़ को एक साफ़, सबमिट करने योग्य PDF में बदल देता है।
                         </p>
                     </section>
                     {/* I. DOCUMENT REVOLUTION - END */}
@@ -173,7 +173,7 @@ export default function UltimateAiToolkitPost() {
                             1. AI पैराफ़्रेज़र: अद्वितीयता और अकादमिक ईमानदारी (<Link href="/tools/text-paraphraser" className="underline hover:text-primary">/text-paraphraser</Link>)
                         </h3>
                         <p>
-                            TaskGuru का <Link href="/tools/text-paraphraser" className="underline hover:text-primary"><strong>Text Paraphraser</strong></Link> यह सुनिश्चित करता है कि आप साहित्यिक चोरी (plagiarism) के जोखिम के बिना अपने विचारों को स्पष्ट और **विश्वसनीय** तरीके से व्यक्त करें। यह लेखकों और छात्रों दोनों के लिए अनिवार्य है।
+                            TaskGuru का <Link href="/tools/text-paraphraser" className="underline hover:text-primary"><strong>Text Paraphraser</strong></Link> यह सुनिश्चित करता है कि आप साहित्यिक चोरी (plagiarism) के जोखिम के बिना अपने विचारों को स्पष्ट और विश्वसनीय तरीके से व्यक्त करें। यह लेखकों और छात्रों दोनों के लिए अनिवार्य है।
                         </p>
 
                         {/* OCR */}
@@ -200,7 +200,7 @@ export default function UltimateAiToolkitPost() {
                             1. AI बैकग्राउंड रिमूवर: ई-कॉमर्स और LinkedIn प्रोफ़ाइल (<Link href="/tools/background-remover" className="underline hover:text-primary">/background-remover</Link>)
                         </h3>
                         <p>
-                            एक साफ़, **पारदर्शी PNG** प्राप्त करें। यह टूल भारतीय ई-कॉमर्स विक्रेताओं के लिए प्रोडक्ट इमेजेज़ को पेशेवर बनाने या किसी भी व्यक्ति के लिए LinkedIn प्रोफ़ाइल फोटो को **स्टúdio-क्वालिटी** में बदलने के लिए ज़रूरी है।
+                            एक साफ़, पारदर्शी PNG प्राप्त करें। यह टूल भारतीय ई-कॉमर्स विक्रेताओं के लिए प्रोडक्ट इमेजेज़ को पेशेवर बनाने या किसी भी व्यक्ति के लिए LinkedIn प्रोफ़ाइल फोटो को Studio-Quality में बदलने के लिए ज़रूरी है।
                         </p>
                         
                         {/* Image Compressor */}
@@ -226,7 +226,7 @@ export default function UltimateAiToolkitPost() {
                             <h3 className="font-bold text-xl mb-3">हमारी विश्वसनीयता के 3 स्तंभ</h3>
                             <ul className="list-disc pl-6 space-y-2">
                                 <li>
-                                    <strong>संपूर्ण गोपनीयता:</strong> फ़ाइलें **कभी स्टोर नहीं** की जाती हैं। क्लाइंट-साइड प्रोसेसिंग हमारी सर्वोच्च सुरक्षा सुविधा है।
+                                    <strong>संपूर्ण गोपनीयता:</strong> फ़ाइलें कभी स्टोर नहीं की जाती हैं। क्लाइंट-साइड प्रोसेसिंग हमारी सर्वोच्च सुरक्षा सुविधा है।
                                 </li>
                                 <li>
                                     <strong>स्थिर और तेज़ प्रदर्शन:</strong> Next.js पर निर्मित, TaskGuru दुनिया भर में (विशेषकर 4G और 5G नेटवर्क पर) तेज़ी से लोड होता है।
@@ -245,7 +245,7 @@ export default function UltimateAiToolkitPost() {
                             <FileText className="w-7 h-7" /> V. ज्ञान ही शक्ति है: TaskGuru ब्लॉग
                         </h2>
                         <p className="mt-4">
-                            हमारे <Link href="/blog" className="underline hover:text-primary">ब्लॉग</Link> पर नियमित रूप से जाएँ, जहाँ हम टूल के व्यावहारिक उपयोग और SEO रणनीतियों पर गहराई से चर्चा करते हैं। यह सामग्री आपको केवल टूल का उपयोग करना नहीं, बल्कि **उन्हें प्रभावी ढंग से उपयोग करना** सिखाती है।
+                            हमारे <Link href="/blog" className="underline hover:text-primary">ब्लॉग</Link> पर नियमित रूप से जाएँ, जहाँ हम टूल के व्यावहारिक उपयोग और SEO रणनीतियों पर गहराई से चर्चा करते हैं। यह सामग्री आपको केवल टूल का उपयोग करना नहीं, बल्कि उन्हें प्रभावी ढंग से उपयोग करना सिखाती है।
                         </p>
                         <ul className="list-disc pl-6 space-y-2 mt-4">
                             <li><Link href="/blog/the-ultimate-taskguru-toolkit" className="underline hover:text-primary">The Ultimate TaskGuru Toolkit</Link></li>
