@@ -6,43 +6,50 @@ import Link from 'next/link';
 import { ArrowRight, Zap } from 'lucide-react'; 
 import Script from "next/script";
 
-// ✅ 1. ALL BLOG POSTS ARE DEFINED HERE (NOW 4 POSTS)
+// ✅ 1. ALL BLOG POSTS ARE DEFINED HERE (Total 6 Posts)
 const posts = [
-    // 1st Post 
+    // 🌟 1st Post (The NEW, High-Authority Post) 🌟
     {
-        slug: 'the-ultimate-taskguru-toolkit', 
-        title: "The Ultimate TaskGuru Toolkit: 6 Free AI Tools for Students & Professionals",
-        summary: "Stop juggling multiple apps! Discover TaskGuru's complete suite of free AI tools: PDF conversion, background removal, image compression, and more.",
-        date: 'October 2, 2025',
+        slug: 'ultimate-ai-toolkit-free-tools', // Your new 2000+ word post slug
+        title: "द अल्टीमेट AI टूलकिट: छात्रों और पेशेवरों के लिए निःशुल्क ऑनलाइन उत्पादकता टूल को अनलॉक करें (भारत और विश्व के लिए)",
+        summary: "TaskGuru पर 2000+ शब्दों का गहन विश्लेषण! PDF, इमेज एडिटिंग, टेक्स्ट पैराफ़्रेज़िंग, और फ़ाइल सुरक्षा के लिए सर्वश्रेष्ठ AI टूल खोजें। गोपनीयता और गति पर केंद्रित।",
+        date: 'December 12, 2025', // Today's date (or deployment date)
     },
-    // 2nd Post 
+    // 2nd Post (Previous latest post)
+    {
+        slug: 'free-ai-tools-for-students-2025',
+        title: "Top 10 Free AI Tools for Students in 2025 (No Login Required)",
+        summary: "Discover the most powerful free AI tools every student must use in 2025. Rewrite notes, convert PDFs, extract text, compress files, and boost productivity using TaskGuru’s fast, no-login tools.",
+        date: 'December 3, 2025',
+    },
+    // 3rd Post
+    {
+        slug: 'ai-document-power-up',
+        title: "AI Document Power-Up: Free Tools to Summarize & Chat with Any Document (PDF, Word, Text)",
+        summary: "Instantly summarize lengthy PDFs, generate key takeaways, and ask questions to your documents using TaskGuru’s new, free AI document analysis tool. Essential for research and study.",
+        date: 'November 9, 2025', 
+    },
+    // 4th Post 
+    {
+        slug: 'streamline-remote-workflow',
+        title: "TaskGuru: The Professional's Free AI Toolkit (Streamline Remote Workflow)",
+        summary: "Elevate your academic and professional projects instantly with TaskGuru's free AI tools. This is the Updated data for peak productivity and efficient remote work.",
+        date: 'October 21, 2025',
+    },
+    // 5th Post 
     {
         slug: 'projects-presentations-ai-toolkit',
         title: "Beyond Essays: How TaskGuru's Free AI Tools Revolutionize Your Projects & Presentations",
         summary: "Elevate your academic and professional projects with TaskGuru's free AI tools. From image optimization to document management and text rewriting, learn how to create stunning presentations and reports with ease.",
         date: 'October 9, 2025',
     },
-    // 3rd Post 
+    // 6th Post 
     {
-        slug: 'streamline-remote-workflow',
-        title: "TaskGuru: The Professional's Free AI Toolkit",
-        summary: "Elevate your academic and professional projects instantly with TaskGuru's free AI tools. This is the Updated data for peak productivity.",
-        date: 'October 21, 2025',
+        slug: 'the-ultimate-taskguru-toolkit', 
+        title: "The Ultimate TaskGuru Toolkit: 6 Free AI Tools for Students & Professionals",
+        summary: "Stop juggling multiple apps! Discover TaskGuru's complete suite of free AI tools: PDF conversion, background removal, image compression, and more.",
+        date: 'October 2, 2025',
     },
-    // 🌟 NEW 4th Post (The latest optimized post targeting high-intent AI keywords) 🌟
-    {
-        slug: 'ai-document-power-up',
-        title: "AI Document Power-Up: Free Tools to Summarize & Chat with Any Document (PDF, Word, Text)",
-        summary: "Instantly summarize lengthy PDFs, generate key takeaways, and ask questions to your documents using TaskGuru’s new, free AI document analysis tool. Essential for research and study.",
-        date: 'November 9, 2025', // Updated date to reflect the latest post
-    },
-{
-    slug: 'free-ai-tools-for-students-2025',
-    title: "Top 10 Free AI Tools for Students in 2025 (No Login Required)",
-    summary: "Discover the most powerful free AI tools every student must use in 2025. Rewrite notes, convert PDFs, extract text, compress files, and boost productivity using TaskGuru’s fast, no-login tools.",
-    date: 'December 3, 2025',
-},
-    
 ];
 
 // ✅ 2. FAQ SCHEMA FOR THE LISTING PAGE (Updated with a highly relevant AI question)
@@ -89,17 +96,30 @@ export default function BlogPage() {
 
             <main className="max-w-4xl mx-auto px-4 py-16">
                 <header className="text-center mb-12">
-                    <h1 className="text-4xl font-extrabold text-foreground mb-3">TaskGuru Insights & Guides</h1>
-                    <p className="text-lg text-muted-foreground">Stay ahead of the curve with our AI productivity tips and tool comparisons.</p>
+                    <h1 className="text-4xl font-extrabold text-foreground mb-3">TaskGuru Insights & Guides (ज्ञान)</h1>
+                    <p className="text-lg text-muted-foreground">भारत और विश्व भर के यूज़र्स के लिए AI उत्पादकता युक्तियाँ और टूल तुलना।</p>
                 </header>
 
                 {/* ✅ 3. Blog Post List */}
                 <div className="space-y-10">
                     {posts.map((post) => (
-                        <article key={post.slug} className="p-6 border rounded-xl shadow-md hover:shadow-lg transition duration-300 dark:bg-gray-800">
+                        <article 
+                            key={post.slug} 
+                            // Highlight the newest, most important post
+                            className={`p-6 border rounded-xl shadow-md hover:shadow-lg transition duration-300 dark:bg-gray-800 ${
+                                post.slug === 'ultimate-ai-toolkit-free-tools' 
+                                ? 'border-2 border-primary ring-2 ring-primary/50 bg-primary/5 dark:bg-indigo-900/10' 
+                                : ''
+                            }`}
+                        >
                             <Link href={`/blog/${post.slug}`} className="group block">
                                 <h2 className="text-2xl font-bold group-hover:text-primary transition-colors">
                                     {post.title}
+                                    {post.slug === 'ultimate-ai-toolkit-free-tools' && (
+                                        <span className="ml-3 inline-flex items-center px-3 py-1 text-xs font-semibold rounded-full bg-primary text-white">
+                                            NEW & HOT 🔥
+                                        </span>
+                                    )}
                                 </h2>
                                 <p className="mt-2 text-sm text-muted-foreground">{post.date}</p>
                                 <p className="mt-4 text-gray-700 dark:text-gray-300">{post.summary}</p>
