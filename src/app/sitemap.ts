@@ -6,6 +6,7 @@ const blogSlugs = [
   "streamline-remote-workflow",
   "ai-document-power-up",
   "free-ai-tools-for-students-2025",
+  "ultimate-ai-toolkit-free-tools",
 ];
 
 const toolSlugs = [
