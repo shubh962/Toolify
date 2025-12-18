@@ -52,7 +52,20 @@ export async function directParaphrase(text: string) {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
-      contents: [{ parts: [{ text: `You are a professional editor. Paraphrase this text:\n\n"${text}"` }] }]
+      contents: [{ 
+        parts: [{ 
+          // 👇 YAHAN CHANGE KIYA HAI: Strict Professional Prompt
+          text: `You are an expert corporate editor. Rewrite the following text to make it sound highly professional, formal, and concise.
+          
+          RULES:
+          1. Output ONLY the rewritten text. 
+          2. Do not add explanations like "Here is the text" or "As an AI".
+          3. Do not use conversational filler.
+          4. Improve grammar and vocabulary.
+
+          Original Text: "${text}"` 
+        }] 
+      }]
     }),
   });
 
