@@ -243,6 +243,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 <Link href="/about">About</Link>
                 <span>|</span>
                 <Link href="/help">Help</Link>
+                <span>|</span>
                 <Link href="/contact" className="hover:text-primary">Contact Us</Link>
               </nav>
 
