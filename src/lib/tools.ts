@@ -80,4 +80,13 @@ export const tools: Tool[] = [
     isPlaceholder: false,
     imageUrl: '/tool-previews/image-to-pdf.png',
   },
+  {
+  title: "Resume Maker",
+  slug: "resume-maker",
+  description: "Build professional ATS-friendly resumes in minutes",
+  icon: FileText,
+  isGenAI: false,
+  }
+  
 ];
+
