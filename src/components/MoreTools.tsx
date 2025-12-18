@@ -1,9 +1,9 @@
 // src/components/MoreTools.tsx
 
 import Link from "next/link";
-import { ArrowRight, Image, FileText, File, Crop, Combine, AlignLeft } from "lucide-react";
+import { ArrowRight, Image, FileText, File, Crop, Combine, AlignLeft, FileImage } from "lucide-react";
 
-// आपके 7 मुख्य टूल्स की सूची (इसमें PlaceholderTool शामिल नहीं है)
+// आपके 7 मुख्य टूल्स की सूची
 const allTools = [
   {
     name: "AI Background Remover",
@@ -46,6 +46,14 @@ const allTools = [
     href: "/tools/image-to-text",
     icon: <File className="w-6 h-6 text-yellow-500" />,
     cta: "Extract Now",
+  },
+  // 👇 7th Tool Added Here
+  {
+    name: "Image to PDF",
+    description: "Convert JPG, PNG, or WEBP images into a single PDF file instantly.",
+    href: "/tools/image-to-pdf",
+    icon: <FileImage className="w-6 h-6 text-rose-500" />,
+    cta: "Convert Now",
   },
 ];
 
