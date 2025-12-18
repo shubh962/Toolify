@@ -10,6 +10,10 @@ export const metadata: Metadata = {
   description: "Have questions or feedback? Get in touch with the TaskGuru team. We are here to help you with our free AI tools.",
   alternates: {
     canonical: "/contact",
+    
+    robots: {
+    index: true,
+    follow: true,
   },
 };
 
