@@ -1,66 +1,66 @@
+
 // src/app/blog/page.tsx
 
 'use client';
 
 import Link from 'next/link';
-import { ArrowRight, Zap } from 'lucide-react'; 
+import { ArrowRight } from 'lucide-react'; 
 import Script from "next/script";
 
-// ✅ 1. ALL BLOG POSTS ARE DEFINED HERE (Total 6 Posts)
+// ✅ 1. ALL BLOG POSTS ARE DEFINED HERE (Ordered Newest to Oldest)
 const posts = [
-    // 🌟 1st Post (The NEW, High-Authority Post) 🌟
+    // 🌟 1st Post (NEWEST - Dec 18) 🌟
     {
-        slug: 'ultimate-ai-toolkit-free-tools', // Your new 2000+ word post slug
+        slug: 'stop-paying-for-saas-free-ai-tools',
+        title: "Stop Paying for SaaS: Build Your $0 Productivity Tech Stack | TaskGuru",
+        summary: "Stop burning $100s/month on basic software. 💸 Check out how to build a powerful Content & Admin Tech Stack for $0 using TaskGuru's free AI tools. No credit card, no login.",
+        date: 'December 18, 2025',
+    },
+    // 2nd Post (Dec 12)
+    {
+        slug: 'ultimate-ai-toolkit-free-tools', 
         title: "द अल्टीमेट AI टूलकिट: छात्रों और पेशेवरों के लिए निःशुल्क ऑनलाइन उत्पादकता टूल को अनलॉक करें (भारत और विश्व के लिए)",
         summary: "TaskGuru पर 2000+ शब्दों का गहन विश्लेषण! PDF, इमेज एडिटिंग, टेक्स्ट पैराफ़्रेज़िंग, और फ़ाइल सुरक्षा के लिए सर्वश्रेष्ठ AI टूल खोजें। गोपनीयता और गति पर केंद्रित।",
-        date: 'December 12, 2025', // Today's date (or deployment date)
+        date: 'December 12, 2025', 
     },
-    // 2nd Post (Previous latest post)
+    // 3rd Post (Dec 3)
     {
         slug: 'free-ai-tools-for-students-2025',
         title: "Top 10 Free AI Tools for Students in 2025 (No Login Required)",
         summary: "Discover the most powerful free AI tools every student must use in 2025. Rewrite notes, convert PDFs, extract text, compress files, and boost productivity using TaskGuru’s fast, no-login tools.",
         date: 'December 3, 2025',
     },
-    // 3rd Post
+    // 4th Post (Nov 9)
     {
         slug: 'ai-document-power-up',
         title: "AI Document Power-Up: Free Tools to Summarize & Chat with Any Document (PDF, Word, Text)",
         summary: "Instantly summarize lengthy PDFs, generate key takeaways, and ask questions to your documents using TaskGuru’s new, free AI document analysis tool. Essential for research and study.",
         date: 'November 9, 2025', 
     },
-    // 4th Post 
+    // 5th Post (Oct 21)
     {
         slug: 'streamline-remote-workflow',
         title: "TaskGuru: The Professional's Free AI Toolkit (Streamline Remote Workflow)",
         summary: "Elevate your academic and professional projects instantly with TaskGuru's free AI tools. This is the Updated data for peak productivity and efficient remote work.",
         date: 'October 21, 2025',
     },
-    // 5th Post 
+    // 6th Post (Oct 9)
     {
         slug: 'projects-presentations-ai-toolkit',
         title: "Beyond Essays: How TaskGuru's Free AI Tools Revolutionize Your Projects & Presentations",
         summary: "Elevate your academic and professional projects with TaskGuru's free AI tools. From image optimization to document management and text rewriting, learn how to create stunning presentations and reports with ease.",
         date: 'October 9, 2025',
     },
-    // 6th Post 
+    // 7th Post (Oct 2)
     {
         slug: 'the-ultimate-taskguru-toolkit', 
         title: "The Ultimate TaskGuru Toolkit: 6 Free AI Tools for Students & Professionals",
         summary: "Stop juggling multiple apps! Discover TaskGuru's complete suite of free AI tools: PDF conversion, background removal, image compression, and more.",
         date: 'October 2, 2025',
     },
-    // 7th Post
-    {
-        slug: 'stop-paying-for-saas-free-ai-tools',
-        tittle: "Stop Paying for SaaS: Build Your $0 Productivity Tech Stack | TaskGuru",
-        summary: "Stop burning $100s/month on basic software. 💸 Check out how to build a powerful Content & Admin Tech Stack for $0 using TaskGuru's free AI tools. No credit card, no login.",
-        date: 'December 18, 2025',
-    },
-    
 ];
 
-// ✅ 2. FAQ SCHEMA FOR THE LISTING PAGE (Updated with a highly relevant AI question)
+// ✅ 2. FAQ SCHEMA FOR THE LISTING PAGE
 const faqSchema = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
@@ -94,6 +94,9 @@ const faqSchema = {
 
 
 export default function BlogPage() {
+    // Define the slug of the post you want to highlight as "NEW"
+    const featuredPostSlug = 'stop-paying-for-saas-free-ai-tools';
+
     return (
         <>
             <Script
@@ -113,9 +116,9 @@ export default function BlogPage() {
                     {posts.map((post) => (
                         <article 
                             key={post.slug} 
-                            // Highlight the newest, most important post
+                            // Highlight the newest post dynamically based on the variable above
                             className={`p-6 border rounded-xl shadow-md hover:shadow-lg transition duration-300 dark:bg-gray-800 ${
-                                post.slug === 'ultimate-ai-toolkit-free-tools' 
+                                post.slug === featuredPostSlug 
                                 ? 'border-2 border-primary ring-2 ring-primary/50 bg-primary/5 dark:bg-indigo-900/10' 
                                 : ''
                             }`}
@@ -123,7 +126,7 @@ export default function BlogPage() {
                             <Link href={`/blog/${post.slug}`} className="group block">
                                 <h2 className="text-2xl font-bold group-hover:text-primary transition-colors">
                                     {post.title}
-                                    {post.slug === 'ultimate-ai-toolkit-free-tools' && (
+                                    {post.slug === featuredPostSlug && (
                                         <span className="ml-3 inline-flex items-center px-3 py-1 text-xs font-semibold rounded-full bg-primary text-white">
                                             NEW & HOT 🔥
                                         </span>
@@ -140,7 +143,7 @@ export default function BlogPage() {
                     ))}
                 </div>
                 
-                {/* ✅ 4. FAQ Section for Listing Page */}
+                {/* ✅ 4. FAQ Section */}
                 <section className="mt-14 pt-10 border-t border-gray-100 dark:border-gray-700">
                     <h2 className="text-3xl sm:text-3xl font-bold mb-6 text-center text-foreground">
                         Frequently Asked Questions (FAQ)❓
