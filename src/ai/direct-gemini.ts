@@ -7,11 +7,38 @@ export async function directParaphrase(text: string) {
     throw new Error("API Key nahi mili! Vercel settings mein GOOGLE_GENAI_API_KEY check karein.");
   }
 
-  // 👇 FIX: Model name change kiya hai 'gemini-1.5-flash-latest' par.
-  // Ye version har region mein available hota hai.
-  const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=${apiKey}`;
+  // 1️⃣ Pehli koshish: Specific Stable Version
+  let modelName = "gemini-1.5-flash-001"; 
+  let url = `https://generativelanguage.googleapis.com/v1beta/models/${modelName}:generateContent?key=${apiKey}`;
 
-  const response = await fetch(url, {
+  let response = await fetchModel(url, text);
+
+  // 2️⃣ Agar pehla fail hua (404), to purana model try karein
+  if (!response.ok && response.status === 404) {
+    console.log("Flash-001 failed, trying Gemini Pro...");
+    modelName = "gemini-pro";
+    url = `https://generativelanguage.googleapis.com/v1beta/models/${modelName}:generateContent?key=${apiKey}`;
+    response = await fetchModel(url, text);
+  }
+
+  if (!response.ok) {
+    const errorText = await response.text();
+    throw new Error(`Google API Error (${modelName}): ${errorText}`);
+  }
+
+  const data = await response.json();
+  const outputText = data.candidates?.[0]?.content?.parts?.[0]?.text;
+  
+  if (!outputText) {
+    throw new Error("AI ne koi jawab nahi diya. (Empty Response)");
+  }
+
+  return outputText;
+}
+
+// Helper function to keep code clean
+async function fetchModel(url: string, text: string) {
+  return await fetch(url, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -26,20 +53,4 @@ export async function directParaphrase(text: string) {
       ]
     }),
   });
-
-  if (!response.ok) {
-    const errorText = await response.text();
-    // Error ko thoda saaf karke dikhayenge
-    throw new Error(`Google API Error: ${errorText}`);
-  }
-
-  const data = await response.json();
-  
-  const outputText = data.candidates?.[0]?.content?.parts?.[0]?.text;
-  
-  if (!outputText) {
-    throw new Error("AI ne koi jawab nahi diya. (Empty Response)");
-  }
-
-  return outputText;
 }
