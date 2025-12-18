@@ -10,6 +10,7 @@ import ImageCompressor from '@/components/tools/ImageCompressor';
 import ImageToPdf from '@/components/tools/ImageToPdf';
 import PlaceholderTool from '@/components/tools/PlaceholderTool';
 import MoreTools from '@/components/MoreTools';
+import ResumeMaker from '@/components/tools/ResumeMaker';
 
 export async function generateStaticParams() {
   return tools.map((tool) => ({
@@ -45,6 +46,7 @@ const toolComponentMap: { [key: string]: React.ComponentType<any> } = {
   "merge-pdf": MergePdf,
   "image-compressor": ImageCompressor,
   "image-to-pdf": ImageToPdf,
+  "resume-maker": ResumeMaker,
 };
 
 export default function ToolPage({ params }: { params: { slug: string } }) {
