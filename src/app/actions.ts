@@ -2,11 +2,10 @@
 
 import { removeBackground } from "@/ai/flows/background-remover";
 import { imageToTextOcr } from "@/ai/flows/image-to-text-ocr";
-// 👇 OLD IMPORT REMOVED: import { paraphraseText } from "@/ai/flows/text-paraphraser";
-// 👇 NEW IMPORT ADDED:
+// 👇 NEW: Direct AI import for Paraphraser
 import { directParaphrase } from "@/ai/direct-gemini"; 
 import { pdfToWord } from "@/ai/flows/pdf-to-word";
-import { mergePdfToWord } from "@/ai/flows/merge-pdf-to-word";
+// 👇 NOTE: Maine mergePdfToWord import hata diya hai kyunki hum ab direct merge karenge
 import { PDFDocument } from "pdf-lib";
 
 /* ---------------------------------------------------------
@@ -35,7 +34,7 @@ export async function handleBackgroundRemoval(photoDataUri: string) {
       };
     }
 
-    // 🟢 Normalizing remove.bg result (desktop vs mobile difference)
+    // 🟢 Normalizing remove.bg result
     const finalOutput =
       result.backgroundRemovedDataUri ||
       result.backgroundRemovedPhotoDataUri ||
@@ -73,20 +72,18 @@ export async function handleImageToText(photoDataUri: string) {
     console.error("🔥 OCR SERVER ERROR:", err);
 
     let errorMessage = "OCR failed on server.";
-
     if (err instanceof Error) {
-        errorMessage = err.message; // Show real error
+        errorMessage = err.message;
         if (err.message.includes("Gemini rejected")) {
              errorMessage = "OCR failed — Gemini rejected the image.";
         }
     }
-
     return { success: false, error: errorMessage };
   }
 }
 
 /* ---------------------------------------------------------
-   TEXT PARAPHRASING — FINAL DIRECT API VERSION
+   TEXT PARAPHRASING — FIXED (DIRECT API)
 --------------------------------------------------------- */
 export async function handleTextParaphrasing(text: string) {
   if (!text.trim()) {
@@ -94,20 +91,18 @@ export async function handleTextParaphrasing(text: string) {
   }
 
   try {
-    // 👇 CHANGED: Ab hum seedha Direct API call kar rahe hain (No Genkit)
+    // ✅ Using the new Direct API (No 404/503 Errors)
     const resultText = await directParaphrase(text);
 
     return {
       success: true,
-      data: { paraphrasedText: resultText }, // Output format match kiya
+      data: { paraphrasedText: resultText },
     };
   } catch (error) {
-    console.error("🔥 RAW SERVER ERROR:", error);
-
+    console.error("🔥 Paraphrasing Error:", error);
     return {
       success: false,
-      error:
-        error instanceof Error ? error.message : "Paraphrasing failed.",
+      error: error instanceof Error ? error.message : "Paraphrasing failed.",
     };
   }
 }
@@ -129,18 +124,48 @@ export async function handlePdfToWord(pdfDataUri: string) {
 }
 
 /* ---------------------------------------------------------
-   MERGE PDF
+   MERGE PDF — FIXED (USING PDF-LIB, NO AI)
 --------------------------------------------------------- */
 export async function handleMergePdf(pdfDataUris: string[]) {
-  if (!pdfDataUris || pdfDataUris.length < 2)
+  if (!pdfDataUris || pdfDataUris.length < 2) {
     return { success: false, error: "Please select at least two PDFs." };
+  }
 
   try {
-    const result = await mergePdfToWord({ pdfDataUris });
-    return { success: true, data: result };
+    // 1. Create a new document
+    const mergedPdf = await PDFDocument.create();
+
+    for (const pdfUri of pdfDataUris) {
+      // 2. Load each uploaded PDF
+      // Data URI format: "data:application/pdf;base64,....."
+      const base64 = pdfUri.split(",")[1]; 
+      const pdfBytes = Buffer.from(base64, "base64");
+      
+      const pdf = await PDFDocument.load(pdfBytes);
+
+      // 3. Copy all pages to the new document
+      const copiedPages = await mergedPdf.copyPages(pdf, pdf.getPageIndices());
+      copiedPages.forEach((page) => mergedPdf.addPage(page));
+    }
+
+    // 4. Save and return
+    const mergedPdfBytes = await mergedPdf.save();
+    const mergedPdfBase64 = Buffer.from(mergedPdfBytes).toString("base64");
+    
+    return { 
+      success: true, 
+      data: { 
+        // Sending back standard PDF data URI
+        mergedPdfDataUri: `data:application/pdf;base64,${mergedPdfBase64}` 
+      } 
+    };
+
   } catch (error) {
     console.error("Merge PDF error:", error);
-    return { success: false, error: error instanceof Error ? error.message : "Failed to merge PDFs." };
+    return { 
+      success: false, 
+      error: error instanceof Error ? error.message : "Failed to merge PDFs." 
+    };
   }
 }
 
