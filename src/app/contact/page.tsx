@@ -68,7 +68,7 @@ export default function ContactPage() {
                   <div className="mt-2 flex gap-3 text-sm font-medium">
                     <a href="https://x.com/Shubham_962" target="_blank" className="text-blue-500 hover:underline">Twitter (X)</a>
                     <span>•</span>
-                    <a href="https://www.instagram.com/fact_fusion_s" target="_blank" className="text-pink-500 hover:underline">Instagram</a>
+                    <a href="https://www.instagram.com/m_just_shubham" target="_blank" className="text-pink-500 hover:underline">Instagram</a>
                   </div>
                 </div>
               </div>
@@ -99,7 +99,7 @@ export default function ContactPage() {
                   <label htmlFor="email" className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">Email</label>
                   <div className="relative">
                     <Mail className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
-                    <Input id="email" type="email" placeholder="hello@example.com" className="pl-9" />
+                    <Input id="email" type="email" placeholder="Gautamshubham962@gmail.com" className="pl-9" />
                   </div>
                 </div>
               </div>
