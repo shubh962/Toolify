@@ -7,8 +7,9 @@ export async function directParaphrase(text: string) {
     throw new Error("API Key nahi mili! Vercel settings mein GOOGLE_GENAI_API_KEY check karein.");
   }
 
-  // 👇 Ye seedha URL call karega (No Library, No Install Needed)
-  const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
+  // 👇 FIX: Model name change kiya hai 'gemini-1.5-flash-latest' par.
+  // Ye version har region mein available hota hai.
+  const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=${apiKey}`;
 
   const response = await fetch(url, {
     method: "POST",
@@ -28,16 +29,16 @@ export async function directParaphrase(text: string) {
 
   if (!response.ok) {
     const errorText = await response.text();
+    // Error ko thoda saaf karke dikhayenge
     throw new Error(`Google API Error: ${errorText}`);
   }
 
   const data = await response.json();
   
-  // Response se text nikalo
   const outputText = data.candidates?.[0]?.content?.parts?.[0]?.text;
   
   if (!outputText) {
-    throw new Error("AI ne koi jawab nahi diya.");
+    throw new Error("AI ne koi jawab nahi diya. (Empty Response)");
   }
 
   return outputText;
