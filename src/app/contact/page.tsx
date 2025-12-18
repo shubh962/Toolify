@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea"; // Ensure you have this or use standard textarea
+// ❌ Maine Textarea ka import hata diya hai taaki error na aaye
 import { Mail, MessageSquare, User, Send } from "lucide-react";
 
 export const metadata: Metadata = {
@@ -10,9 +10,6 @@ export const metadata: Metadata = {
   description: "Have questions or feedback? Get in touch with the TaskGuru team. We are here to help you with our free AI tools.",
   alternates: {
     canonical: "/contact",
-    robots: {
-    index: true,
-    follow: true,
   },
 };
 
@@ -53,7 +50,7 @@ export default function ContactPage() {
                     For support & inquiries:
                   </p>
                   <a href="mailto:support@taskguru.online" className="text-primary hover:underline font-medium">
-                    GautamShubham962@gmail.com
+                    support@taskguru.online
                   </a>
                 </div>
               </div>
@@ -71,7 +68,7 @@ export default function ContactPage() {
                   <div className="mt-2 flex gap-3 text-sm font-medium">
                     <a href="https://x.com/Shubham_962" target="_blank" className="text-blue-500 hover:underline">Twitter (X)</a>
                     <span>•</span>
-                    <a href="https://www.instagram.com/m_just_shubham" target="_blank" className="text-pink-500 hover:underline">Instagram</a>
+                    <a href="https://www.instagram.com/fact_fusion_s" target="_blank" className="text-pink-500 hover:underline">Instagram</a>
                   </div>
                 </div>
               </div>
@@ -102,7 +99,7 @@ export default function ContactPage() {
                   <label htmlFor="email" className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">Email</label>
                   <div className="relative">
                     <Mail className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
-                    <Input id="email" type="email" placeholder="Gautamshubham962@gmail.com" className="pl-9" />
+                    <Input id="email" type="email" placeholder="hello@example.com" className="pl-9" />
                   </div>
                 </div>
               </div>
@@ -114,7 +111,7 @@ export default function ContactPage() {
 
               <div className="space-y-2">
                 <label htmlFor="message" className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">Message</label>
-                {/* Note: Ensure Textarea component is installed, or use standard textarea with classes */}
+                {/* 👇 FIXED: Standard HTML Textarea with styling (No import needed) */}
                 <textarea 
                   id="message" 
                   className="flex min-h-[120px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
