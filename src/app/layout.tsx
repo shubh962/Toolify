@@ -272,7 +272,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 
                   <li>
                     <a
-                      href="https://www.instagram.com/fact_fusion_s"
+                      href="https://www.instagram.com/m_just_shubham"
                       target="_blank"
                       rel="noopener"
                     >
