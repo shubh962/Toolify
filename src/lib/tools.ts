@@ -1,5 +1,12 @@
 import type { LucideIcon } from 'lucide-react';
-import { FileText, Combine, ImageMinus, Minimize, ScanText, PenSquare } from 'lucide-react';
+import {
+  FileText,
+  Combine,
+  ImageMinus,
+  Minimize,
+  ScanText,
+  PenSquare,
+} from 'lucide-react';
 
 export interface Tool {
   slug: string;
@@ -69,7 +76,6 @@ export const tools: Tool[] = [
     isPlaceholder: false,
     imageUrl: '/tool-previews/compressor.png',
   },
-
   {
     slug: 'image-to-pdf',
     title: 'Image to PDF Converter',
@@ -81,12 +87,14 @@ export const tools: Tool[] = [
     imageUrl: '/tool-previews/image-to-pdf.png',
   },
   {
-  title: "Resume Maker",
-  slug: "resume-maker",
-  description: "Build professional ATS-friendly resumes in minutes",
-  icon: FileText,
-  isGenAI: false,
-  }
-  
+    slug: 'resume-maker',
+    title: 'Resume Maker',
+    description:
+      'Build professional, ATS-friendly resumes in minutes. Create, preview, and download clean resumes instantly with TaskGuru Resume Maker.',
+    icon: FileText,
+    isGenAI: false,
+    isPlaceholder: false,
+    imageUrl: '/tool-previews/resume-maker.png',
+  },
 ];
 
