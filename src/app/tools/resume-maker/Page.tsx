@@ -28,13 +28,10 @@ export default function ResumeMakerPage() {
 
   return (
     <div className="container mx-auto px-4 py-10">
-      {/* Header */}
       <div className="mb-10 text-center">
-        <h1 className="text-3xl md:text-4xl font-bold">
-          Resume Maker
-        </h1>
+        <h1 className="text-3xl md:text-4xl font-bold">Resume Maker</h1>
         <p className="mt-3 text-muted-foreground">
-          Live preview updates as you type
+          Build your resume with live preview
         </p>
       </div>
 
@@ -47,87 +44,52 @@ export default function ResumeMakerPage() {
           <CardContent className="space-y-4">
             <div>
               <Label>Full Name</Label>
-              <Input
-                name="name"
-                placeholder="Shubham Gautam"
-                value={data.name}
-                onChange={handleChange}
-              />
+              <Input name="name" onChange={handleChange} />
             </div>
 
             <div>
               <Label>Email</Label>
-              <Input
-                name="email"
-                placeholder="example@email.com"
-                value={data.email}
-                onChange={handleChange}
-              />
+              <Input name="email" onChange={handleChange} />
             </div>
 
             <div>
               <Label>Phone</Label>
-              <Input
-                name="phone"
-                placeholder="+91 9XXXXXXXXX"
-                value={data.phone}
-                onChange={handleChange}
-              />
+              <Input name="phone" onChange={handleChange} />
             </div>
 
             <div>
               <Label>Professional Summary</Label>
-              <Textarea
-                name="summary"
-                placeholder="Brief professional summary"
-                value={data.summary}
-                onChange={handleChange}
-              />
+              <Textarea name="summary" onChange={handleChange} />
             </div>
 
             <div>
               <Label>Skills (comma separated)</Label>
-              <Textarea
-                name="skills"
-                placeholder="React, Next.js, Tailwind"
-                value={data.skills}
-                onChange={handleChange}
-              />
+              <Textarea name="skills" onChange={handleChange} />
             </div>
           </CardContent>
         </Card>
 
-        {/* LIVE PREVIEW */}
+        {/* PREVIEW */}
         <Card>
-          <CardContent className="p-8 space-y-6">
-            <div className="text-center border-b pb-4">
-              <h2 className="text-2xl font-bold">
-                {data.name || "Your Name"}
-              </h2>
-              <p className="text-sm text-muted-foreground">
-                {data.email || "email@example.com"}{" "}
-                {data.phone && " | "} {data.phone}
-              </p>
-            </div>
+          <CardContent className="p-8 space-y-4">
+            <h2 className="text-xl font-bold">
+              {data.name || "Your Name"}
+            </h2>
+            <p className="text-sm text-muted-foreground">
+              {data.email || "email@example.com"}{" "}
+              {data.phone && ` | ${data.phone}`}
+            </p>
 
             {data.summary && (
-              <section>
-                <h3 className="font-semibold mb-2">Summary</h3>
-                <p className="text-sm leading-relaxed">
-                  {data.summary}
-                </p>
-              </section>
+              <p className="text-sm">{data.summary}</p>
             )}
 
             {skillsArray.length > 0 && (
-              <section>
-                <h3 className="font-semibold mb-2">Skills</h3>
-                <ul className="list-disc list-inside text-sm space-y-1">
-                  {skillsArray.map((skill, index) => (
-                    <li key={index}>{skill}</li>
-                  ))}
-                </ul>
-              </section>
+              <ul className="list-disc list-inside text-sm">
+                {skillsArray.map((skill, i) => (
+                  <li key={i}>{skill}</li>
+                ))}
+              </ul>
             )}
           </CardContent>
         </Card>
