@@ -45,7 +45,6 @@ const toolComponentMap: { [key: string]: React.ComponentType<any> } = {
   "merge-pdf": MergePdf,
   "image-compressor": ImageCompressor,
   "image-to-pdf": ImageToPdf,
-  "resume-maker": ResumeMaker,
 };
 
 export default function ToolPage({ params }: { params: { slug: string } }) {
