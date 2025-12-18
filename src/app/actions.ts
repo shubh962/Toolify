@@ -2,7 +2,9 @@
 
 import { removeBackground } from "@/ai/flows/background-remover";
 import { imageToTextOcr } from "@/ai/flows/image-to-text-ocr";
-import { paraphraseText } from "@/ai/flows/text-paraphraser";
+// 👇 OLD IMPORT REMOVED: import { paraphraseText } from "@/ai/flows/text-paraphraser";
+// 👇 NEW IMPORT ADDED:
+import { directParaphrase } from "@/ai/direct-gemini"; 
 import { pdfToWord } from "@/ai/flows/pdf-to-word";
 import { mergePdfToWord } from "@/ai/flows/merge-pdf-to-word";
 import { PDFDocument } from "pdf-lib";
@@ -84,11 +86,7 @@ export async function handleImageToText(photoDataUri: string) {
 }
 
 /* ---------------------------------------------------------
-   TEXT PARAPHRASING (UPDATED FOR DEBUGGING)
---------------------------------------------------------- */
-
-/* ---------------------------------------------------------
-   TEXT PARAPHRASING — FINAL WORKING VERSION
+   TEXT PARAPHRASING — FINAL DIRECT API VERSION
 --------------------------------------------------------- */
 export async function handleTextParaphrasing(text: string) {
   if (!text.trim()) {
@@ -96,11 +94,12 @@ export async function handleTextParaphrasing(text: string) {
   }
 
   try {
-    const result = await paraphraseText({ text });
+    // 👇 CHANGED: Ab hum seedha Direct API call kar rahe hain (No Genkit)
+    const resultText = await directParaphrase(text);
 
     return {
       success: true,
-      data: result,
+      data: { paraphrasedText: resultText }, // Output format match kiya
     };
   } catch (error) {
     console.error("🔥 RAW SERVER ERROR:", error);
@@ -108,11 +107,10 @@ export async function handleTextParaphrasing(text: string) {
     return {
       success: false,
       error:
-        error instanceof Error ? error.message : JSON.stringify(error, null, 2),
+        error instanceof Error ? error.message : "Paraphrasing failed.",
     };
   }
 }
-
 
 /* ---------------------------------------------------------
    PDF → WORD
