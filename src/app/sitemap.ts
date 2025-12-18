@@ -18,6 +18,7 @@ const toolSlugs = [
   "merge-pdf",
   "text-paraphraser",
   "image-to-pdf",
+  "resume-maker",
 ];
 
 const staticPages = [
