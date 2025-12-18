@@ -123,7 +123,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     sameAs: [
       "https://www.facebook.com/share/1K97T5Q5wp/",
       "https://x.com/Shubham_962",
-      "https://www.instagram.com/fact_fusion_s",
+      "https://www.instagram.com/m_just_shubham",
       "https://www.linkedin.com/in/Shubh962",
       "https://youtube.com/@factfusions0-x4k",
     ],
