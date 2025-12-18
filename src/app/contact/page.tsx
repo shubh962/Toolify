@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-// ❌ Maine Textarea ka import hata diya hai taaki error na aaye
 import { Mail, MessageSquare, User, Send } from "lucide-react";
 
 export const metadata: Metadata = {
