@@ -73,7 +73,7 @@ export async function directParaphrase(text: string) {
     const errorText = await response.text();
     // 503 Overloaded error ko acche se handle karein
     if (response.status === 503) {
-      throw new Error("Server thoda busy hai (Overloaded). Kripya 5 second ruk kar try karein.");
+      throw new Error("Server overloaded. Kindly retry after five seconds.");
     }
     throw new Error(`Google API Error (${modelName}): ${errorText}`);
   }
