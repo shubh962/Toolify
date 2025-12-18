@@ -49,7 +49,7 @@ export default function ContactPage() {
                     For support & inquiries:
                   </p>
                   <a href="mailto:support@taskguru.online" className="text-primary hover:underline font-medium">
-                    support@taskguru.online
+                    GautamShubham962@gmail.com
                   </a>
                 </div>
               </div>
@@ -67,7 +67,7 @@ export default function ContactPage() {
                   <div className="mt-2 flex gap-3 text-sm font-medium">
                     <a href="https://x.com/Shubham_962" target="_blank" className="text-blue-500 hover:underline">Twitter (X)</a>
                     <span>•</span>
-                    <a href="https://www.instagram.com/fact_fusion_s" target="_blank" className="text-pink-500 hover:underline">Instagram</a>
+                    <a href="https://www.instagram.com/m_just_shubham" target="_blank" className="text-pink-500 hover:underline">Instagram</a>
                   </div>
                 </div>
               </div>
