@@ -1,20 +1,13 @@
 "use client";
 
 import { useState } from "react";
-import type { Metadata } from "next";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 
-export const metadata: Metadata = {
-  title: "Free Resume Maker | ATS Friendly Resume Builder – TaskGuru",
-  description:
-    "Create professional ATS-friendly resumes online for free. Build, preview and download your resume instantly with TaskGuru Resume Maker.",
-};
-
 export default function ResumeMakerPage() {
-  const [formData, setFormData] = useState({
+  const [data, setData] = useState({
     name: "",
     email: "",
     phone: "",
@@ -25,8 +18,13 @@ export default function ResumeMakerPage() {
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    setData({ ...data, [e.target.name]: e.target.value });
   };
+
+  const skillsArray = data.skills
+    .split(",")
+    .map((s) => s.trim())
+    .filter(Boolean);
 
   return (
     <div className="container mx-auto px-4 py-10">
@@ -36,7 +34,7 @@ export default function ResumeMakerPage() {
           Resume Maker
         </h1>
         <p className="mt-3 text-muted-foreground">
-          Build a clean, professional, ATS-friendly resume
+          Live preview updates as you type
         </p>
       </div>
 
@@ -44,75 +42,93 @@ export default function ResumeMakerPage() {
         {/* FORM */}
         <Card>
           <CardHeader>
-            <CardTitle>Personal Details</CardTitle>
+            <CardTitle>Resume Details</CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
             <div>
-              <Label htmlFor="name">Full Name</Label>
+              <Label>Full Name</Label>
               <Input
-                id="name"
                 name="name"
                 placeholder="Shubham Gautam"
-                value={formData.name}
+                value={data.name}
                 onChange={handleChange}
               />
             </div>
 
             <div>
-              <Label htmlFor="email">Email</Label>
+              <Label>Email</Label>
               <Input
-                id="email"
                 name="email"
                 placeholder="example@email.com"
-                value={formData.email}
+                value={data.email}
                 onChange={handleChange}
               />
             </div>
 
             <div>
-              <Label htmlFor="phone">Phone</Label>
+              <Label>Phone</Label>
               <Input
-                id="phone"
                 name="phone"
                 placeholder="+91 9XXXXXXXXX"
-                value={formData.phone}
+                value={data.phone}
                 onChange={handleChange}
               />
             </div>
 
             <div>
-              <Label htmlFor="summary">Professional Summary</Label>
+              <Label>Professional Summary</Label>
               <Textarea
-                id="summary"
                 name="summary"
-                placeholder="Brief professional summary..."
-                value={formData.summary}
+                placeholder="Brief professional summary"
+                value={data.summary}
                 onChange={handleChange}
               />
             </div>
 
             <div>
-              <Label htmlFor="skills">Skills (comma separated)</Label>
+              <Label>Skills (comma separated)</Label>
               <Textarea
-                id="skills"
                 name="skills"
-                placeholder="React, Next.js, Tailwind, Firebase"
-                value={formData.skills}
+                placeholder="React, Next.js, Tailwind"
+                value={data.skills}
                 onChange={handleChange}
               />
             </div>
           </CardContent>
         </Card>
 
-        {/* PREVIEW PLACEHOLDER */}
+        {/* LIVE PREVIEW */}
         <Card>
-          <CardHeader>
-            <CardTitle>Live Preview</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <p className="text-sm text-muted-foreground">
-              Live resume preview will appear here in the next step.
-            </p>
+          <CardContent className="p-8 space-y-6">
+            <div className="text-center border-b pb-4">
+              <h2 className="text-2xl font-bold">
+                {data.name || "Your Name"}
+              </h2>
+              <p className="text-sm text-muted-foreground">
+                {data.email || "email@example.com"}{" "}
+                {data.phone && " | "} {data.phone}
+              </p>
+            </div>
+
+            {data.summary && (
+              <section>
+                <h3 className="font-semibold mb-2">Summary</h3>
+                <p className="text-sm leading-relaxed">
+                  {data.summary}
+                </p>
+              </section>
+            )}
+
+            {skillsArray.length > 0 && (
+              <section>
+                <h3 className="font-semibold mb-2">Skills</h3>
+                <ul className="list-disc list-inside text-sm space-y-1">
+                  {skillsArray.map((skill, index) => (
+                    <li key={index}>{skill}</li>
+                  ))}
+                </ul>
+              </section>
+            )}
           </CardContent>
         </Card>
       </div>
