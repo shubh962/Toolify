@@ -86,14 +86,12 @@ function WizardOption({
   return (
     <button
       onClick={onClick}
-      disabled={!onClick}
       className={`w-full flex items-center justify-between rounded-xl border px-4 py-3 transition
         ${
           primary
             ? "border-primary bg-primary/5 hover:bg-primary/10"
             : "border-muted hover:bg-muted"
         }
-        ${!onClick && "opacity-70 cursor-not-allowed"}
       `}
     >
       <div className="flex items-center gap-3">
@@ -109,3 +107,4 @@ function WizardOption({
     </button>
   );
 }
+
