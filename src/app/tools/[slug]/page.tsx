@@ -10,7 +10,7 @@ import ImageCompressor from '@/components/tools/ImageCompressor';
 import ImageToPdf from '@/components/tools/ImageToPdf';
 import PlaceholderTool from '@/components/tools/PlaceholderTool';
 import MoreTools from '@/components/MoreTools';
-import ResumeMaker from '@/components/tools/ResumeMaker';
+import ResumeMakerFlow from '@/components/tools/ResumeMakerFlow'; // ✅ IMPORTANT
 
 export async function generateStaticParams() {
   return tools.map((tool) => ({
@@ -46,7 +46,7 @@ const toolComponentMap: { [key: string]: React.ComponentType<any> } = {
   "merge-pdf": MergePdf,
   "image-compressor": ImageCompressor,
   "image-to-pdf": ImageToPdf,
-  "resume-maker": ResumeMaker,
+  // ❌ resume-maker yahan nahi hoga
 };
 
 export default function ToolPage({ params }: { params: { slug: string } }) {
@@ -55,10 +55,6 @@ export default function ToolPage({ params }: { params: { slug: string } }) {
   if (!tool) {
     notFound();
   }
-
-  const ToolComponent = tool.isPlaceholder
-    ? PlaceholderTool
-    : toolComponentMap[tool.slug];
 
   return (
     <main className="flex-1 py-12 md:py-16">
@@ -72,12 +68,22 @@ export default function ToolPage({ params }: { params: { slug: string } }) {
           </p>
         </div>
 
-        {ToolComponent ? (
-          <ToolComponent title={tool.title} description={tool.description} />
+        {/* ✅ SPECIAL FLOW FOR RESUME MAKER */}
+        {tool.slug === "resume-maker" ? (
+          <ResumeMakerFlow />
         ) : (
-          <PlaceholderTool title={tool.title} />
-        )}
+          (() => {
+            const ToolComponent = tool.isPlaceholder
+              ? PlaceholderTool
+              : toolComponentMap[tool.slug];
 
+            return ToolComponent ? (
+              <ToolComponent title={tool.title} description={tool.description} />
+            ) : (
+              <PlaceholderTool title={tool.title} />
+            );
+          })()
+        )}
       </div>
 
       {/* More Tools Section */}
@@ -85,3 +91,4 @@ export default function ToolPage({ params }: { params: { slug: string } }) {
     </main>
   );
 }
+
