@@ -11,18 +11,14 @@ export default function ResumeMaker() {
 
   const [data, setData] = useState({
     name: "",
-    email: "",
-    phone: "",
-    location: "",
-    linkedin: "",
+    role: "",
+    contact: "",
     summary: "",
-    skills: "",
     experience: "",
-    projects: "",
     education: "",
-    certifications: "",
-    achievements: "",
-    languages: "",
+    projects: "",
+    courses: "",
+    skills: "",
   });
 
   const handleChange = (
@@ -43,13 +39,59 @@ export default function ResumeMaker() {
       <html>
         <head>
           <title>Professional Resume</title>
-          <meta name="description" content="ATS friendly professional resume generated using free resume builder">
           <style>
-            body { font-family: Arial, sans-serif; padding: 24px; color: #000; }
-            h2 { margin-bottom: 4px; }
-            h3 { margin-top: 18px; border-bottom: 1px solid #ddd; padding-bottom: 4px; }
-            ul { padding-left: 20px; }
-            p { margin: 6px 0; }
+            body {
+              font-family: "Times New Roman", serif;
+              color: #000;
+              padding: 24px;
+            }
+            h1 {
+              text-align: center;
+              font-size: 28px;
+              letter-spacing: 1px;
+              margin-bottom: 4px;
+            }
+            h2 {
+              text-align: center;
+              font-size: 14px;
+              font-weight: normal;
+              margin-bottom: 8px;
+            }
+            hr {
+              border: none;
+              border-top: 1px solid #000;
+              margin: 10px 0;
+            }
+            .section {
+              margin-top: 16px;
+            }
+            .section-title {
+              background: #dbeaf5;
+              padding: 4px 8px;
+              font-weight: bold;
+              text-transform: uppercase;
+              font-size: 13px;
+            }
+            ul {
+              margin-top: 6px;
+              padding-left: 18px;
+            }
+            li {
+              margin-bottom: 4px;
+              font-size: 13px;
+            }
+            p {
+              font-size: 13px;
+              margin: 4px 0;
+            }
+            .subhead {
+              font-weight: bold;
+              font-size: 13px;
+            }
+            .muted {
+              font-style: italic;
+              font-size: 12px;
+            }
           </style>
         </head>
         <body>${content}</body>
@@ -61,176 +103,73 @@ export default function ResumeMaker() {
   };
 
   return (
-    <div className="space-y-8">
-      {/* SEO INTRO (VISIBLE TEXT) */}
-      <div className="max-w-3xl mx-auto text-center">
-        <h2 className="text-3xl font-bold">
-          Free Professional Resume Builder (ATS Friendly)
-        </h2>
-        <p className="mt-2 text-muted-foreground">
-          Build a job-ready, ATS-friendly professional resume online.
-          Ideal for freshers, experienced professionals, IT jobs,
-          corporate roles, and job hunting in 2025.
-        </p>
-      </div>
-
-      {/* ACTION BAR */}
+    <div className="space-y-6">
       <div className="flex justify-end">
-        <Button onClick={printResume}>
-          Download Resume PDF
-        </Button>
+        <Button onClick={printResume}>Download PDF</Button>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {/* FORM */}
+        {/* INPUT FORM */}
         <Card>
           <CardHeader>
             <CardTitle>Resume Details</CardTitle>
           </CardHeader>
           <CardContent className="space-y-3">
             <Input name="name" placeholder="Full Name" onChange={handleChange} />
-            <Input name="email" placeholder="Email Address" onChange={handleChange} />
-            <Input name="phone" placeholder="Phone Number" onChange={handleChange} />
-            <Input name="location" placeholder="City, Country" onChange={handleChange} />
-            <Input name="linkedin" placeholder="LinkedIn / Portfolio URL" onChange={handleChange} />
+            <Input name="role" placeholder="Job Title (e.g. Machine Learning Engineer)" onChange={handleChange} />
+            <Input name="contact" placeholder="Email | Phone | Location | GitHub | LinkedIn" onChange={handleChange} />
 
-            <Textarea name="summary" placeholder="Professional Summary (ATS optimized)" onChange={handleChange} />
-            <Textarea name="skills" placeholder="Key Skills (one per line)" onChange={handleChange} />
-            <Textarea name="experience" placeholder="Work Experience (one per line)" onChange={handleChange} />
-            <Textarea name="projects" placeholder="Projects (one per line)" onChange={handleChange} />
-            <Textarea name="education" placeholder="Education Details" onChange={handleChange} />
-            <Textarea name="certifications" placeholder="Certifications" onChange={handleChange} />
-            <Textarea name="achievements" placeholder="Achievements / Awards" onChange={handleChange} />
-            <Textarea name="languages" placeholder="Languages Known" onChange={handleChange} />
+            <Textarea name="summary" placeholder="Professional Summary" onChange={handleChange} />
+            <Textarea name="experience" placeholder="Work Experience (one bullet per line)" onChange={handleChange} />
+            <Textarea name="education" placeholder="Education (one bullet per line)" onChange={handleChange} />
+            <Textarea name="projects" placeholder="Projects (one bullet per line)" onChange={handleChange} />
+            <Textarea name="courses" placeholder="Courses / Certifications" onChange={handleChange} />
+            <Textarea name="skills" placeholder="Skills (comma or line separated)" onChange={handleChange} />
           </CardContent>
         </Card>
 
-        {/* PROFESSIONAL PREVIEW */}
+        {/* PREVIEW */}
         <Card>
-          <CardContent ref={resumeRef} className="bg-white text-black p-0">
-            <div className="grid grid-cols-3 min-h-[1000px]">
+          <CardContent ref={resumeRef} className="bg-white p-6">
+            <h1>{data.name || "YOUR NAME"}</h1>
+            <h2>{data.role || "PROFESSIONAL TITLE"}</h2>
+            <p className="text-center text-sm">{data.contact}</p>
+            <hr />
 
-              {/* LEFT SIDEBAR */}
-              <div className="col-span-1 bg-slate-100 p-6 space-y-6">
-                <div>
-                  <h2 className="text-xl font-bold">
-                    {data.name || "Your Name"}
-                  </h2>
-                  <p className="text-xs text-slate-700 mt-2">
-                    {data.email}<br />
-                    {data.phone}<br />
-                    {data.location}
-                  </p>
-                  {data.linkedin && (
-                    <p className="text-xs mt-2 break-all">
-                      {data.linkedin}
-                    </p>
-                  )}
-                </div>
-
-                {data.skills && (
-                  <div>
-                    <h3 className="text-sm font-semibold uppercase">
-                      Skills
-                    </h3>
-                    <ul className="text-xs mt-2 space-y-1">
-                      {list(data.skills).map((s, i) => (
-                        <li key={i}>• {s}</li>
-                      ))}
-                    </ul>
-                  </div>
-                )}
-
-                {data.languages && (
-                  <div>
-                    <h3 className="text-sm font-semibold uppercase">
-                      Languages
-                    </h3>
-                    <p className="text-xs mt-2">
-                      {data.languages}
-                    </p>
-                  </div>
-                )}
-
-                {data.certifications && (
-                  <div>
-                    <h3 className="text-sm font-semibold uppercase">
-                      Certifications
-                    </h3>
-                    <ul className="text-xs mt-2 space-y-1">
-                      {list(data.certifications).map((s, i) => (
-                        <li key={i}>• {s}</li>
-                      ))}
-                    </ul>
-                  </div>
-                )}
+            {data.experience && (
+              <div className="section">
+                <div className="section-title">Work Experience</div>
+                <ul>{list(data.experience).map((i, k) => <li key={k}>{i}</li>)}</ul>
               </div>
+            )}
 
-              {/* MAIN CONTENT */}
-              <div className="col-span-2 p-8 space-y-6">
-                {data.summary && (
-                  <div>
-                    <h3 className="text-sm font-semibold uppercase">
-                      Professional Summary
-                    </h3>
-                    <p className="text-sm mt-2 leading-relaxed">
-                      {data.summary}
-                    </p>
-                  </div>
-                )}
-
-                {data.experience && (
-                  <div>
-                    <h3 className="text-sm font-semibold uppercase">
-                      Work Experience
-                    </h3>
-                    <ul className="text-sm mt-2 space-y-2">
-                      {list(data.experience).map((s, i) => (
-                        <li key={i}>• {s}</li>
-                      ))}
-                    </ul>
-                  </div>
-                )}
-
-                {data.projects && (
-                  <div>
-                    <h3 className="text-sm font-semibold uppercase">
-                      Projects
-                    </h3>
-                    <ul className="text-sm mt-2 space-y-2">
-                      {list(data.projects).map((s, i) => (
-                        <li key={i}>• {s}</li>
-                      ))}
-                    </ul>
-                  </div>
-                )}
-
-                {data.education && (
-                  <div>
-                    <h3 className="text-sm font-semibold uppercase">
-                      Education
-                    </h3>
-                    <ul className="text-sm mt-2 space-y-2">
-                      {list(data.education).map((s, i) => (
-                        <li key={i}>• {s}</li>
-                      ))}
-                    </ul>
-                  </div>
-                )}
-
-                {data.achievements && (
-                  <div>
-                    <h3 className="text-sm font-semibold uppercase">
-                      Achievements
-                    </h3>
-                    <p className="text-sm mt-2">
-                      {data.achievements}
-                    </p>
-                  </div>
-                )}
+            {data.education && (
+              <div className="section">
+                <div className="section-title">Education</div>
+                <ul>{list(data.education).map((i, k) => <li key={k}>{i}</li>)}</ul>
               </div>
+            )}
 
-            </div>
+            {data.projects && (
+              <div className="section">
+                <div className="section-title">Projects</div>
+                <ul>{list(data.projects).map((i, k) => <li key={k}>{i}</li>)}</ul>
+              </div>
+            )}
+
+            {data.courses && (
+              <div className="section">
+                <div className="section-title">Courses</div>
+                <ul>{list(data.courses).map((i, k) => <li key={k}>{i}</li>)}</ul>
+              </div>
+            )}
+
+            {data.skills && (
+              <div className="section">
+                <div className="section-title">Skills</div>
+                <p>{data.skills}</p>
+              </div>
+            )}
           </CardContent>
         </Card>
       </div>
