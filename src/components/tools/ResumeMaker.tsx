@@ -7,8 +7,11 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 
+type Template = "modern" | "minimal" | "tech";
+
 export default function ResumeMaker() {
   const resumeRef = useRef<HTMLDivElement>(null);
+  const [template, setTemplate] = useState<Template>("modern");
 
   const [data, setData] = useState({
     name: "",
@@ -29,16 +32,13 @@ export default function ResumeMaker() {
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
-    setData({ ...data, [e.target.name]: e.target.value });
-  };
+  ) => setData({ ...data, [e.target.name]: e.target.value });
 
   const list = (text: string) =>
     text.split("\n").map((i) => i.trim()).filter(Boolean);
 
   const printResume = () => {
     if (!resumeRef.current) return;
-
     const content = resumeRef.current.innerHTML;
     const win = window.open("", "", "width=900,height=650");
     if (!win) return;
@@ -53,6 +53,9 @@ export default function ResumeMaker() {
             h3 { margin-top: 16px; border-bottom: 1px solid #ddd; }
             ul { padding-left: 20px; }
             p { margin: 6px 0; }
+            .tech h3 { border-bottom: 2px solid #000; }
+            .modern h2 { letter-spacing: 0.5px; }
+            .minimal h3 { border: none; text-transform: uppercase; }
           </style>
         </head>
         <body>${content}</body>
@@ -63,9 +66,38 @@ export default function ResumeMaker() {
     win.print();
   };
 
+  const Section = ({ title, children }: { title: string; children: any }) =>
+    children ? (
+      <>
+        <h3>{title}</h3>
+        {children}
+      </>
+    ) : null;
+
   return (
     <div className="space-y-8">
-      <div className="flex justify-end">
+      {/* ACTIONS */}
+      <div className="flex flex-wrap gap-3 justify-between">
+        <div className="flex gap-2">
+          <Button
+            variant={template === "modern" ? "default" : "outline"}
+            onClick={() => setTemplate("modern")}
+          >
+            Modern
+          </Button>
+          <Button
+            variant={template === "minimal" ? "default" : "outline"}
+            onClick={() => setTemplate("minimal")}
+          >
+            Minimal
+          </Button>
+          <Button
+            variant={template === "tech" ? "default" : "outline"}
+            onClick={() => setTemplate("tech")}
+          >
+            Tech
+          </Button>
+        </div>
         <Button onClick={printResume}>Download PDF</Button>
       </div>
 
@@ -75,7 +107,7 @@ export default function ResumeMaker() {
           <CardHeader>
             <CardTitle>Resume Details</CardTitle>
           </CardHeader>
-          <CardContent className="space-y-4">
+          <CardContent className="space-y-3">
             <Input name="name" placeholder="Full Name" onChange={handleChange} />
             <Input name="email" placeholder="Email" onChange={handleChange} />
             <Input name="phone" placeholder="Phone" onChange={handleChange} />
@@ -96,22 +128,49 @@ export default function ResumeMaker() {
 
         {/* PREVIEW */}
         <Card>
-          <CardContent ref={resumeRef} className="p-8 bg-white text-black space-y-3">
+          <CardContent
+            ref={resumeRef}
+            className={`p-8 bg-white text-black space-y-3 ${template}`}
+          >
             <h2 className="text-2xl font-bold">{data.name || "Your Name"}</h2>
             <p className="text-sm">
               {data.email} | {data.phone} | {data.location}
             </p>
             {data.linkedin && <p className="text-sm">{data.linkedin}</p>}
 
-            {data.summary && <><h3>Summary</h3><p>{data.summary}</p></>}
-            {data.skills && <><h3>Skills</h3><ul>{list(data.skills).map((s,i)=><li key={i}>{s}</li>)}</ul></>}
-            {data.experience && <><h3>Experience</h3><ul>{list(data.experience).map((s,i)=><li key={i}>{s}</li>)}</ul></>}
-            {data.education && <><h3>Education</h3><ul>{list(data.education).map((s,i)=><li key={i}>{s}</li>)}</ul></>}
-            {data.projects && <><h3>Projects</h3><ul>{list(data.projects).map((s,i)=><li key={i}>{s}</li>)}</ul></>}
-            {data.certifications && <><h3>Certifications</h3><ul>{list(data.certifications).map((s,i)=><li key={i}>{s}</li>)}</ul></>}
-            {data.achievements && <><h3>Achievements</h3><p>{data.achievements}</p></>}
-            {data.languages && <><h3>Languages</h3><p>{data.languages}</p></>}
-            {data.interests && <><h3>Interests</h3><p>{data.interests}</p></>}
+            <Section title="Summary">{data.summary && <p>{data.summary}</p>}</Section>
+
+            <Section title="Skills">
+              {data.skills && <ul>{list(data.skills).map((s,i)=><li key={i}>{s}</li>)}</ul>}
+            </Section>
+
+            <Section title="Experience">
+              {data.experience && <ul>{list(data.experience).map((s,i)=><li key={i}>{s}</li>)}</ul>}
+            </Section>
+
+            <Section title="Education">
+              {data.education && <ul>{list(data.education).map((s,i)=><li key={i}>{s}</li>)}</ul>}
+            </Section>
+
+            <Section title="Projects">
+              {data.projects && <ul>{list(data.projects).map((s,i)=><li key={i}>{s}</li>)}</ul>}
+            </Section>
+
+            <Section title="Certifications">
+              {data.certifications && <ul>{list(data.certifications).map((s,i)=><li key={i}>{s}</li>)}</ul>}
+            </Section>
+
+            <Section title="Achievements">
+              {data.achievements && <p>{data.achievements}</p>}
+            </Section>
+
+            <Section title="Languages">
+              {data.languages && <p>{data.languages}</p>}
+            </Section>
+
+            <Section title="Interests">
+              {data.interests && <p>{data.interests}</p>}
+            </Section>
           </CardContent>
         </Card>
       </div>
