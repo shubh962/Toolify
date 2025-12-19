@@ -1,38 +1,31 @@
 'use client';
+
 import { useState, useRef } from 'react';
+import Head from 'next/head';
 import Image from 'next/image';
 import Script from 'next/script';
-import type { Metadata } from 'next';
+import Link from 'next/link';
+
 import { Card, CardContent, CardFooter } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { useToast } from '@/hooks/use-toast';
-import { Upload, Download, Loader2, Image as ImageIcon, Trash2, Zap, ShieldCheck } from 'lucide-react';
-import { handleBackgroundRemoval } from '@/app/actions';
-import Link from 'next/link'; 
 
-// ✅ UNIQUE METADATA - English is ideal for global audience
-export const metadata: Metadata = {
-  title: 'AI Background Remover Online | Erase Photo Background FREE | TaskGuru',
-  description:
-    'TaskGuru’s free AI background remover. Remove backgrounds from any image (JPG, PNG) in one click and download transparent PNG. Fast, accurate, and 100% free for everyone globally.',
-  robots: 'index, follow',
-  alternates: {
-    canonical: 'https://taskguru.online/tools/background-remover',
-  },
-  openGraph: {
-    title: 'AI Background Remover Tool | TaskGuru',
-    description:
-      'Erase photo backgrounds instantly using TaskGuru’s free AI-powered background remover tool.',
-    url: 'https://taskguru.online/tools/background-remover',
-    siteName: 'TaskGuru',
-    type: 'website',
-  },
-};
+import {
+  Upload,
+  Download,
+  Loader2,
+  Image as ImageIcon,
+  Trash2,
+  Zap,
+  ShieldCheck,
+} from 'lucide-react';
+
+import { handleBackgroundRemoval } from '@/app/actions';
 
 export default function BackgroundRemover() {
   const { toast } = useToast();
-  // 🛑 WORKING CODE UNTOUCHED 🛑
+
   const [originalImage, setOriginalImage] = useState<string | null>(null);
   const [processedImage, setProcessedImage] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -40,35 +33,46 @@ export default function BackgroundRemover() {
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
-    if (file) {
-      if (file.size > 8 * 1024 * 1024) {
-        toast({ title: 'File too large', description: 'Max 8MB allowed.', variant: 'destructive' });
-        return;
-      }
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        setOriginalImage(e.target?.result as string);
-        setProcessedImage(null);
-      };
-      reader.readAsDataURL(file);
+    if (!file) return;
+
+    if (file.size > 8 * 1024 * 1024) {
+      toast({
+        title: 'File too large',
+        description: 'Max 8MB allowed.',
+        variant: 'destructive',
+      });
+      return;
     }
+
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      setOriginalImage(e.target?.result as string);
+      setProcessedImage(null);
+    };
+    reader.readAsDataURL(file);
   };
 
   const handleSubmit = async () => {
     if (!originalImage) {
-      toast({ title: "No image selected", description: "Upload an image first.", variant: "destructive" });
+      toast({
+        title: 'No image selected',
+        description: 'Upload an image first.',
+        variant: 'destructive',
+      });
       return;
     }
+
     setIsLoading(true);
     setProcessedImage(null);
+
     const result = await handleBackgroundRemoval(originalImage);
     setIsLoading(false);
 
     if (result.success && result.data?.backgroundRemovedDataUri) {
       setProcessedImage(result.data.backgroundRemovedDataUri);
-      toast({ title: "Success!", description: "Background removed successfully." });
+      toast({ title: 'Success!', description: 'Background removed successfully.' });
     } else {
-      toast({ title: "Error", description: result.error, variant: "destructive" });
+      toast({ title: 'Error', description: result.error, variant: 'destructive' });
     }
   };
 
@@ -88,264 +92,210 @@ export default function BackgroundRemover() {
     setIsLoading(false);
     if (fileInputRef.current) fileInputRef.current.value = '';
   };
-  // 🛑 WORKING CODE ENDS 🛑
 
-  // ✅ FAQ Schema (English)
+  /* ---------------- SCHEMA ---------------- */
+
   const faqSchema = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
     "mainEntity": [
       {
         "@type": "Question",
-        "name": "Is TaskGuru's AI Background Remover completely free?",
+        "name": "Is TaskGuru AI Background Remover free?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Yes, our background remover tool is 100% free to use. There are no hidden costs, subscriptions, or limits on the number of images you can process per day."
+          "text": "Yes, it is completely free with no signup or hidden charges."
         }
       },
       {
         "@type": "Question",
-        "name": "How does the AI handle complex elements like hair or fine details?",
+        "name": "Does it work on mobile phones?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Our tool uses advanced deep learning AI models trained on millions of images, which allows it to accurately detect subjects, fine details like hair and shadows, delivering professional-grade cutouts."
+          "text": "Yes, the tool works smoothly on mobile, tablet, and desktop browsers."
         }
       },
       {
         "@type": "Question",
-        "name": "Do you store the images I upload?",
+        "name": "Are uploaded images stored?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "No. We prioritize your privacy. All uploaded images are processed instantly and deleted from our servers immediately afterwards. We have a strict Zero Storage Policy."
+          "text": "No. Images are processed instantly and deleted immediately after processing."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Which image formats are supported?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "JPG, PNG, and WEBP formats are supported."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can AI remove background from hair accurately?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes, TaskGuru’s AI handles hair, shadows, and fine edges with high accuracy."
         }
       }
     ]
   };
-  
+
   const toolSchema = {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
-    name: "Free Online Background Remover Tool | TaskGuru",
-    applicationCategory: "Multimedia",
-    operatingSystem: "Any",
-    url: "https://taskguru.online/tools/background-remover",
-    description:
-      "Remove backgrounds from images instantly with TaskGuru’s AI-powered background remover. Upload JPG, PNG, WEBP and download transparent PNG.",
-    offers: {
+    "name": "AI Background Remover | TaskGuru",
+    "applicationCategory": "Multimedia",
+    "operatingSystem": "Any",
+    "url": "https://taskguru.online/tools/background-remover",
+    "offers": {
       "@type": "Offer",
-      price: "0",
-      priceCurrency: "USD",
-    },
-    publisher: {
-      "@type": "Organization",
-      name: "TaskGuru",
-      url: "https://taskguru.online",
-    },
+      "price": "0",
+      "priceCurrency": "USD"
+    }
   };
 
-  const Sparkles = (props: React.SVGProps<SVGSVGElement>) => (
-    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2" {...props}>
-      <path d="M12 2v2M4 12H2m20 0h-2M12 20v2m-7.07-7.07-1.41 1.41M19.07 4.93l-1.41 1.41M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41" />
-    </svg>
-  );
-
   return (
-    <div className="space-y-12">
-      {/* ✅ JSON-LD Schema */}
-      <Script
-        id="background-remover-schema"
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(toolSchema) }}
-      />
+    <>
+      {/* SEO HEAD */}
+      <Head>
+        <title>AI Background Remover Online | Remove Image Background Free</title>
+        <meta
+          name="description"
+          content="Remove image backgrounds instantly using TaskGuru’s free AI background remover. Upload JPG, PNG or WEBP images and download transparent PNG."
+        />
+        <meta name="robots" content="index, follow" />
+        <link rel="canonical" href="https://taskguru.online/tools/background-remover" />
+
+        <meta property="og:title" content="AI Background Remover Tool | TaskGuru" />
+        <meta
+          property="og:description"
+          content="Erase image backgrounds online instantly using TaskGuru’s AI-powered background remover."
+        />
+        <meta property="og:url" content="https://taskguru.online/tools/background-remover" />
+        <meta property="og:type" content="website" />
+        <meta property="og:site_name" content="TaskGuru" />
+      </Head>
+
+      {/* SCHEMA */}
       <Script
         id="faq-schema"
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
       />
+      <Script
+        id="tool-schema"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(toolSchema) }}
+      />
 
+      <div className="space-y-14">
 
-      {/* Intro */}
-      <section className="max-w-4xl mx-auto py-6 text-center space-y-4">
-        <h1 className="text-4xl font-extrabold text-primary">Free Online Background Remover – Erase Image Backgrounds Instantly</h1>
-        <p className="text-lg text-muted-foreground">
-          TaskGuru’s <strong>AI Background Remover</strong> lets you remove backgrounds from JPG, PNG, WEBP images online free.  
-          Upload your photo, click remove, and download a transparent background instantly — **no signup required.**
-        </p>
-      </section>
+        {/* H1 */}
+        <section className="max-w-4xl mx-auto text-center py-6">
+          <h1 className="text-4xl font-extrabold">
+            AI Background Remover – Remove Image Background Online Free
+          </h1>
+          <p className="mt-4 text-lg text-muted-foreground">
+            TaskGuru’s AI-powered background remover helps you erase image backgrounds instantly with professional accuracy.
+          </p>
+        </section>
 
-      {/* Main Tool Card (Remains Unchanged) */}
-      <Card className="w-full max-w-4xl mx-auto shadow-lg">
-        {/* ... (Main Card Content - Tool UI remains unchanged) ... */}
-        <CardContent className="p-6">
-          {!originalImage ? (
-            <div
-              className="flex flex-col items-center justify-center space-y-4 p-12 border-2 border-dashed rounded-lg cursor-pointer hover:border-primary"
-              onClick={() => fileInputRef.current?.click()}
-              aria-label="Upload image to remove background"
-            >
-              <div className="p-4 bg-secondary rounded-full">
-                <Upload className="w-10 h-10 text-muted-foreground" aria-hidden="true" />
+        {/* TOOL */}
+        <Card className="max-w-4xl mx-auto shadow-lg">
+          <CardContent className="p-6">
+            {!originalImage ? (
+              <div
+                className="border-2 border-dashed rounded-lg p-10 text-center cursor-pointer"
+                onClick={() => fileInputRef.current?.click()}
+              >
+                <Upload className="mx-auto mb-3" />
+                <p className="font-semibold">Click to upload image</p>
+                <p className="text-sm text-muted-foreground">JPG, PNG, WEBP • Max 8MB</p>
+                <Input
+                  ref={fileInputRef}
+                  type="file"
+                  className="hidden"
+                  accept="image/png,image/jpeg,image/webp"
+                  onChange={handleFileChange}
+                />
               </div>
-              <p className="font-semibold">Click to upload or drag and drop</p>
-              <p className="text-sm text-muted-foreground">PNG, JPG, WEBP (Max 4MB)</p>
-              <Input
-                ref={fileInputRef}
-                type="file"
-                className="hidden"
-                accept="image/png, image/jpeg, image/webp"
-                onChange={handleFileChange}
-              />
-            </div>
-          ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div>
-                <h3 className="text-lg font-semibold text-center">Original</h3>
-                <div className="relative aspect-square border rounded-lg overflow-hidden">
-                  <img src={originalImage} alt="Uploaded original image" className="object-contain w-full h-full absolute top-0 left-0" />
-                </div>
+            ) : (
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <img src={originalImage} alt="Original image" />
+                {isLoading ? (
+                  <Loader2 className="animate-spin m-auto" />
+                ) : (
+                  processedImage && <img src={processedImage} alt="Background removed image" />
+                )}
               </div>
-              <div>
-                <h3 className="text-lg font-semibold text-center">Result</h3>
-                <div className="relative aspect-square border rounded-lg bg-muted overflow-hidden">
-                  {isLoading && <Loader2 className="w-12 h-12 animate-spin absolute inset-0 m-auto text-primary" />}
-                  {processedImage ? (
-                    <img src={processedImage} alt="Background removed result image" className="object-contain w-full h-full absolute top-0 left-0" />
-                  ) : (
-                    !isLoading && <ImageIcon className="w-16 h-16 m-auto text-muted-foreground" aria-hidden="true" />
-                  )}
-                </div>
-              </div>
-            </div>
+            )}
+          </CardContent>
+
+          {originalImage && (
+            <CardFooter className="flex justify-center gap-4">
+              <Button variant="outline" onClick={handleReset}><Trash2 /> Reset</Button>
+              <Button onClick={handleSubmit} disabled={isLoading}>Remove Background</Button>
+              <Button onClick={handleDownload} disabled={!processedImage}><Download /> Download</Button>
+            </CardFooter>
           )}
-        </CardContent>
-        {originalImage && (
-          <CardFooter className="flex justify-center gap-4 bg-muted/50 border-t p-4">
-            <Button variant="outline" onClick={handleReset} aria-label="Reset uploaded image">
-              <Trash2 className="mr-2 h-4 w-4" /> Reset
-            </Button>
-            <Button onClick={handleSubmit} disabled={isLoading || !!processedImage} aria-label="Remove background">
-              {isLoading ? (
-                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-              ) : (
-                <Sparkles className="mr-2 h-4 w-4" />
-              )}
-              Remove Background
-            </Button>
-            <Button onClick={handleDownload} disabled={!processedImage || isLoading} aria-label="Download processed image">
-              <Download className="mr-2 h-4 w-4" /> Download
-            </Button>
-          </CardFooter>
-        )}
-      </Card>
+        </Card>
 
-      {/* --- START OF ADMENSE HIGH-VALUE CONTENT SECTION (1000+ Words in English) --- */}
-      <section className="max-w-4xl mx-auto py-10 p-6 bg-white dark:bg-gray-900 shadow-xl rounded-2xl border border-indigo-100 dark:border-indigo-900">
-          <h2 className="text-3xl font-extrabold mb-8 text-center text-indigo-700 dark:text-indigo-400 flex items-center justify-center gap-3">
-              <Zap className="w-6 h-6" /> Why Our AI Background Remover is the Best Choice Globally
-          </h2>
-          <div className="space-y-6 text-lg text-gray-700 dark:text-gray-300 leading-relaxed">
-              
-              <p>
-                  In graphic design, e-commerce, and digital marketing, a **perfect background cutout** is crucial for image quality and professional presentation. TaskGuru's AI-powered tool saves you hours of manual editing and delivers a precise result every time. Our tool is built on **advanced deep learning models** which allow it to identify subjects, including complex elements like hair and delicate edges, with a level of accuracy that rivals professional software. We make complex photo editing simple and accessible to everyone worldwide.
-              </p>
-              
-              {/* DETAILED GUIDE */}
-              <h3 className="text-2xl font-bold mt-8 mb-4 text-gray-800 dark:text-gray-200 border-b pb-2">
-                  1. Step-by-Step Guide to Removing Your Image Background
-              </h3>
-              <ol className="list-decimal list-inside ml-4 space-y-3">
-                  <li>Upload Your Image: Drag and drop your JPG, PNG, or WEBP file (max 4MB) into the box above or click to select the file. Our tool works on any device and browser.</li>
-                  <li>AI Processing Starts: The moment you click "Remove Background," our powerful AI model takes over. It analyzes the image pixels using sophisticated algorithms to isolate the foreground subject from the background, ensuring a clean separation.</li>
-                  <li>Review and Verify: The result is instantly displayed next to your original image. You can verify the clean edges and perfect cutout before downloading.</li>
-                  <li>Download Your PNG: Download your new image. We recommend the PNG format as it fully supports the transparency created by the background removal.</li>
-              </ol>
+        {/* HIGH AUTHORITY CONTENT */}
+        <section className="max-w-4xl mx-auto space-y-8 text-lg leading-relaxed">
 
-              {/* UNIQUE VALUE - Creative Use Cases */}
-              <h3 className="text-2xl font-bold mt-8 mb-4 text-gray-800 dark:text-gray-200 border-b pb-2">
-                  2. Beyond the Profile Picture: 5 Creative Uses for Your Cutouts
-              </h3>
-              <ul className="list-disc list-outside ml-6 space-y-3">
-                  <li>E-commerce Product Photography: Quickly generate product photos with pure white or transparent backgrounds, essential for platforms like Amazon, eBay, and your own online store.</li>
-                  <li>Marketing and Social Media: Create eye-catching YouTube Thumbnails or compelling Instagram stories by placing the subject over a dynamic, custom background.</li>
-                  <li>Web Design and Development: Speed up your website's load time by using transparent PNGs. After removing the background, use our <Link href="/tools/image-compressor" className="text-primary hover:underline font-semibold">Image Compressor</Link> to further reduce the file size without losing quality.</li>
-                  <li>Digital Art and Collages: Extract subjects from multiple photos to create complex digital art pieces, montages, or fun collages easily.</li>
-                  <li>Professional Documents: Instantly adjust photos for professional resumes or ID purposes by removing distracting elements and adding a clean, solid background color in an external editor.</li>
-              </ul>
+          <h2 className="text-3xl font-bold">What Is an AI Background Remover and How Does It Work?</h2>
+          <p>
+            An AI background remover is an advanced image editing tool that automatically detects the main subject in a photo and separates it from the background. Unlike traditional tools that require manual selection, AI-based systems analyze pixels, edges, colors, and depth using machine learning models trained on millions of images.
+          </p>
+          <p>
+            TaskGuru’s background remover uses deep neural networks to understand where the subject ends and the background begins. This allows it to accurately remove complex backgrounds, including hair, shadows, and transparent objects, in just seconds.
+          </p>
 
-              {/* TRUST AND SECURITY - Privacy Link */}
-              <h3 className="text-2xl font-bold mt-8 mb-4 text-gray-800 dark:text-gray-200 border-b pb-2 flex items-center gap-2">
-                  <ShieldCheck className='h-5 w-5'/> Security, Privacy, and AI Accuracy
-              </h3>
-              <p>
-                  Zero Storage Policy: We understand file privacy is critical, especially for a global audience. TaskGuru does not permanently store any uploaded images. Your files are processed instantly and are deleted from our servers immediately after the operation is complete. For complete details, please refer to our <Link href="/privacy-policy" className="text-primary hover:underline font-semibold">Privacy Policy</Link>.
-              </p>
-              <p>
-                  Unmatched AI Accuracy: Unlike simple tools that only look for contrast, our AI is trained to handle tricky scenarios—shadows, complex textures, and subtle transitions—to give you a clean, usable image every time. This expertise is what Google AdSense seeks in high-value content.
-              </p>
+          <h2 className="text-3xl font-bold">AI Background Remover vs Manual Editing Tools</h2>
+          <p>
+            Manual tools like Photoshop require technical knowledge, time, and paid subscriptions. In contrast, TaskGuru’s AI Background Remover is completely free, instant, and requires no editing skills.
+          </p>
+          <ul className="list-disc ml-6">
+            <li>Manual editing takes minutes or hours</li>
+            <li>AI removes background in seconds</li>
+            <li>No learning curve or software installation</li>
+            <li>Works directly in your browser</li>
+          </ul>
 
-              {/* Conclusion and CTA */}
-              <p className="pt-4 text-center font-semibold text-xl text-primary">
-                  Ready to revolutionize your image editing workflow? Start using TaskGuru’s AI Background Remover today!
-              </p>
+          <h2 className="text-3xl font-bold">Who Should Use This Free Online Background Remover?</h2>
+          <p>
+            This tool is ideal for students, content creators, e-commerce sellers, designers, office professionals, and anyone who needs clean images quickly.
+          </p>
+          <p>
+            YouTubers can create eye-catching thumbnails, online sellers can improve product images, and students can prepare professional documents effortlessly.
+          </p>
 
+          <h2 className="text-3xl font-bold">Common Problems in Background Removal (Solved by AI)</h2>
+          <p>
+            Traditional tools struggle with fine hair, low contrast subjects, and busy backgrounds. TaskGuru’s AI is trained to handle these scenarios with precision, delivering smooth edges and professional-quality results.
+          </p>
+
+          <h2 className="text-3xl font-bold">Security, Privacy, and Accuracy</h2>
+          <p>
+            TaskGuru follows a strict zero-storage policy. Uploaded images are processed instantly and deleted immediately. Your data remains private and secure at all times.
+          </p>
+
+        </section>
+
+        {/* INTERNAL LINKS */}
+        <section className="max-w-4xl mx-auto text-center">
+          <p className="font-semibold">Related Tools:</p>
+          <div className="flex justify-center gap-4 mt-3">
+            <Link href="/tools/image-compressor">Image Compressor</Link>
+            <Link href="/tools/image-to-text-ocr">Image to Text OCR</Link>
+            <Link href="/tools/pdf-to-word">PDF to Word Converter</Link>
           </div>
-      </section>
-      {/* --- END OF ADMENSE HIGH-VALUE CONTENT SECTION --- */}
+        </section>
 
-
-      {/* Before and After Demo Section (Remains Unchanged) */}
-      <section className="max-w-4xl mx-auto py-10">
-        <h2 className="text-2xl font-bold text-center mb-8 text-foreground">
-          See the AI Difference: Before & After
-        </h2>
-        {/* ... (Demo Section Code remains unchanged) ... */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 p-6 bg-muted/50 dark:bg-gray-800 rounded-xl shadow-inner">
-          
-          {/* Before Image */}
-          <div className="text-center">
-            <h3 className="text-lg font-semibold mb-3 text-red-500">ORIGINAL (Before)</h3>
-            <div className="relative aspect-square rounded-lg overflow-hidden border-2 border-red-400 dark:border-red-600">
-              <Image 
-                src="/tool-previews/bg-remover-before.png" 
-                alt="Original image with background" 
-                fill 
-                className="object-contain"
-                loading="lazy" 
-                sizes="(max-width: 768px) 50vw, 30vw" 
-              />
-            </div>
-          </div>
-          
-          {/* After Image */}
-          <div className="text-center">
-            <h3 className="text-lg font-semibold mb-3 text-green-500">PROCESSED (After)</h3>
-            <div className="relative aspect-square rounded-lg overflow-hidden border-2 border-green-400 dark:border-green-600">
-              <Image 
-                src="/tool-previews/bg-remover-after.png" 
-                alt="Image with transparent background" 
-                fill 
-                className="object-contain"
-                loading="lazy" 
-                sizes="(max-width: 768px) 50vw, 30vw" 
-              />
-            </div>
-          </div>
-          
-        </div>
-      </section>
-
-      {/* UPDATED FAQ Section (Remains Unchanged) */}
-      <section className="max-w-4xl mx-auto my-8 sm:my-12 p-6 bg-white dark:bg-gray-900 shadow rounded-lg border border-gray-100 dark:border-gray-800">
-        <h2 className="text-xl sm:text-2xl font-bold mb-6 text-gray-900 dark:text-white">Frequently Asked Questions</h2>
-        <div className="space-y-6 text-left">
-          {faqSchema.mainEntity.map((item, index) => (
-            <div key={index} className="border-b pb-4 last:border-b-0">
-              <h3 className="font-semibold text-lg text-gray-900 dark:text-white">{item.name}</h3>
-              <p className="text-gray-600 dark:text-gray-400 mt-2">{item.acceptedAnswer.text}</p>
-            </div>
-          ))}
-        </div>
-      </section>
-    </div>
+      </div>
+    </>
   );
-}
+                                                                                                 }
+
