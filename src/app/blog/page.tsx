@@ -1,4 +1,3 @@
-
 // src/app/blog/page.tsx
 
 'use client';
@@ -9,49 +8,56 @@ import Script from "next/script";
 
 // ✅ 1. ALL BLOG POSTS ARE DEFINED HERE (Ordered Newest to Oldest)
 const posts = [
-    // 🌟 1st Post (NEWEST - Dec 18) 🌟
+    // 🌟 1st Post (NEWEST - Dec 19) 🌟
+    {
+        slug: 'anti-subscription-guide-free-ai-tools',
+        title: "The 'Anti-Subscription' Guide: 8 Free AI Tools to Save Your Wallet | TaskGuru",
+        summary: "Stop paying monthly fees for basic tasks. 🚫💸 Discover the 'Anti-Subscription' stack: 8 free tools for PDFs, Images, Resumes, and Text. Save $100s/month starting today.",
+        date: 'December 19, 2025',
+    },
+    // 2nd Post (Dec 18)
     {
         slug: 'stop-paying-for-saas-free-ai-tools',
         title: "Stop Paying for SaaS: Build Your $0 Productivity Tech Stack | TaskGuru",
-        summary: "Stop burning $100s/month on basic software. 💸 Check out how to build a powerful Content & Admin Tech Stack for $0 using TaskGuru's free AI tools. No credit card, no login.",
+        summary: "Stop burning budget on basic software. Check out how to build a powerful Content & Admin Tech Stack for $0 using TaskGuru's free AI tools. No credit card, no login.",
         date: 'December 18, 2025',
     },
-    // 2nd Post (Dec 12)
+    // 3rd Post (Dec 12)
     {
         slug: 'ultimate-ai-toolkit-free-tools', 
         title: "द अल्टीमेट AI टूलकिट: छात्रों और पेशेवरों के लिए निःशुल्क ऑनलाइन उत्पादकता टूल को अनलॉक करें (भारत और विश्व के लिए)",
         summary: "TaskGuru पर 2000+ शब्दों का गहन विश्लेषण! PDF, इमेज एडिटिंग, टेक्स्ट पैराफ़्रेज़िंग, और फ़ाइल सुरक्षा के लिए सर्वश्रेष्ठ AI टूल खोजें। गोपनीयता और गति पर केंद्रित।",
         date: 'December 12, 2025', 
     },
-    // 3rd Post (Dec 3)
+    // 4th Post (Dec 3)
     {
         slug: 'free-ai-tools-for-students-2025',
         title: "Top 10 Free AI Tools for Students in 2025 (No Login Required)",
         summary: "Discover the most powerful free AI tools every student must use in 2025. Rewrite notes, convert PDFs, extract text, compress files, and boost productivity using TaskGuru’s fast, no-login tools.",
         date: 'December 3, 2025',
     },
-    // 4th Post (Nov 9)
+    // 5th Post (Nov 9)
     {
         slug: 'ai-document-power-up',
         title: "AI Document Power-Up: Free Tools to Summarize & Chat with Any Document (PDF, Word, Text)",
         summary: "Instantly summarize lengthy PDFs, generate key takeaways, and ask questions to your documents using TaskGuru’s new, free AI document analysis tool. Essential for research and study.",
         date: 'November 9, 2025', 
     },
-    // 5th Post (Oct 21)
+    // 6th Post (Oct 21)
     {
         slug: 'streamline-remote-workflow',
         title: "TaskGuru: The Professional's Free AI Toolkit (Streamline Remote Workflow)",
         summary: "Elevate your academic and professional projects instantly with TaskGuru's free AI tools. This is the Updated data for peak productivity and efficient remote work.",
         date: 'October 21, 2025',
     },
-    // 6th Post (Oct 9)
+    // 7th Post (Oct 9)
     {
         slug: 'projects-presentations-ai-toolkit',
         title: "Beyond Essays: How TaskGuru's Free AI Tools Revolutionize Your Projects & Presentations",
         summary: "Elevate your academic and professional projects with TaskGuru's free AI tools. From image optimization to document management and text rewriting, learn how to create stunning presentations and reports with ease.",
         date: 'October 9, 2025',
     },
-    // 7th Post (Oct 2)
+    // 8th Post (Oct 2)
     {
         slug: 'the-ultimate-taskguru-toolkit', 
         title: "The Ultimate TaskGuru Toolkit: 6 Free AI Tools for Students & Professionals",
@@ -94,8 +100,8 @@ const faqSchema = {
 
 
 export default function BlogPage() {
-    // Define the slug of the post you want to highlight as "NEW"
-    const featuredPostSlug = 'stop-paying-for-saas-free-ai-tools';
+    // ✅ Define the slug of the post you want to highlight as "NEW"
+    const featuredPostSlug = 'anti-subscription-guide-free-ai-tools';
 
     return (
         <>
@@ -127,7 +133,7 @@ export default function BlogPage() {
                                 <h2 className="text-2xl font-bold group-hover:text-primary transition-colors">
                                     {post.title}
                                     {post.slug === featuredPostSlug && (
-                                        <span className="ml-3 inline-flex items-center px-3 py-1 text-xs font-semibold rounded-full bg-primary text-white">
+                                        <span className="ml-3 inline-flex items-center px-3 py-1 text-xs font-semibold rounded-full bg-primary text-white animate-pulse">
                                             NEW & HOT 🔥
                                         </span>
                                     )}
@@ -162,3 +168,4 @@ export default function BlogPage() {
         </>
     );
 }
+
