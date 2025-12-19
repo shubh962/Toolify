@@ -1,9 +1,18 @@
 // src/components/MoreTools.tsx
 
 import Link from "next/link";
-import { ArrowRight, Image, FileText, File, Crop, Combine, AlignLeft, FileImage } from "lucide-react";
+import {
+  ArrowRight,
+  Image,
+  FileText,
+  File,
+  Crop,
+  Combine,
+  AlignLeft,
+  FileImage,
+} from "lucide-react";
 
-// आपके 7 मुख्य टूल्स की सूची
+// All tools list (now includes Resume Maker)
 const allTools = [
   {
     name: "AI Background Remover",
@@ -47,13 +56,22 @@ const allTools = [
     icon: <File className="w-6 h-6 text-yellow-500" />,
     cta: "Extract Now",
   },
-  // 👇 7th Tool Added Here
   {
     name: "Image to PDF",
     description: "Convert JPG, PNG, or WEBP images into a single PDF file instantly.",
     href: "/tools/image-to-pdf",
     icon: <FileImage className="w-6 h-6 text-rose-500" />,
     cta: "Convert Now",
+  },
+
+  // 🔥 8th TOOL — RESUME MAKER
+  {
+    name: "Resume Maker (ATS Friendly)",
+    description:
+      "Build professional, ATS-friendly resumes with live preview, JD matching, and instant PDF download.",
+    href: "/tools/resume-maker",
+    icon: <FileText className="w-6 h-6 text-indigo-600" />,
+    cta: "Build Resume",
   },
 ];
 
@@ -64,11 +82,13 @@ export default function MoreTools() {
         <h2 className="text-3xl font-bold text-center text-gray-900 dark:text-white mb-10">
           🔗 Discover More Useful Tools
         </h2>
+
         <p className="text-center text-lg text-gray-600 dark:text-gray-300 mb-12">
-          Don't stop here! Explore our full suite of free, AI-powered utilities to simplify your workflow.
+          Don't stop here! Explore our full suite of free, AI-powered utilities to
+          simplify your workflow.
         </p>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
           {allTools.map((tool) => (
             <Link
               key={tool.name}
@@ -79,6 +99,7 @@ export default function MoreTools() {
                 <div className="flex-shrink-0 p-3 rounded-full bg-indigo-50 dark:bg-indigo-900/50">
                   {tool.icon}
                 </div>
+
                 <div>
                   <h3 className="text-xl font-semibold text-gray-900 dark:text-white group-hover:text-indigo-600 transition">
                     {tool.name}
@@ -88,6 +109,7 @@ export default function MoreTools() {
                   </p>
                 </div>
               </div>
+
               <div className="mt-4 flex items-center justify-end text-sm font-medium text-indigo-600 dark:text-indigo-400 group-hover:text-indigo-700 transition">
                 {tool.cta}
                 <ArrowRight className="w-4 h-4 ml-1 group-hover:translate-x-1 transition duration-200" />
@@ -99,3 +121,4 @@ export default function MoreTools() {
     </section>
   );
 }
+
