@@ -6,6 +6,36 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 
+/* ---------------- ATS SCORE LOGIC ---------------- */
+function calculateATSScore(data: any) {
+  let score = 0;
+  const missing: string[] = [];
+
+  if (data.name && data.email && data.phone) score += 15;
+  else missing.push("Personal details");
+
+  if (data.linkedin || data.github || data.portfolio) score += 10;
+  else missing.push("Profile links");
+
+  if (data.summary) score += 15;
+  else missing.push("Professional summary");
+
+  if (data.experience) score += 25;
+  else missing.push("Work experience");
+
+  if (data.education) score += 15;
+  else missing.push("Education");
+
+  if (data.projects) score += 10;
+  else missing.push("Projects");
+
+  if (data.skills) score += 10;
+  else missing.push("Skills");
+
+  return { score, missing };
+}
+
+/* ---------------- STEPS ---------------- */
 const steps = [
   "Personal Details",
   "Links & Profiles",
@@ -37,6 +67,8 @@ export default function ResumeMaker() {
     courses: "",
   });
 
+  const ats = calculateATSScore(data);
+
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => setData({ ...data, [e.target.name]: e.target.value });
@@ -48,14 +80,27 @@ export default function ResumeMaker() {
     if (!resumeRef.current) return;
     const win = window.open("", "", "width=900,height=650");
     if (!win) return;
-    win.document.write(`<html><body>${resumeRef.current.innerHTML}</body></html>`);
+    win.document.write(`
+      <html>
+        <head>
+          <style>
+            body { font-family: "Times New Roman", serif; padding: 24px; }
+            h1 { text-align:center; font-size:24px; margin-bottom:4px; }
+            h2 { text-align:center; font-size:14px; margin-bottom:8px; }
+            h3 { margin-top:16px; }
+            p, li { font-size:13px; }
+          </style>
+        </head>
+        <body>${resumeRef.current.innerHTML}</body>
+      </html>
+    `);
     win.document.close();
     win.print();
   };
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-      {/* LEFT – STEPPER FORM */}
+      {/* LEFT SIDE – FORM */}
       <Card>
         <CardHeader>
           <CardTitle>
@@ -64,6 +109,33 @@ export default function ResumeMaker() {
         </CardHeader>
 
         <CardContent className="space-y-4">
+          {/* ATS SCORE */}
+          <div>
+            <div className="flex justify-between text-sm mb-1">
+              <span className="font-medium">ATS Score</span>
+              <span className="font-bold">{ats.score}%</span>
+            </div>
+
+            <div className="h-2 w-full bg-muted rounded-full overflow-hidden">
+              <div
+                className={`h-full transition-all ${
+                  ats.score >= 80
+                    ? "bg-green-500"
+                    : ats.score >= 50
+                    ? "bg-yellow-500"
+                    : "bg-red-500"
+                }`}
+                style={{ width: `${ats.score}%` }}
+              />
+            </div>
+
+            {ats.missing.length > 0 && (
+              <p className="text-xs text-muted-foreground mt-2">
+                Missing: {ats.missing.join(", ")}
+              </p>
+            )}
+          </div>
+
           {/* STEP CONTENT */}
           {currentStep === 0 && (
             <>
@@ -151,50 +223,48 @@ export default function ResumeMaker() {
         </CardContent>
       </Card>
 
-      {/* RIGHT – LIVE PREVIEW */}
+      {/* RIGHT SIDE – LIVE PREVIEW */}
       <Card>
         <CardContent ref={resumeRef} className="bg-white p-6 text-sm">
-          <h1 className="text-xl font-bold text-center">{data.name || "YOUR NAME"}</h1>
-          <p className="text-center">{data.role}</p>
-          <p className="text-center text-xs">
+          <h1>{data.name || "YOUR NAME"}</h1>
+          <h2>{data.role}</h2>
+          <p style={{ textAlign: "center" }}>
             {data.location} | {data.email} | {data.phone}
           </p>
-
-          <hr className="my-2" />
 
           {data.summary && <p>{data.summary}</p>}
 
           {data.experience && (
             <>
-              <h3 className="font-bold mt-3">Experience</h3>
-              <ul>{list(data.experience).map((i, k) => <li key={k}>• {i}</li>)}</ul>
+              <h3>Experience</h3>
+              <ul>{list(data.experience).map((i, k) => <li key={k}>{i}</li>)}</ul>
             </>
           )}
 
           {data.education && (
             <>
-              <h3 className="font-bold mt-3">Education</h3>
-              <ul>{list(data.education).map((i, k) => <li key={k}>• {i}</li>)}</ul>
+              <h3>Education</h3>
+              <ul>{list(data.education).map((i, k) => <li key={k}>{i}</li>)}</ul>
             </>
           )}
 
           {data.projects && (
             <>
-              <h3 className="font-bold mt-3">Projects</h3>
-              <ul>{list(data.projects).map((i, k) => <li key={k}>• {i}</li>)}</ul>
+              <h3>Projects</h3>
+              <ul>{list(data.projects).map((i, k) => <li key={k}>{i}</li>)}</ul>
             </>
           )}
 
           {data.skills && (
             <>
-              <h3 className="font-bold mt-3">Skills</h3>
+              <h3>Skills</h3>
               <p>{data.skills}</p>
             </>
           )}
 
           {data.courses && (
             <>
-              <h3 className="font-bold mt-3">Courses</h3>
+              <h3>Courses</h3>
               <p>{data.courses}</p>
             </>
           )}
@@ -203,3 +273,4 @@ export default function ResumeMaker() {
     </div>
   );
 }
+
