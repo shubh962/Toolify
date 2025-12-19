@@ -6,8 +6,19 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 
+const steps = [
+  "Personal Details",
+  "Links & Profiles",
+  "Professional Summary",
+  "Work Experience",
+  "Education",
+  "Projects",
+  "Skills & Courses",
+];
+
 export default function ResumeMaker() {
   const resumeRef = useRef<HTMLDivElement>(null);
+  const [currentStep, setCurrentStep] = useState(0);
 
   const [data, setData] = useState({
     name: "",
@@ -18,12 +29,12 @@ export default function ResumeMaker() {
     linkedin: "",
     github: "",
     portfolio: "",
-    kaggle: "",
+    summary: "",
     experience: "",
     education: "",
     projects: "",
-    courses: "",
     skills: "",
+    courses: "",
   });
 
   const handleChange = (
@@ -35,197 +46,160 @@ export default function ResumeMaker() {
 
   const printResume = () => {
     if (!resumeRef.current) return;
-
-    const content = resumeRef.current.innerHTML;
     const win = window.open("", "", "width=900,height=650");
     if (!win) return;
-
-    win.document.write(`
-      <html>
-        <head>
-          <title>Professional Resume</title>
-          <style>
-            body {
-              font-family: "Times New Roman", serif;
-              color: #000;
-              padding: 24px;
-            }
-            h1 {
-              text-align: center;
-              font-size: 28px;
-              letter-spacing: 1px;
-              margin-bottom: 4px;
-            }
-            h2 {
-              text-align: center;
-              font-size: 14px;
-              font-weight: normal;
-              margin-bottom: 6px;
-            }
-            .center {
-              text-align: center;
-              font-size: 12px;
-            }
-            hr {
-              border: none;
-              border-top: 1px solid #000;
-              margin: 10px 0;
-            }
-            .section {
-              margin-top: 16px;
-            }
-            .section-title {
-              background: #dbeaf5;
-              padding: 4px 8px;
-              font-weight: bold;
-              text-transform: uppercase;
-              font-size: 13px;
-            }
-            ul {
-              margin-top: 6px;
-              padding-left: 18px;
-            }
-            li {
-              margin-bottom: 4px;
-              font-size: 13px;
-            }
-            p {
-              font-size: 13px;
-              margin: 4px 0;
-            }
-            a {
-              color: #000;
-              text-decoration: none;
-            }
-          </style>
-        </head>
-        <body>${content}</body>
-      </html>
-    `);
-
+    win.document.write(`<html><body>${resumeRef.current.innerHTML}</body></html>`);
     win.document.close();
     win.print();
   };
 
   return (
-    <div className="space-y-6">
-      {/* ACTION */}
-      <div className="flex justify-end">
-        <Button onClick={printResume}>Download PDF</Button>
-      </div>
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      {/* LEFT – STEPPER FORM */}
+      <Card>
+        <CardHeader>
+          <CardTitle>
+            Step {currentStep + 1} of {steps.length}: {steps[currentStep]}
+          </CardTitle>
+        </CardHeader>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {/* FORM */}
-        <Card>
-          <CardHeader>
-            <CardTitle>Resume Details (Industry Level)</CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-3">
-            <Input name="name" placeholder="Full Name" onChange={handleChange} />
-            <Input name="role" placeholder="Job Title (e.g. Machine Learning Engineer)" onChange={handleChange} />
+        <CardContent className="space-y-4">
+          {/* STEP CONTENT */}
+          {currentStep === 0 && (
+            <>
+              <Input name="name" placeholder="Full Name" onChange={handleChange} />
+              <Input name="role" placeholder="Job Title" onChange={handleChange} />
+              <Input name="email" placeholder="Email" onChange={handleChange} />
+              <Input name="phone" placeholder="Phone" onChange={handleChange} />
+              <Input name="location" placeholder="City, Country" onChange={handleChange} />
+            </>
+          )}
 
-            <Input name="email" placeholder="Email" onChange={handleChange} />
-            <Input name="phone" placeholder="Phone" onChange={handleChange} />
-            <Input name="location" placeholder="City, Country" onChange={handleChange} />
+          {currentStep === 1 && (
+            <>
+              <Input name="linkedin" placeholder="LinkedIn URL" onChange={handleChange} />
+              <Input name="github" placeholder="GitHub URL" onChange={handleChange} />
+              <Input name="portfolio" placeholder="Portfolio / Website URL" onChange={handleChange} />
+            </>
+          )}
 
-            <Input name="linkedin" placeholder="LinkedIn URL" onChange={handleChange} />
-            <Input name="github" placeholder="GitHub URL" onChange={handleChange} />
-            <Input name="portfolio" placeholder="Portfolio / Website URL" onChange={handleChange} />
-            <Input name="kaggle" placeholder="Kaggle / LeetCode URL" onChange={handleChange} />
+          {currentStep === 2 && (
+            <Textarea
+              name="summary"
+              placeholder="Professional summary (2–3 lines)"
+              onChange={handleChange}
+            />
+          )}
 
-            <Textarea name="experience" placeholder="Work Experience (one bullet per line)" onChange={handleChange} />
-            <Textarea name="education" placeholder="Education (one bullet per line)" onChange={handleChange} />
-            <Textarea name="projects" placeholder="Projects (one bullet per line)" onChange={handleChange} />
-            <Textarea name="courses" placeholder="Courses / Certifications" onChange={handleChange} />
-            <Textarea name="skills" placeholder="Skills (comma or line separated)" onChange={handleChange} />
-          </CardContent>
-        </Card>
+          {currentStep === 3 && (
+            <Textarea
+              name="experience"
+              placeholder="Work experience (one bullet per line)"
+              onChange={handleChange}
+            />
+          )}
 
-        {/* PREVIEW */}
-        <Card>
-          <CardContent ref={resumeRef} className="bg-white p-6">
-            <h1>{data.name || "YOUR NAME"}</h1>
-            <h2>{data.role || "PROFESSIONAL TITLE"}</h2>
+          {currentStep === 4 && (
+            <Textarea
+              name="education"
+              placeholder="Education (one bullet per line)"
+              onChange={handleChange}
+            />
+          )}
 
-            <p className="center">
-              {data.location} | {data.email} | {data.phone}
-            </p>
+          {currentStep === 5 && (
+            <Textarea
+              name="projects"
+              placeholder="Projects (one bullet per line)"
+              onChange={handleChange}
+            />
+          )}
 
-            <div className="center">
-              {data.linkedin && (
-                <div>
-                  LinkedIn:{" "}
-                  <a href={data.linkedin} target="_blank" rel="noreferrer">
-                    {data.linkedin}
-                  </a>
-                </div>
-              )}
-              {data.github && (
-                <div>
-                  GitHub:{" "}
-                  <a href={data.github} target="_blank" rel="noreferrer">
-                    {data.github}
-                  </a>
-                </div>
-              )}
-              {data.portfolio && (
-                <div>
-                  Portfolio:{" "}
-                  <a href={data.portfolio} target="_blank" rel="noreferrer">
-                    {data.portfolio}
-                  </a>
-                </div>
-              )}
-              {data.kaggle && (
-                <div>
-                  Kaggle:{" "}
-                  <a href={data.kaggle} target="_blank" rel="noreferrer">
-                    {data.kaggle}
-                  </a>
-                </div>
-              )}
-            </div>
+          {currentStep === 6 && (
+            <>
+              <Textarea
+                name="skills"
+                placeholder="Skills (comma or line separated)"
+                onChange={handleChange}
+              />
+              <Textarea
+                name="courses"
+                placeholder="Courses / Certifications"
+                onChange={handleChange}
+              />
+            </>
+          )}
 
-            <hr />
+          {/* NAVIGATION */}
+          <div className="flex justify-between pt-4">
+            <Button
+              variant="outline"
+              disabled={currentStep === 0}
+              onClick={() => setCurrentStep((s) => s - 1)}
+            >
+              Back
+            </Button>
 
-            {data.experience && (
-              <div className="section">
-                <div className="section-title">Work Experience</div>
-                <ul>{list(data.experience).map((i, k) => <li key={k}>{i}</li>)}</ul>
-              </div>
+            {currentStep < steps.length - 1 ? (
+              <Button onClick={() => setCurrentStep((s) => s + 1)}>
+                Next
+              </Button>
+            ) : (
+              <Button onClick={printResume}>Download PDF</Button>
             )}
+          </div>
+        </CardContent>
+      </Card>
 
-            {data.education && (
-              <div className="section">
-                <div className="section-title">Education</div>
-                <ul>{list(data.education).map((i, k) => <li key={k}>{i}</li>)}</ul>
-              </div>
-            )}
+      {/* RIGHT – LIVE PREVIEW */}
+      <Card>
+        <CardContent ref={resumeRef} className="bg-white p-6 text-sm">
+          <h1 className="text-xl font-bold text-center">{data.name || "YOUR NAME"}</h1>
+          <p className="text-center">{data.role}</p>
+          <p className="text-center text-xs">
+            {data.location} | {data.email} | {data.phone}
+          </p>
 
-            {data.projects && (
-              <div className="section">
-                <div className="section-title">Projects</div>
-                <ul>{list(data.projects).map((i, k) => <li key={k}>{i}</li>)}</ul>
-              </div>
-            )}
+          <hr className="my-2" />
 
-            {data.courses && (
-              <div className="section">
-                <div className="section-title">Courses</div>
-                <ul>{list(data.courses).map((i, k) => <li key={k}>{i}</li>)}</ul>
-              </div>
-            )}
+          {data.summary && <p>{data.summary}</p>}
 
-            {data.skills && (
-              <div className="section">
-                <div className="section-title">Skills</div>
-                <p>{data.skills}</p>
-              </div>
-            )}
-          </CardContent>
-        </Card>
-      </div>
+          {data.experience && (
+            <>
+              <h3 className="font-bold mt-3">Experience</h3>
+              <ul>{list(data.experience).map((i, k) => <li key={k}>• {i}</li>)}</ul>
+            </>
+          )}
+
+          {data.education && (
+            <>
+              <h3 className="font-bold mt-3">Education</h3>
+              <ul>{list(data.education).map((i, k) => <li key={k}>• {i}</li>)}</ul>
+            </>
+          )}
+
+          {data.projects && (
+            <>
+              <h3 className="font-bold mt-3">Projects</h3>
+              <ul>{list(data.projects).map((i, k) => <li key={k}>• {i}</li>)}</ul>
+            </>
+          )}
+
+          {data.skills && (
+            <>
+              <h3 className="font-bold mt-3">Skills</h3>
+              <p>{data.skills}</p>
+            </>
+          )}
+
+          {data.courses && (
+            <>
+              <h3 className="font-bold mt-3">Courses</h3>
+              <p>{data.courses}</p>
+            </>
+          )}
+        </CardContent>
+      </Card>
     </div>
   );
 }
-
