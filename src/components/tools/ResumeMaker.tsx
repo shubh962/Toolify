@@ -4,14 +4,10 @@ import { useState, useRef } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
-
-type Template = "modern" | "minimal" | "tech";
 
 export default function ResumeMaker() {
   const resumeRef = useRef<HTMLDivElement>(null);
-  const [template, setTemplate] = useState<Template>("modern");
 
   const [data, setData] = useState({
     name: "",
@@ -22,12 +18,11 @@ export default function ResumeMaker() {
     summary: "",
     skills: "",
     experience: "",
-    education: "",
     projects: "",
+    education: "",
     certifications: "",
     achievements: "",
     languages: "",
-    interests: "",
   });
 
   const handleChange = (
@@ -39,6 +34,7 @@ export default function ResumeMaker() {
 
   const printResume = () => {
     if (!resumeRef.current) return;
+
     const content = resumeRef.current.innerHTML;
     const win = window.open("", "", "width=900,height=650");
     if (!win) return;
@@ -46,16 +42,14 @@ export default function ResumeMaker() {
     win.document.write(`
       <html>
         <head>
-          <title>Resume</title>
+          <title>Professional Resume</title>
+          <meta name="description" content="ATS friendly professional resume generated using free resume builder">
           <style>
             body { font-family: Arial, sans-serif; padding: 24px; color: #000; }
             h2 { margin-bottom: 4px; }
-            h3 { margin-top: 16px; border-bottom: 1px solid #ddd; }
+            h3 { margin-top: 18px; border-bottom: 1px solid #ddd; padding-bottom: 4px; }
             ul { padding-left: 20px; }
             p { margin: 6px 0; }
-            .tech h3 { border-bottom: 2px solid #000; }
-            .modern h2 { letter-spacing: 0.5px; }
-            .minimal h3 { border: none; text-transform: uppercase; }
           </style>
         </head>
         <body>${content}</body>
@@ -66,39 +60,25 @@ export default function ResumeMaker() {
     win.print();
   };
 
-  const Section = ({ title, children }: { title: string; children: any }) =>
-    children ? (
-      <>
-        <h3>{title}</h3>
-        {children}
-      </>
-    ) : null;
-
   return (
     <div className="space-y-8">
-      {/* ACTIONS */}
-      <div className="flex flex-wrap gap-3 justify-between">
-        <div className="flex gap-2">
-          <Button
-            variant={template === "modern" ? "default" : "outline"}
-            onClick={() => setTemplate("modern")}
-          >
-            Modern
-          </Button>
-          <Button
-            variant={template === "minimal" ? "default" : "outline"}
-            onClick={() => setTemplate("minimal")}
-          >
-            Minimal
-          </Button>
-          <Button
-            variant={template === "tech" ? "default" : "outline"}
-            onClick={() => setTemplate("tech")}
-          >
-            Tech
-          </Button>
-        </div>
-        <Button onClick={printResume}>Download PDF</Button>
+      {/* SEO INTRO (VISIBLE TEXT) */}
+      <div className="max-w-3xl mx-auto text-center">
+        <h2 className="text-3xl font-bold">
+          Free Professional Resume Builder (ATS Friendly)
+        </h2>
+        <p className="mt-2 text-muted-foreground">
+          Build a job-ready, ATS-friendly professional resume online.
+          Ideal for freshers, experienced professionals, IT jobs,
+          corporate roles, and job hunting in 2025.
+        </p>
+      </div>
+
+      {/* ACTION BAR */}
+      <div className="flex justify-end">
+        <Button onClick={printResume}>
+          Download Resume PDF
+        </Button>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -109,68 +89,148 @@ export default function ResumeMaker() {
           </CardHeader>
           <CardContent className="space-y-3">
             <Input name="name" placeholder="Full Name" onChange={handleChange} />
-            <Input name="email" placeholder="Email" onChange={handleChange} />
-            <Input name="phone" placeholder="Phone" onChange={handleChange} />
-            <Input name="location" placeholder="Location" onChange={handleChange} />
-            <Input name="linkedin" placeholder="LinkedIn / Portfolio" onChange={handleChange} />
+            <Input name="email" placeholder="Email Address" onChange={handleChange} />
+            <Input name="phone" placeholder="Phone Number" onChange={handleChange} />
+            <Input name="location" placeholder="City, Country" onChange={handleChange} />
+            <Input name="linkedin" placeholder="LinkedIn / Portfolio URL" onChange={handleChange} />
 
-            <Textarea name="summary" placeholder="Professional Summary" onChange={handleChange} />
-            <Textarea name="skills" placeholder="Skills (one per line)" onChange={handleChange} />
+            <Textarea name="summary" placeholder="Professional Summary (ATS optimized)" onChange={handleChange} />
+            <Textarea name="skills" placeholder="Key Skills (one per line)" onChange={handleChange} />
             <Textarea name="experience" placeholder="Work Experience (one per line)" onChange={handleChange} />
-            <Textarea name="education" placeholder="Education (one per line)" onChange={handleChange} />
             <Textarea name="projects" placeholder="Projects (one per line)" onChange={handleChange} />
-            <Textarea name="certifications" placeholder="Certifications (one per line)" onChange={handleChange} />
+            <Textarea name="education" placeholder="Education Details" onChange={handleChange} />
+            <Textarea name="certifications" placeholder="Certifications" onChange={handleChange} />
             <Textarea name="achievements" placeholder="Achievements / Awards" onChange={handleChange} />
-            <Textarea name="languages" placeholder="Languages" onChange={handleChange} />
-            <Textarea name="interests" placeholder="Interests (optional)" onChange={handleChange} />
+            <Textarea name="languages" placeholder="Languages Known" onChange={handleChange} />
           </CardContent>
         </Card>
 
-        {/* PREVIEW */}
+        {/* PROFESSIONAL PREVIEW */}
         <Card>
-          <CardContent
-            ref={resumeRef}
-            className={`p-8 bg-white text-black space-y-3 ${template}`}
-          >
-            <h2 className="text-2xl font-bold">{data.name || "Your Name"}</h2>
-            <p className="text-sm">
-              {data.email} | {data.phone} | {data.location}
-            </p>
-            {data.linkedin && <p className="text-sm">{data.linkedin}</p>}
+          <CardContent ref={resumeRef} className="bg-white text-black p-0">
+            <div className="grid grid-cols-3 min-h-[1000px]">
 
-            <Section title="Summary">{data.summary && <p>{data.summary}</p>}</Section>
+              {/* LEFT SIDEBAR */}
+              <div className="col-span-1 bg-slate-100 p-6 space-y-6">
+                <div>
+                  <h2 className="text-xl font-bold">
+                    {data.name || "Your Name"}
+                  </h2>
+                  <p className="text-xs text-slate-700 mt-2">
+                    {data.email}<br />
+                    {data.phone}<br />
+                    {data.location}
+                  </p>
+                  {data.linkedin && (
+                    <p className="text-xs mt-2 break-all">
+                      {data.linkedin}
+                    </p>
+                  )}
+                </div>
 
-            <Section title="Skills">
-              {data.skills && <ul>{list(data.skills).map((s,i)=><li key={i}>{s}</li>)}</ul>}
-            </Section>
+                {data.skills && (
+                  <div>
+                    <h3 className="text-sm font-semibold uppercase">
+                      Skills
+                    </h3>
+                    <ul className="text-xs mt-2 space-y-1">
+                      {list(data.skills).map((s, i) => (
+                        <li key={i}>• {s}</li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
 
-            <Section title="Experience">
-              {data.experience && <ul>{list(data.experience).map((s,i)=><li key={i}>{s}</li>)}</ul>}
-            </Section>
+                {data.languages && (
+                  <div>
+                    <h3 className="text-sm font-semibold uppercase">
+                      Languages
+                    </h3>
+                    <p className="text-xs mt-2">
+                      {data.languages}
+                    </p>
+                  </div>
+                )}
 
-            <Section title="Education">
-              {data.education && <ul>{list(data.education).map((s,i)=><li key={i}>{s}</li>)}</ul>}
-            </Section>
+                {data.certifications && (
+                  <div>
+                    <h3 className="text-sm font-semibold uppercase">
+                      Certifications
+                    </h3>
+                    <ul className="text-xs mt-2 space-y-1">
+                      {list(data.certifications).map((s, i) => (
+                        <li key={i}>• {s}</li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+              </div>
 
-            <Section title="Projects">
-              {data.projects && <ul>{list(data.projects).map((s,i)=><li key={i}>{s}</li>)}</ul>}
-            </Section>
+              {/* MAIN CONTENT */}
+              <div className="col-span-2 p-8 space-y-6">
+                {data.summary && (
+                  <div>
+                    <h3 className="text-sm font-semibold uppercase">
+                      Professional Summary
+                    </h3>
+                    <p className="text-sm mt-2 leading-relaxed">
+                      {data.summary}
+                    </p>
+                  </div>
+                )}
 
-            <Section title="Certifications">
-              {data.certifications && <ul>{list(data.certifications).map((s,i)=><li key={i}>{s}</li>)}</ul>}
-            </Section>
+                {data.experience && (
+                  <div>
+                    <h3 className="text-sm font-semibold uppercase">
+                      Work Experience
+                    </h3>
+                    <ul className="text-sm mt-2 space-y-2">
+                      {list(data.experience).map((s, i) => (
+                        <li key={i}>• {s}</li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
 
-            <Section title="Achievements">
-              {data.achievements && <p>{data.achievements}</p>}
-            </Section>
+                {data.projects && (
+                  <div>
+                    <h3 className="text-sm font-semibold uppercase">
+                      Projects
+                    </h3>
+                    <ul className="text-sm mt-2 space-y-2">
+                      {list(data.projects).map((s, i) => (
+                        <li key={i}>• {s}</li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
 
-            <Section title="Languages">
-              {data.languages && <p>{data.languages}</p>}
-            </Section>
+                {data.education && (
+                  <div>
+                    <h3 className="text-sm font-semibold uppercase">
+                      Education
+                    </h3>
+                    <ul className="text-sm mt-2 space-y-2">
+                      {list(data.education).map((s, i) => (
+                        <li key={i}>• {s}</li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
 
-            <Section title="Interests">
-              {data.interests && <p>{data.interests}</p>}
-            </Section>
+                {data.achievements && (
+                  <div>
+                    <h3 className="text-sm font-semibold uppercase">
+                      Achievements
+                    </h3>
+                    <p className="text-sm mt-2">
+                      {data.achievements}
+                    </p>
+                  </div>
+                )}
+              </div>
+
+            </div>
           </CardContent>
         </Card>
       </div>
