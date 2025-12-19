@@ -12,8 +12,13 @@ export default function ResumeMaker() {
   const [data, setData] = useState({
     name: "",
     role: "",
-    contact: "",
-    summary: "",
+    email: "",
+    phone: "",
+    location: "",
+    linkedin: "",
+    github: "",
+    portfolio: "",
+    kaggle: "",
     experience: "",
     education: "",
     projects: "",
@@ -55,7 +60,11 @@ export default function ResumeMaker() {
               text-align: center;
               font-size: 14px;
               font-weight: normal;
-              margin-bottom: 8px;
+              margin-bottom: 6px;
+            }
+            .center {
+              text-align: center;
+              font-size: 12px;
             }
             hr {
               border: none;
@@ -84,13 +93,9 @@ export default function ResumeMaker() {
               font-size: 13px;
               margin: 4px 0;
             }
-            .subhead {
-              font-weight: bold;
-              font-size: 13px;
-            }
-            .muted {
-              font-style: italic;
-              font-size: 12px;
+            a {
+              color: #000;
+              text-decoration: none;
             }
           </style>
         </head>
@@ -104,22 +109,30 @@ export default function ResumeMaker() {
 
   return (
     <div className="space-y-6">
+      {/* ACTION */}
       <div className="flex justify-end">
         <Button onClick={printResume}>Download PDF</Button>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {/* INPUT FORM */}
+        {/* FORM */}
         <Card>
           <CardHeader>
-            <CardTitle>Resume Details</CardTitle>
+            <CardTitle>Resume Details (Industry Level)</CardTitle>
           </CardHeader>
           <CardContent className="space-y-3">
             <Input name="name" placeholder="Full Name" onChange={handleChange} />
             <Input name="role" placeholder="Job Title (e.g. Machine Learning Engineer)" onChange={handleChange} />
-            <Input name="contact" placeholder="Email | Phone | Location | GitHub | LinkedIn" onChange={handleChange} />
 
-            <Textarea name="summary" placeholder="Professional Summary" onChange={handleChange} />
+            <Input name="email" placeholder="Email" onChange={handleChange} />
+            <Input name="phone" placeholder="Phone" onChange={handleChange} />
+            <Input name="location" placeholder="City, Country" onChange={handleChange} />
+
+            <Input name="linkedin" placeholder="LinkedIn URL" onChange={handleChange} />
+            <Input name="github" placeholder="GitHub URL" onChange={handleChange} />
+            <Input name="portfolio" placeholder="Portfolio / Website URL" onChange={handleChange} />
+            <Input name="kaggle" placeholder="Kaggle / LeetCode URL" onChange={handleChange} />
+
             <Textarea name="experience" placeholder="Work Experience (one bullet per line)" onChange={handleChange} />
             <Textarea name="education" placeholder="Education (one bullet per line)" onChange={handleChange} />
             <Textarea name="projects" placeholder="Projects (one bullet per line)" onChange={handleChange} />
@@ -133,7 +146,46 @@ export default function ResumeMaker() {
           <CardContent ref={resumeRef} className="bg-white p-6">
             <h1>{data.name || "YOUR NAME"}</h1>
             <h2>{data.role || "PROFESSIONAL TITLE"}</h2>
-            <p className="text-center text-sm">{data.contact}</p>
+
+            <p className="center">
+              {data.location} | {data.email} | {data.phone}
+            </p>
+
+            <div className="center">
+              {data.linkedin && (
+                <div>
+                  LinkedIn:{" "}
+                  <a href={data.linkedin} target="_blank" rel="noreferrer">
+                    {data.linkedin}
+                  </a>
+                </div>
+              )}
+              {data.github && (
+                <div>
+                  GitHub:{" "}
+                  <a href={data.github} target="_blank" rel="noreferrer">
+                    {data.github}
+                  </a>
+                </div>
+              )}
+              {data.portfolio && (
+                <div>
+                  Portfolio:{" "}
+                  <a href={data.portfolio} target="_blank" rel="noreferrer">
+                    {data.portfolio}
+                  </a>
+                </div>
+              )}
+              {data.kaggle && (
+                <div>
+                  Kaggle:{" "}
+                  <a href={data.kaggle} target="_blank" rel="noreferrer">
+                    {data.kaggle}
+                  </a>
+                </div>
+              )}
+            </div>
+
             <hr />
 
             {data.experience && (
