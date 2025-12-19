@@ -6,7 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 
-/* ---------------- ATS SCORE LOGIC ---------------- */
+/* ---------------- ATS SCORE ---------------- */
 function calculateATSScore(data: any) {
   let score = 0;
   const missing: string[] = [];
@@ -33,6 +33,40 @@ function calculateATSScore(data: any) {
   else missing.push("Skills");
 
   return { score, missing };
+}
+
+/* ---------------- JD MATCH ---------------- */
+function extractKeywords(text: string) {
+  return Array.from(
+    new Set(
+      text
+        .toLowerCase()
+        .replace(/[^a-z0-9 ]/g, "")
+        .split(" ")
+        .filter((w) => w.length > 3)
+    )
+  );
+}
+
+function calculateJDMatch(resumeText: string, jdText: string) {
+  if (!jdText) return { match: 0, missing: [] };
+
+  const jdKeywords = extractKeywords(jdText);
+  const resumeKeywords = extractKeywords(resumeText);
+
+  const matched = jdKeywords.filter((k) =>
+    resumeKeywords.includes(k)
+  );
+  const missing = jdKeywords.filter(
+    (k) => !resumeKeywords.includes(k)
+  );
+
+  const match =
+    jdKeywords.length === 0
+      ? 0
+      : Math.round((matched.length / jdKeywords.length) * 100);
+
+  return { match, missing };
 }
 
 /* ---------------- STEPS ---------------- */
@@ -67,7 +101,20 @@ export default function ResumeMaker() {
     courses: "",
   });
 
+  const [jobDescription, setJobDescription] = useState("");
+
   const ats = calculateATSScore(data);
+
+  const resumeText = `
+    ${data.summary}
+    ${data.experience}
+    ${data.education}
+    ${data.projects}
+    ${data.skills}
+    ${data.courses}
+  `;
+
+  const jdMatch = calculateJDMatch(resumeText, jobDescription);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -100,7 +147,7 @@ export default function ResumeMaker() {
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-      {/* LEFT SIDE – FORM */}
+      {/* LEFT – FORM */}
       <Card>
         <CardHeader>
           <CardTitle>
@@ -118,7 +165,7 @@ export default function ResumeMaker() {
 
             <div className="h-2 w-full bg-muted rounded-full overflow-hidden">
               <div
-                className={`h-full transition-all ${
+                className={`h-full ${
                   ats.score >= 80
                     ? "bg-green-500"
                     : ats.score >= 50
@@ -130,9 +177,52 @@ export default function ResumeMaker() {
             </div>
 
             {ats.missing.length > 0 && (
-              <p className="text-xs text-muted-foreground mt-2">
+              <p className="text-xs text-muted-foreground mt-1">
                 Missing: {ats.missing.join(", ")}
               </p>
+            )}
+          </div>
+
+          {/* JD MATCH */}
+          <div>
+            <h4 className="font-semibold text-sm mb-1">
+              Job Description Match
+            </h4>
+
+            <Textarea
+              placeholder="Paste Job Description here"
+              value={jobDescription}
+              onChange={(e) => setJobDescription(e.target.value)}
+            />
+
+            {jobDescription && (
+              <>
+                <div className="flex justify-between text-sm mt-2">
+                  <span>JD Match</span>
+                  <span className="font-bold">{jdMatch.match}%</span>
+                </div>
+
+                <div className="h-2 w-full bg-muted rounded-full overflow-hidden">
+                  <div
+                    className={`h-full ${
+                      jdMatch.match >= 70
+                        ? "bg-green-500"
+                        : jdMatch.match >= 40
+                        ? "bg-yellow-500"
+                        : "bg-red-500"
+                    }`}
+                    style={{ width: `${jdMatch.match}%` }}
+                  />
+                </div>
+
+                {jdMatch.missing.length > 0 && (
+                  <p className="text-xs text-muted-foreground mt-1">
+                    Missing keywords:{" "}
+                    {jdMatch.missing.slice(0, 8).join(", ")}
+                    {jdMatch.missing.length > 8 && " ..."}
+                  </p>
+                )}
+              </>
             )}
           </div>
 
@@ -223,7 +313,7 @@ export default function ResumeMaker() {
         </CardContent>
       </Card>
 
-      {/* RIGHT SIDE – LIVE PREVIEW */}
+      {/* RIGHT – PREVIEW */}
       <Card>
         <CardContent ref={resumeRef} className="bg-white p-6 text-sm">
           <h1>{data.name || "YOUR NAME"}</h1>
