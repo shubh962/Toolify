@@ -9,6 +9,7 @@ const blogSlugs = [
   "ultimate-ai-toolkit-free-tools",
   "stop-paying-for-saas-free-ai-tools",
   "anti-subscription-guide-free-ai-tools",
+  "free-ai-tools-that-replace-paid-software-2025",
 ];
 
 const toolSlugs = [
