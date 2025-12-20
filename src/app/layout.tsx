@@ -56,6 +56,13 @@ export const metadata: Metadata = {
 
   robots: "index, follow",
 
+  // ✅ ADDED: Explicit Icon Configuration (Favicon Fix)
+  icons: {
+    icon: "/icon.png",
+    shortcut: "/icon.png",
+    apple: "/icon.png",
+  },
+
   alternates: {
     canonical: "/", 
   },
@@ -313,3 +320,4 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     </html>
   );
 }
+
