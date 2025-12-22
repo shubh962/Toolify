@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState, useRef } from 'react';
@@ -27,8 +28,7 @@ import {
 import { handleBackgroundRemoval } from '@/app/actions';
 
 /* =====================================================
-   HELPER: HIGH QUALITY CLIENT-SIDE COMPRESSION
-   (Updated for Better Quality + Mobile Safety)
+   HELPER: SMART COMPRESSION (Balanced Speed & Quality)
    ===================================================== */
 const compressImage = (file: File): Promise<string> => {
   return new Promise((resolve, reject) => {
@@ -40,11 +40,11 @@ const compressImage = (file: File): Promise<string> => {
       img.onload = () => {
         const canvas = document.createElement('canvas');
         
-        // 🟢 QUALITY UPDATE: Resolution badha di (2500px max)
-        const MAX_WIDTH = 2500; 
+        // 🟢 OPTIMIZED: 1920px (Full HD) is the sweet spot for Speed + Quality
+        const MAX_WIDTH = 1920; 
         const scaleSize = MAX_WIDTH / img.width;
         
-        // Agar image already choti hai, to resize mat karo (Original rakho)
+        // Agar image choti hai to resize mat karo
         if (scaleSize >= 1) {
            resolve(event.target?.result as string);
            return;
@@ -54,16 +54,15 @@ const compressImage = (file: File): Promise<string> => {
         canvas.height = img.height * scaleSize;
 
         const ctx = canvas.getContext('2d');
-        // High Quality Rendering Settings
         if (ctx) {
+            // Smooth resize algorithm
             ctx.imageSmoothingEnabled = true;
             ctx.imageSmoothingQuality = 'high';
             ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
         }
         
-        // 🟢 QUALITY UPDATE: JPEG Quality 0.8 se badhakar 0.98 kar di
-        // (Sirf 2% compression taaki crash na ho, baaki full detail rahegi)
-        const dataUrl = canvas.toDataURL('image/jpeg', 0.98); 
+        // 🟢 OPTIMIZED: 0.92 Quality (Visually lossless but much faster upload)
+        const dataUrl = canvas.toDataURL('image/jpeg', 0.92); 
         resolve(dataUrl);
       };
       img.onerror = (error) => reject(error);
@@ -99,6 +98,7 @@ export default function BackgroundRemover() {
     setIsLoading(true);
 
     try {
+        // Compress image before sending to server (Fast Upload)
         const compressedBase64 = await compressImage(file);
         setOriginalImage(compressedBase64);
         setProcessedImage(null);
@@ -218,7 +218,7 @@ export default function BackgroundRemover() {
                     {isLoading ? (
                         <div className="flex flex-col items-center justify-center h-full text-muted-foreground animate-pulse">
                             <Loader2 className="animate-spin w-12 h-12 mb-4 text-primary" />
-                            <p className="font-medium text-lg">Analyzing pixels...</p>
+                            <p className="font-medium text-lg">Processing...</p>
                         </div>
                     ) : processedImage ? (
                         <Image src={processedImage} alt="Background removed result transparent" fill style={{ objectFit: "contain" }} />
@@ -425,4 +425,4 @@ export default function BackgroundRemover() {
       </div>
     </>
   );
-      }
+}
