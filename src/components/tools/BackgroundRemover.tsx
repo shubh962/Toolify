@@ -28,7 +28,7 @@ import {
 import { handleBackgroundRemoval } from '@/app/actions';
 
 /* =====================================================
-   HELPER: SMART COMPRESSION (Balanced Speed & Quality)
+   HELPER: SAFE COMPRESSION (1280px - Never Fails)
    ===================================================== */
 const compressImage = (file: File): Promise<string> => {
   return new Promise((resolve, reject) => {
@@ -40,11 +40,10 @@ const compressImage = (file: File): Promise<string> => {
       img.onload = () => {
         const canvas = document.createElement('canvas');
         
-        // 🟢 OPTIMIZED: 1920px (Full HD) is the sweet spot for Speed + Quality
-        const MAX_WIDTH = 1920; 
+        // 🟢 FAILSAFE: 1280px is optimal for Serverless Functions (Fastest)
+        const MAX_WIDTH = 1280; 
         const scaleSize = MAX_WIDTH / img.width;
         
-        // Agar image choti hai to resize mat karo
         if (scaleSize >= 1) {
            resolve(event.target?.result as string);
            return;
@@ -55,14 +54,13 @@ const compressImage = (file: File): Promise<string> => {
 
         const ctx = canvas.getContext('2d');
         if (ctx) {
-            // Smooth resize algorithm
             ctx.imageSmoothingEnabled = true;
-            ctx.imageSmoothingQuality = 'high';
+            ctx.imageSmoothingQuality = 'medium'; // 'Medium' is faster than 'High'
             ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
         }
         
-        // 🟢 OPTIMIZED: 0.92 Quality (Visually lossless but much faster upload)
-        const dataUrl = canvas.toDataURL('image/jpeg', 0.92); 
+        // 🟢 FAILSAFE: 0.85 Quality ensures small payload (<2MB)
+        const dataUrl = canvas.toDataURL('image/jpeg', 0.85); 
         resolve(dataUrl);
       };
       img.onerror = (error) => reject(error);
@@ -98,11 +96,11 @@ export default function BackgroundRemover() {
     setIsLoading(true);
 
     try {
-        // Compress image before sending to server (Fast Upload)
         const compressedBase64 = await compressImage(file);
         setOriginalImage(compressedBase64);
         setProcessedImage(null);
     } catch (error) {
+        console.error("Compression Error:", error);
         toast({ title: 'Error', description: 'Failed to process image.', variant: 'destructive' });
     } finally {
         setIsLoading(false);
@@ -118,19 +116,33 @@ export default function BackgroundRemover() {
     setIsLoading(true);
     setProcessedImage(null);
 
+    // 🟢 FAILSAFE TIMER: Agar 25 second mein response nahi aaya, to error de do.
+    const timeoutPromise = new Promise((_, reject) => 
+        setTimeout(() => reject(new Error("Request timeout")), 25000)
+    );
+
     try {
-        const result = await handleBackgroundRemoval(originalImage);
+        // Race between Server Action and 25s Timeout
+        const result: any = await Promise.race([
+            handleBackgroundRemoval(originalImage),
+            timeoutPromise
+        ]);
         
         if (result.success && result.data?.backgroundRemovedDataUri) {
           setProcessedImage(result.data.backgroundRemovedDataUri);
           toast({ title: 'Success!', description: 'Background removed successfully.' });
         } else {
-          toast({ title: 'Error', description: result.error || "Failed to remove background", variant: 'destructive' });
+          throw new Error(result.error || "Failed to remove background");
         }
-    } catch (err) {
-        toast({ title: 'Server Error', description: "Image might be too complex or server is busy.", variant: 'destructive' });
+
+    } catch (err: any) {
+        console.error("Processing Error:", err);
+        let msg = "Server is busy. Try a smaller image.";
+        if (err.message === "Request timeout") msg = "Server took too long. Please try again.";
+        
+        toast({ title: 'Error', description: msg, variant: 'destructive' });
     } finally {
-        setIsLoading(false);
+        setIsLoading(false); 
     }
   };
 
