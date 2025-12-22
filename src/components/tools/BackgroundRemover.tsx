@@ -27,8 +27,8 @@ import {
 import { handleBackgroundRemoval } from '@/app/actions';
 
 /* =====================================================
-   HELPER: CLIENT-SIDE IMAGE COMPRESSION
-   (Logic Untouched - 100% Working)
+   HELPER: HIGH QUALITY CLIENT-SIDE COMPRESSION
+   (Updated for Better Quality + Mobile Safety)
    ===================================================== */
 const compressImage = (file: File): Promise<string> => {
   return new Promise((resolve, reject) => {
@@ -39,9 +39,12 @@ const compressImage = (file: File): Promise<string> => {
       img.src = event.target?.result as string;
       img.onload = () => {
         const canvas = document.createElement('canvas');
-        const MAX_WIDTH = 1500;
+        
+        // 🟢 QUALITY UPDATE: Resolution badha di (2500px max)
+        const MAX_WIDTH = 2500; 
         const scaleSize = MAX_WIDTH / img.width;
         
+        // Agar image already choti hai, to resize mat karo (Original rakho)
         if (scaleSize >= 1) {
            resolve(event.target?.result as string);
            return;
@@ -51,9 +54,16 @@ const compressImage = (file: File): Promise<string> => {
         canvas.height = img.height * scaleSize;
 
         const ctx = canvas.getContext('2d');
-        ctx?.drawImage(img, 0, 0, canvas.width, canvas.height);
+        // High Quality Rendering Settings
+        if (ctx) {
+            ctx.imageSmoothingEnabled = true;
+            ctx.imageSmoothingQuality = 'high';
+            ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+        }
         
-        const dataUrl = canvas.toDataURL('image/jpeg', 0.8); 
+        // 🟢 QUALITY UPDATE: JPEG Quality 0.8 se badhakar 0.98 kar di
+        // (Sirf 2% compression taaki crash na ho, baaki full detail rahegi)
+        const dataUrl = canvas.toDataURL('image/jpeg', 0.98); 
         resolve(dataUrl);
       };
       img.onerror = (error) => reject(error);
@@ -335,8 +345,8 @@ export default function BackgroundRemover() {
               </div>
             </div>
           </section>
-  
-            {/* Section 4: Use Cases */}
+
+          {/* Section 4: Use Cases */}
           <section className="space-y-6">
             <h2 className="text-2xl font-bold text-gray-900 dark:text-white">Why Use a Background Remover? Top Use Cases</h2>
             <div className="grid md:grid-cols-2 gap-6">
@@ -415,5 +425,4 @@ export default function BackgroundRemover() {
       </div>
     </>
   );
-}
-        
+      }
