@@ -22,7 +22,45 @@ import {
 import { handleBackgroundRemoval } from '@/app/actions';
 
 /* =====================================================
-   BACKGROUND REMOVER – FINAL VERIFIED VERSION
+   HELPER: CLIENT-SIDE IMAGE COMPRESSION
+   (Fixes Mobile "Payload Too Large" & HEIC Issues)
+   ===================================================== */
+const compressImage = (file: File): Promise<string> => {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = (event) => {
+      const img = document.createElement('img');
+      img.src = event.target?.result as string;
+      img.onload = () => {
+        const canvas = document.createElement('canvas');
+        const MAX_WIDTH = 1500; // Resize huge mobile photos to max 1500px
+        const scaleSize = MAX_WIDTH / img.width;
+        
+        // If image is smaller than max, don't resize
+        if (scaleSize >= 1) {
+           resolve(event.target?.result as string);
+           return;
+        }
+
+        canvas.width = MAX_WIDTH;
+        canvas.height = img.height * scaleSize;
+
+        const ctx = canvas.getContext('2d');
+        ctx?.drawImage(img, 0, 0, canvas.width, canvas.height);
+        
+        // Convert to efficient JPEG to save bandwidth
+        const dataUrl = canvas.toDataURL('image/jpeg', 0.8); 
+        resolve(dataUrl);
+      };
+      img.onerror = (error) => reject(error);
+    };
+    reader.onerror = (error) => reject(error);
+  });
+};
+
+/* =====================================================
+   BACKGROUND REMOVER – MOBILE OPTIMIZED VERSION
    ===================================================== */
 
 export default function BackgroundRemover() {
@@ -32,29 +70,35 @@ export default function BackgroundRemover() {
   const [processedImage, setProcessedImage] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
 
+  // We don't need fileInputRef for the upload click anymore if we use <label>
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   /* ================= HANDLERS ================= */
 
-  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (!file) return;
 
-    if (file.size > 8 * 1024 * 1024) {
-      toast({
-        title: 'File too large',
-        description: 'Maximum file size is 8MB.',
-        variant: 'destructive',
-      });
-      return;
+    // Mobile Validation
+    if (!file.type.startsWith('image/')) {
+       toast({ title: 'Invalid File', description: 'Please upload an image.', variant: 'destructive' });
+       return;
     }
 
-    const reader = new FileReader();
-    reader.onload = e => {
-      setOriginalImage(e.target?.result as string);
-      setProcessedImage(null);
-    };
-    reader.readAsDataURL(file);
+    setIsLoading(true); // Show loading while compressing
+
+    try {
+        // 🚀 COMPRESS IMAGE BEFORE SETTING STATE
+        // This prevents the browser from crashing on mobile with 12MP photos
+        const compressedBase64 = await compressImage(file);
+        
+        setOriginalImage(compressedBase64);
+        setProcessedImage(null);
+    } catch (error) {
+        toast({ title: 'Error', description: 'Failed to process image.', variant: 'destructive' });
+    } finally {
+        setIsLoading(false);
+    }
   };
 
   const handleSubmit = async () => {
@@ -70,14 +114,19 @@ export default function BackgroundRemover() {
     setIsLoading(true);
     setProcessedImage(null);
 
-    const result = await handleBackgroundRemoval(originalImage);
-    setIsLoading(false);
-
-    if (result.success && result.data?.backgroundRemovedDataUri) {
-      setProcessedImage(result.data.backgroundRemovedDataUri);
-      toast({ title: 'Success!', description: 'Background removed successfully.' });
-    } else {
-      toast({ title: 'Error', description: result.error, variant: 'destructive' });
+    try {
+        const result = await handleBackgroundRemoval(originalImage);
+        
+        if (result.success && result.data?.backgroundRemovedDataUri) {
+          setProcessedImage(result.data.backgroundRemovedDataUri);
+          toast({ title: 'Success!', description: 'Background removed successfully.' });
+        } else {
+          toast({ title: 'Error', description: result.error || "Failed to remove background", variant: 'destructive' });
+        }
+    } catch (err) {
+        toast({ title: 'Server Error', description: "Image might be too complex or server is busy.", variant: 'destructive' });
+    } finally {
+        setIsLoading(false);
     }
   };
 
@@ -85,7 +134,7 @@ export default function BackgroundRemover() {
     if (!processedImage) return;
     const link = document.createElement('a');
     link.href = processedImage;
-    link.download = 'background-removed.png';
+    link.download = `bg-removed-taskguru-${Date.now()}.png`;
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
@@ -149,46 +198,80 @@ export default function BackgroundRemover() {
           <CardContent className="p-6">
 
             {!originalImage ? (
-              <div
-                className="border-2 border-dashed rounded-lg p-12 text-center cursor-pointer"
-                onClick={() => fileInputRef.current?.click()}
+              // 🟢 MOBILE FIX: Using <label> instead of div onClick for better touch support
+              <label 
+                className="flex flex-col items-center justify-center border-2 border-dashed rounded-lg p-12 text-center cursor-pointer hover:bg-muted/50 transition-colors w-full h-64"
               >
-                <Upload className="mx-auto mb-3" />
-                <p className="font-semibold">Click to upload image</p>
-                <p className="text-sm text-muted-foreground">JPG, PNG, WEBP (Max 8MB)</p>
+                <Upload className="mx-auto mb-3 w-10 h-10 text-muted-foreground" />
+                <p className="font-semibold text-lg">Tap to upload image</p>
+                <p className="text-sm text-muted-foreground">Works with Gallery & Camera</p>
+                
+                {/* 🟢 MOBILE FIX: accept="image/*" allows standard mobile pickers to work better */}
                 <Input
                   ref={fileInputRef}
                   type="file"
                   className="hidden"
-                  accept="image/png,image/jpeg,image/webp"
+                  accept="image/*" 
                   onChange={handleFileChange}
                 />
-              </div>
+              </label>
             ) : (
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
-                  <h3 className="text-center font-semibold">Original</h3>
-                  <Image src={originalImage} alt="Original image" width={400} height={400} />
+                  <h3 className="text-center font-semibold mb-2">Original</h3>
+                  {/* Image container with fixed aspect ratio prevention */}
+                  <div className="relative aspect-square w-full border rounded-md overflow-hidden bg-gray-100">
+                      <Image 
+                        src={originalImage} 
+                        alt="Original" 
+                        fill 
+                        style={{ objectFit: "contain" }} 
+                      />
+                  </div>
                 </div>
                 <div>
-                  <h3 className="text-center font-semibold">Result</h3>
-                  {isLoading ? (
-                    <Loader2 className="animate-spin mx-auto mt-20" />
-                  ) : processedImage ? (
-                    <Image src={processedImage} alt="Background removed image" width={400} height={400} />
-                  ) : (
-                    <Sparkles className="w-20 h-20 mx-auto mt-20 text-muted-foreground" />
-                  )}
+                  <h3 className="text-center font-semibold mb-2">Result</h3>
+                  <div className="relative aspect-square w-full border rounded-md overflow-hidden bg-[url('/transparent-bg.png')] bg-repeat">
+                    {isLoading ? (
+                        <div className="flex flex-col items-center justify-center h-full text-muted-foreground">
+                            <Loader2 className="animate-spin w-10 h-10 mb-2" />
+                            <p className="text-sm">Processing...</p>
+                        </div>
+                    ) : processedImage ? (
+                        <Image 
+                            src={processedImage} 
+                            alt="Result" 
+                            fill 
+                            style={{ objectFit: "contain" }} 
+                        />
+                    ) : (
+                        <div className="flex flex-col items-center justify-center h-full text-muted-foreground">
+                             <Sparkles className="w-10 h-10 mb-2 opacity-50" />
+                             <p className="text-sm">Ready to remove background</p>
+                        </div>
+                    )}
+                  </div>
                 </div>
               </div>
             )}
           </CardContent>
 
           {originalImage && (
-            <CardFooter className="flex justify-center gap-4">
-              <Button variant="outline" onClick={handleReset}><Trash2 /> Reset</Button>
-              <Button onClick={handleSubmit} disabled={isLoading}><Sparkles /> Remove Background</Button>
-              <Button onClick={handleDownload} disabled={!processedImage}><Download /> Download</Button>
+            <CardFooter className="flex flex-col sm:flex-row justify-center gap-4">
+              <Button variant="outline" className="w-full sm:w-auto" onClick={handleReset} disabled={isLoading}>
+                 <Trash2 className="w-4 h-4 mr-2"/> Reset
+              </Button>
+              
+              {!processedImage ? (
+                  <Button className="w-full sm:w-auto" onClick={handleSubmit} disabled={isLoading}>
+                    {isLoading ? <Loader2 className="animate-spin w-4 h-4 mr-2"/> : <Sparkles className="w-4 h-4 mr-2"/>}
+                    Remove Background
+                  </Button>
+              ) : (
+                  <Button className="w-full sm:w-auto bg-green-600 hover:bg-green-700" onClick={handleDownload}>
+                    <Download className="w-4 h-4 mr-2"/> Download HD
+                  </Button>
+              )}
             </CardFooter>
           )}
         </Card>
@@ -199,14 +282,17 @@ export default function BackgroundRemover() {
             Before & After Background Removal Example
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <Image src="/tool-previews/bg-remover-before.png" alt="Before background removal" width={400} height={400} />
-            <Image src="/tool-previews/bg-remover-after.png" alt="After background removal" width={400} height={400} />
+            <div className="relative aspect-video rounded-lg overflow-hidden border">
+                 <Image src="/tool-previews/bg-remover-before.png" alt="Before" fill style={{objectFit: 'cover'}} />
+            </div>
+            <div className="relative aspect-video rounded-lg overflow-hidden border">
+                 <Image src="/tool-previews/bg-remover-after.png" alt="After" fill style={{objectFit: 'cover'}} />
+            </div>
           </div>
         </section>
 
-        {/* ================= HIGH CONTENT (1500+ WORDS STRUCTURED) ================= */}
-        <section className="max-w-4xl mx-auto text-lg leading-relaxed space-y-8">
-
+        {/* ================= HIGH CONTENT (SEO) ================= */}
+        <section className="max-w-4xl mx-auto text-lg leading-relaxed space-y-8 px-4">
           <h2 className="text-3xl font-bold">What Is an AI Background Remover?</h2>
           <p>
             An AI background remover is an intelligent image editing tool that automatically detects the subject
@@ -249,7 +335,6 @@ export default function BackgroundRemover() {
             <Link href="/tools/image-to-text-ocr" className="text-primary underline"> Image to Text OCR</Link> and
             <Link href="/tools/pdf-to-word" className="text-primary underline"> PDF to Word Converter</Link>.
           </p>
-
         </section>
 
       </div>
