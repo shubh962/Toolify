@@ -1,11 +1,13 @@
 import type { Metadata } from "next";
+import { ShieldAlert, Info, Lock, Globe, Mail, AlertTriangle, Scale } from "lucide-react";
+import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "Disclaimer | Toolify (TaskGuru)",
+  title: "Official Disclaimer | TaskGuru (Toolify) Usage Policy",
   description:
-    "Official disclaimer of Toolify (TaskGuru) explaining AI tool limitations, data handling practices, and user responsibilities.",
+    "Official disclaimer for TaskGuru (Toolify). Understand our AI tool limitations, zero-storage privacy policy, and user responsibilities.",
   alternates: {
-    canonical: "https://taskguru.online/disclaimer",
+    canonical: "https://www.taskguru.online/disclaimer",
   },
   robots: {
     index: true,
@@ -15,96 +17,100 @@ export const metadata: Metadata = {
 
 export default function DisclaimerPage() {
   return (
-    <main className="max-w-4xl mx-auto px-4 py-12 text-gray-800 leading-relaxed">
-      <h1 className="text-3xl font-bold mb-6">Disclaimer</h1>
+    <main className="max-w-4xl mx-auto px-4 py-16 text-gray-800 dark:text-gray-200 leading-relaxed">
+      {/* Header Section */}
+      <div className="text-center mb-12">
+        <div className="inline-flex items-center justify-center p-3 bg-red-100 dark:bg-red-900/30 rounded-full mb-4">
+          <ShieldAlert className="w-8 h-8 text-red-600 dark:text-red-400" />
+        </div>
+        <h1 className="text-4xl font-black mb-4 tracking-tight">Legal Disclaimer</h1>
+        <p className="text-sm text-muted-foreground uppercase tracking-widest font-bold">
+          Last updated: December 2025
+        </p>
+      </div>
 
-      <p className="text-sm text-gray-500 mb-6">
-        Last updated: December 2025
-      </p>
+      <div className="prose prose-lg dark:prose-invert max-w-none space-y-8">
+        <p className="bg-muted p-6 rounded-2xl border-l-4 border-primary italic">
+          Welcome to <strong>TaskGuru (Toolify)</strong>. Transparency is at the heart of our mission. This disclaimer is designed to protect both the user and the platform by outlining the boundaries of our digital services and AI-powered utilities.
+        </p>
 
-      <p className="mb-6">
-        Welcome to <strong>Toolify (TaskGuru)</strong>. This disclaimer explains
-        the limitations and responsibilities associated with the use of our
-        website and tools. By continuing to use this platform, you agree to the
-        terms described below.
-      </p>
+        {/* General Information Section */}
+        <section>
+          <h2 className="text-2xl font-bold flex items-center gap-2 text-primary">
+            <Info className="w-6 h-6" /> 1. Nature of Services
+          </h2>
+          <p>
+            TaskGuru (Toolify) provides a diverse suite of productivity tools—including 
+            <strong> <Link href="/tools/background-remover" className="underline">Background Removers</Link></strong>, 
+            <strong> <Link href="/tools/merge-pdf" className="underline">PDF Mergers</Link></strong>, and 
+            <strong> <Link href="/tools/resume-maker" className="underline">Resume Builders</Link></strong>. 
+            All services are provided on an "as-is" and "as-available" basis. While we strive for 99.9% uptime, we do not guarantee uninterrupted access or error-free outputs for every specific use case.
+          </p>
+        </section>
 
-      <h2 className="text-xl font-semibold mt-8 mb-3">
-        General Information
-      </h2>
-      <p className="mb-4">
-        Toolify (TaskGuru) provides online utilities designed to assist users in
-        completing digital tasks efficiently. All services are offered on an
-        <strong> “as available” </strong> basis without any warranties. We do not
-        guarantee accuracy, availability, or suitability for every use case.
-      </p>
+        {/* AI Content Section - Crucial for AdSense */}
+        <section className="bg-yellow-50 dark:bg-yellow-900/10 p-8 rounded-[2rem] border border-yellow-200 dark:border-yellow-800">
+          <h2 className="text-2xl font-bold flex items-center gap-2 text-yellow-700 dark:text-yellow-500">
+            <AlertTriangle className="w-6 h-6" /> 2. AI-Generated Outputs
+          </h2>
+          <p>
+            Many of our tools leverage advanced machine learning models. Please be aware that AI-generated content can occasionally contain inaccuracies, hallucinations, or unexpected artifacts. We strongly recommend that users manually verify all critical outputs—especially professional resumes or legal PDF merges—before final use.
+          </p>
+        </section>
 
-      <h2 className="text-xl font-semibold mt-8 mb-3">
-        No Professional Advice
-      </h2>
-      <p className="mb-4">
-        Outputs generated using our tools are intended for general informational
-        purposes only. They should not be treated as professional, legal,
-        financial, or technical advice. Users are responsible for how they use
-        the generated results.
-      </p>
+        {/* Privacy & File Handling Section */}
+        <section>
+          <h2 className="text-2xl font-bold flex items-center gap-2 text-green-600">
+            <Lock className="w-6 h-6" /> 3. Data Privacy & "Zero-Storage" Policy
+          </h2>
+          <p>
+            In alignment with our <strong> <Link href="/privacy-policy" className="underline">Privacy Policy</Link></strong>, TaskGuru employs transient processing. This means your files are processed in volatile memory and are not stored permanently on our servers. However, users are advised not to upload highly sensitive or classified government documents as an added layer of self-precaution.
+          </p>
+        </section>
 
-      <h2 className="text-xl font-semibold mt-8 mb-3">
-        AI-Generated Content
-      </h2>
-      <p className="mb-4">
-        Some tools on Toolify (TaskGuru) rely on artificial intelligence. AI
-        outputs may occasionally produce inaccurate or unexpected results. We
-        strongly recommend reviewing and validating all generated content before
-        use.
-      </p>
+        {/* Limitation of Liability Section */}
+        <section>
+          <h2 className="text-2xl font-bold flex items-center gap-2 text-red-600">
+            <Scale className="w-6 h-6" /> 4. Limitation of Liability
+          </h2>
+          <p>
+            Under no circumstances shall TaskGuru, its founder <strong>Shubham Gautam</strong>, or its affiliates be held liable for any direct, indirect, or consequential damages resulting from the use of our tools. This includes, but is not limited to, loss of data, loss of profits, or errors in document processing. Use of this platform is entirely at your own risk.
+          </p>
+        </section>
 
-      <h2 className="text-xl font-semibold mt-8 mb-3">
-        File Processing & Privacy
-      </h2>
-      <p className="mb-4">
-        Uploaded files are processed temporarily to perform the requested
-        operation and are not intentionally stored. Toolify (TaskGuru) is not
-        responsible for data loss or misuse arising from user uploads. Avoid
-        sharing sensitive information.
-      </p>
+        {/* External Links Section */}
+        <section>
+          <h2 className="text-2xl font-bold flex items-center gap-2 text-blue-600">
+            <Globe className="w-6 h-6" /> 5. External Third-Party Links
+          </h2>
+          <p>
+            Our website may include links to external sites (e.g., social media or educational resources). TaskGuru has no control over the privacy practices or content of these third-party websites and assumes no responsibility for their policies.
+          </p>
+        </section>
 
-      <h2 className="text-xl font-semibold mt-8 mb-3">
-        Limitation of Liability
-      </h2>
-      <p className="mb-4">
-        To the fullest extent permitted by law, Toolify (TaskGuru), its team, and
-        affiliates shall not be liable for any damages resulting from the use or
-        inability to use this website or its tools. Use of the platform is at
-        your own risk.
-      </p>
+        {/* Contact Details Section */}
+        <section className="mt-12 pt-8 border-t border-border">
+          <h2 className="text-2xl font-bold mb-4">Questions or Concerns?</h2>
+          <p className="flex items-center gap-2">
+            <Mail className="w-5 h-5 text-primary" /> 
+            <strong>Email:</strong> 
+            <a href="mailto:gautamshubham962@gmail.com" className="text-primary hover:underline font-bold ml-1">
+              gautamshubham962@gmail.com
+            </a>
+          </p>
+          <p className="flex items-center gap-2 mt-2">
+            <Globe className="w-5 h-5 text-primary" /> 
+            <strong>Official Website:</strong> 
+            <Link href="/" className="text-primary hover:underline font-bold ml-1">
+              https://taskguru.online
+            </Link>
+          </p>
+        </section>
+      </div>
 
-      <h2 className="text-xl font-semibold mt-8 mb-3">
-        External Links
-      </h2>
-      <p className="mb-4">
-        This website may contain links to external websites. We do not control
-        their content or policies and are not responsible for any consequences
-        arising from visiting third-party links.
-      </p>
-
-      <h2 className="text-xl font-semibold mt-8 mb-3">
-        Updates to This Disclaimer
-      </h2>
-      <p className="mb-4">
-        This disclaimer may be updated periodically. Continued use of the site
-        after changes are published indicates acceptance of the revised terms.
-      </p>
-
-      <h2 className="text-xl font-semibold mt-8 mb-3">
-        Contact Details
-      </h2>
-      <p>
-        For any questions regarding this disclaimer, contact us at:
-        <br />
-        📧 <strong>Email:</strong> gautamshubham962@gmail.com <br />
-        🌐 <strong>Website:</strong> https://taskguru.online
-      </p>
+      <footer className="mt-20 text-center text-sm text-muted-foreground italic">
+        TaskGuru (Toolify) is committed to providing free, high-quality tools while maintaining absolute transparency with our community.
+      </footer>
     </main>
   );
 }
