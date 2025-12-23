@@ -31,6 +31,7 @@ const staticPages = [
   "/terms",
   "/blog",
   "/contact",
+  "/Disclaimer",
 ];
 
 export default function sitemap(): MetadataRoute.Sitemap {
