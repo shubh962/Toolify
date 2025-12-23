@@ -1,111 +1,114 @@
 import React from 'react';
 import Link from 'next/link';
 import type { Metadata } from 'next';
+import { ShieldCheck, Lock, Eye, Globe, Mail } from 'lucide-react';
 
 export const metadata: Metadata = {
-  title: 'गोपनीयता नीति (Privacy Policy) | TaskGuru',
-  description: 'TaskGuru की गोपनीयता नीति: हम आपके डेटा को कैसे एकत्र, उपयोग और सुरक्षित करते हैं। Google AdSense और आपकी फ़ाइल सुरक्षा (जीरो स्टोरेज) की जानकारी।',
-  // 'robots' tag को हटाया गया है ताकि Google इस पेज को इंडेक्स कर सके (GSC Indexing)
+  title: 'Privacy Policy | TaskGuru (Toolify) Secure AI Tools',
+  description: 'Learn how TaskGuru handles your data. Our Privacy Policy covers our Zero-Storage guarantee, Google AdSense compliance, and how we protect your uploaded files.',
+  alternates: {
+    canonical: 'https://www.taskguru.online/privacy-policy',
+  },
 };
-// ---------------------------------
 
 export default function PrivacyPolicyPage() {
   return (
-    <main className="p-6 max-w-4xl mx-auto py-12 min-h-screen">
+    <main className="p-6 max-w-4xl mx-auto py-16 min-h-screen">
       
-      <h1 className="text-4xl font-extrabold mb-4 text-indigo-700 dark:text-indigo-400 text-center">
-        गोपनीयता नीति (Privacy Policy)
-      </h1>
-      <p className="text-sm text-gray-500 mb-8 text-center">
-        प्रभावी तिथि: 30 अक्टूबर 2025
-      </p>
+      {/* HEADER SECTION */}
+      <div className="text-center mb-12">
+        <div className="inline-flex items-center justify-center p-3 bg-primary/10 rounded-full mb-4">
+          <ShieldCheck className="w-8 h-8 text-primary" />
+        </div>
+        <h1 className="text-4xl font-black mb-4 tracking-tight text-gray-900 dark:text-white">
+          Privacy Policy
+        </h1>
+        <p className="text-sm text-muted-foreground uppercase tracking-widest font-bold">
+          Effective Date: October 30, 2025
+        </p>
+      </div>
 
-      <div className="space-y-8 text-lg leading-relaxed text-gray-700 dark:text-gray-300">
+      <div className="space-y-10 text-lg leading-relaxed text-gray-700 dark:text-gray-300">
         
-        <p>
-          Toolify (या TaskGuru) पर, आपकी व्यक्तिगत जानकारी की सुरक्षा हमारी सर्वोच्च प्राथमिकता है। यह नीति विस्तार से बताती है कि जब आप हमारी सेवाओं का उपयोग करते हैं तो हम आपकी जानकारी को कैसे संभालते हैं। हमारी साइट का उपयोग करके, आप इस नीति की शर्तों से सहमत होते हैं।
+        <p className="bg-muted/50 p-6 rounded-2xl border-l-4 border-primary italic">
+          At TaskGuru (Toolify), your privacy is our core mission. This policy details how we handle information when you use our free AI-powered tools. By using our site, you agree to the practices described herein.
         </p>
 
-        {/* 1. जानकारी संग्रह / Information Collection (Clearly Explained) */}
+        {/* 1. Information Collection */}
         <section>
-          <h2 className="text-2xl font-bold mt-10 mb-4 text-indigo-700 dark:text-indigo-400">
-            1. हम कौन सी जानकारी एकत्र करते हैं (Information We Collect)
+          <h2 className="text-2xl font-bold mb-4 flex items-center gap-2 text-gray-900 dark:text-white">
+            <Eye className="w-6 h-6 text-primary" /> 1. Information We Collect
           </h2>
-          
           <p className="mb-4">
-            हमारी अधिकांश AI टूल्स बिना किसी अनिवार्य लॉगिन के चलती हैं। हम केवल वही जानकारी एकत्र करते हैं जो हमारी सेवा को चलाने और बेहतर बनाने के लिए आवश्यक है:
+            Most of our tools are designed to work without requiring a login. We only collect data necessary to maintain and improve our services:
           </p>
-          <ul className="list-disc list-inside ml-4 space-y-3">
+          <ul className="list-disc list-inside ml-4 space-y-3 marker:text-primary">
             <li>
-              व्यक्तिगत जानकारी (Email & Name): हम यह जानकारी तभी एकत्र करते हैं जब आप स्वेच्छा से हमारे न्यूज़लेटर के लिए साइन अप करते हैं या सीधे हमसे संपर्क करते हैं।
+              <strong>Personal Information:</strong> We only collect names or email addresses if you voluntarily contact us or subscribe to our updates.
             </li>
             <li>
-              उपयोग डेटा (Anonymous Analytics): हम Google Analytics जैसे टूल का उपयोग करके आपके द्वारा देखे गए पेज, साइट पर बिताया गया समय और आपके डिवाइस का प्रकार (जैसे, मोबाइल या डेस्कटॉप) जैसी जानकारी एकत्र करते हैं। यह डेटा पूरी तरह से अनाम होता है और इसका उपयोग केवल साइट के प्रदर्शन को समझने और सुधारने के लिए किया जाता है।
+              <strong>Usage Data (Anonymous Analytics):</strong> We use tools like Google Analytics to track pages visited, time spent on site, and device types. This data is fully anonymized and used strictly to improve site performance.
             </li>
           </ul>
         </section>
 
-        {/* 2. Google सेवाओं के माध्यम से डेटा का उपयोग (AdSense Specific - Clear Compliance) */}
-        <section>
-          <h2 className="text-2xl font-bold mt-10 mb-4 text-indigo-700 dark:text-indigo-400">
-            2. Google AdSense और विज्ञापन (Google AdSense & Advertising)
+        {/* 2. Google AdSense & Advertising (MANDATORY FOR APPROVAL) */}
+        <section className="bg-primary/5 p-8 rounded-[2rem] border border-primary/10">
+          <h2 className="text-2xl font-bold mb-4 flex items-center gap-2 text-gray-900 dark:text-white">
+            <Globe className="w-6 h-6 text-primary" /> 2. Google AdSense & Advertising
           </h2>
-          <p className="mb-4">
-            हम अपनी साइट पर विज्ञापन दिखाने के लिए Google AdSense सेवा का उपयोग करते हैं, जिसके लिए उन्हें कुछ डेटा की आवश्यकता होती है। यह राजस्व हमें आपको टूल मुफ्त में प्रदान करने में मदद करता है।
+          <p className="mb-4 text-sm md:text-base">
+            To provide our tools for free, we serve advertisements via Google AdSense. Google, as a third-party vendor, uses cookies to serve ads based on your visits to TaskGuru and other sites on the internet.
           </p>
-          <ul className="list-disc list-inside ml-4 space-y-3">
+          <ul className="list-disc list-inside ml-4 space-y-3 text-sm md:text-base marker:text-primary">
             <li>
-              कुकीज़ (Cookies): Google (एक तृतीय-पक्ष विक्रेता के रूप में) आपकी पिछली विज़िट्स के आधार पर आपको प्रासंगिक विज्ञापन दिखाने के लिए कुकीज़ का उपयोग करता है।
+              <strong>DART Cookies:</strong> Google’s use of the DART cookie enables it to serve ads to users based on their visit to our site and other sites.
             </li>
             <li>
-              DART कुकी: AdSense, DART कुकी का उपयोग करता है जो TaskGuru और इंटरनेट पर अन्य साइटों पर आपकी विज़िट्स के आधार पर विज्ञापन दिखाने में मदद करता है।
-            </li>
-            <li>
-              आपका विज्ञापन नियंत्रण: आप कभी भी <a href="https://policies.google.com/technologies/ads" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline font-medium">Google की विज्ञापन नीति पृष्ठ</a> पर जाकर DART कुकी के उपयोग से बाहर निकल सकते हैं (Opt-Out)।
+              <strong>Opt-Out:</strong> Users may opt out of personalized advertising by visiting the <a href="https://www.google.com/settings/ads" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline font-bold">Google Ad Settings</a> page.
             </li>
           </ul>
         </section>
 
-        {/* 3. फ़ाइल सुरक्षा (Unique Value - Addresses Thin Content) */}
+        {/* 3. File Security (EEAT Factor) */}
         <section>
-          <h2 className="text-2xl font-bold mt-10 mb-4 text-indigo-700 dark:text-indigo-400">
-            3. अपलोड की गई फ़ाइलों की सुरक्षा (Our Zero-Storage Guarantee)
+          <h2 className="text-2xl font-bold mb-4 flex items-center gap-2 text-gray-900 dark:text-white">
+            <Lock className="w-6 h-6 text-green-600" /> 3. Our "Zero-Storage" Guarantee
           </h2>
           <p className="mb-6">
-            Toolify में हम आपकी फ़ाइल सुरक्षा को गंभीरता से लेते हैं, इसलिए हमारी नीति है:
+            Unlike many cloud competitors, TaskGuru prioritizes the sanctity of your documents:
           </p>
-          <ul className="list-disc list-inside ml-4 space-y-3">
-            <li>
-              शून्य भंडारण (Zero Storage): आपके द्वारा हमारे AI/इमेज टूल्स में अपलोड की गई फ़ाइलें हमारे सर्वर पर स्थायी रूप से संग्रहीत (permanently stored) नहीं की जाती हैं। वे केवल प्रोसेसिंग के लिए उपयोग की जाती हैं और कार्य पूरा होने के तुरंत बाद स्वचालित रूप से हटा दी जाती हैं।
-            </li>
-            <li>
-              ब्राउज़र प्रोसेसिंग: हमारे कई उपकरण फ़ाइल को आपके सर्वर के बजाय सीधे आपके ब्राउज़र (Client-Side) में प्रोसेस करते हैं, जिससे आपका संवेदनशील डेटा आपके डिवाइस को कभी नहीं छोड़ता है।
-            </li>
-          </ul>
-          
-          <div className="p-4 bg-yellow-50 dark:bg-yellow-900 border-l-4 border-yellow-500 dark:border-yellow-700 rounded-md text-yellow-800 dark:text-yellow-200 my-6 text-sm font-medium">
-            अस्वीकरण (Disclaimer): हम Next.js और Firebase की सर्वोत्तम प्रथाओं का उपयोग करते हैं, लेकिन इंटरनेट पर कोई भी डेटा ट्रांसमिशन 100% सुरक्षित नहीं हो सकता। आप अपने जोखिम पर डेटा अपलोड करते हैं।
+          <div className="grid md:grid-cols-2 gap-6">
+            <div className="p-5 border rounded-2xl bg-white dark:bg-zinc-900 shadow-sm">
+                <h4 className="font-bold mb-2">Instant Deletion</h4>
+                <p className="text-sm text-muted-foreground">Files uploaded to our AI/Image tools are never permanently stored. They are wiped from our cache immediately after processing.</p>
+            </div>
+            <div className="p-5 border rounded-2xl bg-white dark:bg-zinc-900 shadow-sm">
+                <h4 className="font-bold mb-2">Browser-Side Processing</h4>
+                <p className="text-sm text-muted-foreground">When possible, tools process data directly in your browser (Client-Side), meaning your sensitive data never even leaves your device.</p>
+            </div>
           </div>
         </section>
 
-        {/* 4. नीति परिवर्तन और संपर्क / Policy Changes and Contact */}
-        <section>
-          <h2 className="text-2xl font-bold mt-10 mb-4 text-indigo-700 dark:text-indigo-400">
-            4. नीति परिवर्तन और हमसे संपर्क करें (Changes and Contact)
+        {/* 4. Contact & Updates */}
+        <section className="pt-8 border-t border-border">
+          <h2 className="text-2xl font-bold mb-4 flex items-center gap-2 text-gray-900 dark:text-white">
+            <Mail className="w-6 h-6 text-primary" /> 4. Contact Us
           </h2>
           <p className="mb-4">
-            हम समय-समय पर इस गोपनीयता नीति को अपडेट कर सकते हैं। किसी भी बदलाव के लिए हम आपको इस पेज पर अपडेट करके सूचित करेंगे।
+            We may update this policy periodically to reflect changes in our tools or legal requirements. If you have any questions regarding this policy, please contact us.
           </p>
-          <p className="mb-6">
-            यदि इस गोपनीयता नीति के बारे में आपके कोई प्रश्न हैं, तो कृपया हमें <a href="mailto:Gautamshubham962@gmail.com" className="text-primary hover:underline font-medium">Gautamshubham962@gmail.com</a> पर संपर्क करें।
+          <p className="p-6 bg-muted rounded-2xl font-bold text-center">
+            Email: <a href="mailto:GautamShubham962@gmail.com" className="text-primary hover:underline">GautamShubham962@gmail.com</a>
           </p>
         </section>
 
-      </div> {/* End of main content container */}
+      </div>
       
-      <p className="text-sm text-gray-500 mt-10 text-center">
-        अंतिम अद्यतन (Last updated): 30 अक्टूबर 2025
-      </p>
+      <footer className="mt-16 text-center text-sm text-muted-foreground italic">
+        Last updated: December 2025. TaskGuru (Toolify) is committed to global data protection standards.
+      </footer>
     </main>
   );
 }
+
