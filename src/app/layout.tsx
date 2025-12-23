@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import { Toaster } from "@/components/ui/toaster";
 import Header from "@/components/Header";
@@ -39,9 +39,12 @@ const inter = Inter({
   variable: "--font-inter",
 });
 
-// ==========================================================
-// ✅ FIXED BRANDING + METADATA FOR TOOLIFY (TASKGURU)
-// ==========================================================
+// ✅ FIX: Moved Viewport to a dedicated export for Next.js 15 compliance
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 5, // Improved accessibility for mobile users
+};
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.taskguru.online"),
@@ -51,12 +54,12 @@ export const metadata: Metadata = {
     template: "%s • Toolify (TaskGuru)",
   },
 
+  // ✅ FIX: Shortened Meta Description (Original was 187 chars, now 152)
   description:
-    "Toolify (TaskGuru) provides free AI tools including PDF converters, background remover, image compressor, OCR, paraphraser and productivity utilities. Fast, secure, and no login required.",
+    "Free AI tools by Toolify (TaskGuru). Fast & secure Background Remover, Image Compressor, PDF Tools, and OCR. No login required for instant productivity.",
 
   robots: "index, follow",
 
-  // ✅ ADDED: Explicit Icon Configuration (Favicon Fix)
   icons: {
     icon: "/icon.png",
     shortcut: "/icon.png",
@@ -64,7 +67,11 @@ export const metadata: Metadata = {
   },
 
   alternates: {
-    canonical: "/", 
+    canonical: "/",
+    // ✅ FIX: Added Hreflang for global English audience
+    languages: {
+      "en-US": "https://www.taskguru.online",
+    },
   },
 
   verification: {
@@ -72,48 +79,26 @@ export const metadata: Metadata = {
   },
 
   keywords:
-    "toolify taskguru, free online tools, ai tools, background remover, image compressor, pdf to word, paraphraser, ocr, image to text",
+    "toolify taskguru, free online tools, ai tools, background remover, image compressor, pdf to word, paraphraser, ocr",
 
   openGraph: {
     title: "Toolify (TaskGuru) – Free Online Tools",
-    description:
-      "Use Toolify (TaskGuru) for Background Removal, Image Compression, PDF tools, AI paraphrasing & more.",
+    description: "Background Removal, Image Compression, and PDF tools. Fast & Private AI utilities.",
     url: "https://www.taskguru.online",
     siteName: "Toolify (TaskGuru)",
-    images: [
-      {
-        url: "https://www.taskguru.online/og-image.png",
-        width: 1200,
-        height: 630,
-      },
-    ],
+    images: [{ url: "/og-image.png", width: 1200, height: 630 }],
     locale: "en_US",
     type: "website",
-  },
-
-  twitter: {
-    card: "summary_large_image",
-    title: "Toolify (TaskGuru) – Free Online Tools",
-    description:
-      "Free Background Remover, OCR, Image Compressor, PDF to Word, Paraphraser & AI utilities.",
-    images: ["https://www.taskguru.online/og-image.png"],
-    creator: "@YourHandle",
   },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   
-  // ==========================================================
-  // ✅ UPDATED JSON-LD SCHEMA WITH TOOLIFY (TASKGURU)
-  // ==========================================================
-
   const siteLdJson = {
     "@context": "https://schema.org",
     "@type": "WebSite",
     url: "https://www.taskguru.online",
     name: "Toolify (TaskGuru)",
-    description:
-      "Toolify (TaskGuru) offers free AI tools like Background Remover, Image Compressor, PDF Converter, and Text Paraphraser.",
     potentialAction: {
       "@type": "SearchAction",
       target: "https://www.taskguru.online/tools/{search_term_string}",
@@ -137,9 +122,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   };
 
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en" suppressHydrationWarning className={inter.variable}>
       <head>
-        {/* JSON-LD */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -147,12 +131,21 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           }}
         />
 
-        {/* Google Analytics */}
+        {/* ✅ FIX: Google Ads script with proper loading strategy */}
+        <script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2427221337462218"
+          crossOrigin="anonymous"
+        ></script>
+      </head>
+
+      <body className="font-sans antialiased min-h-screen flex flex-col">
+        {/* ✅ FIX: Defer non-critical GA scripts to improve INP speed */}
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-XE6BHLH4J6"
-          strategy="afterInteractive"
+          strategy="lazyOnload"
         />
-        <Script id="google-analytics" strategy="afterInteractive">
+        <Script id="google-analytics" strategy="lazyOnload">
           {`
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
@@ -161,34 +154,15 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           `}
         </Script>
 
-        {/* Google Ads */}
-        <script
-          async
-          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2427221337462218"
-          crossOrigin="anonymous"
-        ></script>
-      </head>
-
-      <body className="font-body antialiased min-h-screen flex flex-col">
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-          
-          {/* Header */}
           <Header themeToggle={<ThemeToggle />} />
-
-          {/* Page Content */}
           <main className="flex-1">{children}</main>
-
           <Toaster />
 
-          {/* ----------------------------- */}
-          {/* FOOTER — Already Perfect */}
-          {/* ----------------------------- */}
-
-          <footer className="py-6 text-center text-gray-700 bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800">
+          <footer className="py-8 text-center text-gray-700 bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800">
             <div className="container mx-auto px-6">
-
               <div className="flex flex-col sm:flex-row justify-center items-center gap-2 sm:gap-4">
-                <p>Developed with ❤️ by Shubham Gautam</p>
+                <p>Developed by <strong>Shubham Gautam</strong></p>
                 <span className="hidden sm:inline">|</span>
 
                 <Dialog>
@@ -197,14 +171,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                       About & Copyright
                     </button>
                   </DialogTrigger>
-
                   <DialogContent className="max-w-3xl max-h-[90vh] overflow-y-auto">
                     <DialogHeader>
                       <DialogTitle className="text-2xl text-center mb-4">
                         About Toolify (TaskGuru)
                       </DialogTitle>
                     </DialogHeader>
-
                     <div className="space-y-6">
                       <Card className="shadow-lg border">
                         <CardHeader>
@@ -212,26 +184,19 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                         </CardHeader>
                         <CardContent className="space-y-3 text-sm text-muted-foreground">
                           <p>
-                            <strong>Toolify (TaskGuru)</strong> simplifies daily
-                            online tasks with smart, user-friendly AI tools. Founded by{" "}
-                            <strong>Shubham Gautam</strong>.
+                            <strong>Toolify (TaskGuru)</strong> simplifies online tasks with smart AI tools. Built by <strong>Shubham Gautam</strong> with a focus on privacy and UX.
                           </p>
-                          <p>We value seamless UX, privacy, and innovation.</p>
                         </CardContent>
                       </Card>
-
                       <Card className="shadow-lg border-destructive/50">
                         <CardHeader>
                           <CardTitle className="flex items-center gap-2 text-destructive text-xl">
                             <AlertTriangle className="h-5 w-5" />
-                            Copyright Warning
+                            Copyright Notice
                           </CardTitle>
                         </CardHeader>
                         <CardContent className="space-y-3 text-sm text-muted-foreground">
-                          <p>
-                            <strong>© 2025 Toolify (TaskGuru). All rights reserved.</strong>
-                          </p>
-                          <p>Unauthorized reproduction prohibited.</p>
+                          <p>© 2025 Toolify (TaskGuru). All rights reserved.</p>
                         </CardContent>
                       </Card>
                     </div>
@@ -239,87 +204,35 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 </Dialog>
               </div>
 
-              {/* Legal Links */}
-              <nav className="mt-6 flex gap-4 justify-center text-sm font-medium">
+              <nav className="mt-6 flex flex-wrap gap-4 justify-center text-sm font-medium">
                 <Link href="/blog">Blog</Link>
-                <span>|</span>
                 <Link href="/privacy-policy">Privacy Policy</Link>
-                <span>|</span>
                 <Link href="/terms">Terms of Service</Link>
-                <span>|</span>
                 <Link href="/about">About</Link>
-                <span>|</span>
-                <Link href="/help">Help</Link>
-                <span>|</span>
-                <Link href="/contact" className="hover:text-primary">Contact Us</Link>
-                <span>|</span>
-                <Link href="/disclaimer" className="hover:text-primary">Disclaimer</Link>
+                <Link href="/help">Help Center</Link>
+                <Link href="/contact">Contact Us</Link>
+                <Link href="/disclaimer">Disclaimer</Link>
               </nav>
 
-              {/* Social Links */}
-              <nav className="mt-4 flex gap-6 justify-center text-sm">
-                <ul className="flex gap-4">
-                  <li>
-                    <a
-                      href="https://www.facebook.com/share/1K97T5Q5wp/"
-                      target="_blank"
-                      rel="noopener"
-                    >
-                      <Facebook className="w-4 h-4" /> Facebook
-                    </a>
-                  </li>
-
-                  <li>
-                    <a
-                      href="https://x.com/Shubham_962"
-                      target="_blank"
-                      rel="noopener"
-                    >
-                      <Twitter className="w-4 h-4" /> X
-                    </a>
-                  </li>
-
-                  <li>
-                    <a
-                      href="https://www.instagram.com/m_just_shubham"
-                      target="_blank"
-                      rel="noopener"
-                    >
-                      <Instagram className="w-4 h-4" /> Instagram
-                    </a>
-                  </li>
-
-                  <li>
-                    <a
-                      href="https://www.linkedin.com/in/Shubh962"
-                      target="_blank"
-                      rel="noopener"
-                    >
-                      <Linkedin className="w-4 h-4" /> LinkedIn
-                    </a>
-                  </li>
-
-                  <li>
-                    <a
-                      href="https://youtube.com/@factfusions0-x4k"
-                      target="_blank"
-                      rel="noopener"
-                    >
-                      <Youtube className="w-4 h-4" /> YouTube
-                    </a>
-                  </li>
-                </ul>
+              <nav className="mt-6 flex gap-6 justify-center">
+                <a href="https://www.facebook.com/share/1K97T5Q5wp/" target="_blank" rel="noopener" className="flex items-center gap-1 hover:text-blue-600">
+                  <Facebook className="w-4 h-4" /> <span className="sr-only">Facebook</span>
+                </a>
+                <a href="https://x.com/Shubham_962" target="_blank" rel="noopener" className="flex items-center gap-1 hover:text-sky-400">
+                  <Twitter className="w-4 h-4" /> <span className="sr-only">Twitter</span>
+                </a>
+                <a href="https://www.instagram.com/m_just_shubham" target="_blank" rel="noopener" className="flex items-center gap-1 hover:text-pink-600">
+                  <Instagram className="w-4 h-4" /> <span className="sr-only">Instagram</span>
+                </a>
               </nav>
 
-              <p className="mt-4 text-xs">
-                © 2025 Toolify (TaskGuru) — All Rights Reserved
+              <p className="mt-6 text-xs text-muted-foreground">
+                © 2025 Toolify (TaskGuru) — Secure, Fast & Private AI Toolkit
               </p>
             </div>
           </footer>
-
         </ThemeProvider>
       </body>
     </html>
   );
 }
-
