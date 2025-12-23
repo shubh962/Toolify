@@ -1,3 +1,4 @@
+
 import Link from "next/link";
 import { tools } from "@/lib/tools";
 import {
@@ -7,7 +8,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { ArrowRight, Sparkles } from "lucide-react";
+import { ArrowRight, Sparkles, ShieldCheck, Zap, Globe } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import NewsletterForm from "@/components/NewsletterForm";
 import Script from "next/script";
@@ -54,7 +55,6 @@ export default function Home() {
 
   return (
     <>
-      {/* FAQ SCHEMA */}
       <Script
         id="faq-schema"
         type="application/ld+json"
@@ -62,41 +62,45 @@ export default function Home() {
       />
 
       {/* HERO SECTION */}
-      <section className="py-20 md:py-32 text-center bg-gradient-to-br from-primary via-primary/90 to-accent">
-        <div className="container mx-auto px-6">
-          <h1 className="text-4xl md:text-6xl font-extrabold font-headline tracking-tight text-primary-foreground">
-            Toolify (TaskGuru) – The Ultimate AI Tools Hub
+      <section className="relative overflow-hidden py-20 md:py-32 text-center bg-gradient-to-br from-primary via-primary/90 to-indigo-900">
+        <div className="container mx-auto px-6 relative z-10">
+          <h1 className="text-4xl md:text-7xl font-black tracking-tight text-white mb-6">
+            Simplify Your Work with <br />
+            <span className="text-accent underline decoration-accent/30">TaskGuru AI Tools</span>
           </h1>
-          <p className="mt-6 text-lg md:text-xl max-w-3xl mx-auto text-primary-foreground/80">
-            Work smarter with free AI tools for images, PDFs, documents, text, and
-            daily productivity. Fast, secure, and built for everyone.
+          <p className="mt-6 text-lg md:text-xl max-w-3xl mx-auto text-white/80 leading-relaxed">
+            All-in-one platform for your digital needs. Convert PDFs, enhance images, 
+            and use AI power to rewrite text. No subscriptions. No limits. Just efficiency.
           </p>
 
-          <div className="mt-8 flex justify-center">
-            <Button
-              size="lg"
-              asChild
-              className="bg-primary-foreground text-primary hover:bg-primary-foreground/90 transition-transform hover:scale-105"
-            >
-              <Link href="#tools" prefetch={false}>
-                Explore All Tools
-              </Link>
+          <div className="mt-10 flex flex-col sm:flex-row justify-center gap-4">
+            <Button size="lg" asChild className="bg-white text-primary hover:bg-gray-100 font-bold text-lg px-8">
+              <Link href="#tools">Get Started Free</Link>
+            </Button>
+            <Button size="lg" variant="outline" asChild className="text-white border-white/40 hover:bg-white/10">
+              <Link href="/blog">Read Guides</Link>
             </Button>
           </div>
         </div>
       </section>
 
-      {/* TOOLS GRID */}
+      {/* TOOLS GRID SECTION */}
       <section id="tools" className="py-16 md:py-24 bg-background">
         <div className="container mx-auto px-6">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold">
-              Explore Our Most Popular Tools
-            </h2>
-            <p className="mt-3 text-lg text-muted-foreground max-w-2xl mx-auto">
-              Free tools for PDF conversion, image processing, AI paraphrasing,
-              OCR, compression, and more—all in one place.
-            </p>
+          <div className="flex flex-col md:flex-row justify-between items-end mb-12 gap-4 border-b pb-8">
+            <div className="max-w-2xl text-left">
+              <h2 className="text-3xl md:text-5xl font-extrabold tracking-tight">
+                Our Premium Tool Suite
+              </h2>
+              <p className="mt-4 text-lg text-muted-foreground">
+                High-performance utilities designed for modern workflows. Select a tool to start processing.
+              </p>
+            </div>
+            <div className="hidden md:block">
+              <span className="text-sm font-bold text-primary bg-primary/10 px-4 py-2 rounded-full uppercase tracking-widest">
+                Updated Weekly
+              </span>
+            </div>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -104,39 +108,36 @@ export default function Home() {
               <Link
                 href={`/tools/${tool.slug}`}
                 key={tool.slug}
-                className="group flex"
+                className="group flex h-full"
                 prefetch={!tool.isPlaceholder}
               >
-                <Card className="w-full flex flex-col transition-all duration-300 hover:shadow-xl hover:-translate-y-2 border-2 border-transparent hover:border-primary bg-card">
+                <Card className="w-full flex flex-col transition-all duration-500 hover:shadow-2xl hover:scale-[1.02] border border-border bg-card overflow-hidden">
+                  <div className="h-2 bg-primary/10 group-hover:bg-primary transition-colors" />
                   <CardHeader>
-                    <div className="flex justify-between items-start mb-4">
-                      <div className="bg-primary/10 p-3 rounded-lg">
-                        <tool.icon className="w-8 h-8 text-primary" />
+                    <div className="flex justify-between items-start mb-2">
+                      <div className="bg-primary/5 p-4 rounded-2xl group-hover:bg-primary group-hover:text-white transition-all duration-300">
+                        <tool.icon className="w-10 h-10" />
                       </div>
-
                       {tool.isGenAI && (
-                        <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-medium bg-accent/10 text-accent">
+                        <span className="flex items-center gap-1 px-3 py-1 rounded-full text-[10px] font-black uppercase bg-accent text-accent-foreground tracking-tighter shadow-sm">
                           <Sparkles className="w-3 h-3" />
-                          AI-Powered
+                          AI Tech
                         </span>
                       )}
                     </div>
-
-                    <CardTitle className="pt-2 text-xl font-semibold">
+                    <CardTitle className="pt-4 text-2xl font-bold">
                       {tool.title}
                     </CardTitle>
                   </CardHeader>
-
                   <CardContent className="flex-grow">
-                    <p className="text-base text-muted-foreground">
+                    <p className="text-muted-foreground leading-relaxed">
                       {tool.description}
                     </p>
                   </CardContent>
-
-                  <CardFooter>
-                    <div className="flex items-center text-sm font-semibold text-primary">
-                      Use Tool{" "}
-                      <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+                  <CardFooter className="bg-muted/30 py-4">
+                    <div className="flex items-center text-sm font-bold text-primary group-hover:underline">
+                      Launch Tool{" "}
+                      <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-2" />
                     </div>
                   </CardFooter>
                 </Card>
@@ -146,122 +147,86 @@ export default function Home() {
         </div>
       </section>
 
-      {/* NEWSLETTER */}
-      <section className="py-16 md:py-24 bg-background">
+      {/* NEW: TRUST & FEATURES SECTION (Crucial for AdSense) */}
+      <section className="py-20 bg-muted/30 border-y">
         <div className="container mx-auto px-6">
-          <div className="max-w-2xl mx-auto text-center">
-            <h2 className="text-3xl font-bold tracking-tight text-foreground">
-              Stay Ahead With AI Productivity Tips
-            </h2>
-            <p className="mt-4 text-lg text-muted-foreground">
-              Join our newsletter for AI tool updates, productivity secrets, and
-              new feature announcements.
-            </p>
-
-            <NewsletterForm />
-
-            <p className="mt-3 text-xs text-muted-foreground">
-              100% privacy guaranteed. No spam ever.
-            </p>
+          <div className="grid md:grid-cols-3 gap-12 text-center">
+            <div className="flex flex-col items-center">
+              <div className="bg-white p-6 rounded-full shadow-sm mb-6">
+                <ShieldCheck className="w-12 h-12 text-green-600" />
+              </div>
+              <h3 className="text-xl font-bold mb-3">Privacy First</h3>
+              <p className="text-muted-foreground">We never see your files. Everything is processed in transient memory and wiped instantly.</p>
+            </div>
+            <div className="flex flex-col items-center">
+              <div className="bg-white p-6 rounded-full shadow-sm mb-6">
+                <Zap className="w-12 h-12 text-yellow-500" />
+              </div>
+              <h3 className="text-xl font-bold mb-3">Light Speed</h3>
+              <p className="text-muted-foreground">Built on Next.js 14 for millisecond response times and lag-free file conversions.</p>
+            </div>
+            <div className="flex flex-col items-center">
+              <div className="bg-white p-6 rounded-full shadow-sm mb-6">
+                <Globe className="w-12 h-12 text-blue-600" />
+              </div>
+              <h3 className="text-xl font-bold mb-3">Global Access</h3>
+              <p className="text-muted-foreground">Universal tools accessible from any mobile, tablet, or desktop browser worldwide.</p>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* 🔥 EXTENDED SEO CONTENT – 2000+ WORDS */}
-      <section className="py-20 md:py-28 bg-muted/40">
-        <div className="container mx-auto px-6 max-w-4xl space-y-12 text-lg leading-relaxed text-muted-foreground">
+      {/* EXTENDED SEO CONTENT - STRUCTURED FOR READABILITY */}
+      <section className="py-20 md:py-28 bg-background">
+        <article className="container mx-auto px-6 max-w-4xl">
+          <header className="text-center mb-16">
+            <h2 className="text-4xl md:text-5xl font-black mb-6 bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent italic">
+              Empowering Digital Productivity
+            </h2>
+            <div className="h-1.5 w-24 bg-primary mx-auto rounded-full" />
+          </header>
 
-          <h2 className="text-4xl md:text-5xl font-bold text-center mb-10 bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
-            About Toolify (TaskGuru) – Your Smart AI Tools Platform
-          </h2>
+          <div className="prose prose-lg prose-slate max-w-none text-muted-foreground space-y-8">
+            <p>
+              Welcome to <strong>TaskGuru (Toolify)</strong>, the internet’s favorite destination for free, AI-enhanced utility tools. In an era where every simple digital task requires a subscription, we are committed to keeping essential tools free, private, and open for everyone.
+            </p>
 
-          <p>
-            Toolify (TaskGuru) is a modern productivity ecosystem that brings together
-            the most essential AI-powered tools for everyday digital tasks. Whether
-            you're handling PDFs, rewriting content, extracting text, optimizing
-            images, or preparing documents, Toolify gives you fast, secure, and
-            reliable tools powered by intelligent algorithms.
-          </p>
+            <h3 className="text-2xl font-bold text-foreground mt-12">How Toolify (TaskGuru) Helps You Daily</h3>
+            <p>
+              Managing multiple file formats can be a nightmare. Our platform simplifies these complex tasks into single-click solutions:
+            </p>
+            <ul className="grid md:grid-cols-2 gap-4 list-none pl-0">
+              <li className="bg-muted p-4 rounded-xl border-l-4 border-primary italic">"Need to edit a scanned document? Use our PDF to Word converter."</li>
+              <li className="bg-muted p-4 rounded-xl border-l-4 border-accent italic text-right">"Optimizing images for a website? Our compressor handles it in seconds."</li>
+            </ul>
 
-          <p>
-            Most tool websites force users to watch intrusive ads, create accounts, or
-            pay subscription fees just to perform simple operations. Toolify is built
-            differently—providing a clean, fast, privacy-friendly interface that works
-            instantly in your browser without installations or logins.
-          </p>
+            <h3 className="text-2xl font-bold text-foreground mt-12">No Login, No Credit Card – Ever.</h3>
+            <p>
+              The biggest hurdle to online productivity is the "Sign-up Wall." We believe that to be useful, a tool must be friction-less. That’s why TaskGuru requires no registration. You land on the site, process your file, and get back to your work. This philosophy has made us a preferred choice for students and busy professionals globally.
+            </p>
 
-          <h3 className="text-3xl font-bold mt-10">Who Can Use Toolify (TaskGuru)?</h3>
+            <h3 className="text-2xl font-bold text-foreground mt-12">A Focus on Data Integrity</h3>
+            <p>
+              Is it safe to upload files? Absolutely. Unlike many competitors, TaskGuru does not scrape your data. We use industry-standard encryption protocols during processing. Whether you are using our <strong>AI Paraphraser</strong> or <strong>Merge PDF</strong> tool, your data is handled with the highest security standards.
+            </p>
+          </div>
+        </article>
+      </section>
 
-          <ul className="list-disc pl-6 space-y-3">
-            <li><strong>Students:</strong> Convert PDFs, paraphrase essays, compress images, extract text.</li>
-            <li><strong>Professionals:</strong> Prepare documents, merge PDFs, organize files, optimize resumes.</li>
-            <li><strong>Designers:</strong> Remove backgrounds, compress graphics, prepare assets for social media.</li>
-            <li><strong>Businesses:</strong> Improve workflows, digitize documents, automate routine tasks.</li>
-          </ul>
-
-          <h3 className="text-3xl font-bold mt-10">Why Toolify Stands Out</h3>
-
-          <p>
-            With hundreds of online tools available today, very few are fast, free,
-            easy-to-use, and privacy-safe. Toolify stands out due to its commitment to
-            simplicity, accuracy, and user trust. All processing happens in real-time,
-            and files are never saved on the server.
-          </p>
-
-          <ul className="list-disc pl-6 space-y-3">
-            <li>✔ 100% free tools</li>
-            <li>✔ No login required</li>
-            <li>✔ No file storage</li>
-            <li>✔ Fast and mobile-friendly</li>
-            <li>✔ AI-powered precision</li>
-            <li>✔ Minimal, clean design</li>
-          </ul>
-
-          <h3 className="text-3xl font-bold mt-10">Our Tools</h3>
-
-          <p>
-            Toolify provides a complete suite of digital tools including:
-          </p>
-
-          <ul className="list-disc pl-6 space-y-3">
-            <li>PDF to Word Converter</li>
-            <li>AI Paraphrasing Tool</li>
-            <li>Background Remover</li>
-            <li>OCR – Image to Text</li>
-            <li>Image Compressor</li>
-            <li>Merge PDF</li>
-            <li>Image to PDF Converter</li>
-            <li>More tools coming soon…</li>
-          </ul>
-
-          <h3 className="text-3xl font-bold mt-10">Our Vision</h3>
-
-          <p>
-            Toolify aims to become the world’s most trusted free AI tool platform. We
-            are continuously expanding our ecosystem with new AI-powered utilities,
-            smart automation tools, content generation features, and productivity
-            enhancements designed for everyday use.
-          </p>
-
-          <p>
-            Future tools include AI voiceovers, grammar correction, resume building,
-            smart summarization, and more advanced PDF editing utilities.
-          </p>
-
-          <h3 className="text-3xl font-bold mt-10">Final Thoughts</h3>
-
-          <p>
-            Toolify (TaskGuru) is built for users who want fast, reliable, and smart
-            tools without complications. With a focus on usability, privacy, and
-            performance, Toolify delivers a premium experience for everyone—students,
-            professionals, creators, and businesses.
-          </p>
-
-          <p>
-            Whether you're converting files, rewriting text, optimizing images, or
-            simplifying tasks, Toolify empowers you to work smarter and achieve more.
-          </p>
-
+      {/* NEWSLETTER */}
+      <section className="py-20 bg-primary text-primary-foreground rounded-[2rem] mx-4 mb-20 shadow-2xl">
+        <div className="container mx-auto px-6">
+          <div className="max-w-3xl mx-auto text-center">
+            <h2 className="text-4xl font-bold mb-6">Join the Productivity Club</h2>
+            <p className="text-lg mb-10 text-primary-foreground/80">
+              We release new AI tools every month. Get notified first and learn 
+              new ways to automate your daily digital tasks.
+            </p>
+            <NewsletterForm />
+            <p className="mt-6 text-sm opacity-60">
+              Your email is safe with us. One-click unsubscribe at any time.
+            </p>
+          </div>
         </div>
       </section>
     </>
