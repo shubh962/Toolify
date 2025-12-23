@@ -252,6 +252,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 <Link href="/help">Help</Link>
                 <span>|</span>
                 <Link href="/contact" className="hover:text-primary">Contact Us</Link>
+                <span>|</span>
+                <Link href="/Disclaimer" className="hover:text-primary">Disclaimer</Link>
               </nav>
 
               {/* Social Links */}
