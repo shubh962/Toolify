@@ -6,9 +6,18 @@ import Link from 'next/link';
 import { ArrowRight } from 'lucide-react';
 import Script from 'next/script';
 
-// ✅ 1. ALL BLOG POSTS ARE DEFINED HERE (Ordered Newest to Oldest)
+// ✅ 1. ALL BLOG POSTS ARE DEFINED HERE (Updated with the new SEO Post)
 const posts = [
-  // 🌟 1st Post (NEWEST - Dec 19) 🌟
+  // 🌟 NEWEST POST (SEO Optimized & Long Form) 🌟
+  {
+    slug: 'best-free-online-tools-2026',
+    title: '10 Best Free Online Tools to Simplify Your Digital Tasks in 2026',
+    summary:
+      'Stop paying for expensive software subscriptions. Discover how TaskGuru’s AI-powered tools for PDF editing, image processing, and content creation can handle your daily tasks for free with zero sign-ups.',
+    date: 'December 23, 2025',
+  },
+
+  // 🌟 Previous Posts
   {
     slug: 'free-ai-tools-that-replace-paid-software-2025',
     title: 'Free AI Tools That Can Replace Paid Software in 2025 (No Subscription Needed)',
@@ -17,7 +26,6 @@ const posts = [
     date: 'December 19, 2025',
   },
 
-  // 🌟 2nd Post (Dec 19)
   {
     slug: 'anti-subscription-guide-free-ai-tools',
     title: "The 'Anti-Subscription' Guide: 8 Free AI Tools to Save Your Wallet | TaskGuru",
@@ -26,7 +34,6 @@ const posts = [
     date: 'December 19, 2025',
   },
 
-  // 3rd Post (Dec 18)
   {
     slug: 'stop-paying-for-saas-free-ai-tools',
     title: 'Stop Paying for SaaS: Build Your $0 Productivity Tech Stack | TaskGuru',
@@ -35,7 +42,6 @@ const posts = [
     date: 'December 18, 2025',
   },
 
-  // 4th Post (Dec 12)
   {
     slug: 'ultimate-ai-toolkit-free-tools',
     title:
@@ -45,7 +51,6 @@ const posts = [
     date: 'December 12, 2025',
   },
 
-  // 5th Post (Dec 3)
   {
     slug: 'free-ai-tools-for-students-2025',
     title: 'Top 10 Free AI Tools for Students in 2025 (No Login Required)',
@@ -54,7 +59,6 @@ const posts = [
     date: 'December 3, 2025',
   },
 
-  // 6th Post (Nov 9)
   {
     slug: 'ai-document-power-up',
     title: 'AI Document Power-Up: Free Tools to Summarize & Chat with Any Document',
@@ -63,7 +67,6 @@ const posts = [
     date: 'November 9, 2025',
   },
 
-  // 7th Post (Oct 21)
   {
     slug: 'streamline-remote-workflow',
     title: "TaskGuru: The Professional's Free AI Toolkit (Remote Workflow)",
@@ -72,7 +75,6 @@ const posts = [
     date: 'October 21, 2025',
   },
 
-  // 8th Post (Oct 9)
   {
     slug: 'projects-presentations-ai-toolkit',
     title: 'How TaskGuru’s Free AI Tools Revolutionize Projects & Presentations',
@@ -81,7 +83,6 @@ const posts = [
     date: 'October 9, 2025',
   },
 
-  // 9th Post (Oct 2)
   {
     slug: 'the-ultimate-taskguru-toolkit',
     title: 'The Ultimate TaskGuru Toolkit: 6 Free AI Tools for Students & Professionals',
@@ -91,7 +92,7 @@ const posts = [
   },
 ];
 
-// ✅ 2. FAQ SCHEMA FOR THE LISTING PAGE
+// ✅ 2. FAQ SCHEMA
 const faqSchema = {
   '@context': 'https://schema.org',
   '@type': 'FAQPage',
@@ -101,7 +102,7 @@ const faqSchema = {
       name: 'How often does TaskGuru publish new blog content?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'TaskGuru publishes new insights, tool guides, and productivity articles every week.',
+        text: 'TaskGuru publishes new insights, tool guides, and productivity articles every week to keep you updated with the latest free AI utilities.',
       },
     },
     {
@@ -109,7 +110,7 @@ const faqSchema = {
       name: 'Are TaskGuru blog articles SEO friendly?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'Yes. All TaskGuru blogs are written with long-form content, internal linking, and structured SEO best practices.',
+        text: 'Yes. All TaskGuru blogs are written with long-form content, expert insights, and internal linking to provide maximum value to users and search engines.',
       },
     },
     {
@@ -117,15 +118,15 @@ const faqSchema = {
       name: 'Are TaskGuru AI tools really free?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'Yes. TaskGuru provides free AI tools without login, subscriptions, or hidden charges.',
+        text: 'Yes. TaskGuru provides high-quality AI tools without requiring logins, subscriptions, or hidden fees.',
       },
     },
   ],
 };
 
 export default function BlogPage() {
-  // ✅ Highlight newest post
-  const featuredPostSlug = 'free-ai-tools-that-replace-paid-software-2025';
+  // ✅ Update featured post to the newest one
+  const featuredPostSlug = 'best-free-online-tools-2026';
 
   return (
     <>
@@ -141,7 +142,7 @@ export default function BlogPage() {
             TaskGuru Insights & Guides (ज्ञान)
           </h1>
           <p className="text-lg text-muted-foreground">
-            भारत और विश्व के लिए AI productivity guides, free tools, और honest comparisons.
+            Practical AI productivity guides, free tool reviews, and honest tech comparisons for India and the World.
           </p>
         </header>
 
@@ -152,25 +153,27 @@ export default function BlogPage() {
               key={post.slug}
               className={`p-6 border rounded-xl shadow-md hover:shadow-lg transition ${
                 post.slug === featuredPostSlug
-                  ? 'border-2 border-primary ring-2 ring-primary/50 bg-primary/5'
-                  : ''
+                  ? 'border-2 border-blue-600 ring-2 ring-blue-600/20 bg-blue-50/30'
+                  : 'bg-card'
               }`}
             >
               <Link href={`/blog/${post.slug}`} className="group block">
-                <h2 className="text-2xl font-bold group-hover:text-primary">
+                <h2 className="text-2xl font-bold group-hover:text-blue-600 transition-colors">
                   {post.title}
                   {post.slug === featuredPostSlug && (
-                    <span className="ml-3 inline-flex items-center px-3 py-1 text-xs font-semibold rounded-full bg-primary text-white animate-pulse">
-                      NEW & HOT 🔥
+                    <span className="ml-3 inline-flex items-center px-3 py-1 text-xs font-semibold rounded-full bg-blue-600 text-white animate-pulse">
+                      FEATURED GUIDE ⭐
                     </span>
                   )}
                 </h2>
 
-                <p className="mt-2 text-sm text-muted-foreground">{post.date}</p>
-                <p className="mt-4 text-gray-700 dark:text-gray-300">{post.summary}</p>
+                <p className="mt-2 text-sm text-muted-foreground font-medium">{post.date}</p>
+                <p className="mt-4 text-gray-700 dark:text-gray-300 leading-relaxed italic">
+                  &quot;{post.summary}&quot;
+                </p>
 
-                <p className="mt-4 inline-flex items-center text-primary font-medium">
-                  Read Full Article
+                <p className="mt-4 inline-flex items-center text-blue-600 font-bold">
+                  Read Full In-Depth Article
                   <ArrowRight className="w-4 h-4 ml-2 transition-transform group-hover:translate-x-1" />
                 </p>
               </Link>
@@ -179,17 +182,17 @@ export default function BlogPage() {
         </div>
 
         {/* FAQ SECTION */}
-        <section className="mt-14 pt-10 border-t">
-          <h2 className="text-3xl font-bold mb-6 text-center">
-            Frequently Asked Questions (FAQ) ❓
+        <section className="mt-20 pt-10 border-t border-gray-200">
+          <h2 className="text-3xl font-bold mb-8 text-center text-gray-800">
+            Common Questions about TaskGuru Guides
           </h2>
 
-          <div className="space-y-6">
+          <div className="grid gap-6 md:grid-cols-1">
             {faqSchema.mainEntity.map((item, index) => (
-              <div key={index} className="border-b pb-3">
-                <h3 className="font-bold text-lg">{item.name}</h3>
-                <p className="mt-1 text-muted-foreground">
-                  {item.acceptedAnswer.text}
+              <div key={index} className="bg-gray-50 p-6 rounded-xl border border-gray-100 shadow-sm">
+                <h3 className="font-bold text-lg text-gray-900 mb-2">Q: {item.name}</h3>
+                <p className="text-gray-700 leading-relaxed">
+                  A: {item.acceptedAnswer.text}
                 </p>
               </div>
             ))}
