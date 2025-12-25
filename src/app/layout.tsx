@@ -4,6 +4,7 @@ import { Toaster } from "@/components/ui/toaster";
 import Header from "@/components/Header";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { ThemeToggle } from "@/components/ThemeToggle";
+import GlobalShare from "@/components/GlobalShare"; // ✅ NEW: Import GlobalShare
 
 import {
   Dialog,
@@ -157,7 +158,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <Header themeToggle={<ThemeToggle />} />
           <main className="flex-1">{children}</main>
+          
           <Toaster />
+          
+          {/* ✅ NEW: Added GlobalShare component to appear on all pages */}
+          <GlobalShare />
 
           <footer className="py-8 text-center text-gray-700 bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800">
             <div className="container mx-auto px-6">
@@ -236,3 +241,4 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     </html>
   );
 }
+
