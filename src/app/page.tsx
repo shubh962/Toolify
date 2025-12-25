@@ -7,7 +7,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { ArrowRight, Sparkles, ShieldCheck, Zap, Globe, MousePointer2 } from "lucide-react";
+import { ArrowRight, Sparkles, ShieldCheck, Zap, Globe, MousePointer2, CheckCircle2, Lock, Cpu, Rocket } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import NewsletterForm from "@/components/NewsletterForm";
 import Script from "next/script";
@@ -52,13 +52,12 @@ export default function Home() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqLd) }}
       />
 
-      {/* 🚀 HERO SECTION - FIXED H1 */}
+      {/* 🚀 HERO SECTION */}
       <section className="relative overflow-hidden py-24 md:py-36 text-center bg-gradient-to-br from-primary via-primary/95 to-indigo-950">
         <div className="container mx-auto px-6 relative z-10">
           <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/10 rounded-full text-white/90 text-sm font-bold mb-8 backdrop-blur-md border border-white/20">
             <Zap className="w-4 h-4 text-yellow-400" /> All Tools Now 100% Free
           </div>
-          {/* ✅ THE ONLY H1 ON THE PAGE */}
           <h1 className="text-4xl md:text-7xl font-black tracking-tight text-white mb-8 leading-[1.1]">
             Simplify Digital Workflow with <br />
             <span className="text-accent underline decoration-accent/30 italic">TaskGuru AI Suite</span>
@@ -84,7 +83,6 @@ export default function Home() {
         <div className="container mx-auto px-6">
           <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-6 border-b pb-12">
             <div className="max-w-2xl text-left">
-              {/* ✅ CHANGED TO H2 */}
               <h2 className="text-3xl md:text-5xl font-black tracking-tighter text-gray-900 dark:text-white">
                 Professional Toolkit
               </h2>
@@ -119,7 +117,6 @@ export default function Home() {
                         </span>
                       )}
                     </div>
-                    {/* ✅ TOOL TITLES ARE H3 */}
                     <CardTitle className="pt-2 text-2xl font-black">
                       {tool.title}
                     </CardTitle>
@@ -170,43 +167,103 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 🚀 EXTENDED SEO CONTENT */}
+      {/* 🚀 DEEP SEO LONG-FORM CONTENT */}
       <section className="py-24 md:py-36 bg-background">
-        <article className="container mx-auto px-6 max-w-4xl">
-          <h2 className="text-4xl md:text-5xl font-black mb-12 text-center leading-tight">
-            The Internet's Favorite <br />
-            <span className="text-primary italic">Productivity Suite</span>
-          </h2>
+        <article className="container mx-auto px-6 max-w-5xl">
+          <header className="text-center mb-16">
+            <h2 className="text-4xl md:text-6xl font-black mb-6 leading-tight">
+              TaskGuru AI: The Next Frontier of <br />
+              <span className="text-primary italic text-3xl md:text-5xl">Digital Empowerment & Productivity</span>
+            </h2>
+            <div className="h-1.5 w-32 bg-primary mx-auto rounded-full" />
+          </header>
 
-          <div className="prose prose-lg dark:prose-invert max-w-none text-muted-foreground space-y-10 font-medium leading-relaxed">
-            <p className="text-xl">
-              Welcome to <strong>TaskGuru (Toolify)</strong>, the definitive hub for free, 
-              AI-enhanced digital utilities. While the web becomes cluttered with expensive 
-              subscriptions, we remain dedicated to keeping essential tools accessible to everyone.
-            </p>
-
-            <h3 className="text-3xl font-black text-foreground">Why TaskGuru is Different</h3>
-            <p>
-              Unlike standard "free" sites that bombard you with pop-ups or store your 
-              private documents, TaskGuru is built on a <strong>Privacy-First</strong> architecture. 
-              Our suite of tools—including the <strong>Resume Maker</strong>, <strong>PDF Inserter</strong>, 
-              and <strong>AI Paraphraser</strong>—leverages cutting-edge algorithms to 
-              process data securely and efficiently.
-            </p>
-
-            <div className="p-8 bg-primary/5 rounded-[2.5rem] border-2 border-primary/10 italic text-foreground shadow-inner">
-                "Our mission is simple: To provide professional-grade software capability 
-                directly in your browser, for free, forever."
+          <div className="prose prose-xl dark:prose-invert max-w-none text-muted-foreground space-y-12 font-medium leading-relaxed">
+            
+            {/* Intro Section */}
+            <div className="space-y-6">
+              <h3 className="text-3xl font-black text-foreground flex items-center gap-3">
+                <Rocket className="text-primary h-8 w-8" /> Why We Built TaskGuru
+              </h3>
+              <p>
+                Aaj ke fast-paced digital world mein, productivity tools ki demand skyrocketing hai. Lekin ek problem hamesha rahi hai—ya toh tools bohot mehnge hote hain (Monthly Subscriptions), ya phir unme privacy ka khatra hota hai. <strong>TaskGuru (Toolify)</strong> isi gap ko bharne ke liye banaya gaya hai. Humne ek aisi platform ki kalpana ki jahan ek student se lekar ek high-end developer tak, sabhi ko professional-grade tools milein—wo bhi bilkul muft.
+              </p>
+              <p>
+                Humne TaskGuru ko sirf ek website nahi, balki ek <strong>Productivity Ecosystem</strong> ki tarah develop kiya hai. Yahan aapko PDF manipulation, Advanced AI Content Generation, aur Image Optimization milta hai ek hi chat aur dashboard interface mein. Hamara mission simple hai: Software capability ko democratize karna.
+              </p>
             </div>
 
-            <h3 className="text-3xl font-black text-foreground">A Tool for Every Task</h3>
-            <p>
-              Whether you are a student perfecting a thesis or a developer optimizing 
-              assets for a new app, our suite scales with your needs. Our 
-              <strong> Image Compressor</strong> ensures your web resolution remains 
-              crisp while keeping file sizes minimal, and our <strong>OCR (Image to Text)</strong> 
-              technology extracts data with over 99% accuracy.
-            </p>
+            {/* Feature Deep Dive Grid */}
+            <div className="grid md:grid-cols-2 gap-8 my-16">
+              <div className="p-8 rounded-[2rem] bg-muted/50 border-2 border-primary/5 hover:border-primary/20 transition-colors">
+                <div className="flex items-center gap-3 mb-4">
+                  <CheckCircle2 className="text-green-500 h-6 w-6" />
+                  <h4 className="text-xl font-black text-foreground">Advanced PDF Suite</h4>
+                </div>
+                <p className="text-base">
+                  Documents ke sath deal karna kabhi itna asan nahi tha. TaskGuru ka PDF suite aapko high-compression ratios deta hai bina text quality lose kiye. Chahe aapko multiple reports merge karni hon ya kisi PDF se image extract karni ho, hamare algorithm pixel-perfect results deliver karte hain.
+                </p>
+              </div>
+              <div className="p-8 rounded-[2rem] bg-muted/50 border-2 border-primary/5 hover:border-primary/20 transition-colors">
+                <div className="flex items-center gap-3 mb-4">
+                  <Cpu className="text-primary h-6 w-6" />
+                  <h4 className="text-xl font-black text-foreground">Next-Gen AI Writing</h4>
+                </div>
+                <p className="text-base">
+                  Hamara AI Paraphraser aur Rewriter standard "synonym swapping" tools se kafi alag hain. Ye context ko samajhte hain (Semantic Awareness). Jab aap content rewrite karte hain, toh tone aur intent wahi rehta hai jo aap chahte hain, lekin words bilkul fresh aur plagiarism-free hote hain.
+                </p>
+              </div>
+            </div>
+
+            {/* Privacy Section */}
+            <div className="relative overflow-hidden p-10 rounded-[3rem] bg-indigo-950 text-white shadow-2xl">
+              <div className="relative z-10">
+                <h3 className="text-3xl font-black mb-6 flex items-center gap-3">
+                  <Lock className="text-yellow-400 h-8 w-8" /> Zero-Storage Privacy Policy
+                </h3>
+                <p className="text-lg text-indigo-100">
+                  Sabse bada sawal hota hai: "Is my data safe?" TaskGuru par hamari privacy policy crystal clear hai. Hum <strong>Client-Side Processing</strong> aur transient server execution ka use karte hain. Jaise hi aapka task finish hota hai, hamara system automatic "Memory Wipe" command trigger karta hai. Aapka data hamare servers par ek minute bhi save nahi rehta. No logs, no tracking, no worries.
+                </p>
+                <div className="mt-8 flex gap-4 flex-wrap">
+                  <span className="bg-white/10 px-4 py-2 rounded-full text-sm font-bold border border-white/20 tracking-tight">GDPR Compliant Logic</span>
+                  <span className="bg-white/10 px-4 py-2 rounded-full text-sm font-bold border border-white/20 tracking-tight">SSL Encrypted Transfer</span>
+                  <span className="bg-white/10 px-4 py-2 rounded-full text-sm font-bold border border-white/20 tracking-tight">No Hidden Tracking</span>
+                </div>
+              </div>
+              <div className="absolute top-0 right-0 -mr-16 -mt-16 w-64 h-64 bg-primary/20 rounded-full blur-3xl" />
+            </div>
+
+            {/* Utility Section */}
+            <div className="space-y-8 py-12">
+              <h3 className="text-3xl font-black text-foreground">How TaskGuru Enhances Every Workflow</h3>
+              <p>
+                Humne realize kiya ki internet par tools to bohot hain, lekin wo fragmented hain. TaskGuru un sabhi fragmentation ko eliminate karta hai. 
+              </p>
+              <div className="space-y-8">
+                <div className="border-l-4 border-primary pl-6 py-2">
+                  <h5 className="text-xl font-bold text-foreground">For Content Creators & Bloggers</h5>
+                  <p>Hamara Image to Text (OCR) aur AI Summarizer aapke research process ko 10x fast kar deta hai. Boring manual transcription ko bye-bye bole aur direct creation par focus karein.</p>
+                </div>
+                <div className="border-l-4 border-primary pl-6 py-2">
+                  <h5 className="text-xl font-bold text-foreground">For Students & Researchers</h5>
+                  <p>Academic pressure mein sahi tools ka milna mushkil hota hai. TaskGuru ke tools se aap assignments ko quickly format kar sakte hain aur PDFs ko manage karna bacho ka khel ban jata hai.</p>
+                </div>
+                <div className="border-l-4 border-primary pl-6 py-2">
+                  <h5 className="text-xl font-bold text-foreground">For Professional Developers</h5>
+                  <p>Json formatters, Unit converters, aur asset optimization tools. Ek developer ko jo small utilities chahiye hoti hain, wo yahan bina distract hue milti hain.</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Closing Statement */}
+            <div className="text-center pt-20 border-t">
+              <h3 className="text-3xl font-black text-foreground mb-4">Hamesha Free, Hamesha Fast</h3>
+              <p className="max-w-3xl mx-auto italic">
+                TaskGuru ka evolution rukne wala nahi hai. Hum har mahine naye AI models aur productivity shortcuts add karte rahenge. Aapka support hi hamari taqat hai. Agar aapko hamare tools pasand aayein, toh humein support karein aur is platform ko apne friends ke sath share karein.
+              </p>
+              <p className="mt-8 font-black text-primary text-xl uppercase tracking-widest">Digital Future Starts Here.</p>
+            </div>
+
           </div>
         </article>
       </section>
