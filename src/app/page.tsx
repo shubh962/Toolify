@@ -7,7 +7,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { ArrowRight, Sparkles, ShieldCheck, Zap, Globe, MousePointer2, CheckCircle2, Lock, Cpu, Rocket } from "lucide-react";
+import { ArrowRight, Sparkles, ShieldCheck, Zap, Globe, MousePointer2, CheckCircle2, Lock, Cpu, Rocket, FileText, ImageIcon, ZapOff, Gift } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import NewsletterForm from "@/components/NewsletterForm";
 import Script from "next/script";
@@ -19,26 +19,18 @@ export default function Home() {
     mainEntity: [
       {
         "@type": "Question",
-        name: "Is Toolify (TaskGuru) free?",
+        name: "Are these online tools really 100% free?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "Yes, Toolify is 100% free to use. All tools work instantly in your browser with no login or subscription required.",
+          text: "Yes, TaskGuru provides 100% free online tools including PDF converters, image compressors, and AI paraphrasers. There are no hidden fees, no subscriptions, and no credit cards required.",
         },
       },
       {
         "@type": "Question",
-        name: "Are my files secure on TaskGuru?",
+        name: "Is there a limit on the free PDF to Word converter?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "Absolutely. TaskGuru uses a Zero-Storage policy. Files are processed in transient memory and deleted permanently immediately after use.",
-        },
-      },
-      {
-        "@type": "Question",
-        name: "Do I need to install software for PDF or Image tools?",
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: "No installation is needed. All TaskGuru tools function directly in any modern web browser across mobile and desktop devices.",
+          text: "Unlike other sites, our free tools have generous limits. You can merge PDFs, remove backgrounds, and rewrite text for free as many times as you need.",
         },
       },
     ],
@@ -52,83 +44,64 @@ export default function Home() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqLd) }}
       />
 
-      {/* 🚀 HERO SECTION */}
-      <section className="relative overflow-hidden py-24 md:py-36 text-center bg-gradient-to-br from-primary via-primary/95 to-indigo-950">
+      {/* 🚀 GLOBAL HERO SECTION - FOCUSED ON "FREE" */}
+      <section className="relative overflow-hidden py-24 md:py-40 text-center bg-gradient-to-br from-slate-950 via-primary to-indigo-950">
         <div className="container mx-auto px-6 relative z-10">
           <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/10 rounded-full text-white/90 text-sm font-bold mb-8 backdrop-blur-md border border-white/20">
-            <Zap className="w-4 h-4 text-yellow-400" /> All Tools Now 100% Free
+            <Gift className="w-4 h-4 text-accent" /> 100% Free Forever • No Credit Card Required
           </div>
-          <h1 className="text-4xl md:text-7xl font-black tracking-tight text-white mb-8 leading-[1.1]">
-            Simplify Digital Workflow with <br />
-            <span className="text-accent underline decoration-accent/30 italic">TaskGuru AI Suite</span>
+          <h1 className="text-5xl md:text-8xl font-black tracking-tight text-white mb-8 leading-[1.05]">
+            Unlimited <span className="text-accent">Free Online Tools</span> <br />
+            No Sign-Up, No Catch.
           </h1>
-          <p className="mt-6 text-lg md:text-2xl max-w-3xl mx-auto text-white/80 leading-relaxed font-medium">
-            The ultimate productivity hub. Convert PDFs, compress images, and 
-            leverage AI to rewrite content. Private, secure, and lightning fast.
+          <p className="mt-6 text-lg md:text-2xl max-w-4xl mx-auto text-white/80 leading-relaxed font-medium">
+            Access the internet&apos;s most powerful suite of **Free PDF Tools**, **Free AI Writing Assistants**, 
+            and **Free Image Editors**. Stop paying for SaaS subscriptions today.
           </p>
 
           <div className="mt-12 flex flex-col sm:flex-row justify-center gap-6">
-            <Button size="lg" asChild className="bg-white text-primary hover:bg-gray-100 font-black text-xl px-10 h-16 rounded-full shadow-2xl">
-              <Link href="#tools">Explore Free Tools</Link>
-            </Button>
-            <Button size="lg" variant="outline" asChild className="text-white border-white/40 hover:bg-white/10 h-16 rounded-full px-10 font-bold">
-              <Link href="/about">Meet the Founder</Link>
+            <Button size="lg" asChild className="bg-white text-primary hover:bg-gray-100 font-black text-xl px-12 h-16 rounded-full shadow-2xl transition-all hover:scale-105">
+              <Link href="#tools">Use All Tools for Free</Link>
             </Button>
           </div>
         </div>
       </section>
 
-      {/* 🛠️ TOOLS GRID SECTION */}
+      {/* 🛠️ TOOLS GRID */}
       <section id="tools" className="py-20 md:py-32 bg-background">
         <div className="container mx-auto px-6">
-          <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-6 border-b pb-12">
-            <div className="max-w-2xl text-left">
-              <h2 className="text-3xl md:text-5xl font-black tracking-tighter text-gray-900 dark:text-white">
-                Professional Toolkit
-              </h2>
-              <p className="mt-4 text-xl text-muted-foreground font-medium">
-                High-performance utilities engineered for modern creators and businesses.
-              </p>
-            </div>
-            <div className="hidden md:block">
-              <span className="text-xs font-black text-primary bg-primary/10 px-6 py-3 rounded-full uppercase tracking-[0.2em] border border-primary/20">
-                Live Status: Operational
-              </span>
-            </div>
+          <div className="mb-16 border-b pb-12">
+            <h2 className="text-3xl md:text-5xl font-black tracking-tighter text-gray-900 dark:text-white uppercase">
+              The Ultimate Free Toolkit
+            </h2>
+            <p className="mt-4 text-xl text-muted-foreground font-medium">
+              High-speed utilities including our Free Background Remover, Free Image to Text, and Free PDF Merger.
+            </p>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
             {tools.map((tool) => (
-              <Link
-                href={`/tools/${tool.slug}`}
-                key={tool.slug}
-                className="group flex h-full"
-                prefetch={!tool.isPlaceholder}
-              >
-                <Card className="w-full flex flex-col transition-all duration-500 hover:shadow-[0_20px_50px_rgba(0,0,0,0.1)] hover:-translate-y-2 border-2 border-muted bg-card overflow-hidden rounded-[2rem]">
+              <Link href={`/tools/${tool.slug}`} key={tool.slug} className="group">
+                <Card className="w-full h-full flex flex-col transition-all duration-500 hover:shadow-2xl hover:-translate-y-3 border-2 border-muted rounded-[2.5rem] bg-card">
                   <CardHeader className="p-8">
-                    <div className="flex justify-between items-start mb-4">
-                      <div className="bg-primary/5 p-5 rounded-2xl group-hover:bg-primary group-hover:text-white transition-all duration-500 shadow-inner">
+                    <div className="flex justify-between items-start mb-6">
+                      <div className="bg-primary/5 p-5 rounded-2xl group-hover:bg-primary group-hover:text-white transition-all duration-500">
                         <tool.icon className="w-10 h-10" />
                       </div>
-                      {tool.isGenAI && (
-                        <span className="flex items-center gap-1 px-4 py-1.5 rounded-full text-[10px] font-black uppercase bg-accent text-accent-foreground tracking-tighter shadow-sm border border-accent/20">
-                          <Sparkles className="w-3 h-3" /> AI Powered
-                        </span>
-                      )}
+                      <span className="px-3 py-1 bg-green-500/10 text-green-600 text-[10px] font-black uppercase rounded-full border border-green-500/20">
+                        100% Free
+                      </span>
                     </div>
-                    <CardTitle className="pt-2 text-2xl font-black">
-                      {tool.title}
-                    </CardTitle>
+                    <CardTitle className="text-2xl font-black">{tool.title}</CardTitle>
                   </CardHeader>
                   <CardContent className="px-8 flex-grow">
-                    <p className="text-muted-foreground leading-relaxed font-medium">
+                    <p className="text-muted-foreground font-medium leading-relaxed">
                       {tool.description}
                     </p>
                   </CardContent>
                   <CardFooter className="px-8 pb-8 pt-4">
-                    <div className="flex items-center text-sm font-black text-primary group-hover:translate-x-2 transition-transform uppercase tracking-wider">
-                      Open Tool <ArrowRight className="ml-2 h-5 w-5" />
+                    <div className="flex items-center text-sm font-black text-primary group-hover:translate-x-3 transition-transform uppercase tracking-widest">
+                      Start for Free <ArrowRight className="ml-2 h-5 w-5" />
                     </div>
                   </CardFooter>
                 </Card>
@@ -138,150 +111,115 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 🛡️ TRUST SECTION */}
-      <section className="py-24 bg-muted/20 border-y relative">
-        <div className="container mx-auto px-6">
-          <div className="grid md:grid-cols-3 gap-16 text-center">
-            <div className="space-y-4">
-              <div className="bg-white dark:bg-zinc-900 w-20 h-20 rounded-3xl shadow-xl flex items-center justify-center mx-auto mb-8 rotate-3 hover:rotate-0 transition-transform">
-                <ShieldCheck className="w-10 h-10 text-green-600" />
-              </div>
-              <h3 className="text-2xl font-black">Privacy Obsessed</h3>
-              <p className="text-muted-foreground font-medium">Zero-storage policy. Your files are processed in-memory and wiped instantly.</p>
-            </div>
-            <div className="space-y-4">
-              <div className="bg-white dark:bg-zinc-900 w-20 h-20 rounded-3xl shadow-xl flex items-center justify-center mx-auto mb-8 -rotate-3 hover:rotate-0 transition-transform">
-                <MousePointer2 className="w-10 h-10 text-primary" />
-              </div>
-              <h3 className="text-2xl font-black">Friction-Free</h3>
-              <p className="text-muted-foreground font-medium">No account creation. No credit cards. No waiting. Just professional tools.</p>
-            </div>
-            <div className="space-y-4">
-              <div className="bg-white dark:bg-zinc-900 w-20 h-20 rounded-3xl shadow-xl flex items-center justify-center mx-auto mb-8 rotate-6 hover:rotate-0 transition-transform">
-                <Globe className="w-10 h-10 text-blue-600" />
-              </div>
-              <h3 className="text-2xl font-black">Global Access</h3>
-              <p className="text-muted-foreground font-medium">Optimized for every device. Access your workspace from any browser worldwide.</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* 🚀 DEEP SEO LONG-FORM CONTENT */}
-      <section className="py-24 md:py-36 bg-background">
+      {/* 🚀 MASSIVE SEO SECTION - "FREE" KEYWORD OPTIMIZED */}
+      <section className="py-24 bg-background">
         <article className="container mx-auto px-6 max-w-5xl">
-          <header className="text-center mb-16">
-            <h2 className="text-4xl md:text-6xl font-black mb-6 leading-tight">
-              TaskGuru AI: The Next Frontier of <br />
-              <span className="text-primary italic text-3xl md:text-5xl">Digital Empowerment & Productivity</span>
-            </h2>
-            <div className="h-1.5 w-32 bg-primary mx-auto rounded-full" />
-          </header>
-
-          <div className="prose prose-xl dark:prose-invert max-w-none text-muted-foreground space-y-12 font-medium leading-relaxed">
+          <div className="prose prose-xl dark:prose-invert max-w-none text-muted-foreground space-y-20 font-medium">
             
-            {/* Intro Section */}
-            <div className="space-y-6">
+            <header className="text-center">
+              <h2 className="text-4xl md:text-7xl font-black text-foreground mb-6 leading-tight">
+                Your Global Destination for <br />
+                <span className="text-primary italic">Free Digital Utilities</span>
+              </h2>
+              <p className="text-xl">
+                Searching for the best free online tools shouldn&apos;t be a struggle. TaskGuru (Toolify) offers a comprehensive library of professional utilities to help you work faster without spending a dime.
+              </p>
+            </header>
+
+            {/* Section 1: Free PDF Tools */}
+            <div className="space-y-8">
               <h3 className="text-3xl font-black text-foreground flex items-center gap-3">
-                <Rocket className="text-primary h-8 w-8" /> Why We Built TaskGuru
+                <FileText className="text-primary h-8 w-8" /> Free PDF Conversion & Management
               </h3>
               <p>
-                Aaj ke fast-paced digital world mein, productivity tools ki demand skyrocketing hai. Lekin ek problem hamesha rahi hai—ya toh tools bohot mehnge hote hain (Monthly Subscriptions), ya phir unme privacy ka khatra hota hai. <strong>TaskGuru (Toolify)</strong> isi gap ko bharne ke liye banaya gaya hai. Humne ek aisi platform ki kalpana ki jahan ek student se lekar ek high-end developer tak, sabhi ko professional-grade tools milein—wo bhi bilkul muft.
+                The most common search queries today revolve around <strong>Free PDF to Word Converters</strong> and <strong>Free PDF Mergers</strong>. TaskGuru delivers exactly that. Our tools allow you to:
               </p>
-              <p>
-                Humne TaskGuru ko sirf ek website nahi, balki ek <strong>Productivity Ecosystem</strong> ki tarah develop kiya hai. Yahan aapko PDF manipulation, Advanced AI Content Generation, aur Image Optimization milta hai ek hi chat aur dashboard interface mein. Hamara mission simple hai: Software capability ko democratize karna.
+              <div className="grid md:grid-cols-2 gap-6">
+                <div className="p-6 bg-muted/50 rounded-2xl border border-muted">
+                  <h4 className="font-bold text-foreground mb-2">Free PDF to Word</h4>
+                  <p className="text-sm">Convert complex documents to editable formats for free. No email required, no watermarks, and 100% formatting retention.</p>
+                </div>
+                <div className="p-6 bg-muted/50 rounded-2xl border border-muted">
+                  <h4 className="font-bold text-foreground mb-2">Free Merge PDF</h4>
+                  <p className="text-sm">Combine unlimited PDF files into one single document. Our free online merger is the fastest in the industry.</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Section 2: Free AI Writing */}
+            <div className="p-12 rounded-[3rem] bg-slate-900 text-white shadow-2xl">
+              <h3 className="text-3xl font-black mb-6">Free AI Paraphraser & Content Tools</h3>
+              <p className="text-lg text-slate-300 mb-8">
+                Content is king, but creating it can be expensive. Use our <strong>Free AI Text Paraphraser</strong> to rewrite articles, essays, and reports. Our <strong>Free Image to Text (OCR)</strong> tool allows you to extract data from any image without paying for premium software.
               </p>
+              <ul className="grid md:grid-cols-2 gap-4 list-none p-0">
+                <li className="flex items-center gap-2"><CheckCircle2 className="text-accent h-5 w-5" /> Free Online Text Rewriter</li>
+                <li className="flex items-center gap-2"><CheckCircle2 className="text-accent h-5 w-5" /> Free Plagiarism-Free Content</li>
+                <li className="flex items-center gap-2"><CheckCircle2 className="text-accent h-5 w-5" /> Free Image Background Remover</li>
+                <li className="flex items-center gap-2"><CheckCircle2 className="text-accent h-5 w-5" /> Free ATS Resume Builder</li>
+              </ul>
             </div>
 
-            {/* Feature Deep Dive Grid */}
-            <div className="grid md:grid-cols-2 gap-8 my-16">
-              <div className="p-8 rounded-[2rem] bg-muted/50 border-2 border-primary/5 hover:border-primary/20 transition-colors">
-                <div className="flex items-center gap-3 mb-4">
-                  <CheckCircle2 className="text-green-500 h-6 w-6" />
-                  <h4 className="text-xl font-black text-foreground">Advanced PDF Suite</h4>
+            {/* Section 3: Industry Specific Free Tools */}
+            <div className="space-y-8">
+              <h3 className="text-3xl font-black text-foreground">A Tool for Every Need—Always Free</h3>
+              <div className="space-y-6">
+                <div className="border-l-4 border-primary pl-6">
+                  <h5 className="text-xl font-bold text-foreground">Free Tools for Students</h5>
+                  <p>Students often search for &quot;How to convert image to PDF for free&quot; or &quot;Free age calculator online.&quot; TaskGuru provides these essential student utilities in a clean, ad-free environment.</p>
                 </div>
-                <p className="text-base">
-                  Documents ke sath deal karna kabhi itna asan nahi tha. TaskGuru ka PDF suite aapko high-compression ratios deta hai bina text quality lose kiye. Chahe aapko multiple reports merge karni hon ya kisi PDF se image extract karni ho, hamare algorithm pixel-perfect results deliver karte hain.
-                </p>
-              </div>
-              <div className="p-8 rounded-[2rem] bg-muted/50 border-2 border-primary/5 hover:border-primary/20 transition-colors">
-                <div className="flex items-center gap-3 mb-4">
-                  <Cpu className="text-primary h-6 w-6" />
-                  <h4 className="text-xl font-black text-foreground">Next-Gen AI Writing</h4>
-                </div>
-                <p className="text-base">
-                  Hamara AI Paraphraser aur Rewriter standard "synonym swapping" tools se kafi alag hain. Ye context ko samajhte hain (Semantic Awareness). Jab aap content rewrite karte hain, toh tone aur intent wahi rehta hai jo aap chahte hain, lekin words bilkul fresh aur plagiarism-free hote hain.
-                </p>
-              </div>
-            </div>
-
-            {/* Privacy Section */}
-            <div className="relative overflow-hidden p-10 rounded-[3rem] bg-indigo-950 text-white shadow-2xl">
-              <div className="relative z-10">
-                <h3 className="text-3xl font-black mb-6 flex items-center gap-3">
-                  <Lock className="text-yellow-400 h-8 w-8" /> Zero-Storage Privacy Policy
-                </h3>
-                <p className="text-lg text-indigo-100">
-                  Sabse bada sawal hota hai: "Is my data safe?" TaskGuru par hamari privacy policy crystal clear hai. Hum <strong>Client-Side Processing</strong> aur transient server execution ka use karte hain. Jaise hi aapka task finish hota hai, hamara system automatic "Memory Wipe" command trigger karta hai. Aapka data hamare servers par ek minute bhi save nahi rehta. No logs, no tracking, no worries.
-                </p>
-                <div className="mt-8 flex gap-4 flex-wrap">
-                  <span className="bg-white/10 px-4 py-2 rounded-full text-sm font-bold border border-white/20 tracking-tight">GDPR Compliant Logic</span>
-                  <span className="bg-white/10 px-4 py-2 rounded-full text-sm font-bold border border-white/20 tracking-tight">SSL Encrypted Transfer</span>
-                  <span className="bg-white/10 px-4 py-2 rounded-full text-sm font-bold border border-white/20 tracking-tight">No Hidden Tracking</span>
-                </div>
-              </div>
-              <div className="absolute top-0 right-0 -mr-16 -mt-16 w-64 h-64 bg-primary/20 rounded-full blur-3xl" />
-            </div>
-
-            {/* Utility Section */}
-            <div className="space-y-8 py-12">
-              <h3 className="text-3xl font-black text-foreground">How TaskGuru Enhances Every Workflow</h3>
-              <p>
-                Humne realize kiya ki internet par tools to bohot hain, lekin wo fragmented hain. TaskGuru un sabhi fragmentation ko eliminate karta hai. 
-              </p>
-              <div className="space-y-8">
-                <div className="border-l-4 border-primary pl-6 py-2">
-                  <h5 className="text-xl font-bold text-foreground">For Content Creators & Bloggers</h5>
-                  <p>Hamara Image to Text (OCR) aur AI Summarizer aapke research process ko 10x fast kar deta hai. Boring manual transcription ko bye-bye bole aur direct creation par focus karein.</p>
-                </div>
-                <div className="border-l-4 border-primary pl-6 py-2">
-                  <h5 className="text-xl font-bold text-foreground">For Students & Researchers</h5>
-                  <p>Academic pressure mein sahi tools ka milna mushkil hota hai. TaskGuru ke tools se aap assignments ko quickly format kar sakte hain aur PDFs ko manage karna bacho ka khel ban jata hai.</p>
-                </div>
-                <div className="border-l-4 border-primary pl-6 py-2">
-                  <h5 className="text-xl font-bold text-foreground">For Professional Developers</h5>
-                  <p>Json formatters, Unit converters, aur asset optimization tools. Ek developer ko jo small utilities chahiye hoti hain, wo yahan bina distract hue milti hain.</p>
+                <div className="border-l-4 border-primary pl-6">
+                  <h5 className="text-xl font-bold text-foreground">Free Tools for Developers</h5>
+                  <p>Optimize your web assets with our <strong>Free Image Compressor</strong>. Reduce file sizes for faster page loads without the expensive API costs of other platforms.</p>
                 </div>
               </div>
             </div>
 
-            {/* Closing Statement */}
-            <div className="text-center pt-20 border-t">
-              <h3 className="text-3xl font-black text-foreground mb-4">Hamesha Free, Hamesha Fast</h3>
+            {/* Section 4: Search-Friendly Keyword Cloud */}
+            <div className="text-center space-y-8">
+              <h3 className="text-2xl font-black text-foreground">Popular Free Searches on TaskGuru</h3>
+              <div className="flex flex-wrap justify-center gap-3">
+                {[
+                  "Free Background Remover Online",
+                  "Free PDF to Word Converter No Sign Up",
+                  "Free Image to Text OCR",
+                  "Free Resume Maker 2025",
+                  "Free Online Age Calculator",
+                  "Free Bulk Image Compressor",
+                  "Free AI Text Rewriter",
+                  "Free Merge PDF Tool",
+                  "Free Image to PDF Converter",
+                  "Free WebP to JPG Converter"
+                ].map((kw) => (
+                  <span key={kw} className="px-4 py-2 bg-primary/5 rounded-full text-sm font-bold border border-primary/10">
+                    {kw}
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            <footer className="text-center pt-20 border-t">
+              <h3 className="text-3xl font-black text-foreground mb-4">No Subscriptions. No Limits. Just Free.</h3>
               <p className="max-w-3xl mx-auto italic">
-                TaskGuru ka evolution rukne wala nahi hai. Hum har mahine naye AI models aur productivity shortcuts add karte rahenge. Aapka support hi hamari taqat hai. Agar aapko hamare tools pasand aayein, toh humein support karein aur is platform ko apne friends ke sath share karein.
+                At TaskGuru, we believe that basic digital tasks should not be gated behind a paywall. Our mission is to keep these professional tools free for everyone, everywhere.
               </p>
-              <p className="mt-8 font-black text-primary text-xl uppercase tracking-widest">Digital Future Starts Here.</p>
-            </div>
+            </footer>
 
           </div>
         </article>
       </section>
 
       {/* 📬 NEWSLETTER */}
-      <section className="py-24 bg-primary text-primary-foreground rounded-[3rem] mx-6 mb-24 shadow-[0_50px_100px_rgba(0,0,0,0.3)] border-4 border-white/10">
-        <div className="container mx-auto px-6">
-          <div className="max-w-3xl mx-auto text-center">
-            <h2 className="text-4xl md:text-5xl font-black mb-8">Join the Productivity Club</h2>
-            <p className="text-xl mb-12 text-primary-foreground/90 font-medium">
-              We deploy new AI capabilities every month. Stay updated with the latest 
-              automation tips and new tool releases.
-            </p>
-            <NewsletterForm />
-            <p className="mt-8 text-xs font-bold opacity-60 uppercase tracking-widest">
-              Zero Spam. Total Privacy. One-Click Unsubscribe.
-            </p>
-          </div>
+      <section className="py-24 bg-primary text-primary-foreground rounded-[3rem] mx-6 mb-24 shadow-2xl border-4 border-white/10">
+        <div className="container mx-auto px-6 text-center">
+          <h2 className="text-4xl md:text-5xl font-black mb-8">Get More Free Tools</h2>
+          <p className="text-xl mb-12 opacity-90 max-w-2xl mx-auto">
+            Join our mailing list to receive updates whenever we launch new free AI capabilities.
+          </p>
+          <NewsletterForm />
+          <p className="mt-8 text-[10px] font-black uppercase tracking-[0.3em] opacity-60">
+            Free forever • Privacy Protected • No Spam
+          </p>
         </div>
       </section>
     </>
