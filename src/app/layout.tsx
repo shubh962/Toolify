@@ -4,7 +4,7 @@ import { Toaster } from "@/components/ui/toaster";
 import Header from "@/components/Header";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { ThemeToggle } from "@/components/ThemeToggle";
-import GlobalShare from "@/components/GlobalShare"; // ✅ NEW: Import GlobalShare
+import GlobalShare from "@/components/GlobalShare";
 
 import {
   Dialog,
