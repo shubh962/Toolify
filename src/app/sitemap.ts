@@ -22,6 +22,7 @@ const toolSlugs = [
   "text-paraphraser",
   "image-to-pdf",
   "resume-maker",
+  "age-calculator",
 ];
 
 const staticPages = [
