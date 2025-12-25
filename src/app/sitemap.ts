@@ -11,6 +11,7 @@ const blogSlugs = [
   "anti-subscription-guide-free-ai-tools",
   "free-ai-tools-that-replace-paid-software-2025",
   "best-free-online-tools-2026",
+  "best-free-online-tools-2026",
 ];
 
 const toolSlugs = [
