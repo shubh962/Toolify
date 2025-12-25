@@ -16,7 +16,7 @@ export const metadata: Metadata = {
   description:
     "Explore the best free online tools of 2026 including PDF tools, AI utilities, resume builder and an exact age calculator. No login, no tracking, 100% free.",
   alternates: {
-    canonical: "https://www.taskguru.online/blog/best-free-online-tools-2026",
+    canonical: "https://www.taskguru.online/blog/10-best-free-online-tools-2026",
   },
   robots: {
     index: true,
