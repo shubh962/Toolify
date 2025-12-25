@@ -55,8 +55,8 @@ export default function Home() {
             No Sign-Up, No Catch.
           </h1>
           <p className="mt-6 text-lg md:text-2xl max-w-4xl mx-auto text-white/80 leading-relaxed font-medium">
-            Access the internet&apos;s most powerful suite of **Free PDF Tools**, **Free AI Writing Assistants**, 
-            and **Free Image Editors**. Stop paying for SaaS subscriptions today.
+            Access the internet&apos;s most powerful suite of Free PDF Tools, Free AI Writing Assistants, 
+            and Free Image Editors. Stop paying for SaaS subscriptions today.
           </p>
 
           <div className="mt-12 flex flex-col sm:flex-row justify-center gap-6">
@@ -75,7 +75,7 @@ export default function Home() {
               The Ultimate Free Toolkit
             </h2>
             <p className="mt-4 text-xl text-muted-foreground font-medium">
-              High-speed utilities including our **Free Background Remover**, **Free Image to Text**, and **Free PDF Merger**.
+              High-speed utilities including our Free Background Remover, Free Image to Text, and Free PDF Merger.
             </p>
           </div>
 
@@ -122,7 +122,7 @@ export default function Home() {
                 <span className="text-primary italic">Free AI-Powered Productivity Suite</span>
               </h2>
               <p className="text-xl leading-relaxed">
-                TaskGuru (Toolify) is engineered to solve the most common digital hurdles faced by millions of users globally. In an era where every simple online task is hidden behind a paywall, TaskGuru stands as a beacon of accessibility, offering a comprehensive array of **free online tools** designed for quality, privacy, and speed.
+                TaskGuru (Toolify) is engineered to solve the most common digital hurdles faced by millions of users globally. In an era where every simple online task is hidden behind a paywall, TaskGuru stands as a beacon of accessibility, offering a comprehensive array of free online tools designed for quality, privacy, and speed.
               </p>
             </header>
 
@@ -132,20 +132,20 @@ export default function Home() {
                 <FileText className="text-primary h-10 w-10" /> Professional Free PDF Solutions
               </h3>
               <p>
-                PDF management is one of the most searched categories on the internet. Whether you are a student, a legal professional, or a small business owner, the need for a **Free PDF to Word Converter** or a **Free PDF Merger** is constant. 
+                PDF management is one of the most searched categories on the internet. Whether you are a student, a legal professional, or a small business owner, the need for a Free PDF to Word Converter or a Free PDF Merger is constant. 
               </p>
               <div className="grid md:grid-cols-3 gap-8">
                 <div className="bg-muted/30 p-8 rounded-[2rem] border border-muted">
                   <h4 className="font-black text-foreground mb-4">Free PDF to Word</h4>
-                  <p className="text-sm">Experience the best **free PDF to Word** conversion engine. We use advanced layout reconstruction technology to ensure your Microsoft Word files look identical to the original PDF, preserving tables, headers, and images perfectly.</p>
+                  <p className="text-sm">Experience the best free PDF to Word conversion engine. We use advanced layout reconstruction technology to ensure your Microsoft Word files look identical to the original PDF, preserving tables, headers, and images perfectly.</p>
                 </div>
                 <div className="bg-muted/30 p-8 rounded-[2rem] border border-muted">
                   <h4 className="font-black text-foreground mb-4">Free Merge PDF</h4>
-                  <p className="text-sm">Stop searching for &quot;How to merge PDFs for free.&quot; TaskGuru offers a high-speed, unlimited **free PDF merger**. Simply drag and drop your files, reorder them, and generate a single unified document in seconds.</p>
+                  <p className="text-sm">Stop searching for &quot;How to merge PDFs for free.&quot; TaskGuru offers a high-speed, unlimited free PDF merger. Simply drag and drop your files, reorder them, and generate a single unified document in seconds.</p>
                 </div>
                 <div className="bg-muted/30 p-8 rounded-[2rem] border border-muted">
                   <h4 className="font-black text-foreground mb-4">Free Image to PDF</h4>
-                  <p className="text-sm">Convert your JPGs, PNGs, and WebPs into high-quality PDF portfolios. This **free image to PDF converter** is perfect for creating digital document submissions without losing pixel quality.</p>
+                  <p className="text-sm">Convert your JPGs, PNGs, and WebPs into high-quality PDF portfolios. This free image to PDF converter is perfect for creating digital document submissions without losing pixel quality.</p>
                 </div>
               </div>
             </div>
@@ -156,13 +156,13 @@ export default function Home() {
                 <Cpu className="h-10 w-10" /> AI-Driven Writing Ecosystem
               </h3>
               <p className="text-lg text-slate-300 mb-10">
-                Artificial Intelligence is changing the way we create content. At TaskGuru, we integrate cutting-edge **Neural Language Processing** to provide tools that were once only available to large enterprises.
+                Artificial Intelligence is changing the way we create content. At TaskGuru, we integrate cutting-edge Neural Language Processing to provide tools that were once only available to large enterprises.
               </p>
               <div className="space-y-12">
                 <div className="flex flex-col md:flex-row gap-8 items-center">
                   <div className="flex-1">
                     <h4 className="text-2xl font-bold mb-4">Free AI Paraphraser & Rewriter</h4>
-                    <p className="text-slate-400">Our **Free AI Text Paraphraser** is designed for those looking to rewrite content while maintaining the original meaning. Ideal for SEO experts looking for &quot;Free online text rewriters,&quot; it uses context-aware models to ensure your content is human-readable and plagiarism-free.</p>
+                    <p className="text-slate-400">Our Free AI Text Paraphraser is designed for those looking to rewrite content while maintaining the original meaning. Ideal for SEO experts looking for &quot;Free online text rewriters,&quot; it uses context-aware models to ensure your content is human-readable and plagiarism-free.</p>
                   </div>
                   <div className="flex-1 bg-white/5 p-6 rounded-3xl border border-white/10">
                     <p className="italic text-sm">&quot;How do I rewrite an essay for free?&quot;</p>
@@ -172,7 +172,7 @@ export default function Home() {
                 <div className="flex flex-col md:flex-row-reverse gap-8 items-center border-t border-white/10 pt-10">
                   <div className="flex-1">
                     <h4 className="text-2xl font-bold mb-4">Free Image to Text (OCR)</h4>
-                    <p className="text-slate-400">Manually typing data from a scanned document is a thing of the past. Our **Free OCR tool** extracts text from images with up to 99.9% accuracy. From receipts to handwritten notes, get your text instantly for free.</p>
+                    <p className="text-slate-400">Manually typing data from a scanned document is a thing of the past. Our Free OCR tool extracts text from images with up to 99.9% accuracy. From receipts to handwritten notes, get your text instantly for free.</p>
                   </div>
                   <div className="flex-1 bg-white/5 p-6 rounded-3xl border border-white/10">
                     <p className="italic text-sm">&quot;Best free image to text converter online.&quot;</p>
@@ -188,16 +188,16 @@ export default function Home() {
                 <ImageIcon className="text-primary h-10 w-10" /> Free Visual & Image Tools
               </h3>
               <p>
-                Visual content is the language of the internet. Our suite includes powerful **free image editors** that usually cost hundreds of dollars in professional software packages.
+                Visual content is the language of the internet. Our suite includes powerful free image editors that usually cost hundreds of dollars in professional software packages.
               </p>
               <div className="grid md:grid-cols-2 gap-10">
                 <div className="space-y-4">
                   <h4 className="text-xl font-bold text-foreground">Free Background Remover Online</h4>
-                  <p>Searching for a way to **remove background from image for free**? Our AI automatically detects edges and removes backgrounds in one click. No masking or manual selection required—it&apos;s professional grade and 100% free.</p>
+                  <p>Searching for a way to remove background from image for free? Our AI automatically detects edges and removes backgrounds in one click. No masking or manual selection required—it&apos;s professional grade and 100% free.</p>
                 </div>
                 <div className="space-y-4">
                   <h4 className="text-xl font-bold text-foreground">Free Image Compressor</h4>
-                  <p>Website speed matters for SEO. Use our **free online image compressor** to reduce file size by up to 90% without losing visible quality. Perfect for WebP, JPG, and PNG formats.</p>
+                  <p>Website speed matters for SEO. Use our free online image compressor to reduce file size by up to 90% without losing visible quality. Perfect for WebP, JPG, and PNG formats.</p>
                 </div>
               </div>
             </div>
@@ -209,17 +209,17 @@ export default function Home() {
                 <div className="text-center p-8 bg-primary/5 rounded-[3rem]">
                   <Briefcase className="mx-auto h-12 w-12 text-primary mb-6" />
                   <h4 className="font-bold text-foreground mb-4">Free Resume Maker 2025</h4>
-                  <p className="text-sm">Land your dream job with our **free ATS-friendly resume builder**. Choose from templates that are proven to bypass recruitment filters.</p>
+                  <p className="text-sm">Land your dream job with our free ATS-friendly resume builder. Choose from templates that are proven to bypass recruitment filters.</p>
                 </div>
                 <div className="text-center p-8 bg-primary/5 rounded-[3rem]">
                   <Search className="mx-auto h-12 w-12 text-primary mb-6" />
                   <h4 className="font-bold text-foreground mb-4">Free Age Calculator</h4>
-                  <p className="text-sm">A simple, fast **free online age calculator**. Find out your exact age in years, months, and days for job applications or personal milestones.</p>
+                  <p className="text-sm">A simple, fast free online age calculator. Find out your exact age in years, months, and days for job applications or personal milestones.</p>
                 </div>
                 <div className="text-center p-8 bg-primary/5 rounded-[3rem]">
                   <Languages className="mx-auto h-12 w-12 text-primary mb-6" />
                   <h4 className="font-bold text-foreground mb-4">Free Document Editor</h4>
-                  <p className="text-sm">Edit your text, format your documents, and prepare them for export with our distraction-free **free online editor** interface.</p>
+                  <p className="text-sm">Edit your text, format your documents, and prepare them for export with our distraction-free free online editor interface.</p>
                 </div>
               </div>
             </div>
@@ -228,10 +228,10 @@ export default function Home() {
             <div className="space-y-8">
               <h3 className="text-3xl font-black text-foreground">The TaskGuru Mission: Why We Stay Free</h3>
               <p>
-                The internet was built to be open and helpful. Unfortunately, &quot;subscription fatigue&quot; has made it harder for people to access basic digital tools. At TaskGuru (Toolify), our mission is to provide an **unrestricted free productivity hub**. 
+                The internet was built to be open and helpful. Unfortunately, &quot;subscription fatigue&quot; has made it harder for people to access basic digital tools. At TaskGuru (Toolify), our mission is to provide an unrestricted free productivity hub. 
               </p>
               <p>
-                We maintain a <strong>Zero-Storage Architecture</strong>. This means that unlike many other &quot;free&quot; sites, we never store your data to sell to advertisers or train large models without your consent. When you use our **Free PDF to Word converter** or **Free Background Remover**, your data is processed and instantly purged from our servers. 
+                We maintain a <strong>Zero-Storage Architecture</strong>. This means that unlike many other &quot;free&quot; sites, we never store your data to sell to advertisers or train large models without your consent. When you use our Free PDF to Word converter or Free Background Remover, your data is processed and instantly purged from our servers. 
               </p>
             </div>
 
@@ -256,7 +256,7 @@ export default function Home() {
             <footer className="pt-20 text-center">
               <h3 className="text-4xl font-black text-foreground mb-6">Built for Creators, Students, and Professionals</h3>
               <p className="max-w-4xl mx-auto italic text-lg">
-                TaskGuru is more than just a toolset; it is a movement to keep the web functional for everyone. We are constantly expanding our library to include the latest **free AI modules** and **PDF processing** updates. Thank you for choosing TaskGuru as your primary digital workspace.
+                TaskGuru is more than just a toolset; it is a movement to keep the web functional for everyone. We are constantly expanding our library to include the latest free AI modules and PDF processing updates. Thank you for choosing TaskGuru as your primary digital workspace.
               </p>
               <div className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-8 opacity-40 font-black text-xl tracking-tighter uppercase italic">
                 <span>Fast</span>
