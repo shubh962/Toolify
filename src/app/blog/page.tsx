@@ -8,11 +8,20 @@ import Script from 'next/script';
 const posts = [
   // 🌟 NEWEST POST (SEO Optimized & Long Form - 2026 Guide) 🌟
   {
-    slug: 'best-free-online-tools-2026',
+    slug: '10-best-free-online-tools-2026', // Updated to match your folder path
     title: '10 Best Free Online Tools to Simplify Your Digital Tasks in 2026',
     summary:
       'The definitive 2026 master guide to the anti-subscription revolution. Discover institutional-grade free AI tools for PDF editing, neural text paraphrasing, and lossless image optimization with zero monthly fees.',
     date: 'December 25, 2025',
+    category: 'Expert Guide',
+  },
+  
+  {
+    slug: 'best-free-online-tools-2026',
+    title: '10 Best Free Online Tools to Simplify Your Digital Tasks in 2026',
+    summary:
+      'The definitive 2026 master guide to the anti-subscription revolution. Discover institutional-grade free AI tools for PDF editing, neural text paraphrasing, and lossless image optimization with zero monthly fees.',
+    date: 'December 23, 2025',
     category: 'Expert Guide',
   },
 
