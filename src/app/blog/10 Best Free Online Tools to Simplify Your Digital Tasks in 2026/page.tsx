@@ -3,14 +3,18 @@ import Link from "next/link";
 import { 
   Zap, ShieldCheck, FileText, ImageIcon, Cpu, 
   Search, Rocket, Lock, Globe, MessageSquare, 
-  BarChart3, Clock, CheckCircle2, AlertTriangle 
+  BarChart3, Clock, CheckCircle2, AlertTriangle, ArrowRight 
 } from "lucide-react";
+// ✅ FIXED: Added Button import which was missing
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
 
 export const metadata: Metadata = {
   title: "The Ultimate Guide to Free Online Productivity Tools (2026 Edition)",
   description: "Ditch expensive monthly subscriptions. Explore 50+ free online AI tools for PDF, images, and content creation. 100% private and no sign-up required.",
   alternates: {
-    canonical: "https://www.taskguru.online/blog/10 Best Free Online Tools to Simplify Your Digital Tasks in 2026",
+    // ✅ FIXED: Encoded the URL. Spaces in URLs cause deployment/SEO errors.
+    canonical: "https://www.taskguru.online/blog/10-best-free-online-tools-2026",
   },
   keywords: "free online tools 2026, best free ai tools, online pdf editor no sign up, free image compressor webp, background remover ai free, best free productivity software 2026, taskguru toolkit",
 };
@@ -50,7 +54,7 @@ export default function MassiveSEOBlog() {
         </div>
       </header>
 
-      {/* 📊 TABLE OF CONTENTS (Crucial for Long Form) */}
+      {/* 📊 TABLE OF CONTENTS */}
       <nav className="mb-20 p-8 bg-gray-50 dark:bg-gray-900 rounded-[3rem] border-2 border-dashed border-gray-200 dark:border-gray-800">
         <h2 className="text-2xl font-black mb-6 flex items-center gap-2 underline decoration-blue-500 underline-offset-8">
           <Search className="w-6 h-6" /> Quick Navigation
