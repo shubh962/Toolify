@@ -6,6 +6,7 @@ import {
   Minimize,
   ScanText,
   PenSquare,
+  CalendarDays, // Added for Age Calculator
 } from 'lucide-react';
 
 export interface Tool {
@@ -19,6 +20,7 @@ export interface Tool {
 }
 
 export const tools: Tool[] = [
+  // ... your existing tools
   {
     slug: 'background-remover',
     title: 'AI Background Remover',
@@ -95,6 +97,17 @@ export const tools: Tool[] = [
     isGenAI: false,
     isPlaceholder: false,
     imageUrl: '/tool-previews/resume-maker.png',
+  },
+  // --- NEW TOOL ADDED BELOW ---
+  {
+    slug: 'age-calculator',
+    title: 'Online Age Calculator',
+    description:
+      'Calculate your exact age in years, months, and days based on your date of birth. Find out the remaining time until your next birthday and discover interesting life milestones.',
+    icon: CalendarDays,
+    isGenAI: false,
+    isPlaceholder: false,
+    imageUrl: '/tool-previews/age-calculator.png',
   },
 ];
 
