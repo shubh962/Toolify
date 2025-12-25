@@ -11,6 +11,7 @@ import ImageToPdf from '@/components/tools/ImageToPdf';
 import PlaceholderTool from '@/components/tools/PlaceholderTool';
 import MoreTools from '@/components/MoreTools';
 import ResumeMakerFlow from '@/components/tools/ResumeMakerFlow'; // ✅ IMPORTANT
+import AgeCalculator from '@/components/tools/AgeCalculator';
 
 export async function generateStaticParams() {
   return tools.map((tool) => ({
@@ -46,7 +47,7 @@ const toolComponentMap: { [key: string]: React.ComponentType<any> } = {
   "merge-pdf": MergePdf,
   "image-compressor": ImageCompressor,
   "image-to-pdf": ImageToPdf,
-  // ❌ resume-maker yahan nahi hoga
+  "age-calculator": AgeCalculator,
 };
 
 export default function ToolPage({ params }: { params: { slug: string } }) {
