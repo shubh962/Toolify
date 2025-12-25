@@ -1,23 +1,21 @@
-// src/app/blog/page.tsx
-
 'use client';
 
 import Link from 'next/link';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, Sparkles, BookOpen } from 'lucide-react';
 import Script from 'next/script';
 
 // ✅ 1. ALL BLOG POSTS ARE DEFINED HERE (Updated with the new SEO Post)
 const posts = [
-  // 🌟 NEWEST POST (SEO Optimized & Long Form) 🌟
+  // 🌟 NEWEST POST (SEO Optimized & Long Form - 2026 Guide) 🌟
   {
     slug: 'best-free-online-tools-2026',
     title: '10 Best Free Online Tools to Simplify Your Digital Tasks in 2026',
     summary:
-      'Stop paying for expensive software subscriptions. Discover how TaskGuru’s AI-powered tools for PDF editing, image processing, and content creation can handle your daily tasks for free with zero sign-ups.',
-    date: 'December 23, 2025',
+      'The definitive 2026 master guide to the anti-subscription revolution. Discover institutional-grade free AI tools for PDF editing, neural text paraphrasing, and lossless image optimization with zero monthly fees.',
+    date: 'December 25, 2025',
+    category: 'Expert Guide',
   },
 
-  // 🌟 Previous Posts
   {
     slug: 'free-ai-tools-that-replace-paid-software-2025',
     title: 'Free AI Tools That Can Replace Paid Software in 2025 (No Subscription Needed)',
@@ -107,25 +105,25 @@ const faqSchema = {
     },
     {
       '@type': 'Question',
+      name: 'Are TaskGuru AI tools really free?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Yes. TaskGuru provides high-quality AI tools like PDF converters, background removers, and paraphrasers without requiring logins, subscriptions, or hidden fees.',
+      },
+    },
+    {
+      '@type': 'Question',
       name: 'Are TaskGuru blog articles SEO friendly?',
       acceptedAnswer: {
         '@type': 'Answer',
         text: 'Yes. All TaskGuru blogs are written with long-form content, expert insights, and internal linking to provide maximum value to users and search engines.',
       },
     },
-    {
-      '@type': 'Question',
-      name: 'Are TaskGuru AI tools really free?',
-      acceptedAnswer: {
-        '@type': 'Answer',
-        text: 'Yes. TaskGuru provides high-quality AI tools without requiring logins, subscriptions, or hidden fees.',
-      },
-    },
   ],
 };
 
 export default function BlogPage() {
-  // ✅ Update featured post to the newest one
+  // ✅ Update featured post to the newest 2026 Master Guide
   const featuredPostSlug = 'best-free-online-tools-2026';
 
   return (
@@ -138,11 +136,15 @@ export default function BlogPage() {
 
       <main className="max-w-4xl mx-auto px-4 py-16">
         <header className="text-center mb-12">
-          <h1 className="text-4xl font-extrabold mb-3">
-            TaskGuru Insights & Guides (ज्ञान)
+          <div className="inline-flex items-center gap-2 px-3 py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-600 rounded-full text-xs font-black uppercase mb-4">
+            <BookOpen className="w-4 h-4" /> TaskGuru Knowledge Hub
+          </div>
+          <h1 className="text-4xl md:text-5xl font-black mb-4 tracking-tighter">
+            Insights & Productivity Guides (ज्ञान)
           </h1>
-          <p className="text-lg text-muted-foreground">
-            Practical AI productivity guides, free tool reviews, and honest tech comparisons for India and the World.
+          <p className="text-lg text-muted-foreground font-medium max-w-2xl mx-auto">
+            Deep-dive AI reviews, 2026 productivity blueprints, and 
+            practical guides to help you master the &quot;Anti-Subscription&quot; workflow.
           </p>
         </header>
 
@@ -151,48 +153,53 @@ export default function BlogPage() {
           {posts.map((post) => (
             <article
               key={post.slug}
-              className={`p-6 border rounded-xl shadow-md hover:shadow-lg transition ${
+              className={`group p-8 border rounded-[2rem] transition-all duration-300 ${
                 post.slug === featuredPostSlug
-                  ? 'border-2 border-blue-600 ring-2 ring-blue-600/20 bg-blue-50/30'
-                  : 'bg-card'
+                  ? 'border-2 border-blue-600 ring-4 ring-blue-600/10 bg-blue-50/30 dark:bg-blue-900/5'
+                  : 'bg-card hover:border-blue-200 dark:hover:border-blue-900 shadow-md hover:shadow-xl'
               }`}
             >
-              <Link href={`/blog/${post.slug}`} className="group block">
-                <h2 className="text-2xl font-bold group-hover:text-blue-600 transition-colors">
-                  {post.title}
+              <Link href={`/blog/${post.slug}`} className="block">
+                <div className="flex justify-between items-start mb-4">
+                  <p className="text-xs font-black text-blue-600 uppercase tracking-widest">{post.date}</p>
                   {post.slug === featuredPostSlug && (
-                    <span className="ml-3 inline-flex items-center px-3 py-1 text-xs font-semibold rounded-full bg-blue-600 text-white animate-pulse">
-                      FEATURED GUIDE ⭐
+                    <span className="flex items-center gap-1 px-3 py-1 text-[10px] font-black rounded-full bg-blue-600 text-white animate-pulse">
+                      <Sparkles className="w-3 h-3" /> FEATURED MASTER GUIDE
                     </span>
                   )}
+                </div>
+
+                <h2 className="text-2xl md:text-3xl font-black group-hover:text-blue-600 transition-colors leading-tight mb-4">
+                  {post.title}
                 </h2>
 
-                <p className="mt-2 text-sm text-muted-foreground font-medium">{post.date}</p>
-                <p className="mt-4 text-gray-700 dark:text-gray-300 leading-relaxed italic">
+                <p className="text-gray-600 dark:text-gray-400 leading-relaxed italic font-medium">
                   &quot;{post.summary}&quot;
                 </p>
 
-                <p className="mt-4 inline-flex items-center text-blue-600 font-bold">
-                  Read Full In-Depth Article
-                  <ArrowRight className="w-4 h-4 ml-2 transition-transform group-hover:translate-x-1" />
-                </p>
+                <div className="mt-8 flex items-center text-sm font-black text-blue-600 uppercase tracking-widest group-hover:translate-x-2 transition-transform">
+                  Read Full Authority Guide
+                  <ArrowRight className="w-4 h-4 ml-2" />
+                </div>
               </Link>
             </article>
           ))}
         </div>
 
         {/* FAQ SECTION */}
-        <section className="mt-20 pt-10 border-t border-gray-200">
-          <h2 className="text-3xl font-bold mb-8 text-center text-gray-800">
+        <section className="mt-24 pt-16 border-t border-gray-100 dark:border-gray-800">
+          <h2 className="text-3xl font-black mb-10 text-center tracking-tight">
             Common Questions about TaskGuru Guides
           </h2>
 
-          <div className="grid gap-6 md:grid-cols-1">
+          <div className="grid gap-6">
             {faqSchema.mainEntity.map((item, index) => (
-              <div key={index} className="bg-gray-50 p-6 rounded-xl border border-gray-100 shadow-sm">
-                <h3 className="font-bold text-lg text-gray-900 mb-2">Q: {item.name}</h3>
-                <p className="text-gray-700 leading-relaxed">
-                  A: {item.acceptedAnswer.text}
+              <div key={index} className="bg-gray-50 dark:bg-gray-900 p-8 rounded-[2rem] border border-gray-100 dark:border-gray-800">
+                <h3 className="font-black text-lg text-gray-900 dark:text-white mb-3 flex gap-2">
+                   <span className="text-blue-600">Q:</span> {item.name}
+                </h3>
+                <p className="text-gray-600 dark:text-gray-400 leading-relaxed font-medium">
+                  <span className="font-bold text-gray-400">A:</span> {item.acceptedAnswer.text}
                 </p>
               </div>
             ))}
@@ -202,4 +209,3 @@ export default function BlogPage() {
     </>
   );
 }
-
