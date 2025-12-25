@@ -1,8 +1,8 @@
 "use client";
 import React from 'react';
-import { Share2, MessageCircle, Link2 } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion'; // ✅ Yahan motion miss ho raha tha
+import { Share2, MessageCircle } from 'lucide-react';
 import { usePathname } from 'next/navigation';
-import { toast } from "sonner"; // Agar sonner use kar rahe ho, varna window.alert
 
 export default function GlobalShare() {
   const pathname = usePathname();
@@ -24,7 +24,6 @@ export default function GlobalShare() {
         console.log("Error sharing", err);
       }
     } else {
-      // Fallback: Link copy karna
       navigator.clipboard.writeText(currentUrl);
       alert("Link copied to clipboard!");
     }
@@ -47,7 +46,7 @@ export default function GlobalShare() {
         <MessageCircle className="w-6 h-6" />
       </motion.button>
       
-      {/* Native Share / Copy Button */}
+      {/* Native Share Button */}
       <motion.button 
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.9 }}
@@ -59,3 +58,4 @@ export default function GlobalShare() {
     </div>
   );
 }
+
