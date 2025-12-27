@@ -26,8 +26,10 @@ export default function MetalWeightCalculatorPage() {
         length, and get instant results.
       </p>
 
-      {/* 🔧 TOOL COMPONENTS */}
-      <MetalWeightCalculator />
+      {/* ✅ TOOL WRAPPER — THIS FIXES UI */}
+      <div className="tool-page">
+        <MetalWeightCalculator />
+      </div>
 
       <section>
         <h2>How Metal Weight Is Calculated</h2>
@@ -63,3 +65,4 @@ export default function MetalWeightCalculatorPage() {
     </main>
   );
 }
+
