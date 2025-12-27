@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useRef } from 'react';
-import Head from 'next/head'; 
+import Head from 'next/head';
 import Image from 'next/image';
 import Script from 'next/script';
 import Link from 'next/link';
@@ -95,8 +95,6 @@ export default function ImageCompressor() {
 
       ctx.drawImage(img, 0, 0);
       const output = canvas.toDataURL('image/jpeg', quality / 100);
-      
-      // Calculate actual size from base64 string
       const finalSize = Math.round((output.length - 'data:image/jpeg;base64,'.length) * 3 / 4);
 
       setCompressedImage(output);
@@ -117,7 +115,7 @@ export default function ImageCompressor() {
     if (!compressedImage || !originalFile) return;
     const link = document.createElement('a');
     link.href = compressedImage;
-    link.download = `compressed-${originalFile.name}`;
+    link.download = `compressed-taskguru-${originalFile.name}`;
     link.click();
   };
 
@@ -148,19 +146,20 @@ export default function ImageCompressor() {
   };
 
   const hashtags = [
-    'FREEIMAGECOMPRESSOR', 'COMPRESSIMAGEONLINE', 'REDUCEIMAGESIZE', 'IMAGECOMPRESSOR', 'COMPRESSJPG', 'COMPRESSPNG', 'WEBPOPTIMIZER', 'NOQUALITYLOSS', 'FASTWEBSITE', 'EMAILATTACHMENTS',
+    'FREEIMAGECOMPRESSOR', 'COMPRESSIMAGEONLINE', 'REDUCEIMAGESIZE', 'IMAGECOMPRESSOR',
+    'COMPRESSJPG', 'COMPRESSPNG', 'WEBPOPTIMIZER', 'NOQUALITYLOSS', 'FASTWEBSITE', 'EMAILATTACHMENTS',
   ];
 
   return (
     <>
       <Head>
         <title>Free Online Image Compressor | Reduce Image Size Without Losing Quality - TaskGuru</title>
-        <meta name="description" content="Easily compress JPG, PNG, and WebP images. Make files smaller for faster website loading and easier email sharing. 100% free with no signup required." />
-        <meta name="keywords" content="image compressor, reduce image size, compress jpg, compress png, online photo optimizer" />
+        <meta name="description" content="Easily compress JPG, PNG, and WebP images. Reduce file size for faster website loading and easier email sharing. 100% free, private and no signup required." />
+        <meta name="keywords" content="image compressor, reduce image size, compress jpg, compress png, online photo optimizer, taskguru" />
         <link rel="canonical" href="https://taskguru.online/tools/image-compressor" />
       </Head>
 
-      {/* FIXED ADSENSE SCRIPT: Hydration warning fix karne ke liye strategy use ki hai */}
+      {/* FIXED ADSENSE: Strategy afterInteractive stops console warnings */}
       <Script 
         async 
         src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4272213374622185" 
@@ -186,10 +185,10 @@ export default function ImageCompressor() {
             Easily compress JPG, PNG, and WebP images to make them smaller for faster website loading, quicker email sending, better social media uploads, and more phone storage. 100% free, no signup, no watermarks – everything happens instantly in your browser!
           </p>
           <div className="flex flex-wrap justify-center gap-6 text-sm">
-            <div className="flex items-center gap-2"><CheckCircle2 className="text-green-500" /> No quality loss</div>
-            <div className="flex items-center gap-2"><CheckCircle2 className="text-green-500" /> Completely private</div>
-            <div className="flex items-center gap-2"><CheckCircle2 className="text-green-500" /> Unlimited use</div>
-            <div className="flex items-center gap-2"><CheckCircle2 className="text-green-500" /> Supports JPG, PNG, WebP</div>
+            <div className="flex items-center gap-2"><CheckCircle2 className="text-green-500 w-5 h-5" /> No quality loss</div>
+            <div className="flex items-center gap-2"><CheckCircle2 className="text-green-500 w-5 h-5" /> Completely private</div>
+            <div className="flex items-center gap-2"><CheckCircle2 className="text-green-500 w-5 h-5" /> Unlimited use</div>
+            <div className="flex items-center gap-2"><CheckCircle2 className="text-green-500 w-5 h-5" /> Supports JPG, PNG, WebP</div>
           </div>
         </section>
 
@@ -219,7 +218,7 @@ export default function ImageCompressor() {
                   <div className="space-y-4 text-center">
                     <Label className="text-2xl font-black">Original Image</Label>
                     <div className="relative aspect-video rounded-2xl overflow-hidden border-4 border-gray-300 bg-muted shadow-lg">
-                      <Image src={originalImage} alt="Original image" fill className="object-contain" unoptimized />
+                      <Image src={originalImage} alt="Original" fill className="object-contain" unoptimized />
                       <div className="absolute bottom-4 left-1/2 -translate-x-1/2 bg-black/80 text-white px-6 py-2 rounded-full text-lg font-bold">
                         {formatBytes(originalFile?.size ?? 0)}
                       </div>
@@ -235,7 +234,7 @@ export default function ImageCompressor() {
                         </div>
                       ) : compressedImage ? (
                         <>
-                          <Image src={compressedImage} alt="Compressed image" fill className="object-contain" unoptimized />
+                          <Image src={compressedImage} alt="Compressed" fill className="object-contain" unoptimized />
                           <div className="absolute bottom-4 left-1/2 -translate-x-1/2 bg-primary text-white px-6 py-2 rounded-full text-lg font-bold shadow-lg">
                             {formatBytes(compressedSize)}
                           </div>
@@ -260,9 +259,7 @@ export default function ImageCompressor() {
                       <span className="font-black text-primary">{quality}% Quality</span>
                     </div>
                     <Slider
-                      min={10}
-                      max={100}
-                      step={5}
+                      min={10} max={100} step={5}
                       value={[quality]}
                       onValueChange={v => setQuality(v[0])}
                       className="py-4"
@@ -295,12 +292,12 @@ export default function ImageCompressor() {
           )}
         </Card>
 
-        {/* ARTICLE SECTION - Simple & User-Friendly */}
+        {/* --- FULL TEXT ARTICLE SECTION --- */}
         <article className="grid grid-cols-1 lg:grid-cols-3 gap-16">
           <div className="lg:col-span-2 space-y-12 leading-relaxed text-lg">
             
             <section className="space-y-6">
-              <h2 className="text-3xl font-black">Why Should You Compress Your Images?</h2>
+              <h2 className="text-3xl font-black text-gray-900 dark:text-white">Why Should You Compress Your Images?</h2>
               <p>
                 Big image files make everything slower: your website takes longer to load, emails won't send, social media uploads fail, and your phone runs out of storage quickly.
               </p>
@@ -317,47 +314,47 @@ export default function ImageCompressor() {
                 <div className="flex flex-col items-center text-center space-y-3">
                   <Smartphone className="w-16 h-16 text-primary" />
                   <h4 className="text-xl font-bold">Phone Users</h4>
-                  <p>Free up storage and share photos faster on WhatsApp, Instagram, etc.</p>
+                  <p>Free up storage and share photos faster on WhatsApp, Instagram, and more.</p>
                 </div>
                 <div className="flex flex-col items-center text-center space-y-3">
                   <Camera className="w-16 h-16 text-primary" />
                   <h4 className="text-xl font-bold">Bloggers & Photographers</h4>
-                  <p>Upload high-quality images quickly without waiting forever.</p>
+                  <p>Upload high-quality images quickly without waiting forever for heavy files.</p>
                 </div>
                 <div className="flex flex-col items-center text-center space-y-3">
                   <Mail className="w-16 h-16 text-primary" />
                   <h4 className="text-xl font-bold">Email Attachments</h4>
-                  <p>Send multiple photos easily – no more "file too large" errors.</p>
+                  <p>Send multiple photos easily – no more "file too large" errors in your inbox.</p>
                 </div>
                 <div className="flex flex-col items-center text-center space-y-3">
                   <Users className="w-16 h-16 text-primary" />
                   <h4 className="text-xl font-bold">Website Owners</h4>
-                  <p>Make your site load instantly and rank higher on Google.</p>
+                  <p>Make your site load instantly, improve UX, and rank higher on Google search results.</p>
                 </div>
               </div>
             </section>
 
             <section className="space-y-6">
-              <h2 className="text-3xl font-black flex items-center gap-4">
+              <h2 className="text-3xl font-black flex items-center gap-4 text-gray-900 dark:text-white">
                 <ShieldCheck className="text-primary w-10 h-10" /> 100% Safe & Private
               </h2>
               <p>
                 Your images never leave your device! All compression happens right in your browser – no uploads to servers, no storage, nothing saved. As soon as you close the page, everything is gone.
               </p>
               <p>
-                No signup, no email, no tracking – just fast, free compression whenever you need it.
+                No signup, no email, no tracking – just fast, free compression whenever you need it. TaskGuru prioritizes your data privacy above all else.
               </p>
             </section>
 
             <section className="space-y-6">
-              <h2 className="text-3xl font-black">How to Use This Free Image Compressor</h2>
+              <h2 className="text-3xl font-black text-gray-900 dark:text-white">How to Use This Free Image Compressor</h2>
               <ol className="list-decimal list-inside space-y-4 text-lg">
-                <li>Click "Choose Image" or drag your photo here</li>
-                <li>Adjust the quality slider if you want (80% is perfect for most people)</li>
-                <li>Click "Compress Image Now"</li>
-                <li>Download your smaller, optimized image!</li>
+                <li>Click <strong>"Choose Image"</strong> or drag your photo into the upload area.</li>
+                <li>Adjust the <strong>quality slider</strong> if you want (80% is recommended for best results).</li>
+                <li>Click <strong>"Compress Image Now"</strong> and wait a split second.</li>
+                <li>Review the file size reduction and click <strong>"Download Compressed Image"</strong>.</li>
               </ol>
-              <p>That's it – simple, fast, and completely free!</p>
+              <p>That's it – simple, fast, and completely free forever!</p>
             </section>
           </div>
 
@@ -366,29 +363,28 @@ export default function ImageCompressor() {
               <h4 className="text-2xl font-black mb-8 text-center">Quick Tips</h4>
               <ul className="space-y-6">
                 <li className="flex gap-4">
-                   <div className="bg-primary text-white w-8 h-8 rounded-full flex items-center justify-center font-bold">1</div>
-                   <p>Use 75-85% quality for the best size vs looks balance</p>
+                   <div className="bg-primary text-white w-8 h-8 rounded-full flex items-center justify-center font-bold flex-shrink-0">1</div>
+                   <p>Use 75-85% quality for the best size vs looks balance.</p>
                 </li>
                 <li className="flex gap-4">
-                   <div className="bg-primary text-white w-8 h-8 rounded-full flex items-center justify-center font-bold">2</div>
-                   <p>Compress before uploading to social media for faster posts</p>
+                   <div className="bg-primary text-white w-8 h-8 rounded-full flex items-center justify-center font-bold flex-shrink-0">2</div>
+                   <p>Compress before uploading to social media for lightning-fast posts.</p>
                 </li>
                 <li className="flex gap-4">
-                   <div className="bg-primary text-white w-8 h-8 rounded-full flex items-center justify-center font-bold">3</div>
-                   <p>Smaller images = faster emails and less data usage</p>
+                   <div className="bg-primary text-white w-8 h-8 rounded-full flex items-center justify-center font-bold flex-shrink-0">3</div>
+                   <p>Smaller images mean faster emails and less mobile data usage.</p>
                 </li>
                 <li className="flex gap-4">
-                   <div className="bg-primary text-white w-8 h-8 rounded-full flex items-center justify-center font-bold">4</div>
-                   <p>Works great for product photos on online stores</p>
+                   <div className="bg-primary text-white w-8 h-8 rounded-full flex items-center justify-center font-bold flex-shrink-0">4</div>
+                   <p>Essential for product photos on Shopify, Amazon, and online stores.</p>
                 </li>
               </ul>
               <div className="mt-12 pt-8 border-t border-gray-300 dark:border-gray-700">
                 <h5 className="font-bold text-xl mb-6 text-center">More Free Tools</h5>
                 <nav className="flex flex-col gap-4">
                   <Link href="/tools/background-remover" className="text-primary font-bold text-lg hover:underline">→ AI Background Remover</Link>
-                  <Link href="/tools/pdf-to-word" className="text-primary font-bold text-lg hover:underline">→ PDF to Word</Link>
                   <Link href="/tools/image-to-text" className="text-primary font-bold text-lg hover:underline">→ Photo to Text (OCR)</Link>
-                  <Link href="/tools/qr-code-generator" className="text-primary font-bold text-lg hover:underline">→ QR Code Maker</Link>
+                  <Link href="/tools/pdf-to-word" className="text-primary font-bold text-lg hover:underline">→ PDF to Word Converter</Link>
                 </nav>
               </div>
             </div>
@@ -400,7 +396,7 @@ export default function ImageCompressor() {
           {hashtags.map(tag => (
             <span
               key={tag}
-              className="text-sm md:text-base font-black text-primary/70 bg-primary/5 px-8 py-3 rounded-full border border-primary/20 tracking-widest hover:bg-primary/10 transition-all uppercase"
+              className="text-sm md:text-base font-black text-primary/70 bg-primary/5 px-8 py-3 rounded-full border border-primary/20 tracking-widest hover:bg-primary/10 transition-all uppercase cursor-default"
             >
               #{tag}
             </span>
