@@ -12,6 +12,7 @@ const blogSlugs = [
   "free-ai-tools-that-replace-paid-software-2025",
   "best-free-online-tools-2026",
   "10-best-free-online-tools-2026",
+  "best-utility-tools-2025-26",
 ];
 
 const toolSlugs = [
