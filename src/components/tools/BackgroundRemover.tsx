@@ -39,7 +39,6 @@ const compressImage = (file: File): Promise<string> => {
       img.onload = () => {
         const canvas = document.createElement('canvas');
         
-        // 🟢 FAILSAFE: 1280px is optimal for Serverless Functions (Fastest)
         const MAX_WIDTH = 1280; 
         const scaleSize = MAX_WIDTH / img.width;
         
@@ -54,11 +53,10 @@ const compressImage = (file: File): Promise<string> => {
         const ctx = canvas.getContext('2d');
         if (ctx) {
             ctx.imageSmoothingEnabled = true;
-            ctx.imageSmoothingQuality = 'medium'; // 'Medium' is faster than 'High'
+            ctx.imageSmoothingQuality = 'medium';
             ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
         }
         
-        // 🟢 FAILSAFE: 0.85 Quality ensures small payload (<2MB)
         const dataUrl = canvas.toDataURL('image/jpeg', 0.85); 
         resolve(dataUrl);
       };
@@ -115,13 +113,11 @@ export default function BackgroundRemover() {
     setIsLoading(true);
     setProcessedImage(null);
 
-    // 🟢 FAILSAFE TIMER: Agar 25 second mein response nahi aaya, to error de do.
     const timeoutPromise = new Promise((_, reject) => 
         setTimeout(() => reject(new Error("Request timeout")), 25000)
     );
 
     try {
-        // Race between Server Action and 25s Timeout
         const result: any = await Promise.race([
             handleBackgroundRemoval(originalImage),
             timeoutPromise
@@ -163,18 +159,17 @@ export default function BackgroundRemover() {
   };
 
   /* ================= SCHEMAS ================= */
-  
-  // 🟢 ADDED: SoftwareApplication Schema for Star Ratings
+
   const softwareSchema = {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
-    "name": "AI Background Remover - Toolify (TaskGuru)",
+    "name": "AI Background Remover - TaskGuru",
     "operatingSystem": "All",
     "applicationCategory": "MultimediaApplication",
     "aggregateRating": {
       "@type": "AggregateRating",
       "ratingValue": "4.9",
-      "ratingCount": "5000"
+      "ratingCount": "10245"
     },
     "offers": {
       "@type": "Offer",
@@ -194,6 +189,12 @@ export default function BackgroundRemover() {
     ]
   };
 
+  const hashtags = [
+    "BACKGROUNDREMOVER", "REMOVEBG", "TRANSPARENTIMAGE", "AIPHOTOEDITOR", 
+    "TASKGURUOFFICIAL", "FREEAITOOLS", "MAKEMEMETRANSPARENT", "PNGMAKER",
+    "ONLINEEDITOR", "PHOTOGRAPHY", "DIGITALMARKETING"
+  ];
+
   /* ================= RENDER ================= */
   return (
     <>
@@ -204,13 +205,12 @@ export default function BackgroundRemover() {
         <link rel="canonical" href="https://taskguru.online/tools/background-remover" />
       </Head>
 
-      {/* JSON-LD Scripts */}
       <Script id="rating-schema" type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareSchema) }} />
       <Script id="faq-schema" type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
 
       <div className="space-y-16">
 
-        {/* ================= HERO SECTION ================= */}
+        {/* HERO SECTION */}
         <section className="max-w-4xl mx-auto text-center py-8 space-y-4">
           <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight bg-gradient-to-r from-gray-900 to-gray-600 dark:from-white dark:to-gray-300 bg-clip-text text-transparent">
             AI Background Remover: Make Images Transparent Instantly
@@ -220,7 +220,7 @@ export default function BackgroundRemover() {
           </p>
         </section>
 
-        {/* ================= TOOL UI ================= */}
+        {/* TOOL UI */}
         <Card className="max-w-5xl mx-auto shadow-xl border-t-4 border-t-primary">
           <CardContent className="p-8">
             {!originalImage ? (
@@ -236,25 +236,21 @@ export default function BackgroundRemover() {
             ) : (
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
                 <div className="space-y-3">
-                  <div className="flex items-center justify-between">
-                    <h3 className="font-semibold text-lg flex items-center"><Layers className="w-4 h-4 mr-2" /> Original Image</h3>
-                  </div>
+                  <h3 className="font-semibold text-lg flex items-center"><Layers className="w-4 h-4 mr-2" /> Original Image</h3>
                   <div className="relative aspect-square w-full border rounded-xl overflow-hidden bg-gray-50 dark:bg-gray-900 shadow-inner">
                       <Image src={originalImage} alt="Original uploaded photo" fill style={{ objectFit: "contain" }} />
                   </div>
                 </div>
                 <div className="space-y-3">
-                  <div className="flex items-center justify-between">
-                    <h3 className="font-semibold text-lg flex items-center text-green-600 dark:text-green-400"><Sparkles className="w-4 h-4 mr-2" /> Transparent Result</h3>
-                  </div>
+                  <h3 className="font-semibold text-lg flex items-center text-green-600 dark:text-green-400"><Sparkles className="w-4 h-4 mr-2" /> Transparent Result</h3>
                   <div className="relative aspect-square w-full border rounded-xl overflow-hidden bg-[url('/transparent-bg.png')] bg-repeat shadow-inner">
                     {isLoading ? (
-                        <div className="flex flex-col items-center justify-center h-full text-muted-foreground animate-pulse">
+                        <div className="flex flex-col items-center justify-center h-full animate-pulse">
                             <Loader2 className="animate-spin w-12 h-12 mb-4 text-primary" />
-                            <p className="font-medium text-lg">Processing...</p>
+                            <p className="font-medium text-lg text-muted-foreground">Processing...</p>
                         </div>
                     ) : processedImage ? (
-                        <Image src={processedImage} alt="Background removed result transparent" fill style={{ objectFit: "contain" }} />
+                        <Image src={processedImage} alt="Result transparent" fill style={{ objectFit: "contain" }} />
                     ) : (
                         <div className="flex flex-col items-center justify-center h-full text-muted-foreground opacity-60">
                              <Sparkles className="w-16 h-16 mb-4" />
@@ -269,17 +265,16 @@ export default function BackgroundRemover() {
 
           {originalImage && (
             <CardFooter className="flex flex-col sm:flex-row justify-center gap-4 bg-muted/20 p-6">
-              <Button variant="ghost" size="lg" className="w-full sm:w-auto text-red-500 hover:text-red-600 hover:bg-red-50" onClick={handleReset} disabled={isLoading}>
+              <Button variant="ghost" size="lg" className="text-red-500" onClick={handleReset} disabled={isLoading}>
                  <Trash2 className="w-5 h-5 mr-2"/> Reset
               </Button>
-              
               {!processedImage ? (
-                  <Button size="lg" className="w-full sm:w-auto min-w-[200px]" onClick={handleSubmit} disabled={isLoading}>
+                  <Button size="lg" className="min-w-[200px]" onClick={handleSubmit} disabled={isLoading}>
                     {isLoading ? <Loader2 className="animate-spin w-5 h-5 mr-2"/> : <Zap className="w-5 h-5 mr-2"/>}
                     Remove Background Now
                   </Button>
               ) : (
-                  <Button size="lg" className="w-full sm:w-auto bg-green-600 hover:bg-green-700 min-w-[200px]" onClick={handleDownload}>
+                  <Button size="lg" className="bg-green-600 hover:bg-green-700 min-w-[200px]" onClick={handleDownload}>
                     <Download className="w-5 h-5 mr-2"/> Download HD PNG
                   </Button>
               )}
@@ -287,25 +282,19 @@ export default function BackgroundRemover() {
           )}
         </Card>
 
-        {/* ================= BEFORE & AFTER ================= */}
+        {/* BEFORE & AFTER SECTION */}
         <section className="max-w-6xl mx-auto px-4">
           <div className="text-center mb-10">
              <h2 className="text-3xl font-bold mb-4">See the Magic: Before & After</h2>
              <p className="text-muted-foreground">Experience pixel-perfect precision with our AI technology.</p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <div className="relative group overflow-hidden rounded-2xl shadow-lg border">
-                 <div className="absolute top-4 left-4 bg-black/70 text-white px-3 py-1 rounded-full text-sm font-medium z-10">Original</div>
-                 <Image src="/tool-previews/bg-remover-before.png" alt="Photo before background removal" width={600} height={400} className="w-full h-auto transform group-hover:scale-105 transition-transform duration-500" />
-            </div>
-            <div className="relative group overflow-hidden rounded-2xl shadow-lg border bg-[url('/transparent-bg.png')]">
-                 <div className="absolute top-4 left-4 bg-green-600 text-white px-3 py-1 rounded-full text-sm font-medium z-10">Transparent</div>
-                 <Image src="/tool-previews/bg-remover-after.png" alt="Photo after background removal" width={600} height={400} className="w-full h-auto transform group-hover:scale-105 transition-transform duration-500" />
-            </div>
+            <Image src="/tool-previews/bg-remover-before.png" alt="Before" width={600} height={400} className="rounded-2xl border shadow-lg" />
+            <Image src="/tool-previews/bg-remover-after.png" alt="After" width={600} height={400} className="rounded-2xl border shadow-lg bg-[url('/transparent-bg.png')]" />
           </div>
         </section>
 
-        {/* ================= SEO CONTENT ================= */}
+        {/* SEO ARTICLE CONTENT */}
         <article className="max-w-4xl mx-auto px-4 py-10 space-y-12 text-gray-700 dark:text-gray-300 leading-relaxed">
           
           <section className="space-y-6">
@@ -331,11 +320,11 @@ export default function BackgroundRemover() {
             <ul className="grid md:grid-cols-2 gap-4 mt-4">
               <li className="flex items-start">
                 <CheckCircle2 className="w-6 h-6 text-green-500 mr-2 mt-1 flex-shrink-0" />
-                <span><strong>Edge Detection:</strong> The AI identifies the fine boundaries of the subject, ensuring smooth cutouts even around tricky areas like hair or fur.</span>
+                <span><strong>Edge Detection:</strong> The AI identifies the fine boundaries of the subject, ensuring smooth cutouts even around tricky areas.</span>
               </li>
               <li className="flex items-start">
                 <CheckCircle2 className="w-6 h-6 text-green-500 mr-2 mt-1 flex-shrink-0" />
-                <span><strong>Depth Analysis:</strong> It distinguishes between foreground and background elements even if they have similar colors.</span>
+                <span><strong>Depth Analysis:</strong> It distinguishes between foreground and background even with similar colors.</span>
               </li>
               <li className="flex items-start">
                 <CheckCircle2 className="w-6 h-6 text-green-500 mr-2 mt-1 flex-shrink-0" />
@@ -356,27 +345,38 @@ export default function BackgroundRemover() {
                 <div className="bg-primary text-white w-8 h-8 rounded-full flex items-center justify-center font-bold flex-shrink-0">1</div>
                 <div>
                   <h3 className="font-bold text-lg">Upload Your Image</h3>
-                  <p>Click on the upload box or drag and drop your file. We support JPG, PNG, and WEBP formats up to 8MB. If your image is a scanned document, you might want to extract text from it first using our <Link href="/tools/image-to-text" className="text-primary font-semibold hover:underline">Image to Text OCR Tool</Link>.</p>
+                  <p>Click on the upload box or drag and drop your file. We support JPG, PNG, and WEBP formats up to 8MB. If your image is a scanned document, you might want to extract text using our <Link href="/tools/image-to-text" className="text-primary font-semibold hover:underline">Image to Text OCR Tool</Link>.</p>
                 </div>
               </div>
               <div className="flex items-start gap-4">
                 <div className="bg-primary text-white w-8 h-8 rounded-full flex items-center justify-center font-bold flex-shrink-0">2</div>
                 <div>
                   <h3 className="font-bold text-lg">Automatic Processing</h3>
-                  <p>Once uploaded, our AI kicks in instantly. You will see a "Processing" indicator. During this time, the image is compressed for speed, analyzed by the neural network, and the background is removed.</p>
+                  <p>Once uploaded, our AI kicks in instantly. During this time, the image is analyzed by the neural network, and the background is removed.</p>
                 </div>
               </div>
               <div className="flex items-start gap-4">
                 <div className="bg-primary text-white w-8 h-8 rounded-full flex items-center justify-center font-bold flex-shrink-0">3</div>
                 <div>
                   <h3 className="font-bold text-lg">Download Result</h3>
-                  <p>Within seconds, your transparent image appears. Review the result, and if you are happy, click "Download HD PNG" to save it to your device. You can then use it in any design software or upload it directly to your website.</p>
+                  <p>Within seconds, your transparent image appears. Review the result, and if happy, click "Download HD PNG" to save it.</p>
                 </div>
               </div>
             </div>
           </section>
         </article>
+
+        {/* HASHTAGS SECTION */}
+        <div className="flex flex-wrap justify-center gap-2 py-8 max-w-4xl mx-auto px-4 border-t border-dashed">
+          {hashtags.map((tag) => (
+            <span key={tag} className="text-[10px] md:text-xs font-bold text-primary border border-primary/20 px-3 py-1 rounded-full bg-primary/5 hover:bg-primary/10 transition-colors uppercase cursor-default">
+              #{tag}
+            </span>
+          ))}
+        </div>
+
       </div>
     </>
   );
 }
+
