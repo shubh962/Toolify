@@ -1,6 +1,13 @@
 import type { Metadata } from 'next';
 import MetalWeightCalculator from '@/components/tools/MetalWeightCalculator';
 
+/*
+ FILE: src/app/tools/metal-weight-calculator/page.tsx
+ PURPOSE:
+ - SEO indexable tool page
+ - Clean layout
+*/
+
 export const metadata: Metadata = {
   title: 'Metal Weight Calculator – Steel, MS, Aluminium | TaskGuru',
   description:
@@ -22,22 +29,19 @@ export default function MetalWeightCalculatorPage() {
       <p>
         This metal weight calculator helps you calculate the accurate weight of
         different metals such as Mild Steel (MS), Stainless Steel, Aluminium,
-        Copper and Brass. Just select the metal type, enter the required size and
-        length, and get instant results.
+        Copper and Brass. Simply select the metal type, enter size and length,
+        and get instant results.
       </p>
 
-      {/* ✅ TOOL WRAPPER — THIS FIXES UI */}
-      <div className="tool-page">
-        <MetalWeightCalculator />
-      </div>
+      {/* ✅ TOOL */}
+      <MetalWeightCalculator />
 
       <section>
         <h2>How Metal Weight Is Calculated</h2>
         <p>
-          The weight of metal is calculated using standard engineering formulas
-          based on metal density, cross-sectional area and length. This tool
-          performs all calculations instantly in your browser without sending
-          data to any server.
+          Metal weight is calculated using standard engineering formulas based
+          on density, cross-sectional area and length. All calculations are done
+          instantly in your browser.
         </p>
       </section>
 
@@ -52,15 +56,6 @@ export default function MetalWeightCalculatorPage() {
           <li>Brass</li>
           <li>Bronze</li>
         </ul>
-      </section>
-
-      <section>
-        <h2>Who Should Use This Tool?</h2>
-        <p>
-          This calculator is useful for engineers, fabricators, students,
-          contractors and anyone who needs quick and accurate metal weight
-          calculations without manual formulas.
-        </p>
       </section>
     </main>
   );
