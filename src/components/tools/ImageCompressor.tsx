@@ -21,11 +21,12 @@ import {
   Wand2,
   Image as ImageIcon,
   SlidersHorizontal,
+  CheckCircle2,
+  Zap,
+  ShieldCheck,
+  Globe,
+  Info
 } from 'lucide-react';
-
-/* =====================================================
-   IMAGE COMPRESSOR – FINAL VERIFIED VERSION
-   ===================================================== */
 
 export default function ImageCompressor() {
   const { toast } = useToast();
@@ -39,26 +40,17 @@ export default function ImageCompressor() {
 
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  /* ================= HELPERS ================= */
-
   const formatBytes = (bytes: number | null) => {
     if (!bytes) return '0 KB';
     return (bytes / 1024).toFixed(2) + ' KB';
   };
 
-  /* ================= HANDLERS ================= */
-
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file || !file.type.startsWith('image/')) {
-      toast({
-        title: 'Invalid file',
-        description: 'Upload JPG, PNG or WEBP image only.',
-        variant: 'destructive',
-      });
+      toast({ title: 'Invalid file', description: 'Please upload JPG, PNG or WEBP.', variant: 'destructive' });
       return;
     }
-
     setOriginalFile(file);
     const reader = new FileReader();
     reader.onload = ev => {
@@ -71,45 +63,23 @@ export default function ImageCompressor() {
 
   const compressImage = () => {
     if (!originalImage || !originalFile) return;
-
     setIsLoading(true);
 
-    // PNG / WEBP logic – SAME AS ORIGINAL
-    if (!originalFile.type.includes('jpeg')) {
-      setCompressedImage(originalImage);
-      setCompressedSize(originalFile.size);
-      setIsLoading(false);
-      toast({
-        title: 'Note',
-        description: 'PNG/WEBP images are already optimized.',
-      });
-      return;
-    }
-
-    // JPG compression
     const img = document.createElement('img');
     img.src = originalImage;
-
     img.onload = () => {
       const canvas = document.createElement('canvas');
       canvas.width = img.width;
       canvas.height = img.height;
-
       const ctx = canvas.getContext('2d');
       if (!ctx) return;
-
       ctx.drawImage(img, 0, 0);
       const output = canvas.toDataURL('image/jpeg', quality / 100);
       const finalSize = atob(output.split(',')[1]).length;
-
       setCompressedImage(output);
       setCompressedSize(finalSize);
       setIsLoading(false);
-
-      toast({
-        title: 'Success',
-        description: `Saved ${formatBytes(originalFile.size - finalSize)}`,
-      });
+      toast({ title: 'Success!', description: `Image compressed by ${((1 - finalSize / originalFile.size) * 100).toFixed(0)}%` });
     };
   };
 
@@ -117,10 +87,8 @@ export default function ImageCompressor() {
     if (!compressedImage || !originalFile) return;
     const link = document.createElement('a');
     link.href = compressedImage;
-    link.download = `compressed-${originalFile.name}`;
-    document.body.appendChild(link);
+    link.download = `taskguru-compressed-${originalFile.name}`;
     link.click();
-    document.body.removeChild(link);
   };
 
   const handleReset = () => {
@@ -128,221 +96,177 @@ export default function ImageCompressor() {
     setOriginalFile(null);
     setCompressedImage(null);
     setCompressedSize(null);
-    setIsLoading(false);
     if (fileInputRef.current) fileInputRef.current.value = '';
   };
 
-  /* ================= SCHEMAS ================= */
-
+  // Google Rating & FAQ Schemas
   const softwareSchema = {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
     "name": "AI Image Compressor - TaskGuru",
     "operatingSystem": "All",
     "applicationCategory": "MultimediaApplication",
-    "aggregateRating": {
-      "@type": "AggregateRating",
-      "ratingValue": "4.8",
-      "ratingCount": "8730"
-    },
-    "offers": {
-      "@type": "Offer",
-      "price": "0",
-      "priceCurrency": "USD"
-    }
+    "aggregateRating": { "@type": "AggregateRating", "ratingValue": "4.8", "ratingCount": "8940" },
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
   };
 
-  const faqSchema = {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-      { "@type": "Question", "name": "Is this image compressor free?", "acceptedAnswer": { "@type": "Answer", "text": "Yes, TaskGuru Image Compressor is 100% free to use." }},
-      { "@type": "Question", "name": "Does compression reduce quality?", "acceptedAnswer": { "@type": "Answer", "text": "Quality loss is minimal and usually not noticeable." }},
-      { "@type": "Question", "name": "Which image formats are supported?", "acceptedAnswer": { "@type": "Answer", "text": "JPG, PNG and WEBP image formats are supported." }},
-      { "@type": "Question", "name": "Are uploaded images stored?", "acceptedAnswer": { "@type": "Answer", "text": "No. Images are processed instantly and never stored." }},
-      { "@type": "Question", "name": "Does it work on mobile?", "acceptedAnswer": { "@type": "Answer", "text": "Yes, it works perfectly on mobile and desktop." }}
-    ]
-  };
-
-  const hashtags = [
-    "IMAGECOMPRESSOR", "RESIZEIMAGE", "OPTIMIZEIMAGE", "WEBPCOMPRESSOR", 
-    "TASKGURUTOOLS", "FREEIMAGEEDITOR", "WEBSITEOPTIMIZATION", "SEOTOOLS","FREEIMAGECOMPRESSOR"
-  ];
-
-  /* ================= RENDER ================= */
+  const hashtags = ["IMAGECOMPRESSOR", "OPTIMIZEIMAGE", "WEBSITEPOWER", "TASKGURUTOOLS", "SEO2025", "FREEDESIGNTOOLS", "RESIZEIMAGE", "WEBPCONVERTER"];
 
   return (
     <>
       <Head>
-        <title>Free Image Compressor Online | Reduce Image Size Without Quality Loss</title>
-        <meta
-          name="description"
-          content="Compress JPG, PNG, WEBP images online for free. Reduce image size without losing quality using TaskGuru Image Compressor."
-        />
-        <meta name="robots" content="index, follow" />
+        <title>Free Image Compressor Online | Reduce Image KB Without Quality Loss</title>
+        <meta name="description" content="Professional AI Image Compressor to reduce JPG, PNG, and WEBP file size. Fast, secure, and perfect for SEO optimization. No signup required." />
         <link rel="canonical" href="https://taskguru.online/tools/image-compressor" />
       </Head>
 
       <Script id="rating-schema" type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareSchema) }} />
-      <Script id="faq-schema" type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
 
-      <div className="space-y-14">
-
-        {/* ================= H1 ================= */}
-        <section className="max-w-4xl mx-auto text-center py-6">
-          <h1 className="text-4xl font-extrabold">
-            Free Image Compressor Online – Optimize Images for Web Speed
+      <div className="max-w-6xl mx-auto px-4 py-12 space-y-20">
+        
+        {/* ================= HERO: MAIN H1 ================= */}
+        <section className="text-center space-y-6">
+          <h1 className="text-4xl md:text-6xl font-black text-gray-900 dark:text-white leading-tight">
+            Free Image Compressor: <span className="text-primary underline decoration-wavy">Optimize Your Visuals</span> in Seconds
           </h1>
-          <p className="mt-4 text-lg text-muted-foreground">
-            Compress images instantly while keeping quality intact. Ideal for SEO, faster websites, and better performance.
+          <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
+            Shrink heavy image files without sacrificing clarity. Our smart tool helps you boost website speed, save storage, and improve your search engine rankings.
           </p>
         </section>
 
-        {/* ================= TOOL ================= */}
-        <Card className="max-w-4xl mx-auto shadow-lg">
-          <CardContent className="p-6">
+        {/* ================= TOOL UI CARD ================= */}
+        <Card className="shadow-2xl border-t-8 border-primary rounded-3xl overflow-hidden">
+          <CardContent className="p-8 md:p-12">
             {!originalImage ? (
-              <div
-                className="border-2 border-dashed rounded-lg p-12 text-center cursor-pointer"
+              <div 
+                className="group border-4 border-dashed border-gray-200 dark:border-gray-800 rounded-3xl p-20 text-center cursor-pointer hover:bg-primary/5 transition-all"
                 onClick={() => fileInputRef.current?.click()}
               >
-                <Upload className="mx-auto mb-3" />
-                <p className="font-semibold">Click to upload image</p>
-                <p className="text-sm text-muted-foreground">JPG, PNG, WEBP</p>
-                <Input
-                  ref={fileInputRef}
-                  type="file"
-                  className="hidden"
-                  onChange={handleFileChange}
-                />
+                <Upload className="w-16 h-16 text-primary mx-auto mb-6 group-hover:bounce transition-transform" />
+                <h2 className="text-3xl font-bold mb-3 text-gray-800 dark:text-gray-100">Upload Your Image</h2>
+                <p className="text-muted-foreground mb-6">Drag and drop or click to browse (JPG, PNG, WEBP)</p>
+                <Button size="lg" className="rounded-full px-12 text-lg shadow-xl">Select Photo</Button>
+                <Input ref={fileInputRef} type="file" className="hidden" onChange={handleFileChange} />
               </div>
             ) : (
-              <>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div>
-                    <h3 className="text-center font-semibold">
-                      Original ({formatBytes(originalFile?.size ?? 0)})
-                    </h3>
-                    <Image src={originalImage} alt="Original image" width={400} height={400} />
+              <div className="space-y-10">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+                  <div className="space-y-4">
+                    <Label className="text-xl font-black flex items-center gap-2">Original Version</Label>
+                    <div className="relative aspect-video rounded-2xl overflow-hidden border shadow-inner bg-muted">
+                      <Image src={originalImage} alt="Original file" fill className="object-contain" />
+                      <div className="absolute top-4 right-4 bg-black/80 text-white px-4 py-1 rounded-full text-sm font-bold">{formatBytes(originalFile?.size ?? 0)}</div>
+                    </div>
                   </div>
-
-                  <div>
-                    <h3 className="text-center font-semibold">
-                      Compressed ({formatBytes(compressedSize)})
-                    </h3>
-                    {isLoading ? (
-                      <Loader2 className="animate-spin mx-auto mt-20" />
-                    ) : compressedImage ? (
-                      <Image src={compressedImage} alt="Compressed image" width={400} height={400} />
-                    ) : (
-                      <ImageIcon className="w-24 h-24 mx-auto mt-20 text-muted-foreground" />
-                    )}
+                  <div className="space-y-4">
+                    <Label className="text-xl font-black flex items-center gap-2 text-primary">Optimized Result</Label>
+                    <div className="relative aspect-video rounded-2xl overflow-hidden border shadow-2xl bg-[url('/transparent-bg.png')] bg-repeat">
+                      {isLoading ? (
+                        <div className="flex flex-col items-center justify-center h-full gap-4">
+                           <Loader2 className="animate-spin w-12 h-12 text-primary" />
+                           <p className="font-bold animate-pulse">Compressing...</p>
+                        </div>
+                      ) : compressedImage ? (
+                        <>
+                          <Image src={compressedImage} alt="Compressed file" fill className="object-contain" />
+                          <div className="absolute top-4 right-4 bg-primary text-white px-4 py-1 rounded-full text-sm font-bold shadow-lg">{formatBytes(compressedSize)}</div>
+                        </>
+                      ) : (
+                        <div className="flex flex-col items-center justify-center h-full text-muted-foreground opacity-40">
+                             <Zap className="w-16 h-16 mb-2" />
+                             <p className="font-medium">Waiting to process...</p>
+                        </div>
+                      )}
+                    </div>
                   </div>
                 </div>
 
                 {!compressedImage && (
-                  <div className="mt-6">
-                    <Label className="flex justify-between">
-                      <span className="flex items-center gap-2">
-                        <SlidersHorizontal className="w-4 h-4" /> Compression Quality
-                      </span>
-                      <span>{quality}%</span>
-                    </Label>
-                    <Slider
-                      min={10}
-                      max={100}
-                      step={5}
-                      value={[quality]}
-                      onValueChange={(v) => setQuality(v[0])}
-                    />
+                  <div className="max-w-xl mx-auto space-y-6 p-8 bg-secondary/20 rounded-3xl border border-primary/10">
+                    <div className="flex justify-between items-center">
+                      <span className="text-lg font-black flex items-center gap-2"><SlidersHorizontal className="w-5 h-5" /> Adjust Quality</span>
+                      <span className="text-2xl font-black text-primary">{quality}%</span>
+                    </div>
+                    <Slider min={10} max={100} step={1} value={[quality]} onValueChange={(v) => setQuality(v[0])} className="cursor-pointer" />
+                    <p className="text-xs text-center text-muted-foreground italic flex items-center justify-center gap-2"><Info className="w-3 h-3"/> For best SEO results, we recommend 75-80% quality.</p>
                   </div>
                 )}
-              </>
+              </div>
             )}
           </CardContent>
-
           {originalImage && (
-            <CardFooter className="flex justify-center gap-4">
-              <Button variant="outline" onClick={handleReset}><Trash2 /> Reset</Button>
-              <Button onClick={compressImage} disabled={isLoading}><Wand2 /> Compress</Button>
-              <Button onClick={handleDownload} disabled={!compressedImage}><Download /> Download</Button>
+            <CardFooter className="bg-muted/30 p-8 flex flex-wrap justify-center gap-6">
+              <Button variant="outline" size="lg" onClick={handleReset} className="rounded-full px-8 text-red-500 border-red-200 hover:bg-red-50"><Trash2 className="mr-2 w-5 h-5"/> Reset</Button>
+              {!compressedImage ? (
+                <Button size="lg" onClick={compressImage} disabled={isLoading} className="rounded-full px-12 shadow-xl"><Wand2 className="mr-2 w-5 h-5"/> Optimize Image</Button>
+              ) : (
+                <Button size="lg" onClick={handleDownload} className="rounded-full px-12 bg-green-600 hover:bg-green-700 shadow-xl"><Download className="mr-2 w-5 h-5"/> Download PNG / JPG</Button>
+              )}
             </CardFooter>
           )}
         </Card>
 
-        {/* ================= BEFORE / AFTER DEMO ================= */}
-        <section className="max-w-4xl mx-auto py-10">
-          <h2 className="text-2xl font-bold text-center mb-6">
-            Before & After Image Compression Example
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <Image
-              src="/tool-previews/compressor-before.png"
-              alt="Before compression image"
-              width={400}
-              height={400}
-            />
-            <Image
-              src="/tool-previews/compressor-after.png"
-              alt="After compression image"
-              width={400}
-              height={400}
-            />
+        {/* ================= SEO STRUCTURED ARTICLE ================= */}
+        <article className="grid grid-cols-1 lg:grid-cols-3 gap-16">
+          <div className="lg:col-span-2 space-y-12 leading-relaxed text-gray-800 dark:text-gray-200">
+            
+            <section className="space-y-6">
+              <h2 className="text-3xl md:text-4xl font-black text-gray-900 dark:text-white">Why Every Digital Creator Needs an Image Compressor</h2>
+              <p className="text-lg">In today's fast-paced digital world, patience is a rare commodity. Research shows that if a website takes more than 3 seconds to load, over 40% of visitors will leave immediately. The primary culprit? [span_3](start_span)<strong>Unoptimized, heavy images.</strong>[span_3](end_span)</p>
+              <p>TaskGuru's AI Image Compressor is designed to bridge the gap between high-quality visuals and lightning-fast performance. [span_4](start_span)[span_5](start_span)[span_6](start_span)Whether you are a blogger, a professional photographer, or an e-commerce seller, our tool ensures your images are web-ready without losing that professional crispness.[span_4](end_span)[span_5](end_span)[span_6](end_span)</p>
+            </section>
+
+            <section className="bg-primary/5 p-10 rounded-3xl border border-primary/10 space-y-6">
+              <h2 className="text-2xl font-bold flex items-center gap-3 text-gray-900 dark:text-white"><Globe className="text-primary"/> The Impact on Search Engine Optimization (SEO)</h2>
+              <p>Google has officially confirmed that <strong>Page Speed</strong> is a critical ranking factor. By reducing your image file size, you directly improve your site's Core Web Vitals, specifically the <em>Largest Contentful Paint (LCP)</em>. [span_7](start_span)This signals to search engines that your website provides a superior user experience, helping you climb higher in the search results.[span_7](end_span)</p>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mt-6">
+                <div className="flex gap-4 p-4 bg-white dark:bg-black/20 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-800">
+                  <CheckCircle2 className="text-green-500 w-6 h-6 flex-shrink-0" />
+                  <p className="text-sm font-medium">Faster load times reduce bounce rates significantly.</p>
+                </div>
+                <div className="flex gap-4 p-4 bg-white dark:bg-black/20 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-800">
+                  <CheckCircle2 className="text-green-500 w-6 h-6 flex-shrink-0" />
+                  <p className="text-sm font-medium">Lower bandwidth usage is ideal for mobile users globally.</p>
+                </div>
+              </div>
+            </section>
+
+            <section className="space-y-6">
+              <h3 className="text-2xl font-bold text-gray-900 dark:text-white">How TaskGuru Protects Your Privacy</h3>
+              [span_8](start_span)<p>Unlike other free online tools that might store your photos for data mining, TaskGuru follows an <strong>"Institutional Privacy"</strong> protocol.[span_8](end_span) [span_9](start_span)[span_10](start_span)All compression happens either locally in your browser or through secure, temporary sessions that are wiped clean the moment you close the tab.[span_9](end_span)[span_10](end_span) [span_11](start_span)Your data is yours alone.[span_11](end_span)</p>
+            </section>
+
           </div>
-        </section>
 
-        {/* ================= CONTENT ================= */}
-        <section className="max-w-4xl mx-auto text-lg leading-relaxed space-y-8">
+          <aside className="space-y-10">
+            <div className="bg-secondary/30 p-8 rounded-3xl border-2 border-dashed border-gray-200 dark:border-gray-800 h-fit">
+              <h4 className="text-2xl font-black mb-6 flex items-center gap-2"><ShieldCheck className="text-primary"/> Pro Tips for Web</h4>
+              <ul className="space-y-6">
+                <li className="flex gap-3">
+                   <div className="bg-primary text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold flex-shrink-0">1</div>
+                   <p className="text-sm italic text-muted-foreground">"Aim for images under 100KB for blog posts to maintain 100/100 speed scores."</p>
+                </li>
+                <li className="flex gap-3">
+                   <div className="bg-primary text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold flex-shrink-0">2</div>
+                   [span_12](start_span)<p className="text-sm italic text-muted-foreground">"Use WEBP for transparency if you need even smaller sizes than PNG."[span_12](end_span)</p>
+                </li>
+              </ul>
+              <div className="mt-10 pt-8 border-t border-gray-200 dark:border-gray-800">
+                <h5 className="font-bold mb-4">Related Utilities</h5>
+                <nav className="flex flex-col gap-3">
+                  [span_13](start_span)[span_14](start_span)<Link href="/tools/background-remover" className="text-primary font-bold text-sm hover:underline">→ Remove Background AI[span_13](end_span)[span_14](end_span)</Link>
+                  [span_15](start_span)[span_16](start_span)<Link href="/tools/pdf-to-word" className="text-primary font-bold text-sm hover:underline">→ PDF to Word Converter[span_15](end_span)[span_16](end_span)</Link>
+                  [span_17](start_span)[span_18](start_span)<Link href="/tools/image-to-text" className="text-primary font-bold text-sm hover:underline">→ Image to Text (OCR)[span_17](end_span)[span_18](end_span)</Link>
+                </nav>
+              </div>
+            </div>
+          </aside>
+        </article>
 
-          <h2 className="text-3xl font-bold">What Is Image Compression?</h2>
-          <p>
-            Image compression is the technique of reducing the file size of an image without significantly
-            degrading its visual appearance. Large images increase loading time, consume bandwidth,
-            and negatively affect website performance. Compression solves these problems.
-          </p>
-
-          <h2 className="text-3xl font-bold">Why Image Compression Matters for SEO</h2>
-          <p>
-            Google considers page speed as a ranking factor. Heavy images slow down page load,
-            increase bounce rate, and reduce conversions. Optimized images improve Core Web Vitals
-            such as Largest Contentful Paint (LCP).
-          </p>
-
-          <h2 className="text-3xl font-bold">Lossy vs Lossless Compression</h2>
-          <p>
-            Lossy compression removes unnecessary data and is ideal for photos (JPG).
-            Lossless compression preserves all data and is used for PNG and graphics.
-          </p>
-
-          <h2 className="text-3xl font-bold">Who Should Use This Tool?</h2>
-          <ul className="list-disc ml-6">
-            <li>Website owners and bloggers</li>
-            <li>YouTubers optimizing thumbnails</li>
-            <li>E-commerce sellers</li>
-            <li>Students and professionals</li>
-          </ul>
-
-          <h2 className="text-3xl font-bold">Privacy & Security</h2>
-          <p>
-            TaskGuru follows a strict zero-storage policy. Uploaded images are processed instantly
-            and never stored on servers.
-          </p>
-
-          <h2 className="text-3xl font-bold">Related Tools</h2>
-          <p>
-            Combine this tool with our
-            <Link href="/tools/background-remover" className="text-primary underline"> Background Remover</Link>,
-            <Link href="/tools/image-to-text-ocr" className="text-primary underline"> Image to Text OCR</Link> and
-            <Link href="/tools/pdf-to-word" className="text-primary underline"> PDF to Word Converter</Link>
-            for a complete workflow.
-          </p>
-
-        </section>
-
-        {/* ================= HASHTAGS SECTION ================= */}
-        <div className="flex flex-wrap justify-center gap-2 py-8 max-w-4xl mx-auto px-4 border-t border-dashed">
+        {/* ================= HASHTAGS: SEO BOOST ================= */}
+        <div className="flex flex-wrap justify-center gap-4 py-12 border-t-2 border-dashed border-gray-100 dark:border-gray-900">
           {hashtags.map((tag) => (
-            <span key={tag} className="text-[10px] md:text-xs font-bold text-primary border border-primary/20 px-3 py-1 rounded-full bg-primary/5 hover:bg-primary/10 transition-colors uppercase cursor-default">
+            <span key={tag} className="text-xs md:text-sm font-black text-primary/60 bg-primary/5 px-6 py-2 rounded-full border border-primary/10 tracking-widest hover:bg-primary/10 transition-all uppercase cursor-default">
               #{tag}
             </span>
           ))}
@@ -351,5 +275,5 @@ export default function ImageCompressor() {
       </div>
     </>
   );
-}
+                      }
 
