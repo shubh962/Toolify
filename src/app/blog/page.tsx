@@ -7,10 +7,18 @@ import Script from 'next/script';
 // ✅ 1. ALL BLOG POSTS DEFINED
 const posts = [
   {
+    slug: 'best-utility-tools-2025-26', // Naya Blog Added
+    title: '10 Best Free Utility Tools of 2025-26: The Ultimate 5,000+ Word Definitive Guide',
+    summary:
+      'The most comprehensive, data-driven analysis of browser-based software ever published. Master the digital era with our 5,000-word deep dive into the best free utility tools—from AI background removal to precision engineering calculators. Stop paying for SaaS today.',
+    date: 'December 27, 2025',
+    category: 'Master Manual',
+  },
+  {
     slug: '10-best-free-online-tools-2026', 
     title: '10 Best Free Online AI Tools (2026): Ultimate SaaS Alternatives to Save $1000/Year',
     summary:
-      'Looking for the best free online tools in 2026? This expert-verified guide reveals the top AI-powered software alternatives for PDF editing, graphic design, and document automation. Master the anti-subscription workflow with professional-grade tools that require no credit card and no login.',
+      'Looking for the best free online tools in 2026? This expert-verified guide reveals the top AI-powered software alternatives for PDF editing, graphic design, and document automation. Master the anti-subscription workflow.',
     date: 'December 25, 2025',
     category: 'Expert Guide',
   },
@@ -113,8 +121,8 @@ const faqSchema = {
 };
 
 export default function BlogPage() {
-  // ✅ This must match the slug of your primary 2026 post
-  const featuredPostSlug = '10-best-free-online-tools-2026';
+  // ✅ Featured post set to the new 5,000-word guide
+  const featuredPostSlug = 'best-utility-tools-2025-26';
 
   return (
     <>
@@ -154,7 +162,7 @@ export default function BlogPage() {
                   <p className="text-xs font-black text-blue-600 uppercase tracking-widest">{post.date}</p>
                   {post.slug === featuredPostSlug && (
                     <span className="flex items-center gap-1 px-3 py-1 text-[10px] font-black rounded-full bg-blue-600 text-white animate-pulse">
-                      <Sparkles className="w-3 h-3" /> FEATURED MASTER GUIDE
+                      <Sparkles className="w-3 h-3" /> FEATURED AUTHORITY GUIDE
                     </span>
                   )}
                 </div>
@@ -199,4 +207,3 @@ export default function BlogPage() {
     </>
   );
 }
-
