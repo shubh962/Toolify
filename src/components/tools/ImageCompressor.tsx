@@ -162,13 +162,13 @@ export default function ImageCompressor() {
 
       <div className="max-w-6xl mx-auto px-4 py-12 space-y-24 text-gray-800 dark:text-gray-100">
 
-        {/* HERO SECTION - NO UNDERLINE */}
+        {/* HERO SECTION */}
         <section className="text-center space-y-6">
           <h1 className="text-4xl md:text-6xl font-black leading-tight text-gray-900 dark:text-white">
             Free Image Compressor: <span className="text-primary">Optimize Your Visuals</span> in Seconds
           </h1>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-            Shrink heavy image files without sacrificing clarity. [span_0](start_span)Our smart AI-driven tool helps you boost website speed, save storage space, and improve your search engine rankings.[span_0](end_span)
+            Shrink heavy image files without sacrificing clarity. Our smart AI-driven tool helps you boost website speed, save storage space, and improve your search engine rankings. Perfect for bloggers, developers, marketers, and anyone who wants faster-loading pages.
           </p>
         </section>
 
@@ -182,7 +182,7 @@ export default function ImageCompressor() {
               >
                 <Upload className="w-16 h-16 text-primary mx-auto mb-6" />
                 <h2 className="text-3xl font-bold mb-3">Upload Your Image</h2>
-                [span_1](start_span)<p className="text-muted-foreground mb-6">Supports JPG, PNG, and WEBP (Max 10MB)[span_1](end_span)</p>
+                <p className="text-muted-foreground mb-6">Supports JPG, PNG, and WEBP (Max 10MB)</p>
                 <Button size="lg" className="rounded-full px-12 text-lg shadow-xl">Select Photo</Button>
                 <Input
                   ref={fileInputRef}
@@ -270,17 +270,20 @@ export default function ImageCompressor() {
           )}
         </Card>
 
-        {/* HUMAN-WRITTEN ARTICLE SECTION - NO SPAN TAGS */}
+        {/* ARTICLE SECTION */}
         <article className="grid grid-cols-1 lg:grid-cols-3 gap-16">
           <div className="lg:col-span-2 space-y-12 leading-relaxed">
             
             <section className="space-y-6">
               <h2 className="text-3xl md:text-4xl font-black text-gray-900 dark:text-white">Why Every Digital Creator Needs an Image Compressor</h2>
               <p className="text-lg text-gray-700 dark:text-gray-300">
-                In today's fast-paced digital world, patience is a rare commodity. [span_2](start_span)Research shows that if a website takes more than 3 seconds to load, over 40% of visitors will leave immediately.[span_2](end_span) [span_3](start_span)The primary culprit is often unoptimized, heavy images.[span_3](end_span)
+                In today's fast-paced digital world, patience is a rare commodity. Research shows that if a website takes more than 3 seconds to load, over 40% of visitors will leave immediately. The primary culprit is often unoptimized, heavy images.
               </p>
               <p className="text-gray-700 dark:text-gray-300">
-                [span_4](start_span)TaskGuru's AI Image Compressor is designed to bridge the gap between high-quality visuals and lightning-fast performance.[span_4](end_span) [span_5](start_span)Whether you are a blogger, professional photographer, or eCommerce seller, our tool ensures your images are web-ready without losing that professional crispness.[span_5](end_span)
+                TaskGuru's AI Image Compressor is designed to bridge the gap between high-quality visuals and lightning-fast performance. Whether you are a blogger, professional photographer, or eCommerce seller, our tool ensures your images are web-ready without losing that professional crispness. It's completely free, requires no registration, and processes everything instantly.
+              </p>
+              <p className="text-gray-700 dark:text-gray-300">
+                Large images not only slow down your site but also consume more data, affecting users on slower connections. By compressing images, you can dramatically improve user engagement, increase time on site, and even boost conversion rates for online stores.
               </p>
             </section>
 
@@ -289,16 +292,27 @@ export default function ImageCompressor() {
                 <Globe className="text-primary" /> The Impact on Search Engine Optimization (SEO)
               </h2>
               <p className="text-gray-700 dark:text-gray-300">
-                [span_6](start_span)Google has officially confirmed that Page Speed is a critical ranking factor.[span_6](end_span) [span_7](start_span)By reducing your image file size, you directly improve your site's Core Web Vitals, specifically the Largest Contentful Paint (LCP).[span_7](end_span) [span_8](start_span)This signals to search engines that your website provides a superior user experience, helping you climb higher in search results.[span_8](end_span)
+                Google has officially confirmed that Page Speed is a critical ranking factor. By reducing your image file size, you directly improve your site's Core Web Vitals, specifically the Largest Contentful Paint (LCP). This signals to search engines that your website provides a superior user experience, helping you climb higher in search results.
+              </p>
+              <p className="text-gray-700 dark:text-gray-300">
+                Optimized images lead to better mobile performance, lower server costs, and higher rankings in image search results. In 2025, with mobile traffic dominating, image optimization is no longer optional—it's essential for staying competitive.
               </p>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mt-6">
                 <div className="flex gap-4 p-4 bg-white dark:bg-black/20 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-800 font-medium text-sm">
                   <CheckCircle2 className="text-green-500 w-6 h-6 flex-shrink-0" />
-                  [span_9](start_span)Faster load times reduce bounce rates significantly.[span_9](end_span)
+                  Faster load times reduce bounce rates significantly.
                 </div>
                 <div className="flex gap-4 p-4 bg-white dark:bg-black/20 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-800 font-medium text-sm">
                   <CheckCircle2 className="text-green-500 w-6 h-6 flex-shrink-0" />
-                  [span_10](start_span)Lower bandwidth usage is ideal for mobile users globally.[span_10](end_span)
+                  Lower bandwidth usage is ideal for mobile users globally.
+                </div>
+                <div className="flex gap-4 p-4 bg-white dark:bg-black/20 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-800 font-medium text-sm">
+                  <CheckCircle2 className="text-green-500 w-6 h-6 flex-shrink-0" />
+                  Better Core Web Vitals scores improve Google rankings.
+                </div>
+                <div className="flex gap-4 p-4 bg-white dark:bg-black/20 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-800 font-medium text-sm">
+                  <CheckCircle2 className="text-green-500 w-6 h-6 flex-shrink-0" />
+                  Reduced storage and hosting costs for high-traffic sites.
                 </div>
               </div>
             </section>
@@ -306,7 +320,20 @@ export default function ImageCompressor() {
             <section className="space-y-6">
               <h3 className="text-2xl font-bold text-gray-900 dark:text-white">How TaskGuru Protects Your Privacy</h3>
               <p className="text-gray-700 dark:text-gray-300">
-                [span_11](start_span)Unlike other free online tools that might store your photos for data mining, TaskGuru follows an "Institutional Privacy" protocol.[span_11](end_span) [span_12](start_span)All compression happens either locally in your browser or through secure, temporary sessions that are wiped clean the moment you close the tab.[span_12](end_span) [span_13](start_span)Your data is yours alone.[span_13](end_span)
+                Unlike other free online tools that might store your photos for data mining, TaskGuru follows an "Institutional Privacy" protocol. All compression happens either locally in your browser or through secure, temporary sessions that are wiped clean the moment you close the tab. Your data is yours alone—no uploads to distant servers, no tracking, and no risk of data leaks.
+              </p>
+              <p className="text-gray-700 dark:text-gray-300">
+                We believe in complete transparency and user control. That's why everything runs client-side where possible, ensuring your personal or business images remain private at all times.
+              </p>
+            </section>
+
+            <section className="space-y-6">
+              <h3 className="text-2xl font-bold text-gray-900 dark:text-white">Best Practices for Image Optimization in 2025</h3>
+              <p className="text-gray-700 dark:text-gray-300">
+                Beyond compression, consider using modern formats like WEBP or AVIF for even better results. Always resize images to the display dimensions before uploading, and use responsive images with srcset for different screen sizes.
+              </p>
+              <p className="text-gray-700 dark:text-gray-300">
+                Combine our compressor with lazy loading and CDN delivery for maximum performance gains. These simple steps can cut your page load time in half and provide a smoother experience for your visitors.
               </p>
             </section>
           </div>
@@ -314,19 +341,31 @@ export default function ImageCompressor() {
           <aside className="space-y-10">
             <div className="bg-secondary/30 p-8 rounded-3xl border-2 border-dashed border-gray-200 dark:border-gray-800 h-fit">
               <h4 className="text-2xl font-black mb-6 flex items-center gap-2">
-                <ShieldCheck className="text-primary" /> Pro Tips for Web
+                <ShieldCheck className="text-primary" /> Pro Tips for Web Performance
               </h4>
               <ul className="space-y-6">
                 <li className="flex gap-3">
                    <div className="bg-primary text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold flex-shrink-0">1</div>
                    <p className="text-sm italic text-muted-foreground">
-                    [span_14](start_span)"Aim for images under 100KB for blog posts to maintain 100/100 speed scores."[span_14](end_span)
+                    "Aim for images under 100KB for blog posts to maintain 100/100 speed scores."
                    </p>
                 </li>
                 <li className="flex gap-3">
                    <div className="bg-primary text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold flex-shrink-0">2</div>
                    <p className="text-sm italic text-muted-foreground">
-                    [span_15](start_span)"Use WEBP for transparency if you need even smaller sizes than PNG."[span_15](end_span)
+                    "Use WEBP for transparency if you need even smaller sizes than PNG."
+                   </p>
+                </li>
+                <li className="flex gap-3">
+                   <div className="bg-primary text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold flex-shrink-0">3</div>
+                   <p className="text-sm italic text-muted-foreground">
+                    "Always test your pages with Google PageSpeed Insights after optimizing images."
+                   </p>
+                </li>
+                <li className="flex gap-3">
+                   <div className="bg-primary text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold flex-shrink-0">4</div>
+                   <p className="text-sm italic text-muted-foreground">
+                    "Enable lazy loading to defer off-screen images and save even more bandwidth."
                    </p>
                 </li>
               </ul>
@@ -336,13 +375,14 @@ export default function ImageCompressor() {
                   <Link href="/tools/background-remover" className="text-primary font-bold text-sm hover:underline">→ Remove Background AI</Link>
                   <Link href="/tools/pdf-to-word" className="text-primary font-bold text-sm hover:underline">→ PDF to Word Converter</Link>
                   <Link href="/tools/image-to-text" className="text-primary font-bold text-sm hover:underline">→ Image to Text (OCR)</Link>
+                  <Link href="/tools/qr-code-generator" className="text-primary font-bold text-sm hover:underline">→ QR Code Generator</Link>
                 </nav>
               </div>
             </div>
           </aside>
         </article>
 
-        {/* HASHTAGS SECTION */}
+       {/* HASHTAGS SECTION */}
         <div className="flex flex-wrap justify-center gap-4 py-12 border-t-2 border-dashed border-gray-100 dark:border-gray-900">
           {hashtags.map(tag => (
             <span
@@ -357,5 +397,4 @@ export default function ImageCompressor() {
       </div>
     </>
   );
-                    }
-
+} 
