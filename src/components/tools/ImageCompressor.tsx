@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useRef } from 'react';
-import Head from 'next/head'; // Added Head for SEO
+import Head from 'next/head'; 
 import Image from 'next/image';
 import Script from 'next/script';
 import Link from 'next/link';
@@ -95,7 +95,9 @@ export default function ImageCompressor() {
 
       ctx.drawImage(img, 0, 0);
       const output = canvas.toDataURL('image/jpeg', quality / 100);
-      const finalSize = atob(output.split(',')[1]).length;
+      
+      // Calculate actual size from base64 string
+      const finalSize = Math.round((output.length - 'data:image/jpeg;base64,'.length) * 3 / 4);
 
       setCompressedImage(output);
       setCompressedSize(finalSize);
@@ -146,27 +148,19 @@ export default function ImageCompressor() {
   };
 
   const hashtags = [
-    'FREEIMAGECOMPRESSOR',
-    'COMPRESSIMAGEONLINE',
-    'REDUCEIMAGESIZE',
-    'IMAGECOMPRESSOR',
-    'COMPRESSJPG',
-    'COMPRESSPNG',
-    'WEBPOPTIMIZER',
-    'NOQUALITYLOSS',
-    'FASTWEBSITE',
-    'EMAILATTACHMENTS',
+    'FREEIMAGECOMPRESSOR', 'COMPRESSIMAGEONLINE', 'REDUCEIMAGESIZE', 'IMAGECOMPRESSOR', 'COMPRESSJPG', 'COMPRESSPNG', 'WEBPOPTIMIZER', 'NOQUALITYLOSS', 'FASTWEBSITE', 'EMAILATTACHMENTS',
   ];
 
   return (
     <>
       <Head>
         <title>Free Online Image Compressor | Reduce Image Size Without Losing Quality - TaskGuru</title>
-        <meta name="description" content="Best Free Online Image Compressor. Reduce JPG, PNG, and WebP sizes instantly. Fast, private browser-based compression with no quality loss." />
+        <meta name="description" content="Easily compress JPG, PNG, and WebP images. Make files smaller for faster website loading and easier email sharing. 100% free with no signup required." />
+        <meta name="keywords" content="image compressor, reduce image size, compress jpg, compress png, online photo optimizer" />
         <link rel="canonical" href="https://taskguru.online/tools/image-compressor" />
       </Head>
 
-      {/* FIXED ADSENSE SCRIPT: Added strategy to prevent hydration issues */}
+      {/* FIXED ADSENSE SCRIPT: Hydration warning fix karne ke liye strategy use ki hai */}
       <Script 
         async 
         src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4272213374622185" 
@@ -301,7 +295,7 @@ export default function ImageCompressor() {
           )}
         </Card>
 
-        {/* ARTICLE SECTION */}
+        {/* ARTICLE SECTION - Simple & User-Friendly */}
         <article className="grid grid-cols-1 lg:grid-cols-3 gap-16">
           <div className="lg:col-span-2 space-y-12 leading-relaxed text-lg">
             
@@ -350,6 +344,9 @@ export default function ImageCompressor() {
               <p>
                 Your images never leave your device! All compression happens right in your browser – no uploads to servers, no storage, nothing saved. As soon as you close the page, everything is gone.
               </p>
+              <p>
+                No signup, no email, no tracking – just fast, free compression whenever you need it.
+              </p>
             </section>
 
             <section className="space-y-6">
@@ -360,6 +357,7 @@ export default function ImageCompressor() {
                 <li>Click "Compress Image Now"</li>
                 <li>Download your smaller, optimized image!</li>
               </ol>
+              <p>That's it – simple, fast, and completely free!</p>
             </section>
           </div>
 
@@ -375,11 +373,22 @@ export default function ImageCompressor() {
                    <div className="bg-primary text-white w-8 h-8 rounded-full flex items-center justify-center font-bold">2</div>
                    <p>Compress before uploading to social media for faster posts</p>
                 </li>
+                <li className="flex gap-4">
+                   <div className="bg-primary text-white w-8 h-8 rounded-full flex items-center justify-center font-bold">3</div>
+                   <p>Smaller images = faster emails and less data usage</p>
+                </li>
+                <li className="flex gap-4">
+                   <div className="bg-primary text-white w-8 h-8 rounded-full flex items-center justify-center font-bold">4</div>
+                   <p>Works great for product photos on online stores</p>
+                </li>
               </ul>
               <div className="mt-12 pt-8 border-t border-gray-300 dark:border-gray-700">
                 <h5 className="font-bold text-xl mb-6 text-center">More Free Tools</h5>
                 <nav className="flex flex-col gap-4">
                   <Link href="/tools/background-remover" className="text-primary font-bold text-lg hover:underline">→ AI Background Remover</Link>
+                  <Link href="/tools/pdf-to-word" className="text-primary font-bold text-lg hover:underline">→ PDF to Word</Link>
+                  <Link href="/tools/image-to-text" className="text-primary font-bold text-lg hover:underline">→ Photo to Text (OCR)</Link>
+                  <Link href="/tools/qr-code-generator" className="text-primary font-bold text-lg hover:underline">→ QR Code Maker</Link>
                 </nav>
               </div>
             </div>
