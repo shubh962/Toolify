@@ -1,7 +1,6 @@
 'use client';
 
 import { useState, useRef } from 'react';
-import Head from 'next/head';
 import Image from 'next/image';
 import Script from 'next/script';
 import Link from 'next/link';
@@ -160,18 +159,11 @@ export default function ImageCompressor() {
 
   return (
     <>
-      <Head>
-        <title>Free Image Compressor Online | Compress JPG, PNG, WebP Without Losing Quality</title>
-        <meta
-          name="description"
-          content="Best free online image compressor to reduce JPG, PNG, and WebP file sizes without losing quality. Perfect for faster websites, email attachments, social media, and saving phone storage. No signup needed!"
-        />
-        <link rel="canonical" href="https://taskguru.online/tools/image-compressor" />
-      </Head>
-
+      {/* JSON-LD Structured Data */}
       <Script
         id="rating-schema"
         type="application/ld+json"
+        strategy="afterInteractive"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareSchema) }}
       />
 
@@ -190,14 +182,6 @@ export default function ImageCompressor() {
             <div className="flex items-center gap-2"><CheckCircle2 className="text-green-500" /> Completely private</div>
             <div className="flex items-center gap-2"><CheckCircle2 className="text-green-500" /> Unlimited use</div>
             <div className="flex items-center gap-2"><CheckCircle2 className="text-green-500" /> Supports JPG, PNG, WebP</div>
-          </div>
-        </section>
-
-        {/* BEFORE & AFTER EXAMPLES */}
-        <section className="space-y-6 text-center">
-          <h2 className="text-3xl font-bold">See the Difference: Before vs After Compression</h2>
-          <p className="text-lg text-muted-foreground max-w-3xl mx-auto">Our tool reduces file size dramatically while keeping images looking sharp and clear.</p>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">![](grok_render_searched_image_card_json={"cards":[{"cardId":"9dded3","imageId":"0","size":"LARGE"},{"cardId":"c80f5c","imageId":"1","size":"LARGE"},{"cardId":"784765","imageId":"2","size":"LARGE"},{"cardId":"6e3820","imageId":"3","size":"LARGE"}]})
           </div>
         </section>
 
@@ -303,23 +287,7 @@ export default function ImageCompressor() {
           )}
         </Card>
 
-        {/* PAGESPEED EXAMPLES */}
-        <section className="space-y-6 text-center">
-          <h2 className="text-3xl font-bold">How Compressed Images Improve Website Speed</h2>
-          <p className="text-lg text-muted-foreground max-w-3xl mx-auto">Smaller images = Faster loading pages = Happier visitors and better Google rankings</p>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">![](grok_render_searched_image_card_json={"cards":[{"cardId":"e9c39d","imageId":"4","size":"LARGE"},{"cardId":"2e42d9","imageId":"5","size":"LARGE"},{"cardId":"a73fbf","imageId":"6","size":"LARGE"}]})
-          </div>
-        </section>
-
-        {/* CORE WEB VITALS INFOGRAPHIC */}
-        <section className="space-y-6 text-center">
-          <h2 className="text-3xl font-bold">Understanding Core Web Vitals & Why Images Matter</h2>
-          <p className="text-lg text-muted-foreground max-w-3xl mx-auto">Google uses loading speed (especially Largest Contentful Paint) to rank websites. Optimize images to score higher!</p>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">![](grok_render_searched_image_card_json={"cards":[{"cardId":"2db227","imageId":"7","size":"LARGE"},{"cardId":"80d9c1","imageId":"8","size":"LARGE"},{"cardId":"f153d2","imageId":"9","size":"LARGE"}]})
-          </div>
-        </section>
-
-        {/* ARTICLE SECTION - SIMPLE & USER-FRIENDLY */}
+        {/* ARTICLE SECTION - Simple & User-Friendly */}
         <article className="grid grid-cols-1 lg:grid-cols-3 gap-16">
           <div className="lg:col-span-2 space-y-12 leading-relaxed text-lg">
             
@@ -419,7 +387,7 @@ export default function ImageCompressor() {
           </aside>
         </article>
 
-        {/* HASHTAGS */}
+        {/* HASHTAGS SECTION */}
         <div className="flex flex-wrap justify-center gap-4 py-12 border-t-2 border-dashed border-gray-100 dark:border-gray-900">
           {hashtags.map(tag => (
             <span
@@ -434,4 +402,4 @@ export default function ImageCompressor() {
       </div>
     </>
   );
-}
+    }
