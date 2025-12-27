@@ -1,13 +1,13 @@
 'use client';
 
+import { useState } from 'react';
+
 /*
  FILE: src/components/tools/MetalWeightCalculator.tsx
  PURPOSE:
- - Real metal weight calculator
- - Step-3A: Round bar (base implementation)
+ - Fully styled metal weight calculator
+ - Does NOT depend on external wrapper
 */
-
-import { useState } from 'react';
 
 const METALS: Record<string, number> = {
   aluminium: 2.7,
@@ -26,7 +26,7 @@ export default function MetalWeightCalculator() {
 
   const calculate = () => {
     const d = Number(diameter) / 10; // mm → cm
-    const L = Number(length) / 10;   // mm → cm
+    const L = Number(length) / 10;
 
     if (!d || !L) return;
 
@@ -37,48 +37,58 @@ export default function MetalWeightCalculator() {
   };
 
   return (
-    <div className="tool-card">
+    <div className="tool-card" style={{ maxWidth: 520, margin: '24px auto' }}>
       <h2 className="tool-title">Metal Weight Calculator</h2>
 
-      <label>Metal Type</label>
-      <select
-        className="tool-input"
-        value={metal}
-        onChange={(e) => setMetal(e.target.value)}
-      >
-        <option value="aluminium">Aluminium</option>
-        <option value="ms">Mild Steel (MS)</option>
-        <option value="steel">Stainless Steel</option>
-        <option value="iron">Iron</option>
-        <option value="copper">Copper</option>
-        <option value="brass">Brass</option>
-      </select>
+      <div className="tool-form" style={{ display: 'grid', gap: 12 }}>
+        <label>
+          Metal Type
+          <select
+            className="tool-input"
+            value={metal}
+            onChange={(e) => setMetal(e.target.value)}
+          >
+            <option value="aluminium">Aluminium</option>
+            <option value="ms">Mild Steel (MS)</option>
+            <option value="steel">Stainless Steel</option>
+            <option value="iron">Iron</option>
+            <option value="copper">Copper</option>
+            <option value="brass">Brass</option>
+          </select>
+        </label>
 
-      <label>Diameter (mm)</label>
-      <input
-        type="number"
-        className="tool-input"
-        value={diameter}
-        onChange={(e) => setDiameter(e.target.value)}
-      />
+        <label>
+          Diameter (mm)
+          <input
+            type="number"
+            className="tool-input"
+            value={diameter}
+            onChange={(e) => setDiameter(e.target.value)}
+            placeholder="e.g. 20"
+          />
+        </label>
 
-      <label>Length (mm)</label>
-      <input
-        type="number"
-        className="tool-input"
-        value={length}
-        onChange={(e) => setLength(e.target.value)}
-      />
+        <label>
+          Length (mm)
+          <input
+            type="number"
+            className="tool-input"
+            value={length}
+            onChange={(e) => setLength(e.target.value)}
+            placeholder="e.g. 1000"
+          />
+        </label>
 
-      <button className="tool-btn" onClick={calculate}>
-        Calculate Weight
-      </button>
+        <button className="tool-btn" onClick={calculate}>
+          Calculate Weight
+        </button>
 
-      {weight !== null && (
-        <div className="tool-result">
-          Weight: <strong>{weight} kg</strong>
-        </div>
-      )}
+        {weight !== null && (
+          <div className="tool-result">
+            Weight: <strong>{weight} kg</strong>
+          </div>
+        )}
+      </div>
     </div>
   );
 }
