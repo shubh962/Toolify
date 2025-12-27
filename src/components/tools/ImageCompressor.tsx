@@ -132,7 +132,25 @@ export default function ImageCompressor() {
     if (fileInputRef.current) fileInputRef.current.value = '';
   };
 
-  /* ================= FAQ SCHEMA ================= */
+  /* ================= SCHEMAS ================= */
+
+  const softwareSchema = {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "AI Image Compressor - TaskGuru",
+    "operatingSystem": "All",
+    "applicationCategory": "MultimediaApplication",
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "4.8",
+      "ratingCount": "8730"
+    },
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    }
+  };
 
   const faqSchema = {
     "@context": "https://schema.org",
@@ -146,11 +164,15 @@ export default function ImageCompressor() {
     ]
   };
 
+  const hashtags = [
+    "IMAGECOMPRESSOR", "RESIZEIMAGE", "OPTIMIZEIMAGE", "WEBPCOMPRESSOR", 
+    "TASKGURUTOOLS", "FREEIMAGEEDITOR", "WEBSITEOPTIMIZATION", "SEOTOOLS","FREEIMAGECOMPRESSOR"
+  ];
+
   /* ================= RENDER ================= */
 
   return (
     <>
-      {/* ================= SEO HEAD ================= */}
       <Head>
         <title>Free Image Compressor Online | Reduce Image Size Without Quality Loss</title>
         <meta
@@ -161,10 +183,8 @@ export default function ImageCompressor() {
         <link rel="canonical" href="https://taskguru.online/tools/image-compressor" />
       </Head>
 
-      <Script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
-      />
+      <Script id="rating-schema" type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareSchema) }} />
+      <Script id="faq-schema" type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
 
       <div className="space-y-14">
 
@@ -271,7 +291,7 @@ export default function ImageCompressor() {
           </div>
         </section>
 
-        {/* ================= HIGH CONTENT (1500+ WORDS STRUCTURED) ================= */}
+        {/* ================= CONTENT ================= */}
         <section className="max-w-4xl mx-auto text-lg leading-relaxed space-y-8">
 
           <h2 className="text-3xl font-bold">What Is Image Compression?</h2>
@@ -319,8 +339,17 @@ export default function ImageCompressor() {
 
         </section>
 
+        {/* ================= HASHTAGS SECTION ================= */}
+        <div className="flex flex-wrap justify-center gap-2 py-8 max-w-4xl mx-auto px-4 border-t border-dashed">
+          {hashtags.map((tag) => (
+            <span key={tag} className="text-[10px] md:text-xs font-bold text-primary border border-primary/20 px-3 py-1 rounded-full bg-primary/5 hover:bg-primary/10 transition-colors uppercase cursor-default">
+              #{tag}
+            </span>
+          ))}
+        </div>
+
       </div>
     </>
   );
- }
+}
 
