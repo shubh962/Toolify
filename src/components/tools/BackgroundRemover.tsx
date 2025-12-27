@@ -20,8 +20,6 @@ import {
   CheckCircle2,
   Layers,
   Zap,
-  ShieldCheck,
-  Smartphone
 } from 'lucide-react';
 
 import { handleBackgroundRemoval } from '@/app/actions';
@@ -65,10 +63,6 @@ const compressImage = (file: File): Promise<string> => {
     reader.onerror = (error) => reject(error);
   });
 };
-
-/* =====================================================
-   BACKGROUND REMOVER COMPONENT
-   ===================================================== */
 
 export default function BackgroundRemover() {
   const { toast } = useToast();
@@ -195,32 +189,44 @@ export default function BackgroundRemover() {
     "ONLINEEDITOR", "PHOTOGRAPHY", "DIGITALMARKETING"
   ];
 
-  /* ================= RENDER ================= */
+  // Checkerboard background style to replace the missing transparent-bg.png
+  const checkerboardStyle = {
+    backgroundImage: `linear-gradient(45deg, #e5e7eb 25%, transparent 25%), 
+                      linear-gradient(-45deg, #e5e7eb 25%, transparent 25%), 
+                      linear-gradient(45deg, transparent 75%, #e5e7eb 75%), 
+                      linear-gradient(-45deg, transparent 75%, #e5e7eb 75%)`,
+    backgroundSize: '20px 20px',
+    backgroundPosition: '0 0, 0 10px, 10px -10px, -10px 0px'
+  };
+
   return (
     <>
       <Head>
         <title>Free AI Background Remover | Make Image Transparent Online - TaskGuru</title>
         <meta name="description" content="Best Free AI Background Remover. Remove backgrounds from images instantly. Download transparent PNGs for e-commerce, profiles & marketing. No signup required." />
-        <meta name="keywords" content="background remover, remove bg, transparent background, ai photo editor, remove image background free, online photo editor" />
-        <link rel="canonical" href="https://taskguru.online/tools/background-remover" />
       </Head>
 
+      {/* FIXED ADSENSE SCRIPT: Added strategy to prevent hydration issues */}
+      <Script 
+        async 
+        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4272213374622185" 
+        crossOrigin="anonymous" 
+        strategy="afterInteractive"
+      />
+      
       <Script id="rating-schema" type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareSchema) }} />
       <Script id="faq-schema" type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
 
       <div className="space-y-16">
-
-        {/* HERO SECTION */}
         <section className="max-w-4xl mx-auto text-center py-8 space-y-4">
           <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight bg-gradient-to-r from-gray-900 to-gray-600 dark:from-white dark:to-gray-300 bg-clip-text text-transparent">
             AI Background Remover: Make Images Transparent Instantly
           </h1>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            The fastest way to remove backgrounds from photos. 100% Free, Automatic, and High-Quality. Perfect for professionals and creators.
+            The fastest way to remove backgrounds from photos. 100% Free, Automatic, and High-Quality.
           </p>
         </section>
 
-        {/* TOOL UI */}
         <Card className="max-w-5xl mx-auto shadow-xl border-t-4 border-t-primary">
           <CardContent className="p-8">
             {!originalImage ? (
@@ -229,8 +235,6 @@ export default function BackgroundRemover() {
                   <Upload className="w-12 h-12 text-primary" />
                 </div>
                 <p className="font-bold text-2xl mb-2">Upload an Image</p>
-                <p className="text-muted-foreground mb-4">Drag & drop or tap to select (JPG, PNG, WEBP)</p>
-                <span className="px-4 py-2 bg-primary text-primary-foreground rounded-full text-sm font-medium">Choose Photo</span>
                 <Input ref={fileInputRef} type="file" className="hidden" accept="image/*" onChange={handleFileChange} />
               </label>
             ) : (
@@ -238,19 +242,20 @@ export default function BackgroundRemover() {
                 <div className="space-y-3">
                   <h3 className="font-semibold text-lg flex items-center"><Layers className="w-4 h-4 mr-2" /> Original Image</h3>
                   <div className="relative aspect-square w-full border rounded-xl overflow-hidden bg-gray-50 dark:bg-gray-900 shadow-inner">
-                      <Image src={originalImage} alt="Original uploaded photo" fill style={{ objectFit: "contain" }} />
+                      <Image src={originalImage} alt="Original photo" fill style={{ objectFit: "contain" }} unoptimized />
                   </div>
                 </div>
                 <div className="space-y-3">
                   <h3 className="font-semibold text-lg flex items-center text-green-600 dark:text-green-400"><Sparkles className="w-4 h-4 mr-2" /> Transparent Result</h3>
-                  <div className="relative aspect-square w-full border rounded-xl overflow-hidden bg-[url('/transparent-bg.png')] bg-repeat shadow-inner">
+                  {/* FIXED: Removed missing image call and used CSS checkerboard */}
+                  <div className="relative aspect-square w-full border rounded-xl overflow-hidden shadow-inner" style={checkerboardStyle}>
                     {isLoading ? (
-                        <div className="flex flex-col items-center justify-center h-full animate-pulse">
+                        <div className="flex flex-col items-center justify-center h-full animate-pulse bg-white/80 dark:bg-black/80">
                             <Loader2 className="animate-spin w-12 h-12 mb-4 text-primary" />
                             <p className="font-medium text-lg text-muted-foreground">Processing...</p>
                         </div>
                     ) : processedImage ? (
-                        <Image src={processedImage} alt="Result transparent" fill style={{ objectFit: "contain" }} />
+                        <Image src={processedImage} alt="Result transparent" fill style={{ objectFit: "contain" }} unoptimized />
                     ) : (
                         <div className="flex flex-col items-center justify-center h-full text-muted-foreground opacity-60">
                              <Sparkles className="w-16 h-16 mb-4" />
@@ -282,101 +287,33 @@ export default function BackgroundRemover() {
           )}
         </Card>
 
-        {/* BEFORE & AFTER SECTION */}
+        {/* AFTER FIX: Simplified Before/After to avoid missing images or 404s */}
         <section className="max-w-6xl mx-auto px-4">
           <div className="text-center mb-10">
-             <h2 className="text-3xl font-bold mb-4">See the Magic: Before & After</h2>
+             <h2 className="text-3xl font-bold mb-4">Professional Results</h2>
              <p className="text-muted-foreground">Experience pixel-perfect precision with our AI technology.</p>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <Image src="/tool-previews/bg-remover-before.png" alt="Before" width={600} height={400} className="rounded-2xl border shadow-lg" />
-            <Image src="/tool-previews/bg-remover-after.png" alt="After" width={600} height={400} className="rounded-2xl border shadow-lg bg-[url('/transparent-bg.png')]" />
           </div>
         </section>
 
-        {/* SEO ARTICLE CONTENT */}
         <article className="max-w-4xl mx-auto px-4 py-10 space-y-12 text-gray-700 dark:text-gray-300 leading-relaxed">
-          
           <section className="space-y-6">
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white">
-              The Ultimate Free Online Background Remover for Everyone
+              The Ultimate Free Online Background Remover
             </h2>
             <p className="text-lg">
-              In today's digital-first world, visual content is king. Whether you are an e-commerce seller listing products on Amazon, a social media influencer creating stunning Instagram stories, or a professional designing a corporate presentation, having clear, high-quality images is non-negotiable. One of the most common challenges creators face is dealing with cluttered, distracting, or unprofessional backgrounds. This is where <strong>TaskGuru's AI Background Remover</strong> comes in—a powerful, free, and instant solution to remove background from images online.
+              Remove backgrounds from images instantly using <strong>TaskGuru's AI Background Remover</strong>.
             </p>
-            <p className="text-lg">
-              Gone are the days when you needed expensive software like Adobe Photoshop or complex technical skills to create transparent backgrounds. Our tool leverages state-of-the-art <strong>Artificial Intelligence (AI)</strong> and Machine Learning algorithms to detect the subject of your photo automatically. Within seconds, it isolates the foreground—be it a person, a car, a pet, or a product—and completely erases the background, leaving you with a clean, transparent PNG file ready for any use.
-            </p>
-            <p className="text-lg">
-              After you have processed your image, you might want to optimize it for the web. Check out our <Link href="/tools/image-compressor" className="text-primary font-semibold hover:underline">Free Image Compressor</Link> to reduce file size without losing quality.
-            </p>
-          </section>
-
-          <section className="space-y-6 bg-gray-50 dark:bg-gray-800/50 p-8 rounded-2xl border">
-            <h2 className="text-2xl font-bold text-gray-900 dark:text-white">How Does AI Background Removal Work?</h2>
-            <p>
-              Understanding the technology behind our tool helps you appreciate its precision. Unlike manual "magic wand" tools that rely on simple color contrast, our AI Background Remover uses <strong>Semantic Segmentation</strong>. This is a computer vision technique where the AI examines every single pixel in the image and assigns it a label: "Subject" or "Background."
-            </p>
-            <ul className="grid md:grid-cols-2 gap-4 mt-4">
-              <li className="flex items-start">
-                <CheckCircle2 className="w-6 h-6 text-green-500 mr-2 mt-1 flex-shrink-0" />
-                <span><strong>Edge Detection:</strong> The AI identifies the fine boundaries of the subject, ensuring smooth cutouts even around tricky areas.</span>
-              </li>
-              <li className="flex items-start">
-                <CheckCircle2 className="w-6 h-6 text-green-500 mr-2 mt-1 flex-shrink-0" />
-                <span><strong>Depth Analysis:</strong> It distinguishes between foreground and background even with similar colors.</span>
-              </li>
-              <li className="flex items-start">
-                <CheckCircle2 className="w-6 h-6 text-green-500 mr-2 mt-1 flex-shrink-0" />
-                <span><strong>Transparency Handling:</strong> It intelligently manages semi-transparent objects like glass or veils.</span>
-              </li>
-              <li className="flex items-start">
-                <CheckCircle2 className="w-6 h-6 text-green-500 mr-2 mt-1 flex-shrink-0" />
-                <span><strong>Auto-Correction:</strong> The final output is refined to remove any jagged edges or halos.</span>
-              </li>
-            </ul>
-          </section>
-
-          <section className="space-y-6">
-            <h2 className="text-2xl font-bold text-gray-900 dark:text-white">Step-by-Step: How to Make Background Transparent</h2>
-            <p>Using TaskGuru is incredibly simple. We designed our interface to be user-friendly for everyone, from beginners to experts.</p>
-            <div className="space-y-4 mt-4">
-              <div className="flex items-start gap-4">
-                <div className="bg-primary text-white w-8 h-8 rounded-full flex items-center justify-center font-bold flex-shrink-0">1</div>
-                <div>
-                  <h3 className="font-bold text-lg">Upload Your Image</h3>
-                  <p>Click on the upload box or drag and drop your file. We support JPG, PNG, and WEBP formats up to 8MB. If your image is a scanned document, you might want to extract text using our <Link href="/tools/image-to-text" className="text-primary font-semibold hover:underline">Image to Text OCR Tool</Link>.</p>
-                </div>
-              </div>
-              <div className="flex items-start gap-4">
-                <div className="bg-primary text-white w-8 h-8 rounded-full flex items-center justify-center font-bold flex-shrink-0">2</div>
-                <div>
-                  <h3 className="font-bold text-lg">Automatic Processing</h3>
-                  <p>Once uploaded, our AI kicks in instantly. During this time, the image is analyzed by the neural network, and the background is removed.</p>
-                </div>
-              </div>
-              <div className="flex items-start gap-4">
-                <div className="bg-primary text-white w-8 h-8 rounded-full flex items-center justify-center font-bold flex-shrink-0">3</div>
-                <div>
-                  <h3 className="font-bold text-lg">Download Result</h3>
-                  <p>Within seconds, your transparent image appears. Review the result, and if happy, click "Download HD PNG" to save it.</p>
-                </div>
-              </div>
-            </div>
           </section>
         </article>
 
-        {/* HASHTAGS SECTION */}
         <div className="flex flex-wrap justify-center gap-2 py-8 max-w-4xl mx-auto px-4 border-t border-dashed">
           {hashtags.map((tag) => (
-            <span key={tag} className="text-[10px] md:text-xs font-bold text-primary border border-primary/20 px-3 py-1 rounded-full bg-primary/5 hover:bg-primary/10 transition-colors uppercase cursor-default">
+            <span key={tag} className="text-[10px] md:text-xs font-bold text-primary border border-primary/20 px-3 py-1 rounded-full bg-primary/5 uppercase cursor-default">
               #{tag}
             </span>
           ))}
         </div>
-
       </div>
     </>
   );
 }
-
