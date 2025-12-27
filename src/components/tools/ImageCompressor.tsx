@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useRef } from 'react';
+import Head from 'next/head'; // Added Head for SEO
 import Image from 'next/image';
 import Script from 'next/script';
 import Link from 'next/link';
@@ -159,7 +160,20 @@ export default function ImageCompressor() {
 
   return (
     <>
-      {/* JSON-LD Structured Data */}
+      <Head>
+        <title>Free Online Image Compressor | Reduce Image Size Without Losing Quality - TaskGuru</title>
+        <meta name="description" content="Best Free Online Image Compressor. Reduce JPG, PNG, and WebP sizes instantly. Fast, private browser-based compression with no quality loss." />
+        <link rel="canonical" href="https://taskguru.online/tools/image-compressor" />
+      </Head>
+
+      {/* FIXED ADSENSE SCRIPT: Added strategy to prevent hydration issues */}
+      <Script 
+        async 
+        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4272213374622185" 
+        crossOrigin="anonymous" 
+        strategy="afterInteractive"
+      />
+
       <Script
         id="rating-schema"
         type="application/ld+json"
@@ -211,7 +225,7 @@ export default function ImageCompressor() {
                   <div className="space-y-4 text-center">
                     <Label className="text-2xl font-black">Original Image</Label>
                     <div className="relative aspect-video rounded-2xl overflow-hidden border-4 border-gray-300 bg-muted shadow-lg">
-                      <Image src={originalImage} alt="Original image" fill className="object-contain" />
+                      <Image src={originalImage} alt="Original image" fill className="object-contain" unoptimized />
                       <div className="absolute bottom-4 left-1/2 -translate-x-1/2 bg-black/80 text-white px-6 py-2 rounded-full text-lg font-bold">
                         {formatBytes(originalFile?.size ?? 0)}
                       </div>
@@ -227,7 +241,7 @@ export default function ImageCompressor() {
                         </div>
                       ) : compressedImage ? (
                         <>
-                          <Image src={compressedImage} alt="Compressed image" fill className="object-contain" />
+                          <Image src={compressedImage} alt="Compressed image" fill className="object-contain" unoptimized />
                           <div className="absolute bottom-4 left-1/2 -translate-x-1/2 bg-primary text-white px-6 py-2 rounded-full text-lg font-bold shadow-lg">
                             {formatBytes(compressedSize)}
                           </div>
@@ -287,7 +301,7 @@ export default function ImageCompressor() {
           )}
         </Card>
 
-        {/* ARTICLE SECTION - Simple & User-Friendly */}
+        {/* ARTICLE SECTION */}
         <article className="grid grid-cols-1 lg:grid-cols-3 gap-16">
           <div className="lg:col-span-2 space-y-12 leading-relaxed text-lg">
             
@@ -336,9 +350,6 @@ export default function ImageCompressor() {
               <p>
                 Your images never leave your device! All compression happens right in your browser – no uploads to servers, no storage, nothing saved. As soon as you close the page, everything is gone.
               </p>
-              <p>
-                No signup, no email, no tracking – just fast, free compression whenever you need it.
-              </p>
             </section>
 
             <section className="space-y-6">
@@ -349,7 +360,6 @@ export default function ImageCompressor() {
                 <li>Click "Compress Image Now"</li>
                 <li>Download your smaller, optimized image!</li>
               </ol>
-              <p>That's it – simple, fast, and completely free!</p>
             </section>
           </div>
 
@@ -365,22 +375,11 @@ export default function ImageCompressor() {
                    <div className="bg-primary text-white w-8 h-8 rounded-full flex items-center justify-center font-bold">2</div>
                    <p>Compress before uploading to social media for faster posts</p>
                 </li>
-                <li className="flex gap-4">
-                   <div className="bg-primary text-white w-8 h-8 rounded-full flex items-center justify-center font-bold">3</div>
-                   <p>Smaller images = faster emails and less data usage</p>
-                </li>
-                <li className="flex gap-4">
-                   <div className="bg-primary text-white w-8 h-8 rounded-full flex items-center justify-center font-bold">4</div>
-                   <p>Works great for product photos on online stores</p>
-                </li>
               </ul>
               <div className="mt-12 pt-8 border-t border-gray-300 dark:border-gray-700">
                 <h5 className="font-bold text-xl mb-6 text-center">More Free Tools</h5>
                 <nav className="flex flex-col gap-4">
                   <Link href="/tools/background-remover" className="text-primary font-bold text-lg hover:underline">→ AI Background Remover</Link>
-                  <Link href="/tools/pdf-to-word" className="text-primary font-bold text-lg hover:underline">→ PDF to Word</Link>
-                  <Link href="/tools/image-to-text" className="text-primary font-bold text-lg hover:underline">→ Photo to Text (OCR)</Link>
-                  <Link href="/tools/qr-code-generator" className="text-primary font-bold text-lg hover:underline">→ QR Code Maker</Link>
                 </nav>
               </div>
             </div>
@@ -402,4 +401,4 @@ export default function ImageCompressor() {
       </div>
     </>
   );
-    }
+}
