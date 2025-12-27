@@ -109,5 +109,17 @@ export const tools: Tool[] = [
     isPlaceholder: false,
     imageUrl: '/tool-previews/age-calculator.png',
   },
+  // --- NEW TOOL: Metal Weight Calculator ---
+{
+  slug: 'metal-weight-calculator',
+  title: 'Metal Weight Calculator',
+  description:
+    'Calculate accurate metal weight for Steel, Mild Steel (MS), Aluminium, Copper, Brass and more. Enter size and length to get instant results using standard engineering formulas.',
+  icon: Minimize,
+  isGenAI: false,
+  isPlaceholder: false,
+  imageUrl: '/tool-previews/metal-weight-calculator.png',
+},
+  
 ];
 
