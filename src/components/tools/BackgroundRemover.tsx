@@ -189,7 +189,7 @@ export default function BackgroundRemover() {
     "ONLINEEDITOR", "PHOTOGRAPHY", "DIGITALMARKETING"
   ];
 
-  // Checkerboard background style to replace the missing transparent-bg.png
+  /* Checkerboard style fix for the 404 image issue */
   const checkerboardStyle = {
     backgroundImage: `linear-gradient(45deg, #e5e7eb 25%, transparent 25%), 
                       linear-gradient(-45deg, #e5e7eb 25%, transparent 25%), 
@@ -208,7 +208,7 @@ export default function BackgroundRemover() {
         <link rel="canonical" href="https://taskguru.online/tools/background-remover" />
       </Head>
 
-      {/* Use next/script for AdSense to avoid hydration errors */}
+      {/* FIXED ADSENSE: Using strategy="afterInteractive" to solve the warning */}
       <Script 
         async 
         src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4272213374622185" 
@@ -379,12 +379,11 @@ export default function BackgroundRemover() {
           </section>
         </article>
 
-        {/* HASHTAGS SECTION */}
         <div className="flex flex-wrap justify-center gap-2 py-8 max-w-4xl mx-auto px-4 border-t border-dashed">
           {hashtags.map((tag) => (
-            <key key={tag} className="text-[10px] md:text-xs font-bold text-primary border border-primary/20 px-3 py-1 rounded-full bg-primary/5 hover:bg-primary/10 transition-colors uppercase cursor-default">
+            <span key={tag} className="text-[10px] md:text-xs font-bold text-primary border border-primary/20 px-3 py-1 rounded-full bg-primary/5 hover:bg-primary/10 transition-colors uppercase cursor-default">
               #{tag}
-            </key>
+            </span>
           ))}
         </div>
 
