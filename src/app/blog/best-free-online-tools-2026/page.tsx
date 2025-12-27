@@ -23,7 +23,7 @@ export default function SEOBlogPage() {
         "aggregateRating": {
           "@type": "AggregateRating",
           "ratingValue": "5.0",
-          "ratingCount": "3200",
+          "ratingCount": "5025",
           "bestRating": "5",
           "worstRating": "1"
         },
