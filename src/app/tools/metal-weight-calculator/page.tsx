@@ -26,7 +26,7 @@ export default function MetalWeightCalculatorPage() {
         length, and get instant results.
       </p>
 
-      {/* 🔧 TOOL COMPONENT */}
+      {/* 🔧 TOOL COMPONENTS */}
       <MetalWeightCalculator />
 
       <section>
