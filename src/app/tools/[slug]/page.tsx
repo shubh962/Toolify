@@ -12,6 +12,8 @@ import PlaceholderTool from '@/components/tools/PlaceholderTool';
 import MoreTools from '@/components/MoreTools';
 import ResumeMakerFlow from '@/components/tools/ResumeMakerFlow'; // ✅ IMPORTANT
 import AgeCalculator from '@/components/tools/AgeCalculator';
+import MetalWeightCalculator from '@/components/tools/MetalWeightCalculator';
+
 
 export async function generateStaticParams() {
   return tools.map((tool) => ({
@@ -48,7 +50,7 @@ const toolComponentMap: { [key: string]: React.ComponentType<any> } = {
   "image-compressor": ImageCompressor,
   "image-to-pdf": ImageToPdf,
   "age-calculator": AgeCalculator,
-  "metal-weight-calculator": Metalweightcalculator,
+  "metal-weight-calculator": MetalWeightCalculator,
 };
 
 export default function ToolPage({ params }: { params: { slug: string } }) {
