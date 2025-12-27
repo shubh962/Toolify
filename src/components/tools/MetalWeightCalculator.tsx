@@ -109,15 +109,15 @@ export default function MetalWeightCalculator() {
 
   /* ================= FAQ DATA ================= */
   const faqs = [
-    { q: 'How is metal weight calculated?', a: 'Weight is calculated using volume and material density with standard engineering formulas.' },
-    { q: 'Which units are supported?', a: 'Millimeter, Inches, Meter and Feet are supported.' },
-    { q: 'Is this calculator accurate?', a: 'Yes, it uses industry-standard densities.' },
-    { q: 'Is any data stored?', a: 'No. All calculations and ratings are client-side.' },
+    { q: 'How is metal weight calculated?', a: 'Metal weight is calculated using volume and material density.' },
+    { q: 'Which units are supported?', a: 'MM, Inches, Meter and Feet are supported.' },
+    { q: 'Is this calculator accurate?', a: 'Yes, it uses industry-standard formulas and densities.' },
+    { q: 'Is any data stored?', a: 'No. Everything runs on your device only.' },
   ];
 
   return (
     <>
-      {/* ================= SCHEMA (FAQ + RATING) ================= */}
+      {/* ================= SCHEMA ================= */}
       <Script
         id="metal-weight-schema"
         type="application/ld+json"
@@ -150,32 +150,48 @@ export default function MetalWeightCalculator() {
         }}
       />
 
-      {/* ================= EXISTING CALCULATOR UI (UNCHANGED) ================= */}
-      {/* 👉 YOUR ORIGINAL UI CONTINUES HERE – NO TEXT REMOVED */}
-      {/* (Calculator UI remains exactly as you already pasted above) */}
+      {/* ================= TOOL ================= */}
+      <div className="max-w-4xl mx-auto p-6 md:p-10 bg-white rounded-[2.5rem] shadow-2xl border">
 
-      {/* ================= RATING UI ================= */}
-      <div className="mt-12 text-center">
-        <p className="text-xs font-black uppercase tracking-widest mb-2">
-          Rate This Tool
+        <h1 className="text-3xl md:text-4xl font-black text-center mb-3">
+          Metal Weight Calculator
+        </h1>
+
+        <p className="text-center text-slate-600 mb-10">
+          Calculate accurate metal weights for sheets, pipes, bars, angles and more.
         </p>
-        <div className="flex justify-center gap-1 text-yellow-400 text-2xl">
-          {[1,2,3,4,5].map(s => (
-            <span key={s} onClick={()=>handleRating(s)} className="cursor-pointer">★</span>
-          ))}
-        </div>
-        <p className="text-sm mt-2">
-          {ratingValue} ★★★★★ based on {ratingCount.toLocaleString()} ratings
-        </p>
-        {userRated && (
-          <p className="text-xs text-emerald-600 font-bold mt-1">
-            Thanks for rating!
+
+        {/* ===== RESULT ===== */}
+        <div className="bg-emerald-600 text-white rounded-3xl p-8 text-center mb-12">
+          <p className="text-xs uppercase tracking-widest opacity-80 mb-2">
+            Total Calculated Weight
           </p>
-        )}
-      </div>
+          <div className="text-6xl font-black">
+            {calculateWeight} KG
+          </div>
+        </div>
 
-      {/* ================= FAQ UI ================= */}
-      <div className="mt-12">
+        {/* ===== RATING ===== */}
+        <div className="text-center mb-14">
+          <p className="text-xs font-black uppercase tracking-widest mb-2">
+            Rate This Tool
+          </p>
+          <div className="flex justify-center gap-1 text-yellow-400 text-2xl">
+            {[1,2,3,4,5].map(s=>(
+              <span key={s} onClick={()=>handleRating(s)} className="cursor-pointer">★</span>
+            ))}
+          </div>
+          <p className="text-sm mt-2">
+            {ratingValue} ★★★★★ based on {ratingCount.toLocaleString()} ratings
+          </p>
+          {userRated && (
+            <p className="text-xs text-emerald-600 font-bold mt-1">
+              Thanks for rating!
+            </p>
+          )}
+        </div>
+
+        {/* ===== FAQ ===== */}
         <h2 className="text-xl font-black mb-4 text-center">
           Frequently Asked Questions
         </h2>
@@ -185,11 +201,12 @@ export default function MetalWeightCalculator() {
             <p className="text-sm text-slate-600 mt-2">{f.a}</p>
           </details>
         ))}
-      </div>
 
-      <p className="mt-10 text-center text-[11px] font-bold text-slate-400 uppercase tracking-wider">
-        Ratings and calculations are performed client-side. No personal data is stored.
-      </p>
+        <p className="mt-10 text-center text-[11px] font-bold text-slate-400 uppercase tracking-wider">
+          Calculations & ratings are performed client-side. No data is stored.
+        </p>
+
+      </div>
     </>
   );
 }
