@@ -48,6 +48,7 @@ const toolComponentMap: { [key: string]: React.ComponentType<any> } = {
   "image-compressor": ImageCompressor,
   "image-to-pdf": ImageToPdf,
   "age-calculator": AgeCalculator,
+  "metal-weight-calculator": Metalweightcalculator,
 };
 
 export default function ToolPage({ params }: { params: { slug: string } }) {
