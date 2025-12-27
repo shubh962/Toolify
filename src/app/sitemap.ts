@@ -24,6 +24,7 @@ const toolSlugs = [
   "image-to-pdf",
   "resume-maker",
   "age-calculator",
+  "metal-weight-calculator",
 ];
 
 const staticPages = [
