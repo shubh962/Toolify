@@ -1,115 +1,167 @@
 'use client';
 
-import { useState, useMemo } from 'react';
+import { useState } from 'react';
 
-[span_5](start_span)// Standard Densities (g/cm³)[span_5](end_span)
-const METALS = {
-  ms: { name: 'Mild Steel (MS)', density: 7.85 },
-  ss: { name: 'Stainless Steel', density: 8.00 },
-  al: { name: 'Aluminium', density: 2.70 },
-  cu: { name: 'Copper', density: 8.96 },
-  br: { name: 'Brass', density: 8.50 },
+const METALS: Record<string, number> = {
+  ms: 7.85,    // Mild Steel
+  ss: 8.0,     // Stainless Steel
+  al: 2.7,     // Aluminium
+  iron: 7.87,  // Iron
+  copper: 8.96, // Copper
+  brass: 8.5,   // Brass
+  bronze: 8.8   // Bronze
 };
 
-type ShapeType = 'round' | 'roundPipe' | 'square' | 'rect' | 'hex' | 'angle' | 'ibeam' | 'channel';
+const SHAPES = [
+  { id: 'round', label: 'Round' },
+  { id: 'roundPipe', label: 'Round Pipe' },
+  { id: 'hexBar', label: 'Round (Hex)' },
+  { id: 'sphere', label: 'Sphere / Ball' },
+  { id: 'square', label: 'Square' },
+  { id: 'squarePipe', label: 'Square Pipe' },
+  { id: 'rect', label: 'Rectangle / Sheet' },
+  { id: 'rectPipe', label: 'Rectangle Pipe' },
+  { id: 'hex', label: 'Hex' },
+  { id: 'octagonal', label: 'Octagonal' },
+  { id: 'triangle', label: 'Triangle' },
+  { id: 'trapezoid', label: 'Trapezoid' },
+  { id: 'angle', label: 'Angle' },
+  { id: 'channel', label: 'Channel' },
+  { id: 'tbar', label: 'T Bar' },
+  { id: 'ibeam', label: 'I Beam' },
+  { id: 'cshape', label: 'C Shape' },
+  { id: 'eshape', label: 'E Shape' },
+];
 
 export default function MetalWeightCalculator() {
-  const [metal, setMetal] = useState<keyof typeof METALS>('ms');
-  const [shape, setShape] = useState<ShapeType>('round');
-  const [dims, setDims] = useState({ d: '', w: '', h: '', t: '', l: '' });
+  const [metal, setMetal] = useState('ms');
+  const [shape, setShape] = useState('round');
+  const [inputs, setInputs] = useState({
+    w: '', h: '', l: '', t: '', d: '', qty: '1'
+  });
+  const [result, setResult] = useState<string | null>(null);
 
-  const calculateWeight = useMemo(() => {
-    const { d, w, h, t, l } = dims;
-    const L = parseFloat(l) / 1000; // Convert mm to Meters for easier calculation
-    const D = parseFloat(d);
-    const W = parseFloat(w);
-    const H = parseFloat(h);
-    const T = parseFloat(t);
-    const density = METALS[metal].density;
+  const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setInputs({ ...inputs, [e.target.name]: e.target.value });
+  };
 
-    if (!L || isNaN(L)) return 0;
+  const calculate = () => {
+    const { w, h, l, t, d, qty } = inputs;
+    const W = parseFloat(w) || 0;
+    const H = parseFloat(h) || 0;
+    const L = parseFloat(l) || 0;
+    const T = parseFloat(t) || 0;
+    const D = parseFloat(d) || 0;
+    const Q = parseFloat(qty) || 1;
+    const density = METALS[metal];
 
-    let areaMm2 = 0;
+    let volumeCm3 = 0;
+    const lengthCm = L / 10; // Convert mm to cm
 
     switch (shape) {
-      [span_6](start_span)case 'round': areaMm2 = Math.PI * (D / 2) ** 2; break;[span_6](end_span)
-      [span_7](start_span)case 'roundPipe': areaMm2 = Math.PI * ((D / 2) ** 2 - (D / 2 - T) ** 2); break;[span_7](end_span)
-      [span_8](start_span)case 'square': areaMm2 = W * W; break;[span_8](end_span)
-      [span_9](start_span)case 'rect': areaMm2 = W * H; break;[span_9](end_span)
-      case 'hex': areaMm2 = (3 * Math.sqrt(3) / 2) * (D / Math.sqrt(3)) ** 2; break;
-      case 'angle': areaMm2 = (W * T) + (H - T) * T; break;
-      case 'ibeam': areaMm2 = (2 * W * T) + (H - 2 * T) * T; break;
-      case 'channel': areaMm2 = (2 * W * T) + (H - 2 * T) * T; break;
-      default: areaMm2 = 0;
+      case 'round':
+        volumeCm3 = Math.PI * Math.pow(D / 20, 2) * lengthCm;
+        break;
+      case 'roundPipe':
+        volumeCm3 = Math.PI * (Math.pow(D / 20, 2) - Math.pow((D - 2 * T) / 20, 2)) * lengthCm;
+        break;
+      case 'square':
+        volumeCm3 = Math.pow(W / 10, 2) * lengthCm;
+        break;
+      case 'squarePipe':
+        volumeCm3 = (Math.pow(W / 10, 2) - Math.pow((W - 2 * T) / 10, 2)) * lengthCm;
+        break;
+      case 'rect':
+        volumeCm3 = (W / 10) * (H / 10) * lengthCm;
+        break;
+      case 'rectPipe':
+        volumeCm3 = ((W / 10) * (H / 10) - ((W - 2 * T) / 10) * ((H - 2 * T) / 10)) * lengthCm;
+        break;
+      case 'hex':
+      case 'hexBar':
+        volumeCm3 = (Math.sqrt(3) * 2 * Math.pow(D / 20, 2)) * lengthCm;
+        break;
+      case 'sphere':
+        volumeCm3 = (4 / 3) * Math.PI * Math.pow(D / 20, 3);
+        break;
+      case 'angle':
+        volumeCm3 = ((W + H - T) * T / 100) * lengthCm;
+        break;
+      case 'ibeam':
+        volumeCm3 = ((2 * W * T + (H - 2 * T) * T) / 100) * lengthCm;
+        break;
+      case 'channel':
+      case 'cshape':
+        volumeCm3 = ((2 * W * T + (H - 2 * T) * T) / 100) * lengthCm;
+        break;
+      default:
+        volumeCm3 = (W / 10) * (H / 10) * lengthCm;
     }
 
-    [span_10](start_span)// Weight (kg) = Area(mm2) * Length(m) * Density / 1000[span_10](end_span)
-    const kg = (areaMm2 * L * density) / 1000;
-    return kg > 0 ? kg.toFixed(3) : "0.000";
-  }, [dims, shape, metal]);
-
-  const shapes = [
-    { id: 'round', label: 'Round' },
-    { id: 'roundPipe', label: 'Pipe' },
-    { id: 'square', label: 'Square' },
-    { id: 'rect', label: 'Plate' },
-    { id: 'hex', label: 'Hex' },
-    { id: 'angle', label: 'Angle' },
-    { id: 'ibeam', label: 'I-Beam' },
-    { id: 'channel', label: 'Channel' },
-  ];
+    const weightKg = (volumeCm3 * density * Q) / 1000;
+    setResult(weightKg.toFixed(3));
+  };
 
   return (
-    <div className="max-w-2xl mx-auto p-4 bg-white rounded-xl shadow-lg border border-gray-100">
-      <div className="mb-6 grid grid-cols-2 gap-4">
-        <div>
-          <label className="block text-xs font-bold uppercase text-gray-500 mb-1">Metal Type</label>
-          <select 
-            className="w-full p-2 border rounded-lg bg-gray-50"
-            value={metal} onChange={(e) => setMetal(e.target.value as any)}
-          >
-            {Object.entries(METALS).map(([id, m]) => <option key={id} value={id}>{m.name}</option>)}
-          </select>
-        </div>
-        <div className="flex items-end justify-center bg-blue-50 rounded-lg p-2 text-blue-700 font-bold">
-          Density: {METALS[metal].density} g/cm³
+    <div className="max-w-4xl mx-auto p-4 md:p-6 bg-white rounded-3xl shadow-xl border">
+      <div className="grid grid-cols-2 gap-4 mb-6">
+        <select className="p-3 border rounded-xl bg-gray-50 font-semibold" value={metal} onChange={e => setMetal(e.target.value)}>
+          <option value="ms">Mild Steel (MS)</option>
+          <option value="ss">Stainless Steel</option>
+          <option value="al">Aluminium</option>
+          <option value="iron">Iron</option>
+          <option value="copper">Copper</option>
+          <option value="brass">Brass</option>
+        </select>
+        <div className="p-3 bg-blue-50 text-blue-700 rounded-xl font-bold flex items-center justify-center">
+          Density: {METALS[metal]} g/cm³
         </div>
       </div>
 
-      [span_11](start_span){/* Shapes Grid[span_11](end_span) */}
-      <div className="grid grid-cols-4 gap-2 mb-6">
-        {shapes.map((s) => (
+      <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-2 mb-8">
+        {SHAPES.map((s) => (
           <button
             key={s.id}
-            onClick={() => setShape(s.id as ShapeType)}
-            className={`p-2 flex flex-col items-center border rounded-xl transition ${shape === s.id ? 'bg-blue-600 text-white border-blue-600' : 'bg-white text-gray-600 hover:bg-gray-50'}`}
+            onClick={() => setShape(s.id)}
+            className={`p-2 border rounded-xl text-[10px] font-bold uppercase transition-all flex flex-col items-center justify-center h-16 ${shape === s.id ? 'bg-blue-600 text-white border-blue-600 shadow-md scale-105' : 'bg-gray-50 text-gray-600 hover:border-blue-300'}`}
           >
-            <span className="text-xs font-medium mt-1">{s.label}</span>
+            <div className="w-6 h-6 mb-1 bg-current opacity-20 rounded-sm"></div>
+            {s.label}
           </button>
         ))}
       </div>
 
-      [span_12](start_span)[span_13](start_span){/* Dynamic Inputs[span_12](end_span)[span_13](end_span) */}
-      <div className="grid grid-cols-2 gap-3 mb-6">
-        {(shape === 'round' || shape === 'roundPipe' || shape === 'hex') && (
-          <input type="number" placeholder="Diameter (mm)" className="p-3 border rounded-lg" onChange={(e) => setDims({...dims, d: e.target.value})} />
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+        {(shape.includes('round') || shape === 'hex' || shape === 'sphere' || shape === 'hexBar') && (
+          <input name="d" type="number" placeholder="Diameter (mm)" className="p-4 border rounded-xl" onChange={handleInput} />
         )}
-        {(shape === 'square' || shape === 'rect' || shape === 'angle' || shape === 'ibeam' || shape === 'channel') && (
-          <input type="number" placeholder="Width (mm)" className="p-3 border rounded-lg" onChange={(e) => setDims({...dims, w: e.target.value})} />
+        {(shape.includes('square') || shape.includes('rect') || ['angle', 'ibeam', 'channel', 'cshape', 'tbar'].includes(shape)) && (
+          <input name="w" type="number" placeholder="Width / Side (mm)" className="p-4 border rounded-xl" onChange={handleInput} />
         )}
-        {(shape === 'rect' || shape === 'angle' || shape === 'ibeam' || shape === 'channel') && (
-          <input type="number" placeholder="Height (mm)" className="p-3 border rounded-lg" onChange={(e) => setDims({...dims, h: e.target.value})} />
+        {(shape.includes('rect') || ['angle', 'ibeam', 'channel', 'cshape', 'tbar'].includes(shape)) && (
+          <input name="h" type="number" placeholder="Height (mm)" className="p-4 border rounded-xl" onChange={handleInput} />
         )}
-        {(shape === 'roundPipe' || shape === 'angle' || shape === 'ibeam' || shape === 'channel') && (
-          <input type="number" placeholder="Thickness (mm)" className="p-3 border rounded-lg" onChange={(e) => setDims({...dims, t: e.target.value})} />
+        {(shape.includes('Pipe') || ['angle', 'ibeam', 'channel', 'cshape', 'tbar'].includes(shape)) && (
+          <input name="t" type="number" placeholder="Thickness (mm)" className="p-4 border rounded-xl" onChange={handleInput} />
         )}
-        <input type="number" placeholder="Length (mm)" className="p-3 border rounded-lg col-span-2" onChange={(e) => setDims({...dims, l: e.target.value})} />
+        <input name="l" type="number" placeholder="Length (mm)" className="p-4 border rounded-xl" onChange={handleInput} />
+        <input name="qty" type="number" placeholder="Quantity" className="p-4 border rounded-xl" value={inputs.qty} onChange={handleInput} />
       </div>
 
-      <div className="bg-green-50 p-6 rounded-2xl text-center border border-green-100">
-        <p className="text-sm text-green-700 font-medium mb-1">Estimated Total Weight</p>
-        <h2 className="text-4xl font-black text-green-600">{calculateWeight} <span className="text-lg">kg</span></h2>
-      </div>
+      <button onClick={calculate} className="w-full py-4 bg-blue-600 text-white rounded-xl font-black text-xl hover:bg-blue-700 shadow-lg transition-all active:scale-95">
+        CALCULATE WEIGHT
+      </button>
+
+      {result && (
+        <div className="mt-6 p-6 bg-green-50 border-2 border-green-200 rounded-2xl text-center">
+          <p className="text-green-700 font-bold uppercase text-sm mb-1">Estimated Total Weight</p>
+          <h2 className="text-5xl font-black text-green-600">{result} <span className="text-2xl">KG</span></h2>
+        </div>
+      )}
+      
+      <p className="mt-4 text-[10px] text-gray-400 text-center">
+        All calculations performed client-side in your browser. No API calls are made.
+      </p>
     </div>
   );
 }
