@@ -1,10 +1,22 @@
 import React from "react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { 
-  FileText, Image as ImageIcon, Scaling, Languages, 
-  Calculator, Hammer, Merge, Type, ShieldCheck, Zap,
-  BarChart3, Globe, Lock, MousePointer2
+  FileText, 
+  Image as ImageIcon, 
+  Scaling, 
+  Languages, 
+  Calculator, 
+  Hammer, 
+  Merge, 
+  Type, 
+  ShieldCheck, 
+  Zap,
+  BarChart3, 
+  Globe, 
+  Lock, 
+  MousePointer2,
+  CheckCircle2 // Added missing import
 } from "lucide-react";
 
 export const metadata = {
@@ -35,7 +47,7 @@ export default function BlogPage() {
 
       {/* ================= INTRODUCTION ================= */}
       <section className="prose prose-slate max-w-none mb-24 border-b pb-16">
-        <h2 className="text-3xl font-black mb-6 uppercase tracking-tight">The Modern Digital Challenge</h2>
+        <h2 className="text-3xl font-black mb-6 uppercase tracking-tight text-slate-900">The Modern Digital Challenge</h2>
         <div className="grid md:grid-cols-2 gap-12 text-lg text-slate-600">
           <p>
             Professional workflows often grind to a halt when faced with simple but tedious tasks: converting file formats, 
@@ -57,7 +69,7 @@ export default function BlogPage() {
             <FileText size={40} />
           </div>
           <div>
-            <h2 className="text-4xl font-black uppercase tracking-tight">1. Professional Resume Maker</h2>
+            <h2 className="text-4xl font-black uppercase tracking-tight text-slate-900">1. Professional Resume Maker</h2>
             <p className="text-blue-600 font-bold">The Gold Standard for Free Resume Builders</p>
           </div>
         </div>
@@ -69,25 +81,25 @@ export default function BlogPage() {
               The modern job market is governed by <strong>Applicant Tracking Systems (ATS)</strong>. 
               Most graphic-heavy templates from standard word processors are unreadable by these digital gatekeepers. 
               The TaskGuru <strong>free resume builder</strong> enforces a single-column, text-heavy layout optimized for 
-              maximum "parsing compatibility".
+              maximum &quot;parsing compatibility&quot;.
             </p>
             <div className="bg-slate-50 p-6 rounded-2xl border-l-4 border-blue-600 italic text-slate-700">
-              "Recruiters spend an average of 6–7 seconds scanning a resume. TaskGuru ensures your data is 
-              structured for immediate impact during that critical window."
+              &quot;Recruiters spend an average of 6–7 seconds scanning a resume. TaskGuru ensures your data is 
+              structured for immediate impact during that critical window.&quot;
             </div>
           </div>
           <Card className="bg-blue-600 text-white border-none shadow-xl p-8 rounded-[2rem]">
-            <h3 className="text-xl font-bold mb-6 flex items-center gap-2"><MousePointer2 size={24} /> Workflow</h3>
+            <h3 className="text-xl font-bold mb-6 flex items-center gap-2 text-white"><MousePointer2 size={24} /> Workflow</h3>
             <ul className="space-y-6 text-sm font-semibold opacity-90">
-              <li className="flex gap-4">
+              <li className="flex gap-4 text-white">
                 <span className="flex-none w-8 h-8 bg-white/20 rounded-full flex items-center justify-center">01</span>
                 <span>Input data into the guided step-by-step form steps.</span>
               </li>
-              <li className="flex gap-4">
+              <li className="flex gap-4 text-white">
                 <span className="flex-none w-8 h-8 bg-white/20 rounded-full flex items-center justify-center">02</span>
                 <span>Monitor real-time ATS scoring to hit the 80%+ benchmark.</span>
               </li>
-              <li className="flex gap-4">
+              <li className="flex gap-4 text-white">
                 <span className="flex-none w-8 h-8 bg-white/20 rounded-full flex items-center justify-center">03</span>
                 <span>Generate a text-based, searchable PDF instantly.</span>
               </li>
@@ -97,13 +109,13 @@ export default function BlogPage() {
 
         <Accordion type="single" collapsible className="w-full bg-slate-50 rounded-2xl px-6">
           <AccordionItem value="faq-1" className="border-slate-200">
-            <AccordionTrigger className="font-bold text-lg py-6">Is this resume maker truly free?</AccordionTrigger>
+            <AccordionTrigger className="font-bold text-lg py-6 text-slate-900">Is this resume maker truly free?</AccordionTrigger>
             <AccordionContent className="text-slate-600 pb-6">
               Absolutely. TaskGuru provides unlimited PDF exports with no hidden paywalls, subscription tiers, or watermarks.
             </AccordionContent>
           </AccordionItem>
           <AccordionItem value="faq-2" className="border-none">
-            <AccordionTrigger className="font-bold text-lg py-6">How does the ATS matching logic work?</AccordionTrigger>
+            <AccordionTrigger className="font-bold text-lg py-6 text-slate-900">How does the ATS matching logic work?</AccordionTrigger>
             <AccordionContent className="text-slate-600 pb-6">
               Our algorithm analyzes section presence, contact data integrity, and the use of industry-specific action verbs.
             </AccordionContent>
@@ -117,7 +129,7 @@ export default function BlogPage() {
           <div className="bg-purple-600 p-4 rounded-3xl text-white shadow-lg shadow-purple-200 group-hover:scale-110 transition-transform">
             <ImageIcon size={40} />
           </div>
-          <h2 className="text-4xl font-black uppercase tracking-tight">2. Advanced Background Remover</h2>
+          <h2 className="text-4xl font-black uppercase tracking-tight text-slate-900">2. Advanced Background Remover</h2>
         </div>
         <p className="text-xl text-slate-600 mb-10 leading-relaxed">
           In a world dominated by social media and e-commerce, high-quality imagery is essential. Our 
@@ -132,7 +144,7 @@ export default function BlogPage() {
           ].map((feature, i) => (
             <div key={i} className="p-8 bg-white border border-slate-100 rounded-3xl shadow-sm hover:shadow-md transition-shadow">
               <div className="mb-4 bg-purple-50 p-3 rounded-xl w-fit">{feature.icon}</div>
-              <h4 className="font-bold text-xl mb-3">{feature.title}</h4>
+              <h4 className="font-bold text-xl mb-3 text-slate-900">{feature.title}</h4>
               <p className="text-slate-500 text-sm leading-relaxed">{feature.desc}</p>
             </div>
           ))}
@@ -145,7 +157,7 @@ export default function BlogPage() {
           <div className="bg-green-600 p-4 rounded-3xl text-white shadow-lg shadow-green-200">
             <Scaling size={40} />
           </div>
-          <h2 className="text-4xl font-black uppercase tracking-tight">3. High-Fidelity Image Compressor</h2>
+          <h2 className="text-4xl font-black uppercase tracking-tight text-slate-900">3. High-Fidelity Image Compressor</h2>
         </div>
         <div className="grid lg:grid-cols-2 gap-16 items-center">
           <div className="prose prose-slate max-w-none text-lg text-slate-600">
@@ -179,12 +191,12 @@ export default function BlogPage() {
           <div className="bg-orange-600 p-4 rounded-3xl text-white shadow-lg shadow-orange-200">
             <Type size={40} />
           </div>
-          <h2 className="text-4xl font-black uppercase tracking-tight">4. Intelligent Image-to-Text (OCR)</h2>
+          <h2 className="text-4xl font-black uppercase tracking-tight text-slate-900">4. Intelligent Image-to-Text (OCR)</h2>
         </div>
-        <Card className="border-none bg-slate-50 p-10 rounded-[2.5rem]">
+        <Card className="border-none bg-slate-50 p-10 rounded-[2.5rem] shadow-none">
           <div className="grid md:grid-cols-2 gap-12">
             <div>
-              <h3 className="text-2xl font-bold mb-4">Unlocking Static Data</h3>
+              <h3 className="text-2xl font-bold mb-4 text-slate-900">Unlocking Static Data</h3>
               <p className="text-slate-600 leading-relaxed mb-6">
                 Extract editable data from non-searchable screenshots or physical documents using Optical 
                 Character Recognition (OCR). This tool eliminates manual data entry from receipts, 
@@ -198,11 +210,11 @@ export default function BlogPage() {
             </div>
             <div className="space-y-6">
               <div className="p-6 bg-white rounded-2xl shadow-sm border border-slate-100">
-                <h4 className="font-bold mb-2 flex items-center gap-2"><Globe size={18} className="text-orange-600" /> Multi-Language Support</h4>
+                <h4 className="font-bold mb-2 flex items-center gap-2 text-slate-900"><Globe size={18} className="text-orange-600" /> Multi-Language Support</h4>
                 <p className="text-sm text-slate-500">Our OCR engine is trained on diverse scripts, including Latin and Devanagari, for global professional use.</p>
               </div>
               <div className="p-6 bg-white rounded-2xl shadow-sm border border-slate-100">
-                <h4 className="font-bold mb-2 flex items-center gap-2"><Lock size={18} className="text-orange-600" /> Privacy Focused</h4>
+                <h4 className="font-bold mb-2 flex items-center gap-2 text-slate-900"><Lock size={18} className="text-orange-600" /> Privacy Focused</h4>
                 <p className="text-sm text-slate-500">Your documents are processed locally in-browser; TaskGuru never stores your personal data on our servers.</p>
               </div>
             </div>
@@ -212,12 +224,12 @@ export default function BlogPage() {
 
       {/* ================= ADDITIONAL TOOLS GRID ================= */}
       <section className="mb-32 border-t pt-24">
-        <h2 className="text-3xl font-black text-center mb-16 uppercase tracking-widest">More Essential Utilities</h2>
+        <h2 className="text-3xl font-black text-center mb-16 uppercase tracking-widest text-slate-900">More Essential Utilities</h2>
         <div className="grid md:grid-cols-2 gap-10">
-          <Card className="p-8 rounded-[2rem] border-slate-100 hover:border-red-100 transition-colors">
+          <Card className="p-8 rounded-[2rem] border-slate-100 hover:border-red-100 transition-colors shadow-none">
             <div className="flex items-center gap-4 mb-4">
               <div className="bg-red-600 p-3 rounded-2xl text-white"><Merge size={24} /></div>
-              <h3 className="text-2xl font-bold">PDF Merger</h3>
+              <h3 className="text-2xl font-bold text-slate-900">PDF Merger</h3>
             </div>
             <p className="text-slate-500 text-sm leading-relaxed">
               Handle project reporting with ease by combining separate PDFs into a single document. 
@@ -225,10 +237,10 @@ export default function BlogPage() {
             </p>
           </Card>
 
-          <Card className="p-8 rounded-[2rem] border-slate-100 hover:border-teal-100 transition-colors">
+          <Card className="p-8 rounded-[2rem] border-slate-100 hover:border-teal-100 transition-colors shadow-none">
             <div className="flex items-center gap-4 mb-4">
               <div className="bg-teal-600 p-3 rounded-2xl text-white"><Calculator size={24} /></div>
-              <h3 className="text-2xl font-bold">Age Calculator</h3>
+              <h3 className="text-2xl font-bold text-slate-900">Age Calculator</h3>
             </div>
             <p className="text-slate-500 text-sm leading-relaxed">
               Calculate exact ages down to the minute. Perfect for insurance forms, legal filings, 
@@ -236,10 +248,10 @@ export default function BlogPage() {
             </p>
           </Card>
 
-          <Card className="p-8 rounded-[2rem] border-slate-100 hover:border-zinc-100 transition-colors">
+          <Card className="p-8 rounded-[2rem] border-slate-100 hover:border-zinc-100 transition-colors shadow-none">
             <div className="flex items-center gap-4 mb-4">
               <div className="bg-zinc-800 p-3 rounded-2xl text-white"><Hammer size={24} /></div>
-              <h3 className="text-2xl font-bold">Metal Weight Calculator</h3>
+              <h3 className="text-2xl font-bold text-slate-900">Metal Weight Calculator</h3>
             </div>
             <p className="text-slate-500 text-sm leading-relaxed">
               Essential for construction and engineering. Calculate the weight of bars, pipes, and 
@@ -247,10 +259,10 @@ export default function BlogPage() {
             </p>
           </Card>
 
-          <Card className="p-8 rounded-[2rem] border-slate-100 hover:border-blue-100 transition-colors">
+          <Card className="p-8 rounded-[2rem] border-slate-100 hover:border-blue-100 transition-colors shadow-none">
             <div className="flex items-center gap-4 mb-4">
               <div className="bg-blue-600 p-3 rounded-2xl text-white"><Languages size={24} /></div>
-              <h3 className="text-2xl font-bold">Text Paraphraser</h3>
+              <h3 className="text-2xl font-bold text-slate-900">Text Paraphraser</h3>
             </div>
             <p className="text-slate-500 text-sm leading-relaxed">
               Refine your writing voice. Our AI rewrite assistant helps find synonyms and alternate 
@@ -262,7 +274,7 @@ export default function BlogPage() {
 
       {/* ================= CONCLUSION ================= */}
       <footer className="mt-40 text-center pb-20">
-        <h2 className="text-5xl font-black mb-8 leading-tight">Master Your Workflow with <br /><span className="text-blue-600 underline">TaskGuru Excellence</span></h2>
+        <h2 className="text-5xl font-black mb-8 leading-tight text-slate-900">Master Your Workflow with <br /><span className="text-blue-600 underline">TaskGuru Excellence</span></h2>
         <p className="text-xl text-slate-500 max-w-2xl mx-auto mb-12">
           As digital productivity needs continue to evolve, TaskGuru remains dedicated to providing free, 
           privacy-focused, and high-performance solutions for students and professionals worldwide.
