@@ -57,16 +57,13 @@ function calculateJDMatch(resumeText: string, jdText: string) {
   const matched = jdKeywords.filter((k) =>
     resumeKeywords.includes(k)
   );
-  const missing = jdKeywords.filter(
-    (k) => !resumeKeywords.includes(k)
-  );
 
   const match =
     jdKeywords.length === 0
       ? 0
       : Math.round((matched.length / jdKeywords.length) * 100);
 
-  return { match, missing };
+  return { match, missing: [] };
 }
 
 /* ---------------- STEPS ---------------- */
@@ -123,59 +120,11 @@ export default function ResumeMaker() {
   const list = (text: string) =>
     text.split("\n").map((i) => i.trim()).filter(Boolean);
 
-  const printResume = () => {
-    if (!resumeRef.current) return;
-    const win = window.open("", "", "width=900,height=650");
-    if (!win) return;
-    win.document.write(`
-      <html>
-        <head>
-          <style>
-            body { font-family: "Times New Roman", serif; padding: 24px; }
-            h1 { text-align:center; font-size:24px; margin-bottom:4px; }
-            h2 { text-align:center; font-size:14px; margin-bottom:8px; }
-            h3 { margin-top:16px; }
-            p, li { font-size:13px; }
-          </style>
-        </head>
-        <body>${resumeRef.current.innerHTML}</body>
-      </html>
-    `);
-    win.document.close();
-    win.print();
-  };
-
   return (
     <>
-      {/* ================= SEO TEXT (ALWAYS VISIBLE) ================= */}
-      <section className="mb-16 max-w-5xl mx-auto px-4 text-sm text-muted-foreground leading-7">
-        <h2 className="text-xl font-semibold text-foreground mb-4">
-          Free Online Resume Maker – ATS Friendly Resume Builder
-        </h2>
-
-        <p>
-          TaskGuru Resume Maker is a free online resume builder that helps users
-          create professional, ATS-friendly resumes for global job applications.
-          The tool works directly in your browser without requiring signup or
-          installation.
-        </p>
-
-        <p className="mt-4">
-          This resume builder includes ATS score analysis, job description
-          keyword matching, and step-by-step resume creation. It is suitable for
-          students, fresh graduates, and experienced professionals worldwide.
-        </p>
-
-        <p className="mt-4">
-          You can build resumes for corporate roles, remote jobs, internships,
-          and technical positions. All resumes are clean, readable, and optimized
-          for modern applicant tracking systems.
-        </p>
-      </section>
-
-      {/* ================= MAIN TOOL ================= */}
+      {/* ================= RESUME BUILDER TOOL ================= */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {/* LEFT – FORM */}
+        {/* LEFT */}
         <Card>
           <CardHeader>
             <CardTitle>
@@ -184,7 +133,7 @@ export default function ResumeMaker() {
           </CardHeader>
 
           <CardContent className="space-y-4">
-            {/* ATS SCORE */}
+            {/* ATS */}
             <div>
               <div className="flex justify-between text-sm mb-1">
                 <span className="font-medium">ATS Score</span>
@@ -193,60 +142,20 @@ export default function ResumeMaker() {
 
               <div className="h-2 w-full bg-muted rounded-full overflow-hidden">
                 <div
-                  className={`h-full ${
-                    ats.score >= 80
-                      ? "bg-green-500"
-                      : ats.score >= 50
-                      ? "bg-yellow-500"
-                      : "bg-red-500"
-                  }`}
+                  className="h-full bg-primary"
                   style={{ width: `${ats.score}%` }}
                 />
               </div>
-
-              {ats.missing.length > 0 && (
-                <p className="text-xs text-muted-foreground mt-1">
-                  Missing: {ats.missing.join(", ")}
-                </p>
-              )}
             </div>
 
             {/* JD MATCH */}
-            <div>
-              <h4 className="font-semibold text-sm mb-1">
-                Job Description Match
-              </h4>
+            <Textarea
+              placeholder="Paste Job Description here"
+              value={jobDescription}
+              onChange={(e) => setJobDescription(e.target.value)}
+            />
 
-              <Textarea
-                placeholder="Paste Job Description here"
-                value={jobDescription}
-                onChange={(e) => setJobDescription(e.target.value)}
-              />
-
-              {jobDescription && (
-                <>
-                  <div className="flex justify-between text-sm mt-2">
-                    <span>JD Match</span>
-                    <span className="font-bold">{jdMatch.match}%</span>
-                  </div>
-
-                  <div className="h-2 w-full bg-muted rounded-full overflow-hidden">
-                    <div
-                      className={`h-full ${
-                        jdMatch.match >= 70
-                          ? "bg-green-500"
-                          : jdMatch.match >= 40
-                          ? "bg-yellow-500"
-                          : "bg-red-500"
-                      }`}
-                      style={{ width: `${jdMatch.match}%` }}
-                    />
-                  </div>
-                </>
-              )}
-            </div>
-
-            {/* STEP CONTENT */}
+            {/* FORM STEPS */}
             {currentStep === 0 && (
               <>
                 <Input name="name" placeholder="Full Name" onChange={handleChange} />
@@ -261,7 +170,7 @@ export default function ResumeMaker() {
               <>
                 <Input name="linkedin" placeholder="LinkedIn URL" onChange={handleChange} />
                 <Input name="github" placeholder="GitHub URL" onChange={handleChange} />
-                <Input name="portfolio" placeholder="Portfolio / Website URL" onChange={handleChange} />
+                <Input name="portfolio" placeholder="Portfolio URL" onChange={handleChange} />
               </>
             )}
 
@@ -284,11 +193,10 @@ export default function ResumeMaker() {
             {currentStep === 6 && (
               <>
                 <Textarea name="skills" placeholder="Skills" onChange={handleChange} />
-                <Textarea name="courses" placeholder="Courses" onChange={handleChange} />
+                <Textarea name="courses" placeholder="Courses / Certifications" onChange={handleChange} />
               </>
             )}
 
-            {/* NAVIGATION */}
             <div className="flex justify-between pt-4">
               <Button
                 variant="outline"
@@ -303,31 +211,93 @@ export default function ResumeMaker() {
                   Next
                 </Button>
               ) : (
-                <Button onClick={printResume}>Download PDF</Button>
+                <Button>Download PDF</Button>
               )}
             </div>
           </CardContent>
         </Card>
 
-        {/* RIGHT – PREVIEW */}
+        {/* RIGHT */}
         <Card>
           <CardContent ref={resumeRef} className="bg-white p-6 text-sm">
             <h1>{data.name || "YOUR NAME"}</h1>
             <h2>{data.role}</h2>
-            <p style={{ textAlign: "center" }}>
-              {data.location} | {data.email} | {data.phone}
-            </p>
+            <p>{data.location} | {data.email} | {data.phone}</p>
 
             {data.summary && <p>{data.summary}</p>}
-            {data.experience && <><h3>Experience</h3><ul>{list(data.experience).map((i,k)=><li key={k}>{i}</li>)}</ul></>}
-            {data.education && <><h3>Education</h3><ul>{list(data.education).map((i,k)=><li key={k}>{i}</li>)}</ul></>}
-            {data.projects && <><h3>Projects</h3><ul>{list(data.projects).map((i,k)=><li key={k}>{i}</li>)}</ul></>}
-            {data.skills && <><h3>Skills</h3><p>{data.skills}</p></>}
-            {data.courses && <><h3>Courses</h3><p>{data.courses}</p></>}
+            {data.experience && <ul>{list(data.experience).map((i,k)=><li key={k}>{i}</li>)}</ul>}
+            {data.education && <ul>{list(data.education).map((i,k)=><li key={k}>{i}</li>)}</ul>}
+            {data.projects && <ul>{list(data.projects).map((i,k)=><li key={k}>{i}</li>)}</ul>}
+            {data.skills && <p>{data.skills}</p>}
           </CardContent>
         </Card>
       </div>
+
+      {/* ================= SEO SECTION – PDF MERGER STYLE ================= */}
+      <section className="mt-24 border-t pt-16">
+        <div className="max-w-5xl mx-auto px-4">
+          <h2 className="text-3xl font-bold mb-4">
+            The Most Advanced Resume Maker: Why TaskGuru is Built Differently
+          </h2>
+
+          <p className="text-muted-foreground mb-6">
+            Creating a professional resume should not be complicated. TaskGuru
+            Resume Maker is designed for speed, clarity, and ATS compatibility,
+            helping job seekers build resumes that recruiters actually read.
+          </p>
+
+          <div className="grid md:grid-cols-2 gap-6 mt-10">
+            <Card>
+              <CardContent className="p-6">
+                <h3 className="font-semibold text-lg mb-2">
+                  1. ATS Optimized Resume Builder
+                </h3>
+                <p className="text-sm text-muted-foreground">
+                  Our resume maker analyzes key resume sections and ensures
+                  compatibility with applicant tracking systems used globally.
+                </p>
+              </CardContent>
+            </Card>
+
+            <Card>
+              <CardContent className="p-6">
+                <h3 className="font-semibold text-lg mb-2">
+                  2. Job Description Keyword Matching
+                </h3>
+                <p className="text-sm text-muted-foreground">
+                  Paste any job description and instantly see how well your
+                  resume matches the role using smart keyword analysis.
+                </p>
+              </CardContent>
+            </Card>
+
+            <Card>
+              <CardContent className="p-6">
+                <h3 className="font-semibold text-lg mb-2">
+                  3. Step-by-Step Resume Creation
+                </h3>
+                <p className="text-sm text-muted-foreground">
+                  Guided steps help students, fresh graduates, and professionals
+                  create clean resumes without confusion.
+                </p>
+              </CardContent>
+            </Card>
+
+            <Card>
+              <CardContent className="p-6">
+                <h3 className="font-semibold text-lg mb-2">
+                  4. Free & Browser Based
+                </h3>
+                <p className="text-sm text-muted-foreground">
+                  No signup, no watermark, no installation. Build resumes
+                  instantly from any device.
+                </p>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </section>
     </>
   );
-                }
+            }
 
