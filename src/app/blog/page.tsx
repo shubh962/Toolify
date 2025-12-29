@@ -4,10 +4,18 @@ import Link from 'next/link';
 import { ArrowRight, Sparkles, BookOpen } from 'lucide-react';
 import Script from 'next/script';
 
-// ✅ 1. ALL BLOG POSTS DEFINED
+// ✅ 1. ALL BLOG POSTS DEFINED (Including your new guide)
 const posts = [
   {
-    slug: 'best-utility-tools-2025-26', // Naya Blog Added
+    slug: 'mastering-digital-productivity-taskguru-toolkit', // New Blog Added
+    title: 'Revolutionizing Digital Productivity: The Comprehensive Guide to TaskGuru Utilities (2000+ Words)',
+    summary:
+      'A professional deep-dive into mastering the TaskGuru toolkit. Learn the technical foundations and expert workflows for our free ATS Resume Maker, Background Remover, OCR, and engineering calculators to achieve professional results without expensive subscriptions.',
+    date: 'December 29, 2025',
+    category: 'Authority Guide',
+  },
+  {
+    slug: 'best-utility-tools-2025-26', 
     title: '10 Best Free Utility Tools of 2025-26: The Ultimate 5,000+ Word Definitive Guide',
     summary:
       'The most comprehensive, data-driven analysis of browser-based software ever published. Master the digital era with our 5,000-word deep dive into the best free utility tools—from AI background removal to precision engineering calculators. Stop paying for SaaS today.',
@@ -88,17 +96,17 @@ const posts = [
   },
 ];
 
-// ✅ 2. FAQ SCHEMA
+// ✅ 2. UPDATED FAQ SCHEMA
 const faqSchema = {
   '@context': 'https://schema.org',
   '@type': 'FAQPage',
   mainEntity: [
     {
       '@type': 'Question',
-      name: 'How often does TaskGuru publish new blog content?',
+      name: 'How can TaskGuru help with digital productivity?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'TaskGuru publishes new insights, tool guides, and productivity articles every week to keep you updated with the latest free AI utilities.',
+        text: 'TaskGuru provides free AI-powered utilities like the ATS Resume Maker, Image Background Remover, and OCR tools to eliminate technical friction and streamline professional workflows.',
       },
     },
     {
@@ -111,18 +119,18 @@ const faqSchema = {
     },
     {
       '@type': 'Question',
-      name: 'Are TaskGuru blog articles SEO friendly?',
+      name: 'What is an ATS-friendly resume?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'Yes. All TaskGuru blogs are written with long-form content, expert insights, and internal linking to provide maximum value to users and search engines.',
+        text: 'An ATS-friendly resume uses standard text-based layouts and fonts that Applicant Tracking Systems can parse easily. TaskGuru’s Resume Maker enforces these standards automatically.',
       },
     },
   ],
 };
 
 export default function BlogPage() {
-  // ✅ Featured post set to the new 5,000-word guide
-  const featuredPostSlug = 'best-utility-tools-2025-26';
+  // ✅ Featured post set to the new 2,000-word productivity guide
+  const featuredPostSlug = 'mastering-digital-productivity-taskguru-toolkit';
 
   return (
     <>
