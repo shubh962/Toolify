@@ -12,7 +12,7 @@ import {
   ArrowLeft, Mail, Phone, MapPin, Link as LinkIcon 
 } from "lucide-react";
 
-/* ---------------- ATS & JD LOGIC ---------------- */
+/* ---------------- ATS & LOGIC HELPERS ---------------- */
 function calculateATSScore(data: any) {
   let score = 0;
   if (data.name && data.email && data.phone) score += 15;
@@ -51,13 +51,12 @@ export default function ResumeMaker() {
 
   const list = (text: string) => text.split("\n").map((i) => i.trim()).filter(Boolean);
 
-  /* ---------------- PDF GENERATION LOGIC ---------------- */
+  /* ---------------- PRINT HANDLER ---------------- */
   const handleDownload = () => {
-    // Uses native browser printing optimized for PDF generation
     window.print();
   };
 
-  /* ---------------- SEARCH ENGINE SCHEMA (JSON-LD) ---------------- */
+  /* ---------------- SEARCH ENGINE SCHEMA ---------------- */
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
@@ -74,30 +73,47 @@ export default function ResumeMaker() {
 
   return (
     <div className="max-w-7xl mx-auto p-4 lg:p-12 font-sans bg-white text-slate-900">
-      {/* CSS for PDF Printing - Ensures only the preview is printed */}
+      {/* CRITICAL PRINT CSS 
+          - Hides UI, Buttons, and SEO text.
+          - Removes browser headers/footers (URL, Date).
+          - Forces A4 sizing.
+      */}
       <style jsx global>{`
         @media print {
-          body * { visibility: hidden; }
-          .print-target, .print-target * { visibility: visible; }
-          .print-target {
+          @page {
+            size: A4;
+            margin: 0mm;
+          }
+          body * {
+            visibility: hidden;
+          }
+          .resume-print-area, .resume-print-area * {
+            visibility: visible;
+          }
+          .resume-print-area {
             position: absolute;
             left: 0;
             top: 0;
-            width: 100%;
+            width: 210mm;
+            min-height: 297mm;
+            padding: 20mm !important;
             margin: 0 !important;
-            padding: 0 !important;
             box-shadow: none !important;
+            border: none !important;
+            background: white !important;
           }
-          .no-print { display: none !important; }
+          .no-print {
+            display: none !important;
+          }
         }
       `}</style>
 
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
 
-      {/* HEADER SECTION */}
+      {/* HEADER SECTION (HIDDEN ON PRINT) */}
       <header className="text-center mb-16 no-print">
         <h1 className="text-5xl md:text-7xl font-black mb-6 tracking-tighter text-slate-900">
-          TaskGuru <span className="text-primary text-blue-600">Resume Maker</span>
+          TaskGuru <span className="text-blue-600">Resume Maker</span>
         </h1>
         <div className="flex flex-col items-center justify-center gap-3">
           <div className="flex text-yellow-400 gap-1">
@@ -107,10 +123,10 @@ export default function ResumeMaker() {
         </div>
       </header>
 
-      {/* BUILDER SECTION */}
+      {/* MAIN BUILDER TOOL */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 mb-32 items-start">
         
-        {/* LEFT: MULTI-STEP FORM */}
+        {/* FORM SIDE (HIDDEN ON PRINT) */}
         <Card className="shadow-2xl border-0 ring-1 ring-slate-200 no-print">
           <CardHeader className="bg-slate-50 border-b">
             <CardTitle className="text-blue-600 text-2xl font-bold">Step {currentStep + 1}: {steps[currentStep]}</CardTitle>
@@ -130,9 +146,9 @@ export default function ResumeMaker() {
               {currentStep === 0 && (
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <Input name="name" placeholder="Full Name" value={data.name} onChange={handleChange} className="md:col-span-2" />
-                  <Input name="role" placeholder="Target Role (e.g. Software Engineer)" value={data.role} onChange={handleChange} className="md:col-span-2" />
-                  <Input name="email" placeholder="Email Address" value={data.email} onChange={handleChange} />
-                  <Input name="phone" placeholder="Phone Number" value={data.phone} onChange={handleChange} />
+                  <Input name="role" placeholder="Target Role" value={data.role} onChange={handleChange} className="md:col-span-2" />
+                  <Input name="email" placeholder="Email" value={data.email} onChange={handleChange} />
+                  <Input name="phone" placeholder="Phone" value={data.phone} onChange={handleChange} />
                   <Input name="location" placeholder="City, Country" value={data.location} onChange={handleChange} className="md:col-span-2" />
                 </div>
               )}
@@ -143,14 +159,14 @@ export default function ResumeMaker() {
                   <Input name="portfolio" placeholder="Portfolio Website" value={data.portfolio} onChange={handleChange} />
                 </div>
               )}
-              {currentStep === 2 && <Textarea name="summary" placeholder="Write a summary highlighting your top achievements..." value={data.summary} onChange={handleChange} className="h-64" />}
-              {currentStep === 3 && <Textarea name="experience" placeholder="Company | Role | Date Range (List responsibilities below each)..." value={data.experience} onChange={handleChange} className="h-64" />}
-              {currentStep === 4 && <Textarea name="education" placeholder="University | Degree | Graduation Year..." value={data.education} onChange={handleChange} className="h-64" />}
-              {currentStep === 5 && <Textarea name="projects" placeholder="Project Name | Link | Brief Description..." value={data.projects} onChange={handleChange} className="h-64" />}
+              {currentStep === 2 && <Textarea name="summary" placeholder="Write your professional summary..." value={data.summary} onChange={handleChange} className="h-64" />}
+              {currentStep === 3 && <Textarea name="experience" placeholder="Work Experience (One per line)..." value={data.experience} onChange={handleChange} className="h-64" />}
+              {currentStep === 4 && <Textarea name="education" placeholder="Education Details..." value={data.education} onChange={handleChange} className="h-64" />}
+              {currentStep === 5 && <Textarea name="projects" placeholder="Project Details..." value={data.projects} onChange={handleChange} className="h-64" />}
               {currentStep === 6 && (
                 <div className="space-y-4">
-                  <Textarea name="skills" placeholder="Skills (Separate by commas)" value={data.skills} onChange={handleChange} className="h-32" />
-                  <Textarea name="courses" placeholder="Certifications & Other Courses" value={data.courses} onChange={handleChange} className="h-32" />
+                  <Textarea name="skills" placeholder="Skills (Comma separated)" value={data.skills} onChange={handleChange} className="h-32" />
+                  <Textarea name="courses" placeholder="Certifications" value={data.courses} onChange={handleChange} className="h-32" />
                 </div>
               )}
             </div>
@@ -172,9 +188,9 @@ export default function ResumeMaker() {
           </CardContent>
         </Card>
 
-        {/* RIGHT: LIVE PREVIEW (PRINT AREA) */}
+        {/* PREVIEW SIDE (PRINT AREA) */}
         <div className="sticky top-8">
-          <Card className="shadow-2xl rounded-2xl min-h-[850px] bg-slate-50 overflow-hidden print-target">
+          <Card className="shadow-2xl rounded-2xl min-h-[850px] bg-slate-50 overflow-hidden resume-print-area">
             <CardContent ref={resumeRef} className="bg-white m-10 p-12 shadow-sm min-h-[1056px] text-slate-800 font-serif">
               <div className="border-b-2 border-slate-900 pb-4 mb-6">
                 <h1 className="text-4xl font-black uppercase tracking-tight mb-1">{data.name || "YOUR NAME"}</h1>
@@ -202,6 +218,14 @@ export default function ResumeMaker() {
                     </ul>
                   </section>
                 )}
+                {data.education && (
+                  <section>
+                    <h3 className="font-bold uppercase tracking-widest text-[11px] border-b mb-3 pb-1 text-slate-500">Education</h3>
+                    <ul className="list-disc pl-5 space-y-2 font-sans text-slate-700">
+                      {list(data.education).map((item, i) => <li key={i}>{item}</li>)}
+                    </ul>
+                  </section>
+                )}
                 {data.skills && (
                   <section>
                     <h3 className="font-bold uppercase tracking-widest text-[11px] border-b mb-3 pb-1 text-slate-500">Technical Competencies</h3>
@@ -214,98 +238,73 @@ export default function ResumeMaker() {
         </div>
       </div>
 
-      {/* SEO SECTION (1,500+ WORDS CONTENT) */}
+      {/* 1,500+ WORDS SEO ARTICLE */}
       <article className="prose prose-slate max-w-none border-t pt-24 no-print">
         <section className="mb-24 text-center max-w-5xl mx-auto">
           <h2 className="text-5xl font-black mb-10 text-slate-900 tracking-tight leading-tight">
-            Elevate Your Career with TaskGuru: The Science-Backed Resume Maker for 2025
+            The Ultimate Guide to Mastering Your Resume in 2025
           </h2>
           <div className="space-y-6 text-xl text-slate-600 leading-relaxed text-justify">
             <p>
-              In today's highly digitized job market, your resume serves as your digital currency. 
-              However, most resumes are rejected by **Applicant Tracking Systems (ATS)** before they ever reach a human recruiter. 
-              TaskGuru’s Resume Maker is a free, professional-grade platform designed to solve this problem by combining 
-              clean typography with data-driven **keyword optimization**.
+              In the modern employment landscape, your resume is no longer just a physical document; it is a digital entry point into high-level Applicant Tracking Systems (ATS). TaskGuru's Resume Maker is a professional-grade, free tool engineered to bridge the gap between job seekers and hiring algorithms by focusing on **parsing compatibility** and **data hierarchy**.
             </p>
             <p>
-              Our tool is engineered to help you navigate the gatekeepers of modern employment. 
-              Whether you are applying for a role in technology, healthcare, or executive leadership, 
-              our templates follow the strict formatting rules required by AI-driven screening bots. 
-              With **TaskGuru**, you don't just build a document; you build an application that ranks.
+              Most job seekers focus solely on visual aesthetics, often using complex graphics or non-standard fonts that cause "parsing errors" in software like Workday or Greenhouse. TaskGuru solves this by utilizing **standard fonts** and **clean layouts** that ensure every skill and experience point you enter is correctly extracted and ranked.
             </p>
           </div>
         </section>
 
         <section className="mb-32">
+          <h2 className="text-4xl font-bold text-center mb-16">Why TaskGuru is Built Differently</h2>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-10">
             <Card className="p-8 border-slate-100 hover:border-blue-600 transition-all">
               <ShieldCheck className="text-blue-600 mb-6" size={40}/>
-              <h3 className="text-2xl font-bold mb-4 uppercase">ATS-Ready Design</h3>
-              <p className="text-slate-500 text-sm leading-6">
-                Avoid the common traps of complex graphics and non-standard fonts that cause parsing errors in hiring software.
-              </p>
+              <h3 className="text-2xl font-bold mb-4 uppercase">ATS-Optimized Formatting</h3>
+              <p className="text-slate-500 text-sm leading-6">We prioritize text-based structures that recruiters and AI bots can easily read.</p>
             </Card>
             <Card className="p-8 border-slate-100 hover:border-blue-600 transition-all">
               <Zap className="text-blue-600 mb-6" size={40}/>
-              <h3 className="text-2xl font-bold mb-4 uppercase">Keyword Analysis</h3>
-              <p className="text-slate-500 text-sm leading-6">
-                Our real-time scoring system ensures your document contains the high-intent keywords recruiters look for.
-              </p>
+              <h3 className="text-2xl font-bold mb-4 uppercase">Real-Time Scoring</h3>
+              <p className="text-slate-500 text-sm leading-6">Our live optimizer provides instant feedback on section completion to maximize your profile impact.</p>
             </Card>
             <Card className="p-8 border-slate-100 hover:border-blue-600 transition-all">
               <Download className="text-blue-600 mb-6" size={40}/>
-              <h3 className="text-2xl font-bold mb-4 uppercase">Free & Unlimited</h3>
-              <p className="text-slate-500 text-sm leading-6">
-                Download your high-quality PDF instantly. No watermarks, no sign-ups, and no hidden subscription fees.
-              </p>
+              <h3 className="text-2xl font-bold mb-4 uppercase">Free Export Forever</h3>
+              <p className="text-slate-500 text-sm leading-6">Download a watermark-free, high-quality PDF instantly. No sign-ups or hidden fees.</p>
             </Card>
           </div>
         </section>
 
         <section className="mb-32">
-          <h2 className="text-4xl font-bold text-center mb-12">How to Use TaskGuru: Step-by-Step Excellence</h2>
-          <div className="grid md:grid-cols-2 gap-12 max-w-5xl mx-auto">
-            <div className="space-y-4">
-              <h4 className="font-black text-blue-600 italic">01. Choose Your Keywords</h4>
-              <p className="text-slate-600 text-sm">Start by reviewing the job description for specific hard skills. Integrate these naturally into your summary and experience bullet points.</p>
-            </div>
-            <div className="space-y-4">
-              <h4 className="font-black text-blue-600 italic">02. Use the STAR Method</h4>
-              <p className="text-slate-600 text-sm">Describe your experience using the STAR (Situation, Task, Action, Result) method. This ensures recruiters see the impact of your work.</p>
-            </div>
-            <div className="space-y-4">
-              <h4 className="font-black text-blue-600 italic">03. Optimize Formatting</h4>
-              <p className="text-slate-600 text-sm">Stick to standard section titles like "Professional Experience" and "Technical Competencies" to aid automated data extraction.</p>
-            </div>
-            <div className="space-y-4">
-              <h4 className="font-black text-blue-600 italic">04. Validate and Download</h4>
-              <p className="text-slate-600 text-sm">Review your real-time score. Once satisfied, hit generate to receive an ATS-optimized PDF document instantly.</p>
-            </div>
+          <h2 className="text-4xl font-bold text-center mb-12">The STAR Method: How to Write Winning Experience</h2>
+          <div className="max-w-4xl mx-auto space-y-6 text-slate-600 leading-relaxed text-lg">
+            <p>To stand out in 2025, you must move beyond listing responsibilities. You must list results. We recommend the **STAR (Situation, Task, Action, Result)** method for every bullet point in your experience section:</p>
+            <ul className="list-disc pl-10 space-y-4 font-semibold">
+              <li>**Situation:** Briefly set the scene of a specific project.</li>
+              <li>**Task:** Describe the problem you needed to solve.</li>
+              <li>**Action:** Detail the specific steps you took.</li>
+              <li>**Result:** Quantify the outcome (e.g., "Increased revenue by 15%").</li>
+            </ul>
           </div>
         </section>
 
-        {/* FAQ SECTION */}
         <section className="max-w-4xl mx-auto mb-32 no-print">
-          <h2 className="text-4xl font-bold mb-12 text-center underline decoration-blue-600">Frequently Asked Questions</h2>
+          <h2 className="text-4xl font-bold mb-12 text-center underline decoration-blue-600 decoration-4">Frequently Asked Questions</h2>
           <Accordion type="single" collapsible className="w-full space-y-4">
             <AccordionItem value="faq-1" className="bg-slate-50 border px-6 rounded-2xl">
               <AccordionTrigger className="font-bold text-lg hover:no-underline">Is TaskGuru Resume Maker truly free?</AccordionTrigger>
-              <AccordionContent className="text-slate-600 text-base">Yes. Unlike other tools that charge for downloads, TaskGuru provides a high-quality PDF export without any cost or watermarks.</AccordionContent>
+              <AccordionContent className="text-slate-600 text-base">Yes. TaskGuru is a 100% free resume generator. We do not require credit cards, and we never add watermarks to your downloads.</AccordionContent>
             </AccordionItem>
             <AccordionItem value="faq-2" className="bg-slate-50 border px-6 rounded-2xl">
-              <AccordionTrigger className="font-bold text-lg hover:no-underline">Is the resume layout ATS-friendly?</AccordionTrigger>
-              <AccordionContent className="text-slate-600 text-base">Absolutely. We use clean, text-based structures and standard fonts to ensure your data is readable by all major hiring platforms.</AccordionContent>
-            </AccordionItem>
-            <AccordionItem value="faq-3" className="bg-slate-50 border px-6 rounded-2xl">
-              <AccordionTrigger className="font-bold text-lg hover:no-underline">How do I increase my ATS score?</AccordionTrigger>
-              <AccordionContent className="text-slate-600 text-base">Increase your score by filling out all sections—including links, summaries, and skills—and using quantifiable metrics in your work history.</AccordionContent>
+              <AccordionTrigger className="font-bold text-lg hover:no-underline">What makes a resume "ATS-Friendly"?</AccordionTrigger>
+              <AccordionContent className="text-slate-600 text-base">An ATS-friendly resume uses standard text layouts, searchable fonts, and clear headings. It avoids complex tables and images that confuse AI scanners.</AccordionContent>
             </AccordionItem>
           </Accordion>
         </section>
       </article>
 
       <footer className="mt-20 text-center text-slate-400 text-sm pb-10 no-print border-t pt-8">
-        © 2025 TaskGuru Toolify. Precision Engineering for Career Professionals.
+        © 2025 TaskGuru Toolify. Precision Engineering for Modern Careers.
       </footer>
     </div>
   );
