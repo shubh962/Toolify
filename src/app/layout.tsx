@@ -5,7 +5,6 @@ import Header from "@/components/Header";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import GlobalShare from "@/components/GlobalShare";
-
 import {
   Dialog,
   DialogContent,
@@ -13,14 +12,12 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-
 import {
   Card,
   CardContent,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-
 import {
   AlertTriangle,
   Facebook,
@@ -42,7 +39,6 @@ import {
   Map,
   Fingerprint
 } from "lucide-react";
-
 import { Inter } from "next/font/google";
 import Script from "next/script";
 import Link from "next/link";
@@ -53,7 +49,6 @@ const inter = Inter({
   variable: "--font-inter",
 });
 
-// ✅ Next.js 15 Viewport & Theme Optimization
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
@@ -64,7 +59,6 @@ export const viewport: Viewport = {
   ],
 };
 
-// ✅ High-Authority SEO Metadata for Global Ranking
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.taskguru.online"),
   title: {
@@ -122,6 +116,19 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" suppressHydrationWarning className={inter.variable}>
       <head>
+        {/* ✅ Ezoic Privacy (Gatekeeper) Scripts */}
+        <Script data-cfasync="false" src="https://cmp.gatekeeperconsent.com/min.js" strategy="beforeInteractive" />
+        <Script data-cfasync="false" src="https://the.gatekeeperconsent.com/cmp.min.js" strategy="beforeInteractive" />
+
+        {/* ✅ Ezoic Header Scripts */}
+        <Script async src="//www.ezojs.com/ezoic/sa.min.js" strategy="afterInteractive" />
+        <Script id="ezoic-standalone" strategy="afterInteractive">
+          {`
+            window.ezstandalone = window.ezstandalone || {};
+            ezstandalone.cmd = ezstandalone.cmd || [];
+          `}
+        </Script>
+
         {/* ✅ AdSense Auto-Ads Script */}
         <Script
           async
@@ -168,7 +175,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                   <div>
                     <h3 className="text-3xl font-black text-blue-600 tracking-tighter mb-4">TaskGuru</h3>
                     <p className="text-sm text-gray-500 dark:text-gray-400 leading-relaxed font-medium">
-                      The internet&apos;s favorite 100% free AI toolkit. High-performance utilities designed for global productivity, privacy, and speed.
+                      The internet&apos;s favorite 100% free AI toolkit.
+                      High-performance utilities designed for global productivity, privacy, and speed.
                     </p>
                   </div>
                   
@@ -215,7 +223,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                       target="_blank" 
                       rel="noopener noreferrer" 
                       className="flex items-center gap-2 text-blue-600 dark:text-blue-400 font-bold hover:underline"
-                    >
+                    > 
                       MetaTube Inspector <ExternalLink className="w-3.5 h-3.5" />
                     </a>
                     <Link href="/privacy-policy" className="hover:text-blue-600 flex items-center gap-2 font-bold text-green-600 dark:text-green-500">
@@ -238,12 +246,14 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                           <Card className="border-none bg-blue-50/50 p-2">
                             <CardHeader><CardTitle className="text-lg">Mission Statement</CardTitle></CardHeader>
                             <CardContent className="text-sm text-gray-600">
-                              <strong>TaskGuru</strong> is a specialized AI project by <strong>Shubham Gautam</strong>. We believe premium software should be free and private.
+                              <strong>TaskGuru</strong> is a specialized AI project by <strong>Shubham Gautam</strong>.
+                              We believe premium software should be free and private.
                             </CardContent>
                           </Card>
                           <div className="p-4 bg-red-50 dark:bg-red-900/10 rounded-2xl flex items-center gap-3">
                             <AlertTriangle className="text-red-500 h-5 w-5" />
-                            <p className="text-xs text-red-600">© 2025 TaskGuru. All algorithmic logic is proprietary. All rights reserved.</p>
+                            <p className="text-xs text-red-600">© 2025 TaskGuru.
+                            All algorithmic logic is proprietary. All rights reserved.</p>
                           </div>
                         </div>
                       </DialogContent>
