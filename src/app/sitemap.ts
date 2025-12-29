@@ -13,6 +13,7 @@ const blogSlugs = [
   "best-free-online-tools-2026",
   "10-best-free-online-tools-2026",
   "best-utility-tools-2025-26",
+  "mastering-digital-productivity-taskguru-toolkit",
 ];
 
 const toolSlugs = [
