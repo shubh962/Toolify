@@ -146,221 +146,270 @@ export default function ResumeMaker() {
   };
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-      {/* LEFT – FORM */}
-      <Card>
-        <CardHeader>
-          <CardTitle>
-            Step {currentStep + 1} of {steps.length}: {steps[currentStep]}
-          </CardTitle>
-        </CardHeader>
+    <>
+      {/* ================= MAIN TOOL ================= */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {/* LEFT – FORM */}
+        <Card>
+          <CardHeader>
+            <CardTitle>
+              Step {currentStep + 1} of {steps.length}: {steps[currentStep]}
+            </CardTitle>
+          </CardHeader>
 
-        <CardContent className="space-y-4">
-          {/* ATS SCORE */}
-          <div>
-            <div className="flex justify-between text-sm mb-1">
-              <span className="font-medium">ATS Score</span>
-              <span className="font-bold">{ats.score}%</span>
+          <CardContent className="space-y-4">
+            {/* ATS SCORE */}
+            <div>
+              <div className="flex justify-between text-sm mb-1">
+                <span className="font-medium">ATS Score</span>
+                <span className="font-bold">{ats.score}%</span>
+              </div>
+
+              <div className="h-2 w-full bg-muted rounded-full overflow-hidden">
+                <div
+                  className={`h-full ${
+                    ats.score >= 80
+                      ? "bg-green-500"
+                      : ats.score >= 50
+                      ? "bg-yellow-500"
+                      : "bg-red-500"
+                  }`}
+                  style={{ width: `${ats.score}%` }}
+                />
+              </div>
+
+              {ats.missing.length > 0 && (
+                <p className="text-xs text-muted-foreground mt-1">
+                  Missing: {ats.missing.join(", ")}
+                </p>
+              )}
             </div>
 
-            <div className="h-2 w-full bg-muted rounded-full overflow-hidden">
-              <div
-                className={`h-full ${
-                  ats.score >= 80
-                    ? "bg-green-500"
-                    : ats.score >= 50
-                    ? "bg-yellow-500"
-                    : "bg-red-500"
-                }`}
-                style={{ width: `${ats.score}%` }}
+            {/* JD MATCH */}
+            <div>
+              <h4 className="font-semibold text-sm mb-1">
+                Job Description Match
+              </h4>
+
+              <Textarea
+                placeholder="Paste Job Description here"
+                value={jobDescription}
+                onChange={(e) => setJobDescription(e.target.value)}
               />
+
+              {jobDescription && (
+                <>
+                  <div className="flex justify-between text-sm mt-2">
+                    <span>JD Match</span>
+                    <span className="font-bold">{jdMatch.match}%</span>
+                  </div>
+
+                  <div className="h-2 w-full bg-muted rounded-full overflow-hidden">
+                    <div
+                      className={`h-full ${
+                        jdMatch.match >= 70
+                          ? "bg-green-500"
+                          : jdMatch.match >= 40
+                          ? "bg-yellow-500"
+                          : "bg-red-500"
+                      }`}
+                      style={{ width: `${jdMatch.match}%` }}
+                    />
+                  </div>
+
+                  {jdMatch.missing.length > 0 && (
+                    <p className="text-xs text-muted-foreground mt-1">
+                      Missing keywords:{" "}
+                      {jdMatch.missing.slice(0, 8).join(", ")}
+                      {jdMatch.missing.length > 8 && " ..."}
+                    </p>
+                  )}
+                </>
+              )}
             </div>
 
-            {ats.missing.length > 0 && (
-              <p className="text-xs text-muted-foreground mt-1">
-                Missing: {ats.missing.join(", ")}
-              </p>
-            )}
-          </div>
-
-          {/* JD MATCH */}
-          <div>
-            <h4 className="font-semibold text-sm mb-1">
-              Job Description Match
-            </h4>
-
-            <Textarea
-              placeholder="Paste Job Description here"
-              value={jobDescription}
-              onChange={(e) => setJobDescription(e.target.value)}
-            />
-
-            {jobDescription && (
+            {/* STEP CONTENT */}
+            {currentStep === 0 && (
               <>
-                <div className="flex justify-between text-sm mt-2">
-                  <span>JD Match</span>
-                  <span className="font-bold">{jdMatch.match}%</span>
-                </div>
-
-                <div className="h-2 w-full bg-muted rounded-full overflow-hidden">
-                  <div
-                    className={`h-full ${
-                      jdMatch.match >= 70
-                        ? "bg-green-500"
-                        : jdMatch.match >= 40
-                        ? "bg-yellow-500"
-                        : "bg-red-500"
-                    }`}
-                    style={{ width: `${jdMatch.match}%` }}
-                  />
-                </div>
-
-                {jdMatch.missing.length > 0 && (
-                  <p className="text-xs text-muted-foreground mt-1">
-                    Missing keywords:{" "}
-                    {jdMatch.missing.slice(0, 8).join(", ")}
-                    {jdMatch.missing.length > 8 && " ..."}
-                  </p>
-                )}
+                <Input name="name" placeholder="Full Name" onChange={handleChange} />
+                <Input name="role" placeholder="Job Title" onChange={handleChange} />
+                <Input name="email" placeholder="Email" onChange={handleChange} />
+                <Input name="phone" placeholder="Phone" onChange={handleChange} />
+                <Input name="location" placeholder="City, Country" onChange={handleChange} />
               </>
             )}
-          </div>
 
-          {/* STEP CONTENT */}
-          {currentStep === 0 && (
-            <>
-              <Input name="name" placeholder="Full Name" onChange={handleChange} />
-              <Input name="role" placeholder="Job Title" onChange={handleChange} />
-              <Input name="email" placeholder="Email" onChange={handleChange} />
-              <Input name="phone" placeholder="Phone" onChange={handleChange} />
-              <Input name="location" placeholder="City, Country" onChange={handleChange} />
-            </>
-          )}
-
-          {currentStep === 1 && (
-            <>
-              <Input name="linkedin" placeholder="LinkedIn URL" onChange={handleChange} />
-              <Input name="github" placeholder="GitHub URL" onChange={handleChange} />
-              <Input name="portfolio" placeholder="Portfolio / Website URL" onChange={handleChange} />
-            </>
-          )}
-
-          {currentStep === 2 && (
-            <Textarea
-              name="summary"
-              placeholder="Professional summary (2–3 lines)"
-              onChange={handleChange}
-            />
-          )}
-
-          {currentStep === 3 && (
-            <Textarea
-              name="experience"
-              placeholder="Work experience (one bullet per line)"
-              onChange={handleChange}
-            />
-          )}
-
-          {currentStep === 4 && (
-            <Textarea
-              name="education"
-              placeholder="Education (one bullet per line)"
-              onChange={handleChange}
-            />
-          )}
-
-          {currentStep === 5 && (
-            <Textarea
-              name="projects"
-              placeholder="Projects (one bullet per line)"
-              onChange={handleChange}
-            />
-          )}
-
-          {currentStep === 6 && (
-            <>
-              <Textarea
-                name="skills"
-                placeholder="Skills (comma or line separated)"
-                onChange={handleChange}
-              />
-              <Textarea
-                name="courses"
-                placeholder="Courses / Certifications"
-                onChange={handleChange}
-              />
-            </>
-          )}
-
-          {/* NAVIGATION */}
-          <div className="flex justify-between pt-4">
-            <Button
-              variant="outline"
-              disabled={currentStep === 0}
-              onClick={() => setCurrentStep((s) => s - 1)}
-            >
-              Back
-            </Button>
-
-            {currentStep < steps.length - 1 ? (
-              <Button onClick={() => setCurrentStep((s) => s + 1)}>
-                Next
-              </Button>
-            ) : (
-              <Button onClick={printResume}>Download PDF</Button>
+            {currentStep === 1 && (
+              <>
+                <Input name="linkedin" placeholder="LinkedIn URL" onChange={handleChange} />
+                <Input name="github" placeholder="GitHub URL" onChange={handleChange} />
+                <Input name="portfolio" placeholder="Portfolio / Website URL" onChange={handleChange} />
+              </>
             )}
-          </div>
-        </CardContent>
-      </Card>
 
-      {/* RIGHT – PREVIEW */}
-      <Card>
-        <CardContent ref={resumeRef} className="bg-white p-6 text-sm">
-          <h1>{data.name || "YOUR NAME"}</h1>
-          <h2>{data.role}</h2>
-          <p style={{ textAlign: "center" }}>
-            {data.location} | {data.email} | {data.phone}
-          </p>
+            {currentStep === 2 && (
+              <Textarea
+                name="summary"
+                placeholder="Professional summary (2–3 lines)"
+                onChange={handleChange}
+              />
+            )}
 
-          {data.summary && <p>{data.summary}</p>}
+            {currentStep === 3 && (
+              <Textarea
+                name="experience"
+                placeholder="Work experience (one bullet per line)"
+                onChange={handleChange}
+              />
+            )}
 
-          {data.experience && (
-            <>
-              <h3>Experience</h3>
-              <ul>{list(data.experience).map((i, k) => <li key={k}>{i}</li>)}</ul>
-            </>
-          )}
+            {currentStep === 4 && (
+              <Textarea
+                name="education"
+                placeholder="Education (one bullet per line)"
+                onChange={handleChange}
+              />
+            )}
 
-          {data.education && (
-            <>
-              <h3>Education</h3>
-              <ul>{list(data.education).map((i, k) => <li key={k}>{i}</li>)}</ul>
-            </>
-          )}
+            {currentStep === 5 && (
+              <Textarea
+                name="projects"
+                placeholder="Projects (one bullet per line)"
+                onChange={handleChange}
+              />
+            )}
 
-          {data.projects && (
-            <>
-              <h3>Projects</h3>
-              <ul>{list(data.projects).map((i, k) => <li key={k}>{i}</li>)}</ul>
-            </>
-          )}
+            {currentStep === 6 && (
+              <>
+                <Textarea
+                  name="skills"
+                  placeholder="Skills (comma or line separated)"
+                  onChange={handleChange}
+                />
+                <Textarea
+                  name="courses"
+                  placeholder="Courses / Certifications"
+                  onChange={handleChange}
+                />
+              </>
+            )}
 
-          {data.skills && (
-            <>
-              <h3>Skills</h3>
-              <p>{data.skills}</p>
-            </>
-          )}
+            {/* NAVIGATION */}
+            <div className="flex justify-between pt-4">
+              <Button
+                variant="outline"
+                disabled={currentStep === 0}
+                onClick={() => setCurrentStep((s) => s - 1)}
+              >
+                Back
+              </Button>
 
-          {data.courses && (
-            <>
-              <h3>Courses</h3>
-              <p>{data.courses}</p>
-            </>
-          )}
-        </CardContent>
-      </Card>
-    </div>
+              {currentStep < steps.length - 1 ? (
+                <Button onClick={() => setCurrentStep((s) => s + 1)}>
+                  Next
+                </Button>
+              ) : (
+                <Button onClick={printResume}>Download PDF</Button>
+              )}
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* RIGHT – PREVIEW */}
+        <Card>
+          <CardContent ref={resumeRef} className="bg-white p-6 text-sm">
+            <h1>{data.name || "YOUR NAME"}</h1>
+            <h2>{data.role}</h2>
+            <p style={{ textAlign: "center" }}>
+              {data.location} | {data.email} | {data.phone}
+            </p>
+
+            {data.summary && <p>{data.summary}</p>}
+
+            {data.experience && (
+              <>
+                <h3>Experience</h3>
+                <ul>{list(data.experience).map((i, k) => <li key={k}>{i}</li>)}</ul>
+              </>
+            )}
+
+            {data.education && (
+              <>
+                <h3>Education</h3>
+                <ul>{list(data.education).map((i, k) => <li key={k}>{i}</li>)}</ul>
+              </>
+            )}
+
+            {data.projects && (
+              <>
+                <h3>Projects</h3>
+                <ul>{list(data.projects).map((i, k) => <li key={k}>{i}</li>)}</ul>
+              </>
+            )}
+
+            {data.skills && (
+              <>
+                <h3>Skills</h3>
+                <p>{data.skills}</p>
+              </>
+            )}
+
+            {data.courses && (
+              <>
+                <h3>Courses</h3>
+                <p>{data.courses}</p>
+              </>
+            )}
+          </CardContent>
+        </Card>
+      </div>
+
+      {/* ================= SEO CONTENT (NO LOGIC TOUCHED) ================= */}
+      <section className="mt-20 max-w-5xl mx-auto text-sm text-muted-foreground leading-7">
+        <h2 className="text-xl font-semibold text-foreground mb-4">
+          Free Online Resume Maker – ATS Friendly Resume Builder
+        </h2>
+
+        <p>
+          TaskGuru Resume Maker is a free online resume builder that helps users
+          create professional, ATS-friendly resumes for global job applications.
+          The tool works entirely in your browser and does not require any
+          registration or installation.
+        </p>
+
+        <p className="mt-4">
+          This resume builder includes features such as ATS score analysis, job
+          description keyword matching, and step-by-step resume creation. It is
+          suitable for students, fresh graduates, and experienced professionals
+          applying for jobs worldwide.
+        </p>
+
+        <p className="mt-4">
+          You can use this resume maker to build resumes for corporate roles,
+          remote jobs, internships, and technical positions. All resumes are
+          clean, readable, and optimized for modern applicant tracking systems.
+        </p>
+
+        <h3 className="text-lg font-semibold text-foreground mt-8 mb-3">
+          Resume Maker – Frequently Asked Questions
+        </h3>
+
+        <ul className="space-y-2">
+          <li>
+            <strong>Is this resume maker free?</strong> Yes, it is completely
+            free to use.
+          </li>
+          <li>
+            <strong>Are resumes ATS-friendly?</strong> Yes, all resumes follow
+            ATS best practices.
+          </li>
+          <li>
+            <strong>Who can use this tool?</strong> Anyone creating a resume for
+            global job applications.
+          </li>
+        </ul>
+      </section>
+    </>
   );
-}
+                  }
 
