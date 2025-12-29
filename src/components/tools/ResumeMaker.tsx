@@ -147,6 +147,32 @@ export default function ResumeMaker() {
 
   return (
     <>
+      {/* ================= SEO TEXT (ALWAYS VISIBLE) ================= */}
+      <section className="mb-16 max-w-5xl mx-auto px-4 text-sm text-muted-foreground leading-7">
+        <h2 className="text-xl font-semibold text-foreground mb-4">
+          Free Online Resume Maker – ATS Friendly Resume Builder
+        </h2>
+
+        <p>
+          TaskGuru Resume Maker is a free online resume builder that helps users
+          create professional, ATS-friendly resumes for global job applications.
+          The tool works directly in your browser without requiring signup or
+          installation.
+        </p>
+
+        <p className="mt-4">
+          This resume builder includes ATS score analysis, job description
+          keyword matching, and step-by-step resume creation. It is suitable for
+          students, fresh graduates, and experienced professionals worldwide.
+        </p>
+
+        <p className="mt-4">
+          You can build resumes for corporate roles, remote jobs, internships,
+          and technical positions. All resumes are clean, readable, and optimized
+          for modern applicant tracking systems.
+        </p>
+      </section>
+
       {/* ================= MAIN TOOL ================= */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {/* LEFT – FORM */}
@@ -216,14 +242,6 @@ export default function ResumeMaker() {
                       style={{ width: `${jdMatch.match}%` }}
                     />
                   </div>
-
-                  {jdMatch.missing.length > 0 && (
-                    <p className="text-xs text-muted-foreground mt-1">
-                      Missing keywords:{" "}
-                      {jdMatch.missing.slice(0, 8).join(", ")}
-                      {jdMatch.missing.length > 8 && " ..."}
-                    </p>
-                  )}
                 </>
               )}
             </div>
@@ -248,49 +266,25 @@ export default function ResumeMaker() {
             )}
 
             {currentStep === 2 && (
-              <Textarea
-                name="summary"
-                placeholder="Professional summary (2–3 lines)"
-                onChange={handleChange}
-              />
+              <Textarea name="summary" placeholder="Professional summary" onChange={handleChange} />
             )}
 
             {currentStep === 3 && (
-              <Textarea
-                name="experience"
-                placeholder="Work experience (one bullet per line)"
-                onChange={handleChange}
-              />
+              <Textarea name="experience" placeholder="Work experience" onChange={handleChange} />
             )}
 
             {currentStep === 4 && (
-              <Textarea
-                name="education"
-                placeholder="Education (one bullet per line)"
-                onChange={handleChange}
-              />
+              <Textarea name="education" placeholder="Education" onChange={handleChange} />
             )}
 
             {currentStep === 5 && (
-              <Textarea
-                name="projects"
-                placeholder="Projects (one bullet per line)"
-                onChange={handleChange}
-              />
+              <Textarea name="projects" placeholder="Projects" onChange={handleChange} />
             )}
 
             {currentStep === 6 && (
               <>
-                <Textarea
-                  name="skills"
-                  placeholder="Skills (comma or line separated)"
-                  onChange={handleChange}
-                />
-                <Textarea
-                  name="courses"
-                  placeholder="Courses / Certifications"
-                  onChange={handleChange}
-                />
+                <Textarea name="skills" placeholder="Skills" onChange={handleChange} />
+                <Textarea name="courses" placeholder="Courses" onChange={handleChange} />
               </>
             )}
 
@@ -325,91 +319,15 @@ export default function ResumeMaker() {
             </p>
 
             {data.summary && <p>{data.summary}</p>}
-
-            {data.experience && (
-              <>
-                <h3>Experience</h3>
-                <ul>{list(data.experience).map((i, k) => <li key={k}>{i}</li>)}</ul>
-              </>
-            )}
-
-            {data.education && (
-              <>
-                <h3>Education</h3>
-                <ul>{list(data.education).map((i, k) => <li key={k}>{i}</li>)}</ul>
-              </>
-            )}
-
-            {data.projects && (
-              <>
-                <h3>Projects</h3>
-                <ul>{list(data.projects).map((i, k) => <li key={k}>{i}</li>)}</ul>
-              </>
-            )}
-
-            {data.skills && (
-              <>
-                <h3>Skills</h3>
-                <p>{data.skills}</p>
-              </>
-            )}
-
-            {data.courses && (
-              <>
-                <h3>Courses</h3>
-                <p>{data.courses}</p>
-              </>
-            )}
+            {data.experience && <><h3>Experience</h3><ul>{list(data.experience).map((i,k)=><li key={k}>{i}</li>)}</ul></>}
+            {data.education && <><h3>Education</h3><ul>{list(data.education).map((i,k)=><li key={k}>{i}</li>)}</ul></>}
+            {data.projects && <><h3>Projects</h3><ul>{list(data.projects).map((i,k)=><li key={k}>{i}</li>)}</ul></>}
+            {data.skills && <><h3>Skills</h3><p>{data.skills}</p></>}
+            {data.courses && <><h3>Courses</h3><p>{data.courses}</p></>}
           </CardContent>
         </Card>
       </div>
-
-      {/* ================= SEO CONTENT (NO LOGIC TOUCHED) ================= */}
-      <section className="mt-20 max-w-5xl mx-auto text-sm text-muted-foreground leading-7">
-        <h2 className="text-xl font-semibold text-foreground mb-4">
-          Free Online Resume Maker – ATS Friendly Resume Builder
-        </h2>
-
-        <p>
-          TaskGuru Resume Maker is a free online resume builder that helps users
-          create professional, ATS-friendly resumes for global job applications.
-          The tool works entirely in your browser and does not require any
-          registration or installation.
-        </p>
-
-        <p className="mt-4">
-          This resume builder includes features such as ATS score analysis, job
-          description keyword matching, and step-by-step resume creation. It is
-          suitable for students, fresh graduates, and experienced professionals
-          applying for jobs worldwide.
-        </p>
-
-        <p className="mt-4">
-          You can use this resume maker to build resumes for corporate roles,
-          remote jobs, internships, and technical positions. All resumes are
-          clean, readable, and optimized for modern applicant tracking systems.
-        </p>
-
-        <h3 className="text-lg font-semibold text-foreground mt-8 mb-3">
-          Resume Maker – Frequently Asked Questions
-        </h3>
-
-        <ul className="space-y-2">
-          <li>
-            <strong>Is this resume maker free?</strong> Yes, it is completely
-            free to use.
-          </li>
-          <li>
-            <strong>Are resumes ATS-friendly?</strong> Yes, all resumes follow
-            ATS best practices.
-          </li>
-          <li>
-            <strong>Who can use this tool?</strong> Anyone creating a resume for
-            global job applications.
-          </li>
-        </ul>
-      </section>
     </>
   );
-                  }
+                }
 
