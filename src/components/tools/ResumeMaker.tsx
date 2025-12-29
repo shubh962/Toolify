@@ -1,12 +1,7 @@
 "use client";
 
-import { useState, useRef } from "react";
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { useState } from "react";
+import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
@@ -17,40 +12,30 @@ import {
   Mail,
   Phone,
   MapPin,
-  Star,
 } from "lucide-react";
 
-/* ================================
-   ATS SCORE LOGIC (SIMPLE + REAL)
-================================ */
-function calculateATSScore(data: any) {
-  let score = 0;
-  if (data.name && data.email && data.phone) score += 15;
-  if (data.summary) score += 20;
-  if (data.skills) score += 20;
-  if (data.experience) score += 25;
-  if (data.education) score += 10;
-  if (data.projects) score += 10;
-  return { score: Math.min(score, 100) };
-}
+/* ================= ATS SCORE ================= */
+const calcATS = (d: any) => {
+  let s = 0;
+  if (d.name && d.email && d.phone) s += 20;
+  if (d.summary) s += 20;
+  if (d.skills) s += 20;
+  if (d.experience) s += 25;
+  if (d.education) s += 15;
+  return Math.min(s, 100);
+};
 
-/* ================================
-   STEPS
-================================ */
 const steps = [
-  "Personal Details",
-  "Professional Summary",
+  "Personal",
+  "Summary",
   "Skills",
   "Experience",
   "Education",
-  "Projects",
 ];
 
 export default function ResumeMaker() {
-  const resumeRef = useRef<HTMLDivElement>(null);
-  const [currentStep, setCurrentStep] = useState(0);
-
-  const [data, setData] = useState({
+  const [step, setStep] = useState(0);
+  const [d, setD] = useState({
     name: "",
     role: "",
     email: "",
@@ -60,206 +45,158 @@ export default function ResumeMaker() {
     skills: "",
     experience: "",
     education: "",
-    projects: "",
   });
 
-  const ats = calculateATSScore(data);
+  const onChange = (e: any) =>
+    setD({ ...d, [e.target.name]: e.target.value });
 
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
-    setData({ ...data, [e.target.name]: e.target.value });
-  };
+  const list = (t: string) =>
+    t.split("\n").map((i) => i.trim()).filter(Boolean);
 
-  const list = (text: string) =>
-    text.split("\n").map((i) => i.trim()).filter(Boolean);
-
-  const limitText = (text: string, max = 600) =>
-    text.length > max ? text.slice(0, max) : text;
-
-  const handleDownload = () => {
+  const printPDF = () => {
+    document.title = `${d.name || "Resume"}`;
     window.print();
   };
 
-  /* ================================
-     SEO SCHEMA
-  ================================ */
-  const jsonLd = {
-    "@context": "https://schema.org",
-    "@type": "SoftwareApplication",
-    name: "TaskGuru Resume Maker",
-    applicationCategory: "BusinessApplication",
-    operatingSystem: "Web",
-    offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
-  };
-
   return (
-    <div className="max-w-7xl mx-auto px-4 py-12 bg-white text-slate-900">
-      {/* ================= PRINT CSS ================= */}
+    <div className="max-w-7xl mx-auto px-4 py-10 bg-white text-slate-900">
+      {/* ================= PRINT LOCK (FINAL) ================= */}
       <style jsx global>{`
         @media print {
           @page {
             size: A4;
-            margin: 15mm;
+            margin: 0;
           }
+
+          html, body {
+            width: 210mm;
+            height: 297mm;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+          }
+
           body * {
             visibility: hidden;
           }
-          .resume-print-area,
-          .resume-print-area * {
+
+          .print-area,
+          .print-area * {
             visibility: visible;
           }
-          .resume-print-area {
+
+          .print-area {
             position: absolute;
             left: 0;
             top: 0;
             width: 210mm;
-            height: 267mm;
+            height: 297mm;
+            padding: 18mm;
+            box-sizing: border-box;
             overflow: hidden;
-            background: white;
           }
+
+          /* FORCE REMOVE BROWSER HEADER/FOOTER */
+          header, footer {
+            display: none !important;
+          }
+
           .no-print {
             display: none !important;
           }
         }
       `}</style>
 
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
-
-      {/* ================= HEADER ================= */}
-      <header className="text-center mb-14 no-print">
-        <h1 className="text-5xl font-black tracking-tight">
-          TaskGuru <span className="text-blue-600">Resume Maker</span>
-        </h1>
-        <p className="mt-3 text-slate-600">
-          ATS-Optimized • 1-Page • Free PDF
-        </p>
-        <div className="flex justify-center gap-1 mt-3 text-yellow-400">
-          {[...Array(5)].map((_, i) => (
-            <Star key={i} size={20} fill="currentColor" />
-          ))}
-        </div>
-      </header>
-
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-start">
+      {/* ================= BUILDER ================= */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         {/* ================= FORM ================= */}
         <Card className="no-print shadow-xl">
-          <CardHeader>
-            <CardTitle className="text-blue-600">
-              Step {currentStep + 1}: {steps[currentStep]}
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-6">
-            {/* ATS SCORE */}
-            <div className="bg-blue-50 p-4 rounded-lg border">
-              <div className="flex justify-between font-bold text-blue-700">
-                <span>ATS Score</span>
-                <span>{ats.score}%</span>
-              </div>
-              <div className="h-2 bg-blue-200 rounded mt-2">
-                <div
-                  className="h-full bg-blue-600 rounded"
-                  style={{ width: `${ats.score}%` }}
-                />
-              </div>
+          <CardContent className="p-6 space-y-5">
+            <div className="font-bold text-blue-600">
+              Step {step + 1} / {steps.length} – {steps[step]}
             </div>
 
-            {/* FORM STEPS */}
-            {currentStep === 0 && (
-              <div className="space-y-3">
-                <Input name="name" placeholder="Full Name" onChange={handleChange} />
-                <Input name="role" placeholder="Target Role" onChange={handleChange} />
-                <Input name="email" placeholder="Email" onChange={handleChange} />
-                <Input name="phone" placeholder="Phone" onChange={handleChange} />
-                <Input
-                  name="location"
-                  placeholder="City, Country"
-                  onChange={handleChange}
-                />
-              </div>
+            <div className="text-sm font-semibold">
+              ATS Score: {calcATS(d)}%
+            </div>
+
+            {step === 0 && (
+              <>
+                <Input name="name" placeholder="Full Name" onChange={onChange} />
+                <Input name="role" placeholder="Professional Title" onChange={onChange} />
+                <Input name="email" placeholder="Email" onChange={onChange} />
+                <Input name="phone" placeholder="Phone" onChange={onChange} />
+                <Input name="location" placeholder="Location" onChange={onChange} />
+              </>
             )}
 
-            {currentStep === 1 && (
+            {step === 1 && (
               <>
                 <Textarea
                   name="summary"
-                  className="h-52"
-                  onChange={handleChange}
-                  placeholder="Example:
-Results-driven Software Engineer with experience in web development, JavaScript frameworks, and problem-solving. Skilled in building responsive applications and optimizing performance. Seeking to contribute technical expertise to a growth-oriented organization."
+                  className="h-40"
+                  onChange={onChange}
+                  placeholder="Results-driven professional with experience in modern technologies, problem-solving, and delivering business-ready solutions. Seeking to contribute skills in a growth-focused organization."
                 />
                 <p className="text-xs italic text-slate-500">
-                  Tip: Write 3–4 lines. Mention role, skills & career goal.
+                  3–4 lines only. No “I”, no story.
                 </p>
               </>
             )}
 
-            {currentStep === 2 && (
+            {step === 2 && (
               <Textarea
                 name="skills"
-                className="h-40"
-                onChange={handleChange}
-                placeholder="HTML, CSS, JavaScript, React, Next.js, Node.js, MongoDB"
+                className="h-32"
+                onChange={onChange}
+                placeholder="HTML, CSS, JavaScript, React, Next.js, Node.js"
               />
             )}
 
-            {currentStep === 3 && (
+            {step === 3 && (
               <Textarea
                 name="experience"
-                className="h-52"
-                onChange={handleChange}
-                placeholder="• Developed responsive web applications using React
-• Improved website performance by 30%
-• Collaborated with cross-functional teams"
+                className="h-40"
+                onChange={onChange}
+                placeholder="• Built responsive web applications
+• Improved performance by 30%"
               />
             )}
 
-            {currentStep === 4 && (
+            {step === 4 && (
               <Textarea
                 name="education"
-                className="h-40"
-                onChange={handleChange}
-                placeholder="B.Tech in Information Technology – Axis Institute of Technology (2023)"
+                className="h-32"
+                onChange={onChange}
+                placeholder="B.Tech in Information Technology – 2023"
               />
             )}
 
-            {currentStep === 5 && (
-              <Textarea
-                name="projects"
-                className="h-40"
-                onChange={handleChange}
-                placeholder="AI Resume Builder – Next.js based ATS-friendly resume tool"
-              />
-            )}
-
-            {/* NAV BUTTONS */}
             <div className="flex gap-3 pt-4">
               <Button
                 variant="outline"
-                disabled={currentStep === 0}
-                onClick={() => setCurrentStep((s) => s - 1)}
+                disabled={step === 0}
+                onClick={() => setStep(step - 1)}
                 className="flex-1"
               >
-                <ArrowLeft className="mr-2 h-4 w-4" />
+                <ArrowLeft size={16} className="mr-2" />
                 Back
               </Button>
 
-              {currentStep < steps.length - 1 ? (
+              {step < steps.length - 1 ? (
                 <Button
-                  onClick={() => setCurrentStep((s) => s + 1)}
+                  onClick={() => setStep(step + 1)}
                   className="flex-1 bg-blue-600"
                 >
-                  Next <ArrowRight className="ml-2 h-4 w-4" />
+                  Next
+                  <ArrowRight size={16} className="ml-2" />
                 </Button>
               ) : (
                 <Button
-                  onClick={handleDownload}
+                  onClick={printPDF}
                   className="flex-1 bg-green-600"
                 >
-                  <Download className="mr-2 h-4 w-4" />
+                  <Download size={16} className="mr-2" />
                   Download PDF
                 </Button>
               )}
@@ -267,105 +204,58 @@ Results-driven Software Engineer with experience in web development, JavaScript 
           </CardContent>
         </Card>
 
-        {/* ================= PREVIEW ================= */}
-        <Card className="resume-print-area shadow-xl">
-          <CardContent
-            ref={resumeRef}
-            className="p-10 text-slate-800 font-serif"
-            style={{ height: "267mm", overflow: "hidden" }}
-          >
-            <div className="border-b-2 border-slate-900 pb-3 mb-6">
-              <h1 className="text-[32px] font-extrabold uppercase">
-                {data.name || "YOUR NAME"}
-              </h1>
-              <h2 className="text-lg uppercase text-blue-600">
-                {data.role || "Professional Title"}
-              </h2>
-            </div>
+        {/* ================= RESUME (PRINT AREA) ================= */}
+        <div className="print-area shadow-xl">
+          <div className="border-b-2 border-black pb-3 mb-5">
+            <h1 className="text-3xl font-extrabold uppercase">
+              {d.name || "YOUR NAME"}
+            </h1>
+            <h2 className="text-sm font-semibold uppercase text-blue-600">
+              {d.role || "PROFESSIONAL TITLE"}
+            </h2>
+          </div>
 
-            <div className="flex flex-wrap gap-4 text-xs text-slate-600 mb-6 font-sans">
-              {data.email && (
-                <span className="flex items-center gap-1">
-                  <Mail size={12} /> {data.email}
-                </span>
-              )}
-              {data.phone && (
-                <span className="flex items-center gap-1">
-                  <Phone size={12} /> {data.phone}
-                </span>
-              )}
-              {data.location && (
-                <span className="flex items-center gap-1">
-                  <MapPin size={12} /> {data.location}
-                </span>
-              )}
-            </div>
+          <div className="flex flex-wrap gap-4 text-xs mb-5">
+            {d.email && <span className="flex items-center gap-1"><Mail size={12} />{d.email}</span>}
+            {d.phone && <span className="flex items-center gap-1"><Phone size={12} />{d.phone}</span>}
+            {d.location && <span className="flex items-center gap-1"><MapPin size={12} />{d.location}</span>}
+          </div>
 
-            <div className="space-y-6 text-sm leading-relaxed">
-              {data.summary && (
-                <section>
-                  <h3 className="font-bold uppercase text-xs border-b mb-2">
-                    Summary
-                  </h3>
-                  <p>{limitText(data.summary)}</p>
-                </section>
-              )}
+          <div className="space-y-4 text-sm leading-relaxed">
+            {d.summary && (
+              <section>
+                <div className="font-bold uppercase text-xs border-b mb-1">Summary</div>
+                <p>{d.summary}</p>
+              </section>
+            )}
 
-              {data.skills && (
-                <section>
-                  <h3 className="font-bold uppercase text-xs border-b mb-2">
-                    Skills
-                  </h3>
-                  <p>{data.skills}</p>
-                </section>
-              )}
+            {d.skills && (
+              <section>
+                <div className="font-bold uppercase text-xs border-b mb-1">Skills</div>
+                <p>{d.skills}</p>
+              </section>
+            )}
 
-              {data.experience && (
-                <section>
-                  <h3 className="font-bold uppercase text-xs border-b mb-2">
-                    Experience
-                  </h3>
-                  <ul className="list-disc pl-5 space-y-1">
-                    {list(data.experience).map((i, idx) => (
-                      <li key={idx}>{i}</li>
-                    ))}
-                  </ul>
-                </section>
-              )}
+            {d.experience && (
+              <section>
+                <div className="font-bold uppercase text-xs border-b mb-1">Experience</div>
+                <ul className="list-disc pl-5">
+                  {list(d.experience).map((i, k) => <li key={k}>{i}</li>)}
+                </ul>
+              </section>
+            )}
 
-              {data.projects && (
-                <section>
-                  <h3 className="font-bold uppercase text-xs border-b mb-2">
-                    Projects
-                  </h3>
-                  <ul className="list-disc pl-5 space-y-1">
-                    {list(data.projects).map((i, idx) => (
-                      <li key={idx}>{i}</li>
-                    ))}
-                  </ul>
-                </section>
-              )}
-
-              {data.education && (
-                <section>
-                  <h3 className="font-bold uppercase text-xs border-b mb-2">
-                    Education
-                  </h3>
-                  <ul className="list-disc pl-5 space-y-1">
-                    {list(data.education).map((i, idx) => (
-                      <li key={idx}>{i}</li>
-                    ))}
-                  </ul>
-                </section>
-              )}
-            </div>
-          </CardContent>
-        </Card>
+            {d.education && (
+              <section>
+                <div className="font-bold uppercase text-xs border-b mb-1">Education</div>
+                <ul className="list-disc pl-5">
+                  {list(d.education).map((i, k) => <li key={k}>{i}</li>)}
+                </ul>
+              </section>
+            )}
+          </div>
+        </div>
       </div>
-
-      <footer className="text-center text-xs text-slate-400 mt-16 no-print">
-        © 2025 TaskGuru.online – ATS Resume Builder
-      </footer>
     </div>
   );
 }
