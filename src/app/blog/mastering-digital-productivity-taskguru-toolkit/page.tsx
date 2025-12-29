@@ -1,5 +1,6 @@
 import React from "react";
-import Link from "next/link"; // Added for internal navigation
+import Link from "next/link";
+import Script from "next/script"; // Added next/script import
 import { Card, CardContent } from "@/components/ui/card";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { 
@@ -18,7 +19,7 @@ import {
   Lock, 
   MousePointer2,
   CheckCircle2,
-  ExternalLink // Added for CTA icons
+  ExternalLink 
 } from "lucide-react";
 
 export const metadata = {
@@ -33,6 +34,103 @@ export default function BlogPage() {
   return (
     <div className="max-w-6xl mx-auto px-6 py-16 bg-white text-slate-900 font-sans selection:bg-blue-100">
       
+      {/* ================= STRUCTURED DATA FOR RICH RESULTS ================= */}
+      <Script
+        id="taskguru-article-schema"
+        type="application/ld+json"
+        strategy="afterInteractive"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Article",
+            "headline": "Mastering Digital Productivity: The Ultimate TaskGuru Toolkit Guide",
+            "description":
+              "A comprehensive guide to TaskGuru's free AI-powered productivity tools including Resume Maker, Background Remover, Image Compressor, and more.",
+            "image": "https://www.taskguru.online/og-image.png",
+            "author": {
+              "@type": "Organization",
+              "name": "TaskGuru"
+            },
+            "publisher": {
+              "@type": "Organization",
+              "name": "TaskGuru",
+              "logo": {
+                "@type": "ImageObject",
+                "url": "https://www.taskguru.online/logo.png"
+              }
+            },
+            "datePublished": "2025-12-29",
+            "dateModified": "2025-12-29",
+            "mainEntityOfPage": {
+              "@type": "WebPage",
+              "@id": "https://www.taskguru.online/blog/mastering-digital-productivity-taskguru-toolkit"
+            }
+          })
+        }}
+      />
+
+      <Script
+        id="taskguru-faq-schema"
+        type="application/ld+json"
+        strategy="afterInteractive"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            "mainEntity": [
+              {
+                "@type": "Question",
+                "name": "Is this resume maker truly free?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Yes. TaskGuru provides unlimited resume downloads with no watermarks, subscriptions, or hidden costs."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "How does the ATS matching logic work?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "The ATS engine analyzes section completeness, keyword usage, action verbs, and formatting compatibility."
+                }
+              }
+            ]
+          })
+        }}
+      />
+
+      <Script
+        id="taskguru-breadcrumbs"
+        type="application/ld+json"
+        strategy="afterInteractive"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": "https://www.taskguru.online/"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Blog",
+                "item": "https://www.taskguru.online/blog"
+              },
+              {
+                "@type": "ListItem",
+                "position": 3,
+                "name": "Mastering Digital Productivity",
+                "item": "https://www.taskguru.online/blog/mastering-digital-productivity-taskguru-toolkit"
+              }
+            ]
+          })
+        }}
+      />
+
       {/* ================= HERO SECTION ================= */}
       <header className="text-center mb-24">
         <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-50 text-blue-600 text-sm font-bold mb-6">
@@ -100,11 +198,11 @@ export default function BlogPage() {
             <ul className="space-y-6 text-sm font-semibold opacity-90">
               <li className="flex gap-4 text-white">
                 <span className="flex-none w-8 h-8 bg-white/20 rounded-full flex items-center justify-center">01</span>
-                <span>Input data into the guided form steps.</span>
+                <span>Input data into the guided step-by-step form steps.</span>
               </li>
               <li className="flex gap-4 text-white">
                 <span className="flex-none w-8 h-8 bg-white/20 rounded-full flex items-center justify-center">02</span>
-                <span>Monitor real-time ATS scoring for 80%+ compatibility.</span>
+                <span>Monitor real-time ATS scoring to hit the 80%+ benchmark.</span>
               </li>
               <li className="flex gap-4 text-white">
                 <span className="flex-none w-8 h-8 bg-white/20 rounded-full flex items-center justify-center">03</span>
@@ -142,7 +240,7 @@ export default function BlogPage() {
                 </div>
                 <h2 className="text-4xl font-black uppercase tracking-tight text-slate-900">2. Advanced Background Remover</h2>
             </div>
-            <Link href="/tools/background-remover" className="inline-flex items-center gap-2 bg-purple-600 text-white px-6 py-3 rounded-xl font-bold hover:bg-purple-700 transition-all shadow-md w-fit">
+            <Link href="/tools/background-remover" className="inline-flex items-center gap-2 bg-purple-600 text-white px-6 py-3 rounded-xl font-bold hover:bg-purple-700 transition-all shadow-md w-fit text-white">
                 Start Removing <ExternalLink size={16} />
             </Link>
         </div>
@@ -175,7 +273,7 @@ export default function BlogPage() {
                 </div>
                 <h2 className="text-4xl font-black uppercase tracking-tight text-slate-900">3. High-Fidelity Image Compressor</h2>
             </div>
-            <Link href="/tools/image-compressor" className="inline-flex items-center gap-2 bg-green-600 text-white px-6 py-3 rounded-xl font-bold hover:bg-green-700 transition-all shadow-md w-fit">
+            <Link href="/tools/image-compressor" className="inline-flex items-center gap-2 bg-green-600 text-white px-6 py-3 rounded-xl font-bold hover:bg-green-700 transition-all shadow-md w-fit text-white">
                 Compress Now <ExternalLink size={16} />
             </Link>
         </div>
@@ -193,7 +291,7 @@ export default function BlogPage() {
           </div>
           <div className="bg-slate-900 p-10 rounded-[3rem] text-white">
             <h4 className="text-2xl font-bold mb-4 flex items-center gap-2 text-green-400">Optimization Guide</h4>
-            <p className="opacity-70 text-sm leading-relaxed mb-6">
+            <p className="opacity-70 text-sm leading-relaxed mb-6 text-white">
               For standard web usage, a compression level of 70-80% is recommended. This maintains 
               retina-ready quality while reducing the payload by up to 90%.
             </p>
@@ -214,7 +312,7 @@ export default function BlogPage() {
                 </div>
                 <h2 className="text-4xl font-black uppercase tracking-tight text-slate-900">4. Intelligent Image-to-Text (OCR)</h2>
             </div>
-            <Link href="/tools/image-to-text" className="inline-flex items-center gap-2 bg-orange-600 text-white px-6 py-3 rounded-xl font-bold hover:bg-orange-700 transition-all shadow-md w-fit">
+            <Link href="/tools/image-to-text" className="inline-flex items-center gap-2 bg-orange-600 text-white px-6 py-3 rounded-xl font-bold hover:bg-orange-700 transition-all shadow-md w-fit text-white">
                 Extract Text <ExternalLink size={16} />
             </Link>
         </div>
@@ -259,7 +357,7 @@ export default function BlogPage() {
               </div>
               <p className="text-slate-500 text-sm leading-relaxed mb-4">
                 Handle project reporting with ease by combining separate PDFs into a single document. 
-                Our merger maintains file sequence and integrity.
+                Our merger maintains file sequence and integrity without cloud-based delays.
               </p>
               <span className="text-red-600 font-bold text-sm flex items-center gap-1">Try Now <ExternalLink size={14}/></span>
             </Card>
@@ -273,7 +371,7 @@ export default function BlogPage() {
               </div>
               <p className="text-slate-500 text-sm leading-relaxed mb-4">
                 Calculate exact ages down to the minute. Perfect for insurance forms, legal filings, 
-                and chronological medical records.
+                and chronological medical records. Accounts for leap years automatically.
               </p>
               <span className="text-teal-600 font-bold text-sm flex items-center gap-1">Try Now <ExternalLink size={14}/></span>
             </Card>
@@ -287,7 +385,7 @@ export default function BlogPage() {
               </div>
               <p className="text-slate-500 text-sm leading-relaxed mb-4">
                 Essential for construction and engineering. Calculate the weight of bars, pipes, and 
-                sheets across materials with precision.
+                sheets across materials like Steel, Aluminum, and Copper with precision.
               </p>
               <span className="text-zinc-800 font-bold text-sm flex items-center gap-1">Try Now <ExternalLink size={14}/></span>
             </Card>
@@ -301,7 +399,7 @@ export default function BlogPage() {
               </div>
               <p className="text-slate-500 text-sm leading-relaxed mb-4">
                 Refine your writing voice. Our AI rewrite assistant helps find synonyms and alternate 
-                sentence structures to improve tone.
+                sentence structures to improve tone and clarity without losing meaning.
               </p>
               <span className="text-blue-600 font-bold text-sm flex items-center gap-1">Try Now <ExternalLink size={14}/></span>
             </Card>
