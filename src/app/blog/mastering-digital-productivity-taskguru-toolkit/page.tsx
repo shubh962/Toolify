@@ -1,4 +1,5 @@
 import React from "react";
+import Link from "next/link"; // Added for internal navigation
 import { Card, CardContent } from "@/components/ui/card";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { 
@@ -16,7 +17,8 @@ import {
   Globe, 
   Lock, 
   MousePointer2,
-  CheckCircle2 // Added missing import
+  CheckCircle2,
+  ExternalLink // Added for CTA icons
 } from "lucide-react";
 
 export const metadata = {
@@ -52,7 +54,7 @@ export default function BlogPage() {
           <p>
             Professional workflows often grind to a halt when faced with simple but tedious tasks: converting file formats, 
             calculating precise measurements, or drafting job-ready documents. <strong>TaskGuru</strong> has emerged as a 
-            premier destination for these needs, offering a centralized "all-in-one" toolkit designed for efficiency.
+            premier destination for these needs, offering a centralized &quot;all-in-one&quot; toolkit designed for efficiency.
           </p>
           <p>
             This guide provides an exhaustive deep dive into our primary utilities, exploring their technical foundations, 
@@ -64,14 +66,19 @@ export default function BlogPage() {
 
       {/* ================= TOOL 1: RESUME MAKER ================= */}
       <section className="mb-32 group">
-        <div className="flex items-center gap-4 mb-8">
-          <div className="bg-blue-600 p-4 rounded-3xl text-white shadow-lg shadow-blue-200 group-hover:scale-110 transition-transform">
-            <FileText size={40} />
-          </div>
-          <div>
-            <h2 className="text-4xl font-black uppercase tracking-tight text-slate-900">1. Professional Resume Maker</h2>
-            <p className="text-blue-600 font-bold">The Gold Standard for Free Resume Builders</p>
-          </div>
+        <div className="flex items-center justify-between mb-8">
+            <div className="flex items-center gap-4">
+                <div className="bg-blue-600 p-4 rounded-3xl text-white shadow-lg shadow-blue-200 group-hover:scale-110 transition-transform">
+                    <FileText size={40} />
+                </div>
+                <div>
+                    <h2 className="text-4xl font-black uppercase tracking-tight text-slate-900">1. Professional Resume Maker</h2>
+                    <p className="text-blue-600 font-bold text-sm uppercase tracking-widest">ATS-Optimized Engine</p>
+                </div>
+            </div>
+            <Link href="/tools/resume-maker" className="hidden md:flex items-center gap-2 bg-blue-600 text-white px-6 py-3 rounded-xl font-bold hover:bg-blue-700 transition-all shadow-md">
+                Try Tool Now <ExternalLink size={16} />
+            </Link>
         </div>
         
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-10 mb-12">
@@ -93,11 +100,11 @@ export default function BlogPage() {
             <ul className="space-y-6 text-sm font-semibold opacity-90">
               <li className="flex gap-4 text-white">
                 <span className="flex-none w-8 h-8 bg-white/20 rounded-full flex items-center justify-center">01</span>
-                <span>Input data into the guided step-by-step form steps.</span>
+                <span>Input data into the guided form steps.</span>
               </li>
               <li className="flex gap-4 text-white">
                 <span className="flex-none w-8 h-8 bg-white/20 rounded-full flex items-center justify-center">02</span>
-                <span>Monitor real-time ATS scoring to hit the 80%+ benchmark.</span>
+                <span>Monitor real-time ATS scoring for 80%+ compatibility.</span>
               </li>
               <li className="flex gap-4 text-white">
                 <span className="flex-none w-8 h-8 bg-white/20 rounded-full flex items-center justify-center">03</span>
@@ -106,6 +113,9 @@ export default function BlogPage() {
             </ul>
           </Card>
         </div>
+        <Link href="/tools/resume-maker" className="md:hidden w-full flex justify-center items-center gap-2 bg-blue-600 text-white px-6 py-4 rounded-xl font-bold mb-8">
+            Build My Resume <ExternalLink size={16} />
+        </Link>
 
         <Accordion type="single" collapsible className="w-full bg-slate-50 rounded-2xl px-6">
           <AccordionItem value="faq-1" className="border-slate-200">
@@ -125,11 +135,16 @@ export default function BlogPage() {
 
       {/* ================= TOOL 2: BACKGROUND REMOVER ================= */}
       <section className="mb-32 group">
-        <div className="flex items-center gap-4 mb-8">
-          <div className="bg-purple-600 p-4 rounded-3xl text-white shadow-lg shadow-purple-200 group-hover:scale-110 transition-transform">
-            <ImageIcon size={40} />
-          </div>
-          <h2 className="text-4xl font-black uppercase tracking-tight text-slate-900">2. Advanced Background Remover</h2>
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-8">
+            <div className="flex items-center gap-4">
+                <div className="bg-purple-600 p-4 rounded-3xl text-white shadow-lg shadow-purple-200 group-hover:scale-110 transition-transform">
+                    <ImageIcon size={40} />
+                </div>
+                <h2 className="text-4xl font-black uppercase tracking-tight text-slate-900">2. Advanced Background Remover</h2>
+            </div>
+            <Link href="/tools/background-remover" className="inline-flex items-center gap-2 bg-purple-600 text-white px-6 py-3 rounded-xl font-bold hover:bg-purple-700 transition-all shadow-md w-fit">
+                Start Removing <ExternalLink size={16} />
+            </Link>
         </div>
         <p className="text-xl text-slate-600 mb-10 leading-relaxed">
           In a world dominated by social media and e-commerce, high-quality imagery is essential. Our 
@@ -153,11 +168,16 @@ export default function BlogPage() {
 
       {/* ================= TOOL 3: IMAGE COMPRESSOR ================= */}
       <section className="mb-32">
-        <div className="flex items-center gap-4 mb-8">
-          <div className="bg-green-600 p-4 rounded-3xl text-white shadow-lg shadow-green-200">
-            <Scaling size={40} />
-          </div>
-          <h2 className="text-4xl font-black uppercase tracking-tight text-slate-900">3. High-Fidelity Image Compressor</h2>
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-8">
+            <div className="flex items-center gap-4">
+                <div className="bg-green-600 p-4 rounded-3xl text-white shadow-lg shadow-green-200">
+                    <Scaling size={40} />
+                </div>
+                <h2 className="text-4xl font-black uppercase tracking-tight text-slate-900">3. High-Fidelity Image Compressor</h2>
+            </div>
+            <Link href="/tools/image-compressor" className="inline-flex items-center gap-2 bg-green-600 text-white px-6 py-3 rounded-xl font-bold hover:bg-green-700 transition-all shadow-md w-fit">
+                Compress Now <ExternalLink size={16} />
+            </Link>
         </div>
         <div className="grid lg:grid-cols-2 gap-16 items-center">
           <div className="prose prose-slate max-w-none text-lg text-slate-600">
@@ -187,11 +207,16 @@ export default function BlogPage() {
 
       {/* ================= TOOL 4: IMAGE-TO-TEXT ================= */}
       <section className="mb-32">
-        <div className="flex items-center gap-4 mb-8">
-          <div className="bg-orange-600 p-4 rounded-3xl text-white shadow-lg shadow-orange-200">
-            <Type size={40} />
-          </div>
-          <h2 className="text-4xl font-black uppercase tracking-tight text-slate-900">4. Intelligent Image-to-Text (OCR)</h2>
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-8">
+            <div className="flex items-center gap-4">
+                <div className="bg-orange-600 p-4 rounded-3xl text-white shadow-lg shadow-orange-200">
+                    <Type size={40} />
+                </div>
+                <h2 className="text-4xl font-black uppercase tracking-tight text-slate-900">4. Intelligent Image-to-Text (OCR)</h2>
+            </div>
+            <Link href="/tools/image-to-text" className="inline-flex items-center gap-2 bg-orange-600 text-white px-6 py-3 rounded-xl font-bold hover:bg-orange-700 transition-all shadow-md w-fit">
+                Extract Text <ExternalLink size={16} />
+            </Link>
         </div>
         <Card className="border-none bg-slate-50 p-10 rounded-[2.5rem] shadow-none">
           <div className="grid md:grid-cols-2 gap-12">
@@ -226,49 +251,61 @@ export default function BlogPage() {
       <section className="mb-32 border-t pt-24">
         <h2 className="text-3xl font-black text-center mb-16 uppercase tracking-widest text-slate-900">More Essential Utilities</h2>
         <div className="grid md:grid-cols-2 gap-10">
-          <Card className="p-8 rounded-[2rem] border-slate-100 hover:border-red-100 transition-colors shadow-none">
-            <div className="flex items-center gap-4 mb-4">
-              <div className="bg-red-600 p-3 rounded-2xl text-white"><Merge size={24} /></div>
-              <h3 className="text-2xl font-bold text-slate-900">PDF Merger</h3>
-            </div>
-            <p className="text-slate-500 text-sm leading-relaxed">
-              Handle project reporting with ease by combining separate PDFs into a single document. 
-              Our merger maintains file sequence and integrity without cloud-based delays.
-            </p>
-          </Card>
+          <Link href="/tools/merge-pdf" className="block group">
+            <Card className="p-8 rounded-[2rem] border-slate-100 group-hover:border-red-600 transition-colors shadow-none h-full">
+              <div className="flex items-center gap-4 mb-4">
+                <div className="bg-red-600 p-3 rounded-2xl text-white"><Merge size={24} /></div>
+                <h3 className="text-2xl font-bold text-slate-900">PDF Merger</h3>
+              </div>
+              <p className="text-slate-500 text-sm leading-relaxed mb-4">
+                Handle project reporting with ease by combining separate PDFs into a single document. 
+                Our merger maintains file sequence and integrity.
+              </p>
+              <span className="text-red-600 font-bold text-sm flex items-center gap-1">Try Now <ExternalLink size={14}/></span>
+            </Card>
+          </Link>
 
-          <Card className="p-8 rounded-[2rem] border-slate-100 hover:border-teal-100 transition-colors shadow-none">
-            <div className="flex items-center gap-4 mb-4">
-              <div className="bg-teal-600 p-3 rounded-2xl text-white"><Calculator size={24} /></div>
-              <h3 className="text-2xl font-bold text-slate-900">Age Calculator</h3>
-            </div>
-            <p className="text-slate-500 text-sm leading-relaxed">
-              Calculate exact ages down to the minute. Perfect for insurance forms, legal filings, 
-              and chronological medical records. Accounts for leap years automatically.
-            </p>
-          </Card>
+          <Link href="/tools/age-calculator" className="block group">
+            <Card className="p-8 rounded-[2rem] border-slate-100 group-hover:border-teal-600 transition-colors shadow-none h-full">
+              <div className="flex items-center gap-4 mb-4">
+                <div className="bg-teal-600 p-3 rounded-2xl text-white"><Calculator size={24} /></div>
+                <h3 className="text-2xl font-bold text-slate-900">Age Calculator</h3>
+              </div>
+              <p className="text-slate-500 text-sm leading-relaxed mb-4">
+                Calculate exact ages down to the minute. Perfect for insurance forms, legal filings, 
+                and chronological medical records.
+              </p>
+              <span className="text-teal-600 font-bold text-sm flex items-center gap-1">Try Now <ExternalLink size={14}/></span>
+            </Card>
+          </Link>
 
-          <Card className="p-8 rounded-[2rem] border-slate-100 hover:border-zinc-100 transition-colors shadow-none">
-            <div className="flex items-center gap-4 mb-4">
-              <div className="bg-zinc-800 p-3 rounded-2xl text-white"><Hammer size={24} /></div>
-              <h3 className="text-2xl font-bold text-slate-900">Metal Weight Calculator</h3>
-            </div>
-            <p className="text-slate-500 text-sm leading-relaxed">
-              Essential for construction and engineering. Calculate the weight of bars, pipes, and 
-              sheets across materials like Steel, Aluminum, and Copper with precision.
-            </p>
-          </Card>
+          <Link href="/tools/metal-weight-calculator" className="block group">
+            <Card className="p-8 rounded-[2rem] border-slate-100 group-hover:border-zinc-800 transition-colors shadow-none h-full">
+              <div className="flex items-center gap-4 mb-4">
+                <div className="bg-zinc-800 p-3 rounded-2xl text-white"><Hammer size={24} /></div>
+                <h3 className="text-2xl font-bold text-slate-900">Metal Weight Calculator</h3>
+              </div>
+              <p className="text-slate-500 text-sm leading-relaxed mb-4">
+                Essential for construction and engineering. Calculate the weight of bars, pipes, and 
+                sheets across materials with precision.
+              </p>
+              <span className="text-zinc-800 font-bold text-sm flex items-center gap-1">Try Now <ExternalLink size={14}/></span>
+            </Card>
+          </Link>
 
-          <Card className="p-8 rounded-[2rem] border-slate-100 hover:border-blue-100 transition-colors shadow-none">
-            <div className="flex items-center gap-4 mb-4">
-              <div className="bg-blue-600 p-3 rounded-2xl text-white"><Languages size={24} /></div>
-              <h3 className="text-2xl font-bold text-slate-900">Text Paraphraser</h3>
-            </div>
-            <p className="text-slate-500 text-sm leading-relaxed">
-              Refine your writing voice. Our AI rewrite assistant helps find synonyms and alternate 
-              sentence structures to improve tone and clarity without losing meaning.
-            </p>
-          </Card>
+          <Link href="/tools/text-paraphraser" className="block group">
+            <Card className="p-8 rounded-[2rem] border-slate-100 group-hover:border-blue-600 transition-colors shadow-none h-full">
+              <div className="flex items-center gap-4 mb-4">
+                <div className="bg-blue-600 p-3 rounded-2xl text-white"><Languages size={24} /></div>
+                <h3 className="text-2xl font-bold text-slate-900">Text Paraphraser</h3>
+              </div>
+              <p className="text-slate-500 text-sm leading-relaxed mb-4">
+                Refine your writing voice. Our AI rewrite assistant helps find synonyms and alternate 
+                sentence structures to improve tone.
+              </p>
+              <span className="text-blue-600 font-bold text-sm flex items-center gap-1">Try Now <ExternalLink size={14}/></span>
+            </Card>
+          </Link>
         </div>
       </section>
 
