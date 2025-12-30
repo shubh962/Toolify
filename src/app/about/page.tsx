@@ -17,11 +17,11 @@ export default function AboutPage() {
           More Than Just Tools: The Story of TaskGuru
         </h1>
         <p className="text-xl md:text-2xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto italic">
-          "I started TaskGuru because I was tired of paywalls, annoying ads, and tools that felt like they were spying on me."
+          I started TaskGuru because I was tired of paywalls, annoying ads, and tools that felt like they were spying on me.
         </p>
       </section>
 
-      {/* 2. THE FOUNDER'S JOURNEY - Building Trust (E-E-A-T) */}
+      {/* 2. THE FOUNDER'S JOURNEY */}
       <section className="grid md:grid-cols-3 gap-12 items-center mb-24 border-b pb-16 dark:border-gray-800">
         <div className="md:col-span-1">
           <div className="bg-gradient-to-br from-indigo-500 to-purple-600 p-1 rounded-3xl shadow-2xl">
@@ -54,7 +54,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* 3. TECHNICAL EXPERTISE - How We Build Our Tools */}
+      {/* 3. TECHNICAL EXPERTISE */}
       <section className="mb-24">
         <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold mb-4">Under the Hood of TaskGuru</h2>
@@ -84,7 +84,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* 4. PRIVACY & SECURITY - This is what AdSense loves */}
+      {/* 4. PRIVACY & SECURITY */}
       <section className="mb-24 bg-indigo-900 text-white p-10 md:p-16 rounded-[3rem] shadow-2xl overflow-hidden relative">
         <div className="relative z-10">
             <h2 className="text-3xl md:text-5xl font-bold mb-8 flex items-center gap-4">
@@ -96,7 +96,7 @@ export default function AboutPage() {
                         <Lock className="w-5 h-5" /> The Zero-Log Promise
                     </h4>
                     <p className="text-indigo-100 leading-relaxed">
-                        Many "free" sites monetize your data. At TaskGuru, your files never touch a persistent database. When you upload a file, it exists in a temporary, encrypted memory buffer. The moment you download the result and close the tab, that data is wiped from the universe.
+                        Many free sites monetize your data. At TaskGuru, your files never touch a persistent database. When you upload a file, it exists in a temporary, encrypted memory buffer. The moment you download the result and close the tab, that data is wiped from the universe.
                     </p>
                 </div>
                 <div className="space-y-4">
@@ -111,7 +111,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* 5. QUALITY & COMMITMENT - Anti-Low-Value Section */}
+      {/* 5. QUALITY */}
       <section className="mb-24 text-center">
         <Search className="w-16 h-16 text-indigo-500 mx-auto mb-6" />
         <h2 className="text-3xl md:text-4xl font-bold mb-6">Our Quality Standards</h2>
@@ -125,7 +125,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* 6. TRANSPARENCY & CONTACT - Final Trust Signal */}
+      {/* 6. TRANSPARENCY & CONTACT */}
       <section className="border-t pt-16 dark:border-gray-800">
         <div className="bg-gray-50 dark:bg-gray-900 p-10 rounded-3xl">
             <h3 className="text-2xl font-bold mb-8 text-center">Let's Keep In Touch</h3>
@@ -158,7 +158,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Final Call to Action */}
+      {/* CTA */}
       <div className="text-center mt-20">
         <Link href="/" className="inline-flex items-center px-10 py-5 bg-indigo-600 text-white font-bold rounded-full shadow-2xl hover:bg-indigo-700 transition transform hover:scale-105">
             <Zap className="w-5 h-5 mr-2" /> Start Exploring Our Tools
