@@ -117,17 +117,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en" suppressHydrationWarning className={inter.variable}>
       <head>
         {/* ✅ Ezoic Privacy (Gatekeeper) Scripts */}
-        <Script data-cfasync="false" src="https://cmp.gatekeeperconsent.com/min.js" strategy="beforeInteractive" />
-        <Script data-cfasync="false" src="https://the.gatekeeperconsent.com/cmp.min.js" strategy="beforeInteractive" />
-
+        
         {/* ✅ Ezoic Header Scripts */}
-        <Script async src="//www.ezojs.com/ezoic/sa.min.js" strategy="afterInteractive" />
-        <Script id="ezoic-standalone" strategy="afterInteractive">
-          {`
-            window.ezstandalone = window.ezstandalone || {};
-            ezstandalone.cmd = ezstandalone.cmd || [];
-          `}
-        </Script>
 
         {/* ✅ AdSense Auto-Ads Script */}
         <Script
