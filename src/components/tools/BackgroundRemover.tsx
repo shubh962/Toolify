@@ -209,12 +209,7 @@ export default function BackgroundRemover() {
       </Head>
 
       {/* FIXED ADSENSE: Using strategy="afterInteractive" to solve the warning */}
-      <Script 
-        async 
-        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4272213374622185" 
-        crossOrigin="anonymous" 
-        strategy="afterInteractive"
-      />
+      
 
       <Script id="rating-schema" type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareSchema) }} />
       <Script id="faq-schema" type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
