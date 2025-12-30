@@ -1,97 +1,94 @@
 import Link from 'next/link';
-import { Lightbulb, Code, ShieldCheck, Zap, UserCheck } from 'lucide-react';
+import { Lightbulb, Code, ShieldCheck, Zap, UserCheck, Mail, MapPin } from 'lucide-react';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'About TaskGuru | Mission, Expertise, and Founder Story',
-  description: 'TaskGuru is committed to simplifying digital tasks with free, secure, and AI-powered tools. Learn about our founder, Shubham Gautam, and our deep expertise in web development and AI integration.',
+  title: 'About TaskGuru | Expert Digital Tools & Founder Story',
+  description: 'Learn about TaskGuru, a platform by Shubham Gautam dedicated to secure, AI-driven digital productivity tools. Discover our commitment to privacy and data security.',
   robots: 'index, follow',
-  keywords: ['TaskGuru about us', 'Shubham Gautam founder', 'online tool expertise', 'Next.js tools', 'free AI tools'],
+  keywords: ['TaskGuru about us', 'Shubham Gautam founder', 'secure online tools', 'AI productivity tools', 'Next.js developer'],
 };
 
 export default function AboutPage() {
   return (
     <main className="p-6 max-w-4xl mx-auto py-16">
       <h1 className="text-4xl font-extrabold mb-6 text-indigo-700 dark:text-indigo-400 text-center">
-        Our Mission: Simplify Your Digital Life
+        Mission: Empowering Productivity Through Innovation
       </h1>
       
-      {/* Intro Section - Expanded for Clarity */}
+      {/* Intro Section */}
       <section className="mt-8 space-y-6 text-lg text-gray-700 dark:text-gray-300 border-b pb-8">
         <p>
-          Welcome to TaskGuru – your comprehensive toolkit for smart online productivity. We believe that professional-grade tools for tasks like PDF conversion, image editing, and content writing should be free, secure, and instantly accessible to everyone, regardless of their technical background.
+          At <strong>TaskGuru</strong>, we believe that the most powerful digital tools should be accessible to everyone without the barrier of high costs or privacy concerns. Our suite of AI-powered utilities is designed to bridge the gap between complex technology and everyday user needs.
         </p>
         <p>
-          TaskGuru was founded by Shubham Gautam with a single, clear goal: to eliminate the need for complicated software subscriptions and messy installations. Our platform is built from the ground up to deliver high-speed, accurate results directly through your browser, making complex tasks feel effortless.
+          Founded by <strong>Shubham Gautam</strong>, TaskGuru serves as a central hub for developers, creators, and professionals who need reliable tools that respect their data. Every tool on this platform is a result of rigorous testing and a commitment to high-performance web engineering.
         </p>
       </section>
 
-      {/* --- NEW SECTION: OUR EXPERTISE & COMMITMENT (E-E-A-T) --- */}
+      {/* Authority Section (E-E-A-T) */}
       <section className="mt-10">
         <h2 className="text-3xl font-bold mb-8 text-center text-foreground flex items-center justify-center gap-3 text-indigo-700 dark:text-indigo-400">
-          <UserCheck className="w-6 h-6 text-indigo-600 dark:text-indigo-400" /> The Expertise Behind TaskGuru
+          <UserCheck className="w-6 h-6" /> The Expertise Behind the Platform
         </h2>
-        <div className="bg-gray-50 dark:bg-gray-800 p-6 rounded-xl shadow-lg border border-indigo-200 dark:border-indigo-700">
-          
-          <h3 className="text-2xl font-semibold mb-3 text-indigo-600 dark:text-indigo-400 flex items-center gap-2">
-            Meet the Founder: Shubham Gautam
+        <div className="bg-gray-50 dark:bg-gray-900 p-8 rounded-2xl shadow-sm border border-indigo-100 dark:border-indigo-900">
+          <h3 className="text-2xl font-semibold mb-4 text-indigo-600 dark:text-indigo-400">
+            Shubham Gautam — Founder & Lead Developer
           </h3>
-          <p className="text-gray-700 dark:text-gray-300 mb-4">
-            TaskGuru is a passion project led by Shubham Gautam, a professional with extensive 1+ years of experience in full-stack development, Next.js, and secure data handling. 
-            This background ensures that every tool on TaskGuru is developed not just with speed in mind, but also with a focus on data accuracy, security, and enterprise-level reliability. We don't just use AI; we understand how to integrate it safely and effectively.
+          <p className="text-gray-700 dark:text-gray-300 mb-6 leading-relaxed">
+            With a specialized background in Full-Stack Development and a deep focus on <strong>Next.js and AI Integration</strong>, Shubham built TaskGuru to solve real-world digital friction. His expertise ensures that TaskGuru doesn&apos;t just provide "tools," but offers enterprise-grade algorithms that handle tasks like image processing and PDF manipulation with surgical precision.
           </p>
-          <ul className="list-disc list-inside text-sm text-gray-600 dark:text-gray-400 space-y-1">
-            <li>Focus on real-world problem-solving for developers and creative professionals.</li>
-            <li>Commitment to using only ethical and tested AI models for all features.</li>
-          </ul>
+          
+          {/* Transparency: Contact & Location (Google loves this for Trust) */}
+          <div className="flex flex-wrap gap-6 mt-6 pt-6 border-t border-gray-200 dark:border-gray-800">
+            <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400">
+              <Mail className="w-4 h-4 text-indigo-500" /> contact@taskguru.online
+            </div>
+            <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400">
+              <MapPin className="w-4 h-4 text-indigo-500" /> Uttar Pradesh, India
+            </div>
+          </div>
         </div>
       </section>
-      {/* ------------------------------------------------------------- */}
 
-      {/* Why Choose Us - Detailed Section */}
-      <section className="mt-12">
-        <h2 className="text-3xl font-bold mb-8 text-center text-foreground flex items-center justify-center gap-3 text-indigo-700 dark:text-indigo-400">
-          <Lightbulb className="w-6 h-6 text-yellow-600" /> Why Trust TaskGuru?
+      {/* Technical Excellence */}
+      <section className="mt-16">
+        <h2 className="text-3xl font-bold mb-8 text-center text-indigo-700 dark:text-indigo-400">
+          Why We Stand Out
         </h2>
         
         <div className="grid md:grid-cols-2 gap-8">
-          
-          {/* Pillar 1: Technology */}
-          <div className="p-4 border rounded-lg shadow-md hover:shadow-xl transition duration-300">
-            <h3 className="text-xl font-semibold mb-2 flex items-center gap-2 text-indigo-600 dark:text-indigo-400">
-              <Code className="w-5 h-5" /> Modern Technology Foundation
+          <div className="p-6 bg-white dark:bg-gray-800 rounded-xl border border-gray-100 dark:border-gray-700 shadow-sm transition hover:shadow-md">
+            <h3 className="text-xl font-semibold mb-3 flex items-center gap-2 text-indigo-600">
+              <Code className="w-5 h-5" /> Edge Computing Technology
             </h3>
-            <ul className="list-disc list-inside text-gray-700 dark:text-gray-400 space-y-1">
-              <li>Built on Next.js 14 for blazing-fast speed and excellent SEO performance.</li>
-              <li>Utilizes cutting-edge AI (Artificial Intelligence) for accurate and complex tasks like background removal and text paraphrasing.</li>
-              <li>Mobile-first design ensures a perfect experience on all devices.</li>
-            </ul>
+            <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
+              We leverage Vercel&apos;s Edge Network and Next.js 14 to ensure that our tools process data at lightning speed, regardless of your location.
+            </p>
           </div>
 
-          {/* Pillar 2: Security & Privacy (AdSense Requirement) */}
-          <div className="p-4 border rounded-lg shadow-md hover:shadow-xl transition duration-300">
-            <h3 className="text-xl font-semibold mb-2 flex items-center gap-2 text-green-600 dark:text-green-400">
-              <ShieldCheck className="w-5 h-5" /> Our Commitment to Privacy
+          <div className="p-6 bg-white dark:bg-gray-800 rounded-xl border border-gray-100 dark:border-gray-700 shadow-sm transition hover:shadow-md">
+            <h3 className="text-xl font-semibold mb-3 flex items-center gap-2 text-green-600">
+              <ShieldCheck className="w-5 h-5" /> Privacy-First Architecture
             </h3>
-            <ul className="list-disc list-inside text-gray-700 dark:text-gray-400 space-y-1">
-              <li>Zero File Storage: All uploaded files are deleted immediately after processing is complete (reinforcing your unique value).</li>
-              <li>No mandatory sign-ups, keeping your usage anonymous and private.</li>
-              <li>Clear <Link href="/privacy-policy" className="text-primary underline font-medium">Privacy Policy</Link> and <Link 
-                href="/terms" className="text-primary underline font-medium">Terms of Service</Link> available for transparency.</li>
-            </ul>
+            <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
+              Security isn&apos;t an afterthought. We implement client-side processing where possible, ensuring your files never even hit a permanent server.
+            </p>
           </div>
         </div>
       </section>
 
-      {/* Call to Action */}
-      <section className="mt-12 pt-8 border-t border-gray-200 dark:border-gray-700 text-center">
-        <h2 className="text-3xl font-bold mb-4">Ready to boost your productivity?</h2>
-        <Link href="/" className="inline-flex items-center justify-center px-8 py-3 border border-transparent 
-          text-base font-medium rounded-full shadow-lg text-white bg-indigo-600 hover:bg-indigo-700 transition duration-300">
-          <Zap className="w-4 h-4 mr-2" /> Explore Our Free AI Toolkit
+      {/* AdSense specific: Commitment to Quality */}
+      <section className="mt-16 text-center bg-indigo-50 dark:bg-indigo-950/30 p-8 rounded-2xl">
+        <h2 className="text-2xl font-bold mb-4">Our Quality Guarantee</h2>
+        <p className="text-gray-700 dark:text-gray-300 max-w-2xl mx-auto mb-6">
+          Every piece of content and every tool on TaskGuru undergoes a manual review to ensure it meets our strict standards for accuracy and user helpfulness. We do not support "thin" or automated low-quality content.
+        </p>
+        <Link href="/" className="inline-flex items-center justify-center px-10 py-4 text-base font-bold rounded-full shadow-lg text-white bg-indigo-600 hover:bg-indigo-700 transition transform hover:scale-105">
+          <Zap className="w-4 h-4 mr-2" /> Start Using Our Tools
         </Link>
       </section>
-
     </main>
   );
 }
+
