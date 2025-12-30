@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import Image from 'next/image';
+import Image from 'next/image'; // Speed optimization ke liye zaroori hai
 import { ShieldCheck, UserCheck, Mail, MapPin, Globe, Award, Lock, Coffee, Cpu, Zap, Layers, Heart, Search, ShieldAlert } from 'lucide-react';
 import type { Metadata } from 'next';
 
@@ -18,7 +18,7 @@ export default function AboutPage() {
           More Than Just Tools: The Story of TaskGuru
         </h1>
         <p className="text-xl md:text-2xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto italic leading-relaxed">
-          I started TaskGuru because I was tired of paywalls, annoying ads, and tools that felt like they were spying on me.
+          "I started TaskGuru because I was tired of paywalls, annoying ads, and tools that felt like they were spying on me."
         </p>
       </section>
 
@@ -40,8 +40,8 @@ export default function AboutPage() {
                         fill
                         className="object-cover"
                         sizes="(max-width: 768px) 128px, 128px"
-                        priority 
-                      
+                        priority // Isse page load hote hi photo sabse pehle dikhegi
+                        // Agar photo nahi milti to ye placeholder (SG) dikhayega
                         onError={(e) => {
                             const target = e.target as HTMLElement;
                             target.style.display = 'none';
