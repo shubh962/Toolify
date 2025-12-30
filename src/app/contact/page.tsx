@@ -22,7 +22,7 @@ export default function ContactPage() {
           Let&apos;s Connect
         </h1>
         <p className="text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed italic">
-          "Your feedback is the engine that drives TaskGuru&apos;s innovation. I personally review every message to ensure our tools remain the best on the web." — Shubham Gautam
+          Your feedback is the engine that drives TaskGuru&apos;s innovation. I personally review every message to ensure our tools remain the best on the web. — Shubham Gautam
         </p>
       </div>
 
@@ -158,7 +158,7 @@ export default function ContactPage() {
         <section className="space-y-8">
             <h3 className="text-3xl font-bold border-l-4 border-indigo-600 pl-6">Support Infrastructure & Reliability</h3>
             <p>
-                As a developer-led platform, TaskGuru utilizes **Vercel Edge Functions** to ensure that our contact form and tool responses are processed at lightning speed. We understand that in the modern digital age, every second counts—whether you are converting a critical business PDF or removing a background for a social media launch.
+                As a developer-led platform, TaskGuru utilizes Vercel Edge Functions to ensure that our contact form and tool responses are processed at lightning speed. We understand that in the modern digital age, every second counts—whether you are converting a critical business PDF or removing a background for a social media launch.
             </p>
             <p>
                 Our "Privacy-First" support model means that we don&apos;t keep logs of your document metadata. When you report a tool error, our team investigates the underlying AI model performance without ever accessing the content of your personal files. This is the TaskGuru guarantee.
