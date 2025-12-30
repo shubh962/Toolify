@@ -8,6 +8,12 @@ import Link from 'next/link';
 interface PlaceholderToolProps {
   title: string;
 }
+export const metadata = {
+  robots: {
+    index: false,
+    follow: false,
+  },
+};
 
 /**
  * Optimized Placeholder Component for AdSense Approval.
