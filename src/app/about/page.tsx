@@ -1,92 +1,92 @@
 import Link from 'next/link';
-import { Lightbulb, Code, ShieldCheck, Zap, UserCheck, Mail, MapPin } from 'lucide-react';
+import { ShieldCheck, UserCheck, Mail, MapPin, Globe, Award, Lock, Coffee } from 'lucide-react';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'About TaskGuru | Expert Digital Tools & Founder Story',
-  description: 'Learn about TaskGuru, a platform by Shubham Gautam dedicated to secure, AI-driven digital productivity tools. Discover our commitment to privacy and data security.',
+  title: 'About TaskGuru | Built by Shubham Gautam',
+  description: 'The story behind TaskGuru. Why I built this platform and how we handle your data with care.',
   robots: 'index, follow',
-  keywords: ['TaskGuru about us', 'Shubham Gautam founder', 'secure online tools', 'AI productivity tools', 'Next.js developer'],
 };
 
 export default function AboutPage() {
   return (
-    <main className="p-6 max-w-4xl mx-auto py-16">
-      <h1 className="text-4xl font-extrabold mb-6 text-indigo-700 dark:text-indigo-400 text-center">
-        Mission: Empowering Productivity Through Innovation
-      </h1>
+    <main className="p-6 max-w-5xl mx-auto py-20 font-sans">
+      {/* Friendly Header */}
+      <div className="text-center mb-16">
+        <h1 className="text-4xl md:text-5xl font-extrabold mb-4 text-indigo-700 dark:text-indigo-400">
+          Hey, I'm Shubham! Here's why I built TaskGuru.
+        </h1>
+        <p className="text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto leading-relaxed">
+          Tired of subscription-heavy tools and messy software? I was too. So I decided to build something new & better.
+        </p>
+      </div>
       
-      {/* Intro Section */}
-      <section className="mt-8 space-y-6 text-lg text-gray-700 dark:text-gray-300 border-b pb-8">
-        <p>
-          At <strong>TaskGuru</strong>, we believe that the most powerful digital tools should be accessible to everyone without the barrier of high costs or privacy concerns. Our suite of AI-powered utilities is designed to bridge the gap between complex technology and everyday user needs.
-        </p>
-        <p>
-          Founded by <strong>Shubham Gautam</strong>, TaskGuru serves as a central hub for developers, creators, and professionals who need reliable tools that respect their data. Every tool on this platform is a result of rigorous testing and a commitment to high-performance web engineering.
-        </p>
-      </section>
-
-      {/* Authority Section (E-E-A-T) */}
-      <section className="mt-10">
-        <h2 className="text-3xl font-bold mb-8 text-center text-foreground flex items-center justify-center gap-3 text-indigo-700 dark:text-indigo-400">
-          <UserCheck className="w-6 h-6" /> The Expertise Behind the Platform
-        </h2>
-        <div className="bg-gray-50 dark:bg-gray-900 p-8 rounded-2xl shadow-sm border border-indigo-100 dark:border-indigo-900">
-          <h3 className="text-2xl font-semibold mb-4 text-indigo-600 dark:text-indigo-400">
-            Shubham Gautam — Founder & Lead Developer
-          </h3>
-          <p className="text-gray-700 dark:text-gray-300 mb-6 leading-relaxed">
-            With a specialized background in Full-Stack Development and a deep focus on <strong>Next.js and AI Integration</strong>, Shubham built TaskGuru to solve real-world digital friction. His expertise ensures that TaskGuru doesn&apos;t just provide "tools," but offers enterprise-grade algorithms that handle tasks like image processing and PDF manipulation with surgical precision.
+      {/* The "Why" - Personal Touch */}
+      <section className="grid md:grid-cols-3 gap-8 items-start mb-20">
+        <div className="md:col-span-1 bg-gradient-to-br from-indigo-50 to-white dark:from-gray-900 dark:to-gray-800 p-8 rounded-3xl border border-indigo-100 dark:border-indigo-800 text-center shadow-sm">
+          <div className="w-24 h-24 bg-indigo-600 rounded-full mx-auto flex items-center justify-center shadow-xl mb-4 border-4 border-white dark:border-gray-700">
+             <UserCheck className="w-12 h-12 text-white" />
+          </div>
+          <h2 className="text-2xl font-bold text-gray-900 dark:text-white">Shubham Gautam</h2>
+          <p className="text-indigo-600 font-medium mb-4">Founder & Developer</p>
+          <p className="text-sm text-gray-500 italic flex items-center justify-center gap-1">
+            <Coffee className="w-4 h-4" /> Fueled by code and curiosity.
           </p>
-          
-          {/* Transparency: Contact & Location (Google loves this for Trust) */}
-          <div className="flex flex-wrap gap-6 mt-6 pt-6 border-t border-gray-200 dark:border-gray-800">
-            <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400">
-              <Mail className="w-4 h-4 text-indigo-500" /> contact@taskguru.online
-            </div>
-            <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400">
-              <MapPin className="w-4 h-4 text-indigo-500" /> Uttar Pradesh, India
-            </div>
-          </div>
+        </div>
+
+        <div className="md:col-span-2 space-y-6">
+          <h3 className="text-3xl font-bold text-gray-800 dark:text-gray-100 italic">"I believe tools should be free, not a headache."</h3>
+          <p className="text-lg text-gray-700 dark:text-gray-300 leading-relaxed">
+            I started TaskGuru in 2024 because I was frustrated. Every time I wanted to do a simple task—like converting a PDF or removing an image background—I was hit with "Premium Subscription" popups or forced to create an account. 
+          </p>
+          <p className="text-lg text-gray-700 dark:text-gray-300 leading-relaxed">
+            Being a <strong>Full-Stack Developer</strong>, I knew I could make these tools faster, safer, and completely free. TaskGuru is my way of giving back to the internet community. I use modern tech like <strong>Next.js 14</strong> to make sure everything works instantly, right in your browser.
+          </p>
         </div>
       </section>
 
-      {/* Technical Excellence */}
-      <section className="mt-16">
-        <h2 className="text-3xl font-bold mb-8 text-center text-indigo-700 dark:text-indigo-400">
-          Why We Stand Out
-        </h2>
-        
-        <div className="grid md:grid-cols-2 gap-8">
-          <div className="p-6 bg-white dark:bg-gray-800 rounded-xl border border-gray-100 dark:border-gray-700 shadow-sm transition hover:shadow-md">
-            <h3 className="text-xl font-semibold mb-3 flex items-center gap-2 text-indigo-600">
-              <Code className="w-5 h-5" /> Edge Computing Technology
-            </h3>
-            <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
-              We leverage Vercel&apos;s Edge Network and Next.js 14 to ensure that our tools process data at lightning speed, regardless of your location.
-            </p>
-          </div>
-
-          <div className="p-6 bg-white dark:bg-gray-800 rounded-xl border border-gray-100 dark:border-gray-700 shadow-sm transition hover:shadow-md">
-            <h3 className="text-xl font-semibold mb-3 flex items-center gap-2 text-green-600">
-              <ShieldCheck className="w-5 h-5" /> Privacy-First Architecture
-            </h3>
-            <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
-              Security isn&apos;t an afterthought. We implement client-side processing where possible, ensuring your files never even hit a permanent server.
-            </p>
-          </div>
+      {/* Trust Pillars - No robotic buzzwords */}
+      <div className="grid md:grid-cols-3 gap-6 mb-20 text-center md:text-left">
+        <div className="p-8 bg-white dark:bg-gray-950 border border-gray-200 dark:border-gray-800 rounded-3xl">
+          <Lock className="w-10 h-10 text-green-500 mb-4 mx-auto md:mx-0" />
+          <h4 className="text-xl font-bold mb-2">I respect your privacy</h4>
+          <p className="text-gray-600 dark:text-gray-400">I don't store your files. Period. Once you're done processing, your data is wiped. I built the architecture so I can't even see your files if I wanted to.</p>
         </div>
-      </section>
+        <div className="p-8 bg-white dark:bg-gray-950 border border-gray-200 dark:border-gray-800 rounded-3xl">
+          <Award className="w-10 h-10 text-indigo-500 mb-4 mx-auto md:mx-0" />
+          <h4 className="text-xl font-bold mb-2">Always Human, Never Bot</h4>
+          <p className="text-gray-600 dark:text-gray-400">Every single guide and tool here is tested by me. No mass-produced AI content. If it’s on TaskGuru, it’s because I’ve personally verified it works.</p>
+        </div>
+        <div className="p-8 bg-white dark:bg-gray-950 border border-gray-200 dark:border-gray-800 rounded-3xl">
+          <Globe className="w-10 h-10 text-yellow-500 mb-4 mx-auto md:mx-0" />
+          <h4 className="text-xl font-bold mb-2">Community Driven</h4>
+          <p className="text-gray-600 dark:text-gray-400">TaskGuru is based in India, but it's for everyone. I'm constantly adding new tools based on the emails and feedback I get from users like you.</p>
+        </div>
+      </div>
 
-      {/* AdSense specific: Commitment to Quality */}
-      <section className="mt-16 text-center bg-indigo-50 dark:bg-indigo-950/30 p-8 rounded-2xl">
-        <h2 className="text-2xl font-bold mb-4">Our Quality Guarantee</h2>
-        <p className="text-gray-700 dark:text-gray-300 max-w-2xl mx-auto mb-6">
-          Every piece of content and every tool on TaskGuru undergoes a manual review to ensure it meets our strict standards for accuracy and user helpfulness. We do not support "thin" or automated low-quality content.
-        </p>
-        <Link href="/" className="inline-flex items-center justify-center px-10 py-4 text-base font-bold rounded-full shadow-lg text-white bg-indigo-600 hover:bg-indigo-700 transition transform hover:scale-105">
-          <Zap className="w-4 h-4 mr-2" /> Start Using Our Tools
-        </Link>
+      {/* Let's Talk - Contact Section */}
+      <section className="bg-indigo-600 p-12 rounded-[2rem] text-center text-white shadow-2xl overflow-hidden relative">
+        <div className="relative z-10">
+            <h3 className="text-3xl font-bold mb-4">Have a suggestion or just want to say hi?</h3>
+            <p className="mb-10 text-indigo-100 opacity-90 max-w-xl mx-auto">
+                I'm always open to feedback. If a tool isn't working or you need a new feature, drop me an email. I read every single one.
+            </p>
+            <div className="flex flex-wrap justify-center gap-10">
+                <div className="flex flex-col items-center">
+                    <Mail className="w-6 h-6 mb-2" />
+                    <span className="text-xs uppercase opacity-70">Email me at</span>
+                    <span className="font-semibold underline">GautamShubham962@gmail.com</span>
+                </div>
+                <div className="flex flex-col items-center">
+                    <MapPin className="w-6 h-6 mb-2" />
+                    <span className="text-xs uppercase opacity-70">Location</span>
+                    <span className="font-semibold">Uttar Pradesh, India</span>
+                </div>
+            </div>
+            <div className="mt-12 text-sm opacity-60">
+                Need more details? Check our <Link href="/privacy-policy" className="underline">Privacy Policy</Link> or <Link href="/terms" className="underline">Terms</Link>.
+            </div>
+        </div>
       </section>
     </main>
   );
