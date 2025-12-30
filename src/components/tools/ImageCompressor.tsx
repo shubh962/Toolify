@@ -160,12 +160,7 @@ export default function ImageCompressor() {
       </Head>
 
       {/* FIXED ADSENSE: Strategy afterInteractive stops console warnings */}
-      <Script 
-        async 
-        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4272213374622185" 
-        crossOrigin="anonymous" 
-        strategy="afterInteractive"
-      />
+      
 
       <Script
         id="rating-schema"
