@@ -1,10 +1,9 @@
 "use client";
 
-import React, { useEffect } from 'react';
+import React from 'react';
 import Link from 'next/link';
 import Script from 'next/script';
 import { motion } from 'framer-motion';
-import confetti from 'canvas-confetti';
 import { 
   PartyPopper, Zap, ShieldCheck, Heart, ArrowRight, Sparkles, 
   FileText, Scissors, Image as ImageIcon, ScanText, Calculator, BrainCircuit, Rocket
@@ -12,25 +11,6 @@ import {
 
 export default function NewYearPost() {
   
-  useEffect(() => {
-    const duration = 5 * 1000;
-    const animationEnd = Date.now() + duration;
-    const defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 50 };
-
-    const randomInRange = (min: number, max: number) => Math.random() * (max - min) + min;
-
-    const interval: any = setInterval(function() {
-      const timeLeft = animationEnd - Date.now();
-      if (timeLeft <= 0) return clearInterval(interval);
-
-      const particleCount = 50 * (timeLeft / duration);
-      confetti({ ...defaults, particleCount, origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 } });
-      confetti({ ...defaults, particleCount, origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 } });
-    }, 250);
-
-    return () => clearInterval(interval);
-  }, []);
-
   const structuredData = {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
@@ -45,14 +25,14 @@ export default function NewYearPost() {
     <>
       <Script id="new-year-schema" type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />
 
-      <main className="max-w-6xl mx-auto px-6 py-24 font-sans selection:bg-indigo-100 min-h-screen">
+      <main className="max-w-6xl mx-auto px-6 py-24 font-sans selection:bg-indigo-100 min-h-screen overflow-hidden relative">
         
-        {/* SECTION 1: WISHING */}
+        {/* SECTION 1: WISHING WITH PURE CSS CELEBRATION */}
         <motion.section 
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.8 }}
-          className="text-center mb-32"
+          className="text-center mb-32 relative z-10"
         >
           <div className="inline-flex items-center gap-2 px-6 py-2 bg-indigo-50 dark:bg-indigo-900/20 text-indigo-600 rounded-full text-xs font-black uppercase tracking-widest mb-8 border border-indigo-100 dark:border-indigo-800">
             <PartyPopper className="w-4 h-4" /> Official 2026 Launch
@@ -66,19 +46,26 @@ export default function NewYearPost() {
           </h1>
           
           <p className="text-xl md:text-2xl text-slate-500 dark:text-slate-400 max-w-2xl mx-auto font-medium italic">
-            "Entering a new era of digital excellence. TaskGuru (Toolify) par aapka swagat hai."
+            "A new chapter in productivity begins today. TaskGuru (Toolify) par aapka swagat hai."
           </p>
+
+          {/* GIF Style CSS Particles (No Library Needed) */}
+          <div className="absolute inset-0 pointer-events-none -z-10">
+            <div className="absolute top-0 left-1/4 w-2 h-8 bg-blue-500 rounded-full animate-bounce opacity-20" />
+            <div className="absolute top-10 right-1/4 w-2 h-6 bg-pink-500 rounded-full animate-pulse opacity-20" />
+            <div className="absolute bottom-0 left-1/3 w-2 h-10 bg-green-500 rounded-full animate-bounce opacity-20" />
+          </div>
         </motion.section>
 
         {/* SECTION 2: TEXT & TOOLS */}
-        <div className="space-y-32">
+        <div className="space-y-32 relative z-10">
           <section className="grid lg:grid-cols-2 gap-12 items-center text-left">
             <div className="space-y-6">
               <h2 className="text-4xl font-black text-slate-900 dark:text-white tracking-tight flex items-center gap-3">
-                <Rocket className="text-indigo-600" /> Engineering the Future
+                <Rocket className="text-indigo-600" /> Engineering 2026
               </h2>
               <div className="text-lg text-slate-600 dark:text-slate-400 space-y-4">
-                <p>2025 humare liye seekhne ka saal tha, par <strong>2026 humare execution ka saal hai.</strong> Shubham Gautam ke vision ke saath, TaskGuru ab aapke digital workflow ko asan banayega.</p>
+                <p>2025 humare liye seekhne ka saal tha, par <strong>2026 humare execution ka saal hai.</strong> Shubham Gautam ke vision ke saath, TaskGuru ab aapke digital workflow ko aur bhi asan banayega.</p>
                 <div className="p-8 bg-indigo-600 text-white rounded-[2.5rem] shadow-xl italic font-bold">
                   "The journey has just begun. Many more innovative AI-powered tools are coming to TaskGuru in 2026 to simplify your digital workflow like never before."
                 </div>
