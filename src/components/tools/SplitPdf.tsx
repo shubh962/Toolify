@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { PDFDocument } from "pdf-lib";
+import JSZip from "jszip";
 
 export default function SplitPdf() {
   const [file, setFile] = useState<File | null>(null);
@@ -9,7 +10,7 @@ export default function SplitPdf() {
   const [progress, setProgress] = useState(0);
   const [status, setStatus] = useState("");
   const [splitFiles, setSplitFiles] = useState<
-    { name: string; url: string }[]
+    { name: string; bytes: Uint8Array; url: string }[]
   >([]);
 
   async function handleSplit() {
@@ -25,7 +26,7 @@ export default function SplitPdf() {
       const pdfDoc = await PDFDocument.load(buffer);
       const totalPages = pdfDoc.getPageCount();
 
-      const generatedFiles: { name: string; url: string }[] = [];
+      const results: { name: string; bytes: Uint8Array; url: string }[] = [];
 
       for (let i = 0; i < totalPages; i++) {
         setStatus(`Processing page ${i + 1} of ${totalPages}...`);
@@ -39,14 +40,15 @@ export default function SplitPdf() {
         const blob = new Blob([bytes], { type: "application/pdf" });
         const url = URL.createObjectURL(blob);
 
-        generatedFiles.push({
+        results.push({
           name: `${file.name.replace(".pdf", "")}-page-${i + 1}.pdf`,
+          bytes,
           url,
         });
       }
 
-      setSplitFiles(generatedFiles);
-      setStatus("PDF split successfully. Download when ready.");
+      setSplitFiles(results);
+      setStatus("PDF split completed. Choose how you want to download.");
     } catch (error) {
       console.error(error);
       setStatus(
@@ -64,6 +66,24 @@ export default function SplitPdf() {
       a.download = file.name;
       a.click();
     });
+  }
+
+  async function handleDownloadZip() {
+    const zip = new JSZip();
+
+    splitFiles.forEach((file) => {
+      zip.file(file.name, file.bytes);
+    });
+
+    const zipBlob = await zip.generateAsync({ type: "blob" });
+    const url = URL.createObjectURL(zipBlob);
+
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `${file?.name.replace(".pdf", "")}-split-pages.zip`;
+    a.click();
+
+    URL.revokeObjectURL(url);
   }
 
   return (
@@ -86,9 +106,7 @@ export default function SplitPdf() {
         </div>
 
         <div className="space-y-2">
-          <h3 className="text-xl font-bold text-gray-800">
-            Ready to Split?
-          </h3>
+          <h3 className="text-xl font-bold text-gray-800">Ready to Split?</h3>
           <p className="text-gray-500">
             Select your PDF to begin local processing
           </p>
@@ -121,12 +139,21 @@ export default function SplitPdf() {
         </button>
 
         {splitFiles.length > 0 && (
-          <button
-            onClick={handleDownloadAll}
-            className="w-full py-4 bg-green-600 hover:bg-green-700 text-white font-bold rounded-xl shadow-lg shadow-green-200 transition-all active:scale-95"
-          >
-            Download All Pages
-          </button>
+          <>
+            <button
+              onClick={handleDownloadAll}
+              className="w-full py-4 bg-green-600 hover:bg-green-700 text-white font-bold rounded-xl shadow-lg shadow-green-200 transition-all active:scale-95"
+            >
+              Download All Pages
+            </button>
+
+            <button
+              onClick={handleDownloadZip}
+              className="w-full py-4 bg-purple-600 hover:bg-purple-700 text-white font-bold rounded-xl shadow-lg shadow-purple-200 transition-all active:scale-95"
+            >
+              Download as ZIP
+            </button>
+          </>
         )}
 
         {status && (
