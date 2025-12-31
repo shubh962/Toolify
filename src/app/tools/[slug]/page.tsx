@@ -6,11 +6,12 @@ import ImageToText from '@/components/tools/ImageToText';
 import TextParaphraser from '@/components/tools/TextParaphraser';
 import PdfToWord from '@/components/tools/PdfToWord';
 import MergePdf from '@/components/tools/MergePdf';
+import SplitPdf from '@/components/tools/SplitPdf';
 import ImageCompressor from '@/components/tools/ImageCompressor';
 import ImageToPdf from '@/components/tools/ImageToPdf';
 import PlaceholderTool from '@/components/tools/PlaceholderTool';
 import MoreTools from '@/components/MoreTools';
-import ResumeMakerFlow from '@/components/tools/ResumeMakerFlow'; // ✅ IMPORTANT
+import ResumeMakerFlow from '@/components/tools/ResumeMakerFlow';
 import AgeCalculator from '@/components/tools/AgeCalculator';
 import MetalWeightCalculator from '@/components/tools/MetalWeightCalculator';
 
@@ -51,6 +52,7 @@ const toolComponentMap: { [key: string]: React.ComponentType<any> } = {
   "image-to-pdf": ImageToPdf,
   "age-calculator": AgeCalculator,
   "metal-weight-calculator": MetalWeightCalculator,
+  "split-pdf": SplitPdf,  
 };
 
 export default function ToolPage({ params }: { params: { slug: string } }) {
