@@ -64,26 +64,39 @@ export default function SplitPdf() {
       const a = document.createElement("a");
       a.href = file.url;
       a.download = file.name;
+      document.body.appendChild(a);
       a.click();
+      document.body.removeChild(a);
     });
   }
 
   async function handleDownloadZip() {
+    if (!splitFiles.length) return;
+
     const zip = new JSZip();
 
     splitFiles.forEach((file) => {
-      zip.file(file.name, file.bytes);
+      zip.file(file.name, file.bytes, { binary: true });
     });
 
-    const zipBlob = await zip.generateAsync({ type: "blob" });
+    const zipBlob = await zip.generateAsync({
+      type: "blob",
+      compression: "DEFLATE",
+      compressionOptions: { level: 6 },
+      mimeType: "application/zip",
+    });
+
     const url = URL.createObjectURL(zipBlob);
 
     const a = document.createElement("a");
     a.href = url;
     a.download = `${file?.name.replace(".pdf", "")}-split-pages.zip`;
+    document.body.appendChild(a);
     a.click();
+    document.body.removeChild(a);
 
-    URL.revokeObjectURL(url);
+    // ⏱️ Delay revoke to avoid Windows ZIP corruption
+    setTimeout(() => URL.revokeObjectURL(url), 2000);
   }
 
   return (
@@ -106,7 +119,9 @@ export default function SplitPdf() {
         </div>
 
         <div className="space-y-2">
-          <h3 className="text-xl font-bold text-gray-800">Ready to Split?</h3>
+          <h3 className="text-xl font-bold text-gray-800">
+            Ready to Split?
+          </h3>
           <p className="text-gray-500">
             Select your PDF to begin local processing
           </p>
