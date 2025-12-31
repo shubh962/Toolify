@@ -7,6 +7,7 @@ import {
   ScanText,
   PenSquare,
   CalendarDays, // Added for Age Calculator
+  Scissors,
 } from 'lucide-react';
 
 export interface Tool {
@@ -68,6 +69,16 @@ export const tools: Tool[] = [
     isPlaceholder: false,
     imageUrl: '/tool-previews/merge-pdf.png',
   },
+  {
+  slug: 'split-pdf',
+  title: 'Split PDF',
+  description:
+    'Split a PDF file into individual pages instantly. Free, fast, and works entirely in your browser.',
+  icon: Scissors,
+  isGenAI: false,
+  isPlaceholder: false,
+  imageUrl: '/tool-previews/split-pdf.png',
+},
   {
     slug: 'image-compressor',
     title: 'Image Compressor (PNG, JPG)',
