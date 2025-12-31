@@ -106,7 +106,7 @@ export default function NewYearGreetings() {
                 
                 <div className="p-10 bg-indigo-600 text-white rounded-[3rem] shadow-2xl relative overflow-hidden group">
                   <p className="text-2xl md:text-3xl font-bold italic relative z-10 leading-snug">
-                    "We're just getting started. So many exciting AI-powered tools are on the way in 2026 — all built to make your digital life simpler and smoother than ever."
+                    We're just getting started. So many exciting AI-powered tools are on the way in 2026 — all built to make your digital life simpler and smoother than ever.
                   </p>
                   <Zap className="absolute -bottom-10 -right-10 w-48 h-48 opacity-10 group-hover:scale-110 transition-transform" />
                 </div>
