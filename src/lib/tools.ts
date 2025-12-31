@@ -73,7 +73,7 @@ export const tools: Tool[] = [
   slug: 'split-pdf',
   title: 'Split PDF',
   description:
-    'Split a PDF file into individual pages instantly. Free, fast, and works entirely in your browser.',
+    'Split PDF pages instantly — free, fast, and 100% browser-based. TaskGuru keeps your files private by processing everything locally, with no uploads, no signup, and no watermarks.',
   icon: Scissors,
   isGenAI: false,
   isPlaceholder: false,
