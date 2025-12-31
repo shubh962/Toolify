@@ -42,7 +42,7 @@ export default function BlogPage() {
         dangerouslySetInnerHTML={{
           __html: JSON.stringify({
             "@context": "https://schema.org",
-            "@type": "Article",
+            "@type": "TechArticle",
             "headline": "Mastering Digital Productivity: The Ultimate TaskGuru Toolkit Guide",
             "description":
               "A comprehensive guide to TaskGuru's free AI-powered productivity tools including Resume Maker, Background Remover, Image Compressor, and more.",
