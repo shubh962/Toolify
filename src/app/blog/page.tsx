@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { ArrowRight, Sparkles, BookOpen, PartyPopper } from 'lucide-react';
 import Script from 'next/script';
 
-// ✅ 1. ALL BLOG POSTS INTEGRATED (Top to Bottom)
+// ✅ 1. ALL BLOG POSTS INTEGRATED
 const posts = [
   {
     slug: 'happy-new-year-2026',
@@ -207,16 +207,16 @@ export default function BlogPage() {
         {/* FOOTER FAQ */}
         <section className="mt-32 pt-16 border-t border-slate-100 dark:border-slate-800">
           <h2 className="text-4xl font-black mb-12 text-center tracking-tight text-slate-900 dark:text-white">
-            Common Questions <br className=\"md:hidden\" /> about TaskGuru Guides
+            Common Questions <br className="md:hidden" /> about TaskGuru Guides
           </h2>
 
           <div className="grid gap-6">
             {faqSchema.mainEntity.map((item, index) => (
-              <div key={index} className=\"bg-white dark:bg-slate-900 shadow-sm p-10 rounded-[3rem] border border-slate-100 dark:border-slate-800 hover:shadow-lg transition-shadow\">
-                <h3 className=\"font-black text-xl text-slate-900 dark:text-white mb-4 flex gap-3\">
-                   <span className=\"text-blue-600 italic\">Q.</span> {item.name}
+              <div key={index} className="bg-white dark:bg-slate-900 shadow-sm p-10 rounded-[3rem] border border-slate-100 dark:border-slate-800 hover:shadow-lg transition-shadow">
+                <h3 className="font-black text-xl text-slate-900 dark:text-white mb-4 flex gap-3">
+                   <span className="text-blue-600 italic">Q.</span> {item.name}
                 </h3>
-                <p className=\"text-slate-600 dark:text-slate-400 text-lg leading-relaxed font-medium\">
+                <p className="text-slate-600 dark:text-slate-400 text-lg leading-relaxed font-medium">
                   {item.acceptedAnswer.text}
                 </p>
               </div>
