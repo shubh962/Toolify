@@ -104,7 +104,7 @@ export default function AboutPage() {
       <section className="mb-24 bg-indigo-900 text-white p-10 md:p-16 rounded-[3rem] shadow-2xl overflow-hidden relative">
         <div className="relative z-10">
             <h2 className="text-3xl md:text-5xl font-bold mb-8 flex items-center gap-4">
-                <ShieldCheck className="w-12 h-12 text-green-400" /> Your Data is Sacred
+                <ShieldCheck className="w-12 h-12 text-green-400" /> Your Data is Secured
             </h2>
             <div className="grid md:grid-cols-2 gap-12">
                 <div className="space-y-4">
