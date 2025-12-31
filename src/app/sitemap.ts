@@ -23,6 +23,7 @@ const toolSlugs = [
   "image-to-text",
   "pdf-to-word",
   "merge-pdf",
+  "split-pdf",
   "text-paraphraser",
   "image-to-pdf",
   "resume-maker",
