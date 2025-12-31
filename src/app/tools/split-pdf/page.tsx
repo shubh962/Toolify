@@ -98,7 +98,7 @@ export default function Page() {
         </div>
       </article>
 
-      {/* 5. FAQ SECTION */}
+      {/* 5. FAQ SECTIONs */}
       <section className="space-y-8 bg-gray-900 text-white p-12 rounded-3xl">
         <h2 className="text-3xl font-bold text-center">Common Questions</h2>
         <div className="grid md:grid-cols-2 gap-10">
