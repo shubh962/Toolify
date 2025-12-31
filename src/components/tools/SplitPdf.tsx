@@ -13,6 +13,14 @@ export default function SplitPdf() {
     { name: string; bytes: Uint8Array; url: string }[]
   >([]);
 
+  function handleReset() {
+    setFile(null);
+    setLoading(false);
+    setProgress(0);
+    setStatus("");
+    setSplitFiles([]);
+  }
+
   async function handleSplit() {
     if (!file) return;
 
@@ -24,8 +32,8 @@ export default function SplitPdf() {
 
       const buffer = await file.arrayBuffer();
       const pdfDoc = await PDFDocument.load(buffer);
-      const totalPages = pdfDoc.getPageCount();
 
+      const totalPages = pdfDoc.getPageCount();
       const results: { name: string; bytes: Uint8Array; url: string }[] = [];
 
       for (let i = 0; i < totalPages; i++) {
@@ -49,11 +57,23 @@ export default function SplitPdf() {
 
       setSplitFiles(results);
       setStatus("PDF split completed. Choose how you want to download.");
-    } catch (error) {
+    } catch (error: any) {
       console.error(error);
-      setStatus(
-        "Error: Could not process this PDF. It may be encrypted or corrupted."
-      );
+
+      // 🔐 Password / encrypted PDF handling
+      if (
+        String(error?.message || "")
+          .toLowerCase()
+          .includes("password")
+      ) {
+        setStatus(
+          "This PDF appears to be password-protected. Please remove the password and try again."
+        );
+      } else {
+        setStatus(
+          "Error: Could not process this PDF. It may be encrypted or corrupted."
+        );
+      }
     } finally {
       setLoading(false);
     }
@@ -95,7 +115,7 @@ export default function SplitPdf() {
     a.click();
     document.body.removeChild(a);
 
-    // ⏱️ Delay revoke to avoid Windows ZIP corruption
+    // ⏱️ Prevent Windows ZIP corruption
     setTimeout(() => URL.revokeObjectURL(url), 2000);
   }
 
@@ -168,13 +188,21 @@ export default function SplitPdf() {
             >
               Download as ZIP
             </button>
+
+            <button
+              onClick={handleReset}
+              className="w-full py-3 border border-gray-300 text-gray-700 rounded-xl hover:bg-gray-100 transition-all"
+            >
+              Reset Tool
+            </button>
           </>
         )}
 
         {status && (
           <div
             className={`p-3 rounded-lg w-full text-sm font-semibold ${
-              status.includes("Error")
+              status.toLowerCase().includes("error") ||
+              status.toLowerCase().includes("password")
                 ? "bg-red-50 text-red-600"
                 : "bg-blue-50 text-blue-700"
             }`}
