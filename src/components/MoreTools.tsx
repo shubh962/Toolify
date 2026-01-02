@@ -12,6 +12,7 @@ import {
   FileImage,
   Calendar,    // Age Calculator ke liye
   Calculator,  // Metal Weight Calculator ke liye
+  Scissors,
 } from "lucide-react";
 
 // Sabhi tools ki list (Total 10 Tools)
@@ -44,6 +45,13 @@ const allTools = [
     icon: <Combine className="w-6 h-6 text-purple-500" />,
     cta: "Merge Now",
   },
+  {
+  name: "Split PDF",
+  description: "Split a PDF into individual pages instantly. Secure, fast, and works offline in your browser.",
+  href: "/tools/split-pdf",
+  icon: <Scissors className="w-6 h-6 text-blue-600" />,
+  cta: "Split Now",
+},
   {
     name: "AI Text Paraphraser",
     description: "Rewrite text and essays instantly for unique and fresh content.",
