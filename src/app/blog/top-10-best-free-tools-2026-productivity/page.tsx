@@ -15,19 +15,21 @@ import {
     Star,
     ShieldCheck,
     Cpu,
-    Globe
+    Globe,
+    FileOutput, // Icon for Split PDF
+    Scale       // Icon for Weight Calculator
 } from "lucide-react";
 
-// ✅ SEO METADATA: Targeted "Top 10" & "Best 2026" Keywords
+// ✅ SEO METADATA: Updated for "Top 11"
 export const metadata: Metadata = {
-    title: "Top 10 Best Free Online Tools in 2026 for Productivity (PDF, Image & Text) | TaskGuru",
-    description: "Looking for the best free tools in 2026? A comprehensive 3000-word guide to the top 10 no-login utilities. Master PDF editing, resume building, and image optimization without paying a cent.",
+    title: "Top 11 Best Free Online Tools in 2026 for Productivity | TaskGuru",
+    description: "Looking for the best free tools in 2026? A comprehensive 3000-word guide to the top 11 no-login utilities. Master PDF editing, splitting files, and image optimization without paying a cent.",
     robots: "index, follow",
     alternates: {
         canonical: "https://www.taskguru.online/blog/top-10-best-free-tools-2026-productivity",
     },
     openGraph: {
-        title: "Top 10 Best Free Online Tools in 2026 for Productivity",
+        title: "Top 11 Best Free Online Tools in 2026 for Productivity",
         description: "Don't pay for subscriptions. The ultimate guide to replacing premium software with free, secure AI tools.",
         url: "https://www.taskguru.online/blog/top-10-best-free-tools-2026-productivity",
         type: "article",
@@ -36,18 +38,18 @@ export const metadata: Metadata = {
                 url: "https://www.taskguru.online/assets/blog/top-10-tools-2026.png", 
                 width: 1200,
                 height: 630,
-                alt: "Top 10 Best Free Productivity Tools 2026 Guide",
+                alt: "Top 11 Best Free Productivity Tools 2026 Guide",
             },
         ],
     },
-    keywords: ["best free online tools 2026", "top 10 productivity tools", "free pdf converter 2026", "best resume builder free", "TaskGuru", "replace paid software", "student productivity hacks"],
+    keywords: ["best free online tools 2026", "top 11 productivity tools", "split pdf free", "free pdf converter 2026", "TaskGuru"],
 };
 
-// ✅ JSON-LD Schema (Listicle/BlogPosting)
+// ✅ JSON-LD Schema
 const blogSchema = {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
-    headline: "Top 10 Best Free Online Tools in 2026 for Productivity (PDF, Image & Text)",
+    headline: "Top 11 Best Free Online Tools in 2026 for Productivity (PDF, Image & Text)",
     image: "https://www.taskguru.online/assets/blog/top-10-tools-2026.png",
     author: {
         "@type": "Person",
@@ -65,7 +67,7 @@ const blogSchema = {
     url: "https://www.taskguru.online/blog/top-10-best-free-tools-2026-productivity",
     datePublished: "2026-01-05", 
     dateModified: "2026-01-07", 
-    description: "A deep-dive, ranked list of the 10 best free online utility tools in 2026 for handling documents, images, and careers.",
+    description: "A deep-dive, ranked list of the 11 best free online utility tools in 2026 for handling documents, images, and careers.",
     articleBody: "In the rapidly evolving digital landscape of 2026, the cost of productivity has become a major barrier..."
 };
 
@@ -73,7 +75,7 @@ export default function TopTools2026Post() {
     return (
         <>
             <Script
-                id="blog-schema-top-10-tools"
+                id="blog-schema-top-11-tools"
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(blogSchema) }}
             />
@@ -87,10 +89,10 @@ export default function TopTools2026Post() {
                             <Star className="w-4 h-4 fill-current" /> Official 2026 Rankings
                         </div>
                         <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight leading-tight mb-6">
-                            Top 10 Best Free Online Tools in 2026 for <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-purple-600">Productivity & Daily Tasks</span>
+                            Top 11 Best Free Online Tools in 2026 for <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-purple-600">Productivity & Daily Tasks</span>
                         </h1>
                         <p className="text-xl md:text-2xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-                            The definitive guide to the <strong>subscription-free revolution</strong>. We tested hundreds of utilities to bring you the 10 essential tools that replace expensive software for students, creators, and professionals.
+                            The definitive guide to the <strong>subscription-free revolution</strong>. We tested hundreds of utilities to bring you the 11 essential tools that replace expensive software for students, creators, and professionals.
                         </p>
                         <div className="flex flex-wrap justify-center gap-4 mt-8 text-sm text-muted-foreground">
                             <span className="flex items-center gap-1"><ShieldCheck className="w-4 h-4" /> 100% Free</span>
@@ -112,7 +114,7 @@ export default function TopTools2026Post() {
                             <strong>Enter TaskGuru.</strong> We believe that essential digital utilities are a right, not a luxury. Productivity should not be gated behind a credit card form. Over the last year, our team has worked tirelessly to build a suite of tools that are not just "free alternatives," but powerful competitors to paid software.
                         </p>
                         <p>
-                            In this comprehensive guide, we are ranking the <strong>Top 10 Best Free Online Tools</strong> available right now. We judged them on speed, privacy (no data storage), quality of output, and user experience. Whether you are editing a PDF contract, optimizing images for SEO, or building your career narrative, this toolkit is the only bookmark you will need this year.
+                            In this comprehensive guide, we are ranking the <strong>Top 11 Best Free Online Tools</strong> available right now. We judged them on speed, privacy (no data storage), quality of output, and user experience. Whether you are editing a PDF contract, optimizing images for SEO, or building your career narrative, this toolkit is the only bookmark you will need this year.
                         </p>
                         <div className="p-6 bg-slate-100 dark:bg-slate-800 rounded-xl border-l-4 border-primary">
                             <strong>Why Trust This List?</strong> Unlike other tech blogs, we don't just review these tools—we built them. We know the code, we know the security protocols, and we know exactly how they save you time.
@@ -397,15 +399,43 @@ export default function TopTools2026Post() {
                         <div className="pl-4 md:pl-20">
                             <h3 className="text-xl font-semibold text-orange-600 dark:text-orange-400 mb-4">The "Engineer's Pal"</h3>
                             <p className="mb-6">
-                                Rounding out our top 10 is a niche but absolutely critical tool for the construction, logistics, and manufacturing sectors. The <Link href="/tools/metal-weight-calculator" className="font-bold underline decoration-orange-500/50 hover:decoration-orange-500">Metal Weight Calculator</Link>.
+                                A critical tool for the construction, logistics, and manufacturing sectors. The <Link href="/tools/metal-weight-calculator" className="font-bold underline decoration-orange-500/50 hover:decoration-orange-500">Metal Weight Calculator</Link>.
                             </p>
                             
                             <p className="mb-6">
-                                If you are buying steel beams, aluminum sheets, or brass pipes, you often buy them by volume or dimension, but shipping is charged by <em>weight</em>. Miscalculating this can cost a project thousands of dollars in transport fees. Our calculator includes the specific density of dozens of alloys. You input the shape (tube, bar, sheet) and dimensions, and we give you the exact weight in kg or lbs instantly. It's a pocket tool for civil engineers and DIY enthusiasts alike.
+                                If you are buying steel beams, aluminum sheets, or brass pipes, you often buy them by volume or dimension, but shipping is charged by <em>weight</em>. Miscalculating this can cost a project thousands of dollars in transport fees. Our calculator includes the specific density of dozens of alloys. You input the shape and dimensions, and we give you the exact weight in kg or lbs instantly.
                             </p>
 
                             <Link href="/tools/metal-weight-calculator" className="inline-flex items-center text-white bg-orange-600 hover:bg-orange-700 px-6 py-3 rounded-lg font-semibold transition">
                                 Calculate Weight <ArrowRight className="w-5 h-5 ml-2" />
+                            </Link>
+                        </div>
+                    </section>
+
+                    {/* RANK 11: SPLIT PDF (NEWLY ADDED) */}
+                    <section className="mb-24 scroll-mt-20" id="split-pdf">
+                        <div className="flex items-center gap-4 mb-6">
+                            <div className="bg-green-600 text-white font-black text-2xl w-14 h-14 rounded-full flex items-center justify-center shadow-lg shadow-green-500/30">#11</div>
+                            <h2 className="text-3xl md:text-4xl font-bold m-0 text-slate-900 dark:text-white">Split PDF</h2>
+                        </div>
+                        
+                        <div className="pl-4 md:pl-20">
+                            <h3 className="text-xl font-semibold text-green-600 dark:text-green-400 mb-4">The "Page Separator"</h3>
+                            <p className="mb-6">
+                                Rounding out our list is <Link href="/tools/split-pdf" className="font-bold underline decoration-green-500/50 hover:decoration-green-500">Split PDF</Link>, the ultimate tool for extracting value from large documents.
+                            </p>
+                            
+                            <h4 className="font-bold text-lg mb-2">Why You Need It:</h4>
+                            <p className="mb-6">
+                                Often, you download a 100-page eBook or report, but you only need Chapter 3. Or perhaps you scanned a 50-page contract but only need to email the single signature page. Sending the entire huge file is wasteful and confusing.
+                            </p>
+
+                            <p className="mb-6">
+                                With Split PDF, you can visually select the exact pages you want to keep (e.g., "Pages 5-10") and extract them into a brand new, lightweight PDF file. It's fast, free, and keeps your digital filing cabinet organized.
+                            </p>
+
+                            <Link href="/tools/split-pdf" className="inline-flex items-center text-white bg-green-600 hover:bg-green-700 px-6 py-3 rounded-lg font-semibold transition">
+                                Split File Now <ArrowRight className="w-5 h-5 ml-2" />
                             </Link>
                         </div>
                     </section>
