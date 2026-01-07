@@ -7,6 +7,12 @@ import Script from 'next/script';
 // ✅ 1. ALL BLOG POSTS INTEGRATED
 const posts = [
   {
+    slug: 'top-10-best-free-tools-2026-productivity',
+    title: 'Top 10 Best Free Online Tools in 2026 for Productivity (PDF, Image & Text)',
+    summary: 'Looking for the best free tools in 2026? From PDF editors and Resume Makers to Background Removers, discover the top 10 no-login tools to boost your productivity.',
+    date: 'January 5, 2026',
+},
+  {
     slug: 'happy-new-year-2026',
     title: 'Happy New Year 2026: The Future of AI Productivity at TaskGuru',
     summary:
