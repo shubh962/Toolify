@@ -8,7 +8,7 @@ import { Card, CardContent, CardFooter } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { useToast } from '@/hooks/use-toast';
-import { Upload, FileText, Trash2, Loader2, Download, CheckCircle, ShieldCheck, Zap, Globe, Lock, ArrowRight } from 'lucide-react';
+import { Upload, FileText, Trash2, Loader2, Download, CheckCircle, ShieldCheck, Zap, Globe, Lock, ArrowRight, BookOpen, Laptop, Briefcase, GraduationCap, AlertCircle, Sparkles } from 'lucide-react';
 
 // ✅ Client-Side Libraries
 import * as pdfjsLib from 'pdfjs-dist';
@@ -145,6 +145,16 @@ export default function PdfToWord() {
         "@type": "Question",
         "name": "Can I edit the converted Word document?",
         "acceptedAnswer": { "@type": "Answer", "text": "Yes! The output is a standard Microsoft Word (.docx) file that you can edit in MS Word, Google Docs, or LibreOffice." }
+      },
+      {
+        "@type": "Question",
+        "name": "Does this tool support large PDF files?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Absolutely. Because the conversion happens on your own device, there are no server upload limits. You can convert files larger than 100MB easily." }
+      },
+      {
+        "@type": "Question",
+        "name": "Do I need to install any software?",
+        "acceptedAnswer": { "@type": "Answer", "text": "No. TaskGuru works entirely in your web browser (Chrome, Safari, Firefox, Edge). No downloads, plugins, or extensions are required." }
       }
     ]
   };
@@ -225,100 +235,232 @@ export default function PdfToWord() {
       </Card>
 
       {/* --- SEO STRUCTURED CONTENT (Featured Snippet Optimized) --- */}
-      <article className="max-w-4xl mx-auto px-6 py-16 space-y-16">
+      <article className="max-w-5xl mx-auto px-6 py-16 space-y-20 font-sans text-gray-600 dark:text-gray-300">
         
         {/* 1. H1 + Direct Answer (Featured Snippet Target) */}
-        <section className="text-center space-y-6">
-          <h1 className="text-4xl md:text-6xl font-black text-gray-900 dark:text-white tracking-tight leading-tight">
+        <section className="text-center space-y-8">
+          <h1 className="text-5xl md:text-7xl font-black text-gray-900 dark:text-white tracking-tight leading-none">
             Convert PDF to Word <span className="text-blue-600">Free Online</span>
           </h1>
           
-          <div className="bg-blue-50 dark:bg-blue-900/10 p-8 rounded-3xl border border-blue-100 dark:border-blue-900 text-left">
-            <h2 className="text-lg font-bold text-blue-700 dark:text-blue-300 mb-2 uppercase tracking-wide text-xs">Quick Summary</h2>
-            <p className="text-lg text-gray-700 dark:text-gray-300 leading-relaxed font-medium">
-              TaskGuru allows you to <strong>convert PDF to Word for free</strong> instantly without any software installation. 
-              Simply upload your PDF file, and our browser-based tool extracts the text to create an <strong>editable Microsoft Word document (.docx)</strong>. 
-              Unlike other converters, TaskGuru processes files <strong>100% on your device</strong> (Client-Side), ensuring maximum privacy and unlimited file sizes.
-              No email, no sign-up, and no watermarks required.
+          <div className="bg-blue-50 dark:bg-blue-900/10 p-8 md:p-10 rounded-[2.5rem] border border-blue-100 dark:border-blue-900 text-left max-w-4xl mx-auto shadow-sm">
+            <div className="flex items-center gap-3 mb-4">
+                <Sparkles className="w-5 h-5 text-blue-600" />
+                <h2 className="text-sm font-bold text-blue-700 dark:text-blue-300 uppercase tracking-widest">Quick Answer</h2>
+            </div>
+            <p className="text-lg md:text-xl text-gray-800 dark:text-gray-200 leading-relaxed font-medium">
+              TaskGuru provides the fastest way to <strong>convert PDF to Word for free</strong>. 
+              Our advanced browser-based tool extracts text from your PDF and reconstructs it into an <strong>editable Microsoft Word document (.docx)</strong> instantly. 
+              Unlike traditional converters, TaskGuru processes files <strong>100% on your device</strong> (Client-Side Technology). 
+              This ensures <strong>military-grade privacy</strong> and allows you to convert unlimited files of any size without uploading data to a server.
             </p>
           </div>
         </section>
 
         {/* 2. How It Works (Step-by-Step) */}
         <section>
-          <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-8">How to Convert PDF to Word Online?</h2>
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-black text-gray-900 dark:text-white mb-4">How to Convert PDF to Word Online?</h2>
+            <p className="text-lg max-w-2xl mx-auto">Follow these three simple steps to transform your static PDF into an editable document in seconds.</p>
+          </div>
+          
+          <div className="grid md:grid-cols-3 gap-8">
+            <div className="p-8 rounded-[2rem] bg-white dark:bg-gray-800 shadow-xl shadow-gray-200/50 dark:shadow-none border border-gray-100 dark:border-gray-700 relative overflow-hidden group">
+                <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+                    <Upload className="w-24 h-24" />
+                </div>
+                <span className="text-5xl font-black text-blue-600/20 mb-4 block">01</span>
+                <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-3">Upload File</h3>
+                <p className="leading-relaxed">Drag and drop your PDF into the converter box. We support drag-and-drop for ease of use. Large files (50MB, 100MB+) are fully supported.</p>
+            </div>
+            <div className="p-8 rounded-[2rem] bg-white dark:bg-gray-800 shadow-xl shadow-gray-200/50 dark:shadow-none border border-gray-100 dark:border-gray-700 relative overflow-hidden group">
+                <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+                    <Zap className="w-24 h-24" />
+                </div>
+                <span className="text-5xl font-black text-blue-600/20 mb-4 block">02</span>
+                <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-3">Instant Processing</h3>
+                <p className="leading-relaxed">Our WebAssembly engine reads your PDF structure locally. It identifies text lines, paragraphs, and pages without sending data to the cloud.</p>
+            </div>
+            <div className="p-8 rounded-[2rem] bg-white dark:bg-gray-800 shadow-xl shadow-gray-200/50 dark:shadow-none border border-gray-100 dark:border-gray-700 relative overflow-hidden group">
+                <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+                    <Download className="w-24 h-24" />
+                </div>
+                <span className="text-5xl font-black text-blue-600/20 mb-4 block">03</span>
+                <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-3">Save & Edit</h3>
+                <p className="leading-relaxed">A green "Download Word File" button appears instantly. Click it to save your .docx file, ready for editing in Microsoft Word or Google Docs.</p>
+            </div>
+          </div>
+        </section>
+
+        {/* 3. Key Benefits (Detailed Breakdown) */}
+        <section className="bg-gray-50 dark:bg-gray-800/30 p-10 md:p-16 rounded-[3rem]">
+          <h2 className="text-3xl md:text-4xl font-black text-gray-900 dark:text-white mb-12 text-center">Why TaskGuru is the Best Choice?</h2>
+          <div className="grid md:grid-cols-2 gap-x-12 gap-y-10">
+            <div className="flex gap-5">
+                <div className="w-14 h-14 rounded-2xl bg-blue-100 dark:bg-blue-900/50 flex items-center justify-center flex-shrink-0 text-blue-600">
+                    <ShieldCheck className="w-7 h-7" />
+                </div>
+                <div>
+                    <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">100% Privacy Guarantee</h3>
+                    <p className="leading-relaxed">Most online converters upload your files to their servers, creating a risk of data breaches. TaskGuru is different. Your file stays on your computer. You can even disconnect the internet after loading the page, and it will still work!</p>
+                </div>
+            </div>
+            <div className="flex gap-5">
+                <div className="w-14 h-14 rounded-2xl bg-green-100 dark:bg-green-900/50 flex items-center justify-center flex-shrink-0 text-green-600">
+                    <Globe className="w-7 h-7" />
+                </div>
+                <div>
+                    <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">Unlimited File Size</h3>
+                    <p className="leading-relaxed">Server-based tools have limits (e.g., 5MB or 10MB) to save costs. Since we use your device's processing power, there are no limits. Convert a 200-page thesis or a 500MB legal bundle without errors.</p>
+                </div>
+            </div>
+            <div className="flex gap-5">
+                <div className="w-14 h-14 rounded-2xl bg-purple-100 dark:bg-purple-900/50 flex items-center justify-center flex-shrink-0 text-purple-600">
+                    <Laptop className="w-7 h-7" />
+                </div>
+                <div>
+                    <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">Cross-Platform Compatibility</h3>
+                    <p className="leading-relaxed">Whether you are using Windows 11, macOS, Linux (Ubuntu), Android, or iOS, our tool works perfectly. No need to install heavy software like Adobe Acrobat or Microsoft Office.</p>
+                </div>
+            </div>
+            <div className="flex gap-5">
+                <div className="w-14 h-14 rounded-2xl bg-orange-100 dark:bg-orange-900/50 flex items-center justify-center flex-shrink-0 text-orange-600">
+                    <Zap className="w-7 h-7" />
+                </div>
+                <div>
+                    <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">Lightning Fast Speed</h3>
+                    <p className="leading-relaxed">Skip the upload and download queues. Traditional tools waste time uploading your file to the cloud. TaskGuru converts locally in milliseconds, saving you valuable time.</p>
+                </div>
+            </div>
+          </div>
+        </section>
+
+        {/* 4. Deep Dive: Real World Use Cases */}
+        <section>
+          <h2 className="text-3xl font-black text-gray-900 dark:text-white mb-8">Who Needs This Tool?</h2>
           <div className="grid md:grid-cols-3 gap-6">
-            <div className="p-6 rounded-2xl bg-white dark:bg-gray-800 shadow-sm border border-gray-100 dark:border-gray-700">
-                <span className="text-4xl font-black text-gray-200 dark:text-gray-700">01</span>
-                <h3 className="text-xl font-bold mt-2 mb-3">Upload PDF</h3>
-                <p className="text-gray-600 dark:text-gray-400 text-sm">Drag and drop your file into the box above. We support large files (50MB+).</p>
+            <div className="border border-gray-200 dark:border-gray-700 p-8 rounded-3xl hover:border-blue-500 transition-colors">
+                <GraduationCap className="w-10 h-10 text-gray-400 mb-4" />
+                <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">Students & Researchers</h3>
+                <p className="text-sm">Easily extract text from PDF journals, research papers, or assignments to quote in your essays without retyping manually.</p>
             </div>
-            <div className="p-6 rounded-2xl bg-white dark:bg-gray-800 shadow-sm border border-gray-100 dark:border-gray-700">
-                <span className="text-4xl font-black text-gray-200 dark:text-gray-700">02</span>
-                <h3 className="text-xl font-bold mt-2 mb-3">Auto Conversion</h3>
-                <p className="text-gray-600 dark:text-gray-400 text-sm">Our intelligent tool reads your PDF text layers and converts them to Word format instantly.</p>
+            <div className="border border-gray-200 dark:border-gray-700 p-8 rounded-3xl hover:border-blue-500 transition-colors">
+                <Briefcase className="w-10 h-10 text-gray-400 mb-4" />
+                <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">HR & Recruiters</h3>
+                <p className="text-sm">Candidates often send resumes in PDF. Convert them to Word to add notes, reformat for clients, or mask personal details.</p>
             </div>
-            <div className="p-6 rounded-2xl bg-white dark:bg-gray-800 shadow-sm border border-gray-100 dark:border-gray-700">
-                <span className="text-4xl font-black text-gray-200 dark:text-gray-700">03</span>
-                <h3 className="text-xl font-bold mt-2 mb-3">Download DOCX</h3>
-                <p className="text-gray-600 dark:text-gray-400 text-sm">Click the download button to save your new editable document. No waiting queues.</p>
+            <div className="border border-gray-200 dark:border-gray-700 p-8 rounded-3xl hover:border-blue-500 transition-colors">
+                <BookOpen className="w-10 h-10 text-gray-400 mb-4" />
+                <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">Legal Professionals</h3>
+                <p className="text-sm">Convert contracts and legal agreements into editable drafts. Make changes, track revisions, and re-sign without starting from scratch.</p>
             </div>
           </div>
         </section>
 
-        {/* 3. Key Benefits (Why Choose Us) */}
+        {/* 5. Client-Side vs Server-Side Comparison */}
         <section>
-          <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-8">Why Use TaskGuru PDF Converter?</h2>
-          <div className="space-y-4">
-            <div className="flex gap-4 items-start">
-                <div className="p-3 bg-green-100 text-green-600 rounded-lg"><ShieldCheck className="w-6 h-6" /></div>
-                <div>
-                    <h3 className="text-lg font-bold">100% Safe & Private</h3>
-                    <p className="text-gray-600 dark:text-gray-400">Your files never leave your computer. We use client-side processing, so hacking or data theft is impossible.</p>
-                </div>
-            </div>
-            <div className="flex gap-4 items-start">
-                <div className="p-3 bg-purple-100 text-purple-600 rounded-lg"><Globe className="w-6 h-6" /></div>
-                <div>
-                    <h3 className="text-lg font-bold">Unlimited Conversions</h3>
-                    <p className="text-gray-600 dark:text-gray-400">Convert as many files as you want. There are no daily limits and no file size restrictions.</p>
-                </div>
-            </div>
-            <div className="flex gap-4 items-start">
-                <div className="p-3 bg-orange-100 text-orange-600 rounded-lg"><Zap className="w-6 h-6" /></div>
-                <div>
-                    <h3 className="text-lg font-bold">Works on All Devices</h3>
-                    <p className="text-gray-600 dark:text-gray-400">Whether you are on Windows, Mac, Android, or iPhone, our tool works perfectly in your browser.</p>
-                </div>
-            </div>
+          <h2 className="text-3xl font-black text-gray-900 dark:text-white mb-8">Why "Client-Side" is Better?</h2>
+          <div className="overflow-x-auto">
+            <table className="w-full text-left border-collapse rounded-2xl overflow-hidden shadow-lg">
+                <thead className="bg-gray-900 text-white">
+                    <tr>
+                        <th className="p-4 md:p-6 text-lg">Feature</th>
+                        <th className="p-4 md:p-6 text-lg bg-blue-600">TaskGuru (Client-Side)</th>
+                        <th className="p-4 md:p-6 text-lg bg-gray-800">Others (Server-Side)</th>
+                    </tr>
+                </thead>
+                <tbody className="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
+                    <tr>
+                        <td className="p-4 md:p-6 font-bold">Privacy</td>
+                        <td className="p-4 md:p-6 text-green-600 font-bold">100% Private (No Uploads)</td>
+                        <td className="p-4 md:p-6 text-red-500">Files Uploaded to Cloud</td>
+                    </tr>
+                    <tr>
+                        <td className="p-4 md:p-6 font-bold">File Size Limit</td>
+                        <td className="p-4 md:p-6 text-green-600 font-bold">Unlimited (Even 1GB+)</td>
+                        <td className="p-4 md:p-6">Usually 10MB - 50MB</td>
+                    </tr>
+                    <tr>
+                        <td className="p-4 md:p-6 font-bold">Speed</td>
+                        <td className="p-4 md:p-6 text-green-600 font-bold">Instant (No Upload Time)</td>
+                        <td className="p-4 md:p-6">Slow (Depends on Internet)</td>
+                    </tr>
+                    <tr>
+                        <td className="p-4 md:p-6 font-bold">Cost</td>
+                        <td className="p-4 md:p-6 text-green-600 font-bold">Free Forever</td>
+                        <td className="p-4 md:p-6">Subscription for Pro</td>
+                    </tr>
+                </tbody>
+            </table>
           </div>
         </section>
 
-        {/* 4. Internal Linking (Boost SEO) */}
-        <section className="bg-gray-50 dark:bg-gray-800/50 p-8 rounded-3xl">
-          <h2 className="text-2xl font-bold mb-6">Explore More Free Tools</h2>
-          <div className="grid md:grid-cols-2 gap-4">
-             <Link href="/tools/resume-maker" className="flex items-center justify-between p-4 bg-white dark:bg-gray-800 rounded-xl border hover:border-blue-500 transition-colors group">
-                <span className="font-semibold text-gray-700 dark:text-gray-300 group-hover:text-blue-600">Create a Free Resume</span>
-                <ArrowRight className="w-5 h-5 text-gray-400 group-hover:text-blue-600" />
+        {/* 6. Tips for Best Results */}
+        <section className="bg-yellow-50 dark:bg-yellow-900/10 p-8 rounded-3xl border border-yellow-200 dark:border-yellow-800">
+             <div className="flex items-center gap-3 mb-4">
+                <AlertCircle className="w-6 h-6 text-yellow-600" />
+                <h2 className="text-xl font-bold text-yellow-800 dark:text-yellow-200">Tips for Best Conversion Results</h2>
+            </div>
+            <ul className="list-disc pl-5 space-y-3 text-yellow-900/80 dark:text-yellow-100/80">
+                <li><strong>Avoid Scanned PDFs:</strong> If your PDF is a photo of a document (scanned), this tool might only extract blank text. For images, use our <Link href="/tools/image-to-text" className="underline font-bold">Image to Text (OCR)</Link> tool instead.</li>
+                <li><strong>Standard Fonts:</strong> PDFs created with standard fonts (Arial, Times New Roman) convert most accurately.</li>
+                <li><strong>Check Formatting:</strong> While we preserve text perfectly, complex layouts (tables, floating images) might need minor adjustments in Word after conversion.</li>
+            </ul>
+        </section>
+
+        {/* 7. Internal Linking (Boost SEO) */}
+        <section className="bg-gray-50 dark:bg-gray-800/50 p-10 rounded-[2.5rem]">
+          <h2 className="text-2xl font-bold mb-8 text-center">Explore More Free Productivity Tools</h2>
+          <div className="grid md:grid-cols-2 gap-6">
+             <Link href="/tools/resume-maker" className="flex items-center justify-between p-6 bg-white dark:bg-gray-800 rounded-2xl border border-gray-100 dark:border-gray-700 hover:border-blue-500 hover:shadow-lg transition-all group">
+                <div className="flex items-center gap-4">
+                    <span className="p-3 bg-blue-100 text-blue-600 rounded-xl group-hover:bg-blue-600 group-hover:text-white transition-colors">📄</span>
+                    <div>
+                        <span className="font-bold text-gray-900 dark:text-white block">Create a Free Resume</span>
+                        <span className="text-xs text-gray-500">ATS-Friendly Templates</span>
+                    </div>
+                </div>
+                <ArrowRight className="w-5 h-5 text-gray-300 group-hover:text-blue-600" />
              </Link>
-             <Link href="/tools/image-to-text" className="flex items-center justify-between p-4 bg-white dark:bg-gray-800 rounded-xl border hover:border-blue-500 transition-colors group">
-                <span className="font-semibold text-gray-700 dark:text-gray-300 group-hover:text-blue-600">Image to Text Converter</span>
-                <ArrowRight className="w-5 h-5 text-gray-400 group-hover:text-blue-600" />
+             <Link href="/tools/image-to-text" className="flex items-center justify-between p-6 bg-white dark:bg-gray-800 rounded-2xl border border-gray-100 dark:border-gray-700 hover:border-green-500 hover:shadow-lg transition-all group">
+                <div className="flex items-center gap-4">
+                     <span className="p-3 bg-green-100 text-green-600 rounded-xl group-hover:bg-green-600 group-hover:text-white transition-colors">📝</span>
+                    <div>
+                        <span className="font-bold text-gray-900 dark:text-white block">Image to Text Converter</span>
+                        <span className="text-xs text-gray-500">Extract Text from Images</span>
+                    </div>
+                </div>
+                <ArrowRight className="w-5 h-5 text-gray-300 group-hover:text-green-600" />
              </Link>
-             <Link href="/tools/background-remover" className="flex items-center justify-between p-4 bg-white dark:bg-gray-800 rounded-xl border hover:border-blue-500 transition-colors group">
-                <span className="font-semibold text-gray-700 dark:text-gray-300 group-hover:text-blue-600">Remove Backgrounds Free</span>
-                <ArrowRight className="w-5 h-5 text-gray-400 group-hover:text-blue-600" />
+             <Link href="/tools/background-remover" className="flex items-center justify-between p-6 bg-white dark:bg-gray-800 rounded-2xl border border-gray-100 dark:border-gray-700 hover:border-purple-500 hover:shadow-lg transition-all group">
+                <div className="flex items-center gap-4">
+                     <span className="p-3 bg-purple-100 text-purple-600 rounded-xl group-hover:bg-purple-600 group-hover:text-white transition-colors">🖼️</span>
+                    <div>
+                        <span className="font-bold text-gray-900 dark:text-white block">Background Remover</span>
+                        <span className="text-xs text-gray-500">Transparent PNGs Instantly</span>
+                    </div>
+                </div>
+                <ArrowRight className="w-5 h-5 text-gray-300 group-hover:text-purple-600" />
+             </Link>
+             <Link href="/tools/age-calculator" className="flex items-center justify-between p-6 bg-white dark:bg-gray-800 rounded-2xl border border-gray-100 dark:border-gray-700 hover:border-pink-500 hover:shadow-lg transition-all group">
+                <div className="flex items-center gap-4">
+                     <span className="p-3 bg-pink-100 text-pink-600 rounded-xl group-hover:bg-pink-600 group-hover:text-white transition-colors">📅</span>
+                    <div>
+                        <span className="font-bold text-gray-900 dark:text-white block">Age Calculator</span>
+                        <span className="text-xs text-gray-500">Exact Date Calculation</span>
+                    </div>
+                </div>
+                <ArrowRight className="w-5 h-5 text-gray-300 group-hover:text-pink-600" />
              </Link>
           </div>
         </section>
 
-        {/* 5. FAQ Section (Schema Optimized) */}
+        {/* 8. FAQ Section (Schema Optimized) */}
         <section>
-          <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-8">Frequently Asked Questions</h2>
+          <h2 className="text-3xl font-black text-gray-900 dark:text-white mb-8">Frequently Asked Questions</h2>
           <div className="space-y-4">
             {faqSchema.mainEntity.map((faq, index) => (
-                <div key={index} className="border border-gray-200 dark:border-gray-700 rounded-2xl p-6 hover:shadow-sm transition-shadow">
+                <div key={index} className="border border-gray-200 dark:border-gray-700 rounded-2xl p-6 hover:shadow-sm transition-shadow bg-white dark:bg-gray-900">
                     <h3 className="font-bold text-lg text-gray-900 dark:text-white mb-2">{faq.name}</h3>
                     <p className="text-gray-600 dark:text-gray-400 leading-relaxed">{faq.acceptedAnswer.text}</p>
                 </div>
