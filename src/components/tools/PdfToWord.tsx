@@ -1,31 +1,35 @@
 'use client';
 
-import { useState, useRef, DragEvent } from 'react';
+import { useState, useRef, DragEvent, useEffect } from 'react';
 import Head from 'next/head';
 import Script from 'next/script';
 import { Card, CardContent, CardFooter } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { useToast } from '@/hooks/use-toast';
-import { Upload, FileText, Trash2, Loader2, Download, Wand2 } from 'lucide-react';
-import { handlePdfToWord } from '@/app/actions';
+import { Upload, FileText, Trash2, Loader2, Download } from 'lucide-react';
+
+// ✅ Import Client-Side Libraries
+import * as pdfjsLib from 'pdfjs-dist';
+import { Document, Packer, Paragraph, TextRun } from 'docx';
+import { saveAs } from 'file-saver';
 
 export default function PdfToWord() {
   const { toast } = useToast();
-  // Working Code (State)
   const [file, setFile] = useState<File | null>(null);
-  const [fileDataUri, setFileDataUri] = useState<string | null>(null);
-  const [convertedDoc, setConvertedDoc] = useState<string | null>(null);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isConverting, setIsConverting] = useState(false);
   const [isDragging, setIsDragging] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10MB
+  // ✅ Worker Setup via CDN (Critical for Client-Side Processing)
+  useEffect(() => {
+    // Matches the version in your package.json (3.11.174)
+    pdfjsLib.GlobalWorkerOptions.workerSrc = `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js`;
+  }, []);
 
-  // Working Code (Handlers)
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFile = event.target.files?.[0];
-    validateAndSetFile(selectedFile);
+    if (selectedFile) validateAndSetFile(selectedFile);
   };
 
   const handleDrop = (e: DragEvent<HTMLDivElement>) => {
@@ -35,132 +39,107 @@ export default function PdfToWord() {
     validateAndSetFile(droppedFile);
   };
 
-  const validateAndSetFile = (selectedFile?: File) => {
-    if (!selectedFile) return;
-    if (selectedFile.type !== 'application/pdf') {
-      toast({ title: 'Invalid file', description: 'Please upload a PDF file.', variant: 'destructive' });
+  const validateAndSetFile = (f: File) => {
+    if (f.type !== 'application/pdf') {
+      toast({ title: 'Error', description: 'Only PDF files allowed', variant: 'destructive' });
       return;
     }
-    if (selectedFile.size > MAX_FILE_SIZE) {
-      toast({ title: 'File too large', description: 'Max size 10MB.', variant: 'destructive' });
-      return;
-    }
-    setFile(selectedFile);
-    setConvertedDoc(null);
-    const reader = new FileReader();
-    reader.onload = (e) => setFileDataUri(e.target?.result as string);
-    reader.readAsDataURL(selectedFile);
+    setFile(f);
   };
 
-  const handleSubmit = async () => {
-    if (!fileDataUri) {
-      toast({ title: 'No file', description: 'Upload a PDF first.', variant: 'destructive' });
-      return;
-    }
-    setIsLoading(true);
-    setConvertedDoc(null);
-    // 🛑 WORKING CODE UNTOUCHED 🛑
-    const result = await handlePdfToWord(fileDataUri); 
-    setIsLoading(false);
+  const handleConvert = async () => {
+    if (!file) return;
+    setIsConverting(true);
 
-    if (result.success && result.data?.wordDataUri) {
-      setConvertedDoc(result.data.wordDataUri);
-      toast({ title: 'Success!', description: 'PDF converted.' });
-    } else {
-      toast({ title: 'Error', description: result.error, variant: 'destructive' });
-    }
-  };
+    try {
+      const arrayBuffer = await file.arrayBuffer();
+      
+      // 1. Load PDF Document
+      const loadingTask = pdfjsLib.getDocument(arrayBuffer);
+      const pdf = await loadingTask.promise;
+      const totalPages = pdf.numPages;
+      
+      const docChildren = [];
 
-  const handleDownload = () => {
-    if (!convertedDoc) return;
-    const link = document.createElement('a');
-    link.href = convertedDoc;
-    const originalFileName = file?.name.replace(/\.pdf$/i, '') || 'converted';
-    link.download = `${originalFileName}.docx`;
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+      // 2. Extract Text from Each Page
+      for (let i = 1; i <= totalPages; i++) {
+        const page = await pdf.getPage(i);
+        const textContent = await page.getTextContent();
+        
+        // Combine text items into a single string
+        const pageText = textContent.items
+          .map((item: any) => item.str)
+          .join(' ');
+
+        // Create a Word Paragraph
+        docChildren.push(
+          new Paragraph({
+            children: [
+              new TextRun({
+                text: pageText,
+                size: 24, // 12pt font size (Word uses half-points)
+              }),
+            ],
+            spacing: { after: 200 }, // Add space after paragraph
+          })
+        );
+        
+        // Add a blank line between pages (optional)
+        if (i < totalPages) {
+           docChildren.push(new Paragraph({ text: "" })); 
+        }
+      }
+
+      // 3. Generate Word Document (.docx)
+      const doc = new Document({
+        sections: [{ properties: {}, children: docChildren }],
+      });
+
+      // 4. Save and Download
+      const blob = await Packer.toBlob(doc);
+      saveAs(blob, `${file.name.replace('.pdf', '')}.docx`);
+
+      toast({ title: 'Success', description: 'File converted successfully!' });
+    } catch (error) {
+      console.error(error);
+      toast({ title: 'Error', description: 'Failed to process PDF. Please try a different file.', variant: 'destructive' });
+    } finally {
+      setIsConverting(false);
+    }
   };
 
   const handleReset = () => {
     setFile(null);
-    setFileDataUri(null);
-    setConvertedDoc(null);
-    setIsLoading(false);
     if (fileInputRef.current) fileInputRef.current.value = '';
   };
-  // 🛑 WORKING CODE ENDS 🛑
 
-  // ✅ UPDATED FAQ Schema for SEO/AdSense
+  // ✅ SEO Schema
   const faqSchema = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
     "mainEntity": [
       {
         "@type": "Question",
-        "name": "Is TaskGuru's PDF to Word converter free, and is there a file size limit?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Yes, our converter is 100% free with no sign-up required. The maximum file size supported is 10MB to ensure fast processing and optimal server performance."
-        }
+        "name": "Is this PDF to Word tool free?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Yes, it is 100% free and unlimited." }
       },
       {
         "@type": "Question",
-        "name": "Will the document formatting be preserved during the conversion?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "TaskGuru uses advanced conversion technology designed to preserve the original PDF layout, fonts, images, and tables as accurately as possible when converting to an editable DOCX format."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Is it safe and secure to upload confidential PDF documents?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Yes, your security is our priority. Uploaded files are processed over a secure connection and are immediately deleted from our servers after the conversion is complete, ensuring your data remains private."
-        }
+        "name": "Is my data safe?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Yes. This tool runs entirely in your browser. Your files are never uploaded to any server." }
       }
     ]
   };
 
-  const webappSchema = {
-    "@context": "https://schema.org",
-    "@type": "WebApplication",
-    "name": "PDF to Word Converter",
-    "url": "https://taskguru.online/tools/pdf-to-word",
-    "description": "Free online PDF to Word converter by TaskGuru. Convert PDF into editable Word documents instantly while preserving formatting.",
-    "applicationCategory": "Utility",
-    "operatingSystem": "All",
-    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
-    "publisher": {
-      "@type": "Organization",
-      "name": "TaskGuru",
-      "url": "https://taskguru.online",
-      "logo": "https://taskguru.online/logo.png"
-    }
-  };
-
   return (
     <>
-      {/* ✅ SEO Meta Tags (High-Reach Keywords) */}
       <Head>
-        <title>Free PDF to Word Converter Online: Keep Formatting | TaskGuru DOCX Tool</title>
-        <meta
-          name="description"
-          content="Free, fast & secure tool to convert PDF to Word online (DOCX). Preserve all original formatting, tables, and images. Get editable Word files instantly."
-        />
-        <meta
-          name="keywords"
-          content="pdf to word, pdf to word converter, convert pdf to word, free pdf converter, edit pdf, convert pdf, online pdf tools, pdf to docx, pdf formatting, convert pdf to editable word, pdf to microsoft word free, pdf to docx online free"
-        />
-        <link rel="canonical" href="https://taskguru.online/tools/pdf-to-word" />
+        <title>Free Unlimited PDF to Word Converter | TaskGuru</title>
+        <meta name="description" content="Convert unlimited PDFs to Word directly in your browser. No server uploads, 100% private and free." />
       </Head>
-
-      {/* ✅ Structured Data */}
+      
       <Script id="faq-schema" type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
-      <Script id="webapp-schema" type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(webappSchema) }} />
 
-      {/* ✅ Converter UI */}
       <Card className="w-full max-w-2xl mx-auto shadow-lg my-6">
         <CardContent className="p-4 sm:p-6">
           {!file ? (
@@ -174,48 +153,37 @@ export default function PdfToWord() {
               onDrop={handleDrop}
             >
               <div className="p-4 bg-secondary rounded-full">
-                <Upload className="w-8 h-8 sm:w-10 sm:h-10 text-muted-foreground" />
+                <Upload className="w-8 h-8 text-muted-foreground" />
               </div>
               <div className="text-center">
                 <p className="font-semibold">Click to upload or drag & drop</p>
-                <p className="text-sm text-muted-foreground">PDF (Max 10MB)</p>
+                <p className="text-xs text-muted-foreground">Unlimited Size • 100% Private (Client Side)</p>
               </div>
-              <Input
-                ref={fileInputRef}
-                type="file"
-                className="hidden"
-                accept="application/pdf"
-                onChange={handleFileChange}
-              />
+              <Input ref={fileInputRef} type="file" className="hidden" accept="application/pdf" onChange={handleFileChange} />
             </div>
           ) : (
             <div className="flex flex-col items-center justify-center space-y-4 p-8 sm:p-12">
-              <FileText className="w-12 h-12 sm:w-16 sm:h-16 text-primary" />
-              <p className="font-semibold text-center break-words">{file.name}</p>
-              <p className="text-sm text-muted-foreground">{(file.size / (1024 * 1024)).toFixed(2)} MB</p>
+              <FileText className="w-12 h-12 text-primary" />
+              <p className="font-semibold">{file.name}</p>
+              <p className="text-sm text-muted-foreground">{(file.size / 1024 / 1024).toFixed(2)} MB</p>
             </div>
           )}
         </CardContent>
 
         {file && (
-          <CardFooter className="flex flex-wrap justify-center gap-3 sm:gap-4 bg-muted/50 p-4 border-t">
-            <Button variant="outline" onClick={handleReset} disabled={isLoading}>
+          <CardFooter className="flex justify-center gap-4 bg-muted/50 p-4 border-t">
+            <Button variant="outline" onClick={handleReset} disabled={isConverting}>
               <Trash2 className="mr-2 h-4 w-4" /> Reset
             </Button>
-            <Button onClick={handleSubmit} disabled={isLoading || !!convertedDoc}>
-              {isLoading ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Wand2 className="mr-2 h-4 w-4" />}
-              Convert to Word
-            </Button>
-            <Button onClick={handleDownload} disabled={!convertedDoc || isLoading}>
-              <Download className="mr-2 h-4 w-4" /> Download
+            <Button onClick={handleConvert} disabled={isConverting}>
+              {isConverting ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Download className="mr-2 h-4 w-4" />}
+              Convert & Download
             </Button>
           </CardFooter>
         )}
       </Card>
-
-      {/* 🛑 DELETED: Old "You may also like" Section (क्योंकि अब MoreTools है) */}
-
-      {/* ✅ UPDATED FAQ Section (Simple structure to solve the copy issue) */}
+      
+      {/* FAQ Section */}
       <section className="max-w-3xl mx-auto my-8 sm:my-12 p-6 bg-white dark:bg-gray-900 shadow rounded-lg border border-gray-100 dark:border-gray-800">
         <h2 className="text-xl sm:text-2xl font-bold mb-6 text-gray-900 dark:text-white">Frequently Asked Questions</h2>
         <div className="space-y-6 text-left">
