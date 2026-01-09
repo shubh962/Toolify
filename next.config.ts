@@ -1,7 +1,15 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  // ✅ Existing Settings kept safe
   typescript: { ignoreBuildErrors: true },
   eslint: { ignoreDuringBuilds: true },
+
+  // ✅ Added Payload Limit (Just in case)
+  experimental: {
+    serverActions: {
+      bodySizeLimit: '10mb',
+    },
+  },
 
   images: {
     remotePatterns: [
@@ -12,6 +20,12 @@ const nextConfig = {
       { protocol: "https", hostname: "i.imgur.com" },
       { protocol: "https", hostname: "cdn.pixabay.com" },
     ],
+  },
+
+  // ✅ THE CRITICAL FIX: This stops the 'canvas' error
+  webpack: (config) => {
+    config.resolve.alias.canvas = false;
+    return config;
   },
 
   async redirects() {
@@ -55,4 +69,3 @@ const nextConfig = {
 };
 
 export default nextConfig;
-
