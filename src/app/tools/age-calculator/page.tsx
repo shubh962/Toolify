@@ -1,39 +1,19 @@
-"use client";
-import React, { useState } from 'react';
+import AgeCalculator from "@/components/tools/AgeCalculator";
+import { Metadata } from "next";
 
-export default function AgeCalculator() {
-  const [dob, setDob] = useState("");
-  const [result, setResult] = useState<string | null>(null);
+export const metadata: Metadata = {
+  title: "Online Age Calculator Pro - TaskGuru",
+  description: "Calculate your exact age in years, months, and days. Fast, accurate, and privacy-focused age finder.",
+};
 
-  const calculateAge = () => {
-    if (!dob) return;
-    const birthDate = new Date(dob);
-    const today = new Date();
-    
-    let age = today.getFullYear() - birthDate.getFullYear();
-    const monthDiff = today.getMonth() - birthDate.getMonth();
-    
-    if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
-      age--;
-    }
-    setResult(`Your age is ${age} years old.`);
-  };
-
+export default function AgeCalculatorPage() {
   return (
-    <div className="p-8 max-w-md mx-auto">
-      <h1 className="text-2xl font-bold mb-4">Age Calculator</h1>
-      <input 
-        type="date" 
-        className="border p-2 w-full rounded mb-4 text-black" 
-        onChange={(e) => setDob(e.target.value)}
-      />
-      <button 
-        onClick={calculateAge}
-        className="bg-blue-600 text-white px-4 py-2 rounded w-full"
-      >
-        Calculate
-      </button>
-      {result && <p className="mt-4 text-lg font-semibold">{result}</p>}
+    <div className="min-h-screen pt-20">
+      {/* Page Title for SEO (Hidden from UI) */}
+      <h1 className="sr-only">Online Age Calculator Pro</h1>
+      
+      {/* Main Premium Component */}
+      <AgeCalculator />
     </div>
   );
 }
