@@ -252,20 +252,27 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                   </nav>
                 </div>
               </div>
-
+              
               {/* Bottom Copyright Area */}
-              <div className="pt-10 border-t border-gray-200 dark:border-gray-800 flex flex-col md:flex-row justify-between items-center gap-6">
-                <div className="text-center md:text-left">
-                  <p className="text-[10px] font-black text-gray-400 uppercase tracking-[0.4em] mb-1">
-                    © 2025 TASKGURU — BEYOND DIGITAL BOUNDARIES
-                  </p>
-                  <p className="text-xs text-gray-500 italic">No Subscription. No Tracking. Institutional Privacy.</p>
-                </div>
-                <p className="text-sm font-bold text-gray-700 dark:text-gray-300">
-                  Developed by <span className="text-blue-600 font-black underline decoration-2 underline-offset-4 decoration-blue-100">Shubham Gautam</span>
-                </p>
-              </div>
-            </div>
+<div className="pt-10 border-t border-gray-200 dark:border-gray-800 flex flex-col md:flex-row justify-between items-center gap-6">
+  <div className="text-center md:text-left">
+    <p className="text-[10px] font-black text-gray-400 uppercase tracking-[0.4em] mb-1">
+      {/* Dynamic Year Fix */}
+      © {new Date().getFullYear()} TASKGURU — BEYOND DIGITAL BOUNDARIES
+    </p>
+    <p className="text-xs text-gray-500 italic">No Subscription. No Tracking. Institutional Privacy.</p>
+  </div>
+  
+  <div className="text-center md:text-right">
+    <p className="text-sm font-bold text-gray-700 dark:text-gray-300">
+      Developed by <span className="text-blue-600 font-black underline decoration-2 underline-offset-4 decoration-blue-100">Shubham Gautam</span>
+    </p>
+    {/* Extra Branding */}
+    <p className="text-[10px] text-gray-400 mt-1 uppercase tracking-widest">
+      Made in India 🇮🇳
+    </p>
+  </div>
+</div>    
           </footer>
         </ThemeProvider>
       </body>
