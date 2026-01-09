@@ -42,6 +42,7 @@ import {
 import { Inter } from "next/font/google";
 import Script from "next/script";
 import Link from "next/link";
+import React from "react"; // Added React import for type safety
 
 const inter = Inter({
   subsets: ["latin"],
@@ -172,11 +173,51 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                   </div>
                   
                   <div className="grid grid-cols-5 sm:flex gap-3">
-                    <a href="https://github.com/Shubh962" target="_blank" className="p-3 bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 hover:text-gray-900 dark:hover:text-white hover:-translate-y-1 transition-all"><Github className="w-5 h-5" /></a>
-                    <a href="https://facebook.com/share/1K97T5Q5wp/" target="_blank" className="p-3 bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 hover:text-blue-600 hover:-translate-y-1 transition-all"><Facebook className="w-5 h-5" /></a>
-                    <a href="https://x.com/Shubham_962" target="_blank" className="p-3 bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 hover:text-sky-500 hover:-translate-y-1 transition-all"><Twitter className="w-5 h-5" /></a>
-                    <a href="https://instagram.com/m_just_shubham" target="_blank" className="p-3 bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 hover:text-pink-600 hover:-translate-y-1 transition-all"><Instagram className="w-5 h-5" /></a>
-                    <a href="https://youtube.com/@factfusions0-x4k" target="_blank" className="p-3 bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 hover:text-red-600 hover:-translate-y-1 transition-all"><Youtube className="w-5 h-5" /></a>
+                    <a 
+                      href="https://github.com/Shubh962" 
+                      target="_blank" 
+                      rel="noopener noreferrer" 
+                      aria-label="GitHub Profile"
+                      className="p-3 bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 hover:text-gray-900 dark:hover:text-white hover:-translate-y-1 transition-all"
+                    >
+                      <Github className="w-5 h-5" />
+                    </a>
+                    <a 
+                      href="https://facebook.com/share/1K97T5Q5wp/" 
+                      target="_blank" 
+                      rel="noopener noreferrer" 
+                      aria-label="Facebook Page"
+                      className="p-3 bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 hover:text-blue-600 hover:-translate-y-1 transition-all"
+                    >
+                      <Facebook className="w-5 h-5" />
+                    </a>
+                    <a 
+                      href="https://x.com/Shubham_962" 
+                      target="_blank" 
+                      rel="noopener noreferrer" 
+                      aria-label="Twitter Profile"
+                      className="p-3 bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 hover:text-sky-500 hover:-translate-y-1 transition-all"
+                    >
+                      <Twitter className="w-5 h-5" />
+                    </a>
+                    <a 
+                      href="https://instagram.com/m_just_shubham" 
+                      target="_blank" 
+                      rel="noopener noreferrer" 
+                      aria-label="Instagram Profile"
+                      className="p-3 bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 hover:text-pink-600 hover:-translate-y-1 transition-all"
+                    >
+                      <Instagram className="w-5 h-5" />
+                    </a>
+                    <a 
+                      href="https://youtube.com/@factfusions0-x4k" 
+                      target="_blank" 
+                      rel="noopener noreferrer" 
+                      aria-label="YouTube Channel"
+                      className="p-3 bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 hover:text-red-600 hover:-translate-y-1 transition-all"
+                    >
+                      <Youtube className="w-5 h-5" />
+                    </a>
                   </div>
                 </div>
 
@@ -243,7 +284,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                           </Card>
                           <div className="p-4 bg-red-50 dark:bg-red-900/10 rounded-2xl flex items-center gap-3">
                             <AlertTriangle className="text-red-500 h-5 w-5" />
-                            <p className="text-xs text-red-600">© 2025 TaskGuru.
+                            <p className="text-xs text-red-600">© {new Date().getFullYear()} TaskGuru.
                             All algorithmic logic is proprietary. All rights reserved.</p>
                           </div>
                         </div>
@@ -252,27 +293,25 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                   </nav>
                 </div>
               </div>
-              
+
               {/* Bottom Copyright Area */}
-<div className="pt-10 border-t border-gray-200 dark:border-gray-800 flex flex-col md:flex-row justify-between items-center gap-6">
-  <div className="text-center md:text-left">
-    <p className="text-[10px] font-black text-gray-400 uppercase tracking-[0.4em] mb-1">
-      {/* Dynamic Year Fix */}
-      © {new Date().getFullYear()} TASKGURU — BEYOND DIGITAL BOUNDARIES
-    </p>
-    <p className="text-xs text-gray-500 italic">No Subscription. No Tracking. Institutional Privacy.</p>
-  </div>
-  
-  <div className="text-center md:text-right">
-    <p className="text-sm font-bold text-gray-700 dark:text-gray-300">
-      Developed by <span className="text-blue-600 font-black underline decoration-2 underline-offset-4 decoration-blue-100">Shubham Gautam</span>
-    </p>
-    {/* Extra Branding */}
-    <p className="text-[10px] text-gray-400 mt-1 uppercase tracking-widest">
-      Made in India 🇮🇳
-    </p>
-  </div>
-</div>    
+              <div className="pt-10 border-t border-gray-200 dark:border-gray-800 flex flex-col md:flex-row justify-between items-center gap-6">
+                <div className="text-center md:text-left">
+                  <p className="text-[10px] font-black text-gray-400 uppercase tracking-[0.4em] mb-1">
+                    © {new Date().getFullYear()} TASKGURU — BEYOND DIGITAL BOUNDARIES
+                  </p>
+                  <p className="text-xs text-gray-500 italic">No Subscription. No Tracking. Institutional Privacy.</p>
+                </div>
+                <div className="text-center md:text-right">
+                    <p className="text-sm font-bold text-gray-700 dark:text-gray-300">
+                      Developed by <span className="text-blue-600 font-black underline decoration-2 underline-offset-4 decoration-blue-100">Shubham Gautam</span>
+                    </p>
+                    <p className="text-[10px] text-gray-400 mt-1 uppercase tracking-widest">
+                      Made in India 🇮🇳
+                    </p>
+                </div>
+              </div>
+            </div>
           </footer>
         </ThemeProvider>
       </body>
