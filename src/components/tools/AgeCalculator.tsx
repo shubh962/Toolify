@@ -23,6 +23,7 @@ export default function AgeCalculator() {
     if (!dob) return;
     setIsCalculating(true);
     
+    // Simulate slight delay for effect
     setTimeout(() => {
       const birthDate = new Date(dob);
       const today = new Date();
@@ -32,6 +33,7 @@ export default function AgeCalculator() {
       let months = today.getMonth() - birthDate.getMonth();
       let days = today.getDate() - birthDate.getDate();
 
+      // Adjust for negative month/day difference
       if (months < 0 || (months === 0 && days < 0)) { years--; months += 12; }
       if (days < 0) {
         const prevMonthLastDay = new Date(today.getFullYear(), today.getMonth(), 0).getDate();
@@ -39,27 +41,36 @@ export default function AgeCalculator() {
         months--;
       }
 
+      // Advanced Stats
       const totalDays = Math.floor((today.getTime() - birthDate.getTime()) / (1000 * 60 * 60 * 24));
       const totalWeeks = Math.floor(totalDays / 7);
       const totalHours = totalDays * 24;
-      const expectedRemaining = years < 80 ? 80 - years : 5;
+      const expectedRemaining = years < 80 ? 80 - years : 5; // Simple heuristic
 
+      // Next Birthday Logic
       let nextBdayDate = new Date(today.getFullYear(), birthDate.getMonth(), birthDate.getDate());
       if (nextBdayDate < today) nextBdayDate.setFullYear(today.getFullYear() + 1);
       const nextBday = Math.ceil((nextBdayDate.getTime() - today.getTime()) / (1000 * 60 * 60 * 24));
 
       // Dynamic Emoji & Advance Wish Logic
-      let emoji = "😎";
+      let emoji = "🎂";
       let isAdvance = false;
 
       if (nextBday <= 30) {
-        emoji = "🎈🎂";
+        emoji = "🎉🎁";
         isAdvance = true;
       } else if (nextBday <= 90) {
-        emoji = "😊";
+        emoji = "⏳";
       }
 
-      setAge({ y: years, m: months, d: days, totalDays, totalWeeks, totalHours, nextBday: nextBday === 365 ? 0 : nextBday, expectedRemaining, bdayEmoji: emoji, isAdvanceWish: isAdvance });
+      setAge({ 
+        y: years, m: months, d: days, 
+        totalDays, totalWeeks, totalHours, 
+        nextBday: nextBday === 365 ? 0 : nextBday, 
+        expectedRemaining, 
+        bdayEmoji: emoji, 
+        isAdvanceWish: isAdvance 
+      });
       setIsCalculating(false);
     }, 600); 
   };
@@ -213,5 +224,4 @@ export default function AgeCalculator() {
       })}} />
     </div>
   );
-        }
-
+}
