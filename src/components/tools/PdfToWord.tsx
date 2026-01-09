@@ -21,7 +21,7 @@ export default function PdfToWord() {
   const [isDragging, setIsDragging] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  // ✅ Worker Setup via CDN (Critical for Client-Side Processing)
+  // ✅ Worker Setup via CDN Critical for Client-Side Processing
   useEffect(() => {
     // Matches the version in your package.json (3.11.174)
     pdfjsLib.GlobalWorkerOptions.workerSrc = `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js`;
