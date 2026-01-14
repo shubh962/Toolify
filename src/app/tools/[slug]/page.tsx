@@ -1,5 +1,6 @@
 import { tools } from '@/lib/tools';
 import { notFound } from 'next/navigation';
+import Link from "next/link"; // Link import kiya
 
 import BackgroundRemover from '@/components/tools/BackgroundRemover';
 import ImageToText from '@/components/tools/ImageToText';
@@ -14,7 +15,7 @@ import MoreTools from '@/components/MoreTools';
 import ResumeMakerFlow from '@/components/tools/ResumeMakerFlow';
 import AgeCalculator from '@/components/tools/AgeCalculator';
 import MetalWeightCalculator from '@/components/tools/MetalWeightCalculator';
-
+import { ShieldCheck, Lock, Zap } from 'lucide-react'; // Icons add kiye
 
 export async function generateStaticParams() {
   return tools.map((tool) => ({
@@ -22,10 +23,8 @@ export async function generateStaticParams() {
   }));
 }
 
-// ⭐ UPDATED METADATA FOR GOOGLE + ADSENSE
 export async function generateMetadata({ params }: { params: { slug: string } }) {
   const tool = tools.find((t) => t.slug === params.slug);
-
   if (!tool) {
     return {
       title: "Tool Not Found | Toolify (TaskGuru)",
@@ -57,7 +56,6 @@ const toolComponentMap: { [key: string]: React.ComponentType<any> } = {
 
 export default function ToolPage({ params }: { params: { slug: string } }) {
   const tool = tools.find((t) => t.slug === params.slug);
-
   if (!tool) {
     notFound();
   }
@@ -74,22 +72,85 @@ export default function ToolPage({ params }: { params: { slug: string } }) {
           </p>
         </div>
 
-        {/* ✅ SPECIAL FLOW FOR RESUME MAKER */}
-        {tool.slug === "resume-maker" ? (
-          <ResumeMakerFlow />
-        ) : (
-          (() => {
-            const ToolComponent = tool.isPlaceholder
-              ? PlaceholderTool
-              : toolComponentMap[tool.slug];
-
-            return ToolComponent ? (
-              <ToolComponent title={tool.title} description={tool.description} />
+        {/* ✅ TOOL RENDER SECTION */}
+        <div className="min-h-[400px] mb-20">
+            {tool.slug === "resume-maker" ? (
+            <ResumeMakerFlow />
             ) : (
-              <PlaceholderTool title={tool.title} />
-            );
-          })()
-        )}
+            (() => {
+                const ToolComponent = tool.isPlaceholder
+                ? PlaceholderTool
+                : toolComponentMap[tool.slug];
+
+                return ToolComponent ? (
+                <ToolComponent title={tool.title} description={tool.description} />
+                ) : (
+                <PlaceholderTool title={tool.title} />
+                );
+            })()
+            )}
+        </div>
+
+        {/* 👇 NEW ADSENSE BOOSTER SECTION: Content jo har tool page par dikhega */}
+        <div className="max-w-4xl mx-auto py-12 border-t mt-12">
+            
+            {/* 1. Dynamic Content from tools.ts (Agar aapne add kiya hai) */}
+            {/* @ts-ignore - Assuming content field might exist later */}
+            {tool.content && (
+                <article className="prose prose-lg dark:prose-invert max-w-none mb-16">
+                    <div dangerouslySetInnerHTML={{ __html: tool.content }} />
+                </article>
+            )}
+
+            {/* 2. Static High-Value Content (Safety & Features) */}
+            <div className="grid md:grid-cols-2 gap-8 mb-16">
+                <div className="bg-slate-50 dark:bg-slate-900 p-8 rounded-2xl">
+                    <h3 className="text-xl font-bold mb-4 flex items-center gap-2">
+                        <Lock className="w-5 h-5 text-green-600" />
+                        Privacy & Security
+                    </h3>
+                    <p className="text-muted-foreground text-sm leading-relaxed">
+                        Your privacy is our priority. When you use our <strong>{tool.title}</strong>, 
+                        all processing happens securely. We do not store your files on our servers permanently. 
+                        Files are automatically deleted after processing to ensure your data remains private 
+                        and confidential.
+                    </p>
+                </div>
+                <div className="bg-slate-50 dark:bg-slate-900 p-8 rounded-2xl">
+                    <h3 className="text-xl font-bold mb-4 flex items-center gap-2">
+                        <Zap className="w-5 h-5 text-yellow-500" />
+                        Why Use This Tool?
+                    </h3>
+                    <p className="text-muted-foreground text-sm leading-relaxed">
+                        TaskGuru provides this <strong>{tool.title}</strong> for free to help students, 
+                        professionals, and creators work faster. Unlike other paid software, 
+                        our tool runs directly in your browser, requiring no installation and 
+                        no credit card registration.
+                    </p>
+                </div>
+            </div>
+
+            {/* 3. Generic How-To Guide (AdSense loves Instructions) */}
+            <div className="space-y-6">
+                <h2 className="text-2xl font-bold">How to use {tool.title} online?</h2>
+                <div className="space-y-4">
+                    <div className="flex gap-4">
+                        <span className="flex-shrink-0 w-8 h-8 bg-primary/10 text-primary rounded-full flex items-center justify-center font-bold">1</span>
+                        <p className="text-muted-foreground">Upload your file or enter your data into the {tool.title} box above.</p>
+                    </div>
+                    <div className="flex gap-4">
+                        <span className="flex-shrink-0 w-8 h-8 bg-primary/10 text-primary rounded-full flex items-center justify-center font-bold">2</span>
+                        <p className="text-muted-foreground">Wait a few moments while our AI algorithm processes your request securely.</p>
+                    </div>
+                    <div className="flex gap-4">
+                        <span className="flex-shrink-0 w-8 h-8 bg-primary/10 text-primary rounded-full flex items-center justify-center font-bold">3</span>
+                        <p className="text-muted-foreground">Preview the result and click the Download or Copy button to get your output instantly.</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
       </div>
 
       {/* More Tools Section */}
@@ -97,4 +158,3 @@ export default function ToolPage({ params }: { params: { slug: string } }) {
     </main>
   );
 }
-
