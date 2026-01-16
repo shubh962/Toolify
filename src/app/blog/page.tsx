@@ -1,113 +1,110 @@
 'use client';
 
 import Link from 'next/link';
-import { ArrowRight, Sparkles, BookOpen, PartyPopper } from 'lucide-react';
+import { ArrowRight, Sparkles, BookOpen, PartyPopper, Star } from 'lucide-react';
 import Script from 'next/script';
 
-// ✅ 1. ALL BLOG POSTS INTEGRATED
+// ✅ 1. BLOG POSTS CONFIGURATION
 const posts = [
+  // --- 🟢 THE "POWER QUARTET" (SAFE & ACTIVE) ---
   {
-    slug: 'top-10-best-free-tools-2026-productivity',
-    title: 'Top 10 Best Free Online Tools in 2026 for Productivity (PDF, Image & Text)',
-    summary: 'Looking for the best free tools in 2026? From PDF editors and Resume Makers to Background Removers, discover the top 10 no-login tools to boost your productivity.',
+    slug: '10-best-free-online-tools-2026',
+    title: '10 Best Free Online AI Tools (2026): Ultimate SaaS Alternatives to Save $1000/Year',
+    summary: 'Looking for the best free online tools in 2026? This expert-verified guide reveals the top AI-powered software alternatives for PDF editing, graphic design, and document automation.',
+    date: 'January 10, 2026',
+    category: 'Expert Guide',
+    featured: true, // Mark as featured
+  },
+  {
+    slug: 'stop-paying-for-saas-free-ai-tools',
+    title: 'Stop Paying for SaaS: Build Your $0 Productivity Tech Stack',
+    summary: "Stop burning budget on basic software. Learn how to build a powerful productivity stack for $0 using TaskGuru’s free AI tools. No credit card. No login.",
+    date: 'January 8, 2026',
+    category: 'Financial Guide',
+  },
+  {
+    slug: 'anti-subscription-guide-free-ai-tools',
+    title: "The 'Anti-Subscription' Guide: 8 Free AI Tools to Save Your Wallet",
+    summary: "Stop paying monthly fees for basic tasks. Discover the 'Anti-Subscription' stack: 8 free tools for PDFs, Images, Resumes, and Text.",
     date: 'January 5, 2026',
-},
+    category: 'Opinion',
+  },
+  {
+    slug: 'ai-document-power-up',
+    title: 'AI Document Power-Up: Free Tools to Summarize & Chat with Any Document',
+    summary: 'Instantly summarize PDFs, generate key takeaways, and chat with documents using TaskGuru’s free AI document analysis tools.',
+    date: 'January 2, 2026',
+    category: 'Tutorial',
+  },
+
+  // --- 🔴 HIDDEN FOR ADSENSE APPROVAL (SAVED FOR LATER) ---
+  /* UNCOMMENT THESE AFTER APPROVAL:
+
   {
     slug: 'happy-new-year-2026',
     title: 'Happy New Year 2026: The Future of AI Productivity at TaskGuru',
-    summary:
-      'Celebrate the dawn of 2026 with TaskGuru. Explore our vision for a faster, more secure AI toolkit and discover how we are helping millions simplify their digital workflows this year.',
+    summary: 'Celebrate the dawn of 2026 with TaskGuru. Explore our vision for a faster, more secure AI toolkit.',
     date: 'December 31, 2025',
     category: 'Celebration',
     isNewYear: true,
   },
   {
     slug: 'mastering-digital-productivity-taskguru-toolkit',
-    title: 'Revolutionizing Digital Productivity: The Comprehensive Guide to TaskGuru Utilities (2000+ Words)',
-    summary:
-      'A professional deep-dive into mastering the TaskGuru toolkit. Learn the technical foundations and expert workflows for our free ATS Resume Maker, Background Remover, OCR, and engineering calculators.',
+    title: 'Revolutionizing Digital Productivity: The Comprehensive Guide',
+    summary: 'A professional deep-dive into mastering the TaskGuru toolkit.',
     date: 'December 29, 2025',
     category: 'Authority Guide',
   },
   {
     slug: 'best-utility-tools-2025-26', 
-    title: '10 Best Free Utility Tools of 2025-26: The Ultimate 5,000+ Word Definitive Guide',
-    summary:
-      'The most comprehensive, data-driven analysis of browser-based software ever published. Master the digital era with our 5,000-word deep dive into the best free utility tools.',
+    title: '10 Best Free Utility Tools of 2025-26',
+    summary: 'The most comprehensive, data-driven analysis of browser-based software ever published.',
     date: 'December 27, 2025',
     category: 'Master Manual',
   },
   {
-    slug: '10-best-free-online-tools-2026', 
-    title: '10 Best Free Online AI Tools (2026): Ultimate SaaS Alternatives to Save $1000/Year',
-    summary:
-      'Looking for the best free online tools in 2026? This expert-verified guide reveals the top AI-powered software alternatives for PDF editing, graphic design, and document automation.',
-    date: 'December 25, 2025',
-    category: 'Expert Guide',
-  },
-  {
     slug: 'free-ai-tools-that-replace-paid-software-2025',
-    title: 'Free AI Tools That Can Replace Paid Software in 2025 (No Subscription Needed)',
-    summary:
-      'Tired of monthly software subscriptions? This detailed, human-written guide explains how free AI tools can fully replace paid software for images, PDFs, resumes, and everyday productivity.',
+    title: 'Free AI Tools That Can Replace Paid Software in 2025',
+    summary: 'Tired of monthly software subscriptions? This detailed guide explains how free AI tools can fully replace paid software.',
     date: 'December 19, 2025',
-  },
-  {
-    slug: 'anti-subscription-guide-free-ai-tools',
-    title: "The 'Anti-Subscription' Guide: 8 Free AI Tools to Save Your Wallet | TaskGuru",
-    summary:
-      "Stop paying monthly fees for basic tasks. 🚫💸 Discover the 'Anti-Subscription' stack: 8 free tools for PDFs, Images, Resumes, and Text.",
-    date: 'December 19, 2025',
-  },
-  {
-    slug: 'stop-paying-for-saas-free-ai-tools',
-    title: 'Stop Paying for SaaS: Build Your $0 Productivity Tech Stack | TaskGuru',
-    summary:
-      "Stop burning budget on basic software. Learn how to build a powerful productivity stack for $0 using TaskGuru’s free AI tools. No credit card. No login.",
-    date: 'December 18, 2025',
   },
   {
     slug: 'ultimate-ai-toolkit-free-tools',
-    title: 'द अल्टीमेट AI टूलकिट: छात्रों और पेशेवरों के लिए निःशुल्क ऑनलाइन उत्पादकता टूल',
-    summary:
-      'TaskGuru पर 2000+ शब्दों का गहन विश्लेषण! PDF, इमेज एडिटिंग, टेक्स्ट पैराफ़्रेज़िंग और फ़ाइल सुरक्षा के लिए सर्वश्रेष्ठ AI टूल खोजें।',
+    title: 'द अल्टीमेट AI टूलकिट (Hindi Guide)',
+    summary: 'TaskGuru पर 2000+ शब्दों का गहन विश्लेषण! PDF, इमेज एडिटिंग, टेक्स्ट पैराफ़्रेज़िंग के लिए सर्वश्रेष्ठ AI टूल।',
     date: 'December 12, 2025',
   },
   {
     slug: 'free-ai-tools-for-students-2025',
-    title: 'Top 10 Free AI Tools for Students in 2025 (No Login Required)',
-    summary:
-      'Discover the most powerful free AI tools every student must use in 2025. Rewrite notes, convert PDFs, extract text, compress files, and boost productivity.',
+    title: 'Top 10 Free AI Tools for Students in 2025',
+    summary: 'Discover the most powerful free AI tools every student must use in 2025.',
     date: 'December 3, 2025',
-  },
-  {
-    slug: 'ai-document-power-up',
-    title: 'AI Document Power-Up: Free Tools to Summarize & Chat with Any Document',
-    summary:
-      'Instantly summarize PDFs, generate key takeaways, and chat with documents using TaskGuru’s free AI document analysis tools.',
-    date: 'November 9, 2025',
   },
   {
     slug: 'streamline-remote-workflow',
     title: "TaskGuru: The Professional's Free AI Toolkit (Remote Workflow)",
-    summary:
-      'Boost academic and professional productivity with TaskGuru’s free AI tools for efficient remote work.',
+    summary: 'Boost academic and professional productivity with TaskGuru’s free AI tools for efficient remote work.',
     date: 'October 21, 2025',
   },
   {
     slug: 'projects-presentations-ai-toolkit',
     title: 'How TaskGuru’s Free AI Tools Revolutionize Projects & Presentations',
-    summary:
-      'From image optimization to document management, learn how TaskGuru helps create professional projects and presentations.',
+    summary: 'From image optimization to document management, learn how TaskGuru helps create professional projects.',
     date: 'October 9, 2025',
   },
   {
     slug: 'the-ultimate-taskguru-toolkit',
-    title: 'The Ultimate TaskGuru Toolkit: 6 Free AI Tools for Students & Professionals',
-    summary:
-      'Discover TaskGuru’s complete suite of free AI tools including PDF conversion, background removal, and image compression.',
+    title: 'The Ultimate TaskGuru Toolkit: 6 Free AI Tools',
+    summary: 'Discover TaskGuru’s complete suite of free AI tools including PDF conversion and background removal.',
     date: 'October 2, 2025',
   },
+  {
+    slug: 'top-10-best-free-tools-2026-productivity',
+    title: 'Top 11 Best Free Online Tools in 2026',
+    summary: 'A comprehensive 3000-word guide to the top 11 no-login utilities.',
+    date: 'January 5, 2026',
+  },
+  */
 ];
 
 // ✅ 2. DYNAMIC FAQ SCHEMA
@@ -135,7 +132,7 @@ const faqSchema = {
 };
 
 export default function BlogPage() {
-  const featuredPostSlug = 'mastering-digital-productivity-taskguru-toolkit';
+  // const featuredPostSlug = '10-best-free-online-tools-2026'; // Auto-handled by "featured: true" above
   const newYearSlug = 'happy-new-year-2026';
 
   return (
@@ -155,8 +152,7 @@ export default function BlogPage() {
             Insights & Productivity <span className="text-blue-600">Blueprints</span>
           </h1>
           <p className="text-lg text-slate-600 dark:text-slate-400 font-medium max-w-2xl mx-auto">
-            Deep-dive AI reviews, 2026 productivity blueprints, and 
-            practical guides to help you master the &quot;Anti-Subscription&quot; workflow.
+            Deep-dive AI reviews, 2026 productivity blueprints, and practical guides to help you master the &quot;Anti-Subscription&quot; workflow.
           </p>
         </header>
 
@@ -168,7 +164,7 @@ export default function BlogPage() {
               className={`group p-8 border rounded-[2.5rem] transition-all duration-500 relative overflow-hidden ${
                 post.slug === newYearSlug
                   ? 'border-2 border-indigo-500 bg-gradient-to-br from-indigo-50/40 to-white dark:from-indigo-900/10 dark:to-slate-950 shadow-2xl ring-4 ring-indigo-500/5'
-                  : post.slug === featuredPostSlug
+                  : (post as any).featured
                   ? 'border-2 border-blue-600 ring-4 ring-blue-600/10 bg-blue-50/30 dark:bg-blue-900/5 shadow-lg'
                   : 'bg-white dark:bg-slate-950 hover:border-blue-200 dark:hover:border-blue-900 shadow-md hover:shadow-xl'
               }`}
@@ -182,7 +178,7 @@ export default function BlogPage() {
                     <span className="flex items-center gap-1 px-4 py-1 text-[10px] font-black rounded-full bg-indigo-600 text-white animate-bounce shadow-lg">
                       <PartyPopper className="w-3 h-3" /> NEW YEAR SPECIAL 2026
                     </span>
-                  ) : post.slug === featuredPostSlug ? (
+                  ) : (post as any).featured ? (
                     <span className="flex items-center gap-1 px-4 py-1 text-[10px] font-black rounded-full bg-blue-600 text-white shadow-md">
                       <Sparkles className="w-3 h-3" /> FEATURED AUTHORITY GUIDE
                     </span>
@@ -223,7 +219,7 @@ export default function BlogPage() {
                    <span className="text-blue-600 italic">Q.</span> {item.name}
                 </h3>
                 <p className="text-slate-600 dark:text-slate-400 text-lg leading-relaxed font-medium">
-                  {item.acceptedAnswer.text}
+                   {item.acceptedAnswer.text}
                 </p>
               </div>
             ))}
@@ -233,4 +229,3 @@ export default function BlogPage() {
     </>
   );
 }
-
