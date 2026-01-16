@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Mail, MessageSquare, User, Send, Clock, HelpCircle, ShieldCheck, Globe, Zap, HeartHandshake } from "lucide-react";
+import { Mail, MessageSquare, User, Send, Clock, HelpCircle, ShieldCheck, Globe, HeartHandshake } from "lucide-react";
 import Link from "next/link";
 
 export const metadata: Metadata = {
@@ -73,7 +73,7 @@ export default function ContactPage() {
           </Card>
         </div>
 
-        {/* Right Side: Message Form */}
+        {/* Right Side: Message Form (NOW FUNCTIONAL) */}
         <Card className="shadow-2xl border-none rounded-[2.5rem] p-4 bg-white dark:bg-gray-900 border-t-8 border-indigo-600">
           <CardHeader>
             <CardTitle className="text-2xl font-black">Send a Direct Message</CardTitle>
@@ -82,32 +82,47 @@ export default function ContactPage() {
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <form className="space-y-6">
+            {/* ✅ ADDED: FormSubmit Action so the form actually works */}
+            <form 
+              action="https://formsubmit.co/GautamShubham962@gmail.com" 
+              method="POST" 
+              className="space-y-6"
+            >
+              {/* Optional: Honeypot to prevent spam */}
+              <input type="text" name="_honey" style={{ display: "none" }} />
+              <input type="hidden" name="_captcha" value="false" />
+              <input type="hidden" name="_next" value="https://www.taskguru.online/contact" />
+
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div className="space-y-2">
                   <label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">Your Name</label>
                   <div className="relative">
                     <User className="absolute left-3 top-3 h-4 w-4 text-indigo-500" />
-                    <Input placeholder="Shubham Gautam" className="pl-10 h-12 rounded-xl" required />
+                    {/* ✅ ADDED: name="name" */}
+                    <Input name="name" placeholder="Shubham Gautam" className="pl-10 h-12 rounded-xl" required />
                   </div>
                 </div>
                 <div className="space-y-2">
                   <label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">Your Email</label>
                   <div className="relative">
                     <Mail className="absolute left-3 top-3 h-4 w-4 text-indigo-500" />
-                    <Input type="email" placeholder="example@mail.com" className="pl-10 h-12 rounded-xl" required />
+                    {/* ✅ ADDED: name="email" */}
+                    <Input name="email" type="email" placeholder="example@mail.com" className="pl-10 h-12 rounded-xl" required />
                   </div>
                 </div>
               </div>
 
               <div className="space-y-2">
                 <label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">Inquiry Subject</label>
-                <Input placeholder="e.g., Bug Report or New Tool Suggestion" className="h-12 rounded-xl" required />
+                {/* ✅ ADDED: name="subject" */}
+                <Input name="subject" placeholder="e.g., Bug Report or New Tool Suggestion" className="h-12 rounded-xl" required />
               </div>
 
               <div className="space-y-2">
                 <label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">Message Details</label>
+                {/* ✅ ADDED: name="message" */}
                 <textarea 
+                  name="message"
                   className="flex min-h-[150px] w-full rounded-xl border border-input bg-background px-4 py-3 text-sm focus:ring-2 focus:ring-indigo-600 outline-none"
                   placeholder="Tell us how we can help you today..."
                   required
@@ -122,12 +137,12 @@ export default function ContactPage() {
         </Card>
       </div>
 
-      {/* 🚀 3. THE SUPPORT MANIFESTO (ANTI-LOW-VALUE CONTENT) */}
+      {/* 🚀 3. THE SUPPORT MANIFESTO */}
       <article className="max-w-4xl mx-auto border-t pt-20 prose prose-lg dark:prose-invert">
         <div className="text-center mb-16">
             <h2 className="text-4xl font-black mb-6">Our 24/7 Digital Commitment</h2>
             <p className="text-gray-600 dark:text-gray-400">
-                TaskGuru (Toolify) is more than just a toolkit; it is an ecosystem built on the principles of speed, security, and human-centric engineering. 
+                TaskGuru (Toolify) is more than just a toolkit; it is an ecosystem built on the principles of speed, security, and human-centric engineering.
             </p>
         </div>
 
@@ -187,5 +202,4 @@ export default function ContactPage() {
       </article>
     </div>
   );
-        }
-      
+}
