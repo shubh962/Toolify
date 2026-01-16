@@ -1,8 +1,0 @@
-User-agent: *
-Allow: /
-
-Disallow: /api/
-
-Sitemap: https://www.taskguru.online/sitemap.xml
-
-Host: www.taskguru.online
