@@ -6,7 +6,7 @@ const blogSlugs = [
   "projects-presentations-ai-toolkit",
   "streamline-remote-workflow",
   "ai-document-power-up",
-  "free-ai-tools-for-students-2025",
+ // "free-ai-tools-for-students-2025",
   "ultimate-ai-toolkit-free-tools",
   "stop-paying-for-saas-free-ai-tools",
   "anti-subscription-guide-free-ai-tools",
