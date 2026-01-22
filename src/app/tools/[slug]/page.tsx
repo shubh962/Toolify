@@ -1,7 +1,7 @@
 import { tools } from '@/lib/tools';
 import { notFound } from 'next/navigation';
 import Link from "next/link"; // Link import kiya
-
+import YoutubeThumbnail from '@/components/tools/YoutubeThumbnail';
 import BackgroundRemover from '@/components/tools/BackgroundRemover';
 import ImageToText from '@/components/tools/ImageToText';
 import TextParaphraser from '@/components/tools/TextParaphraser';
@@ -51,7 +51,8 @@ const toolComponentMap: { [key: string]: React.ComponentType<any> } = {
   "image-to-pdf": ImageToPdf,
   "age-calculator": AgeCalculator,
   "metal-weight-calculator": MetalWeightCalculator,
-  "split-pdf": SplitPdf,  
+  "split-pdf": SplitPdf,
+  "youtube-thumbnail-downloader": YoutubeThumbnail,
 };
 
 export default function ToolPage({ params }: { params: { slug: string } }) {
