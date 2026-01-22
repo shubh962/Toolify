@@ -1,6 +1,6 @@
 import { tools } from '@/lib/tools';
 import { notFound } from 'next/navigation';
-import Link from "next/link"; // Link import kiya
+import Link from "next/link";
 import YoutubeThumbnail from '@/components/tools/YoutubeThumbnail';
 import BackgroundRemover from '@/components/tools/BackgroundRemover';
 import ImageToText from '@/components/tools/ImageToText';
