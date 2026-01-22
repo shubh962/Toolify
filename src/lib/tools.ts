@@ -8,6 +8,7 @@ import {
   PenSquare,
   CalendarDays,
   Scissors,
+  Youtube,
 } from 'lucide-react';
 
 export interface Tool {
@@ -196,20 +197,141 @@ export const tools: Tool[] = [
       <p>It's useful for filling out official forms, planning retirement, or just settling debates about who is older!</p>
     `
   },
-  {
+ {
     slug: "youtube-thumbnail-downloader",
-    title: "YouTube Thumbnail Downloader (HD/4K)",
-    description: "Download high-quality thumbnails from any YouTube video instantly. Save in HD (1080p), SD, or HQ. Free, fast, and no login required.",
-    icon: "Image", 
+    title: "YouTube Thumbnail Downloader (4K/HD/SD)",
+    description: "Download high-quality YouTube thumbnails in 1080p (HD), 4K, SD, and HQ. Extract cover images from any video instantly. Free, fast, and no login required.",
+    icon: "Youtube", 
     content: `
-      <h2>How to Download YouTube Thumbnails?</h2>
-      <p>Extracting the thumbnail image from a video is easy with TaskGuru:</p>
-      <ol>
-        <li><strong>Copy the URL:</strong> Go to YouTube and copy the link of the video.</li>
-        <li><strong>Paste:</strong> Paste the link into the box above and click "Get Thumbnails".</li>
-        <li><strong>Download:</strong> Choose your preferred quality (HD, SD, or HQ) and save the image.</li>
-      </ol>
-      <p>This tool is perfect for content creators who need to recover their own thumbnails or designers looking for inspiration.</p>
+      <div class="space-y-12">
+        
+        <section>
+          <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-6">The Ultimate YouTube Thumbnail Downloader</h2>
+          <p class="text-lg leading-relaxed text-slate-700 dark:text-slate-300 mb-6">
+            A YouTube Thumbnail is the "cover art" of a video. It is the first thing viewers see, and often, it contains high-quality imagery that creators or designers might need for inspiration, archiving, or project references. 
+          </p>
+          <p class="text-lg leading-relaxed text-slate-700 dark:text-slate-300">
+            <strong>TaskGuru's YouTube Thumbnail Downloader</strong> is a professional-grade utility that extracts these images directly from YouTube's servers. Unlike other tools that are riddled with ads or require you to sign up, our tool works instantly in your browser. Whether you need the <strong>Maximum Resolution (1280x720 or 1920x1080)</strong> for a project or a smaller <strong>Standard Definition (640x480)</strong> for a blog post, we provide direct access to all available formats.
+          </p>
+        </section>
+
+        <section class="bg-slate-50 dark:bg-slate-900 p-8 rounded-[2rem] border border-slate-200 dark:border-slate-800">
+          <h3 class="text-2xl font-bold mb-6 flex items-center gap-3">
+            <span class="text-red-600">⚡</span> Why Choose TaskGuru?
+          </h3>
+          <div class="grid md:grid-cols-2 gap-6">
+            <div class="bg-white dark:bg-slate-950 p-6 rounded-xl shadow-sm">
+              <h4 class="font-bold text-lg mb-2 text-slate-900 dark:text-white">1. True HD & 4K Extraction</h4>
+              <p class="text-sm text-slate-600 dark:text-slate-400">We fetch the <code>maxresdefault.jpg</code> directly, giving you the highest quality image the creator uploaded.</p>
+            </div>
+            <div class="bg-white dark:bg-slate-950 p-6 rounded-xl shadow-sm">
+              <h4 class="font-bold text-lg mb-2 text-slate-900 dark:text-white">2. No Watermarks</h4>
+              <p class="text-sm text-slate-600 dark:text-slate-400">Get clean, original images. We do not add any logos, overlays, or branding to your downloads.</p>
+            </div>
+            <div class="bg-white dark:bg-slate-950 p-6 rounded-xl shadow-sm">
+              <h4 class="font-bold text-lg mb-2 text-slate-900 dark:text-white">3. 100% Client-Side Privacy</h4>
+              <p class="text-sm text-slate-600 dark:text-slate-400">We don't track which videos you are checking. The request goes from your browser to YouTube directly.</p>
+            </div>
+            <div class="bg-white dark:bg-slate-950 p-6 rounded-xl shadow-sm">
+              <h4 class="font-bold text-lg mb-2 text-slate-900 dark:text-white">4. Cross-Platform Support</h4>
+              <p class="text-sm text-slate-600 dark:text-slate-400">Works perfectly on iPhone (iOS), Android, Windows, Mac, and Linux. No app installation needed.</p>
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-6">Understanding Thumbnail Qualities</h2>
+          <p class="mb-6 text-slate-700 dark:text-slate-300">YouTube automatically generates different sizes for every video uploaded. Our tool allows you to access all of them:</p>
+          
+          <div class="overflow-x-auto">
+            <table class="w-full text-left border-collapse rounded-xl overflow-hidden shadow-lg">
+              <thead class="bg-slate-100 dark:bg-slate-800 text-slate-900 dark:text-white">
+                <tr>
+                  <th class="p-4 font-bold">Quality Name</th>
+                  <th class="p-4 font-bold">Resolution</th>
+                  <th class="p-4 font-bold">Best Use Case</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-slate-200 dark:divide-slate-700 bg-white dark:bg-slate-900">
+                <tr>
+                  <td class="p-4 font-semibold text-green-600">High Definition (HD)</td>
+                  <td class="p-4 font-mono text-sm">1280 x 720 (or 1920x1080)</td>
+                  <td class="p-4 text-sm text-slate-600 dark:text-slate-400">Full-screen presentations, Wallpapers, Graphic Design projects.</td>
+                </tr>
+                <tr>
+                  <td class="p-4 font-semibold text-blue-600">Standard Definition (SD)</td>
+                  <td class="p-4 font-mono text-sm">640 x 480</td>
+                  <td class="p-4 text-sm text-slate-600 dark:text-slate-400">Blog post headers, Social media shares (Facebook/Twitter).</td>
+                </tr>
+                <tr>
+                  <td class="p-4 font-semibold text-orange-600">High Quality (HQ)</td>
+                  <td class="p-4 font-mono text-sm">480 x 360</td>
+                  <td class="p-4 text-sm text-slate-600 dark:text-slate-400">Embedded players, iPad apps, smaller previews.</td>
+                </tr>
+                <tr>
+                  <td class="p-4 font-semibold text-slate-500">Medium Quality (MQ)</td>
+                  <td class="p-4 font-mono text-sm">320 x 180</td>
+                  <td class="p-4 text-sm text-slate-600 dark:text-slate-400">Email newsletters, quick reference, thumbnails lists.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="mt-4 text-sm italic text-slate-500">
+            *Note: If a video was uploaded in low quality (e.g., 360p), the HD thumbnail might not be available. Our tool will automatically show what is available.
+          </p>
+        </section>
+
+        <section>
+          <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-6">How to Download YouTube Thumbnails in 3 Steps</h2>
+          <ol class="space-y-4 list-decimal pl-6 text-lg text-slate-700 dark:text-slate-300">
+            <li class="pl-2">
+              <strong>Find the Video:</strong> Go to YouTube app or website and open the video whose thumbnail you want.
+            </li>
+            <li class="pl-2">
+              <strong>Copy the Link:</strong> Click the "Share" button and select "Copy Link". (Or copy the URL from the browser address bar).
+            </li>
+            <li class="pl-2">
+              <strong>Paste & Download:</strong> Paste the link into the TaskGuru box above. Click "Get Thumbnails". Choose your preferred size (HD is recommended) and click "Download".
+            </li>
+          </ol>
+        </section>
+
+        <section class="bg-indigo-50 dark:bg-indigo-900/20 p-8 rounded-[2.5rem] mt-12">
+          <h2 class="text-2xl font-bold text-indigo-900 dark:text-indigo-100 mb-8 text-center">Frequently Asked Questions</h2>
+          <div class="grid gap-6">
+            <details class="bg-white dark:bg-slate-800 p-6 rounded-2xl shadow-sm cursor-pointer group">
+              <summary class="font-bold text-slate-900 dark:text-white list-none flex justify-between items-center">
+                Is it legal to download YouTube thumbnails?
+                <span class="text-indigo-500 group-open:rotate-180 transition-transform">▼</span>
+              </summary>
+              <p class="mt-4 text-slate-600 dark:text-slate-300 leading-relaxed">
+                Yes, it is generally legal to download thumbnails for personal use, inspiration, or reference. However, thumbnails are copyrighted by the video creator. If you plan to use them commercially (e.g., in your own video or website), you should seek permission or strictly adhere to "Fair Use" policies.
+              </p>
+            </details>
+
+            <details class="bg-white dark:bg-slate-800 p-6 rounded-2xl shadow-sm cursor-pointer group">
+              <summary class="font-bold text-slate-900 dark:text-white list-none flex justify-between items-center">
+                Where are the thumbnails saved on my device?
+                <span class="text-indigo-500 group-open:rotate-180 transition-transform">▼</span>
+              </summary>
+              <p class="mt-4 text-slate-600 dark:text-slate-300 leading-relaxed">
+                On Windows/Mac, they are usually saved in your "Downloads" folder. On Android/iPhone, they will appear in your Photos or Gallery app after you long-press the image and select "Save Image".
+              </p>
+            </details>
+
+            <details class="bg-white dark:bg-slate-800 p-6 rounded-2xl shadow-sm cursor-pointer group">
+              <summary class="font-bold text-slate-900 dark:text-white list-none flex justify-between items-center">
+                Can I download thumbnails from private videos?
+                <span class="text-indigo-500 group-open:rotate-180 transition-transform">▼</span>
+              </summary>
+              <p class="mt-4 text-slate-600 dark:text-slate-300 leading-relaxed">
+                No. Our tool respects YouTube's privacy settings. It can only fetch thumbnails for videos that are Public or Unlisted. Private videos are protected and cannot be accessed.
+              </p>
+            </details>
+          </div>
+        </section>
+
+      </div>
     `
   },
   {
