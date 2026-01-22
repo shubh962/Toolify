@@ -74,15 +74,6 @@ export default function AgeCalculator() {
     <div className="max-w-6xl mx-auto px-4 py-10 font-sans selection:bg-blue-100 selection:text-blue-900">
       
       {/* --- TOOL TITLE --- */}
-      <div className="text-center mb-12">
-        <h1 className="text-4xl md:text-6xl font-black text-gray-900 tracking-tight mb-4">
-          Online Age Calculator Pro
-        </h1>
-        <p className="text-gray-500 max-w-2xl mx-auto text-lg">
-          Your accurate companion for tracking chronological milestones. 
-          Get instant insights into your life journey with zero data storage.
-        </p>
-      </div>
 
       {/* --- INTERFACE --- */}
       <div className="w-full max-w-xl mx-auto bg-white rounded-[2.5rem] shadow-2xl border border-gray-100 overflow-hidden mb-24 relative">
