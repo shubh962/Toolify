@@ -201,7 +201,7 @@ export const tools: Tool[] = [
     slug: "youtube-thumbnail-downloader",
     title: "YouTube Thumbnail Downloader (4K/HD/SD)",
     description: "Download high-quality YouTube thumbnails in 1080p (HD), 4K, SD, and HQ. Extract cover images from any video instantly. Free, fast, and no login required.",
-    icon: "Youtube", 
+    icon: Youtube, 
     content: `
       <div class="space-y-12">
         
