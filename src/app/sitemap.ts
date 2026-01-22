@@ -29,6 +29,7 @@ const toolSlugs = [
   "image-to-pdf",
   "resume-maker",
   "age-calculator",
+ "youtube-thumbnail-downloader",
   "metal-weight-calculator",
 ];
 
