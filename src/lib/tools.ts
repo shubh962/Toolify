@@ -197,6 +197,22 @@ export const tools: Tool[] = [
     `
   },
   {
+    slug: "youtube-thumbnail-downloader",
+    title: "YouTube Thumbnail Downloader (HD/4K)",
+    description: "Download high-quality thumbnails from any YouTube video instantly. Save in HD (1080p), SD, or HQ. Free, fast, and no login required.",
+    icon: "Image", 
+    content: `
+      <h2>How to Download YouTube Thumbnails?</h2>
+      <p>Extracting the thumbnail image from a video is easy with TaskGuru:</p>
+      <ol>
+        <li><strong>Copy the URL:</strong> Go to YouTube and copy the link of the video.</li>
+        <li><strong>Paste:</strong> Paste the link into the box above and click "Get Thumbnails".</li>
+        <li><strong>Download:</strong> Choose your preferred quality (HD, SD, or HQ) and save the image.</li>
+      </ol>
+      <p>This tool is perfect for content creators who need to recover their own thumbnails or designers looking for inspiration.</p>
+    `
+  },
+  {
     slug: 'metal-weight-calculator',
     title: 'Metal Weight Calculator',
     description:
