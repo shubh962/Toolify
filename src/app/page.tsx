@@ -7,7 +7,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { ArrowRight, Sparkles, ShieldCheck, Zap, Globe, MousePointer2, CheckCircle2, Lock, Cpu, Rocket, FileText, ImageIcon, ZapOff, Gift, Search, PencilLine, Languages, Briefcase } from "lucide-react";
+import { ArrowRight, Sparkles, ShieldCheck, Zap, Globe, MousePointer2, CheckCircle2, Lock, Cpu, Rocket, FileText, ImageIcon, ZapOff, Gift, Search, PencilLine, Youtube, Languages, Briefcase } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import NewsletterForm from "@/components/NewsletterForm";
 import Script from "next/script";
