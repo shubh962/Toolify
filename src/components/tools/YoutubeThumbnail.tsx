@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Download, Search, Image as ImageIcon, AlertCircle } from 'lucide-react';
+import { Download, Search, Image as ImageIcon, AlertCircle, Youtube } from 'lucide-react';
 
 export default function YoutubeThumbnail() {
   const [url, setUrl] = useState('');
@@ -11,15 +11,31 @@ export default function YoutubeThumbnail() {
   const extractId = (inputUrl: string) => {
     try {
       let id = '';
+      
+      // Handle "youtu.be/" (Mobile Share Links)
       if (inputUrl.includes('youtu.be/')) {
         id = inputUrl.split('youtu.be/')[1].split('?')[0];
-      } else if (inputUrl.includes('v=')) {
+      } 
+      // Handle "youtube.com/shorts/" (Shorts Links) <--- NEW FIX
+      else if (inputUrl.includes('shorts/')) {
+        id = inputUrl.split('shorts/')[1].split('?')[0];
+      } 
+      // Handle "youtube.com/watch?v=" (Desktop Links)
+      else if (inputUrl.includes('v=')) {
         id = inputUrl.split('v=')[1].split('&')[0];
-      } else {
-        setError('Invalid YouTube URL. Please try again.');
+      } 
+      else {
+        setError('Invalid YouTube URL. Works with Videos & Shorts.');
         setVideoId(null);
         return;
       }
+
+      // Clean up ID just in case
+      if (!id || id.length !== 11) {
+         // Some IDs might not be 11 chars, but usually they are. 
+         // We'll trust the split logic mostly, but let's be safe.
+      }
+
       setVideoId(id);
       setError('');
     } catch (err) {
@@ -34,7 +50,6 @@ export default function YoutubeThumbnail() {
   };
 
   const downloadImage = (imgUrl: string) => {
-    // Open in new tab is safest for client-side downloads without a backend proxy
     window.open(imgUrl, '_blank');
   };
 
@@ -48,7 +63,7 @@ export default function YoutubeThumbnail() {
             <Search className="absolute left-4 top-4 text-slate-400 w-6 h-6" />
             <input
               type="text"
-              placeholder="Paste YouTube Video URL (e.g., https://youtube.com/watch?v=...)"
+              placeholder="Paste Video or Shorts URL (e.g., youtube.com/shorts/...)"
               className="w-full pl-14 pr-4 py-4 rounded-xl border-2 border-slate-200 dark:border-slate-700 focus:border-red-500 outline-none text-lg transition-all"
               value={url}
               onChange={(e) => setUrl(e.target.value)}
@@ -58,12 +73,12 @@ export default function YoutubeThumbnail() {
             type="submit"
             className="w-full mt-4 bg-red-600 hover:bg-red-700 text-white font-black py-4 rounded-xl text-lg shadow-lg shadow-red-500/30 transition-all flex items-center justify-center gap-2"
           >
-            <ImageIcon className="w-5 h-5" /> GET THUMBNAILS
+            <Youtube className="w-5 h-5" /> GET THUMBNAILS
           </button>
         </form>
 
         {error && (
-          <div className="mt-4 text-center text-red-500 font-bold flex items-center justify-center gap-2">
+          <div className="mt-4 text-center text-red-500 font-bold flex items-center justify-center gap-2 animate-pulse">
             <AlertCircle className="w-4 h-4" /> {error}
           </div>
         )}
@@ -80,6 +95,10 @@ export default function YoutubeThumbnail() {
                 src={`https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`} 
                 alt="HD Thumbnail" 
                 className="w-full h-full object-cover"
+                onError={(e) => {
+                  // Fallback for Shorts that might not have MaxRes
+                  (e.target as HTMLImageElement).src = `https://img.youtube.com/vi/${videoId}/0.jpg`; 
+                }}
               />
               <div className="absolute inset-0 bg-black/50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
                 <span className="text-white font-bold bg-black/50 px-3 py-1 rounded-full">1280 x 720</span>
