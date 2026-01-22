@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Download, Search, Image as ImageIcon, AlertCircle, Youtube, RotateCcw, Youtube, Check, Loader2 } from 'lucide-react';
+import { Download, Search, Image as ImageIcon, AlertCircle, Youtube, RotateCcw, Check, Loader2 } from 'lucide-react';
 
 export default function YoutubeThumbnail() {
   const [url, setUrl] = useState('');
