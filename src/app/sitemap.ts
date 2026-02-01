@@ -1,21 +1,7 @@
 import { MetadataRoute } from "next";
 
 const blogSlugs = [
- //"top-10-best-free-tools-2026-productivity",
- // "the-ultimate-taskguru-toolkit",
-//  "projects-presentations-ai-toolkit",
-  //"streamline-remote-workflow",
-  "ai-document-power-up",
- // "free-ai-tools-for-students-2025",
- // "ultimate-ai-toolkit-free-tools",
-  "stop-paying-for-saas-free-ai-tools",
-  "anti-subscription-guide-free-ai-tools",
-//  "free-ai-tools-that-replace-paid-software-2025",
- // "best-free-online-tools-2026",
-  "10-best-free-online-tools-2026",
-//  "best-utility-tools-2025-26",
-  //"mastering-digital-productivity-taskguru-toolkit",
- // "happy-new-year-2026",
+
 ];
 
 const toolSlugs = [
