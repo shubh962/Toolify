@@ -67,6 +67,81 @@ export default function Home() {
         </div>
       </section>
 
+      {/* 📰 NEW SECTION: Latest Resources (Tricks Google into thinking this is a Blog) */}
+      <section className="py-12 bg-white border-b border-gray-100">
+        <div className="container mx-auto px-6">
+          <div className="flex justify-between items-end mb-8">
+            <div>
+              <h2 className="text-3xl font-black text-gray-900 tracking-tight">
+                Latest Digital Insights
+              </h2>
+              <p className="text-gray-500 mt-2 font-medium">
+                Expert guides on productivity, file security, and career growth.
+              </p>
+            </div>
+            <Link href="/blog" className="hidden md:flex items-center text-primary font-bold hover:underline">
+              View All Articles <ArrowRight className="ml-2 w-4 h-4" />
+            </Link>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-8">
+            {/* 📝 ARTICLE CARD 1 */}
+            <Link href="/blog/youtube-thumbnail-guide" className="group">
+              <div className="bg-gray-50 rounded-2xl p-6 border border-gray-100 hover:shadow-lg transition-all h-full flex flex-col justify-between">
+                <div>
+                  <span className="text-xs font-black text-blue-600 uppercase tracking-wider">YouTube Growth</span>
+                  <h3 className="mt-3 text-xl font-bold text-gray-900 group-hover:text-blue-600 transition-colors">
+                     The Science of Click-Through Rates: Why 1080p Thumbnails Win
+                  </h3>
+                  <p className="mt-2 text-gray-500 text-sm leading-relaxed">
+                    Discover how high-resolution imagery impacts viewer psychology and algorithm ranking in 2026.
+                  </p>
+                </div>
+                <div className="mt-4 flex items-center text-sm font-bold text-gray-900">
+                  Read Guide <ArrowRight className="ml-2 w-4 h-4" />
+                </div>
+              </div>
+            </Link>
+
+            {/* 📝 ARTICLE CARD 2 */}
+            <Link href="/blog/resume-ats-secrets" className="group">
+              <div className="bg-gray-50 rounded-2xl p-6 border border-gray-100 hover:shadow-lg transition-all h-full flex flex-col justify-between">
+                <div>
+                  <span className="text-xs font-black text-purple-600 uppercase tracking-wider">Career</span>
+                  <h3 className="mt-3 text-xl font-bold text-gray-900 group-hover:text-purple-600 transition-colors">
+                     5 Hidden Keywords That ATS Scanners Look For in Your Resume
+                  </h3>
+                  <p className="mt-2 text-gray-500 text-sm leading-relaxed">
+                    Stop getting auto-rejected. Learn the formatting secrets professional recruiters use to filter candidates.
+                  </p>
+                </div>
+                <div className="mt-4 flex items-center text-sm font-bold text-gray-900">
+                  Read Guide <ArrowRight className="ml-2 w-4 h-4" />
+                </div>
+              </div>
+            </Link>
+
+            {/* 📝 ARTICLE CARD 3 */}
+            <Link href="/blog/image-compression-guide" className="group">
+              <div className="bg-gray-50 rounded-2xl p-6 border border-gray-100 hover:shadow-lg transition-all h-full flex flex-col justify-between">
+                <div>
+                  <span className="text-xs font-black text-green-600 uppercase tracking-wider">Web Performance</span>
+                  <h3 className="mt-3 text-xl font-bold text-gray-900 group-hover:text-green-600 transition-colors">
+                     JPG vs WebP: Which Format Actually Boosts Your SEO Score?
+                  </h3>
+                  <p className="mt-2 text-gray-500 text-sm leading-relaxed">
+                    A deep dive into Google Core Web Vitals and how image size affects your page ranking.
+                  </p>
+                </div>
+                <div className="mt-4 flex items-center text-sm font-bold text-gray-900">
+                  Read Guide <ArrowRight className="ml-2 w-4 h-4" />
+                </div>
+              </div>
+            </Link>
+          </div>
+        </div>
+      </section>
+
       {/* 🛠️ TOOLS GRID */}
       <section id="tools" className="py-20 md:py-32 bg-background">
         <div className="container mx-auto px-6">
