@@ -1,9 +1,10 @@
 import { MetadataRoute } from "next";
 
 const blogSlugs = [
-
+  "youtube-thumbnail-guide",
+  "resume-ats-secrets",
+  "image-compression-guide",
 ];
-
 const toolSlugs = [
   "background-remover",
   "image-compressor",
