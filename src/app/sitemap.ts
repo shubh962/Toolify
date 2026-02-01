@@ -21,7 +21,7 @@ const toolSlugs = [
 ];
 
 const staticPages = [
-  "", // homepage
+  "",
   "/about",
   "/help",
   "/privacy-policy",
