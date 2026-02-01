@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowLeft, Zap, BarChart4, Smartphone, ImageIcon } from "lucide-react";
+// ✅ FIXED: Added 'ArrowRight' to imports
+import { ArrowLeft, ArrowRight, Zap, BarChart4, Smartphone, ImageIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 export const metadata = {
