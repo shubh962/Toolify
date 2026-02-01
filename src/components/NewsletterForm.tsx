@@ -1,9 +1,9 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Loader2, CheckCircle2 } from 'lucide-react'; // Icons for better UI
+import { Loader2, CheckCircle2, Mail } from 'lucide-react';
 
 export default function NewsletterForm() {
   const [isClient, setIsClient] = useState(false);
@@ -19,7 +19,7 @@ export default function NewsletterForm() {
     e.preventDefault();
     setIsLoading(true);
 
-    // Simulate API call (Wait 1.5 seconds)
+    // Simulate API call
     setTimeout(() => {
       setIsLoading(false);
       setIsSubscribed(true);
@@ -27,50 +27,56 @@ export default function NewsletterForm() {
     }, 1500);
   };
 
-  if (!isClient) {
-    return (
-      <div className="mt-6 flex flex-col sm:flex-row items-center gap-4 h-[44px]">
-         {/* Placeholder to prevent hydration mismatch */}
-      </div>
-    );
-  }
+  if (!isClient) return null;
 
   return (
-    <div className="w-full max-w-md">
+    <div className="w-full max-w-lg mx-auto">
       {isSubscribed ? (
-        // ✅ Success Message
-        <div className="mt-6 p-4 bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-xl flex items-center gap-3 animate-in fade-in slide-in-from-bottom-2">
-          <CheckCircle2 className="w-6 h-6 text-green-600 dark:text-green-400" />
-          <div>
-            <p className="font-bold text-green-800 dark:text-green-200">Subscribed!</p>
-            <p className="text-xs text-green-600 dark:text-green-400">Thank you for joining.</p>
+        // ✅ Success State (Centered & Visible)
+        <div className="flex flex-col items-center justify-center p-6 bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl animate-in zoom-in duration-300">
+          <div className="p-3 bg-green-500 rounded-full mb-3 shadow-lg shadow-green-900/20">
+             <CheckCircle2 className="w-8 h-8 text-white" />
           </div>
+          <h3 className="text-xl font-bold text-white">You're on the list!</h3>
+          <p className="text-blue-100 mt-1">Watch your inbox for updates.</p>
         </div>
       ) : (
-        // 📝 Active Form
-        <form onSubmit={handleSubmit} className="mt-6 flex flex-col sm:flex-row items-center gap-4">
-          <Input
-            type="email"
-            placeholder="Enter your email"
-            className="flex-1 bg-secondary"
-            aria-label="Email for newsletter"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
+        // 📝 Form State (Professional & Centered)
+        <form onSubmit={handleSubmit} className="relative flex flex-col sm:flex-row items-center gap-3">
+          <div className="relative w-full">
+            <div className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none">
+              <Mail className="w-5 h-5" />
+            </div>
+            <Input
+              type="email"
+              placeholder="Enter your email address"
+              className="w-full h-12 pl-10 pr-4 bg-white border-transparent text-gray-900 placeholder:text-gray-500 focus:ring-2 focus:ring-white/50 rounded-xl shadow-lg"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+              disabled={isLoading}
+            />
+          </div>
+          
+          <Button 
+            type="submit" 
+            size="lg" 
+            className="w-full sm:w-auto h-12 px-8 bg-gray-900 hover:bg-gray-800 text-white font-bold rounded-xl shadow-xl transition-all hover:scale-105"
             disabled={isLoading}
-          />
-          <Button type="submit" size="lg" className="w-full sm:w-auto" disabled={isLoading}>
+          >
             {isLoading ? (
-              <>
-                <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                Wait...
-              </>
+              <Loader2 className="w-5 h-5 animate-spin" />
             ) : (
               'Subscribe'
             )}
           </Button>
         </form>
       )}
+      
+      {/* Footer Text */}
+      <p className="text-xs text-blue-200 mt-4 text-center font-medium opacity-80">
+        No spam, ever. Unsubscribe anytime.
+      </p>
     </div>
   );
 }
