@@ -88,6 +88,13 @@ const allTools = [
     cta: "Calculate Age",
   },
   {
+    name: "YouTube Thumbnail Downloader",
+    description: "Download high-quality 1080p thumbnails from any video instantly.",
+    href: "/tools/youtube-thumbnail-downloader",
+    icon: <Image className="w-6 h-6 text-red-600" />,
+    cta: "Download Now",
+  },
+  {
     name: "Metal Weight Calculator",
     description: "Calculate the weight of metal shapes like pipes, bars, and sheets.",
     href: "/tools/metal-weight-calculator",
