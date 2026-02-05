@@ -107,15 +107,6 @@ export default function MergePdf() {
   return (
     <div className="space-y-20 max-w-5xl mx-auto px-4 pb-20">
       {/* 🌟 HERO SECTION */}
-      <section className="text-center space-y-6 pt-10">
-        <h1 className="text-4xl md:text-6xl font-black tracking-tighter text-gray-900 dark:text-white">
-          Merge PDF Files <span className="text-primary underline decoration-primary/20 italic">Online & Fast</span>
-        </h1>
-        <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-          The most flexible PDF combiner. Merge unlimited files or use our advanced 
-          "Insert Mode" to place documents precisely within existing pages.
-        </p>
-      </section>
 
       {/* 🟢 TOOL INTERFACE CARD */}
       <Card className="shadow-2xl border-t-8 border-primary overflow-hidden rounded-3xl">
