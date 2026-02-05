@@ -208,26 +208,21 @@ export default function BackgroundRemover() {
         <link rel="canonical" href="https://taskguru.online/tools/background-remover" />
       </Head>
 
-      {/* FIXED ADSENSE: Using strategy="afterInteractive" to solve the warning */}
-      
-
       <Script id="rating-schema" type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareSchema) }} />
       <Script id="faq-schema" type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
 
       <div className="space-y-16">
 
-        {/* HERO SECTION */}
-        <section className="max-w-4xl mx-auto text-center py-8 space-y-4">
-          <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight bg-gradient-to-r from-gray-900 to-gray-600 dark:from-white dark:to-gray-300 bg-clip-text text-transparent">
-            AI Background Remover: Make Images Transparent Instantly
-          </h1>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            The fastest way to remove backgrounds from photos. 100% Free, Automatic, and High-Quality. Perfect for professionals and creators.
-          </p>
-        </section>
+        {/* --- MAIN TITLE REMOVED --- */}
+        {/* We only keep the subtitle here. The Main Title comes from lib/tools.ts + Layout */}
+        <div className="text-center max-w-2xl mx-auto mt-4 mb-8">
+            <p className="text-lg text-slate-600 dark:text-slate-400">
+               Make images transparent instantly. 100% Free, Automatic, and High-Quality.
+            </p>
+        </div>
 
         {/* TOOL UI */}
-        <Card className="max-w-5xl mx-auto shadow-xl border-t-4 border-t-primary">
+        <Card className="max-w-5xl mx-auto shadow-xl border-t-4 border-t-primary mt-8">
           <CardContent className="p-8">
             {!originalImage ? (
               <label className="flex flex-col items-center justify-center border-3 border-dashed border-gray-300 dark:border-gray-700 rounded-xl p-16 text-center cursor-pointer hover:bg-muted/30 transition-all duration-300 w-full h-80 group">
