@@ -15,7 +15,7 @@ import MoreTools from '@/components/MoreTools';
 import ResumeMakerFlow from '@/components/tools/ResumeMakerFlow';
 import AgeCalculator from '@/components/tools/AgeCalculator';
 import MetalWeightCalculator from '@/components/tools/MetalWeightCalculator';
-import { ShieldCheck, Lock, Zap } from 'lucide-react'; // Icons add kiye
+import { ShieldCheck, Lock, Zap } from 'lucide-react';
 
 export async function generateStaticParams() {
   return tools.map((tool) => ({
@@ -62,18 +62,21 @@ export default function ToolPage({ params }: { params: { slug: string } }) {
   }
 
   return (
-    <main className="flex-1 py-12 md:py-16">
+    // ✅ FIX: Increased Top Padding (pt-32) to clear the Fixed Header
+    <main className="flex-1 pt-32 pb-12 md:pt-40 md:pb-16 min-h-screen">
       <div className="container mx-auto px-6">
-        <div className="text-center mb-12">
+        
+        {/* Title Section */}
+        <div className="text-center mb-12 animate-in fade-in slide-in-from-bottom-4 duration-700">
           <h1 className="text-3xl md:text-5xl font-extrabold font-headline tracking-tight text-foreground">
             {tool.title}
           </h1>
-          <p className="mt-3 text-base md:text-lg text-muted-foreground max-w-2xl mx-auto">
+          <p className="mt-4 text-base md:text-lg text-muted-foreground max-w-2xl mx-auto">
             {tool.description}
           </p>
         </div>
 
-        {/* ✅ TOOL RENDER SECTION */}
+        {/* Tool Render Section */}
         <div className="min-h-[400px] mb-20">
             {tool.slug === "resume-maker" ? (
             <ResumeMakerFlow />
@@ -92,18 +95,18 @@ export default function ToolPage({ params }: { params: { slug: string } }) {
             )}
         </div>
 
-        {/* 👇 NEW ADSENSE BOOSTER SECTION: Content jo har tool page par dikhega */}
+        {/* AdSense Booster Content Section */}
         <div className="max-w-4xl mx-auto py-12 border-t mt-12">
             
-            {/* 1. Dynamic Content from tools.ts (Agar aapne add kiya hai) */}
-            {/* @ts-ignore - Assuming content field might exist later */}
+            {/* Dynamic Content from tools.ts */}
+            {/* @ts-ignore */}
             {tool.content && (
                 <article className="prose prose-lg dark:prose-invert max-w-none mb-16">
                     <div dangerouslySetInnerHTML={{ __html: tool.content }} />
                 </article>
             )}
 
-            {/* 2. Static High-Value Content (Safety & Features) */}
+            {/* Static Trust Signals */}
             <div className="grid md:grid-cols-2 gap-8 mb-16">
                 <div className="bg-slate-50 dark:bg-slate-900 p-8 rounded-2xl">
                     <h3 className="text-xl font-bold mb-4 flex items-center gap-2">
@@ -131,7 +134,7 @@ export default function ToolPage({ params }: { params: { slug: string } }) {
                 </div>
             </div>
 
-            {/* 3. Generic How-To Guide (AdSense loves Instructions) */}
+            {/* How-To Guide */}
             <div className="space-y-6">
                 <h2 className="text-2xl font-bold">How to use {tool.title} online?</h2>
                 <div className="space-y-4">
@@ -154,7 +157,6 @@ export default function ToolPage({ params }: { params: { slug: string } }) {
 
       </div>
 
-      {/* More Tools Section */}
       <MoreTools />
     </main>
   );
