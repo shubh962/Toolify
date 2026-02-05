@@ -7,7 +7,6 @@ import { Button } from '@/components/ui/button';
 import { useToast } from '@/hooks/use-toast';
 import { Loader2, Copy, Trash2, Wand2, CheckCircle2, UserCheck, Zap, ShieldCheck, Globe, PenTool, BookOpen, Scale, Search } from 'lucide-react';
 import { Textarea } from '@/components/ui/textarea';
-// 👇 Ensure this path matches your server action
 import { handleTextParaphrasing } from '@/app/actions'; 
 
 export default function TextParaphraser() {
@@ -61,7 +60,6 @@ export default function TextParaphraser() {
 
   const charCount = inputText.length;
    
-  // ✅ SEO OPTIMIZED SCHEMA
   const faqSchema = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
@@ -105,10 +103,9 @@ export default function TextParaphraser() {
 
   return (
     <>
-      <title>Free Paraphrasing Tool | AI Text Rewriter & Plagiarism Remover</title>
-      <meta name="description" content="Best Free Online Paraphrasing Tool 2025. Rewrite essays, articles, and text instantly to avoid plagiarism. AI-powered sentence rephraser for students & SEO." />
-      <meta name="keywords" content="paraphrasing tool, free text rewriter, ai article spinner, plagiarism remover, rewrite essay, sentence rephraser, online text changer, paraphrase online free" />
-      <link rel="canonical" href="https://taskguru.online/tools/text-paraphraser" />
+      {/* ❌ REMOVED: <title> and <meta> tags 
+         (These are now handled by page.tsx using tools.ts)
+      */}
 
       <Script
         id="text-paraphraser-schema"
@@ -116,20 +113,15 @@ export default function TextParaphraser() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify([toolSchema, faqSchema]) }}
       />
 
-      <section className="container mx-auto px-4 py-12">
+      {/* Main Container - Reduced Top Padding because Layout already adds spacing */}
+      <section className="container mx-auto px-4">
         
-        {/* Intro Section */}
-        <div className="max-w-4xl mx-auto space-y-4 text-center mb-10">
-            <h1 className="text-4xl font-extrabold tracking-tight lg:text-5xl mb-4 text-foreground">
-              Free AI Paraphrasing Tool & Text Rewriter
-            </h1>
-            <p className="text-xl text-muted-foreground">
-              Rewrite essays, articles, and sentences instantly. Our <strong>AI Plagiarism Remover</strong> creates 100% unique, human-readable content for students and professionals.
-            </p>
-        </div>
+        {/* ❌ REMOVED: Top Hero Section (H1 + P)
+            (The Main Layout already displays the Title from tools.ts)
+        */}
 
-        {/* Main Tool Card */}
-        <Card className="w-full max-w-5xl mx-auto shadow-xl border-t-4 border-t-primary bg-card" >
+        {/* Main Tool Card - Added margin top to separate from Main Title */}
+        <Card className="w-full max-w-5xl mx-auto shadow-xl border-t-4 border-t-primary bg-card mt-8" >
             <CardContent className="p-6 md:p-8">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
                 {/* Input Side */}
@@ -317,7 +309,7 @@ export default function TextParaphraser() {
             </div>
           </article>
 
-          {/* ✅ NEW SECTION: Comparisons (Adds Educational Value) */}
+          {/* ✅ NEW SECTION: Comparisons */}
           <article className="bg-muted/30 p-8 rounded-xl border border-border">
              <h2 className="text-2xl font-bold text-foreground mb-6 flex items-center gap-2">
                 <BookOpen className="text-primary h-6 w-6" /> Paraphrasing vs. Summarizing vs. Quoting
@@ -344,7 +336,7 @@ export default function TextParaphraser() {
              </div>
           </article>
 
-          {/* ✅ NEW SECTION: SEO & Safety (Adds Trust) */}
+          {/* ✅ NEW SECTION: SEO & Safety */}
           <article>
             <h2 className="text-2xl font-bold text-foreground mb-4 flex items-center gap-2">
                 <Search className="text-primary h-6 w-6" /> Does AI Paraphrasing Affect SEO?
