@@ -153,8 +153,6 @@ export default function ImageCompressor() {
   return (
     <>
       <Head>
-        <title>Free Online Image Compressor | Reduce Image Size Without Losing Quality - TaskGuru</title>
-        <meta name="description" content="Easily compress JPG, PNG, and WebP images. Reduce file size for faster website loading and easier email sharing. 100% free, private and no signup required." />
         <meta name="keywords" content="image compressor, reduce image size, compress jpg, compress png, online photo optimizer, taskguru" />
         <link rel="canonical" href="https://taskguru.online/tools/image-compressor" />
       </Head>
