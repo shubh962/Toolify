@@ -172,6 +172,9 @@ export default function ImageCompressor() {
       <div className="max-w-6xl mx-auto px-4 py-12 space-y-24 text-gray-800 dark:text-gray-100">
 
         {/* HERO SECTION */}
+        <section className="text-center space-y-8">
+          <h1 className="text-4xl md:text-6xl font-black leading-tight text-gray-900 dark:text-white">
+            Free Online Image Compressor: <span className="text-primary">Reduce Image Size Without Losing Quality</span>
           </h1>
           <p className="text-xl text-muted-foreground max-w-4xl mx-auto leading-relaxed">
             Easily compress JPG, PNG, and WebP images to make them smaller for faster website loading, quicker email sending, better social media uploads, and more phone storage. 100% free, no signup, no watermarks – everything happens instantly in your browser!
