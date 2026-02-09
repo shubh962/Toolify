@@ -159,13 +159,7 @@ export default function PdfToWord() {
     ]
   };
 
-  return (
-    <>
-      <Head>
-        <title>Free PDF to Word Converter Online (Unlimited & Secure) | TaskGuru</title>
-        <meta name="description" content="Convert PDF to Word for free with TaskGuru. No file size limits, no sign-up, and 100% private. Turn scanned PDFs into editable DOCX files instantly." />
-      </Head>
-      <Script id="faq-schema" type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
+  return 
 
       {/* --- TOOL INTERFACE --- */}
       <Card className="w-full max-w-2xl mx-auto shadow-2xl my-10 border-2 border-primary/10 rounded-[2rem] bg-white dark:bg-gray-900">
