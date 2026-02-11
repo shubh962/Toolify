@@ -6,6 +6,14 @@ import Script from 'next/script';
 
 // ✅ CONFIGURATION: Only listing the 3 Active Articles we created
 const posts = [
+    {
+    slug: 'zero-cost-freelancer-tools',
+    title: 'The "Zero-Cost" Tech Stack: 5 Free Tools Every Freelancer Needs in 2026',
+    summary: 'Stop paying for expensive subscriptions. Discover 5 essential free tools that replace paid software for designers, marketers, and freelancers.',
+    date: 'February 12, 2026',
+    category: 'Freelancing',
+    featured: true,
+  },
   {
     slug: 'youtube-thumbnail-guide',
     title: 'The Science of Click-Through Rates: Why 1080p Thumbnails Win',
