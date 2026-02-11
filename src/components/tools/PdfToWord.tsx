@@ -1,7 +1,6 @@
 'use client';
 
 import { useState, useRef, DragEvent, useEffect } from 'react';
-import Head from 'next/head';
 import Script from 'next/script';
 import Link from 'next/link';
 import { Card, CardContent, CardFooter } from '@/components/ui/card';
@@ -60,7 +59,6 @@ export default function PdfToWord() {
       const totalPages = pdf.numPages;
       
       const docChildren = [];
-
       for (let i = 1; i <= totalPages; i++) {
         const page = await pdf.getPage(i);
         const textContent = await page.getTextContent();
@@ -94,7 +92,7 @@ export default function PdfToWord() {
         }
         
         if (i < totalPages) {
-           docChildren.push(new Paragraph({ text: "" })); 
+           docChildren.push(new Paragraph({ text: "" }));
         }
       }
 
@@ -161,14 +159,14 @@ export default function PdfToWord() {
 
   return (
     <>
-      <Head>
-        <title>Free PDF to Word Converter Online (Unlimited & Secure) | TaskGuru</title>
-        <meta name="description" content="Convert PDF to Word for free with TaskGuru. No file size limits, no sign-up, and 100% private. Turn scanned PDFs into editable DOCX files instantly." />
-      </Head>
+      {/* ❌ REMOVED <Head> (Title & Meta) - Handled by Main Layout */}
+      
       <Script id="faq-schema" type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
 
       {/* --- TOOL INTERFACE --- */}
-      <Card className="w-full max-w-2xl mx-auto shadow-2xl my-10 border-2 border-primary/10 rounded-[2rem] bg-white dark:bg-gray-900">
+      
+      {/* Added 'mt-8' to push card down from the main title */}
+      <Card className="w-full max-w-2xl mx-auto shadow-2xl my-10 mt-8 border-2 border-primary/10 rounded-[2rem] bg-white dark:bg-gray-900">
         <CardContent className="p-6 sm:p-10">
           {!file ? (
             <div
@@ -183,6 +181,7 @@ export default function PdfToWord() {
               <div className="p-6 bg-blue-50 text-blue-600 rounded-full shadow-sm animate-bounce">
                 <Upload className="w-10 h-10" />
               </div>
+    
               <div className="text-center space-y-2">
                 <h2 className="text-2xl font-black text-gray-800 dark:text-white">Upload PDF File</h2>
                 <p className="text-gray-500 font-medium">Drag & Drop or Click to Browse</p>
@@ -234,10 +233,13 @@ export default function PdfToWord() {
         )}
       </Card>
 
-      {/* --- SEO STRUCTURED CONTENT (Featured Snippet Optimized) --- */}
+      {/* --- SEO STRUCTURED CONTENT --- */}
       <article className="max-w-5xl mx-auto px-6 py-16 space-y-20 font-sans text-gray-600 dark:text-gray-300">
         
-        {/* 1. H1 + Direct Answer (Featured Snippet Target) */}
+        {/* ❌ REMOVED: Duplicate H1 Title */}
+        
+        <section className="text-center space-y-8">
+          {/* Quick Answer Box (Kept for SEO) */}
           <div className="bg-blue-50 dark:bg-blue-900/10 p-8 md:p-10 rounded-[2.5rem] border border-blue-100 dark:border-blue-900 text-left max-w-4xl mx-auto shadow-sm">
             <div className="flex items-center gap-3 mb-4">
                 <Sparkles className="w-5 h-5 text-blue-600" />
@@ -245,14 +247,14 @@ export default function PdfToWord() {
             </div>
             <p className="text-lg md:text-xl text-gray-800 dark:text-gray-200 leading-relaxed font-medium">
               TaskGuru provides the fastest way to <strong>convert PDF to Word for free</strong>. 
-              Our advanced browser-based tool extracts text from your PDF and reconstructs it into an <strong>editable Microsoft Word document (.docx)</strong> instantly. 
-              Unlike traditional converters, TaskGuru processes files <strong>100% on your device</strong> (Client-Side Technology). 
+              Our advanced browser-based tool extracts text from your PDF and reconstructs it into an <strong>editable Microsoft Word document (.docx)</strong> instantly.
+              Unlike traditional converters, TaskGuru processes files <strong>100% on your device</strong> (Client-Side Technology).
               This ensures <strong>military-grade privacy</strong> and allows you to convert unlimited files of any size without uploading data to a server.
             </p>
           </div>
         </section>
 
-        {/* 2. How It Works (Step-by-Step) */}
+        {/* 2. How It Works */}
         <section>
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-black text-gray-900 dark:text-white mb-4">How to Convert PDF to Word Online?</h2>
@@ -287,7 +289,7 @@ export default function PdfToWord() {
           </div>
         </section>
 
-        {/* 3. Key Benefits (Detailed Breakdown) */}
+        {/* 3. Key Benefits */}
         <section className="bg-gray-50 dark:bg-gray-800/30 p-10 md:p-16 rounded-[3rem]">
           <h2 className="text-3xl md:text-4xl font-black text-gray-900 dark:text-white mb-12 text-center">Why TaskGuru is the Best Choice?</h2>
           <div className="grid md:grid-cols-2 gap-x-12 gap-y-10">
@@ -297,7 +299,7 @@ export default function PdfToWord() {
                 </div>
                 <div>
                     <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">100% Privacy Guarantee</h3>
-                    <p className="leading-relaxed">Most online converters upload your files to their servers, creating a risk of data breaches. TaskGuru is different. Your file stays on your computer. You can even disconnect the internet after loading the page, and it will still work!</p>
+                    <p className="leading-relaxed">Most online converters upload your files to their servers, creating a risk of data breaches. TaskGuru is different. Your file stays on your computer.</p>
                 </div>
             </div>
             <div className="flex gap-5">
@@ -306,7 +308,7 @@ export default function PdfToWord() {
                 </div>
                 <div>
                     <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">Unlimited File Size</h3>
-                    <p className="leading-relaxed">Server-based tools have limits (e.g., 5MB or 10MB) to save costs. Since we use your device's processing power, there are no limits. Convert a 200-page thesis or a 500MB legal bundle without errors.</p>
+                    <p className="leading-relaxed">Server-based tools have limits. Since we use your device's processing power, there are no limits. Convert a 200-page thesis easily.</p>
                 </div>
             </div>
             <div className="flex gap-5">
@@ -315,7 +317,7 @@ export default function PdfToWord() {
                 </div>
                 <div>
                     <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">Cross-Platform Compatibility</h3>
-                    <p className="leading-relaxed">Whether you are using Windows 11, macOS, Linux (Ubuntu), Android, or iOS, our tool works perfectly. No need to install heavy software like Adobe Acrobat or Microsoft Office.</p>
+                    <p className="leading-relaxed">Whether you are using Windows 11, macOS, Linux (Ubuntu), Android, or iOS, our tool works perfectly.</p>
                 </div>
             </div>
             <div className="flex gap-5">
@@ -324,13 +326,13 @@ export default function PdfToWord() {
                 </div>
                 <div>
                     <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">Lightning Fast Speed</h3>
-                    <p className="leading-relaxed">Skip the upload and download queues. Traditional tools waste time uploading your file to the cloud. TaskGuru converts locally in milliseconds, saving you valuable time.</p>
+                    <p className="leading-relaxed">Skip the upload and download queues. TaskGuru converts locally in milliseconds, saving you valuable time.</p>
                 </div>
             </div>
           </div>
         </section>
 
-        {/* 4. Deep Dive: Real World Use Cases */}
+        {/* 4. Use Cases */}
         <section>
           <h2 className="text-3xl font-black text-gray-900 dark:text-white mb-8">Who Needs This Tool?</h2>
           <div className="grid md:grid-cols-3 gap-6">
@@ -352,11 +354,11 @@ export default function PdfToWord() {
           </div>
         </section>
 
-        {/* 5. Client-Side vs Server-Side Comparison */}
+      {/* 5. Comparison Table */}
         <section>
           <h2 className="text-3xl font-black text-gray-900 dark:text-white mb-8">Why "Client-Side" is Better?</h2>
           <div className="overflow-x-auto">
-            <table className="w-full text-left border-collapse rounded-2xl overflow-hidden shadow-lg">
+             <table className="w-full text-left border-collapse rounded-2xl overflow-hidden shadow-lg">
                 <thead className="bg-gray-900 text-white">
                     <tr>
                         <th className="p-4 md:p-6 text-lg">Feature</th>
@@ -390,7 +392,7 @@ export default function PdfToWord() {
           </div>
         </section>
 
-        {/* 6. Tips for Best Results */}
+        {/* 6. Tips */}
         <section className="bg-yellow-50 dark:bg-yellow-900/10 p-8 rounded-3xl border border-yellow-200 dark:border-yellow-800">
              <div className="flex items-center gap-3 mb-4">
                 <AlertCircle className="w-6 h-6 text-yellow-600" />
@@ -403,7 +405,7 @@ export default function PdfToWord() {
             </ul>
         </section>
 
-        {/* 7. Internal Linking (Boost SEO) */}
+        {/* 7. Internal Linking */}
         <section className="bg-gray-50 dark:bg-gray-800/50 p-10 rounded-[2.5rem]">
           <h2 className="text-2xl font-bold mb-8 text-center">Explore More Free Productivity Tools</h2>
           <div className="grid md:grid-cols-2 gap-6">
@@ -450,7 +452,7 @@ export default function PdfToWord() {
           </div>
         </section>
 
-        {/* 8. FAQ Section (Schema Optimized) */}
+        {/* 8. FAQ Section */}
         <section>
           <h2 className="text-3xl font-black text-gray-900 dark:text-white mb-8">Frequently Asked Questions</h2>
           <div className="space-y-4">
