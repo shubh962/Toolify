@@ -238,11 +238,6 @@ export default function PdfToWord() {
       <article className="max-w-5xl mx-auto px-6 py-16 space-y-20 font-sans text-gray-600 dark:text-gray-300">
         
         {/* 1. H1 + Direct Answer (Featured Snippet Target) */}
-        <section className="text-center space-y-8">
-          <h1 className="text-5xl md:text-7xl font-black text-gray-900 dark:text-white tracking-tight leading-none">
-            Convert PDF to Word <span className="text-blue-600">Free Online</span>
-          </h1>
-          
           <div className="bg-blue-50 dark:bg-blue-900/10 p-8 md:p-10 rounded-[2.5rem] border border-blue-100 dark:border-blue-900 text-left max-w-4xl mx-auto shadow-sm">
             <div className="flex items-center gap-3 mb-4">
                 <Sparkles className="w-5 h-5 text-blue-600" />
