@@ -15,6 +15,8 @@ import MoreTools from '@/components/MoreTools';
 import ResumeMakerFlow from '@/components/tools/ResumeMakerFlow';
 import AgeCalculator from '@/components/tools/AgeCalculator';
 import MetalWeightCalculator from '@/components/tools/MetalWeightCalculator';
+import EmiCalculator from '@/components/tools/EmiCalculator';
+
 import { ShieldCheck, Lock, Zap } from 'lucide-react';
 
 export async function generateStaticParams() {
@@ -53,6 +55,7 @@ const toolComponentMap: { [key: string]: React.ComponentType<any> } = {
   "metal-weight-calculator": MetalWeightCalculator,
   "split-pdf": SplitPdf,
   "youtube-thumbnail-downloader": YoutubeThumbnail,
+  "emi-calculator": EmiCalculator,
 };
 
 export default function ToolPage({ params }: { params: { slug: string } }) {
