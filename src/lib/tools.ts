@@ -10,6 +10,7 @@ import {
   Scissors,
   Calculator,
   Youtube,
+  QrCode,
 } from 'lucide-react';
 
 export interface Tool {
@@ -167,6 +168,16 @@ export const tools: Tool[] = [
       <h3>Get Hired Faster</h3>
       <p>Don't let formatting issues cost you an interview. The TaskGuru Resume Builder creates clean, ATS-friendly resumes that recruiters love. Simply fill in your details and download the PDF.</p>
     `
+  },
+  {
+    slug: 'qr-barcode-generator',
+    title: 'Free QR Code & Barcode Generator',
+    description: 'All-in-one generator for custom QR Codes (URL, WiFi) and Barcodes (EAN, UPC, CODE128). Download high-quality PNGs instantly.',
+    icon: QrCode,
+    isGenAI: false,
+    isPlaceholder: false,
+    imageUrl: '/tool-previews/qr-barcode.png',
+    content: ''
   },
   {
     slug: 'age-calculator',
