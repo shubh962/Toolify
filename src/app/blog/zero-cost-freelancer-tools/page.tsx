@@ -1,4 +1,4 @@
-import Image from "next/image"; // ✅ Imported for Images
+import Image from "next/image";
 import Link from "next/link";
 import { ArrowLeft, ArrowRight, Zap, DollarSign, Smartphone, ImageIcon, Layers, CheckCircle2, XCircle, HelpCircle, ScanLine, FileText, Wand2, AlertTriangle, Lightbulb } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -40,16 +40,20 @@ export default function BlogPost() {
           <span className="flex items-center gap-1 bg-amber-50 text-amber-700 px-2 py-1 rounded"><Zap className="w-3 h-3" /> 8 Min Read</span>
         </div>
       </header>
-      
-      {/* 📸 IMAGE SLOT 1: HERO IMAGE */}
-       <div className="mb-16 relative aspect-video rounded-3xl overflow-hidden shadow-2xl">
+
+      {/* 📸 IMAGE SLOT 1: HERO IMAGE 
+          To enable this image:
+          1. Add 'hero.jpg' to 'public/blog/' folder.
+          2. Remove the {/* and */} surrounding the div below.
+      */}
+      {/* <div className="mb-16 relative aspect-video rounded-3xl overflow-hidden shadow-2xl">
         <Image 
           src="/blog/hero.jpg" 
           alt="Freelancer working on laptop with zero cost tools" 
           fill 
           className="object-cover"
           priority
-        /> {/* ✅ Fixed: Added closing slash /> */}
+        />
       </div> 
       */}
 
@@ -65,7 +69,7 @@ export default function BlogPost() {
         </p>
         
         <p>
-          For a beginner or a student, that is not just expensive—it's unsustainable.
+          For a beginner or a student, that is not just expensive—it is unsustainable.
         </p>
 
         <div className="bg-amber-50 border-l-4 border-amber-400 p-6 my-8 rounded-r-xl">
@@ -120,11 +124,16 @@ export default function BlogPost() {
             I used to spend 20 minutes manually tracing edges with the "Pen Tool" in Photoshop. It was tedious and boring.
         </p>
         
-        {* 📸 IMAGE SLOT 2: BACKGROUND REMOVER EXAMPLE */}
-        {* <div className="my-8 rounded-2xl overflow-hidden border border-slate-200 shadow-lg">
-          <Image src="/blog/bg-remover-demo.jpg" alt="Before and after background removal" width={800} height={400} />
+        {/* 📸 IMAGE SLOT 2: BACKGROUND REMOVER EXAMPLE */}
+        {/* <div className="my-8 rounded-2xl overflow-hidden border border-slate-200 shadow-lg">
+          <Image 
+            src="/blog/bg-remover-demo.jpg" 
+            alt="Before and after background removal" 
+            width={800} 
+            height={400} 
+          />
         </div> 
-        *}
+        */}
 
         <div className="bg-blue-50 p-6 rounded-2xl border border-blue-100 my-6">
             <h4 className="text-blue-900 font-bold flex items-center gap-2 m-0 mb-2">
