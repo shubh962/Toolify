@@ -1,9 +1,7 @@
-// src/components/tools/ImageToPdf.tsx
 "use client";
 
 import { useState, useRef, useEffect } from "react";
-// ✅ WORKING FIX: We use the original import method that worked for you.
-import { PDFDocument } from "pdf-lib"; 
+import { PDFDocument } from "pdf-lib";
 import Link from "next/link";
 import Script from "next/script";
 
@@ -17,29 +15,25 @@ import {
   RotateCcw,
   FileText,
   Download,
-  Sparkles,
-  MoveRight,
   Image as ImageIcon,
-  FileImage,
-  Scissors,
-  FileText as FileTextIcon,
-  Merge,
-  Highlighter,
-  Lock,
   Check,
   FileAxis3D,
-  Zap,
-  BrainCircuit,
-  ScanText,
   ShieldCheck,
-  Globe,
+  Zap,
   Briefcase,
   GraduationCap,
+  Globe,
   Layers,
-  HelpCircle
+  HelpCircle,
+  Scissors,
+  FileImage,
+  Merge,
+  BrainCircuit,
+  ScanText,
+  MoveRight
 } from "lucide-react";
 
-// ⭐ SAFE CANVAS LOADER (Original working code)
+// ⭐ SAFE CANVAS LOADER
 const loadSafeCanvas = (file: File): Promise<{ preview: string; canvas: HTMLCanvasElement }> =>
   new Promise((resolve, reject) => {
     const reader = new FileReader();
@@ -79,7 +73,6 @@ const loadSafeCanvas = (file: File): Promise<{ preview: string; canvas: HTMLCanv
     reader.readAsDataURL(file);
   });
 
-// ⭐ MAIN TOOL COMPONENT
 export default function ImageToPdf() {
   const fileRef = useRef<HTMLInputElement>(null);
   const [preview, setPreview] = useState<string | null>(null);
@@ -92,7 +85,6 @@ export default function ImageToPdf() {
     return () => pdfUrl && URL.revokeObjectURL(pdfUrl);
   }, [pdfUrl]);
 
-  // ⭐ Handle file upload
   const handleUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
@@ -117,7 +109,6 @@ export default function ImageToPdf() {
     setLoading(false);
   };
 
-  // ⭐ Convert to PDF
   const convertToPdf = async () => {
     if (!canvas) return;
     setLoading(true);
@@ -157,7 +148,6 @@ export default function ImageToPdf() {
     setLoading(false);
   };
 
-  // ⭐ Reset
   const reset = () => {
     setPreview(null);
     setCanvas(null);
@@ -167,8 +157,7 @@ export default function ImageToPdf() {
     if (fileRef.current) fileRef.current.value = "";
   };
 
-  // ⭐ Reusable Tool card
-  const ToolCard = ({ icon: Icon, title, desc, href, cta, iconColor }) => (
+  const ToolCard = ({ icon: Icon, title, desc, href, cta, iconColor }: any) => (
     <Link href={href} prefetch={false} className="group">
       <div className="p-6 border rounded-xl hover:shadow-xl transition duration-300 bg-card dark:bg-gray-900 flex flex-col items-center text-center h-full">
           <Icon className={`w-8 h-8 mb-3 transition-colors ${iconColor} group-hover:text-primary`} />
@@ -185,14 +174,15 @@ export default function ImageToPdf() {
   return (
     <div className="container mx-auto px-4">
       
-      {/* ❌ REMOVED: Duplicate Header (H1 handled by Layout) */}
+      {/* ❌ REMOVED: Duplicate Header Section */}
+      {/* The Main Title is now handled by page.tsx */}
 
-      {/* TOOL CARD - Added margin top to separate from Main Title */}
+      {/* TOOL CARD - Added margin top (mt-8) for spacing */}
       <Card className="max-w-5xl mx-auto shadow-2xl rounded-3xl border-t-8 border-primary mt-8 overflow-hidden">
         <CardContent className="p-8 md:p-12">
 
           {!preview ? (
-            // ⭐ Upload Section
+            // Upload Section
             <div
               onClick={() => fileRef.current?.click()}
               className="p-16 border-4 border-dashed rounded-3xl text-center cursor-pointer hover:border-primary transition-all bg-muted/20 hover:bg-primary/5 flex flex-col items-center justify-center group"
@@ -215,7 +205,7 @@ export default function ImageToPdf() {
               />
             </div>
           ) : (
-            // ⭐ Preview & Convert Section
+            // Preview & Convert Section
             <div className="grid md:grid-cols-2 gap-10">
 
               <div>
@@ -276,7 +266,7 @@ export default function ImageToPdf() {
         </CardContent>
       </Card>
       
-      {/* 🌟 DISCOVER MORE TOOLS SECTION 🌟 */}
+      {/* 🌟 DISCOVER MORE TOOLS 🌟 */}
       <section className="max-w-5xl mx-auto px-4 mt-24 pt-10 border-t border-muted">
         <div className="text-center mb-10">
             <h2 className="text-3xl font-black tracking-tight text-foreground">
@@ -297,7 +287,7 @@ export default function ImageToPdf() {
         </div>
       </section>
 
-      {/* 🚀 EXTENDED HIGH-VALUE CONTENT (2000+ Words for SEO) */}
+      {/* 🚀 SEO CONTENT (English Global Keywords) */}
       <article className="max-w-4xl mx-auto mt-24 space-y-16 text-gray-700 dark:text-gray-300 leading-relaxed font-sans">
         
         {/* Intro */}
@@ -306,7 +296,7 @@ export default function ImageToPdf() {
                 The Ultimate Free Image to PDF Converter
             </h2>
             <p className="text-xl">
-                In today's digital workflow, sending scattered JPEG or PNG files is unprofessional and disorganized. Whether you are applying for a job, submitting college assignments, or archiving receipts, a single, clean PDF file is the gold standard. <strong>TaskGuru's Image to PDF Converter</strong> allows you to transform your photos into a professional document instantly—directly in your browser.
+                In today's digital workflow, sending scattered JPEG or PNG files is unprofessional. Whether you are applying for a job, submitting college assignments, or archiving receipts, a single, clean PDF file is the gold standard. <strong>TaskGuru's Image to PDF Converter</strong> allows you to transform your photos into a professional document instantly—directly in your browser.
             </p>
         </section>
 
@@ -358,60 +348,6 @@ export default function ImageToPdf() {
             </div>
         </section>
 
-        {/* Use Cases - Who Needs This? */}
-        <section className="bg-gray-50 dark:bg-gray-800/50 p-10 rounded-[2.5rem]">
-            <h2 className="text-3xl font-bold mb-10 text-center text-foreground">Who is this Tool For?</h2>
-            <div className="grid md:grid-cols-2 gap-8">
-                <div className="flex gap-4">
-                    <GraduationCap className="w-10 h-10 text-primary" />
-                    <div>
-                        <h4 className="text-xl font-bold text-foreground">Students & Academics</h4>
-                        <p className="text-sm mt-2">
-                            Take photos of your handwritten notes, diagrams, or whiteboard sessions and convert them into a clean PDF. Perfect for submitting assignments to online portals like Blackboard, Canvas, or Google Classroom where image formats are often not accepted.
-                        </p>
-                    </div>
-                </div>
-                <div className="flex gap-4">
-                    <Briefcase className="w-10 h-10 text-primary" />
-                    <div>
-                        <h4 className="text-xl font-bold text-foreground">Business Professionals</h4>
-                        <p className="text-sm mt-2">
-                            Need to send a receipt for expense reimbursement? Or archive a signed contract? Converting a photo of a document into a PDF makes it look professional, searchable, and easier to archive in company systems.
-                        </p>
-                    </div>
-                </div>
-                <div className="flex gap-4">
-                    <Globe className="w-10 h-10 text-primary" />
-                    <div>
-                        <h4 className="text-xl font-bold text-foreground">Travelers & Expats</h4>
-                        <p className="text-sm mt-2">
-                            Keep digital copies of your passport, visa, and ID cards. Converting photos of these IDs into a PDF allows you to keep a secure backup on your phone that can be easily printed or emailed in emergencies.
-                        </p>
-                    </div>
-                </div>
-                <div className="flex gap-4">
-                    <Layers className="w-10 h-10 text-primary" />
-                    <div>
-                        <h4 className="text-xl font-bold text-foreground">Designers & Artists</h4>
-                        <p className="text-sm mt-2">
-                            Share your sketches or mood boards with clients without sending heavy raw image files. A PDF ensures your layout remains consistent across different devices and screens.
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        {/* Global Keyword Integration Paragraphs */}
-        <section className="space-y-6">
-            <h3 className="text-2xl font-bold text-foreground">Why Convert JPG to PDF?</h3>
-            <p>
-                While JPG (Joint Photographic Experts Group) is excellent for photographs due to its compression, it is not ideal for documents. JPGs do not support multi-page layouts, and their quality can degrade with repeated saving. <strong>PDF (Portable Document Format)</strong>, on the other hand, is the global standard for document sharing. It preserves layout, fonts, and quality regardless of the device or software used to view it.
-            </p>
-            <p>
-                By using a <strong>JPG to PDF Converter</strong>, you ensure that your file is universally compatible. Whether the recipient is opening it on an iPhone, an Android tablet, a Windows PC, or a Mac, the document will look exactly the same. Furthermore, PDFs are often significantly smaller in file size compared to high-resolution raw images, making them easier to email.
-            </p>
-        </section>
-
         {/* FAQ Section */}
         <section className="border-t border-muted pt-16">
             <h2 className="text-3xl font-bold mb-10 text-center text-foreground flex items-center justify-center gap-3">
@@ -423,16 +359,8 @@ export default function ImageToPdf() {
                     <p className="text-muted-foreground">Yes! TaskGuru is committed to providing free, high-quality tools. There are no hidden costs, no premium subscriptions, and no limits on how many times you can use the tool.</p>
                 </div>
                 <div className="border border-gray-200 dark:border-gray-700 rounded-2xl p-6 bg-card">
-                    <h3 className="text-lg font-bold text-foreground mb-2">Can I convert multiple images into one PDF?</h3>
-                    <p className="text-muted-foreground">Currently, this tool processes one image at a time to ensure maximum quality and precise A4 formatting. If you have multiple PDFs that you created from images, you can use our <Link href="/tools/merge-pdf" className="text-primary underline">Merge PDF Tool</Link> to combine them into a single document instantly.</p>
-                </div>
-                <div className="border border-gray-200 dark:border-gray-700 rounded-2xl p-6 bg-card">
                     <h3 className="text-lg font-bold text-foreground mb-2">Does it support PNG and WebP formats?</h3>
                     <p className="text-muted-foreground">Absolutely. While many tools only support JPG, TaskGuru supports PNG (ideal for screenshots with text) and WebP (modern web images). Our engine automatically handles transparency and conversion logic.</p>
-                </div>
-                <div className="border border-gray-200 dark:border-gray-700 rounded-2xl p-6 bg-card">
-                    <h3 className="text-lg font-bold text-foreground mb-2">Will my image quality be reduced?</h3>
-                    <p className="text-muted-foreground">We prioritize quality. The tool uses a smart compression algorithm that reduces file size slightly for web sharing but maintains the visual sharpness required for printing. Your text documents will remain crisp and readable.</p>
                 </div>
                 <div className="border border-gray-200 dark:border-gray-700 rounded-2xl p-6 bg-card">
                     <h3 className="text-lg font-bold text-foreground mb-2">Do I need to install software?</h3>
@@ -445,3 +373,4 @@ export default function ImageToPdf() {
     </div>
   );
 }
+
