@@ -3,6 +3,7 @@
 import { useState, useRef } from 'react';
 import { QRCodeCanvas } from 'qrcode.react';
 import Barcode from 'react-barcode';
+import Link from 'next/link';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -10,7 +11,10 @@ import { Label } from '@/components/ui/label';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Slider } from '@/components/ui/slider';
-import { Download, QrCode, ScanBarcode, Settings2, Palette, ShieldCheck, Zap, Globe, Lock, HelpCircle } from 'lucide-react';
+import { 
+  Download, QrCode, ScanBarcode, Settings2, Palette, ShieldCheck, Zap, Globe, Lock, HelpCircle,
+  FileImage, Scissors, ScanText, MoveRight 
+} from 'lucide-react';
 
 export default function QrBarcodeGenerator() {
   const [activeTab, setActiveTab] = useState('qr');
@@ -72,23 +76,27 @@ export default function QrBarcodeGenerator() {
     document.body.removeChild(link);
   };
 
+  // ✅ Reusable Tool Card
+  const ToolCard = ({ icon: Icon, title, desc, href, cta, iconColor }: any) => (
+    <Link href={href} prefetch={false} className="group">
+      <div className="p-6 border rounded-xl hover:shadow-xl transition duration-300 bg-card dark:bg-gray-900 flex flex-col items-center text-center h-full">
+          <Icon className={`w-8 h-8 mb-3 transition-colors ${iconColor} group-hover:text-primary`} />
+          <h3 className="font-bold text-lg text-foreground mb-1">{title}</h3>
+          <p className="text-sm text-muted-foreground mb-4 flex-grow">{desc}</p>
+          <div className="mt-auto text-sm font-semibold text-primary group-hover:text-indigo-600 flex items-center">
+            {cta} <MoveRight className="w-4 h-4 ml-1 transition-transform group-hover:translate-x-1" />
+          </div>
+      </div>
+    </Link>
+  );
+
   return (
     <div className="max-w-6xl mx-auto space-y-16">
       
-      {/* HEADER SECTION (In-Component) */}
-      <header className="text-center mb-10 mt-10">
-        <div className="inline-flex items-center gap-3 p-3 bg-primary/10 rounded-full mb-3">
-           <QrCode className="w-6 h-6 text-primary" />
-        </div>
-        <h2 className="text-4xl md:text-5xl font-extrabold tracking-tight text-foreground">
-          Free QR Code & Barcode Generator
-        </h2>
-        <p className="mt-3 text-xl text-muted-foreground max-w-2xl mx-auto">
-          Create unlimited custom QR codes and scannable barcodes instantly. Private, fast, and free forever.
-        </p>
-      </header>
+      {/* ❌ HEADER REMOVED: Main Layout handles the H1 Title */}
 
-      <Tabs defaultValue="qr" className="w-full" onValueChange={setActiveTab}>
+      {/* Added 'mt-8' to give some space after the main title */}
+      <Tabs defaultValue="qr" className="w-full mt-8" onValueChange={setActiveTab}>
         
         {/* TABS HEADER */}
         <div className="flex justify-center mb-10">
@@ -288,7 +296,43 @@ export default function QrBarcodeGenerator() {
         </section>
 
       </article>
+
+      {/* 🌟 SMART RELATED TOOLS (Contextual) 🌟 */}
+      <section className="max-w-4xl mx-auto pt-10 border-t border-muted">
+        <div className="text-center mb-8">
+            <h3 className="text-2xl font-bold text-foreground">
+                Useful Tools for Designers & Marketers
+            </h3>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+            <ToolCard 
+                icon={FileImage} 
+                iconColor="text-green-600" 
+                title="Image Compressor" 
+                desc="Optimize your QR codes for faster website loading." 
+                href="/tools/image-compressor" 
+                cta="Compress" 
+            />
+            <ToolCard 
+                icon={Scissors} 
+                iconColor="text-indigo-600" 
+                title="Background Remover" 
+                desc="Create transparent logos to add inside your QR codes." 
+                href="/tools/background-remover" 
+                cta="Remove BG" 
+            />
+             <ToolCard 
+                icon={ScanText} 
+                iconColor="text-yellow-600" 
+                title="Image to Text" 
+                desc="Extract text/links from existing static QR code images." 
+                href="/tools/image-to-text" 
+                cta="Scan Now" 
+            />
+        </div>
+      </section>
+
     </div>
   );
-      }
-      
+}
