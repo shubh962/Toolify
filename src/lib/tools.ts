@@ -25,9 +25,9 @@ export interface Tool {
 export const tools: Tool[] = [
   {
     slug: 'background-remover',
-    title: 'AI Background Remover',
+    title: 'Free AI Background Remover Online',
     description:
-      'Remove image backgrounds automatically with AI. Ideal for product images, eCommerce, thumbnails, portraits and social media creatives. Fast, clean and accurate.',
+      'Remove image backgrounds instantly using advanced AI. Create transparent PNG images for eCommerce, thumbnails, product photos and social media in seconds.',
     icon: ImageMinus,
     isGenAI: true,
     imageUrl: '/tool-previews/bg-remover.png',
@@ -45,9 +45,9 @@ export const tools: Tool[] = [
   },
   {
     slug: 'image-to-text',
-    title: 'Image to Text (OCR)',
+    title: 'Free Image to Text Converter (OCR Online)',
     description:
-      'Extract text from photos, scans, screenshots, documents and handwritten notes using advanced OCR. Supports multi-language recognition.',
+      'Extract text from images, scanned PDFs, handwritten notes and screenshots using fast and accurate OCR technology with multi-language support.',
     icon: ScanText,
     isGenAI: true,
     imageUrl: '/tool-previews/ocr-tool.png',
@@ -60,9 +60,9 @@ export const tools: Tool[] = [
   },
   {
     slug: 'text-paraphraser',
-    title: 'AI Text Paraphraser',
+    title: 'AI Text Paraphrasing Tool (Plagiarism-Free)',
     description:
-      'Rewrite text instantly. Improve clarity, remove plagiarism, enhance tone, and generate professional-quality rewrites for essays and blogs.',
+      'Rewrite sentences and paragraphs instantly with AI. Improve clarity, remove plagiarism, enhance tone and generate professional content for essays and blogs.',
     icon: PenSquare,
     isGenAI: true,
     imageUrl: '/tool-previews/paraphraser.png',
@@ -78,9 +78,9 @@ export const tools: Tool[] = [
   },
   {
     slug: 'pdf-to-word',
-    title: 'PDF to Word Converter',
+    title: 'PDF to Word Converter Online (DOCX)',
     description:
-      'Convert PDF files into fully editable Word documents (DOCX). Maintains formatting, fonts and layout while offering fast conversion.',
+      'Convert PDF files into fully editable Word documents online while preserving formatting, fonts, tables and layout with fast processing.',
     icon: FileText,
     isGenAI: false,
     isPlaceholder: false,
@@ -93,9 +93,9 @@ export const tools: Tool[] = [
   },
   {
     slug: 'merge-pdf',
-    title: 'Merge PDF Files',
+    title: 'Merge PDF Files Online (Free PDF Combiner)',
     description:
-      'Combine multiple PDF files into a single document quickly and securely. Suitable for reports, assignments, and digital portfolios.',
+      'Combine multiple PDF files into a single document securely. Ideal for reports, assignments, invoices and digital portfolios.',
     icon: Combine,
     isGenAI: false,
     isPlaceholder: false,
@@ -108,9 +108,9 @@ export const tools: Tool[] = [
   },
   {
     slug: 'split-pdf',
-    title: 'Split PDF',
+    title: 'Split PDF Online (Extract PDF Pages)',
     description:
-      'Split PDF pages instantly. TaskGuru keeps your files private by processing everything locally, with no uploads or watermarks.',
+      'Split large PDF files into smaller documents instantly. Extract specific pages securely with no uploads or watermarks.',
     icon: Scissors,
     isGenAI: false,
     isPlaceholder: false,
@@ -122,9 +122,9 @@ export const tools: Tool[] = [
   },
   {
     slug: 'image-compressor',
-    title: 'Image Compressor',
+    title: 'Free Image Compressor (Reduce JPG & PNG Size)',
     description:
-      'Reduce PNG and JPG image sizes while keeping high visual quality. Perfect for websites, SEO speed, and faster sharing.',
+      'Compress JPG and PNG images online without losing quality. Optimize images for websites, SEO speed and faster sharing.',
     icon: Minimize,
     isGenAI: false,
     isPlaceholder: false,
@@ -141,9 +141,9 @@ export const tools: Tool[] = [
   },
   {
     slug: 'image-to-pdf',
-    title: 'Image to PDF Converter',
+    title: 'Convert Image to PDF Online (JPG/PNG to PDF)',
     description:
-      'Convert JPG/PNG images into a high-resolution PDF instantly. Ideal for documents, ID proofs, receipts, and assignments.',
+      'Convert JPG and PNG images into high-quality PDF documents instantly. Perfect for documents, ID proofs, homework and receipts.',
     icon: FileText,
     isGenAI: false,
     isPlaceholder: false,
@@ -155,9 +155,9 @@ export const tools: Tool[] = [
   },
   {
     slug: 'resume-maker',
-    title: 'Resume Maker',
+    title: 'Free Resume Maker (ATS-Friendly CV Builder)',
     description:
-      'Build professional, ATS-friendly resumes in minutes. Create, preview, and download clean resumes instantly.',
+      'Create professional and ATS-friendly resumes online in minutes. Build, preview and download clean CVs instantly.',
     icon: FileText,
     isGenAI: false,
     isPlaceholder: false,
@@ -169,9 +169,9 @@ export const tools: Tool[] = [
   },
   {
     slug: 'age-calculator',
-    title: 'Age Calculator',
+    title: 'Free Age Calculator (Exact Years, Months, Days)',
     description:
-      'Calculate your exact age in years, months, and days. Find out the remaining time until your next birthday.',
+      'Calculate your exact age in years, months, weeks and days instantly. Find remaining time until your next birthday accurately.',
     icon: CalendarDays,
     isGenAI: false,
     isPlaceholder: false,
@@ -183,8 +183,8 @@ export const tools: Tool[] = [
   },
   {
     slug: "youtube-thumbnail-downloader",
-    title: "YouTube Thumbnail Downloader",
-    description: "Download high-quality YouTube thumbnails in 1080p (HD), 4K, and SD. Extract cover images instantly.",
+    title: "YouTube Thumbnail Downloader (HD & 4K)",
+    description: "Download YouTube thumbnails in 1080p HD, 4K and SD quality instantly. Extract original cover images without watermark.",
     icon: Youtube,
     content: `
       <h3>Download HD Thumbnails Instantly</h3>
@@ -195,74 +195,7 @@ export const tools: Tool[] = [
         <li><strong>No Watermarks:</strong> Clean, original images.</li>
         <li><strong>Privacy:</strong> No tracking of your downloads.</li>
       </ul>
-       <div class="space-y-12">
-        <section>
-          <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-6">Understanding Thumbnail Qualities</h2>
-          <p class="mb-6 text-slate-700 dark:text-slate-300">YouTube automatically generates different sizes for every video uploaded. Our tool allows you to access all of them:</p>
-          
-          <div class="overflow-x-auto">
-            <table class="w-full text-left border-collapse rounded-xl overflow-hidden shadow-lg">
-              <thead class="bg-slate-100 dark:bg-slate-800 text-slate-900 dark:text-white">
-                <tr>
-                  <th class="p-4 font-bold">Quality Name</th>
-                  <th class="p-4 font-bold">Resolution</th>
-                  <th class="p-4 font-bold">Best Use Case</th>
-                </tr>
-              </thead>
-              <tbody class="divide-y divide-slate-200 dark:divide-slate-700 bg-white dark:bg-slate-900">
-                <tr>
-                  <td class="p-4 font-semibold text-green-600">High Definition (HD)</td>
-                  <td class="p-4 font-mono text-sm">1280 x 720 (or 1920x1080)</td>
-                  <td class="p-4 text-sm text-slate-600 dark:text-slate-400">Full-screen presentations, Wallpapers, Graphic Design projects.</td>
-                </tr>
-                <tr>
-                  <td class="p-4 font-semibold text-blue-600">Standard Definition (SD)</td>
-                  <td class="p-4 font-mono text-sm">640 x 480</td>
-                  <td class="p-4 text-sm text-slate-600 dark:text-slate-400">Blog post headers, Social media shares (Facebook/Twitter).</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </section>
-
-        <section class="bg-indigo-50 dark:bg-indigo-900/20 p-8 rounded-[2.5rem] mt-12">
-          <h2 class="text-2xl font-bold text-indigo-900 dark:text-indigo-100 mb-8 text-center">Frequently Asked Questions</h2>
-          <div class="grid gap-6">
-            <details class="bg-white dark:bg-slate-800 p-6 rounded-2xl shadow-sm cursor-pointer group">
-              <summary class="font-bold text-slate-900 dark:text-white list-none flex justify-between items-center">
-                Is it legal to download YouTube thumbnails?
-                <span class="text-indigo-500 group-open:rotate-180 transition-transform">▼</span>
-              </summary>
-              <p class="mt-4 text-slate-600 dark:text-slate-300 leading-relaxed">
-                Yes, it is generally legal to download thumbnails for personal use. However, always respect the copyright of the creator.
-              </p>
-            </details>
-             <details class="bg-white dark:bg-slate-800 p-6 rounded-2xl shadow-sm cursor-pointer group">
-              <summary class="font-bold text-slate-900 dark:text-white list-none flex justify-between items-center">
-                Can I download thumbnails from private videos?
-                <span class="text-indigo-500 group-open:rotate-180 transition-transform">▼</span>
-              </summary>
-              <p class="mt-4 text-slate-600 dark:text-slate-300 leading-relaxed">
-                No. Our tool respects YouTube's privacy settings. It can only fetch thumbnails for videos that are Public or Unlisted.
-              </p>
-            </details>
-          </div>
-        </section>
-      </div>
     `
-  },
-  {
-    slug: 'metal-weight-calculator',
-    title: 'Metal Weight Calculator',
-    description:
-      'Calculate accurate metal weight for Steel, Aluminium, Copper, and Brass. Enter size and length to get instant results.',
-    icon: Minimize,
-    isGenAI: false,
-    isPlaceholder: false,
-    imageUrl: '/tool-previews/metal-weight-calculator.png',
-    content: `
-      <h3>Engineering Grade Accuracy</h3>
-      <p>For engineers and fabricators, knowing raw material weight is crucial. This calculator uses standard density formulas to provide accurate estimates for Round bars, Square bars, Sheets, and Pipes.</p>
-    `
-  },
+  }
 ];
+    
