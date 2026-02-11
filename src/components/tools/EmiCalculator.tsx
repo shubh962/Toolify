@@ -6,10 +6,13 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Slider } from '@/components/ui/slider';
-import { PieChart, DollarSign, Calendar, Percent, RefreshCw } from 'lucide-react';
+import { 
+  PieChart, DollarSign, Calendar, Percent, RefreshCw, 
+  HelpCircle, TrendingDown, Clock, HandCoins 
+} from 'lucide-react';
 
 export default function EmiCalculator() {
-  const [amount, setAmount] = useState<number>(1000000);
+  const [amount, setAmount] = useState<number>(500000);
   const [rate, setRate] = useState<number>(10.5);
   const [years, setYears] = useState<number>(5);
   
@@ -21,6 +24,8 @@ export default function EmiCalculator() {
     const principal = amount;
     const monthlyRate = rate / 12 / 100;
     const months = years * 12;
+
+    if (amount === 0 || rate === 0) return;
 
     const emiValue = (principal * monthlyRate * Math.pow(1 + monthlyRate, months)) / (Math.pow(1 + monthlyRate, months) - 1);
     const totalPay = emiValue * months;
@@ -40,10 +45,9 @@ export default function EmiCalculator() {
   };
 
   return (
-    <div className="max-w-5xl mx-auto space-y-12">
+    <div className="max-w-5xl mx-auto space-y-16">
       
-      {/* HEADER IS HANDLED BY LAYOUT, so we start with the tool directly */}
-
+      {/* --- CALCULATOR UI SECTION --- */}
       <div className="grid md:grid-cols-2 gap-8">
         
         {/* INPUT SECTION */}
@@ -158,7 +162,7 @@ export default function EmiCalculator() {
             </div>
 
             <Button 
-                onClick={() => { setAmount(1000000); setRate(10.5); setYears(5); }} 
+                onClick={() => { setAmount(500000); setRate(10.5); setYears(5); }} 
                 variant="outline" 
                 className="w-full mt-6 bg-white/10 border-white/20 hover:bg-white/20 text-white"
             >
@@ -167,24 +171,121 @@ export default function EmiCalculator() {
 
           </CardContent>
         </Card>
+      </div>
+
+      {/* --- SEO THICK CONTENT (Moved from tools.ts to here) --- */}
+      <div className="space-y-12 text-slate-700 dark:text-slate-300">
+        
+        <section>
+          <h2 className="text-3xl font-bold text-slate-900 dark:text-white mb-6">Master Your Finances with the Best EMI Calculator</h2>
+          <p className="text-lg leading-relaxed mb-6">
+            Taking a loan is a big financial commitment. Whether you are buying your dream house, upgrading to a new car, or managing an emergency with a personal loan, knowing your exact monthly outgo is crucial. 
+            <strong>TaskGuru's Loan EMI Calculator</strong> is a powerful, free online tool that helps you calculate your Equated Monthly Installment (EMI) in seconds.
+          </p>
+          <p className="text-lg leading-relaxed">
+            Stop relying on complex Excel sheets or manual calculations. Our tool provides an instant visual breakdown of your <strong>Principal</strong> (the money you borrowed) vs. <strong>Interest</strong> (the cost of the loan), helping you plan your prepayment strategy effectively.
+          </p>
+        </section>
+
+        <section className="bg-indigo-50 dark:bg-indigo-900/20 p-8 rounded-3xl border border-indigo-100 dark:border-indigo-800">
+          <h2 className="text-2xl font-bold text-indigo-900 dark:text-indigo-200 mb-4">How is EMI Calculated? (The Formula)</h2>
+          <p className="mb-4">
+            Banks and NBFCs use a standard mathematical formula to determine your monthly payments. Understanding this helps you negotiate better rates.
+          </p>
+          <div className="bg-white dark:bg-slate-800 p-6 rounded-xl text-center font-mono text-xl shadow-sm border border-slate-200 dark:border-slate-700 mb-6">
+            <strong>E = P x R x (1+R)^N / [(1+R)^N-1]</strong>
+          </div>
+          <ul className="space-y-3 list-disc pl-5">
+            <li><strong>E (EMI):</strong> The amount you pay every month.</li>
+            <li><strong>P (Principal):</strong> The total loan amount you want to borrow.</li>
+            <li><strong>R (Interest Rate):</strong> The monthly interest rate (Annual Rate / 12 / 100).</li>
+            <li><strong>N (Tenure):</strong> The loan duration in months.</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2 className="text-3xl font-bold text-slate-900 dark:text-white mb-8">Types of Loans You Can Calculate</h2>
+          <div className="grid md:grid-cols-3 gap-6">
+            <div class="p-6 bg-white dark:bg-slate-800 rounded-2xl border hover:border-blue-500 transition-colors shadow-sm">
+                <h3 class="text-xl font-bold text-blue-600 mb-2">🏠 Home Loan</h3>
+                <p class="text-sm">Usually a high amount for a long tenure (15-30 years). Even a 0.5% difference in rate can save you lakhs.</p>
+            </div>
+            <div class="p-6 bg-white dark:bg-slate-800 rounded-2xl border hover:border-green-500 transition-colors shadow-sm">
+                <h3 class="text-xl font-bold text-green-600 mb-2">🚗 Car Loan</h3>
+                <p class="text-sm">Shorter tenure (3-7 years). Interest rates are slightly higher. Use this to check affordability before visiting the showroom.</p>
+            </div>
+            <div class="p-6 bg-white dark:bg-slate-800 rounded-2xl border hover:border-purple-500 transition-colors shadow-sm">
+                <h3 class="text-xl font-bold text-purple-600 mb-2">💰 Personal Loan</h3>
+                <p class="text-sm">Unsecured loans with higher interest rates. Essential to calculate EMI carefully to avoid debt traps.</p>
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <h2 className="text-3xl font-bold text-slate-900 dark:text-white mb-6">Factors That Affect Your EMI</h2>
+          <p className="mb-6">If your calculated EMI is too high, you can adjust these three factors to lower it:</p>
+          <ul className="space-y-4">
+            <li className="flex gap-4">
+                <div className="bg-primary/10 p-3 rounded-full h-fit"><TrendingDown className="w-6 h-6 text-primary" /></div>
+                <div>
+                    <h4 className="font-bold text-lg text-slate-900 dark:text-white">Reduce the Loan Amount</h4>
+                    <p>Paying a higher down payment reduces the principal 'P', which directly lowers your monthly burden.</p>
+                </div>
+            </li>
+            <li className="flex gap-4">
+                <div className="bg-primary/10 p-3 rounded-full h-fit"><Clock className="w-6 h-6 text-primary" /></div>
+                <div>
+                    <h4 className="font-bold text-lg text-slate-900 dark:text-white">Increase the Tenure</h4>
+                    <p>Choosing a longer time to repay 'N' reduces your monthly EMI, but be warned: <strong>you will pay significantly more interest</strong> over the long run.</p>
+                </div>
+            </li>
+            <li className="flex gap-4">
+                <div className="bg-primary/10 p-3 rounded-full h-fit"><HandCoins className="w-6 h-6 text-primary" /></div>
+                <div>
+                    <h4 className="font-bold text-lg text-slate-900 dark:text-white">Negotiate Interest Rate</h4>
+                    <p>A good credit score (CIBIL) can help you bargain for a lower 'R' with your bank.</p>
+                </div>
+            </li>
+          </ul>
+        </section>
+
+        <section className="border-t border-slate-200 dark:border-slate-800 pt-12 pb-20">
+          <h2 className="text-3xl font-bold text-slate-900 dark:text-white mb-8 text-center flex items-center justify-center gap-2">
+            <HelpCircle className="w-8 h-8 text-primary" /> Frequently Asked Questions
+          </h2>
+          <div className="space-y-4">
+            <details className="bg-white dark:bg-slate-800 p-6 rounded-2xl border border-slate-200 dark:border-slate-700 cursor-pointer group">
+              <summary className="font-bold text-lg text-slate-900 dark:text-white flex justify-between items-center list-none">
+                Does this calculator work for all banks?
+                <span className="text-primary group-open:rotate-180 transition-transform">▼</span>
+              </summary>
+              <p className="mt-4 text-slate-600 dark:text-slate-400">
+                Yes! Whether it is SBI, HDFC, ICICI, or Bank of America, the mathematical formula for EMI is universal. However, some banks may add small processing fees which are not included here.
+              </p>
+            </details>
+            <details className="bg-white dark:bg-slate-800 p-6 rounded-2xl border border-slate-200 dark:border-slate-700 cursor-pointer group">
+              <summary className="font-bold text-lg text-slate-900 dark:text-white flex justify-between items-center list-none">
+                What happens if I prepay part of my loan?
+                <span className="text-primary group-open:rotate-180 transition-transform">▼</span>
+              </summary>
+              <p className="mt-4 text-slate-600 dark:text-slate-400">
+                Prepaying reduces your <strong>Principal</strong> amount immediately. This means your future interest payments drop drastically. You can choose to either reduce your EMI amount or shorten your loan tenure.
+              </p>
+            </details>
+            <details className="bg-white dark:bg-slate-800 p-6 rounded-2xl border border-slate-200 dark:border-slate-700 cursor-pointer group">
+              <summary className="font-bold text-lg text-slate-900 dark:text-white flex justify-between items-center list-none">
+                Is a floating or fixed interest rate better?
+                <span className="text-primary group-open:rotate-180 transition-transform">▼</span>
+              </summary>
+              <p className="mt-4 text-slate-600 dark:text-slate-400">
+                Fixed rates keep your EMI constant, giving you peace of mind. Floating rates change with market conditions—if rates go down, you save money; if they go up, your EMI increases. Most home loan borrowers prefer floating rates.
+              </p>
+            </details>
+          </div>
+        </section>
 
       </div>
 
-      {/* SEO ARTICLE */}
-      <article className="prose dark:prose-invert max-w-none">
-        <h2>What is an EMI?</h2>
-        <p>
-            EMI stands for <strong>Equated Monthly Installment</strong>. It is the fixed amount of money you pay to the bank every month to repay your loan. 
-            The EMI consists of two parts: the Principal amount (the money you borrowed) and the Interest (the cost of borrowing).
-        </p>
-        <h3>Benefits of using an EMI Calculator</h3>
-        <ul>
-            <li><strong>Financial Planning:</strong> Know exactly how much you need to set aside each month.</li>
-            <li><strong>Compare Loans:</strong> Change interest rates to see which bank offers the best deal.</li>
-            <li><strong>Pre-payment Strategy:</strong> See how reducing tenure increases your EMI but saves huge interest.</li>
-        </ul>
-      </article>
-
     </div>
   );
-              }
+}
