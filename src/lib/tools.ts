@@ -197,7 +197,7 @@ export const tools: Tool[] = [
         <li><strong>Privacy:</strong> No tracking of your downloads.</li>
       </ul>
     `
-  }
+  },
   {
   slug: "metal-weight-calculator",
   title: "Metal Weight Calculator Online (Steel, Iron, Aluminum)",
