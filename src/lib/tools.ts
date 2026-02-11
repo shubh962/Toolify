@@ -216,7 +216,28 @@ export const tools: Tool[] = [
       <li><strong>Industrial & Construction Use:</strong> Perfect for engineers and fabricators.</li>
     </ul>
   `
-}
+},
+    {
+    slug: 'emi-calculator',
+    title: 'Loan EMI Calculator',
+    description: 'Calculate monthly EMI for Home Loan, Car Loan, and Personal Loan. Get instant breakdown of principal and interest amounts.',
+    icon: Minimize, // You can import 'Calculator' from lucide-react if available, or keep Minimize
+    isGenAI: false,
+    isPlaceholder: false,
+    imageUrl: '/tool-previews/emi-calculator.png',
+    content: `
+      <h3>Smart Financial Planning</h3>
+      <p>Planning to take a loan? Use our <strong>Free EMI Calculator</strong> to estimate your monthly installments accurately. Whether it is a home loan, car loan, or personal loan, knowing your EMI beforehand helps you budget better.</p>
+      
+      <h3>How it works?</h3>
+      <p>We use the standard banking formula: <strong>E = P x R x (1+R)^N / [(1+R)^N-1]</strong>.</p>
+      <ul>
+        <li><strong>P:</strong> Principal Loan Amount</li>
+        <li><strong>R:</strong> Monthly Interest Rate</li>
+        <li><strong>N:</strong> Loan Tenure in Months</li>
+      </ul>
+    `
+  }
 
 ];
     
