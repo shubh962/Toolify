@@ -8,6 +8,7 @@ import {
   PenSquare,
   CalendarDays,
   Scissors,
+  calculater,
   Youtube,
 } from 'lucide-react';
 
@@ -197,5 +198,25 @@ export const tools: Tool[] = [
       </ul>
     `
   }
+  {
+  slug: "metal-weight-calculator",
+  title: "Metal Weight Calculator Online (Steel, Iron, Aluminum)",
+  description:
+    "Calculate metal weight instantly using length, width, thickness and density. Supports steel, iron, aluminum, copper and more materials.",
+  icon: Calculator,
+  isGenAI: false,
+  isPlaceholder: false,
+  imageUrl: "/tool-previews/metal-weight-calculator.png",
+  content: `
+    <h3>Accurate Metal Weight Calculation</h3>
+    <p>Use our Metal Weight Calculator to determine the exact weight of steel, iron, aluminum, copper and other materials based on dimensions and density.</p>
+    <ul>
+      <li><strong>Supports Multiple Metals:</strong> Steel, Iron, Aluminum, Copper.</li>
+      <li><strong>Instant Results:</strong> Enter dimensions and get weight instantly.</li>
+      <li><strong>Industrial & Construction Use:</strong> Perfect for engineers and fabricators.</li>
+    </ul>
+  `
+}
+
 ];
     
