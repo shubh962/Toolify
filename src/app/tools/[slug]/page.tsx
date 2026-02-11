@@ -16,6 +16,7 @@ import ResumeMakerFlow from '@/components/tools/ResumeMakerFlow';
 import AgeCalculator from '@/components/tools/AgeCalculator';
 import MetalWeightCalculator from '@/components/tools/MetalWeightCalculator';
 import EmiCalculator from '@/components/tools/EmiCalculator';
+import QrBarcodeGenerator from '@/components/tools/QrBarcodeGenerator';
 
 import { ShieldCheck, Lock, Zap } from 'lucide-react';
 
@@ -51,6 +52,7 @@ const toolComponentMap: { [key: string]: React.ComponentType<any> } = {
   "merge-pdf": MergePdf,
   "image-compressor": ImageCompressor,
   "image-to-pdf": ImageToPdf,
+"qr-barcode-generator": QrBarcodeGenerator,
   "age-calculator": AgeCalculator,
   "metal-weight-calculator": MetalWeightCalculator,
   "split-pdf": SplitPdf,
