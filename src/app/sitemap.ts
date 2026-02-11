@@ -15,6 +15,7 @@ const toolSlugs = [
   "text-paraphraser",
   "image-to-pdf",
   "resume-maker",
+  "qr-barcode-generator",
   "age-calculator",
  "youtube-thumbnail-downloader",
   "metal-weight-calculator",
