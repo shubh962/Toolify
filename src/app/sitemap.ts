@@ -4,6 +4,7 @@ const blogSlugs = [
   "youtube-thumbnail-guide",
   "resume-ats-secrets",
   "image-compression-guide",
+  "zero-cost-freelancer-tools",
 ];
 const toolSlugs = [
   "background-remover",
