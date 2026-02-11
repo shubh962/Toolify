@@ -8,7 +8,7 @@ import {
   PenSquare,
   CalendarDays,
   Scissors,
-  Calculater,
+  Calculator,
   Youtube,
 } from 'lucide-react';
 
