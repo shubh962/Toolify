@@ -30,7 +30,8 @@ import {
   Merge,
   BrainCircuit,
   ScanText,
-  MoveRight
+  MoveRight,
+  FileText as FileTextIcon // ✅ Added this back
 } from "lucide-react";
 
 // ⭐ SAFE CANVAS LOADER
@@ -174,10 +175,7 @@ export default function ImageToPdf() {
   return (
     <div className="container mx-auto px-4">
       
-      {/* ❌ REMOVED: Duplicate Header Section */}
-      {/* The Main Title is now handled by page.tsx */}
-
-      {/* TOOL CARD - Added margin top (mt-8) for spacing */}
+      {/* TOOL CARD */}
       <Card className="max-w-5xl mx-auto shadow-2xl rounded-3xl border-t-8 border-primary mt-8 overflow-hidden">
         <CardContent className="p-8 md:p-12">
 
@@ -372,5 +370,4 @@ export default function ImageToPdf() {
       </article>
     </div>
   );
-}
-
+              }
