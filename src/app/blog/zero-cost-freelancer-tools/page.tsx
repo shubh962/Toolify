@@ -40,21 +40,17 @@ export default function BlogPost() {
           <span className="flex items-center gap-1 bg-amber-50 text-amber-700 px-2 py-1 rounded"><Zap className="w-3 h-3" /> 8 Min Read</span>
         </div>
       </header>
-
-      {* 📸 IMAGE SLOT 1: HERO IMAGE 
-          How to use: 
-          1. Put an image named 'hero.jpg' in your 'public/blog' folder.
-          2. Uncomment the code below.
-      */}
-      {* <div className="mb-16 relative aspect-video rounded-3xl overflow-hidden shadow-2xl">
+      
+      {/* 📸 IMAGE SLOT 1: HERO IMAGE */}
+       <div className="mb-16 relative aspect-video rounded-3xl overflow-hidden shadow-2xl">
         <Image 
           src="/blog/hero.jpg" 
           alt="Freelancer working on laptop with zero cost tools" 
           fill 
           className="object-cover"
           priority
-        >
-      </div>
+        /> {/* ✅ Fixed: Added closing slash /> */}
+      </div> 
       */}
 
       {/* CONTENT BODY */}
