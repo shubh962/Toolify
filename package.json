@@ -63,6 +63,8 @@
     "pdfjs-dist": "^3.11.174",
     "docx": "^8.5.0",
     "file-saver": "^2.0.5",
+    "qrcode.react": "^4.0.1",
+    "react-barcode": "^1.5.3",
     "@types/file-saver": "^2.0.7"
   },
   "devDependencies": {
