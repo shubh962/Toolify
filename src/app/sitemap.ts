@@ -18,6 +18,7 @@ const toolSlugs = [
   "age-calculator",
  "youtube-thumbnail-downloader",
   "metal-weight-calculator",
+  "emi-calculator",
 ];
 
 const staticPages = [
