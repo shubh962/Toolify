@@ -41,19 +41,19 @@ export default function BlogPost() {
         </div>
       </header>
 
-      {/* 📸 IMAGE SLOT 1: HERO IMAGE 
+      {* 📸 IMAGE SLOT 1: HERO IMAGE 
           How to use: 
           1. Put an image named 'hero.jpg' in your 'public/blog' folder.
           2. Uncomment the code below.
       */}
-      {/* <div className="mb-16 relative aspect-video rounded-3xl overflow-hidden shadow-2xl">
+      {* <div className="mb-16 relative aspect-video rounded-3xl overflow-hidden shadow-2xl">
         <Image 
           src="/blog/hero.jpg" 
           alt="Freelancer working on laptop with zero cost tools" 
           fill 
           className="object-cover"
           priority
-        />
+        >
       </div>
       */}
 
@@ -124,11 +124,11 @@ export default function BlogPost() {
             I used to spend 20 minutes manually tracing edges with the "Pen Tool" in Photoshop. It was tedious and boring.
         </p>
         
-        {/* 📸 IMAGE SLOT 2: BACKGROUND REMOVER EXAMPLE */}
-        {/* <div className="my-8 rounded-2xl overflow-hidden border border-slate-200 shadow-lg">
+        {* 📸 IMAGE SLOT 2: BACKGROUND REMOVER EXAMPLE */}
+        {* <div className="my-8 rounded-2xl overflow-hidden border border-slate-200 shadow-lg">
           <Image src="/blog/bg-remover-demo.jpg" alt="Before and after background removal" width={800} height={400} />
         </div> 
-        */}
+        *}
 
         <div className="bg-blue-50 p-6 rounded-2xl border border-blue-100 my-6">
             <h4 className="text-blue-900 font-bold flex items-center gap-2 m-0 mb-2">
