@@ -6,6 +6,14 @@ import Script from 'next/script';
 
 // ✅ CONFIGURATION: Only listing the 3 Active Articles we created
 const posts = [
+      {
+    slug: 'rent-vs-buy-financial-guide',
+    title: 'Rent vs. Buy: The Ultimate Financial Guide for 2026',
+    summary: 'Should you buy a house in 2026 or keep renting? We break down the math using the 50/30/20 rule and help you decide with our free EMI Calculator.',
+    date: 'February 13, 2026',
+    category: 'Personal Finance',
+    featured: true,
+  },
     {
     slug: 'zero-cost-freelancer-tools',
     title: 'The "Zero-Cost" Tech Stack: 5 Free Tools Every Freelancer Needs in 2026',
