@@ -41,10 +41,8 @@ export default function BlogPost() {
         </div>
       </header>
 
-      {/* 📸 IMAGE SLOT 1: HERO IMAGE 
-          Action: Save an image as 'rent-vs-buy-hero.jpg' in 'public/blog/' folder.
-      */}
-      {/* <div className="mb-16 relative aspect-video rounded-3xl overflow-hidden shadow-2xl">
+            {/* 📸 IMAGE SLOT 1: HERO IMAGE */}
+      <div className="mb-16 relative aspect-video rounded-3xl overflow-hidden shadow-2xl">
         <Image 
           src="/blog/rent-vs-buy-hero.jpg" 
           alt="House keys and calculator on a table" 
@@ -52,7 +50,7 @@ export default function BlogPost() {
           className="object-cover"
           priority
         />
-      </div> */}
+      </div>
 
       {/* CONTENT BODY */}
       <div className="prose prose-lg prose-slate max-w-none">
@@ -100,10 +98,8 @@ export default function BlogPost() {
 
         <h2 className="text-3xl font-black text-slate-900 mt-16 mb-6">Rent vs. Buy: The Comparison</h2>
         
-        {/* 📸 IMAGE SLOT 2: CHART OR GRAPH 
-            Action: Save an image as 'rent-buy-chart.jpg' in 'public/blog/' folder.
-        */}
-        {/* <div className="my-8 rounded-2xl overflow-hidden border border-slate-200 shadow-lg">
+                {/* 📸 IMAGE SLOT 2: CHART OR GRAPH */}
+        <div className="my-8 rounded-2xl overflow-hidden border border-slate-200 shadow-lg">
           <Image 
             src="/blog/rent-buy-chart.jpg" 
             alt="Graph showing wealth accumulation: Renting vs Buying" 
@@ -111,7 +107,8 @@ export default function BlogPost() {
             height={400} 
           />
           <p className="text-center text-sm text-slate-500 mt-2 italic">Figure 1: Wealth accumulation over 20 years (Assumed 12% returns on SIP)</p>
-        </div> */}
+        </div>
+        
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 my-10 not-prose">
             <div className="bg-slate-50 p-8 rounded-3xl border border-slate-200">
