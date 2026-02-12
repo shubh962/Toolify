@@ -5,6 +5,7 @@ const blogSlugs = [
   "resume-ats-secrets",
   "image-compression-guide",
   "zero-cost-freelancer-tools",
+  "rent-vs-buy-financial-guide",
 ];
 const toolSlugs = [
   "background-remover",
