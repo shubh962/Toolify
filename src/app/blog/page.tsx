@@ -14,6 +14,14 @@ const posts = [
     featured: true,
   },
       {
+    slug: 'taskguru-tech-stack-2026',
+    title: 'Building a Scalable Utility Platform: Behind the Tech Stack of TaskGuru',
+    summary: 'A 1500+ word technical deep dive into our architecture. Learn how we use Next.js 15, WebAssembly, and Edge Functions to create a secure, zero-latency ecosystem.',
+    date: 'February 24, 2026',
+    category: 'Engineering',
+    featured: true,
+  },
+      {
     slug: 'rent-vs-buy-financial-guide',
     title: 'Rent vs. Buy: The Ultimate Financial Guide for 2026',
     summary: 'Should you buy a house in 2026 or keep renting? We break down the math using the 50/30/20 rule and help you decide with our free EMI Calculator.',
