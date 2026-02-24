@@ -1,6 +1,7 @@
 import { MetadataRoute } from "next";
 
 const blogSlugs = [
+  "local-first-web-apps-trend-2026",
   "youtube-thumbnail-guide",
   "resume-ats-secrets",
   "image-compression-guide",
