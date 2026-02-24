@@ -55,8 +55,8 @@ export default function TechTrendBlogPage() {
           For the last decade, the technology industry has been entirely obsessed with "The Cloud." We were conditioned to upload everything, process every file on remote servers, and most importantly, pay a recurring monthly subscription for the privilege. But in 2026, a silent engineering rebellion is fundamentally reshaping the internet: the transition to the <strong>Local-First Web</strong>.
         </p>
 
-        <p>
-          "Subscription fatigue" has hit an absolute all-time high. Freelancers, students, and small business owners are exhausted by micro-transactions. Paying $9.99 a month just to compress a PDF, remove an image background, or calculate an EMI is no longer justifiable. The good news? The underlying technology of web browsers has evolved, making these expensive, server-heavy cloud subscriptions technologically obsolete.
+       <p>
+          Subscription fatigue has hit an absolute all-time high. Freelancers, students, and small business owners are exhausted by micro-transactions. Paying $9.99 a month just to compress a PDF, remove an image background, or calculate an EMI is no longer justifiable. <strong className="text-indigo-600">As a developer who graduated from AKTU, I built TaskGuru because I saw firsthand how students struggled to pay for these basic PDF and utility tools.</strong> The good news? The underlying technology of web browsers has evolved, making these expensive, server-heavy cloud subscriptions technologically obsolete.
         </p>
 
         <h2 className="text-3xl font-black text-slate-900 mt-16 mb-6 flex items-center gap-3">
