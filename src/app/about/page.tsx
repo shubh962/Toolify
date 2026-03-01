@@ -43,7 +43,7 @@ const stats = [
   { icon: <BookOpen className="w-6 h-6" />, value: "14+", label: "Free Tools" },
   { icon: <Users className="w-6 h-6" />, value: "10K+", label: "Monthly Users" },
   { icon: <Globe className="w-6 h-6" />, value: "50+", label: "Languages Supported" },
-  { icon: <Award className="w-6 h-6" />, value: "2024", label: "Founded" },
+  { icon: <Award className="w-6 h-6" />, value: "2025", label: "Founded" },
 ];
 
 export default function AboutPage() {
@@ -306,7 +306,7 @@ export default function AboutPage() {
                 Established
               </span>
               <span className="text-base font-medium text-gray-700 dark:text-gray-300">
-                January 2024
+                January 2025
               </span>
             </div>
           </div>
