@@ -491,7 +491,7 @@ export default function ExtractTextScannedPDFPage() {
                   He writes about productivity, document tools, and web tech.
                 </p>
                 <p className="text-gray-400 text-xs mt-1.5">
-                  Published: March 01, 2026 · Last reviewed: February 2026
+                  Published: March 01, 2026 · Last reviewed: March 2026
                 </p>
               </div>
             </div>
