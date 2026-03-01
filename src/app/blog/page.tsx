@@ -8,7 +8,7 @@ const posts = [
      {
   slug: 'extract-text-scanned-pdf',
   title: 'How to Extract Text from a Scanned PDF for Free',
-  summary: 'Can't copy text from a scanned PDF? Here's the easiest fix — free, no software, takes 30 seconds. Works on any device.',
+  summary: "Can't copy text from a scanned PDF? Here's the easiest fix — free, no software, takes 30 seconds. Works on any device.",
   date: 'March 1, 2026',
   category: 'PDF Tools',
   featured: true,
