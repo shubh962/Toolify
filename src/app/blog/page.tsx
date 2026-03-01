@@ -6,6 +6,14 @@ import Script from 'next/script';
 
 const posts = [
       {
+  slug: 'image-compression-guide',
+  title: 'JPG vs WebP: Which Format Actually Boosts Your SEO Score?',
+  summary: 'Website speed is a ranking factor. We tested JPG, PNG, and WebP formats to see which one creates the fastest loading times for Google Core Web Vitals.',
+  date: 'January 22, 2026',
+  category: 'SEO Masterclass',
+  featured: true,
+},
+      {
     slug: 'local-first-web-apps-trend-2026',
     title: 'The Rise of Local-First Web Apps: Why 2026 is the End of Paid Subscriptions',
     summary: 'An editorial deep dive into how WebAssembly and Edge computing are killing expensive cloud subscriptions, making powerful web utilities free and private.',
