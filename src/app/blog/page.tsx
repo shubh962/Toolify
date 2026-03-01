@@ -6,6 +6,14 @@ import Script from 'next/script';
 
 const posts = [
      {
+  slug: 'extract-text-scanned-pdf',
+  title: 'How to Extract Text from a Scanned PDF for Free',
+  summary: 'Can't copy text from a scanned PDF? Here's the easiest fix — free, no software, takes 30 seconds. Works on any device.',
+  date: 'March 1, 2026',
+  category: 'PDF Tools',
+  featured: true,
+},
+     {
   slug: 'reduce-image-size-kb-without-losing-quality',
   title: 'How to Reduce Image Size in KB Without Losing Quality (2026)',
   summary: 'A step-by-step guide to compressing JPG, PNG, and WebP images. Learn how to optimize your site speed, improve LCP scores, and use free tools without any sign-up.',
