@@ -6,7 +6,7 @@ import Script from 'next/script';
 
 const posts = [
      {
-  slug: 'reduce-image-size-kb',
+  slug: 'reduce-image-size-kb-without-losing-quality',
   title: 'How to Reduce Image Size in KB Without Losing Quality (2026)',
   summary: 'A step-by-step guide to compressing JPG, PNG, and WebP images. Learn how to optimize your site speed, improve LCP scores, and use free tools without any sign-up.',
   date: 'March 1, 2026',
