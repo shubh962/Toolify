@@ -18,7 +18,7 @@ export const metadata: Metadata = {
     description:
       "Can't copy text from a scanned PDF? Here's the easiest fix — free, no software, takes 30 seconds.",
     type: "article",
-    publishedTime: "2026-02-24",
+    publishedTime: "2026-03-26",
   },
 };
 
@@ -491,7 +491,7 @@ export default function ExtractTextScannedPDFPage() {
                   He writes about productivity, document tools, and web tech.
                 </p>
                 <p className="text-gray-400 text-xs mt-1.5">
-                  Published: February 24, 2026 · Last reviewed: February 2026
+                  Published: March 01, 2026 · Last reviewed: February 2026
                 </p>
               </div>
             </div>
