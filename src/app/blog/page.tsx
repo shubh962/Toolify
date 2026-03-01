@@ -5,11 +5,11 @@ import { ArrowRight, Sparkles, BookOpen } from 'lucide-react';
 import Script from 'next/script';
 
 const posts = [
-      {
-  slug: 'image-compression-guide',
-  title: 'JPG vs WebP: Which Format Actually Boosts Your SEO Score?',
-  summary: 'Website speed is a ranking factor. We tested JPG, PNG, and WebP formats to see which one creates the fastest loading times for Google Core Web Vitals.',
-  date: 'January 22, 2026',
+     {
+  slug: 'reduce-image-size-kb',
+  title: 'How to Reduce Image Size in KB Without Losing Quality (2026)',
+  summary: 'A step-by-step guide to compressing JPG, PNG, and WebP images. Learn how to optimize your site speed, improve LCP scores, and use free tools without any sign-up.',
+  date: 'March 1, 2026',
   category: 'SEO Masterclass',
   featured: true,
 },
