@@ -5,19 +5,22 @@ import { Card, CardContent, CardFooter } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { useToast } from '@/hooks/use-toast';
-import { 
-  Upload, Download, Loader2, Trash2, FilePlus2, Layers, 
+import {
+  Upload, Download, Loader2, Trash2, FilePlus2, Layers,
   ArrowRight, ShieldCheck, Zap, CheckCircle, HelpCircle, FileText
 } from 'lucide-react';
 import { Label } from '@/components/ui/label';
 import Link from 'next/link';
 
-// 👇 LOGIC ACTIONS
 import { handleMergePdf, handleInsertPdf } from '@/app/actions';
+
+// ✅ FIX 1: Max file size per PDF
+const MAX_FILE_SIZE_MB = 50;
+const MAX_FILE_SIZE_BYTES = MAX_FILE_SIZE_MB * 1024 * 1024;
 
 export default function MergePdf() {
   const { toast } = useToast();
-  
+
   const [mode, setMode] = useState<'merge' | 'insert'>('merge');
   const [files, setFiles] = useState<File[]>([]);
   const [mainFile, setMainFile] = useState<File | null>(null);
@@ -41,17 +44,34 @@ export default function MergePdf() {
 
   const handleSimpleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newFiles = e.target.files ? Array.from(e.target.files) : [];
+
     if (newFiles.some(f => f.type !== 'application/pdf')) {
-      toast({ title: 'Invalid file', description: 'Upload PDF files only.', variant: 'destructive' });
+      toast({ title: 'Invalid file', description: 'Please upload PDF files only.', variant: 'destructive' });
       return;
     }
-    setFiles([...files, ...newFiles]);
+
+    // ✅ FIX 2: File size validation
+    const oversized = newFiles.find(f => f.size > MAX_FILE_SIZE_BYTES);
+    if (oversized) {
+      toast({ title: 'File too large', description: `Each PDF must be under ${MAX_FILE_SIZE_MB}MB.`, variant: 'destructive' });
+      return;
+    }
+
+    // ✅ FIX 3: Prevent duplicate files by name
+    const existingNames = new Set(files.map(f => f.name));
+    const uniqueNew = newFiles.filter(f => !existingNames.has(f.name));
+
+    if (uniqueNew.length < newFiles.length) {
+      toast({ title: 'Duplicate skipped', description: 'One or more files were already added.', variant: 'default' });
+    }
+
+    setFiles(prev => [...prev, ...uniqueNew]);
     setResultPdfDataUri(null);
   };
 
   const handleSimpleMerge = async () => {
     if (files.length < 2) {
-      toast({ title: 'Add files', description: 'Select at least 2 PDFs to merge.', variant: 'destructive' });
+      toast({ title: 'Add more files', description: 'Select at least 2 PDFs to merge.', variant: 'destructive' });
       return;
     }
     setIsProcessing(true);
@@ -61,10 +81,14 @@ export default function MergePdf() {
       if (result.success && result.data?.mergedPdfDataUri) {
         setResultPdfDataUri(result.data.mergedPdfDataUri);
         toast({ title: 'Success!', description: 'PDFs merged successfully.' });
-      } else { throw new Error(result.error); }
+      } else {
+        throw new Error(result.error);
+      }
     } catch (error: any) {
-      toast({ title: 'Error', description: error.message || 'Merge failed.', variant: 'destructive' });
-    } finally { setIsProcessing(false); }
+      toast({ title: 'Merge Failed', description: error.message || 'Something went wrong. Please try again.', variant: 'destructive' });
+    } finally {
+      setIsProcessing(false);
+    }
   };
 
   const handleInsertMode = async () => {
@@ -79,11 +103,15 @@ export default function MergePdf() {
       const result: any = await handleInsertPdf(mainBase64, insertBase64, insertPage);
       if (result.success && result.data?.mergedPdfDataUri) {
         setResultPdfDataUri(result.data.mergedPdfDataUri);
-        toast({ title: 'Success!', description: `PDF inserted at page ${insertPage}.` });
-      } else { throw new Error(result.error); }
+        toast({ title: 'Success!', description: `PDF inserted after page ${insertPage}.` });
+      } else {
+        throw new Error(result.error);
+      }
     } catch (error: any) {
-      toast({ title: 'Error', description: error.message || 'Insert failed.', variant: 'destructive' });
-    } finally { setIsProcessing(false); }
+      toast({ title: 'Insert Failed', description: error.message || 'Something went wrong. Please try again.', variant: 'destructive' });
+    } finally {
+      setIsProcessing(false);
+    }
   };
 
   const handleDownload = () => {
@@ -97,8 +125,11 @@ export default function MergePdf() {
   };
 
   const handleReset = () => {
-    setFiles([]); setMainFile(null); setInsertFile(null);
-    setResultPdfDataUri(null); setInsertPage(1);
+    setFiles([]);
+    setMainFile(null);
+    setInsertFile(null);
+    setResultPdfDataUri(null);
+    setInsertPage(1);
     if (simpleInputRef.current) simpleInputRef.current.value = '';
     if (mainInputRef.current) mainInputRef.current.value = '';
     if (insertInputRef.current) insertInputRef.current.value = '';
@@ -106,15 +137,16 @@ export default function MergePdf() {
 
   return (
     <div className="space-y-20 max-w-5xl mx-auto px-4 pb-20">
-      {/* 🌟 HERO SECTION */}
 
-      {/* 🟢 TOOL INTERFACE CARD */}
+      {/* TOOL CARD */}
       <Card className="shadow-2xl border-t-8 border-primary overflow-hidden rounded-3xl">
         <div className="flex border-b bg-muted/20">
           <button
             onClick={() => { setMode('merge'); handleReset(); }}
             className={`flex-1 py-6 text-center font-bold transition-all text-lg ${
-              mode === 'merge' ? 'bg-background text-primary border-b-4 border-primary shadow-inner' : 'text-muted-foreground hover:bg-muted/50'
+              mode === 'merge'
+                ? 'bg-background text-primary border-b-4 border-primary shadow-inner'
+                : 'text-muted-foreground hover:bg-muted/50'
             }`}
           >
             <Layers className="inline w-5 h-5 mr-2" /> Simple Merge
@@ -122,7 +154,9 @@ export default function MergePdf() {
           <button
             onClick={() => { setMode('insert'); handleReset(); }}
             className={`flex-1 py-6 text-center font-bold transition-all text-lg ${
-              mode === 'insert' ? 'bg-background text-primary border-b-4 border-primary shadow-inner' : 'text-muted-foreground hover:bg-muted/50'
+              mode === 'insert'
+                ? 'bg-background text-primary border-b-4 border-primary shadow-inner'
+                : 'text-muted-foreground hover:bg-muted/50'
             }`}
           >
             <ArrowRight className="inline w-5 h-5 mr-2" /> Advanced Insert
@@ -137,13 +171,22 @@ export default function MergePdf() {
                 onClick={() => simpleInputRef.current?.click()}
               >
                 <div className="bg-white p-6 rounded-full shadow-lg group-hover:scale-110 transition-transform">
-                    <Upload className="w-16 h-16 text-primary" />
+                  <Upload className="w-16 h-16 text-primary" />
                 </div>
                 <div className="text-center">
                   <p className="text-2xl font-black">Drag & Drop or Click</p>
-                  <p className="text-muted-foreground font-medium">Add 2 or more PDF files to combine</p>
+                  <p className="text-muted-foreground font-medium">
+                    Add 2 or more PDF files to combine (max {MAX_FILE_SIZE_MB}MB each)
+                  </p>
                 </div>
-                <Input ref={simpleInputRef} type="file" className="hidden" accept="application/pdf" multiple onChange={handleSimpleFileChange} />
+                <Input
+                  ref={simpleInputRef}
+                  type="file"
+                  className="hidden"
+                  accept="application/pdf"
+                  multiple
+                  onChange={handleSimpleFileChange}
+                />
               </div>
               {files.length > 0 && (
                 <div className="p-6 bg-muted/40 rounded-2xl border flex flex-wrap gap-3 shadow-inner">
@@ -159,157 +202,230 @@ export default function MergePdf() {
             <div className="grid md:grid-cols-2 gap-10">
               <div className="space-y-4">
                 <Label className="font-black text-lg">Step 1: Base Document</Label>
-                <div className="border-2 border-dashed rounded-2xl p-10 text-center cursor-pointer hover:border-primary bg-muted/20 hover:shadow-md transition" onClick={() => mainInputRef.current?.click()}>
-                   <span className="block truncate font-bold">{mainFile ? mainFile.name : "Select Main PDF"}</span>
-                   <Input ref={mainInputRef} type="file" className="hidden" accept="application/pdf" onChange={(e) => setMainFile(e.target.files?.[0] || null)} />
+                <div
+                  className="border-2 border-dashed rounded-2xl p-10 text-center cursor-pointer hover:border-primary bg-muted/20 hover:shadow-md transition"
+                  onClick={() => mainInputRef.current?.click()}
+                >
+                  <span className="block truncate font-bold">
+                    {mainFile ? mainFile.name : 'Select Main PDF'}
+                  </span>
+                  <Input
+                    ref={mainInputRef}
+                    type="file"
+                    className="hidden"
+                    accept="application/pdf"
+                    onChange={(e) => setMainFile(e.target.files?.[0] || null)}
+                  />
                 </div>
               </div>
               <div className="space-y-4">
                 <Label className="font-black text-lg">Step 2: PDF to Insert</Label>
-                <div className="border-2 border-dashed rounded-2xl p-10 text-center cursor-pointer hover:border-primary bg-muted/20 hover:shadow-md transition" onClick={() => insertInputRef.current?.click()}>
-                   <span className="block truncate font-bold">{insertFile ? insertFile.name : "Select Insert PDF"}</span>
-                   <Input ref={insertInputRef} type="file" className="hidden" accept="application/pdf" onChange={(e) => setInsertFile(e.target.files?.[0] || null)} />
+                <div
+                  className="border-2 border-dashed rounded-2xl p-10 text-center cursor-pointer hover:border-primary bg-muted/20 hover:shadow-md transition"
+                  onClick={() => insertInputRef.current?.click()}
+                >
+                  <span className="block truncate font-bold">
+                    {insertFile ? insertFile.name : 'Select Insert PDF'}
+                  </span>
+                  <Input
+                    ref={insertInputRef}
+                    type="file"
+                    className="hidden"
+                    accept="application/pdf"
+                    onChange={(e) => setInsertFile(e.target.files?.[0] || null)}
+                  />
                 </div>
               </div>
               <div className="md:col-span-2 flex flex-col sm:flex-row items-center justify-center gap-6 bg-primary/10 p-8 rounded-3xl border border-primary/20">
-                 <Label className="font-black text-xl flex items-center gap-2">
-                    <HelpCircle className="w-5 h-5 text-primary" /> Insert AFTER Page:
-                 </Label>
-                 <Input type="number" min={1} value={insertPage} onChange={(e) => setInsertPage(parseInt(e.target.value) || 1)} className="w-28 text-center h-12 text-2xl font-black rounded-xl border-primary shadow-sm" />
+                <Label className="font-black text-xl flex items-center gap-2">
+                  <HelpCircle className="w-5 h-5 text-primary" /> Insert AFTER Page:
+                </Label>
+                {/* ✅ FIX 4: insertPage clamped to min 1 */}
+                <Input
+                  type="number"
+                  min={1}
+                  value={insertPage}
+                  onChange={(e) => setInsertPage(Math.max(1, parseInt(e.target.value) || 1))}
+                  className="w-28 text-center h-12 text-2xl font-black rounded-xl border-primary shadow-sm"
+                />
               </div>
             </div>
           )}
         </CardContent>
 
         <CardFooter className="flex flex-col md:flex-row justify-center gap-6 bg-muted/30 p-10 border-t">
-          <Button variant="ghost" size="lg" onClick={handleReset} disabled={isProcessing} className="w-full md:w-auto font-black text-red-600 hover:bg-red-50">
+          <Button
+            variant="ghost" size="lg"
+            onClick={handleReset} disabled={isProcessing}
+            className="w-full md:w-auto font-black text-red-600 hover:bg-red-50"
+          >
             <Trash2 className="mr-2 h-6 w-6" /> Reset
           </Button>
-          <Button onClick={mode === 'merge' ? handleSimpleMerge : handleInsertMode} disabled={isProcessing || !!resultPdfDataUri} className="w-full md:w-auto font-black px-12 h-16 text-lg shadow-xl hover:scale-105 transition-transform">
-            {isProcessing ? <Loader2 className="mr-2 h-6 w-6 animate-spin" /> : <Layers className="mr-2 h-6 w-6" />}
+          <Button
+            onClick={mode === 'merge' ? handleSimpleMerge : handleInsertMode}
+            disabled={isProcessing || !!resultPdfDataUri}
+            className="w-full md:w-auto font-black px-12 h-16 text-lg shadow-xl hover:scale-105 transition-transform"
+          >
+            {isProcessing
+              ? <Loader2 className="mr-2 h-6 w-6 animate-spin" />
+              : <Layers className="mr-2 h-6 w-6" />
+            }
             {mode === 'merge' ? 'Merge All Documents' : 'Apply Smart Insertion'}
           </Button>
-          <Button onClick={handleDownload} disabled={!resultPdfDataUri} className="bg-green-600 hover:bg-green-700 w-full md:w-auto font-black px-12 h-16 text-lg shadow-xl text-white">
+          <Button
+            onClick={handleDownload} disabled={!resultPdfDataUri}
+            className="bg-green-600 hover:bg-green-700 w-full md:w-auto font-black px-12 h-16 text-lg shadow-xl text-white"
+          >
             <Download className="mr-2 h-6 w-6" /> Download Merged PDF
           </Button>
         </CardFooter>
       </Card>
 
-      {/* 🚀 EXTENDED HIGH-VALUE HUMAN CONTENT (1500+ Words) 🚀 */}
-      <article className="space-y-20 border-t pt-20">
-        
-        {/* Section 1: Introduction */}
-        <div className="max-w-4xl mx-auto prose prose-lg dark:prose-invert">
-          <h2 className="text-4xl font-black text-gray-900 dark:text-white border-l-8 border-primary pl-6">
+      {/* SEO ARTICLE */}
+      {/* ✅ FIX 5: Removed prose classes — plain Tailwind throughout */}
+      <article className="space-y-20 border-t pt-20 text-gray-700 dark:text-gray-300 leading-relaxed">
+
+        <div className="max-w-4xl mx-auto space-y-6">
+          <h2 className="text-3xl md:text-4xl font-black text-gray-900 dark:text-white border-l-8 border-primary pl-6">
             The Most Advanced PDF Merger: Why TaskGuru is Built Differently
           </h2>
-          <p className="text-xl text-gray-700 leading-relaxed mt-8">
-            Let’s be honest: merging PDFs shouldn't be a complicated chore. In a world where we handle dozens of digital documents daily, whether for university applications, corporate audits, or legal filings, you need a tool that works <strong>instantly</strong>. 
+          <p className="text-xl leading-relaxed">
+            Let&apos;s be honest: merging PDFs shouldn&apos;t be a complicated chore. In a world where
+            we handle dozens of digital documents daily — whether for university applications,
+            corporate audits, or legal filings — you need a tool that works <strong>instantly</strong>.
           </p>
-          <p>
-            At <strong>TaskGuru (Toolify)</strong>, we realized that most "Free" online mergers are actually traps. They either limit the number of files, add ugly watermarks, or force you to create an account. We decided to strip away those barriers. Our PDF combiner is designed for the modern professional—offering two distinct modes to handle every possible document scenario.
+          {/* ✅ FIX 6: Removed "TaskGuru (Toolify)" */}
+          <p className="text-lg">
+            At <strong>TaskGuru</strong>, we realized that most &quot;Free&quot; online mergers are
+            actually traps. They either limit the number of files, add ugly watermarks, or force
+            you to create an account. We stripped away those barriers. Our PDF combiner is
+            designed for the modern professional — offering two distinct modes to handle every
+            document scenario.
           </p>
         </div>
 
-        {/* Section 2: Deep Dive into Modes */}
         <div className="grid md:grid-cols-2 gap-12 max-w-5xl mx-auto">
-          <div className="bg-white p-10 rounded-[3rem] shadow-sm border border-gray-100 relative overflow-hidden group">
+          <div className="bg-white dark:bg-zinc-900 p-10 rounded-[3rem] shadow-sm border border-gray-100 dark:border-zinc-800 relative overflow-hidden group">
             <div className="absolute top-0 right-0 p-8 opacity-10 group-hover:scale-125 transition-transform duration-500">
-                <Layers className="w-32 h-32 text-primary" />
+              <Layers className="w-32 h-32 text-primary" />
             </div>
-            <h3 className="text-2xl font-black mb-6 text-primary">1. Simple Merge Mode</h3>
-            <p className="text-gray-600 leading-relaxed">
-              This is the classic "Combine and Conquer" tool. Perfect for when you have a set of scanned certificates, monthly receipts, or a multi-part ebook. You simply drag all the files into our secure uploader, and we stitch them together in the exact order you need. No degradation in text sharpness, no compression of internal graphics—just a perfect, unified document.
+            <h3 className="text-2xl font-black mb-4 text-primary">1. Simple Merge Mode</h3>
+            <p className="text-gray-600 dark:text-gray-400 leading-relaxed">
+              The classic &quot;Combine and Conquer&quot; tool. Perfect for scanned certificates,
+              monthly receipts, or a multi-part ebook. Drag all files into the uploader and we
+              stitch them together in your exact order. No text degradation, no compression of
+              internal graphics — just a perfect, unified document.
             </p>
           </div>
-          <div className="bg-white p-10 rounded-[3rem] shadow-sm border border-gray-100 relative overflow-hidden group">
+          <div className="bg-white dark:bg-zinc-900 p-10 rounded-[3rem] shadow-sm border border-gray-100 dark:border-zinc-800 relative overflow-hidden group">
             <div className="absolute top-0 right-0 p-8 opacity-10 group-hover:scale-125 transition-transform duration-500">
-                <FilePlus2 className="w-32 h-32 text-primary" />
+              <FilePlus2 className="w-32 h-32 text-primary" />
             </div>
-            <h3 className="text-2xl font-black mb-6 text-primary">2. Advanced Inserter Mode</h3>
-            <p className="text-gray-600 leading-relaxed">
-              Standard merging is often frustrating. What if you have a 100-page report and you only need to insert a single signed signature page at page 45? Most people would split the PDF, merge three parts, and re-download. <strong>TaskGuru's Advanced Insert Mode</strong> does this for you. Tell the AI which page to insert after, and we handle the surgery with pixel-perfect precision.
+            <h3 className="text-2xl font-black mb-4 text-primary">2. Advanced Insert Mode</h3>
+            <p className="text-gray-600 dark:text-gray-400 leading-relaxed">
+              Have a 100-page report and need to insert a signed page at page 45? Most people
+              would split, merge three parts, and re-download. <strong>TaskGuru&apos;s Advanced Insert
+              Mode</strong> does this for you. Tell it which page to insert after, and we handle
+              the surgery with pixel-perfect precision.
             </p>
           </div>
         </div>
 
-        {/* Section 3: Privacy & Technical EEAT */}
-        <div className="max-w-4xl mx-auto bg-gray-900 text-white p-12 rounded-[3rem] shadow-2xl relative overflow-hidden">
-          <div className="relative z-10">
-            <h3 className="text-3xl font-black mb-6 italic">"But is my sensitive data safe?"</h3>
-            <p className="text-gray-400 text-lg mb-8 leading-relaxed">
-              It’s the number one question users ask. When you upload a bank statement or a medical report, you’re trusting the platform. <strong>TaskGuru uses transient memory processing.</strong> Unlike competitors who store your files to "train AI models" or analyze data patterns, we operate in an <em>Ephemeral Environment</em>.
-            </p>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                <div className="flex items-center gap-4 bg-white/5 p-4 rounded-2xl border border-white/10">
-                    <ShieldCheck className="text-green-500 w-8 h-8" />
-                    <span className="font-bold">Zero Log Policy</span>
-                </div>
-                <div className="flex items-center gap-4 bg-white/5 p-4 rounded-2xl border border-white/10">
-                    <CheckCircle className="text-blue-500 w-8 h-8" />
-                    <span className="font-bold">SSL 256-bit Encryption</span>
-                </div>
+        <div className="max-w-4xl mx-auto bg-gray-900 text-white p-12 rounded-[3rem] shadow-2xl">
+          <h3 className="text-3xl font-black mb-6 italic">&quot;But is my sensitive data safe?&quot;</h3>
+          <p className="text-gray-400 text-lg mb-8 leading-relaxed">
+            It&apos;s the number one question users ask. When you upload a bank statement or medical
+            report, you&apos;re trusting the platform. <strong>TaskGuru uses transient memory
+            processing.</strong> Unlike competitors who store files to &quot;train AI models,&quot; we
+            operate in an ephemeral environment — your data is deleted the moment processing ends.
+          </p>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            <div className="flex items-center gap-4 bg-white/5 p-4 rounded-2xl border border-white/10">
+              <ShieldCheck className="text-green-500 w-8 h-8 flex-shrink-0" />
+              <span className="font-bold">Zero Log Policy</span>
+            </div>
+            <div className="flex items-center gap-4 bg-white/5 p-4 rounded-2xl border border-white/10">
+              <CheckCircle className="text-blue-500 w-8 h-8 flex-shrink-0" />
+              <span className="font-bold">SSL 256-bit Encryption</span>
             </div>
           </div>
         </div>
 
-        {/* Section 4: Workflow Synergy */}
         <div className="max-w-4xl mx-auto space-y-8">
-            <h3 className="text-3xl font-black text-center">Beyond Merging: The TaskGuru Ecosystem</h3>
-            <p className="text-center text-lg text-gray-600">
-                Merging is usually just one step in a larger digital workflow. Once you have combined your files, you might need to:
-            </p>
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
-                <Link href="/tools/image-compressor" className="group p-6 bg-muted rounded-2xl border hover:border-primary transition-colors text-center">
-                    <Zap className="w-10 h-10 mx-auto mb-4 text-yellow-500" />
-                    <h4 className="font-bold group-hover:text-primary">Shrink It</h4>
-                    <p className="text-xs text-muted-foreground">If the merged PDF is too large for email, use our compressor.</p>
-                </Link>
-                <Link href="/tools/pdf-to-word" className="group p-6 bg-muted rounded-2xl border hover:border-primary transition-colors text-center">
-                    <FileText className="w-10 h-10 mx-auto mb-4 text-blue-500" />
-                    <h4 className="font-bold group-hover:text-primary">Edit It</h4>
-                    <p className="text-xs text-muted-foreground">Convert your final PDF into a Word doc for content editing.</p>
-                </Link>
-                <Link href="/tools/image-to-text" className="group p-6 bg-muted rounded-2xl border hover:border-primary transition-colors text-center">
-                    <ArrowRight className="w-10 h-10 mx-auto mb-4 text-green-500" />
-                    <h4 className="font-bold group-hover:text-primary">Extract It</h4>
-                    <p className="text-xs text-muted-foreground">Scan the merged file for text using our OCR technology.</p>
-                </Link>
-            </div>
+          <h3 className="text-3xl font-black text-center text-gray-900 dark:text-white">
+            Beyond Merging: The TaskGuru Ecosystem
+          </h3>
+          <p className="text-center text-lg text-gray-600 dark:text-gray-400">
+            Merging is usually just one step in a larger workflow. Once combined, you might need to:
+          </p>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+            <Link href="/tools/image-compressor" className="group p-6 bg-muted rounded-2xl border hover:border-primary transition-colors text-center">
+              <Zap className="w-10 h-10 mx-auto mb-4 text-yellow-500" />
+              <h4 className="font-bold group-hover:text-primary mb-1">Shrink It</h4>
+              <p className="text-xs text-muted-foreground">If the merged PDF is too large for email, use our Image Compressor.</p>
+            </Link>
+            <Link href="/tools/pdf-to-word" className="group p-6 bg-muted rounded-2xl border hover:border-primary transition-colors text-center">
+              <FileText className="w-10 h-10 mx-auto mb-4 text-blue-500" />
+              <h4 className="font-bold group-hover:text-primary mb-1">Edit It</h4>
+              <p className="text-xs text-muted-foreground">Convert your final PDF into a Word doc for content editing.</p>
+            </Link>
+            <Link href="/tools/image-to-text" className="group p-6 bg-muted rounded-2xl border hover:border-primary transition-colors text-center">
+              <ArrowRight className="w-10 h-10 mx-auto mb-4 text-green-500" />
+              <h4 className="font-bold group-hover:text-primary mb-1">Extract It</h4>
+              <p className="text-xs text-muted-foreground">Scan the merged file for text using our OCR technology.</p>
+            </Link>
+          </div>
         </div>
 
-        {/* Section 5: Tips & Best Practices */}
-        <div className="max-w-4xl mx-auto border-t pt-16">
-            <h3 className="text-2xl font-bold mb-6">Pro Tips for Seamless Document Management</h3>
-            <div className="space-y-6">
-                <div className="flex gap-4">
-                    <div className="h-8 w-8 rounded-full bg-primary text-white flex items-center justify-center font-bold shrink-0">1</div>
-                    <p className="text-gray-700"><strong>Check Page Orientation:</strong> Before merging, ensure all your PDFs are upright. While our merger handles mixed orientations, a uniform flow looks more professional.</p>
+        <div className="max-w-4xl mx-auto border-t border-gray-100 dark:border-zinc-800 pt-16 space-y-6">
+          <h3 className="text-2xl font-bold text-gray-900 dark:text-white">
+            Pro Tips for Seamless Document Management
+          </h3>
+          <div className="space-y-6">
+            {[
+              {
+                title: "Check Page Orientation",
+                desc: "Before merging, ensure all your PDFs are upright. While our merger handles mixed orientations, a uniform flow looks more professional.",
+              },
+              {
+                title: "Manage File Names",
+                desc: "Use descriptive names like Q4_Report_Final.pdf before merging to avoid confusion during the selection process.",
+              },
+              {
+                title: "Optimized for Mobile",
+                desc: "Merging on the go? TaskGuru works perfectly in mobile browsers. Upload directly from iCloud or Google Drive mobile apps.",
+              },
+            ].map((tip, i) => (
+              <div key={i} className="flex gap-4">
+                <div className="h-8 w-8 rounded-full bg-primary text-white flex items-center justify-center font-bold flex-shrink-0 text-sm">
+                  {i + 1}
                 </div>
-                <div className="flex gap-4">
-                    <div className="h-8 w-8 rounded-full bg-primary text-white flex items-center justify-center font-bold shrink-0">2</div>
-                    <p className="text-gray-700"><strong>Manage File Names:</strong> Use descriptive names like <code>Q4_Report_Final.pdf</code> before merging to avoid confusion during the selection process.</p>
-                </div>
-                <div className="flex gap-4">
-                    <div className="h-8 w-8 rounded-full bg-primary text-white flex items-center justify-center font-bold shrink-0">3</div>
-                    <p className="text-gray-700"><strong>Optimized for Mobile:</strong> Merging files on the go? TaskGuru works perfectly in mobile browsers. You can upload directly from your iCloud or Google Drive mobile apps.</p>
-                </div>
-            </div>
+                <p className="text-gray-700 dark:text-gray-300">
+                  <strong>{tip.title}:</strong> {tip.desc}
+                </p>
+              </div>
+            ))}
+          </div>
         </div>
 
-        {/* Footer CTA */}
-        <footer className="bg-primary p-16 rounded-[4rem] text-center text-white">
-            <h3 className="text-3xl font-black mb-4">Start Merging Today—100% Free</h3>
-            <p className="text-primary-foreground/80 text-lg mb-8 max-w-xl mx-auto">
-                No subscription, no watermarks, and no headaches. Experience the internet's most powerful PDF combiner.
-            </p>
-            <Button onClick={handleReset} variant="secondary" size="lg" className="rounded-full px-12 h-14 font-black">
-                Back to Top
-            </Button>
-        </footer>
+        {/* ✅ FIX 7: Removed local <footer> — replaced with simple CTA */}
+        <div className="max-w-4xl mx-auto bg-primary p-12 md:p-16 rounded-[4rem] text-center text-white">
+          <h3 className="text-3xl font-black mb-4">Start Merging Today — 100% Free</h3>
+          <p className="text-primary-foreground/80 text-lg mb-8 max-w-xl mx-auto">
+            No subscription, no watermarks, and no headaches. The internet&apos;s most powerful
+            PDF combiner.
+          </p>
+          <Button
+            onClick={handleReset}
+            variant="secondary"
+            size="lg"
+            className="rounded-full px-12 h-14 font-black"
+          >
+            Merge Another PDF
+          </Button>
+        </div>
 
       </article>
     </div>
   );
-              }
-
+}
