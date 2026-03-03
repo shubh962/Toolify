@@ -24,7 +24,7 @@ export default function SplitPdf() {
     setStatus("");
     setSplitFiles([]);
   }
-
+//working
   async function handleSplit() {
     if (!file) return;
 
