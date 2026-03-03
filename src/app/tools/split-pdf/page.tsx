@@ -1,11 +1,13 @@
-import SplitPdf from "@/components/tools/SplitPdf";
+import dynamic from 'next/dynamic';
 import Link from "next/link";
+
+// ✅ Forces client-side only render — bypasses SSR prerender crash entirely
+const SplitPdf = dynamic(() => import('@/components/tools/SplitPdf'), { ssr: false });
 
 export const metadata = {
   alternates: { canonical: "https://www.taskguru.online/tools/split-pdf" },
 };
 
-// ✅ Split into two separate objects — @graph array causes SSR crash in Next.js 15
 const appSchema = {
   "@context": "https://schema.org",
   "@type": "WebApplication",
@@ -70,7 +72,7 @@ export default function Page() {
           <Link href="/tools/pdf-to-word" className="px-6 py-3 border rounded-full hover:bg-gray-50 dark:hover:bg-gray-800 transition font-semibold">
             Convert PDF to Word →
           </Link>
-          <Link href="/tools/image-to-pdf" className="px-6 py-3 border rounded-full hover:bg-gray-50 dark:hover:bg-gray-800 transition font-semibent">
+          <Link href="/tools/image-to-pdf" className="px-6 py-3 border rounded-full hover:bg-gray-50 dark:hover:bg-gray-800 transition font-semibold">
             Image to PDF Converter →
           </Link>
         </div>
