@@ -5,28 +5,26 @@ export const metadata = {
   alternates: { canonical: "https://www.taskguru.online/tools/split-pdf" },
 };
 
-// ✅ FIX: jsonLd moved outside component — prevents SSR prerender crash
-const jsonLd = {
+// ✅ Split into two separate objects — @graph array causes SSR crash in Next.js 15
+const appSchema = {
   "@context": "https://schema.org",
-  "@graph": [
-    {
-      "@type": "WebApplication",
-      "name": "TaskGuru PDF Splitter",
-      "url": "https://www.taskguru.online/tools/split-pdf",
-      "description": "A secure, client-side tool to split PDF documents into separate pages.",
-      "applicationCategory": "OfficeApplication",
-      "operatingSystem": "Windows, macOS, Linux, Android, iOS",
-      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
-    },
-    {
-      "@type": "HowTo",
-      "name": "How to Split PDF Pages Instantly",
-      "step": [
-        { "@type": "HowToStep", "text": "Upload your PDF file by clicking the upload area." },
-        { "@type": "HowToStep", "text": "Click 'Split PDF Now' to process the file locally in your browser." },
-        { "@type": "HowToStep", "text": "Download split pages individually or as a ZIP file." },
-      ],
-    },
+  "@type": "WebApplication",
+  "name": "TaskGuru PDF Splitter",
+  "url": "https://www.taskguru.online/tools/split-pdf",
+  "description": "A secure, client-side tool to split PDF documents into separate pages.",
+  "applicationCategory": "OfficeApplication",
+  "operatingSystem": "Windows, macOS, Linux, Android, iOS",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+};
+
+const howToSchema = {
+  "@context": "https://schema.org",
+  "@type": "HowTo",
+  "name": "How to Split PDF Pages Instantly",
+  "step": [
+    { "@type": "HowToStep", "text": "Upload your PDF file by clicking the upload area." },
+    { "@type": "HowToStep", "text": "Click 'Split PDF Now' to process the file locally in your browser." },
+    { "@type": "HowToStep", "text": "Download split pages individually or as a ZIP file." },
   ],
 };
 
@@ -35,7 +33,11 @@ export default function Page() {
     <div className="max-w-6xl mx-auto px-6 py-12 space-y-16">
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(appSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(howToSchema) }}
       />
 
       <section className="text-center space-y-6 pt-10">
@@ -68,7 +70,7 @@ export default function Page() {
           <Link href="/tools/pdf-to-word" className="px-6 py-3 border rounded-full hover:bg-gray-50 dark:hover:bg-gray-800 transition font-semibold">
             Convert PDF to Word →
           </Link>
-          <Link href="/tools/image-to-pdf" className="px-6 py-3 border rounded-full hover:bg-gray-50 dark:hover:bg-gray-800 transition font-semibold">
+          <Link href="/tools/image-to-pdf" className="px-6 py-3 border rounded-full hover:bg-gray-50 dark:hover:bg-gray-800 transition font-semibent">
             Image to PDF Converter →
           </Link>
         </div>
