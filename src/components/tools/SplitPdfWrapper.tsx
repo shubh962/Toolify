@@ -3,7 +3,6 @@
 
 import dynamic from 'next/dynamic';
 
-// Import your actual SplitPdf component here
 const SplitPdf = dynamic(() => import('./SplitPdf'), { 
   ssr: false,
   loading: () => (
