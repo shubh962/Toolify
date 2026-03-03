@@ -1,37 +1,5 @@
 import ImageToText from "@/components/tools/ImageToText";
 
-export const metadata = {
-  title: "Image to Text Converter (OCR) – Extract Text from Images Online | TaskGuru",
-  description:
-    "Use the free Image to Text (OCR) tool by TaskGuru to extract text from JPG, PNG, and WEBP images instantly. Fast, accurate OCR with no signup required.",
-  robots: { index: true, follow: true },
-  alternates: {
-    canonical: "https://www.taskguru.online/tools/image-to-text",
-  },
-  openGraph: {
-    title: "Free Image to Text Converter (OCR) | TaskGuru",
-    description:
-      "Convert images into editable text instantly using our free online OCR tool. Works with PNG, JPG, WEBP — fully browser-based and secure.",
-    url: "https://www.taskguru.online/tools/image-to-text",
-    type: "website",
-    images: [
-      {
-        url: "https://www.taskguru.online/assets/og-image-to-text.png",
-        width: 1200,
-        height: 630,
-        alt: "Image to Text OCR Tool Preview",
-      },
-    ],
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Image to Text Converter Online (OCR) | TaskGuru",
-    description:
-      "Extract text from any image using our free OCR tool. No signup needed, works instantly in your browser.",
-    images: ["https://www.taskguru.online/assets/og-image-to-text.png"],
-  },
-};
-
 export default function Page() {
   return (
     <div className="space-y-16 py-10">
@@ -43,7 +11,6 @@ export default function Page() {
           Extract text from JPG, PNG, or WEBP images instantly — free, private, no signup.
         </p>
       </section>
-
       <ImageToText />
     </div>
   );
