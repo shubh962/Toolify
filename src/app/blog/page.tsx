@@ -42,6 +42,15 @@ const posts = [
   featured: false,
 },
   {
+  slug: "what-is-a-qr-code",
+  title: "What is a QR Code and How Does It Work? (2026 Guide)",
+  summary: "A complete plain-English guide to QR codes — what they are, how they encode data, types, real-world use cases in 2026, and how to create one free in 30 seconds.",
+  date: "2026-03-14",
+  displayDate: "March 14, 2026",
+  category: "Tech Explained",
+  featured: false,
+},
+  {
   slug: "how-to-make-resume-with-no-experience",
   title: "How to Make a Resume With No Experience (2026 Guide)",
   summary: "A complete step-by-step guide for students and fresh graduates — what to include instead of work experience, how to write a strong summary, ATS tips, and common mistakes to avoid.",
