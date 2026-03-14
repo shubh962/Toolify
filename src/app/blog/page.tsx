@@ -42,6 +42,15 @@ const posts = [
   featured: false,
 },
   {
+  slug: "how-to-paraphrase-text",
+  title: "How to Paraphrase Text (Without Plagiarism) — 2026 Guide",
+  summary: "5 proven paraphrasing techniques with before/after examples. Learn how to rewrite text correctly, avoid plagiarism, and when to use a free AI paraphrasing tool.",
+  date: "2026-03-14",
+  displayDate: "March 14, 2026",
+  category: "Writing Skills",
+  featured: false,
+},
+  {
   slug: "what-is-a-qr-code",
   title: "What is a QR Code and How Does It Work? (2026 Guide)",
   summary: "A complete plain-English guide to QR codes — what they are, how they encode data, types, real-world use cases in 2026, and how to create one free in 30 seconds.",
