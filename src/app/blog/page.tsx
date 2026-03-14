@@ -78,6 +78,15 @@ const posts = [
     featured: true,
   },
   {
+  slug: "how-to-convert-pdf-to-word-free",
+  title: "How to Convert PDF to Word for Free (2026 Guide)",
+  summary: "Convert any PDF to an editable Word document in seconds — no software, no sign-up, no file upload. Works on Windows, Mac, Android, and iOS. Covers scanned PDFs, formatting fixes, and privacy risks.",
+  date: "2026-03-14",
+  displayDate: "March 14, 2026",
+  category: "PDF Tools",
+  featured: false,
+},
+  {
     slug: "reduce-image-size-kb-without-losing-quality",
     title: "How to Reduce Image Size in KB Without Losing Quality (2026)",
     summary: "A step-by-step guide to compressing JPG, PNG, and WebP images. Learn how to optimize your site speed, improve LCP scores, and use free tools without sign-up.",
