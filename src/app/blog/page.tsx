@@ -32,6 +32,16 @@ const categoryColors: Record<string, string> = {
 const posts = [
   // ✅ FIX 5: New blog post added to array
   {
+  slug: "what-is-ocr-image-to-text",
+  title: "What is OCR? How Image to Text Technology Works (2026 Guide)",
+  summary:
+    "A plain-English explanation of Optical Character Recognition — how it works, real-world use cases, accuracy tips, and how to extract text from any image for free in your browser.",
+  date: "2026-03-14",
+  displayDate: "March 14, 2026",
+  category: "Tech Explained",
+  featured: false,
+},
+  {
     slug: "how-to-compress-images-without-losing-quality",
     title: "How to Compress Images Without Losing Quality (2026 Guide)",
     summary: "Learn how to compress JPG, PNG, and WebP images without visible quality loss. Covers formats, file size targets, common mistakes, and free tools.",
