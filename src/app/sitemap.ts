@@ -11,6 +11,7 @@ const blogSlugs = [
   "zero-cost-freelancer-tools",
   "how-to-compress-images-without-losing-quality",
   "what-is-ocr-image-to-text",
+  "how-to-make-resume-with-no-experience",
   "rent-vs-buy-financial-guide",
 ];
 const toolSlugs = [
