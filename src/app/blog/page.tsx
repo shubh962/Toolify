@@ -42,6 +42,15 @@ const posts = [
   featured: false,
 },
   {
+  slug: "how-to-make-resume-with-no-experience",
+  title: "How to Make a Resume With No Experience (2026 Guide)",
+  summary: "A complete step-by-step guide for students and fresh graduates — what to include instead of work experience, how to write a strong summary, ATS tips, and common mistakes to avoid.",
+  date: "2026-03-14",
+  displayDate: "March 14, 2026",
+  category: "Career Hacking",
+  featured: false,
+},
+  {
     slug: "how-to-compress-images-without-losing-quality",
     title: "How to Compress Images Without Losing Quality (2026 Guide)",
     summary: "Learn how to compress JPG, PNG, and WebP images without visible quality loss. Covers formats, file size targets, common mistakes, and free tools.",
