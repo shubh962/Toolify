@@ -9,6 +9,7 @@ const blogSlugs = [
   "resume-ats-secrets",
   "image-compression-guide",
   "zero-cost-freelancer-tools",
+  "how-to-compress-images-without-losing-quality",
   "rent-vs-buy-financial-guide",
 ];
 const toolSlugs = [
