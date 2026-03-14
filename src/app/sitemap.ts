@@ -25,6 +25,7 @@ const toolSlugs = [
   "split-pdf",
   "text-paraphraser",
   "image-to-pdf",
+  "pdf-compressor",
   "resume-maker",
   "qr-barcode-generator",
   "age-calculator",
