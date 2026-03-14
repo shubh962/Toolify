@@ -11,6 +11,7 @@ import {
   Calculator,
   Youtube,
   QrCode,
+  FileDown, // ✅ New icon for PDF Compressor
 } from 'lucide-react';
 
 export interface Tool {
@@ -43,7 +44,7 @@ export const tools: Tool[] = [
           <li><strong>E-commerce Ready:</strong> Perfect for Amazon, Shopify, and eBay listings.</li>
         </ul>
       </div>
-    `
+    `,
   },
   {
     slug: 'image-to-text',
@@ -58,7 +59,7 @@ export const tools: Tool[] = [
       <p>Our <strong>Free Online OCR</strong> tool converts scanned documents, screenshots, and photos into editable text instantly. It works perfectly with invoices, receipts, and study notes.</p>
       <h3>How it works:</h3>
       <p>We use machine learning to analyze shapes and patterns in your image, translating them into digital characters. This tool supports multiple languages and maintains high accuracy.</p>
-    `
+    `,
   },
   {
     slug: 'text-paraphraser',
@@ -76,7 +77,7 @@ export const tools: Tool[] = [
         <li><strong>Fluency Improvement:</strong> Fix grammar and awkward phrasing.</li>
         <li><strong>Multiple Tones:</strong> Suitable for academic and professional writing.</li>
       </ul>
-    `
+    `,
   },
   {
     slug: 'pdf-to-word',
@@ -91,7 +92,7 @@ export const tools: Tool[] = [
       <h3>Unlock Your Documents</h3>
       <p>PDFs are great for sharing, but terrible for editing. Our converter solves this by unlocking your documents while keeping fonts, images, and tables exactly where they belong.</p>
       <p>This tool is browser-based, meaning you don't need to install software. Just upload, convert, and download your editable Word file.</p>
-    `
+    `,
   },
   {
     slug: 'merge-pdf',
@@ -106,7 +107,7 @@ export const tools: Tool[] = [
       <h3>Organize Your Files</h3>
       <p>Have multiple PDFs that need to be in one place? Our PDF Merger allows you to combine unlimited files into a single, organized document. Essential for invoices, portfolios, or assignments.</p>
       <p>Drag and drop to reorder files before merging. The process happens locally for speed and privacy.</p>
-    `
+    `,
   },
   {
     slug: 'split-pdf',
@@ -120,7 +121,27 @@ export const tools: Tool[] = [
     content: `
       <h3>Extract Only What You Need</h3>
       <p>Sometimes you only need a few pages from a large document. Our Split PDF Tool lets you extract specific page ranges or separate every page into a new file. Perfect for sharing specific chapters or legal clauses.</p>
-    `
+    `,
+  },
+  // ✅ NEW: PDF Compressor entry
+  {
+    slug: 'pdf-compressor',
+    title: 'Free PDF Compressor Online (Reduce PDF Size)',
+    description:
+      'Compress PDF files and reduce their size instantly in your browser. No uploads, no sign-up, 100% private. See before/after size comparison with every compression.',
+    icon: FileDown,
+    isGenAI: false,
+    isPlaceholder: false,
+    imageUrl: '/tool-previews/pdf-compressor.png',
+    content: `
+      <h3>Reduce PDF Size Without Quality Loss</h3>
+      <p>Large PDFs get rejected by email servers and government portals. TaskGuru's PDF Compressor reduces file size by removing metadata, duplicate objects, and unused resources — all in your browser.</p>
+      <ul>
+        <li><strong>100% Private:</strong> Your file never leaves your device.</li>
+        <li><strong>Before/After Comparison:</strong> See exactly how much was saved.</li>
+        <li><strong>No Watermarks:</strong> Download the clean compressed file instantly.</li>
+      </ul>
+    `,
   },
   {
     slug: 'image-compressor',
@@ -139,7 +160,7 @@ export const tools: Tool[] = [
         <li><strong>Designers:</strong> Send proofs via email easily.</li>
         <li><strong>Everyone:</strong> Save storage space.</li>
       </ul>
-    `
+    `,
   },
   {
     slug: 'image-to-pdf',
@@ -153,7 +174,7 @@ export const tools: Tool[] = [
     content: `
       <h3>Turn Photos into Documents</h3>
       <p>Need to submit photos of documents as a single file? This tool turns a gallery of JPGs or PNGs into a professional PDF document. Widely used for submitting ID proofs, homework, and receipts.</p>
-    `
+    `,
   },
   {
     slug: 'resume-maker',
@@ -167,17 +188,18 @@ export const tools: Tool[] = [
     content: `
       <h3>Get Hired Faster</h3>
       <p>Don't let formatting issues cost you an interview. The TaskGuru Resume Builder creates clean, ATS-friendly resumes that recruiters love. Simply fill in your details and download the PDF.</p>
-    `
+    `,
   },
   {
     slug: 'qr-barcode-generator',
     title: 'Free QR Code & Barcode Generator',
-    description: 'All-in-one generator for custom QR Codes (URL, WiFi) and Barcodes (EAN, UPC, CODE128). Download high-quality PNGs instantly.',
+    description:
+      'All-in-one generator for custom QR Codes (URL, WiFi) and Barcodes (EAN, UPC, CODE128). Download high-quality PNGs instantly.',
     icon: QrCode,
     isGenAI: false,
     isPlaceholder: false,
     imageUrl: '/tool-previews/qr-barcode.png',
-    content: ''
+    content: '',
   },
   {
     slug: 'age-calculator',
@@ -191,13 +213,17 @@ export const tools: Tool[] = [
     content: `
       <h3>Precision Age Calculation</h3>
       <p>Calculating age manually with leap years is tricky. This calculator gives you a precise breakdown of your age in years, months, weeks, and days. Useful for official forms or planning retirement.</p>
-    `
+    `,
   },
   {
-    slug: "youtube-thumbnail-downloader",
-    title: "YouTube Thumbnail Downloader (HD & 4K)",
-    description: "Download YouTube thumbnails in 1080p HD, 4K and SD quality instantly. Extract original cover images without watermark.",
+    slug: 'youtube-thumbnail-downloader',
+    title: 'YouTube Thumbnail Downloader (HD & 4K)',
+    description:
+      'Download YouTube thumbnails in 1080p HD, 4K and SD quality instantly. Extract original cover images without watermark.',
     icon: Youtube,
+    isGenAI: false,
+    isPlaceholder: false,
+    imageUrl: '/tool-previews/youtube-thumbnail.png',
     content: `
       <h3>Download HD Thumbnails Instantly</h3>
       <p>TaskGuru's Thumbnail Downloader extracts the highest quality cover images directly from YouTube servers. Whether you need <strong>1080p (HD)</strong> for a project or <strong>Standard Definition</strong> for a blog post, we provide direct access.</p>
@@ -207,39 +233,39 @@ export const tools: Tool[] = [
         <li><strong>No Watermarks:</strong> Clean, original images.</li>
         <li><strong>Privacy:</strong> No tracking of your downloads.</li>
       </ul>
-    `
+    `,
   },
   {
-  slug: "metal-weight-calculator",
-  title: "Metal Weight Calculator Online (Steel, Iron, Aluminum)",
-  description:
-    "Calculate metal weight instantly using length, width, thickness and density. Supports steel, iron, aluminum, copper and more materials.",
-  icon: Calculator,
-  isGenAI: false,
-  isPlaceholder: false,
-  imageUrl: "/tool-previews/metal-weight-calculator.png",
-  content: `
-    <h3>Accurate Metal Weight Calculation</h3>
-    <p>Use our Metal Weight Calculator to determine the exact weight of steel, iron, aluminum, copper and other materials based on dimensions and density.</p>
-    <ul>
-      <li><strong>Supports Multiple Metals:</strong> Steel, Iron, Aluminum, Copper.</li>
-      <li><strong>Instant Results:</strong> Enter dimensions and get weight instantly.</li>
-      <li><strong>Industrial & Construction Use:</strong> Perfect for engineers and fabricators.</li>
-    </ul>
-  `
-},
-    {
+    slug: 'metal-weight-calculator',
+    title: 'Metal Weight Calculator Online (Steel, Iron, Aluminum)',
+    description:
+      'Calculate metal weight instantly using length, width, thickness and density. Supports steel, iron, aluminum, copper and more materials.',
+    icon: Calculator,
+    isGenAI: false,
+    isPlaceholder: false,
+    imageUrl: '/tool-previews/metal-weight-calculator.png',
+    content: `
+      <h3>Accurate Metal Weight Calculation</h3>
+      <p>Use our Metal Weight Calculator to determine the exact weight of steel, iron, aluminum, copper and other materials based on dimensions and density.</p>
+      <ul>
+        <li><strong>Supports Multiple Metals:</strong> Steel, Iron, Aluminum, Copper.</li>
+        <li><strong>Instant Results:</strong> Enter dimensions and get weight instantly.</li>
+        <li><strong>Industrial & Construction Use:</strong> Perfect for engineers and fabricators.</li>
+      </ul>
+    `,
+  },
+  {
     slug: 'emi-calculator',
     title: 'Loan EMI Calculator',
-    description: 'Calculate monthly EMI for Home Loan, Car Loan, and Personal Loan. Get instant breakdown of principal and interest amounts.',
-    icon: Minimize, // You can import 'Calculator' from lucide-react if available, or keep Minimize
+    description:
+      'Calculate monthly EMI for Home Loan, Car Loan, and Personal Loan. Get instant breakdown of principal and interest amounts.',
+    icon: Calculator, // ✅ Fixed: was using Minimize, Calculator makes more sense
     isGenAI: false,
     isPlaceholder: false,
     imageUrl: '/tool-previews/emi-calculator.png',
     content: `
       <h3>Smart Financial Planning</h3>
       <p>Planning to take a loan? Use our <strong>Free EMI Calculator</strong> to estimate your monthly installments accurately. Whether it is a home loan, car loan, or personal loan, knowing your EMI beforehand helps you budget better.</p>
-      
       <h3>How it works?</h3>
       <p>We use the standard banking formula: <strong>E = P x R x (1+R)^N / [(1+R)^N-1]</strong>.</p>
       <ul>
@@ -247,8 +273,7 @@ export const tools: Tool[] = [
         <li><strong>R:</strong> Monthly Interest Rate</li>
         <li><strong>N:</strong> Loan Tenure in Months</li>
       </ul>
-    `
-  }
-
+    `,
+  },
 ];
     
