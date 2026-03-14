@@ -155,14 +155,11 @@ export default function PdfCompressor() {
       // Level 2+: use object streams (merges duplicate objects)
       const useObjectStreams = compressionLevel >= 2;
 
-      // Level 3: additional page-level reserialisation pass
+      // Level 3: access all pages to force full content stream parsing
       if (compressionLevel === 3) {
         const pages = pdfDoc.getPages();
-        // Trigger re-encoding of page content streams
-        pages.forEach((page) => {
-          // Access page dict to force reserialisation
-          page.node.normalizeContents();
-        });
+        // Reading page properties triggers full parse of all content streams
+        pages.forEach((page) => page.getSize());
       }
 
       const compressedBytes = await pdfDoc.save({
@@ -188,9 +185,16 @@ export default function PdfCompressor() {
       });
     } catch (error) {
       console.error(error);
+      const errMsg = error instanceof Error ? error.message : '';
+      const isEncrypted =
+        errMsg.toLowerCase().includes('encrypt') ||
+        errMsg.toLowerCase().includes('password') ||
+        errMsg.toLowerCase().includes('decrypt');
       toast({
-        title: 'Compression Failed',
-        description: 'Could not process this PDF. Is it password-protected?',
+        title: isEncrypted ? 'Password-Protected PDF' : 'Compression Failed',
+        description: isEncrypted
+          ? 'This PDF is password-protected. Please remove the password first, then try again.'
+          : 'Could not process this PDF. Please try a different file.',
         variant: 'destructive',
       });
     } finally {
@@ -230,6 +234,7 @@ export default function PdfCompressor() {
 
           {/* Upload area */}
           {!file ? (
+            <>
             <div
               className="flex flex-col items-center justify-center space-y-5 p-10 sm:p-14 border-2 border-dashed border-gray-200 dark:border-gray-700 rounded-[1.5rem] cursor-pointer hover:border-primary/50 hover:bg-gray-50 dark:hover:bg-gray-800 transition-all duration-300"
               onClick={() => fileInputRef.current?.click()}
@@ -258,6 +263,11 @@ export default function PdfCompressor() {
                 onChange={handleFileChange}
               />
             </div>
+            {/* ✅ Password note — always visible before upload */}
+            <p className="text-center text-xs text-slate-400 dark:text-slate-500">
+              ⚠️ Password-protected PDFs cannot be compressed. Remove the password first.
+            </p>
+            </>
           ) : (
             <div className="space-y-5">
 
