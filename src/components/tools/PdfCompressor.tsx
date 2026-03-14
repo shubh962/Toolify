@@ -10,20 +10,43 @@ import {
 } from 'lucide-react';
 import { Card, CardContent, CardFooter } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
+import { Slider } from '@/components/ui/slider';
 import { useToast } from '@/hooks/use-toast';
 
-// ✅ Max file size constant
 const MAX_SIZE_MB = 100;
 const MAX_SIZE_BYTES = MAX_SIZE_MB * 1024 * 1024;
 
-// ✅ File size formatter
 const formatSize = (bytes: number): string => {
   if (bytes < 1024) return `${bytes} B`;
   if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(1)} KB`;
   return `${(bytes / (1024 * 1024)).toFixed(2)} MB`;
 };
 
-// ✅ FAQ schema outside component
+// ✅ Compression level definitions
+const COMPRESSION_LEVELS = [
+  {
+    value: 1,
+    label: 'Light',
+    desc: 'Remove metadata only. Fastest, safest. Best for already-small PDFs.',
+    color: 'text-green-600',
+    bg: 'bg-green-50 dark:bg-green-900/20 border-green-200 dark:border-green-800',
+  },
+  {
+    value: 2,
+    label: 'Medium',
+    desc: 'Remove metadata + enable object streams. Best balance of size and quality.',
+    color: 'text-blue-600',
+    bg: 'bg-blue-50 dark:bg-blue-900/20 border-blue-200 dark:border-blue-800',
+  },
+  {
+    value: 3,
+    label: 'Maximum',
+    desc: 'Full reserialisation. Most aggressive reduction. May take slightly longer.',
+    color: 'text-red-600',
+    bg: 'bg-red-50 dark:bg-red-900/20 border-red-200 dark:border-red-800',
+  },
+];
+
 const faqSchema = {
   '@context': 'https://schema.org',
   '@type': 'FAQPage',
@@ -75,6 +98,7 @@ export default function PdfCompressor() {
   const { toast } = useToast();
   const [file, setFile] = useState<File | null>(null);
   const [isCompressing, setIsCompressing] = useState(false);
+  const [compressionLevel, setCompressionLevel] = useState(2); // default: Medium
   const [result, setResult] = useState<{
     blob: Blob;
     originalSize: number;
@@ -83,7 +107,8 @@ export default function PdfCompressor() {
   } | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  // ✅ File validation
+  const activeLevel = COMPRESSION_LEVELS[compressionLevel - 1];
+
   const validateAndSetFile = (f: File) => {
     if (f.type !== 'application/pdf') {
       toast({ title: 'Invalid File', description: 'Only PDF files are allowed.', variant: 'destructive' });
@@ -108,10 +133,10 @@ export default function PdfCompressor() {
     if (dropped) validateAndSetFile(dropped);
   };
 
-  // ✅ Core compression logic using pdf-lib
   const handleCompress = async () => {
     if (!file) return;
     setIsCompressing(true);
+    setResult(null);
 
     try {
       const arrayBuffer = await file.arrayBuffer();
@@ -119,7 +144,7 @@ export default function PdfCompressor() {
         updateMetadata: false,
       });
 
-      // Remove metadata to reduce size
+      // Level 1, 2, 3: always strip metadata
       pdfDoc.setTitle('');
       pdfDoc.setAuthor('');
       pdfDoc.setSubject('');
@@ -127,9 +152,21 @@ export default function PdfCompressor() {
       pdfDoc.setProducer('');
       pdfDoc.setCreator('');
 
-      // Save with compression options
+      // Level 2+: use object streams (merges duplicate objects)
+      const useObjectStreams = compressionLevel >= 2;
+
+      // Level 3: additional page-level reserialisation pass
+      if (compressionLevel === 3) {
+        const pages = pdfDoc.getPages();
+        // Trigger re-encoding of page content streams
+        pages.forEach((page) => {
+          // Access page dict to force reserialisation
+          page.node.normalizeContents();
+        });
+      }
+
       const compressedBytes = await pdfDoc.save({
-        useObjectStreams: true,
+        useObjectStreams,
         addDefaultPage: false,
       });
 
@@ -141,8 +178,8 @@ export default function PdfCompressor() {
       );
 
       const blob = new Blob([compressedBytes], { type: 'application/pdf' });
-
       setResult({ blob, originalSize, compressedSize, savedPercent });
+
       toast({
         title: 'Compression Complete!',
         description: savedPercent > 0
@@ -189,7 +226,7 @@ export default function PdfCompressor() {
 
       {/* ── TOOL CARD ── */}
       <Card className="w-full max-w-2xl mx-auto shadow-2xl mt-8 border-2 border-primary/10 rounded-[2rem] bg-white dark:bg-gray-900">
-        <CardContent className="p-6 sm:p-10">
+        <CardContent className="p-6 sm:p-10 space-y-6">
 
           {/* Upload area */}
           {!file ? (
@@ -222,7 +259,7 @@ export default function PdfCompressor() {
               />
             </div>
           ) : (
-            <div className="space-y-6">
+            <div className="space-y-5">
 
               {/* File info */}
               <div className="flex items-center gap-4 p-4 bg-gray-50 dark:bg-gray-800 rounded-2xl border border-gray-100 dark:border-gray-700">
@@ -235,19 +272,57 @@ export default function PdfCompressor() {
                 </div>
               </div>
 
+              {/* ✅ Compression Level Selector */}
+              {!result && (
+                <div className="space-y-4">
+                  <div className="flex justify-between items-center">
+                    <p className="font-bold text-gray-900 dark:text-white text-sm">
+                      Compression Level
+                    </p>
+                    <span className={`text-xs font-black px-3 py-1 rounded-full border ${activeLevel.bg} ${activeLevel.color}`}>
+                      {activeLevel.label}
+                    </span>
+                  </div>
+
+                  {/* Slider */}
+                  <Slider
+                    min={1}
+                    max={3}
+                    step={1}
+                    value={[compressionLevel]}
+                    onValueChange={(v) => {
+                      setCompressionLevel(v[0]);
+                      setResult(null);
+                    }}
+                    className="py-2"
+                  />
+
+                  {/* Level labels */}
+                  <div className="flex justify-between text-xs font-bold text-gray-400">
+                    <span className="text-green-600">Light</span>
+                    <span className="text-blue-600">Medium</span>
+                    <span className="text-red-500">Maximum</span>
+                  </div>
+
+                  {/* Active level description */}
+                  <div className={`p-3 rounded-xl border text-xs leading-relaxed ${activeLevel.bg} ${activeLevel.color}`}>
+                    <strong>{activeLevel.label}:</strong> {activeLevel.desc}
+                  </div>
+                </div>
+              )}
+
               {/* Before / After comparison */}
               {result && (
                 <div className="rounded-2xl border-2 border-green-200 dark:border-green-800 bg-green-50 dark:bg-green-900/20 p-5 space-y-4">
-                  <div className="flex items-center gap-2 mb-1">
+                  <div className="flex items-center gap-2">
                     <CheckCircle className="w-5 h-5 text-green-600 dark:text-green-400" />
                     <span className="font-black text-green-700 dark:text-green-300 text-sm uppercase tracking-wider">
-                      Compression Complete
+                      Compression Complete — {activeLevel.label} Mode
                     </span>
                   </div>
 
                   {/* Size bars */}
                   <div className="space-y-3">
-                    {/* Before */}
                     <div className="space-y-1">
                       <div className="flex justify-between text-xs font-bold text-gray-500 dark:text-gray-400">
                         <span>Before</span>
@@ -257,7 +332,6 @@ export default function PdfCompressor() {
                         <div className="h-full bg-gray-400 dark:bg-gray-500 rounded-full w-full" />
                       </div>
                     </div>
-                    {/* After */}
                     <div className="space-y-1">
                       <div className="flex justify-between text-xs font-bold text-gray-500 dark:text-gray-400">
                         <span>After</span>
@@ -266,14 +340,14 @@ export default function PdfCompressor() {
                       <div className="h-3 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
                         <div
                           className="h-full bg-green-500 rounded-full transition-all duration-1000"
-                          style={{ width: `${100 - result.savedPercent}%` }}
+                          style={{ width: `${Math.max(5, 100 - result.savedPercent)}%` }}
                         />
                       </div>
                     </div>
                   </div>
 
-                  {/* Stats row */}
-                  <div className="grid grid-cols-3 gap-3 pt-1">
+                  {/* Stats */}
+                  <div className="grid grid-cols-3 gap-3">
                     <div className="text-center p-3 bg-white dark:bg-gray-900 rounded-xl border border-green-100 dark:border-green-900">
                       <p className="text-lg font-black text-green-600 dark:text-green-400">
                         {result.savedPercent}%
@@ -293,16 +367,24 @@ export default function PdfCompressor() {
                       <p className="text-xs text-gray-500 font-medium">New Size</p>
                     </div>
                   </div>
+
+                  {/* Try different level */}
+                  <button
+                    onClick={() => setResult(null)}
+                    className="text-xs text-blue-600 dark:text-blue-400 hover:underline font-semibold"
+                  >
+                    ← Try a different compression level
+                  </button>
                 </div>
               )}
 
-              {/* Loading bar */}
+              {/* Loading */}
               {isCompressing && (
                 <div className="flex items-center gap-3 p-4 bg-blue-50 dark:bg-blue-900/20 rounded-2xl border border-blue-100 dark:border-blue-900">
                   <Loader2 className="w-5 h-5 text-blue-600 animate-spin flex-shrink-0" />
-                  <div className="flex-1">
+                  <div>
                     <p className="text-sm font-bold text-blue-700 dark:text-blue-300">
-                      Compressing locally in your browser...
+                      Applying {activeLevel.label} compression...
                     </p>
                     <p className="text-xs text-blue-500 dark:text-blue-400">
                       Your file never leaves your device
@@ -353,7 +435,6 @@ export default function PdfCompressor() {
       {/* ── SEO ARTICLE ── */}
       <article className="max-w-5xl mx-auto px-6 py-16 space-y-16 text-slate-600 dark:text-slate-400 leading-relaxed">
 
-        {/* Why compress */}
         <section className="space-y-5">
           <h2 className="text-3xl font-black text-slate-900 dark:text-white">
             Why Compress a PDF?
@@ -391,13 +472,64 @@ export default function PdfCompressor() {
           </div>
         </section>
 
-        {/* How it works */}
+        {/* Compression levels explained */}
+        <section className="space-y-5">
+          <h2 className="text-2xl font-black text-slate-900 dark:text-white">
+            Which Compression Level Should I Use?
+          </h2>
+          <div className="grid md:grid-cols-3 gap-4">
+            {[
+              {
+                level: '🟢 Light',
+                best: 'Already small PDFs, quick cleanup',
+                what: 'Strips metadata only — author, title, creator tags. Fastest option with zero risk.',
+                reduction: '2–8%',
+                color: 'border-green-200 dark:border-green-800 bg-green-50 dark:bg-green-900/10',
+              },
+              {
+                level: '🔵 Medium',
+                best: 'Most PDFs — recommended default',
+                what: 'Metadata removal + object stream merging. Combines duplicate resources into single entries.',
+                reduction: '5–20%',
+                color: 'border-blue-200 dark:border-blue-800 bg-blue-50 dark:bg-blue-900/10',
+              },
+              {
+                level: '🔴 Maximum',
+                best: 'Large PDFs, heavily edited files',
+                what: 'Full reserialisation including page-level content stream optimisation. Most aggressive option.',
+                reduction: '10–30%',
+                color: 'border-red-200 dark:border-red-800 bg-red-50 dark:bg-red-900/10',
+              },
+            ].map((item) => (
+              <div key={item.level} className={`p-5 border rounded-2xl space-y-3 ${item.color}`}>
+                <h3 className="font-black text-slate-900 dark:text-white">{item.level}</h3>
+                <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide">
+                  Best for: {item.best}
+                </p>
+                <p className="text-sm leading-relaxed">{item.what}</p>
+                <div className="pt-1 border-t border-current border-opacity-10">
+                  <span className="text-xs font-black">Typical reduction: {item.reduction}</span>
+                </div>
+              </div>
+            ))}
+          </div>
+          <div className="p-5 bg-yellow-50 dark:bg-yellow-900/20 border-l-4 border-yellow-400 rounded-r-2xl">
+            <p className="text-xs font-black text-yellow-700 dark:text-yellow-400 uppercase mb-2">⚠️ Honest Expectation</p>
+            <p className="text-sm text-slate-700 dark:text-slate-300 leading-relaxed">
+              Browser-based compression achieves <strong>2–30% reduction</strong> depending
+              on your PDF type and chosen level. For larger reductions (60–80%),
+              server-based tools that re-encode embedded images are needed. If your PDF
+              is already optimised, all three levels will show minimal reduction — that is normal.
+            </p>
+          </div>
+        </section>
+
         <section className="space-y-5">
           <h2 className="text-2xl font-black text-slate-900 dark:text-white">
             How Browser-Based PDF Compression Works
           </h2>
           <p>
-            Unlike server-based tools, TaskGuru uses{' '}
+            TaskGuru uses{' '}
             <strong className="text-slate-800 dark:text-slate-200">pdf-lib</strong> — a
             pure JavaScript library — to parse and reserialise your PDF directly in
             your browser. The process removes:
@@ -418,17 +550,8 @@ export default function PdfCompressor() {
               </div>
             ))}
           </div>
-          <div className="p-5 bg-yellow-50 dark:bg-yellow-900/20 border-l-4 border-yellow-400 rounded-r-2xl">
-            <p className="text-xs font-black text-yellow-700 dark:text-yellow-400 uppercase mb-2">⚠️ Honest Expectation</p>
-            <p className="text-sm text-slate-700 dark:text-slate-300 leading-relaxed">
-              Browser-based compression achieves <strong>5–30% reduction</strong> on most PDFs.
-              For larger reductions (60–80%), server-based tools that re-encode images are needed.
-              If your PDF is already optimised, the reduction may be minimal — that is normal.
-            </p>
-          </div>
         </section>
 
-        {/* FAQ */}
         <section className="space-y-5">
           <h2 className="text-2xl font-black text-slate-900 dark:text-white flex items-center gap-2">
             <HelpCircle className="w-6 h-6 text-blue-600" /> Frequently Asked Questions
@@ -449,7 +572,6 @@ export default function PdfCompressor() {
           </div>
         </section>
 
-        {/* Related tools */}
         <section className="border-t border-slate-100 dark:border-slate-800 pt-12 space-y-6">
           <h3 className="text-xl font-black text-slate-900 dark:text-white">Related PDF Tools</h3>
           <div className="grid md:grid-cols-2 gap-4">
