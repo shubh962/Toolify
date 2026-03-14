@@ -17,6 +17,7 @@ import AgeCalculator from '@/components/tools/AgeCalculator';
 import MetalWeightCalculator from '@/components/tools/MetalWeightCalculator';
 import EmiCalculator from '@/components/tools/EmiCalculator';
 import QrBarcodeGenerator from '@/components/tools/QrBarcodeGenerator';
+import PdfCompressor from '@/components/tools/PdfCompressor';
 import { ShieldCheck, Lock, Zap } from 'lucide-react';
 
 export async function generateStaticParams() {
@@ -68,6 +69,7 @@ const toolComponentMap: { [key: string]: React.ComponentType<any> } = {
   "split-pdf": SplitPdf,
   "youtube-thumbnail-downloader": YoutubeThumbnail,
   "emi-calculator": EmiCalculator,
+  "pdf-compressor": PdfCompressor,
 };
 
 // ✅ FIX 4: Awaited params in page component too
