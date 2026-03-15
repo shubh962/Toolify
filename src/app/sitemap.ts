@@ -15,6 +15,7 @@ const blogSlugs = [
   "how-to-convert-pdf-to-word-free",
   "how-to-make-resume-with-no-experience",
   "rent-vs-buy-financial-guide",
+  "why-i-built-taskguru",
   "how-to-paraphrase-text",
 ];
 const toolSlugs = [
