@@ -42,6 +42,15 @@ const posts = [
   featured: false,
 },
   {
+  slug: "why-i-built-taskguru",
+  title: "Why I Built TaskGuru — The Story Behind the Free Tools",
+  summary: "The personal story of how a B.Tech IT graduate from Kanpur built TaskGuru in 2025 — frustrated by paywalls, signup walls, and overpriced tools that should be free.",
+  date: "2025-11-01",
+  displayDate: "November 1, 2025",
+  category: "Founder Story",
+  featured: true,
+},
+  {
   slug: "how-to-paraphrase-text",
   title: "How to Paraphrase Text (Without Plagiarism) — 2026 Guide",
   summary: "5 proven paraphrasing techniques with before/after examples. Learn how to rewrite text correctly, avoid plagiarism, and when to use a free AI paraphrasing tool.",
