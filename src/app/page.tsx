@@ -1,3 +1,5 @@
+"use client";
+
 import Link from "next/link";
 import { tools } from "@/lib/tools";
 import {
@@ -29,95 +31,94 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import NewsletterForm from "@/components/NewsletterForm";
-import Script from "next/script";
+import { useMemo } from "react";
 
-// ✅ Centralized posts array — add new blogs here, homepage updates automatically
-const featuredPosts = [
+// ✅ ALL blogs pool — 3 random ones shown on homepage each load
+const ALL_POSTS = [
   {
-    slug: "local-first-web-apps-trend-2026",
-    title: "The Rise of Local-First Web Apps: Why 2026 is the End of Paid Subscriptions",
-    summary: "How WebAssembly and Edge computing are killing expensive cloud subscriptions.",
-    category: "Tech Trends",
-    color: "text-teal-600",
-    bg: "bg-teal-50",
+    slug: "how-to-paraphrase-text",
+    title: "How to Paraphrase Text (Without Plagiarism)",
+    summary: "5 proven techniques to rewrite sentences, avoid plagiarism, and improve your writing instantly.",
+    category: "Writing Skills",
+    color: "text-green-600",
+  },
+  {
+    slug: "what-is-ocr-image-to-text",
+    title: "What is OCR? How Image to Text Technology Works",
+    summary: "A plain-English guide to Optical Character Recognition — how it works and how to use it free.",
+    category: "Tech Explained",
+    color: "text-purple-600",
+  },
+  {
+    slug: "how-to-compress-images-without-losing-quality",
+    title: "How to Compress Images Without Losing Quality",
+    summary: "Step-by-step guide to compressing JPG, PNG, and WebP images for faster websites.",
+    category: "Image Optimization",
+    color: "text-blue-600",
+  },
+  {
+    slug: "how-to-convert-pdf-to-word-free",
+    title: "How to Convert PDF to Word for Free",
+    summary: "No software, no sign-up, no upload. Convert any PDF to editable Word in seconds.",
+    category: "PDF Tools",
+    color: "text-orange-600",
+  },
+  {
+    slug: "what-is-a-qr-code",
+    title: "What is a QR Code and How Does It Work?",
+    summary: "Everything about QR codes — history, anatomy, types, use cases, and how to create one free.",
+    category: "Tech Explained",
+    color: "text-red-600",
+  },
+  {
+    slug: "how-to-make-resume-with-no-experience",
+    title: "How to Make a Resume With No Experience",
+    summary: "Complete guide for students and fresh graduates — what to include instead of work experience.",
+    category: "Career Hacking",
+    color: "text-purple-600",
   },
   {
     slug: "resume-ats-secrets",
-    title: "5 Hidden Keywords That ATS Scanners Look For in Your Resume",
+    title: "5 Hidden Keywords That ATS Scanners Look For",
     summary: "Stop getting auto-rejected. Learn the exact keywords that get your resume past filters.",
-    category: "Career",
+    category: "Career Hacking",
     color: "text-purple-600",
-    bg: "bg-purple-50",
+  },
+  {
+    slug: "extract-text-scanned-pdf",
+    title: "How to Extract Text from a Scanned PDF for Free",
+    summary: "Can't copy text from a scanned PDF? Here's the easiest fix — free, no software, 30 seconds.",
+    category: "PDF Tools",
+    color: "text-orange-600",
+  },
+  {
+    slug: "local-first-web-apps-trend-2026",
+    title: "The Rise of Local-First Web Apps in 2026",
+    summary: "How WebAssembly and Edge computing are killing expensive cloud subscriptions.",
+    category: "Tech Trends",
+    color: "text-teal-600",
   },
   {
     slug: "image-compression-guide",
-    title: "JPG vs WebP: Which Format Actually Boosts Your SEO Score?",
+    title: "JPG vs WebP: Which Format Boosts Your SEO Score?",
     summary: "We tested JPG, PNG, and WebP to find which creates the fastest Core Web Vitals scores.",
-    category: "SEO",
+    category: "SEO Masterclass",
     color: "text-green-600",
-    bg: "bg-green-50",
   },
 ];
 
-export default function Home() {
-  const faqLd = {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    mainEntity: [
-      {
-        "@type": "Question",
-        name: "Are these online tools really 100% free?",
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: "Yes, TaskGuru provides 100% free online tools including PDF converters, image compressors, and AI paraphrasers. There are no hidden fees, no subscriptions, and no credit cards required.",
-        },
-      },
-      {
-        "@type": "Question",
-        name: "Is there a limit on the free PDF to Word converter?",
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: "Unlike other sites, our free tools have generous limits. You can merge PDFs, remove backgrounds, and rewrite text for free as many times as you need.",
-        },
-      },
-      {
-        "@type": "Question",
-        name: "Is my data safe when using TaskGuru tools?",
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: "Yes. TaskGuru uses a Zero-Storage Architecture. Your files are processed instantly and deleted from our servers immediately after. We never store, share, or sell your data.",
-        },
-      },
-    ],
-  };
+// ✅ Shuffle function — runs client-side only, no hydration error
+function getRandomPosts(count: number) {
+  const shuffled = [...ALL_POSTS].sort(() => Math.random() - 0.5);
+  return shuffled.slice(0, count);
+}
 
-  // ✅ ItemList schema for blog posts — helps Google index homepage blog section
-  const blogListLd = {
-    "@context": "https://schema.org",
-    "@type": "ItemList",
-    name: "Latest Digital Insights from TaskGuru",
-    itemListElement: featuredPosts.map((post, i) => ({
-      "@type": "ListItem",
-      position: i + 1,
-      url: `https://www.taskguru.online/blog/${post.slug}`,
-      name: post.title,
-    })),
-  };
+export default function Home() {
+  // ✅ useMemo ensures shuffle runs once per mount, not on every render
+  const featuredPosts = useMemo(() => getRandomPosts(3), []);
 
   return (
     <>
-      <Script
-        id="faq-schema"
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqLd) }}
-      />
-      {/* ✅ Added blog list schema */}
-      <Script
-        id="blog-list-schema"
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(blogListLd) }}
-      />
-
       {/* 🚀 HERO */}
       <section className="relative overflow-hidden py-24 md:py-40 text-center bg-gradient-to-br from-slate-950 via-primary to-indigo-950">
         <div className="container mx-auto px-6 relative z-10">
@@ -144,12 +145,12 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 📰 LATEST BLOG POSTS — ✅ Now dynamic from featuredPosts array */}
-      <section className="py-12 bg-white border-b border-gray-100">
+      {/* 📰 BLOG SECTION — shuffles on every page load */}
+      <section className="py-12 bg-white dark:bg-gray-950 border-b border-gray-100 dark:border-gray-800">
         <div className="container mx-auto px-6">
           <div className="flex justify-between items-end mb-8">
             <div>
-              <h2 className="text-3xl font-black text-gray-900 tracking-tight">
+              <h2 className="text-3xl font-black text-gray-900 dark:text-white tracking-tight">
                 Latest Digital Insights
               </h2>
               <p className="text-gray-500 mt-2 font-medium">
@@ -164,21 +165,21 @@ export default function Home() {
             </Link>
           </div>
 
-          {/* ✅ Dynamic blog cards — add to featuredPosts above, this updates automatically */}
+          {/* ✅ 3 random blogs — different every page load */}
           <div className="grid md:grid-cols-3 gap-8">
             {featuredPosts.map((post) => (
               <Link href={`/blog/${post.slug}`} key={post.slug} className="group">
-                <div className="bg-gray-50 rounded-2xl p-6 border border-gray-100 hover:shadow-lg transition-all h-full flex flex-col justify-between">
+                <div className="bg-gray-50 dark:bg-gray-900 rounded-2xl p-6 border border-gray-100 dark:border-gray-800 hover:shadow-lg transition-all h-full flex flex-col justify-between">
                   <div>
                     <span className={`text-xs font-black uppercase tracking-wider ${post.color}`}>
                       {post.category}
                     </span>
-                    <h3 className={`mt-3 text-xl font-bold text-gray-900 group-hover:${post.color} transition-colors`}>
+                    <h3 className="mt-3 text-xl font-bold text-gray-900 dark:text-white group-hover:text-primary transition-colors">
                       {post.title}
                     </h3>
                     <p className="mt-2 text-gray-500 text-sm leading-relaxed">{post.summary}</p>
                   </div>
-                  <div className="mt-4 flex items-center text-sm font-bold text-gray-900">
+                  <div className="mt-4 flex items-center text-sm font-bold text-gray-900 dark:text-white">
                     Read Guide <ArrowRight className="ml-2 w-4 h-4" />
                   </div>
                 </div>
@@ -186,7 +187,6 @@ export default function Home() {
             ))}
           </div>
 
-          {/* ✅ Mobile view all link */}
           <div className="mt-6 text-center md:hidden">
             <Link href="/blog" className="text-primary font-bold text-sm hover:underline">
               View All Articles →
@@ -208,7 +208,6 @@ export default function Home() {
             </p>
           </div>
 
-          {/* ✅ Added empty state fallback */}
           {tools && tools.length > 0 ? (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
               {tools.map((tool) => (
@@ -240,7 +239,6 @@ export default function Home() {
               ))}
             </div>
           ) : (
-            // ✅ Fallback if tools fail to load
             <div className="text-center py-20 text-muted-foreground">
               <p className="text-lg font-medium">Tools loading... Please refresh the page.</p>
             </div>
@@ -248,7 +246,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 🚀 SEO CONTENT SECTION — ✅ Removed prose class conflict */}
+      {/* 🚀 SEO CONTENT SECTION */}
       <section className="py-24 bg-background border-t">
         <article className="container mx-auto px-6 max-w-5xl">
           <div className="text-muted-foreground space-y-20 font-medium">
@@ -259,7 +257,7 @@ export default function Home() {
                 <span className="text-primary italic">Free AI-Powered Productivity Suite</span>
               </h2>
               <p className="text-xl leading-relaxed max-w-4xl mx-auto">
-                TaskGuru (Toolify) is engineered to solve the most common digital hurdles faced
+                TaskGuru is engineered to solve the most common digital hurdles faced
                 by millions of users globally. In an era where every simple online task is hidden
                 behind a paywall, TaskGuru stands as a beacon of accessibility, offering a
                 comprehensive array of free online tools designed for quality, privacy, and speed.
@@ -280,21 +278,18 @@ export default function Home() {
                 {[
                   {
                     title: "Free PDF to Word",
-                    body: "Experience the best free PDF to Word conversion engine. We use advanced layout reconstruction technology to ensure your Microsoft Word files look identical to the original PDF, preserving tables, headers, and images perfectly.",
+                    body: "Experience the best free PDF to Word conversion engine. We use advanced layout reconstruction technology to ensure your Word files look identical to the original PDF.",
                   },
                   {
                     title: "Free Merge PDF",
-                    body: "Stop searching for \"How to merge PDFs for free.\" TaskGuru offers a high-speed, unlimited free PDF merger. Simply drag and drop your files, reorder them, and generate a single unified document in seconds.",
+                    body: "Stop searching for how to merge PDFs for free. TaskGuru offers a high-speed, unlimited free PDF merger. Simply drag and drop your files and generate a single unified document.",
                   },
                   {
                     title: "Free Image to PDF",
-                    body: "Convert your JPGs, PNGs, and WebPs into high-quality PDF portfolios. This free image to PDF converter is perfect for creating digital document submissions without losing pixel quality.",
+                    body: "Convert your JPGs, PNGs, and WebPs into high-quality PDF portfolios. Perfect for creating digital document submissions without losing pixel quality.",
                   },
                 ].map((item) => (
-                  <div
-                    key={item.title}
-                    className="bg-muted/30 p-8 rounded-[2rem] border border-muted"
-                  >
+                  <div key={item.title} className="bg-muted/30 p-8 rounded-[2rem] border border-muted">
                     <h4 className="font-black text-foreground mb-4">{item.title}</h4>
                     <p className="text-sm">{item.body}</p>
                   </div>
@@ -323,9 +318,9 @@ export default function Home() {
                   },
                   {
                     title: "Free Image to Text (OCR)",
-                    desc: "Manually typing data from a scanned document is a thing of the past. Our Free OCR tool extracts text from images with up to 99.9% accuracy. From receipts to handwritten notes, get your text instantly for free.",
+                    desc: "Manually typing data from a scanned document is a thing of the past. Our Free OCR tool extracts text from images with high accuracy. From receipts to handwritten notes, get your text instantly for free.",
                     quote: "\"Best free image to text converter online.\"",
-                    note: "TaskGuru supports 50+ languages for OCR processing.",
+                    note: "TaskGuru supports multiple languages for OCR processing.",
                     reverse: true,
                   },
                 ].map((item) => (
@@ -384,10 +379,7 @@ export default function Home() {
                   { icon: Search, title: "Free Age Calculator", body: "A simple, fast free online age calculator. Find out your exact age in years, months, and days for job applications or personal milestones." },
                   { icon: Languages, title: "Free Document Editor", body: "Edit your text, format your documents, and prepare them for export with our distraction-free free online editor interface." },
                 ].map((item) => (
-                  <div
-                    key={item.title}
-                    className="text-center p-8 bg-primary/5 rounded-[3rem]"
-                  >
+                  <div key={item.title} className="text-center p-8 bg-primary/5 rounded-[3rem]">
                     <item.icon className="mx-auto h-12 w-12 text-primary mb-6" />
                     <h4 className="font-bold text-foreground mb-4">{item.title}</h4>
                     <p className="text-sm">{item.body}</p>
@@ -404,18 +396,17 @@ export default function Home() {
               <p>
                 The internet was built to be open and helpful. Unfortunately, &quot;subscription
                 fatigue&quot; has made it harder for people to access basic digital tools. At
-                TaskGuru (Toolify), our mission is to provide an unrestricted free productivity hub.
+                TaskGuru, our mission is to provide an unrestricted free productivity hub.
               </p>
               <p>
                 We maintain a <strong>Zero-Storage Architecture</strong>. This means that unlike
                 many other &quot;free&quot; sites, we never store your data to sell to advertisers
                 or train large models without your consent. When you use our Free PDF to Word
-                converter or Free Background Remover, your data is processed and instantly purged
-                from our servers.
+                converter or Free Background Remover, your data is processed and instantly purged.
               </p>
             </div>
 
-            {/* ✅ Updated keywords to 2026 */}
+            {/* Keywords */}
             <div className="bg-primary/5 p-10 md:p-12 rounded-[4rem] text-center">
               <h3 className="text-2xl font-black text-foreground mb-8">
                 What People Search for on TaskGuru
@@ -439,7 +430,7 @@ export default function Home() {
                 ].map((kw) => (
                   <span
                     key={kw}
-                    className="px-5 py-2 bg-white rounded-full text-xs font-bold border border-primary/20 shadow-sm text-primary"
+                    className="px-5 py-2 bg-white dark:bg-gray-800 rounded-full text-xs font-bold border border-primary/20 shadow-sm text-primary"
                   >
                     {kw}
                   </span>
@@ -447,13 +438,13 @@ export default function Home() {
               </div>
             </div>
 
-            {/* Footer note */}
-            <footer className="pt-20 text-center">
+            {/* ✅ FIX: Removed local <footer> tag — replaced with plain div */}
+            <div className="pt-20 text-center">
               <h3 className="text-4xl font-black text-foreground mb-6">
                 Built for Creators, Students, and Professionals
               </h3>
               <p className="max-w-4xl mx-auto italic text-lg">
-                TaskGuru is more than just a toolset; it is a movement to keep the web functional
+                TaskGuru is more than just a toolset — it is a movement to keep the web functional
                 for everyone. We are constantly expanding our library to include the latest free
                 AI modules and PDF processing updates. Thank you for choosing TaskGuru as your
                 primary digital workspace.
@@ -464,12 +455,13 @@ export default function Home() {
                 <span>Unlimited</span>
                 <span>100% Free</span>
               </div>
-            </footer>
+            </div>
+
           </div>
         </article>
       </section>
 
-      {/* 📬 NEWSLETTER — ✅ Fixed mobile padding issue */}
+      {/* 📬 NEWSLETTER */}
       <section className="py-24 bg-primary text-primary-foreground rounded-[2rem] md:rounded-[3rem] mx-4 md:mx-6 mb-24 shadow-2xl border-4 border-white/10">
         <div className="container mx-auto px-6 text-center">
           <h2 className="text-4xl md:text-5xl font-black mb-8">Elevate Your Workflow for Free</h2>
