@@ -39,12 +39,11 @@ import {
   Map,
   Fingerprint,
 } from "lucide-react";
-import { Sora } from "next/font/google"; // ✅ Changed from Inter — more distinctive
+import { Sora } from "next/font/google";
 import Script from "next/script";
 import Link from "next/link";
 import React from "react";
 
-// ✅ Better font choice — distinctive, modern, readable
 const sora = Sora({
   subsets: ["latin"],
   display: "swap",
@@ -62,7 +61,6 @@ export const viewport: Viewport = {
   ],
 };
 
-// ✅ Complete metadata with all important fields
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.taskguru.online"),
   title: {
@@ -73,18 +71,12 @@ export const metadata: Metadata = {
     "Free AI-powered tools for everyone. Convert PDF to Word, remove image backgrounds, compress images, extract text via OCR, and paraphrase content instantly. No login required. 100% private.",
   keywords:
     "free ai tools, taskguru online, background remover free, pdf to word no login, image compressor online, resume maker 2026, ocr free, image to text free, merge pdf free",
-
-  // ✅ Added — important for SEO
   authors: [{ name: "Shubham Gautam", url: "https://www.taskguru.online" }],
   creator: "Shubham Gautam",
   publisher: "TaskGuru",
-
-  // ✅ Added — canonical URL prevents duplicate content penalties
   alternates: {
     canonical: "https://www.taskguru.online",
   },
-
-  // ✅ Added — Open Graph for social sharing
   openGraph: {
     type: "website",
     url: "https://www.taskguru.online",
@@ -101,8 +93,6 @@ export const metadata: Metadata = {
       },
     ],
   },
-
-  // ✅ Added — Twitter card
   twitter: {
     card: "summary_large_image",
     title: "TaskGuru AI • 100% Free Online Tools",
@@ -111,7 +101,6 @@ export const metadata: Metadata = {
     creator: "@Shubham_962",
     images: ["https://www.taskguru.online/og-image.png"],
   },
-
   robots: {
     index: true,
     follow: true,
@@ -123,7 +112,6 @@ export const metadata: Metadata = {
       "max-snippet": -1,
     },
   },
-
   verification: {
     google: "XhRtp6rO2MNQX-BucHlUxVhNLbBPfdis_RzXY5ZodlU",
   },
@@ -162,16 +150,10 @@ export default function RootLayout({
   };
 
   return (
-    // ✅ Use sora.variable instead of inter.variable
     <html lang="en" suppressHydrationWarning className={sora.variable}>
-      {/*
-        ✅ NO manual <head> tag here.
-        Next.js App Router manages <head> automatically via the metadata export.
-        Scripts go directly in <body> using next/script.
-      */}
       <body className="font-sans antialiased min-h-screen flex flex-col bg-white dark:bg-gray-950 selection:bg-blue-600 selection:text-white">
 
-        {/* ✅ Google Analytics — correctly placed in body */}
+        {/* Google Analytics */}
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-XE6BHLH4J6"
           strategy="afterInteractive"
@@ -185,7 +167,7 @@ export default function RootLayout({
           `}
         </Script>
 
-        {/* ✅ AdSense — correctly placed in body, not inside <head> */}
+        {/* AdSense */}
         <Script
           async
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2427221337462218"
@@ -193,7 +175,7 @@ export default function RootLayout({
           strategy="afterInteractive"
         />
 
-        {/* ✅ JSON-LD Schema */}
+        {/* JSON-LD Schema */}
         <Script
           id="ld-json"
           type="application/ld+json"
@@ -216,7 +198,7 @@ export default function RootLayout({
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
 
                 {/* Brand & Socials */}
-                <div className="space-y-8">
+                <div className="space-y-6">
                   <div>
                     <h3 className="text-3xl font-black text-blue-600 tracking-tighter mb-4">
                       TaskGuru
@@ -228,6 +210,7 @@ export default function RootLayout({
                     </p>
                   </div>
 
+                  {/* Social Icons */}
                   <div className="grid grid-cols-5 sm:flex gap-3">
                     {[
                       { href: "https://github.com/Shubh962", icon: <Github className="w-5 h-5" />, label: "GitHub", hover: "hover:text-gray-900 dark:hover:text-white" },
@@ -247,6 +230,52 @@ export default function RootLayout({
                         {s.icon}
                       </a>
                     ))}
+                  </div>
+
+                  {/* ✅ App Download Badges */}
+                  <div className="flex flex-col gap-3">
+
+                    {/* Amazon Appstore — LIVE */}
+                    <a
+                      href="https://www.amazon.in/TECH-GAUTAM-TaskGuru-AI/dp/B0GJRW5RXR"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label="Download TaskGuru on Amazon Appstore"
+                      className="inline-flex items-center gap-3 px-4 py-2.5 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-2xl shadow-sm hover:border-orange-400 hover:-translate-y-1 transition-all w-fit"
+                    >
+                      <div className="w-8 h-8 bg-orange-500 rounded-lg flex items-center justify-center flex-shrink-0">
+                        <span className="text-white font-black text-sm">a</span>
+                      </div>
+                      <div className="text-left">
+                        <p className="text-[10px] text-gray-400 uppercase tracking-wider leading-none">
+                          Available on
+                        </p>
+                        <p className="text-sm font-black text-gray-900 dark:text-white leading-tight">
+                          Amazon Appstore
+                        </p>
+                      </div>
+                    </a>
+
+                    {/* Google Play Store — Coming Soon */}
+                    <div
+                      className="inline-flex items-center gap-3 px-4 py-2.5 bg-white dark:bg-gray-800 border border-dashed border-gray-200 dark:border-gray-700 rounded-2xl opacity-60 w-fit cursor-not-allowed"
+                      title="Coming Soon"
+                    >
+                      <div className="w-8 h-8 bg-green-500 rounded-lg flex items-center justify-center flex-shrink-0">
+                        <svg className="w-5 h-5" viewBox="0 0 24 24" fill="white">
+                          <path d="M3.18 23.5c.37.21.8.22 1.18.04L16.91 12 4.36.46C3.98.28 3.55.29 3.18.5 2.48.9 2 1.67 2 2.56v18.88c0 .89.48 1.66 1.18 2.06zM20.34 9.67l-2.13-1.23-3.06 3.56 3.06 3.56 2.16-1.25c1-.57 1-.57 1-1.67-.01-1.1-.01-1.1-1.03-1.97z"/>
+                        </svg>
+                      </div>
+                      <div className="text-left">
+                        <p className="text-[10px] text-gray-400 uppercase tracking-wider leading-none">
+                          Coming Soon
+                        </p>
+                        <p className="text-sm font-black text-gray-900 dark:text-white leading-tight">
+                          Google Play Store
+                        </p>
+                      </div>
+                    </div>
+
                   </div>
                 </div>
 
@@ -292,7 +321,6 @@ export default function RootLayout({
                     <Link href="/tools/resume-maker" className="hover:text-blue-600 transition-colors flex items-center gap-2">
                       Resume Maker <Zap className="w-3 h-3 text-yellow-500" />
                     </Link>
-                    {/* ✅ Added two more for SEO anchor diversity */}
                     <Link href="/tools/image-compressor" className="hover:text-blue-600 transition-colors">
                       Image Compressor
                     </Link>
