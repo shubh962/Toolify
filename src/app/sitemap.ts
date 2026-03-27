@@ -18,6 +18,7 @@ const blogSlugs = [
   "why-i-built-taskguru",
   "why-free-background-remover",
   "how-to-paraphrase-text",
+  "why-i-built-free-paraphraser",
 ];
 const toolSlugs = [
   "background-remover",
