@@ -180,6 +180,15 @@ const posts = [
     category: "Writing Skills",
     featured: false,
   },
+  {
+  slug: "why-free-background-remover",
+  title: "A Scholarship Form, a Passport Photo, and Why I Built a Free Background Remover",
+  summary: "A college student needed to remove a photo background for his scholarship form. Every free tool asked for money or signup. So he built his own.",
+  date: "2025-08-15",
+  displayDate: "August 15, 2025",
+  category: "Founder Story",
+  featured: false,
+},
 ];
 
 const faqSchema = {
