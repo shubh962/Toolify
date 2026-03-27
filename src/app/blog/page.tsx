@@ -172,6 +172,15 @@ const posts = [
     featured: false,
   },
   {
+  slug: "why-i-built-free-paraphraser",
+  title: "My B-Tech Project Report and Why I Built a Free Paraphrasing Tool",
+  summary: "A B-Tech student needed to paraphrase his project report. Every tool had grammar errors, word limits, or paywalls. So he built his own — free, no login, instant.",
+  date: "2025-09-10",
+  displayDate: "September 10, 2025",
+  category: "Founder Story",
+  featured: false,
+},
+  {
     slug: "how-to-paraphrase-text",
     title: "How to Paraphrase Text (Without Plagiarism) — 2026 Guide",
     summary: "5 proven paraphrasing techniques with before/after examples. Learn how to rewrite text correctly, avoid plagiarism, and when to use a free AI paraphrasing tool.",
