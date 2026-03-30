@@ -115,7 +115,7 @@ export const metadata: Metadata = {
   verification: {
     google: "XhRtp6rO2MNQX-BucHlUxVhNLbBPfdis_RzXY5ZodlU",
   },
-  
+},
 export default function RootLayout({
   children,
 }: {
@@ -190,7 +190,6 @@ export default function RootLayout({
   src="//ezoicanalytics.com/analytics.js"
   strategy="afterInteractive"
 />
-};
 
         {/* JSON-LD Schema */}
         <Script
