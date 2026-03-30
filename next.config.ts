@@ -1,16 +1,20 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // ✅ Existing Settings kept safe
+
+  // ✅ 1. Ignore TypeScript build errors (not recommended long term)
   typescript: { ignoreBuildErrors: true },
+
+  // ✅ 2. Ignore ESLint errors during build
   eslint: { ignoreDuringBuilds: true },
 
-  // ✅ Added Payload Limit (Just in case)
+  // ✅ 3. Increase server action payload limit
   experimental: {
     serverActions: {
       bodySizeLimit: '10mb',
     },
   },
 
+  // ✅ 4. Allow external images (for tools like background remover, etc.)
   images: {
     remotePatterns: [
       { protocol: "https", hostname: "placehold.co" },
@@ -22,31 +26,24 @@ const nextConfig = {
     ],
   },
 
-  // ✅ THE CRITICAL FIX: This stops the 'canvas' error
+  // ✅ 5. Fix canvas error (important for some libraries)
   webpack: (config) => {
     config.resolve.alias.canvas = false;
     return config;
   },
 
+  // ✅ 6. REDIRECTS (MOST IMPORTANT PART)
   async redirects() {
     return [
-      // ✅ 0️⃣ ADS.TXT → EZOIC (MOST IMPORTANT)
-      /** @type {import('next').NextConfig} */
-const nextConfig = {
-  async redirects() {
-    return [
+
+      // 🔥 6.1 EZOIC ADS.TXT REDIRECT (MUST BE FIRST)
       {
-        source: '/ads.txt',
-        destination: 'https://srv.adstxtmanager.com/19390/taskguru.online',
+        source: "/ads.txt",
+        destination: "https://srv.adstxtmanager.com/19390/taskguru.online",
         permanent: true,
       },
-    ];
-  },
-};
 
-module.exports = nextConfig;
-
-      // 1️⃣ Redirect Vercel → WWW
+      // 🔹 6.2 Redirect Vercel preview domain → main domain
       {
         source: "/:path*",
         has: [{ type: "host", value: "toolify-liard.vercel.app" }],
@@ -54,7 +51,7 @@ module.exports = nextConfig;
         permanent: true,
       },
 
-      // 2️⃣ Redirect NON-WWW → WWW
+      // 🔹 6.3 Redirect NON-WWW → WWW
       {
         source: "/:path*",
         has: [{ type: "host", value: "taskguru.online" }],
@@ -64,6 +61,7 @@ module.exports = nextConfig;
     ];
   },
 
+  // ✅ 7. Security + SEO headers
   async headers() {
     return [
       {
