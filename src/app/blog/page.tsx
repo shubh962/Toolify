@@ -33,6 +33,15 @@ const categoryColors: Record<string, string> = {
 
 const posts = [
   // ✅ Founder story — earliest, most personal
+  {
+  slug: "why-i-built-free-image-compressor",
+  title: "A Scholarship Form Said 20KB. My Photo Was 2MB. Here Is What Happened Next.",
+  summary: "A college student needed to compress a photo to 20KB for his scholarship form. Every app had heavy ads or asked for payment. So he built his own free image compressor.",
+  date: "2025-12-05",
+  displayDate: "December 5, 2025",
+  category: "Founder Story",
+  featured: false,
+},
  {
   slug: "why-i-built-free-resume-maker",
   title: "Placement Season, MS Word Frustration, and Why I Built a Free Resume Maker",
