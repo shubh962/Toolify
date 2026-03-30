@@ -115,25 +115,7 @@ export const metadata: Metadata = {
   verification: {
     google: "XhRtp6rO2MNQX-BucHlUxVhNLbBPfdis_RzXY5ZodlU",
   },
-  {/* Ezoic Integration */}
-<Script
-  src="//www.ezojs.com/ezoic/sa.min.js"
-  strategy="afterInteractive"
-/>
-
-<Script id="ezoic-config" strategy="afterInteractive">
-  {`
-    window.ezstandalone = window.ezstandalone || {};
-    ezstandalone.cmd = ezstandalone.cmd || [];
-  `}
-</Script>
-
-<Script
-  src="//ezoicanalytics.com/analytics.js"
-  strategy="afterInteractive"
-/>
-};
-
+  
 export default function RootLayout({
   children,
 }: {
@@ -191,6 +173,24 @@ export default function RootLayout({
           crossOrigin="anonymous"
           strategy="afterInteractive"
         />
+        {/* Ezoic Integration */}
+<Script
+  src="//www.ezojs.com/ezoic/sa.min.js"
+  strategy="afterInteractive"
+/>
+
+<Script id="ezoic-config" strategy="afterInteractive">
+  {`
+    window.ezstandalone = window.ezstandalone || {};
+    ezstandalone.cmd = ezstandalone.cmd || [];
+  `}
+</Script>
+
+<Script
+  src="//ezoicanalytics.com/analytics.js"
+  strategy="afterInteractive"
+/>
+};
 
         {/* JSON-LD Schema */}
         <Script
