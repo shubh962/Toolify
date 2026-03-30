@@ -20,6 +20,7 @@ const blogSlugs = [
   "how-to-paraphrase-text",
   "why-i-built-free-paraphraser",
   "why-i-built-free-qr-code-generator",
+  "why-i-built-free-resume-maker",
 ];
 const toolSlugs = [
   "background-remover",
