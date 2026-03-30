@@ -33,6 +33,15 @@ const categoryColors: Record<string, string> = {
 
 const posts = [
   // ✅ Founder story — earliest, most personal
+ {
+  slug: "why-i-built-free-resume-maker",
+  title: "Placement Season, MS Word Frustration, and Why I Built a Free Resume Maker",
+  summary: "A B-Tech 3rd year student needed a resume for placement season. MS Word was too complex, websites had paywalls, apps had watermarks. So he built his own — free, clean, no watermark.",
+  date: "2025-11-20",
+  displayDate: "November 20, 2025",
+  category: "Founder Story",
+  featured: false,
+},
   {
   slug: "why-i-built-free-qr-code-generator",
   title: "From Paytm to Project Submissions — Why I Built a Free QR Code Generator",
