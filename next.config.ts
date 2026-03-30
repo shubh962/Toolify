@@ -31,6 +31,20 @@ const nextConfig = {
   async redirects() {
     return [
       // ✅ 0️⃣ ADS.TXT → EZOIC (MOST IMPORTANT)
+      /** @type {import('next').NextConfig} */
+const nextConfig = {
+  async redirects() {
+    return [
+      {
+        source: '/ads.txt',
+        destination: 'https://srv.adstxtmanager.com/19390/taskguru.online',
+        permanent: true,
+      },
+    ];
+  },
+};
+
+module.exports = nextConfig;
 
       // 1️⃣ Redirect Vercel → WWW
       {
