@@ -34,6 +34,15 @@ const categoryColors: Record<string, string> = {
 const posts = [
   // ✅ Founder story — earliest, most personal
   {
+  slug: "why-i-built-free-qr-code-generator",
+  title: "From Paytm to Project Submissions — Why I Built a Free QR Code Generator",
+  summary: "I used QR codes since 2016 for Paytm. But when I needed one for my college project, every free tool charged money or generated codes that did not scan. So I built my own.",
+  date: "2025-10-15",
+  displayDate: "October 15, 2025",
+  category: "Founder Story",
+  featured: false,
+},
+  {
     slug: "why-i-built-taskguru",
     title: "Why I Built TaskGuru — The Story Behind the Free Tools",
     summary: "The personal story of how a B.Tech IT graduate from Kanpur built TaskGuru in 2025 — frustrated by paywalls, signup walls, and overpriced tools that should be free.",
