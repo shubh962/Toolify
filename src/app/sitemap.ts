@@ -19,6 +19,7 @@ const blogSlugs = [
   "why-free-background-remover",
   "how-to-paraphrase-text",
   "why-i-built-free-paraphraser",
+  "why-i-built-free-qr-code-generator",
 ];
 const toolSlugs = [
   "background-remover",
