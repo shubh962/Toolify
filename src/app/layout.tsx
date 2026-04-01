@@ -119,14 +119,14 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en" suppressHydrationWarning className={sora.variable}>
       <body className="font-sans antialiased min-h-screen flex flex-col bg-white dark:bg-gray-950 selection:bg-blue-600 selection:text-white">
         
-        {/* 1. Analytics & AdSense */}
+        {/* Analytics & AdSense */}
         <Script src="https://www.googletagmanager.com/gtag/js?id=G-XE6BHLH4J6" strategy="afterInteractive" />
         <Script id="google-analytics" strategy="afterInteractive">
           {`window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'G-XE6BHLH4J6');`}
         </Script>
         <Script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2427221337462218" crossOrigin="anonymous" strategy="afterInteractive" />
 
-        {/* 🚀 2. ADSTERRA SOCIAL BAR (FLOATING) - Using afterInteractive for better trigger */}
+        {/* Adsterra Social Bar */}
         <Script 
           id="adsterra-social-bar"
           src="https://pl27365402.profitablecpmratenetwork.com/ae/52/0f/ae520f3c967ee911772a55229589d894.js" 
@@ -139,9 +139,41 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <Header themeToggle={<ThemeToggle />} />
           
           <main className="flex-1">
+            {/* 🚀 1. DESKTOP LEADERBOARD BANNER (728x90) */}
+            <div className="hidden md:flex justify-center py-4 bg-gray-50/50 dark:bg-gray-900/50 border-b border-gray-100 dark:border-gray-800 min-h-[110px]">
+              <Script id="adsterra-728x90" strategy="afterInteractive">
+                {`
+                  atOptions = {
+                    'key' : 'fb655d1f226a75af352c670dc47cb003',
+                    'format' : 'iframe',
+                    'height' : 90,
+                    'width' : 728,
+                    'params' : {}
+                  };
+                `}
+              </Script>
+              <Script src="https://www.highperformanceformat.com/fb655d1f226a75af352c670dc47cb003/invoke.js" strategy="afterInteractive" />
+            </div>
+
             {children}
 
-            {/* 🚀 3. ADSTERRA NATIVE BANNER (ABOVE FOOTER) */}
+            {/* 🚀 2. MOBILE BANNER (320x50) */}
+            <div className="flex md:hidden justify-center py-4 min-h-[70px]">
+              <Script id="adsterra-320x50" strategy="lazyOnload">
+                {`
+                  atOptions = {
+                    'key' : '8cb3dbb1415fe81d88c9fd2790183227',
+                    'format' : 'iframe',
+                    'height' : 50,
+                    'width' : 320,
+                    'params' : {}
+                  };
+                `}
+              </Script>
+              <Script src="https://www.highperformanceformat.com/8cb3dbb1415fe81d88c9fd2790183227/invoke.js" strategy="lazyOnload" />
+            </div>
+
+            {/* Adsterra Native Banner */}
             <div className="container mx-auto px-6 py-12 flex flex-col items-center justify-center border-t border-gray-100 dark:border-gray-800">
                <span className="text-[10px] text-gray-400 uppercase tracking-widest font-bold mb-6">Sponsored Content</span>
                <div id="container-d39855ca15bcb0b839000465de518edb" className="w-full flex justify-center"></div>
