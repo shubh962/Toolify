@@ -63,16 +63,12 @@ export const metadata: Metadata = {
     default: "TaskGuru AI • 100% Free Online PDF, Image & Text Tools",
     template: "%s | TaskGuru",
   },
-  description:
-    "Free AI-powered tools for everyone. Convert PDF to Word, remove image backgrounds, compress images, extract text via OCR, and paraphrase content instantly. No login required. 100% private.",
-  keywords:
-    "free ai tools, taskguru online, background remover free, pdf to word no login, image compressor online, resume maker 2026, ocr free, image to text free, merge pdf free",
+  description: "Free AI-powered tools for everyone. Convert PDF to Word, remove image backgrounds, compress images, extract text via OCR, and paraphrase content instantly. No login required. 100% private.",
+  keywords: "free ai tools, taskguru online, background remover free, pdf to word no login, image compressor online, resume maker 2026, ocr free, image to text free, merge pdf free",
   authors: [{ name: "Shubham Gautam", url: "https://www.taskguru.online" }],
   creator: "Shubham Gautam",
   publisher: "TaskGuru",
-  alternates: {
-    canonical: "https://www.taskguru.online",
-  },
+  alternates: { canonical: "https://www.taskguru.online" },
   openGraph: {
     type: "website",
     url: "https://www.taskguru.online",
@@ -88,16 +84,10 @@ export const metadata: Metadata = {
     creator: "@Shubham_962",
     images: ["https://www.taskguru.online/og-image.png"],
   },
-  verification: {
-    google: "XhRtp6rO2MNQX-BucHlUxVhNLbBPfdis_RzXY5ZodlU",
-  },
+  verification: { google: "XhRtp6rO2MNQX-BucHlUxVhNLbBPfdis_RzXY5ZodlU" },
 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   const siteLdJson = {
     "@context": "https://schema.org",
     "@type": "WebSite",
@@ -128,32 +118,33 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning className={sora.variable}>
       <body className="font-sans antialiased min-h-screen flex flex-col bg-white dark:bg-gray-950 selection:bg-blue-600 selection:text-white">
-
-        {/* Analytics & AdSense */}
+        
+        {/* 1. Analytics & AdSense */}
         <Script src="https://www.googletagmanager.com/gtag/js?id=G-XE6BHLH4J6" strategy="afterInteractive" />
         <Script id="google-analytics" strategy="afterInteractive">
           {`window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'G-XE6BHLH4J6');`}
         </Script>
         <Script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2427221337462218" crossOrigin="anonymous" strategy="afterInteractive" />
 
-        {/* ✅ ADSTERRA SOCIAL BAR (FLOATING AD) */}
+        {/* 🚀 2. ADSTERRA SOCIAL BAR (FLOATING) - Using afterInteractive for better trigger */}
         <Script 
+          id="adsterra-social-bar"
           src="https://pl27365402.profitablecpmratenetwork.com/ae/52/0f/ae520f3c967ee911772a55229589d894.js" 
-          strategy="lazyOnload" 
+          strategy="afterInteractive" 
         />
 
         <Script id="ld-json" type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify([siteLdJson, orgLdJson]) }} />
 
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <Header themeToggle={<ThemeToggle />} />
-
+          
           <main className="flex-1">
             {children}
 
-            {/* ✅ ADSTERRA NATIVE BANNER (ABOVE FOOTER) */}
-            <div className="container mx-auto px-6 py-10 flex flex-col items-center justify-center border-t border-gray-100 dark:border-gray-800">
-               <p className="text-[10px] text-gray-400 uppercase tracking-widest font-bold mb-4">Advertisement</p>
-               <div id="container-d39855ca15bcb0b839000465de518edb"></div>
+            {/* 🚀 3. ADSTERRA NATIVE BANNER (ABOVE FOOTER) */}
+            <div className="container mx-auto px-6 py-12 flex flex-col items-center justify-center border-t border-gray-100 dark:border-gray-800">
+               <span className="text-[10px] text-gray-400 uppercase tracking-widest font-bold mb-6">Sponsored Content</span>
+               <div id="container-d39855ca15bcb0b839000465de518edb" className="w-full flex justify-center"></div>
                <Script
                  id="adsterra-native-banner"
                  src="https://pl29034152.profitablecpmratenetwork.com/d39855ca15bcb0b839000465de518edb/invoke.js"
@@ -166,7 +157,6 @@ export default function RootLayout({
           <Toaster />
           <GlobalShare />
 
-          {/* Footer Section */}
           <footer className="py-20 bg-gray-50/50 dark:bg-gray-900/50 border-t border-gray-200 dark:border-gray-800">
             <div className="container mx-auto px-6">
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
@@ -182,7 +172,7 @@ export default function RootLayout({
                 <div>
                   <h4 className="font-black text-gray-900 dark:text-white mb-6 uppercase text-[11px] tracking-[0.2em]">Resources</h4>
                   <nav className="flex flex-col gap-4 text-sm font-medium text-gray-500 dark:text-gray-400">
-                    <Link href="/about" className="hover:text-blue-600 transition-colors flex items-center gap-2 font-bold text-gray-900 dark:text-white"><Info className="w-4 h-4 text-blue-500" /> About TaskGuru</Link>
+                    <Link href="/about" className="hover:text-blue-600 flex items-center gap-2 font-bold text-gray-900 dark:text-white"><Info className="w-4 h-4 text-blue-500" /> About TaskGuru</Link>
                     <Link href="/blog" className="hover:text-blue-600">Productivity Blog</Link>
                     <Link href="/help" className="hover:text-blue-600 flex items-center gap-2"><HelpCircle className="w-4 h-4" /> Help Center</Link>
                     <Link href="/contact" className="hover:text-blue-600 flex items-center gap-2"><Mail className="w-4 h-4" /> Contact Support</Link>
