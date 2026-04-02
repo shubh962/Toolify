@@ -42,6 +42,15 @@ const posts = [
   category: "Founder Story",
   featured: false,
 },
+  {
+  slug: "why-i-built-free-pdf-to-word-converter",
+  title: "I Could Not Edit a PDF in School. Years Later, I Built a Free PDF to Word Converter.",
+  summary: "A school student spent hours trying to edit a PDF and found nothing. Years later, after completing B.Tech, he built a free PDF to Word converter so no one else has to.",
+  date: "2025-12-20",
+  displayDate: "December 20, 2025",
+  category: "Founder Story",
+  featured: false,
+},
  {
   slug: "why-i-built-free-resume-maker",
   title: "Placement Season, MS Word Frustration, and Why I Built a Free Resume Maker",
