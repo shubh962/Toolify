@@ -21,6 +21,7 @@ const blogSlugs = [
   "why-i-built-free-paraphraser",
   "why-i-built-free-qr-code-generator",
   "why-i-built-free-resume-maker",
+  "why-i-built-free-pdf-to-word-converter",
   "why-i-built-free-image-compressor",
 ];
 const toolSlugs = [
