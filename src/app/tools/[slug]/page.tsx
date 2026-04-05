@@ -18,6 +18,7 @@ import MetalWeightCalculator from '@/components/tools/MetalWeightCalculator';
 import EmiCalculator from '@/components/tools/EmiCalculator';
 import QrBarcodeGenerator from '@/components/tools/QrBarcodeGenerator';
 import PdfCompressor from '@/components/tools/PdfCompressor';
+import TypingSpeedTest from '@/components/tools/TypingSpeedTest';
 import { ShieldCheck, Lock, Zap } from 'lucide-react';
 
 export async function generateStaticParams() {
@@ -59,6 +60,7 @@ const toolComponentMap: { [key: string]: React.ComponentType<any> } = {
   "background-remover": BackgroundRemover,
   "image-to-text": ImageToText,
   "text-paraphraser": TextParaphraser,
+  "typing-speed-test": TypingSpeedTest,
   "pdf-to-word": PdfToWord,
   "merge-pdf": MergePdf,
   "image-compressor": ImageCompressor,
