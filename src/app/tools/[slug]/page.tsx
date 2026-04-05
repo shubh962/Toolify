@@ -1,6 +1,9 @@
 import { tools } from '@/lib/tools';
 import { notFound } from 'next/navigation';
 import Link from "next/link";
+import dynamic from 'next/dynamic'; // ✅ Added dynamic import utility
+
+// Static imports for safe components
 import YoutubeThumbnail from '@/components/tools/YoutubeThumbnail';
 import BackgroundRemover from '@/components/tools/BackgroundRemover';
 import ImageToText from '@/components/tools/ImageToText';
@@ -18,8 +21,13 @@ import MetalWeightCalculator from '@/components/tools/MetalWeightCalculator';
 import EmiCalculator from '@/components/tools/EmiCalculator';
 import QrBarcodeGenerator from '@/components/tools/QrBarcodeGenerator';
 import PdfCompressor from '@/components/tools/PdfCompressor';
-import TypingSpeedTest from '@/components/tools/TypingSpeedTest';
 import { ShieldCheck, Lock, Zap } from 'lucide-react';
+
+// ✅ Dynamically import TypingSpeedTest to disable Server-Side Rendering (SSR)
+// This prevents the "Keyboard is not defined" error during Vercel build
+const TypingSpeedTest = dynamic(() => import('@/components/tools/TypingSpeedTest'), {
+  ssr: false,
+});
 
 export async function generateStaticParams() {
   return tools.map((tool) => ({
