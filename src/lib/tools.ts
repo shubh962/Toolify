@@ -11,8 +11,8 @@ import {
   Calculator,
   Youtube,
   QrCode,
-  Keyboard,
-  FileDown, // ✅ New icon for PDF Compressor
+  FileDown,
+  Keyboard, // ✅ FIX: Added missing import here
 } from 'lucide-react';
 
 export interface Tool {
@@ -81,13 +81,16 @@ export const tools: Tool[] = [
     `,
   },
   {
-  slug: 'typing-speed-test',
-  title: 'Free Typing Speed Test — WPM & Accuracy',
-  description: 'Test your typing speed in WPM and accuracy. Choose 30, 60, or 120 second tests. Real-time feedback. No signup required.',
-  icon: Keyboard,
-  isGenAI: false,
-  isPlaceholder: false,
-  content: `...` // file mein hai
+    slug: 'typing-speed-test',
+    title: 'Free Typing Speed Test — WPM & Accuracy',
+    description: 'Test your typing speed in WPM and accuracy. Choose 30, 60, or 120 second tests. Real-time feedback. No signup required.',
+    icon: Keyboard, // This now works because Keyboard is imported!
+    isGenAI: false,
+    isPlaceholder: false,
+    content: `
+      <h3>Improve Your Typing Speed</h3>
+      <p>The average professional spends over 6 hours per day typing. Even a modest improvement in typing speed compounds into hours saved every week. Use our tool to test your WPM (Words Per Minute) and accuracy.</p>
+    ` 
   },
   {
     slug: 'pdf-to-word',
@@ -133,7 +136,6 @@ export const tools: Tool[] = [
       <p>Sometimes you only need a few pages from a large document. Our Split PDF Tool lets you extract specific page ranges or separate every page into a new file. Perfect for sharing specific chapters or legal clauses.</p>
     `,
   },
-  // ✅ NEW: PDF Compressor entry
   {
     slug: 'pdf-compressor',
     title: 'Free PDF Compressor Online (Reduce PDF Size)',
@@ -269,7 +271,7 @@ export const tools: Tool[] = [
     title: 'Loan EMI Calculator',
     description:
       'Calculate monthly EMI for Home Loan, Car Loan, and Personal Loan. Get instant breakdown of principal and interest amounts.',
-    icon: Calculator, // ✅ Fixed: was using Minimize, Calculator makes more sense
+    icon: Calculator,
     isGenAI: false,
     isPlaceholder: false,
     imageUrl: '/tool-previews/emi-calculator.png',
@@ -286,4 +288,3 @@ export const tools: Tool[] = [
     `,
   },
 ];
-    
