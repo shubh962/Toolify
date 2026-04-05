@@ -43,6 +43,15 @@ const posts = [
   featured: false,
 },
   {
+  slug: "why-i-built-free-image-to-text-ocr",
+  title: "I Spent Hours Typing Text From an Image at Work. Then I Built a Free OCR Tool.",
+  summary: "At work, copying text from an image manually took hours. Every free OCR tool online had limits or paywalls. So I built my own using Tesseract.js — completely free, private, no limits.",
+  date: "2026-01-20",
+  displayDate: "January 20, 2026",
+  category: "Founder Story",
+  featured: false,
+},
+  {
   slug: "why-i-built-free-pdf-merger",
   title: "A Government Portal Wanted One File. I Had Seven. Here Is What I Built.",
   summary: "A scholarship form required all documents as a single PDF. Merging them for free was nearly impossible. So I built a free PDF merger — no signup, no watermark, files stay on your device.",
