@@ -80,6 +80,15 @@ export const tools: Tool[] = [
     `,
   },
   {
+  slug: 'typing-speed-test',
+  title: 'Free Typing Speed Test — WPM & Accuracy',
+  description: 'Test your typing speed in WPM and accuracy. Choose 30, 60, or 120 second tests. Real-time feedback. No signup required.',
+  icon: Keyboard,
+  isGenAI: false,
+  isPlaceholder: false,
+  content: `...` // file mein hai
+  },
+  {
     slug: 'pdf-to-word',
     title: 'PDF to Word Converter Online (DOCX)',
     description:
