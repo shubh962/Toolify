@@ -43,6 +43,15 @@ const posts = [
   featured: false,
 },
   {
+  slug: "why-i-built-free-pdf-merger",
+  title: "A Government Portal Wanted One File. I Had Seven. Here Is What I Built.",
+  summary: "A scholarship form required all documents as a single PDF. Merging them for free was nearly impossible. So I built a free PDF merger — no signup, no watermark, files stay on your device.",
+  date: "2026-01-10",
+  displayDate: "January 10, 2026",
+  category: "Founder Story",
+  featured: false,
+},
+  {
   slug: "why-i-built-free-pdf-to-word-converter",
   title: "I Could Not Edit a PDF in School. Years Later, I Built a Free PDF to Word Converter.",
   summary: "A school student spent hours trying to edit a PDF and found nothing. Years later, after completing B.Tech, he built a free PDF to Word converter so no one else has to.",
