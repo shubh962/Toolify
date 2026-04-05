@@ -24,6 +24,7 @@ const blogSlugs = [
   "why-i-built-free-pdf-to-word-converter",
   "why-i-built-free-image-compressor",
   "why-i-built-free-pdf-merger",
+  "why-i-built-free-image-to-text-ocr",
 ];
 const toolSlugs = [
   "background-remover",
