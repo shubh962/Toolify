@@ -11,6 +11,7 @@ import {
   Calculator,
   Youtube,
   QrCode,
+  Keyboard,
   FileDown, // ✅ New icon for PDF Compressor
 } from 'lucide-react';
 
