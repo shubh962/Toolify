@@ -23,6 +23,7 @@ const blogSlugs = [
   "why-i-built-free-resume-maker",
   "why-i-built-free-pdf-to-word-converter",
   "why-i-built-free-image-compressor",
+  "why-i-built-free-pdf-merger",
 ];
 const toolSlugs = [
   "background-remover",
