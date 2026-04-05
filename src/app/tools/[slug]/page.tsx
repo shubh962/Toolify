@@ -1,9 +1,8 @@
 import { tools } from '@/lib/tools';
 import { notFound } from 'next/navigation';
 import Link from "next/link";
-import dynamic from 'next/dynamic'; // ✅ Added dynamic import utility
 
-// Static imports for safe components
+// Standard imports for all components
 import YoutubeThumbnail from '@/components/tools/YoutubeThumbnail';
 import BackgroundRemover from '@/components/tools/BackgroundRemover';
 import ImageToText from '@/components/tools/ImageToText';
@@ -21,13 +20,8 @@ import MetalWeightCalculator from '@/components/tools/MetalWeightCalculator';
 import EmiCalculator from '@/components/tools/EmiCalculator';
 import QrBarcodeGenerator from '@/components/tools/QrBarcodeGenerator';
 import PdfCompressor from '@/components/tools/PdfCompressor';
+import TypingSpeedTest from '@/components/tools/TypingSpeedTest';
 import { ShieldCheck, Lock, Zap } from 'lucide-react';
-
-// ✅ Dynamically import TypingSpeedTest to disable Server-Side Rendering (SSR)
-// This prevents the "Keyboard is not defined" error during Vercel build
-const TypingSpeedTest = dynamic(() => import('@/components/tools/TypingSpeedTest'), {
-  ssr: false,
-});
 
 export async function generateStaticParams() {
   return tools.map((tool) => ({
@@ -35,9 +29,7 @@ export async function generateStaticParams() {
   }));
 }
 
-// ✅ FIX 1: Awaited params for Next.js 15 compatibility
-// ✅ FIX 2: Removed "Toolify" from all titles
-// ✅ FIX 3: Added openGraph to every tool page
+// ✅ Next.js 15 compatibility: params awaited
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const tool = tools.find((t) => t.slug === slug);
@@ -82,7 +74,7 @@ const toolComponentMap: { [key: string]: React.ComponentType<any> } = {
   "pdf-compressor": PdfCompressor,
 };
 
-// ✅ FIX 4: Awaited params in page component too
+// ✅ Next.js 15 compatibility: params awaited
 export default async function ToolPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const tool = tools.find((t) => t.slug === slug);
@@ -103,7 +95,6 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
           <p className="mt-4 text-base md:text-lg text-muted-foreground max-w-2xl mx-auto">
             {tool.description}
           </p>
-          {/* ✅ Added trust badge under title */}
           <div className="flex items-center justify-center gap-4 mt-4 flex-wrap">
             <span className="flex items-center gap-1.5 text-xs font-bold text-green-600 bg-green-50 dark:bg-green-950 border border-green-200 dark:border-green-900 px-3 py-1 rounded-full">
               <ShieldCheck className="w-3.5 h-3.5" /> 100% Free
@@ -139,7 +130,6 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
         {/* SEO Content Section */}
         <div className="max-w-4xl mx-auto py-12 border-t mt-12">
 
-          {/* ✅ FIX 5: Removed prose class + ts-ignore, replaced with plain Tailwind */}
           {'content' in tool && tool.content && (
             <div
               className="text-base text-muted-foreground leading-relaxed space-y-4 mb-16 [&_h2]:text-xl [&_h2]:font-bold [&_h2]:text-foreground [&_h3]:text-lg [&_h3]:font-semibold [&_h3]:text-foreground [&_strong]:text-foreground [&_ul]:list-disc [&_ul]:pl-5 [&_ol]:list-decimal [&_ol]:pl-5"
@@ -196,7 +186,7 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
             </div>
           </div>
 
-          {/* ✅ Added FAQ section — helps with SEO and AdSense content depth */}
+          {/* FAQ section */}
           <div className="mt-16 space-y-4">
             <h2 className="text-2xl font-bold text-foreground">
               Frequently Asked Questions
