@@ -39,6 +39,7 @@ const toolSlugs = [
   "pdf-compressor",
   "resume-maker",
   "qr-barcode-generator",
+  "password-generator",
   "age-calculator",
  "youtube-thumbnail-downloader",
   "metal-weight-calculator",
