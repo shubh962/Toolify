@@ -15,6 +15,7 @@ import ImageToPdf from '@/components/tools/ImageToPdf';
 import PlaceholderTool from '@/components/tools/PlaceholderTool';
 import MoreTools from '@/components/MoreTools';
 import ResumeMakerFlow from '@/components/tools/ResumeMakerFlow';
+import PasswordGenerator from '@/components/tools/PasswordGenerator';
 import AgeCalculator from '@/components/tools/AgeCalculator';
 import MetalWeightCalculator from '@/components/tools/MetalWeightCalculator';
 import EmiCalculator from '@/components/tools/EmiCalculator';
@@ -66,6 +67,7 @@ const toolComponentMap: { [key: string]: React.ComponentType<any> } = {
   "image-compressor": ImageCompressor,
   "image-to-pdf": ImageToPdf,
   "qr-barcode-generator": QrBarcodeGenerator,
+  "password-generator": PasswordGenerator,
   "age-calculator": AgeCalculator,
   "metal-weight-calculator": MetalWeightCalculator,
   "split-pdf": SplitPdf,
