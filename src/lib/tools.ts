@@ -222,7 +222,18 @@ export const tools: Tool[] = [
   icon: KeyRound,
   isGenAI: false,
   isPlaceholder: false,
-  content: '',
+  content: `
+  <h3>Free Password Generator — Strong & Secure</h3>
+  <p>Generate strong passwords instantly — 8 character password, 
+  Instagram strong password, WiFi password, or any custom length. 
+  100% free, runs in your browser, never stored anywhere.</p>
+  <ul>
+    <li><strong>8 Character Password:</strong> Perfect for basic account security.</li>
+    <li><strong>Instagram Password:</strong> Generate strong passwords for social media.</li>
+    <li><strong>WiFi Password:</strong> Create secure router passwords instantly.</li>
+    <li><strong>Easy to Remember:</strong> Use our readable format option.</li>
+  </ul>
+`,
 },
   {
     slug: 'age-calculator',
