@@ -13,6 +13,7 @@ import {
   QrCode,
   FileDown,
   Keyboard,
+  KeyRound,
 } from 'lucide-react';
 
 export interface Tool {
@@ -213,6 +214,16 @@ export const tools: Tool[] = [
     imageUrl: '/tool-previews/qr-barcode.png',
     content: '',
   },
+  {
+  slug: 'password-generator',
+  title: 'Free Password Generator — Strong & Secure',
+  description:
+    'Generate strong, random passwords instantly. Choose length, character types, and generate up to 10 passwords at once. 100% private — runs in your browser.',
+  icon: KeyRound,
+  isGenAI: false,
+  isPlaceholder: false,
+  content: '',
+},
   {
     slug: 'age-calculator',
     title: 'Free Age Calculator (Exact Years, Months, Days)',
