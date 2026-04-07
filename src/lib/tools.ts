@@ -14,6 +14,7 @@ import {
   FileDown,
   Keyboard,
   KeyRound,
+  Table,
 } from 'lucide-react';
 
 export interface Tool {
@@ -108,6 +109,16 @@ export const tools: Tool[] = [
       <p>This tool is browser-based, meaning you don't need to install software. Just upload, convert, and download your editable Word file.</p>
     `,
   },
+  {
+  slug: 'excel-to-pdf',
+  title: 'Free Excel to PDF Converter Online',
+  description:
+    'Convert Excel spreadsheets to PDF instantly. Supports .xlsx and .xls files. Preview sheets before converting. 100% private — your file never leaves your device.',
+  icon: Table,
+  isGenAI: false,
+  isPlaceholder: false,
+  content: '',
+},
   {
     slug: 'merge-pdf',
     title: 'Merge PDF Files Online (Free PDF Combiner)',
