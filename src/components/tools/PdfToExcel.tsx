@@ -16,15 +16,13 @@ import { useToast } from '@/hooks/use-toast';
 const MAX_SIZE_MB = 50;
 const MAX_SIZE_BYTES = MAX_SIZE_MB * 1024 * 1024;
 
-// ✅ We set up the PDF.js worker securely here.
-// I switched this from cdnjs to unpkg because mobile browsers handle unpkg much better,
-// which prevents those random crashes on Android devices!
+// ✅ THE FIX: We switched the CDN to Cloudflare (cdnjs) and the extension to .js.
+// This prevents strict mobile browsers and telecom networks from blocking the worker script!
 if (typeof window !== 'undefined') {
-  pdfjsLib.GlobalWorkerOptions.workerSrc = `https://unpkg.com/pdfjs-dist@${pdfjsLib.version}/build/pdf.worker.min.mjs`;
+  pdfjsLib.GlobalWorkerOptions.workerSrc = `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjsLib.version}/pdf.worker.min.js`;
 }
 
-// ✅ FAQ Schema for Google Search Rich Snippets. 
-// This is crucial for getting those "People Also Ask" impressions in Google.
+// ✅ FAQ Schema
 const faqSchema = {
   '@context': 'https://schema.org',
   '@type': 'FAQPage',
@@ -72,8 +70,7 @@ const faqSchema = {
   ],
 };
 
-// ✅ This is our robust text extraction engine.
-// It maps the visual coordinates of the PDF so we can perfectly reconstruct the tables.
+// ✅ Robust Text Extraction using pdfjs-dist
 async function extractTextFromPdf(arrayBuffer: ArrayBuffer): Promise<string[][]> {
   const allLines: string[][] = [];
   
@@ -85,16 +82,10 @@ async function extractTextFromPdf(arrayBuffer: ArrayBuffer): Promise<string[][]>
       const page = await pdf.getPage(pageNum);
       const textContent = await page.getTextContent();
       
-      // We group items by their Y coordinate to form rows.
-      // We store the X coordinate so we can sort columns left-to-right later!
       const rows: { [y: string]: { x: number, text: string }[] } = {};
       
       textContent.items.forEach((item: any) => {
         const xCoord = Math.round(item.transform[4]); 
-        
-        // We round the Y coordinate to the nearest 5 pixels. 
-        // This is a super smart trick because sometimes text on the same line 
-        // is off by 1 or 2 pixels in the raw PDF data. This groups them perfectly!
         const yCoord = Math.round(item.transform[5] / 5) * 5; 
         
         if (!rows[yCoord]) {
@@ -106,13 +97,11 @@ async function extractTextFromPdf(arrayBuffer: ArrayBuffer): Promise<string[][]>
         }
       });
 
-      // Sort rows from top to bottom
       const sortedYCoords = Object.keys(rows)
         .map(Number)
         .sort((a, b) => b - a);
 
       sortedYCoords.forEach((y) => {
-        // Sort items in the row from left to right based on their X coordinate
         const rowData = rows[y]
           .sort((a, b) => a.x - b.x)
           .map(item => item.text);
@@ -124,7 +113,7 @@ async function extractTextFromPdf(arrayBuffer: ArrayBuffer): Promise<string[][]>
     }
   } catch (err) {
     console.error("PDF reading error:", err);
-    throw err; // We pass this error down to the UI handler so the user knows what happened.
+    throw err; 
   }
 
   return allLines;
@@ -184,11 +173,9 @@ export default function PdfToExcel() {
         return;
       }
 
-      // Create the Excel workbook using sheetjs
       const wb = XLSX.utils.book_new();
       const ws = XLSX.utils.aoa_to_sheet(lines);
 
-      // Auto-calculate column widths dynamically based on the longest piece of text in that column.
       const colWidths = lines[0]?.map((_, colIdx) =>
         Math.min(Math.max(...lines.map((row) => (row[colIdx] || '').toString().length), 10), 50)
       ) || [];
@@ -203,7 +190,7 @@ export default function PdfToExcel() {
 
       setXlsxBlob(blob);
       setRowCount(lines.length);
-      setPreview(lines.slice(0, 6)); // We show the first 6 rows as a quick preview!
+      setPreview(lines.slice(0, 6)); 
       setIsDone(true);
 
       toast({
@@ -214,7 +201,6 @@ export default function PdfToExcel() {
     } catch (err: any) {
       console.error("Conversion Error:", err);
       
-      // ✅ Here is where we catch the exact error so you aren't left guessing!
       const errMsg = err?.message || err?.name || 'Unknown engine error';
       
       const isEncrypted = errMsg.toLowerCase().includes('password') || 
@@ -263,7 +249,6 @@ export default function PdfToExcel() {
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
 
-      {/* ── TOOL CARD ── */}
       <Card className="w-full max-w-2xl mx-auto shadow-2xl mt-8 border-2 border-primary/10 rounded-[2rem] bg-white dark:bg-gray-900">
         <CardContent className="p-6 sm:p-10 space-y-6">
 
@@ -298,7 +283,6 @@ export default function PdfToExcel() {
                 />
               </div>
 
-              {/* Best for note */}
               <div className="p-4 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-2xl">
                 <p className="text-xs font-black text-blue-700 dark:text-blue-300 uppercase mb-2">💡 Best Results With</p>
                 <div className="grid grid-cols-2 gap-2 text-xs text-slate-600 dark:text-slate-400">
@@ -315,7 +299,6 @@ export default function PdfToExcel() {
           ) : (
             <div className="space-y-5">
 
-              {/* File info */}
               <div className="flex items-center gap-4 p-4 bg-gray-50 dark:bg-gray-800 rounded-2xl border border-gray-100 dark:border-gray-700">
                 <div className="p-3 bg-red-100 dark:bg-red-900/30 rounded-xl flex-shrink-0">
                   <FileText className="w-6 h-6 text-red-500" />
@@ -326,7 +309,6 @@ export default function PdfToExcel() {
                 </div>
               </div>
 
-              {/* Preview */}
               {preview.length > 0 && (
                 <div className="space-y-2">
                   <p className="text-sm font-bold text-gray-700 dark:text-gray-300">
@@ -352,7 +334,6 @@ export default function PdfToExcel() {
                 </div>
               )}
 
-              {/* Success */}
               {isDone && (
                 <div className="flex items-center gap-3 p-4 bg-green-50 dark:bg-green-900/20 rounded-2xl border border-green-200 dark:border-green-800">
                   <CheckCircle className="w-5 h-5 text-green-600 flex-shrink-0" />
@@ -365,7 +346,6 @@ export default function PdfToExcel() {
                 </div>
               )}
 
-              {/* Loading */}
               {isConverting && (
                 <div className="flex items-center gap-3 p-4 bg-blue-50 dark:bg-blue-900/20 rounded-2xl border border-blue-100">
                   <Loader2 className="w-5 h-5 text-blue-600 animate-spin flex-shrink-0" />
@@ -400,9 +380,7 @@ export default function PdfToExcel() {
         )}
       </Card>
 
-      {/* ── SEO ARTICLE ── */}
       <article className="max-w-5xl mx-auto px-6 py-16 space-y-14 text-slate-600 dark:text-slate-400 leading-relaxed">
-
         <section className="space-y-5">
           <h2 className="text-3xl font-black text-slate-900 dark:text-white">
             Why Convert PDF to Excel?
@@ -427,7 +405,8 @@ export default function PdfToExcel() {
             ))}
           </div>
         </section>
-         <section className="space-y-5">
+
+        <section className="space-y-5">
           <h2 className="text-2xl font-black text-slate-900 dark:text-white">
             Common Use Cases
           </h2>
@@ -449,7 +428,6 @@ export default function PdfToExcel() {
           </div>
         </section>
 
-        {/* FAQ */}
         <section className="space-y-5">
           <h2 className="text-2xl font-black text-slate-900 dark:text-white flex items-center gap-2">
             <HelpCircle className="w-6 h-6 text-blue-600" /> Frequently Asked Questions
@@ -467,7 +445,6 @@ export default function PdfToExcel() {
           </div>
         </section>
 
-        {/* Related */}
         <section className="border-t border-slate-100 dark:border-slate-800 pt-12 space-y-6">
           <h3 className="text-xl font-black text-slate-900 dark:text-white">Related Tools</h3>
           <div className="grid md:grid-cols-2 gap-4">
@@ -487,7 +464,6 @@ export default function PdfToExcel() {
             ))}
           </div>
         </section>
-
       </article>
     </>
   );
