@@ -109,7 +109,7 @@ export const tools: Tool[] = [
       <p>This tool is browser-based, meaning you don't need to install software. Just upload, convert, and download your editable Word file.</p>
     `,
   },
-  {
+{
   slug: 'excel-to-pdf',
   title: 'Free Excel to PDF Converter Online',
   description:
@@ -117,8 +117,19 @@ export const tools: Tool[] = [
   icon: Table,
   isGenAI: false,
   isPlaceholder: false,
-  content: '',
+  content: `
+    <h3>Secure & Private Excel to PDF Conversion</h3>
+    <p>Convert your <strong>XLSX to PDF without email</strong> or registration. TaskGuru offers a <strong>private Excel to PDF converter</strong> experience where all processing happens locally in your browser.</p>
+    <ul>
+      <li><strong>Excel to PDF without email:</strong> No signups, just instant conversion.</li>
+      <li><strong>Convert Excel to PDF with formatting:</strong> Keep your tables and layouts intact.</li>
+      <li><strong>XLS to PDF no watermark:</strong> Download clean, professional documents.</li>
+      <li><strong>Secure Excel to PDF tool:</strong> Your sensitive financial data never touches our servers.</li>
+      <li><strong>Excel to PDF high quality:</strong> Perfect for high-resolution reports and printing.</li>
+    </ul>
+    <p>Whether you need a <strong>free Excel to PDF no signup</strong> solution or a <strong>client-side Excel to PDF</strong> tool for privacy, we've got you covered. This is the best way for <strong>converting spreadsheets to PDF privately</strong>.</p>`,
 },
+
   {
     slug: 'merge-pdf',
     title: 'Merge PDF Files Online (Free PDF Combiner)',
