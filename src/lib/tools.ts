@@ -145,6 +145,16 @@ export const tools: Tool[] = [
     `,
   },
   {
+  slug: 'pdf-to-excel',
+  title: 'Free PDF to Excel Converter Online',
+  description:
+    'Convert PDF to Excel spreadsheet free. Extract tables, bank statements, invoices and financial data from PDF to .xlsx instantly. 100% private — no upload.',
+  icon: Table,
+  isGenAI: false,
+  isPlaceholder: false,
+  content: '',
+},
+  {
     slug: 'merge-pdf',
     title: 'Merge PDF Files Online (Free PDF Combiner)',
     description:
