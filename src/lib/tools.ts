@@ -86,7 +86,7 @@ export const tools: Tool[] = [
     slug: 'typing-speed-test',
     title: 'Free Typing Speed Test — WPM & Accuracy',
     description: 'Test your typing speed in WPM and accuracy. Choose 30, 60, or 120 second tests. Real-time feedback. No signup required.',
-    icon: Keyboard, // This now works because Keyboard is imported!
+    icon: Keyboard,
     isGenAI: false,
     isPlaceholder: false,
     content: `
@@ -109,50 +109,41 @@ export const tools: Tool[] = [
       <p>This tool is browser-based, meaning you don't need to install software. Just upload, convert, and download your editable Word file.</p>
     `,
   },
-‎{
-‎slug: 'excel-to-pdf',
-‎title: 'Free Excel to PDF Converter (No Upload, Secure & Instant)',
-‎
-‎description:
-‎  'Convert Excel to PDF instantly with our secure, browser-based tool. No upload required — your files stay private. Supports XLSX/XLS, preview sheets, and download high-quality PDFs without watermark or signup.',
-‎
-‎icon: Table,
-‎isGenAI: false,
-‎isPlaceholder: false,
-‎
-‎content: `
-‎  <h1>Free Excel to PDF Converter (No Upload Required)</h1>
-‎
-‎  <h3>Secure & Private Excel to PDF Conversion</h3>
-‎  <p>Convert your <strong>XLSX to PDF without email</strong> or registration. This <strong>client-side Excel to PDF converter</strong> works directly in your browser — no upload needed.</p>
-‎
-‎  <ul>
-‎    <li><strong>Excel to PDF without email:</strong> No signups, instant conversion</li>
-‎    <li><strong>Convert Excel to PDF with formatting:</strong> Tables & layout preserved</li>
-‎    <li><strong>XLS to PDF no watermark:</strong> Clean professional output</li>
-‎    <li><strong>Secure Excel to PDF tool:</strong> Files never leave your device</li>
-‎    <li><strong>Excel to PDF high quality:</strong> Perfect for reports & printing</li>
-‎  </ul>
-‎
-‎  <h2>How to Convert Excel to PDF Without Uploading</h2>
-‎  <ol>
-‎    <li>Select your Excel file (.xlsx or .xls)</li>
-‎    <li>Preview your sheets</li>
-‎    <li>Click convert</li>
-‎    <li>Download your PDF instantly</li>
-‎  </ol>
-‎
-‎  <h2>FAQs</h2>
-‎  <h3>Is this Excel to PDF converter secure?</h3>
-‎  <p>Yes, it runs entirely in your browser. Your files are never uploaded.</p>
-‎
-‎  <h3>Can I convert Excel to PDF without internet?</h3>
-‎  <p>Yes, this tool supports offline usage after loading.</p>
-‎
-‎  <h3>Does it add watermark?</h3>
-‎  <p>No, your PDF will be clean and watermark-free.</p>
-‎`,
-‎},
+  {
+    slug: 'excel-to-pdf',
+    title: 'Free Excel to PDF Converter (No Upload, Secure & Instant)',
+    description:
+      'Convert Excel to PDF instantly with our secure, browser-based tool. No upload required — your files stay private. Supports XLSX/XLS, preview sheets, and download high-quality PDFs without watermark or signup.',
+    icon: Table,
+    isGenAI: false,
+    isPlaceholder: false,
+    content: `
+      <h1>Free Excel to PDF Converter (No Upload Required)</h1>
+      <h3>Secure & Private Excel to PDF Conversion</h3>
+      <p>Convert your <strong>XLSX to PDF without email</strong> or registration. This <strong>client-side Excel to PDF converter</strong> works directly in your browser — no upload needed.</p>
+      <ul>
+        <li><strong>Excel to PDF without email:</strong> No signups, instant conversion</li>
+        <li><strong>Convert Excel to PDF with formatting:</strong> Tables & layout preserved</li>
+        <li><strong>XLS to PDF no watermark:</strong> Clean professional output</li>
+        <li><strong>Secure Excel to PDF tool:</strong> Files never leave your device</li>
+        <li><strong>Excel to PDF high quality:</strong> Perfect for reports & printing</li>
+      </ul>
+      <h2>How to Convert Excel to PDF Without Uploading</h2>
+      <ol>
+        <li>Select your Excel file (.xlsx or .xls)</li>
+        <li>Preview your sheets</li>
+        <li>Click convert</li>
+        <li>Download your PDF instantly</li>
+      </ol>
+      <h2>FAQs</h2>
+      <h3>Is this Excel to PDF converter secure?</h3>
+      <p>Yes, it runs entirely in your browser. Your files are never uploaded.</p>
+      <h3>Can I convert Excel to PDF without internet?</h3>
+      <p>Yes, this tool supports offline usage after loading.</p>
+      <h3>Does it add watermark?</h3>
+      <p>No, your PDF will be clean and watermark-free.</p>
+    `,
+  },
   {
     slug: 'merge-pdf',
     title: 'Merge PDF Files Online (Free PDF Combiner)',
@@ -260,26 +251,26 @@ export const tools: Tool[] = [
     content: '',
   },
   {
-  slug: 'password-generator',
-  title: 'Free Password Generator — Strong & Secure',
-  description:
-    'Generate strong, random passwords instantly. Choose length, character types, and generate up to 10 passwords at once. 100% private — runs in your browser.',
-  icon: KeyRound,
-  isGenAI: false,
-  isPlaceholder: false,
-  content: `
-  <h3>Free Password Generator — Strong & Secure</h3>
-  <p>Generate strong passwords instantly — 8 character password, 
-  Instagram strong password, WiFi password, or any custom length. 
-  100% free, runs in your browser, never stored anywhere.</p>
-  <ul>
-    <li><strong>8 Character Password:</strong> Perfect for basic account security.</li>
-    <li><strong>Instagram Password:</strong> Generate strong passwords for social media.</li>
-    <li><strong>WiFi Password:</strong> Create secure router passwords instantly.</li>
-    <li><strong>Easy to Remember:</strong> Use our readable format option.</li>
-  </ul>
-`,
-},
+    slug: 'password-generator',
+    title: 'Free Password Generator — Strong & Secure',
+    description:
+      'Generate strong, random passwords instantly. Choose length, character types, and generate up to 10 passwords at once. 100% private — runs in your browser.',
+    icon: KeyRound,
+    isGenAI: false,
+    isPlaceholder: false,
+    content: `
+    <h3>Free Password Generator — Strong & Secure</h3>
+    <p>Generate strong passwords instantly — 8 character password, 
+    Instagram strong password, WiFi password, or any custom length. 
+    100% free, runs in your browser, never stored anywhere.</p>
+    <ul>
+      <li><strong>8 Character Password:</strong> Perfect for basic account security.</li>
+      <li><strong>Instagram Password:</strong> Generate strong passwords for social media.</li>
+      <li><strong>WiFi Password:</strong> Create secure router passwords instantly.</li>
+      <li><strong>Easy to Remember:</strong> Use our readable format option.</li>
+    </ul>
+  `,
+  },
   {
     slug: 'age-calculator',
     title: 'Free Age Calculator (Exact Years, Months, Days)',
