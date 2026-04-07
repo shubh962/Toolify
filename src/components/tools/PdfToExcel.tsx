@@ -1,8 +1,8 @@
 'use client';
 
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import Link from 'next/link';
-import { PDFDocument } from 'pdf-lib';
+import * as pdfjsLib from 'pdfjs-dist';
 import * as XLSX from 'xlsx';
 import {
   Upload, FileText, Download, Trash2,
@@ -16,7 +16,12 @@ import { useToast } from '@/hooks/use-toast';
 const MAX_SIZE_MB = 50;
 const MAX_SIZE_BYTES = MAX_SIZE_MB * 1024 * 1024;
 
-// ✅ FAQ Schema — outside component
+// ✅ Set up the PDF.js worker securely for Next.js Client Components
+if (typeof window !== 'undefined') {
+  pdfjsLib.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjsLib.version}/pdf.worker.min.mjs`;
+}
+
+// ✅ FAQ Schema
 const faqSchema = {
   '@context': 'https://schema.org',
   '@type': 'FAQPage',
@@ -64,74 +69,59 @@ const faqSchema = {
   ],
 };
 
-// ✅ Extract text lines from PDF bytes using pdf-lib
+// ✅ Robust Text Extraction using pdfjs-dist
 async function extractTextFromPdf(arrayBuffer: ArrayBuffer): Promise<string[][]> {
-  const pdfDoc = await PDFDocument.load(arrayBuffer, { ignoreEncryption: false });
-  const pages = pdfDoc.getPages();
-
-  // Use a different approach - get raw content streams
   const allLines: string[][] = [];
+  
+  try {
+    const loadingTask = pdfjsLib.getDocument({ data: arrayBuffer });
+    const pdf = await loadingTask.promise;
 
-  for (const page of pages) {
-    try {
-      // Get page content as string via the raw operator approach
-      const { width, height } = page.getSize();
-
-      // Extract text content from page operators
-      // We'll use a text extraction approach via fetch of the page content
-      const contentStreams = page.node.Contents();
-
-      if (contentStreams) {
-        // Parse basic text from PDF content stream
-        const rawBytes = page.doc.context.lookupMaybe(contentStreams as any);
-        if (rawBytes) {
-          const decoder = new TextDecoder('latin1');
-          let rawText = '';
-          try {
-            const bytes = (rawBytes as any).contents || (rawBytes as any).rawContent;
-            if (bytes) rawText = decoder.decode(bytes);
-          } catch {}
-
-          // Extract text between BT and ET markers
-          const btEtRegex = /BT([\s\S]*?)ET/g;
-          let match;
-          const pageTexts: string[] = [];
-
-          while ((match = btEtRegex.exec(rawText)) !== null) {
-            const block = match[1];
-            // Extract strings between () or <>
-            const strRegex = /\(([^)]*)\)|<([0-9A-Fa-f]+)>/g;
-            let strMatch;
-            let lineText = '';
-            while ((strMatch = strRegex.exec(block)) !== null) {
-              if (strMatch[1] !== undefined) {
-                lineText += strMatch[1].replace(/\\n/g, ' ').replace(/\\\d{3}/g, '?');
-              } else if (strMatch[2] !== undefined) {
-                // Hex string
-                const hex = strMatch[2];
-                let str = '';
-                for (let i = 0; i < hex.length - 1; i += 2) {
-                  const code = parseInt(hex.slice(i, i + 2), 16);
-                  if (code > 31 && code < 127) str += String.fromCharCode(code);
-                }
-                lineText += str;
-              }
-            }
-            if (lineText.trim()) pageTexts.push(lineText.trim());
-          }
-
-          if (pageTexts.length > 0) {
-            // Try to detect table structure by splitting on multiple spaces
-            pageTexts.forEach((line) => {
-              const cells = line.split(/\s{2,}/).map((c) => c.trim()).filter(Boolean);
-              if (cells.length > 0) allLines.push(cells);
-            });
-          }
+    for (let pageNum = 1; pageNum <= pdf.numPages; pageNum++) {
+      const page = await pdf.getPage(pageNum);
+      const textContent = await page.getTextContent();
+      
+      // Group items by their Y coordinate to form rows
+      // We store the X coordinate to sort columns left-to-right later
+      const rows: { [y: string]: { x: number, text: string }[] } = {};
+      
+      textContent.items.forEach((item: any) => {
+        // transform array: [scaleX, skewY, skewX, scaleY, x, y]
+        const xCoord = Math.round(item.transform[4]); 
+        
+        // Round Y coordinate to nearest 5 pixels. 
+        // This groups text that visually looks like it's on the same line 
+        // but might be off by 1 or 2 pixels in the raw PDF data.
+        const yCoord = Math.round(item.transform[5] / 5) * 5; 
+        
+        if (!rows[yCoord]) {
+          rows[yCoord] = [];
         }
-      }
-    } catch (pageErr) {
-      // Skip page if extraction fails
+        
+        if (item.str.trim() !== '') {
+          rows[yCoord].push({ x: xCoord, text: item.str.trim() });
+        }
+      });
+
+      // Sort rows from top to bottom (PDF Y-axis usually starts at 0 at the bottom of the page)
+      const sortedYCoords = Object.keys(rows)
+        .map(Number)
+        .sort((a, b) => b - a);
+
+      sortedYCoords.forEach((y) => {
+        // Sort items in the row from left to right based on X coordinate
+        const rowData = rows[y]
+          .sort((a, b) => a.x - b.x)
+          .map(item => item.text);
+          
+        if (rowData.length > 0) {
+          allLines.push(rowData);
+        }
+      });
     }
+  } catch (err) {
+    console.error("PDF reading error:", err);
+    throw err; // Pass error to UI handler
   }
 
   return allLines;
@@ -184,7 +174,7 @@ export default function PdfToExcel() {
       if (lines.length === 0) {
         toast({
           title: 'No Text Found',
-          description: 'This PDF appears to be scanned or image-based. Text-based PDFs work best.',
+          description: 'This PDF appears to be an image or scanned document without readable text.',
           variant: 'destructive',
         });
         setIsConverting(false);
@@ -195,37 +185,38 @@ export default function PdfToExcel() {
       const wb = XLSX.utils.book_new();
       const ws = XLSX.utils.aoa_to_sheet(lines);
 
-      // Auto column widths
+      // Auto column widths dynamically based on longest content
       const colWidths = lines[0]?.map((_, colIdx) =>
         Math.min(Math.max(...lines.map((row) => (row[colIdx] || '').toString().length), 10), 50)
       ) || [];
       ws['!cols'] = colWidths.map((w) => ({ wch: w }));
 
       XLSX.utils.book_append_sheet(wb, ws, 'PDF Data');
-
       const xlsxBytes = XLSX.write(wb, { type: 'array', bookType: 'xlsx' });
+
       const blob = new Blob([xlsxBytes], {
         type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
       });
 
       setXlsxBlob(blob);
       setRowCount(lines.length);
-      setPreview(lines.slice(0, 6));
+      setPreview(lines.slice(0, 6)); // Show first 6 rows as preview
       setIsDone(true);
 
       toast({
         title: 'Conversion Complete!',
-        description: `${lines.length} rows extracted from PDF.`,
+        description: `${lines.length} rows extracted perfectly.`,
       });
+
     } catch (err: any) {
       console.error(err);
-      const isEncrypted = err?.message?.toLowerCase().includes('encrypt') ||
-        err?.message?.toLowerCase().includes('password');
+      const isEncrypted = err?.message?.toLowerCase().includes('password') || err?.name === 'PasswordException';
+      
       toast({
         title: isEncrypted ? 'Password-Protected PDF' : 'Conversion Failed',
         description: isEncrypted
-          ? 'Remove the PDF password first, then try again.'
-          : 'Could not extract data. Try a text-based PDF for best results.',
+          ? 'Please unlock the PDF first, then try again.'
+          : 'Could not extract data from this file.',
         variant: 'destructive',
       });
     } finally {
@@ -243,7 +234,7 @@ export default function PdfToExcel() {
     a.click();
     document.body.removeChild(a);
     URL.revokeObjectURL(url);
-    toast({ title: 'Downloaded!', description: 'Excel file saved to your device.' });
+    toast({ title: 'Downloaded!', description: 'Excel file saved successfully.' });
   };
 
   const handleReset = () => {
