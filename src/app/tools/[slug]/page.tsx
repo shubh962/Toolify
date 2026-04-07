@@ -5,6 +5,7 @@ import Link from "next/link";
 // Standard imports for all components
 import YoutubeThumbnail from '@/components/tools/YoutubeThumbnail';
 import BackgroundRemover from '@/components/tools/BackgroundRemover';
+import ExcelToPdf from '@/components/tools/ExcelToPdf';
 import ImageToText from '@/components/tools/ImageToText';
 import TextParaphraser from '@/components/tools/TextParaphraser';
 import PdfToWord from '@/components/tools/PdfToWord';
@@ -66,6 +67,7 @@ const toolComponentMap: { [key: string]: React.ComponentType<any> } = {
   "merge-pdf": MergePdf,
   "image-compressor": ImageCompressor,
   "image-to-pdf": ImageToPdf,
+  "excel-to-pdf": ExcelToPdf,
   "qr-barcode-generator": QrBarcodeGenerator,
   "password-generator": PasswordGenerator,
   "age-calculator": AgeCalculator,
