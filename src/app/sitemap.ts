@@ -44,6 +44,7 @@ const toolSlugs = [
  "youtube-thumbnail-downloader",
   "metal-weight-calculator",
   "emi-calculator",
+  "excel-to-pdf",
 ];
 
 const staticPages = [
