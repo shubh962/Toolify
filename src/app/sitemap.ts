@@ -45,6 +45,7 @@ const toolSlugs = [
   "metal-weight-calculator",
   "emi-calculator",
   "excel-to-pdf",
+  "pdf-to-excel",
 ];
 
 const staticPages = [
