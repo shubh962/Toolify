@@ -109,27 +109,50 @@ export const tools: Tool[] = [
       <p>This tool is browser-based, meaning you don't need to install software. Just upload, convert, and download your editable Word file.</p>
     `,
   },
-{
-  slug: 'excel-to-pdf',
-  title: 'Free Excel to PDF Converter Online',
-  description:
-    'Convert Excel spreadsheets to PDF instantly. Supports .xlsx and .xls files. Preview sheets before converting. 100% private — your file never leaves your device.',
-  icon: Table,
-  isGenAI: false,
-  isPlaceholder: false,
-  content: `
-    <h3>Secure & Private Excel to PDF Conversion</h3>
-    <p>Convert your <strong>XLSX to PDF without email</strong> or registration. TaskGuru offers a <strong>private Excel to PDF converter</strong> experience where all processing happens locally in your browser.</p>
-    <ul>
-      <li><strong>Excel to PDF without email:</strong> No signups, just instant conversion.</li>
-      <li><strong>Convert Excel to PDF with formatting:</strong> Keep your tables and layouts intact.</li>
-      <li><strong>XLS to PDF no watermark:</strong> Download clean, professional documents.</li>
-      <li><strong>Secure Excel to PDF tool:</strong> Your sensitive financial data never touches our servers.</li>
-      <li><strong>Excel to PDF high quality:</strong> Perfect for high-resolution reports and printing.</li>
-    </ul>
-    <p>Whether you need a <strong>free Excel to PDF no signup</strong> solution or a <strong>client-side Excel to PDF</strong> tool for privacy, we've got you covered. This is the best way for <strong>converting spreadsheets to PDF privately</strong>.</p>`,
-},
-
+‎{
+‎slug: 'excel-to-pdf',
+‎title: 'Free Excel to PDF Converter (No Upload, Secure & Instant)',
+‎
+‎description:
+‎  'Convert Excel to PDF instantly with our secure, browser-based tool. No upload required — your files stay private. Supports XLSX/XLS, preview sheets, and download high-quality PDFs without watermark or signup.',
+‎
+‎icon: Table,
+‎isGenAI: false,
+‎isPlaceholder: false,
+‎
+‎content: `
+‎  <h1>Free Excel to PDF Converter (No Upload Required)</h1>
+‎
+‎  <h3>Secure & Private Excel to PDF Conversion</h3>
+‎  <p>Convert your <strong>XLSX to PDF without email</strong> or registration. This <strong>client-side Excel to PDF converter</strong> works directly in your browser — no upload needed.</p>
+‎
+‎  <ul>
+‎    <li><strong>Excel to PDF without email:</strong> No signups, instant conversion</li>
+‎    <li><strong>Convert Excel to PDF with formatting:</strong> Tables & layout preserved</li>
+‎    <li><strong>XLS to PDF no watermark:</strong> Clean professional output</li>
+‎    <li><strong>Secure Excel to PDF tool:</strong> Files never leave your device</li>
+‎    <li><strong>Excel to PDF high quality:</strong> Perfect for reports & printing</li>
+‎  </ul>
+‎
+‎  <h2>How to Convert Excel to PDF Without Uploading</h2>
+‎  <ol>
+‎    <li>Select your Excel file (.xlsx or .xls)</li>
+‎    <li>Preview your sheets</li>
+‎    <li>Click convert</li>
+‎    <li>Download your PDF instantly</li>
+‎  </ol>
+‎
+‎  <h2>FAQs</h2>
+‎  <h3>Is this Excel to PDF converter secure?</h3>
+‎  <p>Yes, it runs entirely in your browser. Your files are never uploaded.</p>
+‎
+‎  <h3>Can I convert Excel to PDF without internet?</h3>
+‎  <p>Yes, this tool supports offline usage after loading.</p>
+‎
+‎  <h3>Does it add watermark?</h3>
+‎  <p>No, your PDF will be clean and watermark-free.</p>
+‎`,
+‎},
   {
     slug: 'merge-pdf',
     title: 'Merge PDF Files Online (Free PDF Combiner)',
