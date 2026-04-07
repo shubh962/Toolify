@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef } from 'react';
 import Link from 'next/link';
 import * as pdfjsLib from 'pdfjs-dist';
 import * as XLSX from 'xlsx';
@@ -16,9 +16,9 @@ import { useToast } from '@/hooks/use-toast';
 const MAX_SIZE_MB = 50;
 const MAX_SIZE_BYTES = MAX_SIZE_MB * 1024 * 1024;
 
-// ✅ Set up the PDF.js worker securely for Next.js Client Components
+// ✅ Set up the PDF.js worker securely (using unpkg instead of cdnjs for better mobile support)
 if (typeof window !== 'undefined') {
-  pdfjsLib.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjsLib.version}/pdf.worker.min.mjs`;
+  pdfjsLib.GlobalWorkerOptions.workerSrc = `https://unpkg.com/pdfjs-dist@${pdfjsLib.version}/build/pdf.worker.min.mjs`;
 }
 
 // ✅ FAQ Schema
@@ -209,14 +209,18 @@ export default function PdfToExcel() {
       });
 
     } catch (err: any) {
-      console.error(err);
+      console.error("Conversion Error:", err);
+      
       const isEncrypted = err?.message?.toLowerCase().includes('password') || err?.name === 'PasswordException';
+      const isCorrupt = err?.name === 'InvalidPDFException' || err?.message?.toLowerCase().includes('invalid pdf structure');
       
       toast({
-        title: isEncrypted ? 'Password-Protected PDF' : 'Conversion Failed',
+        title: isEncrypted ? 'Password-Protected PDF' : isCorrupt ? 'Corrupted File' : 'Conversion Failed',
         description: isEncrypted
           ? 'Please unlock the PDF first, then try again.'
-          : 'Could not extract data from this file.',
+          : isCorrupt 
+            ? 'This file appears to be corrupted or not a valid PDF (common with WhatsApp documents).'
+            : 'Could not extract data from this file. Ensure it is a valid, text-based PDF.',
         variant: 'destructive',
       });
     } finally {
