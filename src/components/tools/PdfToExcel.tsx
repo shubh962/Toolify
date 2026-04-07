@@ -16,12 +16,15 @@ import { useToast } from '@/hooks/use-toast';
 const MAX_SIZE_MB = 50;
 const MAX_SIZE_BYTES = MAX_SIZE_MB * 1024 * 1024;
 
-// ✅ Set up the PDF.js worker securely (using unpkg instead of cdnjs for better mobile support)
+// ✅ We set up the PDF.js worker securely here.
+// I switched this from cdnjs to unpkg because mobile browsers handle unpkg much better,
+// which prevents those random crashes on Android devices!
 if (typeof window !== 'undefined') {
   pdfjsLib.GlobalWorkerOptions.workerSrc = `https://unpkg.com/pdfjs-dist@${pdfjsLib.version}/build/pdf.worker.min.mjs`;
 }
 
-// ✅ FAQ Schema
+// ✅ FAQ Schema for Google Search Rich Snippets. 
+// This is crucial for getting those "People Also Ask" impressions in Google.
 const faqSchema = {
   '@context': 'https://schema.org',
   '@type': 'FAQPage',
@@ -69,7 +72,8 @@ const faqSchema = {
   ],
 };
 
-// ✅ Robust Text Extraction using pdfjs-dist
+// ✅ This is our robust text extraction engine.
+// It maps the visual coordinates of the PDF so we can perfectly reconstruct the tables.
 async function extractTextFromPdf(arrayBuffer: ArrayBuffer): Promise<string[][]> {
   const allLines: string[][] = [];
   
@@ -81,17 +85,16 @@ async function extractTextFromPdf(arrayBuffer: ArrayBuffer): Promise<string[][]>
       const page = await pdf.getPage(pageNum);
       const textContent = await page.getTextContent();
       
-      // Group items by their Y coordinate to form rows
-      // We store the X coordinate to sort columns left-to-right later
+      // We group items by their Y coordinate to form rows.
+      // We store the X coordinate so we can sort columns left-to-right later!
       const rows: { [y: string]: { x: number, text: string }[] } = {};
       
       textContent.items.forEach((item: any) => {
-        // transform array: [scaleX, skewY, skewX, scaleY, x, y]
         const xCoord = Math.round(item.transform[4]); 
         
-        // Round Y coordinate to nearest 5 pixels. 
-        // This groups text that visually looks like it's on the same line 
-        // but might be off by 1 or 2 pixels in the raw PDF data.
+        // We round the Y coordinate to the nearest 5 pixels. 
+        // This is a super smart trick because sometimes text on the same line 
+        // is off by 1 or 2 pixels in the raw PDF data. This groups them perfectly!
         const yCoord = Math.round(item.transform[5] / 5) * 5; 
         
         if (!rows[yCoord]) {
@@ -103,13 +106,13 @@ async function extractTextFromPdf(arrayBuffer: ArrayBuffer): Promise<string[][]>
         }
       });
 
-      // Sort rows from top to bottom (PDF Y-axis usually starts at 0 at the bottom of the page)
+      // Sort rows from top to bottom
       const sortedYCoords = Object.keys(rows)
         .map(Number)
         .sort((a, b) => b - a);
 
       sortedYCoords.forEach((y) => {
-        // Sort items in the row from left to right based on X coordinate
+        // Sort items in the row from left to right based on their X coordinate
         const rowData = rows[y]
           .sort((a, b) => a.x - b.x)
           .map(item => item.text);
@@ -121,7 +124,7 @@ async function extractTextFromPdf(arrayBuffer: ArrayBuffer): Promise<string[][]>
     }
   } catch (err) {
     console.error("PDF reading error:", err);
-    throw err; // Pass error to UI handler
+    throw err; // We pass this error down to the UI handler so the user knows what happened.
   }
 
   return allLines;
@@ -181,11 +184,11 @@ export default function PdfToExcel() {
         return;
       }
 
-      // Create Excel workbook
+      // Create the Excel workbook using sheetjs
       const wb = XLSX.utils.book_new();
       const ws = XLSX.utils.aoa_to_sheet(lines);
 
-      // Auto column widths dynamically based on longest content
+      // Auto-calculate column widths dynamically based on the longest piece of text in that column.
       const colWidths = lines[0]?.map((_, colIdx) =>
         Math.min(Math.max(...lines.map((row) => (row[colIdx] || '').toString().length), 10), 50)
       ) || [];
@@ -200,7 +203,7 @@ export default function PdfToExcel() {
 
       setXlsxBlob(blob);
       setRowCount(lines.length);
-      setPreview(lines.slice(0, 6)); // Show first 6 rows as preview
+      setPreview(lines.slice(0, 6)); // We show the first 6 rows as a quick preview!
       setIsDone(true);
 
       toast({
@@ -211,16 +214,23 @@ export default function PdfToExcel() {
     } catch (err: any) {
       console.error("Conversion Error:", err);
       
-      const isEncrypted = err?.message?.toLowerCase().includes('password') || err?.name === 'PasswordException';
-      const isCorrupt = err?.name === 'InvalidPDFException' || err?.message?.toLowerCase().includes('invalid pdf structure');
+      // ✅ Here is where we catch the exact error so you aren't left guessing!
+      const errMsg = err?.message || err?.name || 'Unknown engine error';
+      
+      const isEncrypted = errMsg.toLowerCase().includes('password') || 
+                          errMsg.toLowerCase().includes('encrypt') ||
+                          err?.name === 'PasswordException';
+                          
+      const isCorrupt = err?.name === 'InvalidPDFException' || 
+                        errMsg.toLowerCase().includes('invalid pdf structure');
       
       toast({
-        title: isEncrypted ? 'Password-Protected PDF' : isCorrupt ? 'Corrupted File' : 'Conversion Failed',
+        title: isEncrypted ? 'Locked / Encrypted PDF' : isCorrupt ? 'Corrupted File' : 'Conversion Failed',
         description: isEncrypted
-          ? 'Please unlock the PDF first, then try again.'
+          ? 'This PDF is encrypted or password-protected. Unlock it first.'
           : isCorrupt 
-            ? 'This file appears to be corrupted or not a valid PDF (common with WhatsApp documents).'
-            : 'Could not extract data from this file. Ensure it is a valid, text-based PDF.',
+            ? 'This file appears to be corrupted (common with WhatsApp documents).'
+            : `System Error: ${errMsg.substring(0, 80)}... Ensure it is a valid PDF.`, 
         variant: 'destructive',
       });
     } finally {
@@ -417,8 +427,7 @@ export default function PdfToExcel() {
             ))}
           </div>
         </section>
-
-        <section className="space-y-5">
+         <section className="space-y-5">
           <h2 className="text-2xl font-black text-slate-900 dark:text-white">
             Common Use Cases
           </h2>
