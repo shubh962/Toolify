@@ -16,6 +16,7 @@ import {
   KeyRound,
   Table,
   Type,
+  EyeOff,
 } from 'lucide-react';
 
 export interface Tool {
@@ -306,6 +307,16 @@ export const tools: Tool[] = [
       <p>Calculating age manually with leap years is tricky. This calculator gives you a precise breakdown of your age in years, months, weeks, and days. Useful for official forms or planning retirement.</p>
     `,
   },
+  {
+  slug: 'pdf-redactor',
+  title: 'Free PDF Redactor Online — Redact PDF Text & Areas',
+  description:
+    'Permanently redact sensitive information from PDF files. Black out SSN, account numbers, names, and confidential text. Draw boxes or search text. 100% private — your PDF never leaves your device.',
+  icon: EyeOff,
+  isGenAI: false,
+  isPlaceholder: false,
+  content: '',
+},
   {
     slug: 'youtube-thumbnail-downloader',
     title: 'YouTube Thumbnail Downloader (HD & 4K)',
