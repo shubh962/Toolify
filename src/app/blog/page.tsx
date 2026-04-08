@@ -29,10 +29,20 @@ const categoryColors: Record<string, string> = {
   "Tech Explained": "bg-purple-100 text-purple-700",
   "Writing Skills": "bg-green-100 text-green-700",
   "Founder Story": "bg-blue-100 text-blue-700",
+  "Productivity": "bg-blue-100 text-blue-700",
 };
 
 const posts = [
   // ✅ Founder story — earliest, most personal
+  {
+  slug: "free-productivity-tools-2026",
+  title: "4 Free Tools Everyone Needs in 2026 — Password, Typing, PDF & Excel",
+  summary: "A complete guide to four essential free browser-based tools — secure password generator, typing speed test, PDF to Excel converter, and Excel to PDF converter. No signup, no paywall.",
+  date: "2026-02-01",
+  displayDate: "February 1, 2026",
+  category: "Productivity",
+  featured: false,
+},
   {
   slug: "why-i-built-free-image-compressor",
   title: "A Scholarship Form Said 20KB. My Photo Was 2MB. Here Is What Happened Next.",
