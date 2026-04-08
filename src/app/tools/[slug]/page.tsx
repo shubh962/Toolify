@@ -24,6 +24,7 @@ import QrBarcodeGenerator from '@/components/tools/QrBarcodeGenerator';
 import PdfCompressor from '@/components/tools/PdfCompressor';
 import TypingSpeedTest from '@/components/tools/TypingSpeedTest';
 import WordCounter from '@/components/tools/WordCounter';
+import PdfRedactor from '@/components/tools/PdfRedactor';
 import { ShieldCheck, Lock, Zap } from 'lucide-react';
 
 export async function generateStaticParams() {
@@ -79,6 +80,7 @@ const toolComponentMap: { [key: string]: React.ComponentType<any> } = {
   "emi-calculator": EmiCalculator,
   "pdf-compressor": PdfCompressor,
   "word-counter": WordCounter,
+  "pdf-redactor": PdfRedactor,
 };
 
 // ✅ Next.js 15 compatibility: params awaited
