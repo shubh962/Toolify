@@ -47,6 +47,7 @@ const toolSlugs = [
   "emi-calculator",
   "excel-to-pdf",
   "pdf-to-excel",
+  "word-counter",
 ];
 
 const staticPages = [
