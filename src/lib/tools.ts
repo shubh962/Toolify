@@ -15,6 +15,7 @@ import {
   Keyboard,
   KeyRound,
   Table,
+  Type,
 } from 'lucide-react';
 
 export interface Tool {
@@ -94,6 +95,16 @@ export const tools: Tool[] = [
       <p>The average professional spends over 6 hours per day typing. Even a modest improvement in typing speed compounds into hours saved every week. Use our tool to test your WPM (Words Per Minute) and accuracy.</p>
     ` 
   },
+  {
+  slug: 'word-counter',
+  title: 'Free Word Counter & Character Count Online',
+  description:
+    'Count words, characters, sentences, paragraphs and reading time instantly. Check keyword density and platform character limits for Twitter, Instagram, LinkedIn and more. No signup required.',
+  icon: Type,
+  isGenAI: false,
+  isPlaceholder: false,
+  content: '',
+},
   {
     slug: 'pdf-to-word',
     title: 'PDF to Word Converter Online (DOCX)',
