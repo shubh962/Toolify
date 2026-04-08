@@ -2,12 +2,11 @@
 
 import { useState, useRef, useEffect, useCallback } from 'react';
 import Link from 'next/link';
-import { PDFDocument, rgb, StandardFonts } from 'pdf-lib';
+import { PDFDocument, rgb } from 'pdf-lib';
 import {
   Upload, FileText, Download, Trash2, Loader2,
-  CheckCircle, ShieldCheck, Eye, EyeOff,
-  HelpCircle, ArrowRight, Square, Type, RotateCcw,
-  Plus, Minus,
+  CheckCircle, ShieldCheck, HelpCircle, ArrowRight, 
+  Square, Type, RotateCcw, Plus, Minus, Eye, EyeOff
 } from 'lucide-react';
 import { Card, CardContent, CardFooter } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -16,7 +15,7 @@ import { useToast } from '@/hooks/use-toast';
 const MAX_SIZE_MB = 50;
 const MAX_SIZE_BYTES = MAX_SIZE_MB * 1024 * 1024;
 
-// ✅ FAQ Schema — outside component — Tier 1 country keywords
+// ✅ FAQ Schema — Tier 1 country keywords (USA, UK, Canada, Australia)
 const faqSchema = {
   '@context': 'https://schema.org',
   '@type': 'FAQPage',
@@ -34,7 +33,7 @@ const faqSchema = {
       name: 'Is PDF redaction permanent?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'Yes — TaskGuru\'s PDF redactor permanently removes the underlying text and covers it with a solid black rectangle. Unlike simply placing a black shape on top (which can be removed), the redacted text is gone from the PDF structure. The redacted PDF cannot be unredacted.',
+        text: 'Yes — TaskGuru\'s PDF redactor permanently flattens the document. Unlike simply placing a black shape on top (which can be easily removed to expose data), the underlying text is completely destroyed and turned into a secure image. The redacted PDF cannot be unredacted.',
       },
     },
     {
@@ -61,14 +60,6 @@ const faqSchema = {
         text: 'With TaskGuru, yes — completely safe. All PDF redaction happens locally in your browser using JavaScript. Your document, including any sensitive information it contains, never gets uploaded to any server. This makes it safe for legal documents, medical records, and financial statements.',
       },
     },
-    {
-      '@type': 'Question',
-      name: 'What is the difference between redaction and deletion?',
-      acceptedAnswer: {
-        '@type': 'Answer',
-        text: 'Redaction permanently removes specific content from a document while keeping the rest intact. Deletion removes the entire document or page. Redaction is used when you need to share a document but must hide specific sensitive information — such as sharing a contract with personal details removed.',
-      },
-    },
   ],
 };
 
@@ -90,7 +81,6 @@ export default function PdfRedactor() {
   const { toast } = useToast();
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [file, setFile] = useState<File | null>(null);
-  const [pdfDoc, setPdfDoc] = useState<any>(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
   const [pageDimensions, setPageDimensions] = useState<PageDimension[]>([]);
@@ -107,8 +97,11 @@ export default function PdfRedactor() {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [pdfjsLib, setPdfjsLib] = useState<any>(null);
   const [pdfViewDoc, setPdfViewDoc] = useState<any>(null);
+  
+  // ✅ Legal compliance state
+  const [hasAcceptedTerms, setHasAcceptedTerms] = useState(false);
 
-  // ✅ Load PDF.js for rendering
+  // Load PDF.js for rendering
   useEffect(() => {
     const script = document.createElement('script');
     script.src = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js';
@@ -136,6 +129,7 @@ export default function PdfRedactor() {
     setCurrentPage(1);
     setIsDone(false);
     setRedactedBlob(null);
+    setHasAcceptedTerms(false); 
 
     if (!pdfjsLib) {
       toast({ title: 'Loading...', description: 'PDF viewer is loading. Please try again in a moment.' });
@@ -143,13 +137,10 @@ export default function PdfRedactor() {
     }
 
     const arrayBuffer = await f.arrayBuffer();
-
-    // Load with PDF.js for viewing
     const viewDoc = await pdfjsLib.getDocument({ data: arrayBuffer.slice(0) }).promise;
     setPdfViewDoc(viewDoc);
     setTotalPages(viewDoc.numPages);
 
-    // Get all page dimensions
     const dims: PageDimension[] = [];
     for (let i = 1; i <= viewDoc.numPages; i++) {
       const page = await viewDoc.getPage(i);
@@ -157,13 +148,8 @@ export default function PdfRedactor() {
       dims.push({ width: viewport.width, height: viewport.height });
     }
     setPageDimensions(dims);
-
-    // Load with pdf-lib for editing
-    const libDoc = await PDFDocument.load(arrayBuffer);
-    setPdfDoc(libDoc);
   };
 
-  // ✅ Render current page to canvas
   const renderPage = useCallback(async () => {
     if (!pdfViewDoc || !canvasRef.current) return;
 
@@ -185,7 +171,6 @@ export default function PdfRedactor() {
 
       await page.render({ canvasContext: context, viewport }).promise;
 
-      // Draw existing redactions for this page
       context.fillStyle = 'black';
       redactions
         .filter((r) => r.page === currentPage)
@@ -201,7 +186,6 @@ export default function PdfRedactor() {
     renderPage();
   }, [renderPage]);
 
-  // ✅ Mouse drawing handlers
   const getCanvasPos = (e: React.MouseEvent<HTMLCanvasElement>) => {
     const rect = canvasRef.current!.getBoundingClientRect();
     return {
@@ -228,7 +212,6 @@ export default function PdfRedactor() {
       h: Math.abs(pos.y - drawStart.y),
     });
     renderPage();
-    // Draw live rect
     const ctx = canvasRef.current?.getContext('2d');
     if (ctx && currentRect) {
       ctx.fillStyle = 'rgba(0,0,0,0.7)';
@@ -256,7 +239,6 @@ export default function PdfRedactor() {
     setCurrentRect(null);
   };
 
-  // ✅ Text search redaction
   const handleTextRedaction = async () => {
     if (!searchText.trim() || !pdfViewDoc) return;
 
@@ -265,13 +247,11 @@ export default function PdfRedactor() {
     for (let pageNum = 1; pageNum <= totalPages; pageNum++) {
       const page = await pdfViewDoc.getPage(pageNum);
       const textContent = await page.getTextContent();
-      const viewport = page.getViewport({ scale: 1 });
       const pageDim = pageDimensions[pageNum - 1];
 
       textContent.items.forEach((item: any) => {
         if (item.str && item.str.toLowerCase().includes(searchText.toLowerCase())) {
           const tx = item.transform;
-          // PDF coordinates are bottom-left, canvas is top-left
           const x = tx[4];
           const y = pageDim.height - tx[5] - (item.height || 12);
           const w = item.width || searchText.length * 6;
@@ -299,51 +279,78 @@ export default function PdfRedactor() {
     setSearchText('');
   };
 
-  // ✅ Apply redactions and generate final PDF
+  // ✅ 100% SECURE TRUE REDACTION (FLATTENING)
   const handleRedact = async () => {
-    if (!pdfDoc || redactions.length === 0) {
+    if (!pdfViewDoc || redactions.length === 0) {
       toast({ title: 'No Redactions', description: 'Draw or search for text to redact first.', variant: 'destructive' });
+      return;
+    }
+
+    if (!hasAcceptedTerms) {
+      toast({ title: 'Accept Terms', description: 'Please accept the legal terms before applying redactions.', variant: 'destructive' });
       return;
     }
 
     setIsProcessing(true);
 
     try {
-      const pages = pdfDoc.getPages();
+      const securePdfDoc = await PDFDocument.create();
 
-      redactions.forEach((box) => {
-        const page = pages[box.page - 1];
-        if (!page) return;
-        const { width: pdfW, height: pdfH } = page.getSize();
-        const pageDim = pageDimensions[box.page - 1];
+      for (let pageNum = 1; pageNum <= totalPages; pageNum++) {
+        const page = await pdfViewDoc.getPage(pageNum);
+        const viewport = page.getViewport({ scale: 2 }); // Scale 2 for high quality
+        
+        const offScreenCanvas = document.createElement('canvas');
+        const context = offScreenCanvas.getContext('2d');
+        if (!context) continue;
 
-        if (!pageDim) return;
+        offScreenCanvas.width = viewport.width;
+        offScreenCanvas.height = viewport.height;
 
-        // Convert from canvas coords to PDF coords
-        const scaleX = pdfW / pageDim.width;
-        const scaleY = pdfH / pageDim.height;
+        await page.render({ canvasContext: context, viewport }).promise;
 
-        const pdfX = box.x * scaleX;
-        // PDF Y is from bottom, canvas Y is from top
-        const pdfY = pdfH - (box.y + box.height) * scaleY;
-        const pdfWidth = box.width * scaleX;
-        const pdfHeight = box.height * scaleY;
+        const pageRedactions = redactions.filter(r => r.page === pageNum);
+        if (pageRedactions.length > 0) {
+          context.fillStyle = 'black';
+          
+          const pageDim = pageDimensions[pageNum - 1];
+          const scaleX = viewport.width / pageDim.width;
+          const scaleY = viewport.height / pageDim.height;
 
-        page.drawRectangle({
-          x: Math.max(0, pdfX),
-          y: Math.max(0, pdfY),
-          width: Math.min(pdfWidth, pdfW - pdfX),
-          height: Math.min(pdfHeight, pdfH - pdfY),
-          color: rgb(0, 0, 0),
-          opacity: 1,
+          pageRedactions.forEach((box) => {
+            context.fillRect(
+              box.x * scaleX, 
+              box.y * scaleY, 
+              box.width * scaleX, 
+              box.height * scaleY
+            );
+          });
+        }
+
+        const imgDataUrl = offScreenCanvas.toDataURL('image/jpeg', 0.95);
+        const imgBytes = await fetch(imgDataUrl).then(res => res.arrayBuffer());
+        
+        const embeddedImage = await securePdfDoc.embedJpg(imgBytes);
+        const newPage = securePdfDoc.addPage([viewport.width, viewport.height]);
+        
+        newPage.drawImage(embeddedImage, {
+          x: 0,
+          y: 0,
+          width: viewport.width,
+          height: viewport.height,
         });
-      });
+      }
 
-      const pdfBytes = await pdfDoc.save();
+      const pdfBytes = await securePdfDoc.save();
       const blob = new Blob([pdfBytes], { type: 'application/pdf' });
       setRedactedBlob(blob);
       setIsDone(true);
-      toast({ title: 'Redaction Complete!', description: `${redactions.length} area${redactions.length > 1 ? 's' : ''} permanently redacted.` });
+      
+      toast({ 
+        title: 'Redaction Complete!', 
+        description: `Document safely flattened. Text is completely unrecoverable.` 
+      });
+
     } catch (err) {
       console.error(err);
       toast({ title: 'Redaction Failed', description: 'Could not process this PDF.', variant: 'destructive' });
@@ -357,7 +364,7 @@ export default function PdfRedactor() {
     const url = URL.createObjectURL(redactedBlob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = `redacted-${file.name}`;
+    a.download = `secure_redacted_${file.name}`;
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
@@ -367,13 +374,13 @@ export default function PdfRedactor() {
 
   const handleReset = () => {
     setFile(null);
-    setPdfDoc(null);
     setPdfViewDoc(null);
     setRedactions([]);
     setCurrentPage(1);
     setTotalPages(0);
     setIsDone(false);
     setRedactedBlob(null);
+    setHasAcceptedTerms(false);
     if (fileInputRef.current) fileInputRef.current.value = '';
   };
 
@@ -389,7 +396,7 @@ export default function PdfRedactor() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
 
       {/* ── TOOL CARD ── */}
-      <Card className="w-full max-w-3xl mx-auto shadow-2xl mt-8 border-2 border-primary/10 rounded-[2rem] bg-white dark:bg-gray-900">
+      <Card className="w-full max-w-3xl mx-auto shadow-2xl mt-8 border-2 border-primary/10 rounded-[2rem] bg-white dark:bg-gray-900 overflow-hidden">
         <CardContent className="p-6 sm:p-8 space-y-5">
 
           {!file ? (
@@ -404,7 +411,7 @@ export default function PdfRedactor() {
                   <FileText className="w-10 h-10" />
                 </div>
                 <div className="text-center space-y-2">
-                  <h3 className="text-xl font-black text-gray-800 dark:text-white">Upload PDF to Redact</h3>
+                  <h3 className="text-xl font-black text-gray-800 dark:text-white">Upload PDF to Securely Redact</h3>
                   <p className="text-gray-500 text-sm">Drag & Drop or Click to Browse</p>
                   <p className="text-xs text-red-500 font-bold bg-red-50 dark:bg-red-900/20 inline-block px-3 py-1 rounded-full">
                     Max {MAX_SIZE_MB}MB · 100% Private · Never Uploaded
@@ -412,8 +419,7 @@ export default function PdfRedactor() {
                 </div>
                 <input ref={fileInputRef} type="file" accept="application/pdf,.pdf" className="hidden" onChange={(e) => { const f = e.target.files?.[0]; if (f) validateAndSetFile(f); }} />
               </div>
-
-              {/* Use cases */}
+              
               <div className="grid grid-cols-2 gap-3">
                 {[
                   { emoji: '⚖️', label: 'Legal Documents', desc: 'Redact client names, case numbers' },
@@ -433,11 +439,7 @@ export default function PdfRedactor() {
             </>
           ) : (
             <div className="space-y-4">
-
-              {/* Controls */}
               <div className="flex flex-wrap items-center gap-3">
-
-                {/* Mode toggle */}
                 <div className="flex rounded-xl overflow-hidden border border-slate-200 dark:border-slate-700">
                   <button
                     onClick={() => setMode('draw')}
@@ -457,7 +459,6 @@ export default function PdfRedactor() {
                   </button>
                 </div>
 
-                {/* Undo */}
                 {redactions.length > 0 && (
                   <button
                     onClick={undoLast}
@@ -467,21 +468,19 @@ export default function PdfRedactor() {
                   </button>
                 )}
 
-                {/* Stats */}
                 <div className="ml-auto flex items-center gap-2 text-xs text-slate-500">
                   <span className="font-bold text-slate-900 dark:text-white">{totalRedactions}</span> redaction{totalRedactions !== 1 ? 's' : ''} total
                 </div>
               </div>
 
-              {/* Text search mode */}
-              {mode === 'text' && (
+               {mode === 'text' && (
                 <div className="flex gap-2">
                   <input
                     type="text"
                     value={searchText}
                     onChange={(e) => setSearchText(e.target.value)}
                     onKeyDown={(e) => e.key === 'Enter' && handleTextRedaction()}
-                    placeholder="Type text to redact (e.g. John Smith, SSN, account number...)"
+                    placeholder="Type text to redact (e.g. SSN, account number...)"
                     className="flex-1 px-4 py-2.5 rounded-xl border-2 border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm focus:outline-none focus:border-primary transition-colors text-slate-900 dark:text-white"
                   />
                   <Button onClick={handleTextRedaction} disabled={!searchText.trim()} className="rounded-xl font-bold">
@@ -496,24 +495,13 @@ export default function PdfRedactor() {
                 </p>
               )}
 
-              {/* Page navigation */}
               {totalPages > 1 && (
-                <div className="flex items-center justify-center gap-3">
-                  <button
-                    onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
-                    disabled={currentPage === 1}
-                    className="p-2 rounded-xl bg-slate-100 dark:bg-slate-800 disabled:opacity-40 hover:bg-slate-200 transition-colors"
-                  >
+                <div className="flex items-center justify-center gap-3 mt-2">
+                  <button onClick={() => setCurrentPage((p) => Math.max(1, p - 1))} disabled={currentPage === 1} className="p-2 rounded-xl bg-slate-100 dark:bg-slate-800 disabled:opacity-40 hover:bg-slate-200 transition-colors">
                     <Minus className="w-4 h-4" />
                   </button>
-                  <span className="text-sm font-bold text-slate-900 dark:text-white">
-                    Page {currentPage} of {totalPages}
-                  </span>
-                  <button
-                    onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
-                    disabled={currentPage === totalPages}
-                    className="p-2 rounded-xl bg-slate-100 dark:bg-slate-800 disabled:opacity-40 hover:bg-slate-200 transition-colors"
-                  >
+                  <span className="text-sm font-bold text-slate-900 dark:text-white">Page {currentPage} of {totalPages}</span>
+                  <button onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))} disabled={currentPage === totalPages} className="p-2 rounded-xl bg-slate-100 dark:bg-slate-800 disabled:opacity-40 hover:bg-slate-200 transition-colors">
                     <Plus className="w-4 h-4" />
                   </button>
                   {currentPageRedactions.length > 0 && (
@@ -524,7 +512,6 @@ export default function PdfRedactor() {
                 </div>
               )}
 
-              {/* PDF Canvas */}
               <div className="overflow-auto rounded-2xl border-2 border-slate-200 dark:border-slate-700 bg-slate-100 dark:bg-slate-800 flex justify-center">
                 <canvas
                   ref={canvasRef}
@@ -536,52 +523,70 @@ export default function PdfRedactor() {
                 />
               </div>
 
-              {/* Success */}
               {isDone && (
                 <div className="flex items-center gap-3 p-4 bg-green-50 dark:bg-green-900/20 rounded-2xl border border-green-200 dark:border-green-800">
                   <CheckCircle className="w-5 h-5 text-green-600 flex-shrink-0" />
                   <div>
                     <p className="text-sm font-bold text-green-700 dark:text-green-300">
-                      {totalRedactions} area{totalRedactions !== 1 ? 's' : ''} permanently redacted
+                      Document successfully flattened and secured.
                     </p>
                     <p className="text-xs text-green-600">Click Download to save the redacted PDF.</p>
                   </div>
                 </div>
               )}
-
-              {isProcessing && (
-                <div className="flex items-center gap-3 p-4 bg-blue-50 dark:bg-blue-900/20 rounded-2xl border border-blue-100">
-                  <Loader2 className="w-5 h-5 text-blue-600 animate-spin flex-shrink-0" />
-                  <p className="text-sm font-bold text-blue-700 dark:text-blue-300">Applying redactions permanently...</p>
-                </div>
-              )}
             </div>
           )}
         </CardContent>
-
+        {/* ✅ LEGAL CHECKBOX & ACTION FOOTER */}
         {file && (
-          <CardFooter className="flex flex-col sm:flex-row justify-center gap-3 bg-gray-50/80 dark:bg-gray-800/50 p-6 border-t rounded-b-[2rem]">
-            <Button variant="outline" size="lg" onClick={handleReset} disabled={isProcessing} className="w-full sm:w-auto rounded-xl h-11">
-              <Trash2 className="mr-2 h-4 w-4" /> New File
-            </Button>
-            {!isDone ? (
-              <Button
-                size="lg"
-                onClick={handleRedact}
-                disabled={isProcessing || redactions.length === 0}
-                className="w-full sm:w-auto rounded-xl h-11 font-bold shadow-lg shadow-red-500/20 bg-red-600 hover:bg-red-700 text-white"
-              >
-                {isProcessing
-                  ? <><Loader2 className="mr-2 h-4 w-4 animate-spin" /> Redacting...</>
-                  : <><Square className="mr-2 h-4 w-4" /> Apply Redactions ({totalRedactions})</>
-                }
-              </Button>
-            ) : (
-              <Button size="lg" onClick={handleDownload} className="w-full sm:w-auto rounded-xl h-11 font-bold bg-green-600 hover:bg-green-700 text-white shadow-lg shadow-green-500/20">
-                <Download className="mr-2 h-5 w-5" /> Download Redacted PDF
-              </Button>
+          <div className="bg-gray-50 dark:bg-gray-800/40 border-t border-gray-200 dark:border-gray-700">
+            {!isDone && (
+              <div className="p-6 pb-2 space-y-4">
+                <div className="p-4 bg-amber-50 dark:bg-amber-900/10 border border-amber-200 dark:border-amber-800/30 rounded-xl flex gap-3">
+                  <ShieldCheck className="w-5 h-5 text-amber-600 dark:text-amber-500 flex-shrink-0 mt-0.5" />
+                  <p className="text-xs text-amber-800 dark:text-amber-400/80 leading-relaxed font-medium">
+                    <span className="font-bold">Legal Disclaimer:</span> TaskGuru provides this tool on an "as-is" basis. It is solely your responsibility to verify that all sensitive information is properly selected. We assume no liability for data leaks, compliance violations, or legal damages.
+                  </p>
+                </div>
+                
+                <label className="flex items-start gap-3 cursor-pointer group">
+                  <input
+                    type="checkbox"
+                    checked={hasAcceptedTerms}
+                    onChange={(e) => setHasAcceptedTerms(e.target.checked)}
+                    className="mt-1 w-4 h-4 text-primary rounded border-gray-300 focus:ring-primary focus:ring-offset-0 cursor-pointer"
+                  />
+                  <span className="text-xs text-slate-600 dark:text-slate-400 group-hover:text-slate-800 dark:group-hover:text-slate-200 transition-colors select-none">
+                    I confirm that I have reviewed the redacted areas, accept the terms of use, and understand that TaskGuru assumes no liability.
+                  </span>
+                </label>
+              </div>
             )}
-          </CardFooter>
+
+            <CardFooter className="flex flex-col sm:flex-row justify-center gap-3 p-6 pt-4">
+              <Button variant="outline" size="lg" onClick={handleReset} disabled={isProcessing} className="w-full sm:w-auto rounded-xl h-11">
+                <Trash2 className="mr-2 h-4 w-4" /> New File
+              </Button>
+
+              {!isDone ? (
+                <Button
+                  size="lg"
+                  onClick={handleRedact}
+                  disabled={isProcessing || redactions.length === 0 || !hasAcceptedTerms}
+                  className="w-full sm:w-auto rounded-xl h-11 font-bold shadow-lg shadow-red-500/20 bg-red-600 hover:bg-red-700 text-white disabled:opacity-50"
+                >
+                  {isProcessing
+                    ? <><Loader2 className="mr-2 h-4 w-4 animate-spin" /> Securing PDF...</>
+                    : <><Square className="mr-2 h-4 w-4" /> Apply & Secure PDF ({totalRedactions})</>
+                  }
+                </Button>
+              ) : (
+                <Button size="lg" onClick={handleDownload} className="w-full sm:w-auto rounded-xl h-11 font-bold bg-green-600 hover:bg-green-700 text-white shadow-lg shadow-green-500/20">
+                  <Download className="mr-2 h-5 w-5" /> Download Secure PDF
+                </Button>
+              )}
+            </CardFooter>
+          </div>
         )}
       </Card>
 
@@ -645,15 +650,15 @@ export default function PdfRedactor() {
 
         <section className="space-y-5">
           <h2 className="text-2xl font-black text-slate-900 dark:text-white">
-            How to Use the PDF Redactor
+            How to Securely Redact PDF Files
           </h2>
           <div className="space-y-3">
             {[
               { n: '1', title: 'Upload your PDF', desc: 'Drag and drop or click to upload. Your file loads directly in your browser — nothing is sent to any server.' },
               { n: '2', title: 'Choose redaction method', desc: 'Use Draw Box mode to manually drag black rectangles over sensitive areas. Use Find Text mode to type a word or phrase and automatically redact every occurrence throughout the document.' },
               { n: '3', title: 'Navigate pages', desc: 'Use the page navigation to move between pages and add redactions to any page in the document.' },
-              { n: '4', title: 'Apply redactions', desc: 'Click Apply Redactions. The tool permanently embeds black rectangles over the sensitive areas in the PDF structure.' },
-              { n: '5', title: 'Download', desc: 'Download the redacted PDF. The sensitive information is permanently removed and cannot be recovered.' },
+              { n: '4', title: 'Apply & Flatten PDF', desc: 'Click Apply. The tool flattens the PDF by converting each page to a secure image, ensuring text cannot be copied or extracted from beneath the black boxes.' },
+              { n: '5', title: 'Download Secure PDF', desc: 'Download the redacted PDF. The sensitive information is permanently destroyed and cannot be recovered.' },
             ].map((step) => (
               <div key={step.n} className="flex gap-4 p-4 bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-xl">
                 <div className="h-8 w-8 rounded-full bg-red-600 text-white flex items-center justify-center font-black flex-shrink-0 text-sm">{step.n}</div>
@@ -666,21 +671,15 @@ export default function PdfRedactor() {
           </div>
         </section>
 
-        {/* Privacy note */}
         <section className="p-6 bg-slate-900 text-white rounded-2xl space-y-3">
           <h2 className="text-xl font-black flex items-center gap-2">
             <ShieldCheck className="w-6 h-6 text-green-400" /> Complete Privacy — No Server Upload
           </h2>
           <p className="text-slate-300 text-sm leading-relaxed">
-            Unlike most online PDF tools, TaskGuru&apos;s PDF redactor processes your document
-            entirely in your browser using JavaScript. Your PDF — including every sensitive
-            detail it contains — never gets transmitted to any server. This makes it safe
-            for legal documents, medical records, financial statements, and any other
-            confidential material that must never leave your control.
+            Unlike most online PDF tools, TaskGuru processes your document entirely in your browser using JavaScript. Your PDF — including every sensitive detail it contains — never gets transmitted to any server. Furthermore, our tool uses True Redaction (Flattening), meaning the resulting file contains no hidden text data, making it safe for legal documents, medical records, and financial statements.
           </p>
         </section>
 
-        {/* FAQ */}
         <section className="space-y-5">
           <h2 className="text-2xl font-black text-slate-900 dark:text-white flex items-center gap-2">
             <HelpCircle className="w-6 h-6 text-blue-600" /> Frequently Asked Questions
@@ -698,7 +697,6 @@ export default function PdfRedactor() {
           </div>
         </section>
 
-        {/* Related */}
         <section className="border-t border-slate-100 dark:border-slate-800 pt-12 space-y-6">
           <h3 className="text-xl font-black text-slate-900 dark:text-white">Related PDF Tools</h3>
           <div className="grid md:grid-cols-2 gap-4">
@@ -722,4 +720,4 @@ export default function PdfRedactor() {
       </article>
     </>
   );
-        }
+}
