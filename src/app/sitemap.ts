@@ -48,6 +48,7 @@ const toolSlugs = [
   "excel-to-pdf",
   "pdf-to-excel",
   "word-counter",
+  "pdf-redactor",
 ];
 
 const staticPages = [
