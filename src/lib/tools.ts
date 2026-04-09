@@ -51,17 +51,20 @@ export const tools: Tool[] = [
       </div>
     `,
   },
-  {
-  slug: 'image-to-text',
-  icon: ScanText,
-  isGenAI: true,
-  imageUrl: '/tool-previews/ocr-tool.png',
-  content: `
-    <h3>Stop Retyping. Start Scanning.</h3>
-    <p>Our <strong>Free Online OCR</strong> tool converts scanned documents, screenshots, and photos into editable text instantly. It works perfectly with invoices, receipts, and study notes.</p>
-    <h3>How it works:</h3>
-    <p>We use machine learning to analyze shapes and patterns in your image, translating them into digital characters. This tool supports multiple languages and maintains high accuracy.</p>
-  `,
+   {
+    slug: 'image-to-text',
+    title: 'Free Image to Text Converter (OCR Online)',
+    description:
+      'Extract text from images, scanned PDFs, handwritten notes and screenshots using fast and accurate OCR technology with multi-language support.',
+    icon: ScanText,
+    isGenAI: true,
+    imageUrl: '/tool-previews/ocr-tool.png',
+    content: 
+      <h3>Stop Retyping. Start Scanning.</h3>
+      <p>Our <strong>Free Online OCR</strong> tool converts scanned documents, screenshots, and photos into editable text instantly. It works perfectly with invoices, receipts, and study notes.</p>
+      <h3>How it works:</h3>
+      <p>We use machine learning to analyze shapes and patterns in your image, translating them into digital characters. This tool supports multiple languages and maintains high accuracy.</p>
+    ,
   },
   {
     slug: 'text-paraphraser',
