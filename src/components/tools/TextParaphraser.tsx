@@ -58,7 +58,6 @@ const toolSchema = {
   },
 };
 
-// ✅ FIX 4 + 5: Max character limit constant
 const MAX_CHARS = 5000;
 
 export default function TextParaphraser() {
@@ -77,7 +76,6 @@ export default function TextParaphraser() {
       toast({ title: "Too Short", description: "Please enter at least 10 characters.", variant: "destructive" });
       return;
     }
-    // ✅ FIX 4: Enforce max character limit
     if (inputText.length > MAX_CHARS) {
       toast({ title: "Too Long", description: `Please keep text under ${MAX_CHARS} characters.`, variant: "destructive" });
       return;
@@ -118,7 +116,6 @@ export default function TextParaphraser() {
 
   return (
     <>
-      {/* ✅ FIX 3: Two separate Script tags instead of JSON.stringify([array]) */}
       <Script
         id="text-paraphraser-tool-schema"
         type="application/ld+json"
@@ -149,7 +146,6 @@ export default function TextParaphraser() {
                   onChange={(e) => setInputText(e.target.value)}
                   disabled={isLoading}
                 />
-                {/* ✅ FIX 5: Red color when over limit */}
                 <div className="flex justify-between text-sm text-muted-foreground">
                   <span>Min: 10 chars</span>
                   <span className={isOverLimit ? "text-red-500 font-bold" : ""}>
@@ -257,9 +253,10 @@ export default function TextParaphraser() {
           </div>
         </section>
 
-        {/* ✅ NEW SEO OPTIMIZED CONTENT */}
+        {/* ✅ NEW & MERGED SEO CONTENT */}
         <section className="max-w-4xl mx-auto my-20 space-y-16 text-muted-foreground leading-relaxed">
 
+          {/* New AI Keywords Section */}
           <article>
             <h2 className="text-3xl font-bold text-foreground mb-6">Free AI Text to Human Text Converter & Paraphraser</h2>
             <p className="mb-4">
@@ -270,6 +267,7 @@ export default function TextParaphraser() {
             </p>
           </article>
 
+          {/* New AI Keywords Section */}
           <article>
             <h3 className="text-2xl font-semibold text-foreground mb-4">How to Make AI Text Sound Human?</h3>
             <p className="mb-4">
@@ -283,6 +281,7 @@ export default function TextParaphraser() {
             </ul>
           </article>
 
+          {/* Mixed Keywords Section */}
           <article>
             <h2 className="text-3xl font-bold text-foreground mb-8 text-center">Who Needs an AI Paraphraser?</h2>
             <div className="grid md:grid-cols-2 gap-6">
@@ -319,6 +318,28 @@ export default function TextParaphraser() {
             </div>
           </article>
 
+          {/* ♻️ RESTORED OLD SECTION */}
+          <article className="bg-muted/30 p-8 rounded-xl border border-border">
+            <h2 className="text-2xl font-bold text-foreground mb-6 flex items-center gap-2">
+              <BookOpen className="text-primary h-6 w-6" /> Paraphrasing vs. Summarizing vs. Quoting
+            </h2>
+            <div className="space-y-6">
+              <div>
+                <h4 className="font-semibold text-foreground text-lg">1. Paraphrasing (Rewriting)</h4>
+                <p className="mt-1">Rewriting a passage in your own words. The meaning stays the same but structure and vocabulary change. TaskGuru excels at this.</p>
+              </div>
+              <div>
+                <h4 className="font-semibold text-foreground text-lg">2. Summarizing</h4>
+                <p className="mt-1">Taking the main ideas of a text and condensing them into a shorter version. It captures the gist but leaves out details.</p>
+              </div>
+              <div>
+                <h4 className="font-semibold text-foreground text-lg">3. Quoting</h4>
+                <p className="mt-1">Copying a passage word-for-word from the original source. You must always use quotation marks and cite the author.</p>
+              </div>
+            </div>
+          </article>
+
+          {/* New AI Keywords Section */}
           <article>
             <h2 className="text-2xl font-bold text-foreground mb-4 flex items-center gap-2">
               <Search className="text-primary h-6 w-6" /> Does AI Paraphrasing Affect SEO?
@@ -330,6 +351,32 @@ export default function TextParaphraser() {
               However, TaskGuru creates <strong>human-quality text</strong>. By using our tool to <strong>humanize AI content</strong> and refresh old posts, you can actually improve your readability scores and engage readers longer, which are positive signals for SEO.
             </p>
           </article>
+
+          {/* ♻️ RESTORED OLD SECTION */}
+          <article>
+            <h2 className="text-2xl font-bold text-foreground mb-4 flex items-center gap-2">
+              <Scale className="text-primary h-6 w-6" /> Ethical Use of Paraphrasing Tools
+            </h2>
+            <p className="mb-4">
+              While TaskGuru is a powerful <strong>paraphrasing tool</strong>, it is important to use it ethically.
+            </p>
+            <ul className="list-disc list-inside space-y-2 ml-4">
+              <li><strong>Academic Integrity:</strong> Students should use this tool to understand complex texts or improve sentence structure, not to bypass learning. Always cite your sources.</li>
+              <li><strong>Copyright:</strong> Rewriting a whole book and selling it as your own is illegal. Use this tool for fair use purposes like commentary, news reporting, or research.</li>
+            </ul>
+          </article>
+
+          {/* ♻️ RESTORED OLD SECTION */}
+          <article>
+            <h3 className="text-2xl font-semibold text-foreground mb-4">Tips for Best Results</h3>
+            <p className="mb-4">To get the most out of the TaskGuru Text Paraphraser, follow these simple best practices:</p>
+            <ol className="list-decimal list-inside space-y-4 ml-2">
+              <li><strong>Proofread Your Output:</strong> While our AI is highly accurate, always give the final result a quick read to ensure it perfectly captures your intended meaning.</li>
+              <li><strong>Process in Chunks:</strong> For very long documents, paraphrase section by section. This allows the AI to maintain better focus on the immediate context.</li>
+              <li><strong>Check Specific Data:</strong> Ensure that proper nouns, dates, and figures remain unchanged in the output.</li>
+            </ol>
+          </article>
+
         </section>
 
         {/* FAQ Section */}
@@ -348,4 +395,4 @@ export default function TextParaphraser() {
       </section>
     </>
   );
-                    }
+}
