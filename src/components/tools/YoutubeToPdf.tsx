@@ -308,7 +308,5 @@ export default function YoutubeToPdf() {
             </li>
           </ul>
         </div>
-
-    </div>
   );
         }
