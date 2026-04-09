@@ -1,41 +1,64 @@
-import { NextResponse } from 'next/server';
-import { YoutubeTranscript } from 'youtube-transcript';
+import { NextResponse } from "next/server";
 
-// POST request handler
+function getVideoId(url: string) {
+  const regExp =
+    /(?:youtube\.com\/(?:watch\?v=|shorts\/)|youtu\.be\/)([^&#?/]+)/;
+  const match = url.match(regExp);
+  return match ? match[1] : null;
+}
+
+function parseXML(xml: string) {
+  const matches = [...xml.matchAll(/<text[^>]*>(.*?)<\/text>/g)];
+  return matches.map((m) => m[1]).join(" ");
+}
+
 export async function POST(req: Request) {
   try {
-    const body = await req.json();
-    const { url } = body;
+    const { url } = await req.json();
 
-    // Basic validation
     if (!url) {
-      return NextResponse.json({ error: 'Please paste a valid YouTube video link.' }, { status: 400 });
+      return NextResponse.json(
+        { error: "Please enter a valid YouTube URL." },
+        { status: 400 }
+      );
     }
 
-    // Attempt to fetch the transcript using the package
-    // (This runs on the server, bypassing CORS)
-    const transcript = await YoutubeTranscript.fetchTranscript(url);
-    
-    // Combine all subtitle snippets into one readable text block
-    const fullText = transcript.map((t) => t.text).join(' ');
+    const videoId = getVideoId(url);
 
-    // Return the clean text to the frontend
-    return NextResponse.json({ text: fullText });
-    
-  } catch (error: any) {
-    console.error("YouTube Fetch Error:", error.message);
-    
-    // Empathetic, Human-like error messages
-    let userFriendlyError = 'We couldn\'t find any subtitles for this video.';
-    
-    if (error.message.includes('Age-restricted')) {
-      userFriendlyError = 'This video is age-restricted, and we cannot access it.';
-    } else if (error.message.includes('Transcript is disabled')) {
-      userFriendlyError = 'The creator has disabled captions/subtitles for this video.';
+    if (!videoId) {
+      return NextResponse.json(
+        { error: "Invalid YouTube URL." },
+        { status: 400 }
+      );
     }
 
+    // 🔥 Try multiple languages
+    const langs = ["en", "hi", "en-US"];
+    let xml = "";
+
+    for (const lang of langs) {
+      const res = await fetch(
+        `https://www.youtube.com/api/timedtext?lang=${lang}&v=${videoId}`
+      );
+      xml = await res.text();
+
+      if (xml && !xml.includes("error") && xml.trim() !== "") break;
+    }
+
+    if (!xml || xml.includes("error") || xml.trim() === "") {
+      return NextResponse.json(
+        { error: "No subtitles found for this video." },
+        { status: 404 }
+      );
+    }
+
+    const text = parseXML(xml);
+
+    return NextResponse.json({ text });
+
+  } catch (err) {
     return NextResponse.json(
-      { error: userFriendlyError + ' Try another video.' },
+      { error: "Failed to fetch transcript." },
       { status: 500 }
     );
   }
