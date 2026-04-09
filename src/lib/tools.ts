@@ -318,6 +318,25 @@ export const tools: Tool[] = [
   content: '',
 },
   {
+    id: "youtube-to-pdf",
+    name: "YouTube to PDF Notes",
+    title: "YouTube to PDF Notes Generator",
+    description: "Convert long educational YouTube videos, podcasts, and lectures into clean, readable PDF study notes instantly. No signup required.",
+    href: "/youtube-to-pdf", // या जो भी राउट आपने अपनी वेबसाइट पर सेट किया है
+    icon: Youtube, // Lucide React Icon
+    category: "Productivity", // या "PDF Tools" / "YouTube Tools" (जो भी कैटेगरी आपकी साइट पर हो)
+    isNew: true, // अगर आपके UI में "New" बैज लगाने का फीचर है
+    seoTitle: "Free YouTube to PDF Notes Generator Online",
+    seoDescription: "Stop taking manual notes! Convert any YouTube video transcript into a clean, readable PDF study document instantly for free.",
+    keywords: [
+      "youtube to pdf",
+      "youtube notes generator",
+      "video transcript to pdf",
+      "study notes from youtube",
+      "youtube podcast to text"
+    ]
+  },
+  {
     slug: 'youtube-thumbnail-downloader',
     title: 'YouTube Thumbnail Downloader (HD & 4K)',
     description:
