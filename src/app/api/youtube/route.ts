@@ -1,5 +1,8 @@
 import { NextResponse } from "next/server";
 
+// ⚡ Vercel Edge Runtime (यह Vercel के नॉर्मल सर्वर की जगह Cloudflare नेटवर्क का यूज़ करता है, जो ब्लॉक नहीं होता)
+export const runtime = "edge";
+
 // 🔹 Extract Video ID
 function getVideoId(url: string) {
   const regExp = /(?:youtube\.com\/(?:watch\?v=|shorts\/)|youtu\.be\/)([^&#?/]+)/;
@@ -16,76 +19,72 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: "Invalid YouTube URL." }, { status: 400 });
     }
 
-    // 🔥 THE MAGIC BULLET: YouTube's Internal 'InnerTube' API
-    // यह Vercel के HTML/Captcha ब्लॉक को पूरी तरह बाईपास कर देता है
-    const innerTubeRes = await fetch("https://www.youtube.com/youtubei/v1/player", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        // एक असली मैकबुक/क्रोम ब्राउज़र का दिखावा
-        "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
-      },
-      body: JSON.stringify({
-        context: {
-          client: {
-            clientName: "WEB",
-            clientVersion: "2.20240105.01.00", // YouTube का रीसेंट क्लाइंट वर्ज़न
-            hl: "en"
-          }
-        },
-        videoId: videoId
-      })
-    });
+    // 🔥 THE ULTIMATE BYPASS: Public Piped APIs (YouTube Proxies)
+    // यह Vercel के IP बैन को पूरी तरह बायपास कर देगा!
+    const PIPED_INSTANCES = [
+      "https://pipedapi.kavin.rocks",
+      "https://pipedapi.tokhmi.xyz",
+      "https://api.piped.projectsegfau.lt"
+    ];
 
-    const data = await innerTubeRes.json();
+    let data = null;
+    
+    // 🔹 ट्राई करें कौन सा प्रॉक्सी सर्वर सबसे तेज़ चल रहा है
+    for (const instance of PIPED_INSTANCES) {
+      try {
+        const res = await fetch(`${instance}/streams/${videoId}`, { cache: 'no-store' });
+        if (res.ok) {
+          data = await res.json();
+          break; // जैसे ही डेटा मिले, लूप रोक दें
+        }
+      } catch (err) {
+        continue; // अगर एक फेल हो, तो दूसरा ट्राई करें
+      }
+    }
 
-    // 🔹 API के रिस्पॉन्स में से कैप्शंस निकालें
-    const captions = data?.captions?.playerCaptionsTracklistRenderer?.captionTracks;
-
-    if (!captions || captions.length === 0) {
+    // अगर किसी भी सर्वर से सबटाइटल नहीं मिला
+    if (!data || !data.subtitles || data.subtitles.length === 0) {
       return NextResponse.json(
         { error: "No subtitles available for this video." },
         { status: 404 }
       );
     }
 
-    // 🔹 स्मार्ट लैंग्वेज सेलेक्शन: 
-    // सबसे पहले इंग्लिश ढूँढेगा, ना मिले तो हिंदी (hi), वो भी ना मिले तो जो पहला मिल जाए वो ले लेगा।
-    let track = captions.find((c: any) => c.languageCode === 'en' || c.languageCode === 'hi');
+    // 🔹 स्मार्ट लैंग्वेज सेलेक्शन (इंग्लिश या हिंदी ढूँढें)
+    let track = data.subtitles.find((s: any) => s.code === 'en' || s.code === 'hi');
     if (!track) {
-      track = captions[0]; 
+      track = data.subtitles[0]; // नहीं तो जो पहला मिले वो ले लें
     }
 
-    // 🔹 असली XML फाइल डाउनलोड करें
-    const xmlRes = await fetch(track.baseUrl);
-    if (!xmlRes.ok) throw new Error("Failed to fetch XML");
-    const xml = await xmlRes.text();
+    // 🔹 प्रॉक्सी से .vtt (WebVTT) फाइल डाउनलोड करें
+    const vttRes = await fetch(track.url);
+    if (!vttRes.ok) throw new Error("Failed to fetch subtitle file");
+    const vttText = await vttRes.text();
 
-    // 🔹 XML को साफ़-सुथरे टेक्स्ट (String) में बदलें
-    const textMatches = [...xml.matchAll(/<text[^>]*>(.*?)<\/text>/g)];
-    const fullText = textMatches
-      .map((m) => m[1]
-        .replace(/&amp;/g, '&')
-        .replace(/&lt;/g, '<')
-        .replace(/&gt;/g, '>')
-        .replace(/&quot;/g, '"')
-        .replace(/&#39;/g, "'")
+    // 🔹 WebVTT फाइल को साफ़-सुथरे पैराग्राफ में बदलें
+    const cleanText = vttText
+      .split('\n')
+      .filter(line => 
+        !line.includes('WEBVTT') && // हेडर हटाएँ
+        !line.includes('-->') &&    // टाइमस्टैम्प हटाएँ
+        line.trim() !== ''          // खाली लाइन हटाएँ
       )
-      .join(" ")
-      .replace(/\s+/g, " ") // फालतू स्पेस हटाएँ
+      .join(' ')
+      .replace(/<[^>]*>/g, '')      // HTML/Color कोडिंग (जैसे <b> या <c>) हटाएँ
+      .replace(/\s+/g, ' ')         // एक्स्ट्रा स्पेस हटाएँ
       .trim();
 
-    if (!fullText) {
+    if (!cleanText) {
       return NextResponse.json({ error: "Transcript is empty." }, { status: 404 });
     }
 
-    // ✅ BOOM! SUCCESS!
-    return NextResponse.json({ text: fullText });
+    // ✅ FINALLY SUCCESS!
+    return NextResponse.json({ text: cleanText });
 
   } catch (error: any) {
-    console.error("InnerTube API Error:", error.message);
+    console.error("Proxy Bypass Error:", error.message);
     return NextResponse.json(
-      { error: "Vercel server blocked. Please use the 'Get Transcript Manually' link below." },
+      { error: "Servers are busy. Please use the 'Get Transcript Manually' link below." },
       { status: 500 }
     );
   }
