@@ -325,7 +325,7 @@ export const tools: Tool[] = [
     href: "/youtube-to-pdf", // या जो भी राउट आपने अपनी वेबसाइट पर सेट किया है
     icon: Youtube, // Lucide React Icon
     category: "Productivity", // या "PDF Tools" / "YouTube Tools" (जो भी कैटेगरी आपकी साइट पर हो)
-    isNew: true, // अगर आपके UI में "New" बैज लगाने का फीचर है
+    isNew: true, // अगर आपके UI में "New" बैज लगाने का फीचर ह
     seoTitle: "Free YouTube to PDF Notes Generator Online",
     seoDescription: "Stop taking manual notes! Convert any YouTube video transcript into a clean, readable PDF study document instantly for free.",
     keywords: [
