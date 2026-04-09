@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 
-// Extract Video ID from any YouTube URL
+// Extract video ID
 function getVideoId(url: string) {
   const regExp =
     /(?:youtube\.com\/(?:watch\?v=|shorts\/)|youtu\.be\/)([^&#?/]+)/;
@@ -8,18 +8,16 @@ function getVideoId(url: string) {
   return match ? match[1] : null;
 }
 
-// Convert XML captions → plain text
+// Convert XML → text
 function parseXML(xml: string) {
   const matches = [...xml.matchAll(/<text[^>]*>(.*?)<\/text>/g)];
   return matches.map((m) => m[1]).join(" ");
 }
 
-// POST API
 export async function POST(req: Request) {
   try {
     const { url } = await req.json();
 
-    // Validate URL
     if (!url) {
       return NextResponse.json(
         { error: "Please enter a valid YouTube URL." },
@@ -38,37 +36,47 @@ export async function POST(req: Request) {
 
     const baseUrl = `https://www.youtube.com/api/timedtext?v=${videoId}`;
 
-    // Step 1: Get available caption tracks
+    // 🔥 STEP 1: Get all available caption tracks
     const listRes = await fetch(baseUrl);
     const listXML = await listRes.text();
 
-    // Step 2: Extract all available languages
     const tracks = [
       ...listXML.matchAll(/lang_code="([^"]+)"/g),
     ].map((m) => m[1]);
 
     let xml = "";
 
-    // Step 3: Try all available caption tracks
+    // 🔥 STEP 2: Try all tracks (manual + auto)
     for (const lang of tracks) {
-      const res = await fetch(`${baseUrl}&lang=${lang}`);
+      const res = await fetch(
+        `${baseUrl}&lang=${lang}${lang.startsWith("a.") ? "&kind=asr" : ""}`
+      );
+
       xml = await res.text();
 
       if (xml && !xml.includes("error") && xml.trim() !== "") break;
     }
 
-    // Step 4: If no captions found
+    // 🔥 STEP 3: Fallback (auto captions force)
+    if (!xml || xml.trim() === "") {
+      const fallbackRes = await fetch(
+        `${baseUrl}&lang=en&kind=asr`
+      );
+      xml = await fallbackRes.text();
+    }
+
+    // ❌ Still no captions
     if (!xml || xml.trim() === "") {
       return NextResponse.json(
         {
           error:
-            "No subtitles available for this video. Try a video with captions (CC enabled).",
+            "No subtitles available for this video. Try another video with captions (CC enabled).",
         },
         { status: 404 }
       );
     }
 
-    // Step 5: Convert XML → text
+    // ✅ Convert to text
     const text = parseXML(xml);
 
     return NextResponse.json({ text });
@@ -77,7 +85,7 @@ export async function POST(req: Request) {
     console.error("Transcript Error:", error);
 
     return NextResponse.json(
-      { error: "Failed to fetch transcript. Try another video." },
+      { error: "Failed to fetch transcript. Try again." },
       { status: 500 }
     );
   }
