@@ -16,10 +16,13 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: "Invalid YouTube URL." }, { status: 400 });
     }
 
-    const PIPED_INSTANCES = [
+        const PIPED_INSTANCES = [
       "https://pipedapi.kavin.rocks",
       "https://pipedapi.tokhmi.xyz",
-      "https://api.piped.projectsegfau.lt"
+      "https://pipedapi.syncpundit.io", // 🔥 New Server 1
+      "https://api.piped.projectsegfau.lt",
+      "https://piped-api.lunar.icu",    // 🔥 New Server 2
+      "https://piped-api.garudalinux.org" // 🔥 New Server 3
     ];
 
     let data = null;
