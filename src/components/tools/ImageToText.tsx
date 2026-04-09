@@ -2,6 +2,7 @@
 
 import { useState, useRef } from 'react';
 import Link from 'next/link';
+import Script from 'next/script';
 import { Card, CardContent, CardFooter } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -11,8 +12,54 @@ import { Skeleton } from '@/components/ui/skeleton';
 
 import {
   Upload, Loader2, Copy, Trash2, ScanText, FileText,
-  Sparkles, ShieldCheck, Clock, BookText, Languages,
+  Sparkles, ShieldCheck, Clock, BookText, Languages, Search
 } from 'lucide-react';
+
+// ✅ SEO OPTIMIZED SCHEMAS
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How can I convert image to text for free without signup?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "TaskGuru provides a 100% free online OCR tool to convert images into editable text instantly without any registration or signup.",
+      },
+    },
+    {
+      "@type": "Question",
+      "name": "Does this OCR tool support handwritten notes?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes, our advanced OCR engine can extract text from clear handwritten notes, screenshots, and printed documents with high accuracy.",
+      },
+    },
+    {
+      "@type": "Question",
+      "name": "Is my data safe when using the Image to Text converter?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Absolutely. All image processing happens locally in your browser. We do not upload or store your images on our servers.",
+      },
+    }
+  ],
+};
+
+const toolSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Free Image to Text Converter (OCR)",
+  "url": "https://taskguru.online/tools/image-to-text",
+  "applicationCategory": "Utility",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+  "publisher": {
+    "@type": "Organization",
+    "name": "TaskGuru",
+    "logo": "https://taskguru.online/logo.png",
+  },
+};
 
 export default function ImageToText() {
   const { toast } = useToast();
@@ -27,7 +74,6 @@ export default function ImageToText() {
     const file = event.target.files?.[0];
     if (!file) return;
 
-    // ✅ FIX 1: Added file type validation
     if (!file.type.startsWith('image/')) {
       toast({
         title: 'Invalid File',
@@ -67,21 +113,16 @@ export default function ImageToText() {
     try {
       setIsLoading(true);
       setExtractedText('');
-
       const { createWorker } = await import('tesseract.js');
-
-      // ✅ FIX 2: Removed empty logger — no unnecessary closure creation
       const worker = await createWorker('eng', 1);
-
       const { data: { text } } = await worker.recognize(image);
       await worker.terminate();
 
       const cleanText = text.trim();
-
       if (!cleanText) {
         toast({
           title: 'No text found',
-          description: 'OCR completed but no readable text was detected. Try a sharper, well-lit image.',
+          description: 'OCR completed but no readable text was detected.',
           variant: 'destructive',
         });
       } else {
@@ -90,7 +131,7 @@ export default function ImageToText() {
 
       setExtractedText(cleanText);
     } catch (error) {
-      console.error('Tesseract OCR error:', error);
+      console.error('OCR error:', error);
       toast({
         title: 'OCR failed',
         description: 'Failed to extract text. Please try with a clearer photo.',
@@ -116,6 +157,17 @@ export default function ImageToText() {
 
   return (
     <>
+      <Script
+        id="image-to-text-tool-schema"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(toolSchema) }}
+      />
+      <Script
+        id="image-to-text-faq-schema"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+      />
+
       {/* HERO */}
       <section className="max-w-5xl mx-auto py-10 px-4 text-center space-y-4">
         <span className="inline-flex items-center gap-2 rounded-full bg-primary/10 px-4 py-1 text-xs font-semibold text-primary">
@@ -123,94 +175,54 @@ export default function ImageToText() {
           Free Online OCR · No Signup Required
         </span>
 
-        {/* ✅ FIX 3: Changed <h1> to <h2> — parent page already has <h1> */}
-        <h2 className="text-3xl md:text-4xl font-extrabold tracking-tight text-foreground">
-          Image to Text Converter (OCR) — Free Online Tool
-        </h2>
+        <h1 className="text-3xl md:text-5xl font-extrabold tracking-tight text-foreground">
+          Free Image to Text Converter (OCR Online)
+        </h1>
 
         <p className="text-base md:text-lg text-muted-foreground max-w-3xl mx-auto">
-          Convert images into editable text in seconds. Upload a{' '}
-          <strong>JPG, PNG, or WEBP photo</strong> and our OCR engine extracts
-          the text for you — perfect for notes, receipts, documents, screenshots,
-          and more. All processing happens in your browser, so your data stays private.
-        </p>
-        <p className="text-xs md:text-sm text-muted-foreground max-w-3xl mx-auto">
-          Tip: For the <strong>best accuracy</strong>, use clear screenshots or
-          well-lit photos with sharp text. Handwritten or blurry photos may give
-          weaker results, but you can try multiple images until you&apos;re happy.
+          Instantly <strong className="text-foreground">convert image to text</strong> with our free online OCR tool. [span_3](start_span)Perfect for extracting text from screenshots, scanned documents, and handwritten notes without any registration.[span_3](end_span)
         </p>
       </section>
 
       {/* MAIN TOOL CARD */}
-      <Card className="w-full max-w-5xl mx-auto shadow-xl border border-border/70">
+      <Card className="w-full max-w-5xl mx-auto shadow-xl border border-border/70 bg-card">
         <CardContent className="p-6 md:p-8">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-
-            {/* LEFT: UPLOAD */}
             <div className="flex flex-col space-y-4">
               <h3 className="font-semibold text-xl text-center flex items-center justify-center gap-2">
-                <Upload className="w-5 h-5 text-primary" /> Upload Image
+                <Upload className="w-5 h-5 text-primary" /> Upload Photo
               </h3>
               {image ? (
-                <div className="relative aspect-[3/5] w-full rounded-lg overflow-hidden border bg-muted">
-                  <img
-                    src={image}
-                    alt="Uploaded for OCR text extraction"
-                    className="object-contain w-full h-full"
-                  />
+                <div className="relative aspect-[3/4] w-full rounded-lg overflow-hidden border bg-muted">
+                  <img src={image} alt="Uploaded for OCR" className="object-contain w-full h-full" />
                 </div>
               ) : (
                 <div
                   className="flex flex-col items-center justify-center space-y-4 p-10 border-2 border-dashed rounded-xl cursor-pointer hover:border-primary transition-colors h-full bg-muted/40"
                   onClick={() => fileInputRef.current?.click()}
                 >
-                  <div className="p-4 bg-secondary rounded-full">
-                    <Upload className="w-10 h-10 text-muted-foreground" />
-                  </div>
-                  <div className="text-center space-y-1">
-                    <p className="font-semibold text-foreground">
-                      Click to upload or drag &amp; drop
-                    </p>
-                    <p className="text-xs md:text-sm text-muted-foreground">
-                      Supported: JPG, PNG, WEBP · Max size: 4MB
-                    </p>
-                  </div>
+                  <Upload className="w-10 h-10 text-muted-foreground" />
+                  <p className="font-semibold">Click to upload or drag & drop</p>
+                  <p className="text-xs text-muted-foreground text-center">Supported: JPG, PNG, WEBP · Max: 4MB</p>
                 </div>
               )}
-              <Input
-                ref={fileInputRef}
-                type="file"
-                className="hidden"
-                accept="image/png,image/jpeg,image/webp"
-                onChange={handleFileChange}
-              />
+              <Input ref={fileInputRef} type="file" className="hidden" accept="image/*" onChange={handleFileChange} />
             </div>
 
-            {/* RIGHT: RESULT */}
             <div className="flex flex-col space-y-4">
               <h3 className="font-semibold text-xl text-center flex items-center justify-center gap-2">
-                <FileText className="w-5 h-5 text-primary" /> Extracted Text Result
+                <FileText className="w-5 h-5 text-primary" /> Extracted Result
               </h3>
               <div className="relative h-full">
-                {isLoading && (
-                  <Skeleton className="absolute inset-0 rounded-lg z-10" />
-                )}
+                {isLoading && <Skeleton className="absolute inset-0 rounded-lg z-10" />}
                 <Textarea
-                  className="h-full min-h-[240px] resize-none"
-                  placeholder={
-                    isLoading
-                      ? 'Extracting text, please wait...'
-                      : 'Text from your image will appear here.'
-                  }
+                  className="h-full min-h-[300px] resize-none p-4"
+                  placeholder={isLoading ? 'Extracting text...' : 'Extracted text will appear here.'}
                   value={extractedText}
                   readOnly
                 />
               </div>
-              <Button
-                onClick={handleCopy}
-                disabled={!extractedText || isLoading}
-                variant="outline"
-              >
+              <Button onClick={handleCopy} disabled={!extractedText || isLoading} variant="outline" className="w-full">
                 <Copy className="mr-2 h-4 w-4" /> Copy Text
               </Button>
             </div>
@@ -218,159 +230,89 @@ export default function ImageToText() {
         </CardContent>
 
         {image && (
-          <CardFooter className="flex flex-col md:flex-row items-center justify-center gap-4 bg-muted/60 p-4 border-t">
-            <Button variant="outline" onClick={handleReset} className="w-full md:w-auto">
-              <Trash2 className="mr-2 h-4 w-4" /> Reset
-            </Button>
-            <Button onClick={handleSubmit} disabled={isLoading} className="w-full md:w-auto">
-              {isLoading ? (
-                <><Loader2 className="mr-2 h-4 w-4 animate-spin" /> Extracting…</>
-              ) : (
-                <><ScanText className="mr-2 h-4 w-4" /> Extract Text</>
-              )}
+          <CardFooter className="flex gap-4 bg-muted/60 p-4 border-t justify-center">
+            <Button variant="outline" onClick={handleReset}><Trash2 className="mr-2 h-4 w-4" /> Reset</Button>
+            <Button onClick={handleSubmit} disabled={isLoading}>
+              {isLoading ? <Loader2 className="animate-spin mr-2 h-4 w-4" /> : <ScanText className="mr-2 h-4 w-4" />} 
+              Extract Text
             </Button>
           </CardFooter>
         )}
       </Card>
 
-      {/* HOW IT WORKS & BENEFITS */}
-      <section className="max-w-5xl mx-auto px-4 mt-12 grid gap-8 md:grid-cols-2">
-        <div className="space-y-4">
-          <h2 className="text-2xl font-bold flex items-center gap-2">
-            <Sparkles className="w-5 h-5 text-primary" />
-            Why Use TaskGuru Image to Text?
+      {/* 🚀 SEO CONTENT SECTION */}
+      <section className="max-w-5xl mx-auto px-4 mt-20 space-y-16 leading-relaxed">
+        
+        <article className="prose prose-slate dark:prose-invert max-w-none">
+          <h2 className="text-3xl font-bold flex items-center gap-2">
+            <Search className="text-primary h-8 w-8" /> 
+            Convert Photo to Text Free Online
           </h2>
-          <p className="text-sm md:text-base text-muted-foreground">
-            Our OCR tool is designed to help students, creators, professionals,
-            and everyday users save time. Instead of typing everything manually
-            from a photo or screenshot, simply upload the image and copy the
-            extracted text in one click.
+          <p className="text-lg text-muted-foreground">
+            Searching for a fast way to <strong className="text-foreground">extract text from image</strong>? Our <strong>Online OCR (Optical Character Recognition)</strong> tool is designed to help you digitize documents, notes, and screenshots in seconds. [span_4](start_span)Whether you need to <strong>convert handwritten notes to text</strong> or copy data from a locked PDF screenshot, TaskGuru is your go-to productivity hub.[span_4](end_span)
           </p>
-          <ul className="list-disc list-inside text-sm md:text-base text-muted-foreground space-y-2">
-            <li><strong>100% browser-based:</strong> OCR runs on your device — no external server storage.</li>
-            <li><strong>No signup or login:</strong> Open the tool, upload, and extract instantly.</li>
-            <li><strong>Fast for screenshots &amp; documents:</strong> App screenshots and PDFs convert especially well.</li>
-            <li><strong>Free forever:</strong> No watermarks, no paywalls, unlimited usage.</li>
-          </ul>
+        </article>
+
+        <div className="grid md:grid-cols-3 gap-8">
+          <Card className="p-6 border-none shadow-md bg-secondary/20">
+            <h3 className="font-bold text-xl mb-3 flex items-center gap-2">
+              <ShieldCheck className="text-green-500" /> Private & Secure
+            </h3>
+            <p className="text-sm">We value your privacy. [span_5](start_span)Your images are processed directly in your browser and are <strong className="text-foreground">never uploaded to any server</strong>.[span_5](end_span)</p>
+          </Card>
+          <Card className="p-6 border-none shadow-md bg-secondary/20">
+            <h3 className="font-bold text-xl mb-3 flex items-center gap-2">
+              <Clock className="text-blue-500" /> Save Time
+            </h3>
+            <p className="text-sm">Stop manual typing! [span_6](start_span)Easily <strong>convert image to editable text</strong> and boost your productivity for assignments or research work.[span_6](end_span)</p>
+          </Card>
+          <Card className="p-6 border-none shadow-md bg-secondary/20">
+            <h3 className="font-bold text-xl mb-3 flex items-center gap-2">
+              <Languages className="text-purple-500" /> Multi-Format Support
+            </h3>
+            [span_7](start_span)[span_8](start_span)<p className="text-sm">Our OCR engine supports <strong>JPG, PNG, and WEBP</strong> formats, ensuring high accuracy for all types of images and documents.[span_7](end_span)[span_8](end_span)</p>
+          </Card>
         </div>
 
-        <div className="space-y-4">
-          <h2 className="text-2xl font-bold flex items-center gap-2">
-            <ShieldCheck className="w-5 h-5 text-primary" />
-            Camera Photos vs Screenshots
-          </h2>
-          <p className="text-sm md:text-base text-muted-foreground">
-            Screenshots are usually crystal clear, so OCR accuracy is excellent.
-            Camera photos can be blurry, tilted, or low-light, which makes
-            recognition harder. Tips for better results:
-          </p>
-          <ul className="list-disc list-inside text-sm md:text-base text-muted-foreground space-y-2">
-            <li>Hold your phone steady and capture text straight-on.</li>
-            <li>Ensure bright lighting with no strong shadows.</li>
-            <li>Move closer instead of zooming — larger text = better accuracy.</li>
-            <li>For digital content, use a screenshot instead of a photo.</li>
-          </ul>
-          <p className="text-xs md:text-sm text-muted-foreground">
-            Even if the first try isn&apos;t perfect, crop the image or retake
-            the photo to improve recognition.
-          </p>
-        </div>
+        <article className="bg-muted/30 p-8 rounded-2xl border">
+          <h2 className="text-2xl font-bold mb-4">How to Use the Image to Text Converter?</h2>
+          <ol className="list-decimal pl-5 space-y-4 marker:text-primary marker:font-bold">
+            [span_9](start_span)[span_10](start_span)<li><strong>Upload:</strong> Choose a clear image or screenshot from your device.[span_9](end_span)[span_10](end_span)</li>
+            [span_11](start_span)<li><strong>Process:</strong> Click "Extract Text" to let our AI-powered OCR analyze the image.[span_11](end_span)</li>
+            <li><strong>Copy & Edit:</strong> Once the text appears, copy it to your clipboard. [span_12](start_span)[span_13](start_span)You can then use our <Link href="/tools/text-paraphraser" className="text-primary font-bold underline">AI Paraphraser</Link> to refine the content.[span_12](end_span)[span_13](end_span)</li>
+          </ol>
+        </article>
+
+        <article>
+          <h2 className="text-2xl font-bold mb-6">Frequently Asked Questions</h2>
+          <div className="space-y-6">
+            {faqSchema.mainEntity.map((faq, index) => (
+              <div key={index} className="border-b pb-4 last:border-0">
+                <h4 className="font-bold text-lg text-foreground mb-2">{faq.name}</h4>
+                <p className="text-muted-foreground">{faq.acceptedAnswer.text}</p>
+              </div>
+            ))}
+          </div>
+        </article>
       </section>
 
-      {/* USE CASES & TIPS */}
-      <section className="max-w-5xl mx-auto px-4 mt-12 grid gap-8 md:grid-cols-2">
-        <div className="space-y-4">
-          <h2 className="text-2xl font-bold flex items-center gap-2">
-            <BookText className="w-5 h-5 text-primary" /> Popular Use Cases
-          </h2>
-          <ul className="list-disc list-inside text-sm md:text-base text-muted-foreground space-y-2">
-            <li><strong>Study notes:</strong> Capture board notes or printed handouts and convert to editable text.</li>
-            <li><strong>Receipts &amp; bills:</strong> Extract totals, dates, and details for budgeting or tax records.</li>
-            <li><strong>Documents &amp; letters:</strong> Convert printed pages into digital text for editing or sharing.</li>
-            <li><strong>Website screenshots:</strong> Copy text from banners, locked PDFs, or interfaces where selection is disabled.</li>
-            <li><strong>Translation:</strong> Extract text, then paste into translation or AI tools for further processing.</li>
-          </ul>
-        </div>
-
-        <div className="space-y-4">
-          <h2 className="text-2xl font-bold flex items-center gap-2">
-            <Clock className="w-5 h-5 text-primary" /> Pro Tips for Sharper OCR
-          </h2>
-          <ul className="list-disc list-inside text-sm md:text-base text-muted-foreground space-y-2">
-            <li>Use high-contrast text (dark text on light background).</li>
-            <li>Crop unnecessary borders so text fills most of the image.</li>
-            <li>Avoid heavy filters or low-resolution screenshots from messengers.</li>
-            <li>For multi-page documents, convert each page separately for better control.</li>
-          </ul>
-          <p className="text-xs md:text-sm text-muted-foreground">
-            TaskGuru&apos;s OCR is optimized for <strong>English</strong>. Other
-            languages may work depending on character clarity.
-          </p>
-        </div>
-      </section>
-
-      {/* FAQ */}
-      <section className="max-w-5xl mx-auto px-4 my-12 md:my-16 p-6 md:p-8 bg-card shadow rounded-xl border border-border/70">
-        <h2 className="text-2xl md:text-3xl font-bold mb-6 flex items-center gap-2">
-          <Languages className="w-6 h-6 text-primary" /> Frequently Asked Questions
-        </h2>
-        <div className="space-y-6 text-sm md:text-base text-muted-foreground">
+      {/* 🔗 INTERNAL LINKING SECTION */}
+      <section className="max-w-6xl mx-auto px-4 mt-20 mb-16 border-t pt-16 text-center">
+        <h2 className="text-2xl font-bold mb-8">Boost Your Productivity with More Free Tools</h2>
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
           {[
-            {
-              q: "Is this Image to Text Converter free to use?",
-              a: "Yes. TaskGuru's Image to Text Converter is completely free with no signup required. Convert as many images as you want with no watermark or credit system.",
-            },
-            {
-              q: "Are my images stored on your servers?",
-              a: "No. The OCR runs directly in your browser using Tesseract.js, so your images stay on your device. We do not store or analyze your files on any backend server.",
-            },
-            {
-              q: "Why does OCR work better on screenshots than camera photos?",
-              a: "Screenshots are crystal clear and perfectly aligned, making text easy for the OCR engine to read. Camera photos may include blur, noise, shadows, or perspective distortion. Hold your phone steady, use better lighting, and fill the frame with text for best results.",
-            },
-            {
-              q: "Does it support handwritten text?",
-              a: "The tool is primarily optimized for printed text. Some neat handwriting may be partially recognized, but we recommend typed or printed content for best results.",
-            },
-            {
-              q: "What can I do after extracting the text?",
-              a: "Copy the text with one click and use it anywhere — in notes, documents, email, or Google Docs. You can also paste it into the TaskGuru AI Paraphraser to rewrite or polish the content instantly.",
-            },
-          ].map((faq, i) => (
-            <div key={i} className="border-b pb-4 last:border-b-0">
-              <h3 className="font-semibold text-foreground mb-1">{i + 1}. {faq.q}</h3>
-              <p>{faq.a}</p>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* ✅ FIX 4: Replaced <a> tags with <Link> for instant navigation */}
-      <section className="max-w-6xl mx-auto px-4 mt-12 mb-16">
-        <h2 className="text-2xl font-bold text-center mb-4">
-          Explore More Free Tools by TaskGuru
-        </h2>
-        <p className="text-sm md:text-base text-muted-foreground text-center max-w-3xl mx-auto mb-8">
-          Work faster by combining this OCR with other TaskGuru tools. Compress
-          images, convert PDFs, paraphrase extracted text, and manage your
-          documents — all in one place.
-        </p>
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-5">
-          {[
-            { href: "/tools/pdf-to-word", icon: <FileText className="w-4 h-4 text-primary" />, title: "PDF to Word Converter", desc: "Convert PDFs into fully editable DOCX documents in a few clicks." },
-            { href: "/tools/merge-pdf", icon: <FileText className="w-4 h-4 text-primary" />, title: "Merge PDF Files", desc: "Combine multiple PDFs into a single organized document." },
-            { href: "/tools/image-to-pdf", icon: <FileText className="w-4 h-4 text-primary" />, title: "Image to PDF", desc: "Turn JPG & PNG images into clean A4 PDFs for assignments and ID cards." },
-            { href: "/tools/text-paraphraser", icon: <BookText className="w-4 h-4 text-primary" />, title: "AI Text Paraphraser", desc: "Paste extracted text and instantly rewrite it with AI." },
+            { href: "/tools/text-paraphraser", title: "AI Text Humanizer", desc: "Instantly rewrite extracted text to sound 100% human-like." },
+            { href: "/tools/pdf-to-word", title: "PDF to Word", desc: "Convert any scanned PDF into a fully editable DOCX file." },
+            { href: "/tools/image-to-pdf", title: "Image to PDF", desc: "Combine multiple photos into a clean, professional PDF." },
+            { href: "/tools/merge-pdf", title: "Merge PDF Files", desc: "Organize your study notes by merging multiple PDFs into one." }
           ].map((tool) => (
             <Link key={tool.href} href={tool.href}>
-              <div className="p-4 border rounded-xl hover:shadow-md transition cursor-pointer bg-card h-full flex flex-col justify-between">
-                <div className="space-y-2">
-                  <h3 className="font-bold flex items-center gap-2">
-                    {tool.icon} {tool.title}
-                  </h3>
-                  <p className="text-xs text-muted-foreground">{tool.desc}</p>
+              <div className="p-5 border rounded-2xl hover:shadow-lg transition bg-card h-full text-left flex flex-col justify-between">
+                <div>
+                  <h3 className="font-bold mb-2 text-primary">{tool.title}</h3>
+                  <p className="text-xs text-muted-foreground leading-relaxed">{tool.desc}</p>
                 </div>
-                <p className="mt-3 text-xs font-semibold text-primary">Use Tool →</p>
+                <span className="mt-4 text-xs font-bold text-primary">Explore Tool →</span>
               </div>
             </Link>
           ))}
