@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 
-// Extract Video ID from any YouTube URL
+// 🔹 Extract Video ID
 function getVideoId(url: string) {
   const regExp =
     /(?:youtube\.com\/(?:watch\?v=|shorts\/)|youtu\.be\/)([^&#?/]+)/;
@@ -8,17 +8,35 @@ function getVideoId(url: string) {
   return match ? match[1] : null;
 }
 
-// Convert XML → plain text
+// 🔹 XML → Text
 function parseXML(xml: string) {
   const matches = [...xml.matchAll(/<text[^>]*>(.*?)<\/text>/g)];
   return matches.map((m) => m[1]).join(" ");
+}
+
+// 🔹 Parse Innertube JSON
+function parseJSON(data: any) {
+  try {
+    const cues =
+      data?.actions?.[0]?.updateEngagementPanelAction?.content
+        ?.transcriptRenderer?.content?.transcriptSearchPanelRenderer
+        ?.body?.transcriptSegmentListRenderer?.initialSegments || [];
+
+    return cues
+      .map(
+        (c: any) =>
+          c.transcriptSegmentRenderer?.snippet?.runs?.[0]?.text || ""
+      )
+      .join(" ");
+  } catch {
+    return "";
+  }
 }
 
 export async function POST(req: Request) {
   try {
     const { url } = await req.json();
 
-    // ✅ Validate URL
     if (!url) {
       return NextResponse.json(
         { error: "Please enter a valid YouTube URL." },
@@ -35,59 +53,96 @@ export async function POST(req: Request) {
       );
     }
 
-    // 🔥 STEP 1: Get caption list (IMPORTANT)
-    const listRes = await fetch(
-      `https://video.google.com/timedtext?type=list&v=${videoId}`
-    );
-    const listXML = await listRes.text();
+    let text = "";
 
-    // 🔥 STEP 2: Extract all available languages
-    const tracks = [
-      ...listXML.matchAll(/lang_code="([^"]+)"/g),
-    ].map((m) => m[1]);
-
-    let xml = "";
-
-    // 🔥 STEP 3: Try all available tracks
-    for (const lang of tracks) {
+    // ==============================
+    // 🔥 METHOD 1: INNERTUBE API
+    // ==============================
+    try {
       const res = await fetch(
-        `https://video.google.com/timedtext?v=${videoId}&lang=${lang}`
+        "https://www.youtube.com/youtubei/v1/get_transcript?key=AIzaSyAq8oQ4yexample",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            context: {
+              client: {
+                clientName: "WEB",
+                clientVersion: "2.20240101.00.00",
+              },
+            },
+            videoId,
+          }),
+        }
       );
 
-      xml = await res.text();
+      const data = await res.json();
+      text = parseJSON(data);
+    } catch {}
 
-      if (xml && xml.trim() !== "") break;
+    // ==============================
+    // 🔥 METHOD 2: GOOGLE TIMEDTEXT
+    // ==============================
+    if (!text) {
+      try {
+        const listRes = await fetch(
+          `https://video.google.com/timedtext?type=list&v=${videoId}`
+        );
+        const listXML = await listRes.text();
+
+        const tracks = [
+          ...listXML.matchAll(/lang_code="([^"]+)"/g),
+        ].map((m) => m[1]);
+
+        for (const lang of tracks) {
+          const res = await fetch(
+            `https://video.google.com/timedtext?v=${videoId}&lang=${lang}`
+          );
+          const xml = await res.text();
+
+          if (xml && xml.trim() !== "") {
+            text = parseXML(xml);
+            break;
+          }
+        }
+      } catch {}
     }
 
-    // 🔥 STEP 4: Fallback (try auto captions)
-    if (!xml || xml.trim() === "") {
-      const fallbackRes = await fetch(
-        `https://video.google.com/timedtext?v=${videoId}&lang=en&kind=asr`
-      );
-      xml = await fallbackRes.text();
+    // ==============================
+    // 🔥 METHOD 3: FORCE AUTO CAPTION
+    // ==============================
+    if (!text) {
+      try {
+        const res = await fetch(
+          `https://video.google.com/timedtext?v=${videoId}&lang=en&kind=asr`
+        );
+        const xml = await res.text();
+
+        if (xml && xml.trim() !== "") {
+          text = parseXML(xml);
+        }
+      } catch {}
     }
 
-    // ❌ Still no captions
-    if (!xml || xml.trim() === "") {
+    // ==============================
+    // ❌ STILL FAILED
+    // ==============================
+    if (!text || text.trim() === "") {
       return NextResponse.json(
         {
           error:
-            "No subtitles available for this video. Try another video with captions (CC enabled).",
+            "No subtitles available. This video may not have captions.",
         },
         { status: 404 }
       );
     }
 
-    // ✅ Convert XML → text
-    const text = parseXML(xml);
-
+    // ✅ SUCCESS
     return NextResponse.json({ text });
 
   } catch (error) {
-    console.error("Transcript Error:", error);
-
     return NextResponse.json(
-      { error: "Failed to fetch transcript. Try again." },
+      { error: "Something went wrong." },
       { status: 500 }
     );
   }
