@@ -16,51 +16,53 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: "Invalid YouTube URL." }, { status: 400 });
     }
 
-    // 🔥 STEP 1: Fetch Video HTML as a "Real Browser" (Bypasses Vercel Bot Block)
-    const videoPageRes = await fetch(`https://www.youtube.com/watch?v=${videoId}`, {
+    // 🔥 THE MAGIC BULLET: YouTube's Internal 'InnerTube' API
+    // यह Vercel के HTML/Captcha ब्लॉक को पूरी तरह बाईपास कर देता है
+    const innerTubeRes = await fetch("https://www.youtube.com/youtubei/v1/player", {
+      method: "POST",
       headers: {
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
-        'Accept-Language': 'en-US,en;q=0.9',
-        // This cookie bypasses YouTube's consent screens
-        'Cookie': 'CONSENT=YES+cb.20210328-17-p0.en+FX+478' 
+        "Content-Type": "application/json",
+        // एक असली मैकबुक/क्रोम ब्राउज़र का दिखावा
+        "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
       },
+      body: JSON.stringify({
+        context: {
+          client: {
+            clientName: "WEB",
+            clientVersion: "2.20240105.01.00", // YouTube का रीसेंट क्लाइंट वर्ज़न
+            hl: "en"
+          }
+        },
+        videoId: videoId
+      })
     });
 
-    const html = await videoPageRes.text();
+    const data = await innerTubeRes.json();
 
-    // 🔥 STEP 2: Extract the hidden Captions JSON from the HTML
-    const captionsRegex = /"captionTracks":(\[.*?\])/;
-    const match = html.match(captionsRegex);
+    // 🔹 API के रिस्पॉन्स में से कैप्शंस निकालें
+    const captions = data?.captions?.playerCaptionsTracklistRenderer?.captionTracks;
 
-    if (!match || match.length < 2) {
+    if (!captions || captions.length === 0) {
       return NextResponse.json(
-        { error: "No subtitles available. This video may not have captions or is age-restricted." },
+        { error: "No subtitles available for this video." },
         { status: 404 }
       );
     }
 
-    const captionTracks = JSON.parse(match[1]);
-
-    // 🔥 STEP 3: Find the best language track (Priority: Hindi -> English -> First available)
-    let targetTrack = captionTracks.find((track: any) => 
-      track.languageCode === 'hi' || track.languageCode === 'en'
-    );
-    
-    // If neither Hindi nor English is found, just grab whatever the first available subtitle is
-    if (!targetTrack) {
-      targetTrack = captionTracks[0];
+    // 🔹 स्मार्ट लैंग्वेज सेलेक्शन: 
+    // सबसे पहले इंग्लिश ढूँढेगा, ना मिले तो हिंदी (hi), वो भी ना मिले तो जो पहला मिल जाए वो ले लेगा।
+    let track = captions.find((c: any) => c.languageCode === 'en' || c.languageCode === 'hi');
+    if (!track) {
+      track = captions[0]; 
     }
 
-    if (!targetTrack || !targetTrack.baseUrl) {
-      return NextResponse.json({ error: "No valid subtitle track found." }, { status: 404 });
-    }
+    // 🔹 असली XML फाइल डाउनलोड करें
+    const xmlRes = await fetch(track.baseUrl);
+    if (!xmlRes.ok) throw new Error("Failed to fetch XML");
+    const xml = await xmlRes.text();
 
-    // 🔥 STEP 4: Fetch the actual XML Transcript
-    const transcriptRes = await fetch(targetTrack.baseUrl);
-    const transcriptXml = await transcriptRes.text();
-
-    // 🔥 STEP 5: Convert XML to readable text and clean up HTML symbols (like &amp;)
-    const textMatches = [...transcriptXml.matchAll(/<text[^>]*>(.*?)<\/text>/g)];
+    // 🔹 XML को साफ़-सुथरे टेक्स्ट (String) में बदलें
+    const textMatches = [...xml.matchAll(/<text[^>]*>(.*?)<\/text>/g)];
     const fullText = textMatches
       .map((m) => m[1]
         .replace(/&amp;/g, '&')
@@ -69,19 +71,21 @@ export async function POST(req: Request) {
         .replace(/&quot;/g, '"')
         .replace(/&#39;/g, "'")
       )
-      .join(" ");
+      .join(" ")
+      .replace(/\s+/g, " ") // फालतू स्पेस हटाएँ
+      .trim();
 
-    if (!fullText || fullText.trim() === "") {
-      throw new Error("Empty transcript");
+    if (!fullText) {
+      return NextResponse.json({ error: "Transcript is empty." }, { status: 404 });
     }
 
-    // ✅ SUCCESS: Send the clean text to Frontend
+    // ✅ BOOM! SUCCESS!
     return NextResponse.json({ text: fullText });
 
   } catch (error: any) {
-    console.error("Custom Scraper Error:", error.message);
+    console.error("InnerTube API Error:", error.message);
     return NextResponse.json(
-      { error: "Something went wrong while fetching subtitles. Try another video." },
+      { error: "Vercel server blocked. Please use the 'Get Transcript Manually' link below." },
       { status: 500 }
     );
   }
