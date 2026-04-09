@@ -1,180 +1,211 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
-import { jsPDF } from 'jspdf';
-import { Youtube, FileText, Loader2, AlertCircle, ArrowRight } from 'lucide-react';
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { useToast } from '@/hooks/use-toast';
+import { useState } from "react";
+import { jsPDF } from "jspdf";
+import {
+  Youtube,
+  FileText,
+  Loader2,
+  AlertCircle,
+  ArrowRight,
+  Copy,
+  RotateCcw,
+} from "lucide-react";
+
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { useToast } from "@/hooks/use-toast";
 
 export default function YoutubeToPdf() {
   const { toast } = useToast();
-  const [url, setUrl] = useState('');
+
+  // 🔹 States
+  const [url, setUrl] = useState("");
+  const [text, setText] = useState("");
   const [isProcessing, setIsProcessing] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
+  // 🔹 Extract Video ID
+  function getVideoId(url: string) {
+    const regExp =
+      /(?:youtube\.com\/(?:watch\?v=|shorts\/)|youtu\.be\/)([^&#?/]+)/;
+    const match = url.match(regExp);
+    return match ? match[1] : null;
+  }
+
+  // 🔹 MAIN FUNCTION
   const handleGenerate = async () => {
-    // Check if the URL looks like a YouTube link
-    if (!url.includes('youtube.com') && !url.includes('youtu.be')) {
-      setError('Please enter a valid YouTube link (e.g., https://youtube.com/watch?v=...)');
+    if (!url.includes("youtube.com") && !url.includes("youtu.be")) {
+      setError("Enter a valid YouTube URL");
       return;
     }
 
     setIsProcessing(true);
     setError(null);
+    setText("");
 
     try {
-      // 1. Send URL to our Backend API
-      const res = await fetch('/api/youtube', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+      const res = await fetch("/api/youtube", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ url }),
       });
 
       const data = await res.json();
 
-      if (!res.ok) {
-        throw new Error(data.error || 'Oops! We couldn\'t process this video.');
-      }
+      if (!res.ok) throw new Error(data.error);
 
-      // 2. Client-Side PDF Generation using jsPDF
-      const doc = new jsPDF({
-        orientation: 'portrait',
-        unit: 'mm',
-        format: 'a4',
+      setText(data.text);
+
+      toast({
+        title: "Transcript Loaded",
+        description: "You can now copy or generate PDF",
       });
-
-      const pageWidth = doc.internal.pageSize.getWidth();
-      const margin = 20; // Good margin for printing
-      const maxLineWidth = pageWidth - margin * 2;
-
-      // Add a stylish header
-      doc.setFontSize(22);
-      doc.setFont('helvetica', 'bold');
-      doc.setTextColor(239, 68, 68); // Red color for 'YouTube'
-      doc.text('YouTube', margin, 25);
-      
-      doc.setTextColor(0); // Black for 'Study Notes'
-      doc.text('Study Notes', margin + 35, 25);
-
-      // Add the source URL as reference (small text)
-      doc.setFontSize(9);
-      doc.setFont('helvetica', 'normal');
-      doc.setTextColor(120);
-      doc.text(`Source: ${url}`, margin, 33);
-
-      // Reset style for the main content
-      doc.setFontSize(12);
-      doc.setTextColor(0);
-      doc.setFont('times', 'normal'); // Times font is great for reading
-
-      // Split the transcript text to fit the page width
-      const splitText = doc.splitTextToSize(data.text, maxLineWidth);
-      
-      // Auto-pagination logic:
-      let yPosition = 45; // Start position below header
-      const pageHeight = doc.internal.pageSize.getHeight();
-      const bottomMargin = 20;
-
-      for (let i = 0; i < splitText.length; i++) {
-        // If we reach near the bottom of the page, add a new page
-        if (yPosition > pageHeight - bottomMargin) {
-          doc.addPage();
-          yPosition = 20; // reset Y for new page
-        }
-        doc.text(splitText[i], margin, yPosition);
-        yPosition += 8; // line height
-      }
-
-      // 3. Trigger the Download
-      // Using timestamp to make filename unique
-      doc.save(`YouTube-Notes-${Date.now()}.pdf`);
-      
-      toast({ 
-        title: 'Voila! PDF is ready.', 
-        description: 'Your study notes have been generated and downloaded.', 
-        variant: 'default' 
-      });
-      setUrl(''); // Clear input for next video
-
     } catch (err: any) {
-      setError(err.message);
-      toast({ 
-        title: 'Error', 
-        description: err.message, 
-        variant: 'destructive' 
-      });
+      setError(err.message || "Failed to fetch transcript");
     } finally {
       setIsProcessing(false);
     }
   };
 
+  // 🔹 RESET BUTTON
+  const handleReset = () => {
+    setUrl("");
+    setText("");
+    setError(null);
+  };
+
+  // 🔹 COPY BUTTON
+  const handleCopy = () => {
+    navigator.clipboard.writeText(text);
+    toast({ title: "Copied!", description: "Text copied to clipboard" });
+  };
+
+  // 🔹 PDF GENERATION
+  const generatePDF = () => {
+    const doc = new jsPDF();
+
+    const margin = 15;
+    const width = doc.internal.pageSize.getWidth() - margin * 2;
+
+    doc.setFont("times", "normal");
+    doc.setFontSize(12);
+
+    const lines = doc.splitTextToSize(text, width);
+
+    let y = 20;
+
+    lines.forEach((line: string) => {
+      if (y > 280) {
+        doc.addPage();
+        y = 20;
+      }
+      doc.text(line, margin, y);
+      y += 7;
+    });
+
+    doc.save("youtube-notes.pdf");
+  };
+
+  const videoId = getVideoId(url);
+  const manualLink = videoId
+    ? `https://youtubetranscript.com/?v=${videoId}`
+    : "#";
+
   return (
-    <div className="max-w-4xl mx-auto my-12 px-6 mb-20">
-      
-      <Card className="w-full shadow-2xl border-4 border-dashed border-primary/20 rounded-[2.5rem] bg-white dark:bg-gray-900 overflow-hidden hover:border-primary/40 transition-all duration-300">
-        <CardHeader className="text-center p-10 bg-gray-50/50 dark:bg-gray-800/50 border-b-2 border-dashed border-primary/10">
-          <div className="mx-auto w-20 h-20 rounded-full bg-red-100 dark:bg-red-950 flex items-center justify-center mb-6 shadow-inner">
-            <Youtube className="w-12 h-12 text-red-600" />
-          </div>
-          <CardTitle className="text-3xl font-extrabold text-gray-950 dark:text-white">YouTube to PDF Study Notes</CardTitle>
-          <CardDescription className="text-gray-600 dark:text-gray-400 text-lg mt-2 max-w-xl mx-auto">
-            Got a long educational video? Turn it into readable PDF notes instantly. Perfect for students and learning!
+    <div className="max-w-4xl mx-auto my-10 px-6">
+
+      <Card className="p-6 rounded-3xl shadow-xl">
+
+        {/* HEADER */}
+        <CardHeader className="text-center">
+          <Youtube className="mx-auto text-red-500 w-12 h-12 mb-3" />
+          <CardTitle className="text-2xl font-bold">
+            YouTube to PDF Notes
+          </CardTitle>
+          <CardDescription>
+            Convert YouTube videos into readable notes (Auto + Manual)
           </CardDescription>
         </CardHeader>
-        
-        <CardContent className="p-10 space-y-8">
-          
-          <div className="space-y-4">
-            <label className="text-md font-bold text-gray-800 dark:text-gray-200 flex items-center gap-3">
-              <span className="w-8 h-8 rounded-lg bg-gray-100 dark:bg-gray-800 flex items-center justify-center text-primary font-black">1</span>
-              Paste the YouTube Video Link
-            </label>
-            <div className="relative">
-                <input
-                type="url"
-                placeholder="https://www.youtube.com/watch?v=..."
-                value={url}
-                onChange={(e) => {
-                    setUrl(e.target.value);
-                    if (error) setError(null); // clear error when user types
-                }}
-                className={`w-full px-6 py-5 rounded-2xl border-2 transition-all duration-200 ${error ? 'border-destructive focus:border-destructive' : 'border-gray-200 dark:border-gray-700 focus:border-primary'} bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white text-lg focus:outline-none focus:ring-4 ${error ? 'focus:ring-destructive/20' : 'focus:ring-primary/20'}`}
-                />
-                {isProcessing && <Loader2 className="absolute right-6 top-6 h-6 w-6 animate-spin text-primary" />}
-            </div>
-            {error && (
-                <div className="flex items-center gap-2 p-4 bg-destructive/10 text-destructive rounded-xl text-sm font-semibold">
-                    <AlertCircle className="w-5 h-5 flex-shrink-0" />
-                    {error}
-                </div>
-            )}
-          </div>
 
-          <div className="space-y-4 pt-6 border-t-2 border-dashed border-primary/10">
-            <label className="text-md font-bold text-gray-800 dark:text-gray-200 flex items-center gap-3">
-              <span className="w-8 h-8 rounded-lg bg-gray-100 dark:bg-gray-800 flex items-center justify-center text-primary font-black">2</span>
-              Generate and Save
-            </label>
-            <Button
-                size="lg"
-                onClick={handleGenerate}
-                disabled={isProcessing || !url}
-                className="w-full rounded-2xl h-16 font-extrabold text-xl shadow-xl transition-transform duration-200 hover:scale-[1.01] active:scale-[0.99]"
-            >
-                {isProcessing ? (
-                <><Loader2 className="mr-3 h-6 w-6 animate-spin" /> Creating your Study Notes...</>
-                ) : (
-                <><FileText className="mr-3 h-6 w-6" /> Generate PDF Notes <ArrowRight className="ml-2 h-5 w-5" /></>
-                )}
+        <CardContent className="space-y-6">
+
+          {/* INPUT */}
+          <input
+            type="text"
+            placeholder="Paste YouTube URL..."
+            value={url}
+            onChange={(e) => {
+              setUrl(e.target.value);
+              setError(null);
+            }}
+            className="w-full p-4 border rounded-xl"
+          />
+
+          {/* BUTTONS */}
+          <div className="flex gap-3 flex-wrap">
+
+            <Button onClick={handleGenerate} disabled={isProcessing}>
+              {isProcessing ? (
+                <Loader2 className="animate-spin mr-2" />
+              ) : (
+                <FileText className="mr-2" />
+              )}
+              Generate
+            </Button>
+
+            <Button variant="outline" onClick={handleReset}>
+              <RotateCcw className="mr-2" />
+              Reset
             </Button>
           </div>
 
-          <p className="text-xs text-center text-gray-400 mt-6 pt-6 border-t border-gray-100 dark:border-gray-800">
-            * Important Note: This tool relies on video captions. Make sure the video has closed captions (CC) enabled. This tool does not work for age-restricted videos.
-          </p>
+          {/* ERROR */}
+          {error && (
+            <div className="bg-red-100 p-4 rounded-xl text-red-600 space-y-2">
+              <div className="flex items-center gap-2">
+                <AlertCircle /> {error}
+              </div>
+
+              <a
+                href={manualLink}
+                target="_blank"
+                className="underline text-blue-600"
+              >
+                👉 Get Transcript Manually
+              </a>
+
+              <p className="text-sm">
+                Copy transcript and paste below 👇
+              </p>
+            </div>
+          )}
+
+          {/* TEXTAREA */}
+          <textarea
+            placeholder="Transcript will appear here OR paste manually..."
+            value={text}
+            onChange={(e) => setText(e.target.value)}
+            className="w-full h-60 p-4 border rounded-xl"
+          />
+
+          {/* ACTION BUTTONS */}
+          {text && (
+            <div className="flex gap-3 flex-wrap">
+
+              <Button onClick={handleCopy}>
+                <Copy className="mr-2" />
+                Copy
+              </Button>
+
+              <Button onClick={generatePDF}>
+                Download PDF
+              </Button>
+            </div>
+          )}
+
         </CardContent>
       </Card>
     </div>
   );
-                }
+}
