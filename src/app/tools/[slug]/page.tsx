@@ -29,9 +29,11 @@ import PdfRedactor from '@/components/tools/PdfRedactor';
 import { ShieldCheck, Lock, Zap } from 'lucide-react';
 
 export async function generateStaticParams() {
-  return tools.map((tool) => ({
-    slug: tool.slug,
-  }));
+  return tools
+    .filter((tool) => typeof tool.slug === "string" && tool.slug.length > 0)
+    .map((tool) => ({
+      slug: tool.slug,
+    }));
 }
 
 // ✅ Next.js 15 compatibility: params awaited
