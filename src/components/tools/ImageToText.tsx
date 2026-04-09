@@ -120,10 +120,6 @@ export default function ImageToText() {
           Free Online OCR · No Signup Required
         </span>
 
-        <h2 className="text-3xl md:text-4xl font-extrabold tracking-tight text-foreground">
-          Free Image to Text Converter (OCR Online)
-        </h2>
-
         <p className="text-base md:text-lg text-muted-foreground max-w-3xl mx-auto">
           Instantly <strong>extract text from image</strong>, screenshot, or photo using our 
           free <strong>image to text converter</strong>. Perfect <strong>photo to text converter</strong> 
