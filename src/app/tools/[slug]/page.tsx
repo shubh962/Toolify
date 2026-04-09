@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation';
 import Link from "next/link";
 // Standard imports for all components
 import YoutubeThumbnail from '@/components/tools/YoutubeThumbnail';
+import YoutubeToPdf from '@/components/tools/YoutubeToPdf';
 import BackgroundRemover from '@/components/tools/BackgroundRemover';
 import ExcelToPdf from '@/components/tools/ExcelToPdf';
 import PdfToExcel from '@/components/tools/PdfToExcel';
@@ -77,6 +78,7 @@ const toolComponentMap: { [key: string]: React.ComponentType<any> } = {
   "metal-weight-calculator": MetalWeightCalculator,
   "split-pdf": SplitPdf,
   "youtube-thumbnail-downloader": YoutubeThumbnail,
+  "youtube-to-pdf": YoutubeToPdf,
   "emi-calculator": EmiCalculator,
   "pdf-compressor": PdfCompressor,
   "word-counter": WordCounter,
