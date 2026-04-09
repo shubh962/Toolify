@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 
-// Extract video ID
+// Extract Video ID from any YouTube URL
 function getVideoId(url: string) {
   const regExp =
     /(?:youtube\.com\/(?:watch\?v=|shorts\/)|youtu\.be\/)([^&#?/]+)/;
@@ -8,7 +8,7 @@ function getVideoId(url: string) {
   return match ? match[1] : null;
 }
 
-// Convert XML → text
+// Convert XML → plain text
 function parseXML(xml: string) {
   const matches = [...xml.matchAll(/<text[^>]*>(.*?)<\/text>/g)];
   return matches.map((m) => m[1]).join(" ");
@@ -18,6 +18,7 @@ export async function POST(req: Request) {
   try {
     const { url } = await req.json();
 
+    // ✅ Validate URL
     if (!url) {
       return NextResponse.json(
         { error: "Please enter a valid YouTube URL." },
@@ -34,33 +35,34 @@ export async function POST(req: Request) {
       );
     }
 
-    const baseUrl = `https://www.youtube.com/api/timedtext?v=${videoId}`;
-
-    // 🔥 STEP 1: Get all available caption tracks
-    const listRes = await fetch(baseUrl);
+    // 🔥 STEP 1: Get caption list (IMPORTANT)
+    const listRes = await fetch(
+      `https://video.google.com/timedtext?type=list&v=${videoId}`
+    );
     const listXML = await listRes.text();
 
+    // 🔥 STEP 2: Extract all available languages
     const tracks = [
       ...listXML.matchAll(/lang_code="([^"]+)"/g),
     ].map((m) => m[1]);
 
     let xml = "";
 
-    // 🔥 STEP 2: Try all tracks (manual + auto)
+    // 🔥 STEP 3: Try all available tracks
     for (const lang of tracks) {
       const res = await fetch(
-        `${baseUrl}&lang=${lang}${lang.startsWith("a.") ? "&kind=asr" : ""}`
+        `https://video.google.com/timedtext?v=${videoId}&lang=${lang}`
       );
 
       xml = await res.text();
 
-      if (xml && !xml.includes("error") && xml.trim() !== "") break;
+      if (xml && xml.trim() !== "") break;
     }
 
-    // 🔥 STEP 3: Fallback (auto captions force)
+    // 🔥 STEP 4: Fallback (try auto captions)
     if (!xml || xml.trim() === "") {
       const fallbackRes = await fetch(
-        `${baseUrl}&lang=en&kind=asr`
+        `https://video.google.com/timedtext?v=${videoId}&lang=en&kind=asr`
       );
       xml = await fallbackRes.text();
     }
@@ -76,7 +78,7 @@ export async function POST(req: Request) {
       );
     }
 
-    // ✅ Convert to text
+    // ✅ Convert XML → text
     const text = parseXML(xml);
 
     return NextResponse.json({ text });
