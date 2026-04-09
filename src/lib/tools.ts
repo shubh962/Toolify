@@ -54,16 +54,15 @@ export const tools: Tool[] = [
   {
   slug: 'image-to-text',
   title: 'Image to Text Converter',
-  description: 'Extract text from images instantly using OCR.',
+  description: 'Convert images into editable text instantly with OCR.',
   icon: ScanText,
   isGenAI: true,
   imageUrl: '/tool-previews/ocr-tool.png',
   content: `
-    <h3>Stop Retyping. Start Scanning.</h3>
     <p>Our <strong>Free Online OCR</strong> tool converts scanned documents, screenshots, and photos into editable text instantly.</p>
+
     <h3>How it works:</h3>
-    <p>We use machine learning to analyze shapes and patterns in your image.</p>
-  `,
+    <p>We use machine learning to analyze shapes and patterns in your image and convert them into digital text.</p>`,
   },
   {
     slug: 'text-paraphraser',
