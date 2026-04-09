@@ -43,6 +43,7 @@ const toolSlugs = [
   "password-generator",
   "age-calculator",
  "youtube-thumbnail-downloader",
+  "youtube-to-pdf",
   "metal-weight-calculator",
   "emi-calculator",
   "excel-to-pdf",
