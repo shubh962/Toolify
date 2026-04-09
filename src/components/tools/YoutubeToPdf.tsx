@@ -273,7 +273,7 @@ export default function YoutubeToPdf() {
           <li><strong className="text-gray-800 dark:text-gray-200">Download & Save:</strong> Click the "Download PDF" button to save your clean, readable study document instantly to your device.</li>
         </ol>
 
-        {/* 🔗 INTERNAL LINKING SECTION */}
+                {/* 🔗 INTERNAL LINKING SECTION */}
         <div className="bg-gray-50 dark:bg-gray-900/50 rounded-2xl p-6 md:p-8 border border-gray-100 dark:border-gray-800 mt-12">
           <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-4">
             Explore More Productivity Tools
@@ -285,31 +285,29 @@ export default function YoutubeToPdf() {
             <li className="flex items-start gap-3">
               <span className="text-primary mt-1">✦</span>
               <p className="text-gray-600 dark:text-gray-400 m-0">
-                Need to rewrite, simplify, or summarize your newly generated notes? Try our <a href="/text-paraphraser" className="text-primary hover:text-primary/80 font-bold underline decoration-primary/30 underline-offset-4 transition-colors">Text Paraphraser</a> to make your content unique and easy to understand.
+                Need to rewrite, simplify, or summarize your newly generated notes? Try our <a href="/tools/text-paraphraser" className="text-primary hover:text-primary/80 font-bold underline decoration-primary/30 underline-offset-4 transition-colors">Text Paraphraser</a> to make your content unique and easy to understand.
               </p>
             </li>
             <li className="flex items-start gap-3">
               <span className="text-primary mt-1">✦</span>
               <p className="text-gray-600 dark:text-gray-400 m-0">
-                Writing an essay or assignment from your notes? Keep track of your exact length using our accurate <a href="/word-counter" className="text-primary hover:text-primary/80 font-bold underline decoration-primary/30 underline-offset-4 transition-colors">Word Counter</a>.
+                Writing an essay or assignment from your notes? Keep track of your exact length using our accurate <a href="/tools/word-counter" className="text-primary hover:text-primary/80 font-bold underline decoration-primary/30 underline-offset-4 transition-colors">Word Counter</a>.
               </p>
             </li>
             <li className="flex items-start gap-3">
               <span className="text-primary mt-1">✦</span>
               <p className="text-gray-600 dark:text-gray-400 m-0">
-                Have multiple PDF notes from different video lectures? Combine them easily into a single study guide with our <a href="/merge-pdf" className="text-primary hover:text-primary/80 font-bold underline decoration-primary/30 underline-offset-4 transition-colors">Merge PDF</a> tool.
+                Have multiple PDF notes from different video lectures? Combine them easily into a single study guide with our <a href="/tools/merge-pdf" className="text-primary hover:text-primary/80 font-bold underline decoration-primary/30 underline-offset-4 transition-colors">Merge PDF</a> tool.
               </p>
             </li>
             <li className="flex items-start gap-3">
               <span className="text-primary mt-1">✦</span>
               <p className="text-gray-600 dark:text-gray-400 m-0">
-                If your generated PDF contains personal information that you want to hide before sharing with classmates, use our secure <a href="/pdf-redactor" className="text-primary hover:text-primary/80 font-bold underline decoration-primary/30 underline-offset-4 transition-colors">PDF Redactor</a>.
+                If your generated PDF contains personal information that you want to hide before sharing with classmates, use our secure <a href="/tools/pdf-redactor" className="text-primary hover:text-primary/80 font-bold underline decoration-primary/30 underline-offset-4 transition-colors">PDF Redactor</a>.
               </p>
             </li>
           </ul>
         </div>
-        
-      </div>
 
     </div>
   );
