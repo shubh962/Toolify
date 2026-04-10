@@ -121,6 +121,16 @@ export const tools: Tool[] = [
     `,
   },
   {
+  slug: 'word-to-pdf',
+  title: 'Free Word to PDF Converter Online — Convert DOCX to PDF',
+  description:
+    'Convert Word documents to PDF free online. Upload .docx files and download clean PDF instantly. No Microsoft Office needed. 100% private — your file never leaves your device.',
+  icon: FileText,
+  isGenAI: false,
+  isPlaceholder: false,
+  content: '',
+},
+  {
     slug: 'excel-to-pdf',
     title: 'Free Excel to PDF Converter (No Upload, Secure & Instant)',
     description:
