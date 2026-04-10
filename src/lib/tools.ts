@@ -17,6 +17,7 @@ import {
   Table,
   Type,
   EyeOff,
+  Receipt,
 } from 'lucide-react';
 
 export interface Tool {
@@ -270,6 +271,16 @@ export const tools: Tool[] = [
     imageUrl: '/tool-previews/qr-barcode.png',
     content: '',
   },
+  {
+  slug: 'invoice-generator',
+  title: 'Free Invoice Generator — Create Professional PDF Invoices',
+  description:
+    'Create professional PDF invoices free. Add your business details, client info, line items, tax, and payment terms. Download instantly. No signup. No watermark. Perfect for freelancers and small businesses.',
+  icon: Receipt,
+  isGenAI: false,
+  isPlaceholder: false,
+  content: '',
+},
   {
     slug: 'password-generator',
     title: 'Free Password Generator — Strong & Secure',
