@@ -1,7 +1,7 @@
 import { tools } from '@/lib/tools';
 import { notFound } from 'next/navigation';
 import Link from "next/link";
-// Standard imports for all components
+// Standard imports for all component
 import YoutubeThumbnail from '@/components/tools/YoutubeThumbnail';
 import YoutubeToPdf from '@/components/tools/YoutubeToPdf';
 import BackgroundRemover from '@/components/tools/BackgroundRemover';
