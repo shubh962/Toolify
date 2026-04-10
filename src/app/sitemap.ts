@@ -33,6 +33,7 @@ const toolSlugs = [
   "image-compressor",
   "image-to-text",
   "pdf-to-word",
+  "word-to-pdf",
   "merge-pdf",
   "split-pdf",
   "text-paraphraser",
