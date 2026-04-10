@@ -26,6 +26,7 @@ const blogSlugs = [
   "why-i-built-free-pdf-merger",
   "why-i-built-free-image-to-text-ocr",
   "free-productivity-tools-2026",
+  "how-to-create-invoice-free",
 ];
 const toolSlugs = [
   "background-remover",
@@ -50,6 +51,7 @@ const toolSlugs = [
   "pdf-to-excel",
   "word-counter",
   "pdf-redactor",
+  "invoice-generator",
 ];
 
 const staticPages = [
