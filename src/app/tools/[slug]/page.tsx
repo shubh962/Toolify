@@ -26,6 +26,7 @@ import PdfCompressor from '@/components/tools/PdfCompressor';
 import TypingSpeedTest from '@/components/tools/TypingSpeedTest';
 import WordCounter from '@/components/tools/WordCounter';
 import PdfRedactor from '@/components/tools/PdfRedactor';
+import WordToPdf from '@/components/tools/WordToPdf';
 import InvoiceGenerator from '@/components/tools/InvoiceGenerator';
 import { ShieldCheck, Lock, Zap } from 'lucide-react';
 
@@ -70,6 +71,7 @@ const toolComponentMap: { [key: string]: React.ComponentType<any> } = {
   "text-paraphraser": TextParaphraser,
   "typing-speed-test": TypingSpeedTest,
   "pdf-to-word": PdfToWord,
+  "word-to-pdf": WordToPdf,
   "merge-pdf": MergePdf,
   "image-compressor": ImageCompressor,
   "image-to-pdf": ImageToPdf,
