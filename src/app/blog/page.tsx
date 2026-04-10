@@ -30,10 +30,20 @@ const categoryColors: Record<string, string> = {
   "Writing Skills": "bg-green-100 text-green-700",
   "Founder Story": "bg-blue-100 text-blue-700",
   "Productivity": "bg-blue-100 text-blue-700",
+  "Business Guide": "bg-green-100 text-green-700",
 };
 
 const posts = [
   // ✅ Founder story — earliest, most personal
+  {
+  slug: "how-to-create-invoice-free",
+  title: "How to Create a Professional Invoice for Free (2026 Guide)",
+  summary: "Everything freelancers and small businesses need to know — what to include, tax rates for USA, UK, Canada and Australia, payment terms, and how to get paid faster.",
+  date: "2026-03-20",
+  displayDate: "March 20, 2026",
+  category: "Business Guide",
+  featured: true,
+},
   {
   slug: "free-productivity-tools-2026",
   title: "4 Free Tools Everyone Needs in 2026 — Password, Typing, PDF & Excel",
