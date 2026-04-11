@@ -2,17 +2,18 @@
 
 import { useState } from 'react';
 import Script from 'next/script';
+import Link from 'next/link';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { useToast } from '@/hooks/use-toast';
 import {
   Loader2, Copy, Trash2, Wand2, UserCheck, Zap,
-  ShieldCheck, Globe, PenTool, BookOpen, Scale, Search,
+  ShieldCheck, Globe, PenTool, BookOpen, Scale, Search, Sparkles
 } from 'lucide-react';
 import { Textarea } from '@/components/ui/textarea';
 import { handleTextParaphrasing } from '@/app/actions';
 
-// ✅ NEW SEO OPTIMIZED SCHEMAS
+// ✅ SEO OPTIMIZED SCHEMAS
 const faqSchema = {
   "@context": "https://schema.org",
   "@type": "FAQPage",
@@ -41,6 +42,14 @@ const faqSchema = {
         "text": "Yes, our AI text humanizer and sentence rephraser is completely free for students, researchers, and writers with no daily limits or hidden costs.",
       },
     },
+    {
+      "@type": "Question",
+      "name": "How do I know if my paraphrased text will pass AI detection?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "After paraphrasing, you can use TaskGuru's integrated AI Content Detector to verify your human-like score and ensure the text is plagiarism-free.",
+      },
+    },
   ],
 };
 
@@ -62,7 +71,6 @@ const MAX_CHARS = 5000;
 
 export default function TextParaphraser() {
   const { toast } = useToast();
-
   const [inputText, setInputText] = useState<string>('');
   const [outputText, setOutputText] = useState<string>('');
   const [isLoading, setIsLoading] = useState(false);
@@ -128,7 +136,6 @@ export default function TextParaphraser() {
       />
 
       <section className="container mx-auto px-4">
-
         <Card className="w-full max-w-5xl mx-auto shadow-xl border-t-4 border-t-primary bg-card mt-8">
           <CardContent className="p-6 md:p-8">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
@@ -188,6 +195,25 @@ export default function TextParaphraser() {
                     readOnly
                   />
                 </div>
+                
+                {/* 🎯 NEW: AI DETECTOR LOOP */}
+                {outputText && (
+                  <div className="mt-4 p-4 bg-primary/5 rounded-xl border border-primary/20 flex flex-col sm:flex-row items-center justify-between gap-4">
+                    <div className="flex items-center gap-3">
+                      <div className="p-2 bg-primary/10 rounded-full">
+                        <ShieldCheck className="h-5 w-5 text-primary" />
+                      </div>
+                      <p className="text-sm font-medium text-muted-foreground">
+                        Is your text 100% human? Check your AI score now.
+                      </p>
+                    </div>
+                    <Link href="/tools/ai-content-detector">
+                      <Button variant="outline" size="sm" className="font-bold border-primary text-primary hover:bg-primary/10 transition-colors">
+                        Check AI Score →
+                      </Button>
+                    </Link>
+                  </div>
+                )}
               </div>
 
             </div>
@@ -253,35 +279,31 @@ export default function TextParaphraser() {
           </div>
         </section>
 
-        {/* ✅ NEW & MERGED SEO CONTENT */}
+        {/* ✅ SEO CONTENT SECTION */}
         <section className="max-w-4xl mx-auto my-20 space-y-16 text-muted-foreground leading-relaxed">
-
-          {/* New AI Keywords Section */}
           <article>
             <h2 className="text-3xl font-bold text-foreground mb-6">Free AI Text to Human Text Converter & Paraphraser</h2>
             <p className="mb-4">
-              In the era of ChatGPT, finding a reliable <strong>paraphrasing tool</strong> that sounds natural is difficult. Most standard "article spinners" just replace words with awkward synonyms, making the text sound robotic. <strong>TaskGuru&apos;s AI Text Humanizer</strong> is completely different. It uses advanced machine learning to understand the context of your sentence before rewriting it to sound 100% human.
+              In the era of ChatGPT, finding a reliable <strong>paraphrasing tool</strong> that sounds natural is difficult. TaskGuru's AI Text Humanizer uses advanced machine learning to rewrite content that sounds 100% human.
             </p>
             <p className="mb-4">
-              Whether you want to <strong>convert AI text to human text</strong>, rewrite an essay, or rephrase a blog post to improve readability, our tool ensures the output is high-quality and natural. It is the ultimate solution for students, writers, and SEO professionals looking to <strong>make AI text sound human</strong> instantly.
+              Whether you want to <strong>convert AI text to human text</strong> or improve readability, our tool ensures high-quality output. After rewriting, we recommend verifying your results with our <Link href="/tools/ai-content-detector" className="text-primary font-bold underline">AI Content Detector</Link> to ensure your work bypasses robotic fingerprints.
             </p>
           </article>
 
-          {/* New AI Keywords Section */}
           <article>
             <h3 className="text-2xl font-semibold text-foreground mb-4">How to Make AI Text Sound Human?</h3>
             <p className="mb-4">
-              Robotic and repetitive content can ruin your professional reputation. Our <strong>AI Text Humanizer</strong> technology ensures your work flows naturally. Here is how our <strong>sentence rephraser</strong> works:
+              Our <strong>AI Text Humanizer</strong> technology ensures your work flows naturally. Here is how our <strong>sentence rephraser</strong> works:
             </p>
             <ul className="list-disc list-inside space-y-3 ml-4">
               <li><strong>Context Analysis:</strong> The tool reads your AI-generated text to grasp the core meaning.</li>
-              <li><strong>Natural Rephrasing:</strong> It acts as a smart <strong>text rewriter</strong>, breaking down robotic patterns and introducing conversational human structures.</li>
-              <li><strong>Smart Vocabulary:</strong> It finds the best contextual synonyms rather than complex, unnatural words.</li>
-              <li><strong>Final Polish:</strong> Get a fresh, human-quality piece of content ready for publication or submission.</li>
+              <li><strong>Natural Rephrasing:</strong> It acts as a smart <strong>text rewriter</strong>, breaking down robotic patterns.</li>
+              <li><strong>Smart Vocabulary:</strong> It finds the best contextual synonyms for a human touch.</li>
+              <li><strong>Final Polish:</strong> Get content ready for publication or submission.</li>
             </ul>
           </article>
 
-          {/* Mixed Keywords Section */}
           <article>
             <h2 className="text-3xl font-bold text-foreground mb-8 text-center">Who Needs an AI Paraphraser?</h2>
             <div className="grid md:grid-cols-2 gap-6">
@@ -289,22 +311,22 @@ export default function TextParaphraser() {
                 {
                   icon: <UserCheck className="h-6 w-6 text-primary" />,
                   title: "Students (Essay Rewriter)",
-                  desc: "Struggling with robotic assignments? Use our tool to rephrase research papers and ensure your text sounds like it was written by a real student.",
+                  desc: "Rephrase research papers and ensure your text sounds like it was written by a real student, not a machine.",
                 },
                 {
                   icon: <PenTool className="h-6 w-6 text-primary" />,
                   title: "Bloggers & Creators",
-                  desc: "Convert AI text to human text to bypass generic tones. Create engaging, readable blog posts that connect with your actual audience.",
+                  desc: "Convert AI text to human text to bypass generic tones. Create engaging posts that connect with your audience.",
                 },
                 {
                   icon: <Zap className="h-6 w-6 text-primary" />,
                   title: "Freelance Writers",
-                  desc: "Save time on rewriting and editing. Use our AI humanizer to quickly refine drafts and increase your daily writing productivity.",
+                  desc: "Save time on rewriting and editing. Use our AI humanizer to quickly refine drafts and increase productivity.",
                 },
                 {
                   icon: <Globe className="h-6 w-6 text-primary" />,
                   title: "Digital Marketers",
-                  desc: "Need natural-sounding ad copy? Transform stiff AI marketing text into persuasive, conversational copy that drives clicks.",
+                  desc: "Transform stiff AI marketing text into persuasive, conversational copy that drives clicks and conversions.",
                 },
               ].map((item) => (
                 <div key={item.title} className="bg-secondary/20 p-6 rounded-xl border border-border">
@@ -318,7 +340,6 @@ export default function TextParaphraser() {
             </div>
           </article>
 
-          {/* ♻️ RESTORED OLD SECTION */}
           <article className="bg-muted/30 p-8 rounded-xl border border-border">
             <h2 className="text-2xl font-bold text-foreground mb-6 flex items-center gap-2">
               <BookOpen className="text-primary h-6 w-6" /> Paraphrasing vs. Summarizing vs. Quoting
@@ -326,73 +347,63 @@ export default function TextParaphraser() {
             <div className="space-y-6">
               <div>
                 <h4 className="font-semibold text-foreground text-lg">1. Paraphrasing (Rewriting)</h4>
-                <p className="mt-1">Rewriting a passage in your own words. The meaning stays the same but structure and vocabulary change. TaskGuru excels at this.</p>
+                <p className="mt-1">Rewriting a passage in your own words while keeping the same meaning. TaskGuru excels at this.</p>
               </div>
               <div>
                 <h4 className="font-semibold text-foreground text-lg">2. Summarizing</h4>
-                <p className="mt-1">Taking the main ideas of a text and condensing them into a shorter version. It captures the gist but leaves out details.</p>
+                <p className="mt-1">Condensing the main ideas into a shorter version. It captures the gist but leaves out details.</p>
               </div>
               <div>
                 <h4 className="font-semibold text-foreground text-lg">3. Quoting</h4>
-                <p className="mt-1">Copying a passage word-for-word from the original source. You must always use quotation marks and cite the author.</p>
+                <p className="mt-1">Copying word-for-word. You must always use quotation marks and cite the author.</p>
               </div>
             </div>
           </article>
 
-          {/* New AI Keywords Section */}
           <article>
             <h2 className="text-2xl font-bold text-foreground mb-4 flex items-center gap-2">
               <Search className="text-primary h-6 w-6" /> Does AI Paraphrasing Affect SEO?
             </h2>
             <p className="mb-4">
-              Many users worry if using an <strong>AI text rewriter</strong> will harm their SEO. Search engines like Google value <strong>unique, helpful, and natural content</strong>. If you use a cheap article spinner that produces unreadable text, your rankings will drop.
-            </p>
-            <p className="mb-4">
-              However, TaskGuru creates <strong>human-quality text</strong>. By using our tool to <strong>humanize AI content</strong> and refresh old posts, you can actually improve your readability scores and engage readers longer, which are positive signals for SEO.
+              Many users worry if using an <strong>AI text rewriter</strong> will harm SEO. Search engines like Google value <strong>unique, helpful content</strong>. By using TaskGuru to <strong>humanize AI content</strong>, you improve readability and engagement signals.
             </p>
           </article>
 
-          {/* ♻️ RESTORED OLD SECTION */}
-          <article>
+          <article className="bg-muted/30 p-8 rounded-xl border border-border">
             <h2 className="text-2xl font-bold text-foreground mb-4 flex items-center gap-2">
               <Scale className="text-primary h-6 w-6" /> Ethical Use of Paraphrasing Tools
             </h2>
-            <p className="mb-4">
-              While TaskGuru is a powerful <strong>paraphrasing tool</strong>, it is important to use it ethically.
-            </p>
             <ul className="list-disc list-inside space-y-2 ml-4">
-              <li><strong>Academic Integrity:</strong> Students should use this tool to understand complex texts or improve sentence structure, not to bypass learning. Always cite your sources.</li>
-              <li><strong>Copyright:</strong> Rewriting a whole book and selling it as your own is illegal. Use this tool for fair use purposes like commentary, news reporting, or research.</li>
+              <li><strong>Academic Integrity:</strong> Use this tool to improve sentence structure, not to bypass learning. Always cite your sources.</li>
+              <li><strong>Copyright:</strong> Use this tool for fair use purposes like commentary, news reporting, or research.</li>
             </ul>
           </article>
 
-          {/* ♻️ RESTORED OLD SECTION */}
-          <article>
-            <h3 className="text-2xl font-semibold text-foreground mb-4">Tips for Best Results</h3>
-            <p className="mb-4">To get the most out of the TaskGuru Text Paraphraser, follow these simple best practices:</p>
-            <ol className="list-decimal list-inside space-y-4 ml-2">
-              <li><strong>Proofread Your Output:</strong> While our AI is highly accurate, always give the final result a quick read to ensure it perfectly captures your intended meaning.</li>
-              <li><strong>Process in Chunks:</strong> For very long documents, paraphrase section by section. This allows the AI to maintain better focus on the immediate context.</li>
-              <li><strong>Check Specific Data:</strong> Ensure that proper nouns, dates, and figures remain unchanged in the output.</li>
-            </ol>
-          </article>
+          {/* FAQ Section */}
+          <section className="max-w-4xl mx-auto p-8 bg-card shadow-sm rounded-xl border mt-20">
+            <h2 className="text-3xl font-bold mb-8 text-center">Frequently Asked Questions</h2>
+            <div className="space-y-6">
+              {faqSchema.mainEntity.map((item, index) => (
+                <div key={index} className="border-b border-border pb-6 last:border-b-0 last:pb-0">
+                  <h3 className="font-semibold text-lg mb-2 text-foreground">{item.name}</h3>
+                  <p className="text-muted-foreground leading-relaxed">{item.acceptedAnswer.text}</p>
+                </div>
+              ))}
+            </div>
+          </section>
 
-        </section>
-
-        {/* FAQ Section */}
-        <section className="max-w-4xl mx-auto my-20 p-8 bg-card shadow-sm rounded-xl border">
-          <h2 className="text-3xl font-bold mb-8 text-center">Frequently Asked Questions</h2>
-          <div className="space-y-6">
-            {faqSchema.mainEntity.map((item, index) => (
-              <div key={index} className="border-b border-border pb-6 last:border-b-0 last:pb-0">
-                <h3 className="font-semibold text-lg mb-2 text-foreground">{item.name}</h3>
-                <p className="text-muted-foreground leading-relaxed">{item.acceptedAnswer.text}</p>
-              </div>
-            ))}
+          {/* 🚀 INTERNAL LINKING HUB */}
+          <div className="border-t pt-10 text-center">
+            <h3 className="text-xl font-bold text-foreground mb-6">Explore More Tools</h3>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm font-medium">
+                <Link href="/tools/ai-content-detector" className="p-4 border rounded-xl hover:bg-secondary/50 transition text-center text-primary font-bold">AI Content Detector</Link>
+                <Link href="/tools/youtube-to-pdf" className="p-4 border rounded-xl hover:bg-secondary/50 transition text-center">YouTube to PDF</Link>
+                <Link href="/tools/image-to-text" className="p-4 border rounded-xl hover:bg-secondary/50 transition text-center">Image to Text</Link>
+                <Link href="/tools/word-counter" className="p-4 border rounded-xl hover:bg-secondary/50 transition text-center">Word Counter</Link>
+            </div>
           </div>
         </section>
-
       </section>
     </>
   );
-}
+                  }
