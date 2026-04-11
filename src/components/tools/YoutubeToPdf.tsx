@@ -202,7 +202,7 @@ export default function YoutubeToPdf() {
   };
 
   const videoId = getVideoId(url);
-  const manualLink = videoId ? `https://youtubetranscript.com/?v=${videoId}` : "#";
+  const manualLink = videoId ? `https://youtubetotranscript.com/` : "#";
 
   return (
     <>
