@@ -9,6 +9,7 @@ import ExcelToPdf from '@/components/tools/ExcelToPdf';
 import PdfToExcel from '@/components/tools/PdfToExcel';
 import ImageToText from '@/components/tools/ImageToText';
 import TextParaphraser from '@/components/tools/TextParaphraser';
+import AiContentDetector from '@/components/tools/AiContentDetector';
 import PdfToWord from '@/components/tools/PdfToWord';
 import MergePdf from '@/components/tools/MergePdf';
 import SplitPdf from '@/components/tools/SplitPdf';
@@ -69,6 +70,7 @@ const toolComponentMap: { [key: string]: React.ComponentType<any> } = {
   "background-remover": BackgroundRemover,
   "image-to-text": ImageToText,
   "text-paraphraser": TextParaphraser,
+  "ai-content-detector": AiContentDetector,
   "typing-speed-test": TypingSpeedTest,
   "pdf-to-word": PdfToWord,
   "word-to-pdf": WordToPdf,
