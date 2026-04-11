@@ -37,6 +37,7 @@ const toolSlugs = [
   "merge-pdf",
   "split-pdf",
   "text-paraphraser",
+  "ai-content-detector",
   "typing-speed-test",
   "image-to-pdf",
   "pdf-compressor",
