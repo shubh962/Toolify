@@ -83,6 +83,32 @@ export const tools: Tool[] = [
       </ul>
     `,
   },
+    {
+    slug: 'ai-content-detector',
+    title: 'Free AI Content Detector & Plagiarism Checker',
+    description: 'Instantly detect AI-generated patterns from ChatGPT, Gemini, and Claude using advanced Perplexity and Burstiness analysis to ensure your content is 100% human-like, unique, and free from AI-driven plagiarism.',
+    icon: ScanText,
+    isGenAI: true,
+    isPlaceholder: false,
+    content: `
+      <h3>Verify Content Authenticity Instantly</h3>
+      <p>In 2026, nearly <strong>54% of productivity tools</strong> use AI for text processing. Our detector ensures your work stands out by identifying robotic patterns through scientific analysis.</p>
+      
+      <div class="features-grid">
+        <ul>
+          <li><strong>Deep Analysis:</strong> Detects mathematical patterns from ChatGPT, Gemini, and Claude.</li>
+          <li><strong>Perplexity & Burstiness:</strong> Checks for randomness and sentence variety—the two markers of human writing.</li>
+          <li><strong>100% Privacy:</strong> All scans happen locally in your browser. Your data never leaves your device.</li>
+        </ul>
+      </div>
+
+      <h3>Caught by AI Detectors?</h3>
+      <p>If your content shows high AI probability, it might be flagged as "low-value" by search engines. Use our <strong><a href="/tools/text-paraphraser">AI Text Paraphraser</a></strong> to humanize the tone, add natural flow, and improve clarity while remaining plagiarism-free.</p>
+      
+      <p>This tool is essential for students, bloggers, and professionals who want to maintain their digital reputation and ensure 100% original, human-crafted content.</p>
+    `,
+  },
+  
   {
     slug: 'typing-speed-test',
     title: 'Free Typing Speed Test — WPM & Accuracy',
