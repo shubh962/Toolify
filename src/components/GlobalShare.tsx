@@ -21,11 +21,11 @@ export default function GlobalShare() {
           url: currentUrl,
         });
       } catch (err) {
-        console.log("Error sharing", err);
+        // Error sharing — user cancelled or browser unsupported
       }
     } else {
       navigator.clipboard.writeText(currentUrl);
-      alert("Link copied to clipboard!");
+      navigator.clipboard.writeText(currentUrl).catch(() => {});
     }
   };
 
