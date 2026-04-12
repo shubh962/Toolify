@@ -3,6 +3,48 @@
 import { useState } from "react";
 import { PDFDocument } from "pdf-lib";
 import JSZip from "jszip";
+
+// ✅ FAQ Schema added
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: [
+    {
+      "@type": "Question",
+      name: "How do I split a PDF into individual pages?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Upload your PDF to TaskGuru's free PDF splitter. The tool automatically separates every page into individual PDF files and packages them in a ZIP download. No signup or payment required.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "Is splitting a PDF free?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Yes — completely free. TaskGuru's PDF splitter has no page limits, no file size restrictions, and no watermarks on the output files.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "Can I extract specific pages from a PDF?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Yes. The tool splits your PDF into individual pages. You can then keep only the pages you need and discard the rest, or use our free Merge PDF tool to recombine selected pages.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "Is my PDF safe when splitting online?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Yes. TaskGuru uses WebAssembly (pdf-lib) to split your PDF directly in your browser. Your document never gets uploaded to any server — everything stays on your device.",
+      },
+    },
+  ],
+};
+
+
 import { 
   Loader2, Download, FileDigit, Scissors, 
   ShieldCheck, Zap, Info, CheckCircle2 
@@ -91,7 +133,9 @@ export default function SplitPdf() {
   }
 
   return (
-    <div className="max-w-4xl mx-auto px-4 py-12">
+    <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
+      <div className="max-w-4xl mx-auto px-4 py-12">
       <div className="bg-white dark:bg-gray-900 rounded-[2.5rem] shadow-2xl border p-8 md:p-12 text-center space-y-8 mb-20">
         <div className="inline-flex p-4 bg-purple-100 dark:bg-purple-900/30 text-purple-600 rounded-full mb-4">
           <Scissors className="w-8 h-8" />
@@ -171,6 +215,22 @@ export default function SplitPdf() {
                 <h3 className="font-bold text-lg mb-2">ZIP Download</h3>
                 <p className="text-sm">Get all your separated pages packed in a single ZIP file.</p>
             </div>
+        </div>
+
+        {/* ✅ FAQ Section */}
+        <div className="mt-12 space-y-4">
+          <h2 className="text-2xl font-black text-center">Frequently Asked Questions</h2>
+          <div className="space-y-3">
+            {faqSchema.mainEntity.map((faq, i) => (
+              <details key={i} className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-2xl p-5 cursor-pointer group">
+                <summary className="font-bold text-foreground list-none flex justify-between items-center text-sm">
+                  {faq.name}
+                  <span className="transition-transform group-open:rotate-180 text-muted-foreground ml-2">▼</span>
+                </summary>
+                <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{faq.acceptedAnswer.text}</p>
+              </details>
+            ))}
+          </div>
         </div>
       </article>
     </div>
