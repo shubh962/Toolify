@@ -7,7 +7,7 @@ let workerPromise: ReturnType<typeof createWorker> | null = null;
 function getWorker() {
   if (!workerPromise) {
     workerPromise = createWorker({
-      logger: m => console.log("[OCR]", m), // optional
+      // logger: disabled in production
     });
   }
   return workerPromise;
