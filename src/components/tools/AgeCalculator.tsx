@@ -7,6 +7,46 @@ import {
 } from 'lucide-react';
 import Link from 'next/link';
 
+// ✅ FIXED: faqSchema added for JSON-LD structured data
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: [
+    {
+      "@type": "Question",
+      name: 'How accurate is this age calculator?',
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: 'Our system follows standard Gregorian calendar logic, ensuring leap years and month variances are calculated with 100% precision.',
+      },
+    },
+    {
+      "@type": "Question",
+      name: 'Is my birth date data secure?',
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: 'Absolutely. TaskGuru uses client-side processing — the logic runs entirely on your device, not our server. Your personal data is never collected.',
+      },
+    },
+    {
+      "@type": "Question",
+      name: 'Does it handle leap years?',
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: 'Yes. Every February 29th in your lifetime is included in the total days count. Your age is always accurate to the final day.',
+      },
+    },
+    {
+      "@type": "Question",
+      name: 'Can I use this for official forms?',
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: 'While we are highly accurate, always cross-verify with your official birth certificate for critical legal applications.',
+      },
+    },
+  ],
+};
+
 export default function AgeCalculator() {
   const [dob, setDob] = useState("");
   const [age, setAge] = useState<{
@@ -89,7 +129,8 @@ export default function AgeCalculator() {
   };
 
   return (
-    <div className="max-w-6xl mx-auto px-4 py-10 font-sans selection:bg-blue-100 selection:text-blue-900">
+    <div
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} /> className="max-w-6xl mx-auto px-4 py-10 font-sans selection:bg-blue-100 selection:text-blue-900">
 
       {/* CALCULATOR INTERFACE */}
       <div className="w-full max-w-xl mx-auto bg-white rounded-[2.5rem] shadow-2xl border border-gray-100 overflow-hidden mb-24 relative">
@@ -174,8 +215,9 @@ export default function AgeCalculator() {
                   { v: age.y, l: "Years" },
                   { v: age.m, l: "Months" },
                   { v: age.d, l: "Days" }
-                ].map((item, i) => (
-                  <div key={i} className="bg-white p-6 rounded-[2.5rem] shadow-lg border-2 border-blue-50 text-center">
+                {faqSchema.mainEntity.map((item, i) => (
+                  <details key={i} className="bg-white dark:bg-slate-900 border border-gray-200 dark:border-gray-700 rounded-2xl p-5 cursor-pointer group">
+                <summary className="font-bold text-gray-900 dark:text-white list-none flex justify-between items-center text-sm p-6 rounded-[2.5rem] shadow-lg border-2 border-blue-50 text-center">
                     <p className="text-5xl font-black text-blue-600 tracking-tighter mb-1">{item.v}</p>
                     <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest">{item.l}</p>
                   </div>
@@ -345,12 +387,12 @@ export default function AgeCalculator() {
                 q: "Can I use this for official forms?",
                 a: "While we are highly accurate, always cross-verify with your official birth certificate for critical legal applications.",
               },
-            ].map((item, i) => (
+            {faqSchema.mainEntity.map((item, i) => (
               <div key={i} className="space-y-3">
                 <h4 className="font-bold text-blue-600 text-base flex items-center gap-2">
-                  {item.icon} {item.q}
+                  {item.name}
                 </h4>
-                <p className="text-sm text-gray-600 leading-relaxed">{item.a}</p>
+                <p className="mt-3 text-sm text-gray-600 dark:text-gray-400 leading-relaxed">{item.acceptedAnswer.text}</p>
               </div>
             ))}
           </div>
