@@ -205,40 +205,47 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
             </div>
           </div>
 
-          {/* FAQ section */}
-          <div className="mt-16 space-y-4">
-            <h2 className="text-2xl font-bold text-foreground">
-              Frequently Asked Questions
-            </h2>
-            <div className="space-y-3">
-              {[
-                {
-                  q: `Is the ${tool.title} really free?`,
-                  a: `Yes, TaskGuru's ${tool.title} is 100% free. No subscription, no credit card, no account required.`,
-                },
-                {
-                  q: `Is my data safe when using ${tool.title}?`,
-                  a: "Yes. All files are processed securely and deleted immediately after. We never store or share your uploaded files.",
-                },
-                {
-                  q: `Does ${tool.title} work on mobile?`,
-                  a: "Yes. TaskGuru tools work on all devices — desktop, tablet, and mobile — directly in your browser.",
-                },
-              ].map((faq, i) => (
-                <div
-                  key={i}
-                  className="border border-gray-200 dark:border-gray-800 rounded-2xl overflow-hidden"
-                >
-                  <div className="bg-gray-50 dark:bg-gray-900 px-5 py-4 border-b border-gray-200 dark:border-gray-800">
-                    <p className="font-bold text-sm text-foreground">{faq.q}</p>
-                  </div>
-                  <div className="px-5 py-4">
-                    <p className="text-sm text-muted-foreground leading-relaxed">{faq.a}</p>
-                  </div>
-                </div>
-              ))}
+          {/* ✅ Generic FAQ — only for tools WITHOUT their own faqSchema */}
+          {!tool.hasOwnFaq && (
+            <div className="mt-16 space-y-4">
+              <h2 className="text-2xl font-bold text-foreground">
+                Frequently Asked Questions
+              </h2>
+              <div className="space-y-3">
+                {[
+                  {
+                    q: `Is the ${tool.title} really free?`,
+                    a: `Yes — completely free. No subscription, no credit card, no account required. Use it unlimited times.`,
+                  },
+                  {
+                    q: `Is my data safe when using ${tool.title}?`,
+                    a: "Yes. Most TaskGuru tools process files directly in your browser — your files never leave your device. For server-processed tools, files are deleted immediately after processing.",
+                  },
+                  {
+                    q: `Does ${tool.title} work on mobile?`,
+                    a: "Yes. All TaskGuru tools work on any device — desktop, tablet, and mobile (iOS/Android) — directly in your browser without any app download.",
+                  },
+                  {
+                    q: `Do I need an account to use ${tool.title}?`,
+                    a: "No account needed. Open the tool, use it, download your result — no signup or email required. Ever.",
+                  },
+                ].map((faq, i) => (
+                  <details
+                    key={i}
+                    className="border border-gray-200 dark:border-gray-800 rounded-2xl overflow-hidden group"
+                  >
+                    <summary className="bg-gray-50 dark:bg-gray-900 px-5 py-4 cursor-pointer font-bold text-sm text-foreground list-none flex justify-between items-center">
+                      {faq.q}
+                      <span className="transition-transform group-open:rotate-180 text-gray-400 flex-shrink-0 ml-2">▼</span>
+                    </summary>
+                    <div className="px-5 py-4">
+                      <p className="text-sm text-muted-foreground leading-relaxed">{faq.a}</p>
+                    </div>
+                  </details>
+                ))}
+              </div>
             </div>
-          </div>
+          )}
 
         </div>
       </div>
@@ -246,4 +253,4 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
       <MoreTools />
     </main>
   );
-}
+          }
