@@ -7,6 +7,47 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Slider } from '@/components/ui/slider';
+
+// ✅ FAQ Schema — JSON-LD structured data
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: [
+    {
+      "@type": "Question",
+      name: "Does this EMI calculator work for all banks?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Yes. Whether it is SBI, HDFC, ICICI, Axis, or Bank of America, the mathematical formula for EMI is universal. Processing fees from individual banks are not included in this calculation.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "What happens if I prepay part of my loan?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Prepaying reduces your principal amount immediately, causing future interest payments to drop drastically. You can then choose to either reduce your monthly EMI amount or shorten your loan tenure.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "Is a floating or fixed interest rate better?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Fixed rates keep your EMI constant, giving you predictability. Floating rates change with market conditions — if rates drop you save money, if they rise your EMI increases. Most home loan borrowers prefer floating rates for long tenures.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "How accurate is this EMI calculator?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "The calculator uses the standard EMI formula: EMI = P × r × (1+r)^n ÷ ((1+r)^n - 1). Results are mathematically precise for the values entered. Actual bank EMIs may differ slightly due to processing fees or rounding.",
+      },
+    },
+  ],
+};
+
 import {
   PieChart, DollarSign, Calendar, Percent, RefreshCw,
   HelpCircle, TrendingDown, Clock, HandCoins,
@@ -97,7 +138,9 @@ export default function EmiCalculator() {
   };
 
   return (
-    <div className="max-w-5xl mx-auto space-y-16">
+    <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
+      <div className="max-w-5xl mx-auto space-y-16">
 
       {/* CALCULATOR UI */}
       <div className="grid md:grid-cols-2 gap-8">
@@ -345,34 +388,22 @@ export default function EmiCalculator() {
           </ul>
         </section>
 
+        {/* ✅ FAQ — renders from faqSchema, no duplicate */}
         <section className="border-t border-slate-200 dark:border-slate-800 pt-12">
           <h2 className="text-3xl font-bold text-slate-900 dark:text-white mb-8 text-center flex items-center justify-center gap-2">
             <HelpCircle className="w-8 h-8 text-primary" /> Frequently Asked Questions
           </h2>
           <div className="space-y-4">
-            {[
-              {
-                q: "Does this calculator work for all banks?",
-                a: "Yes! Whether it is SBI, HDFC, ICICI, or Bank of America, the mathematical formula for EMI is universal. However, some banks may add processing fees which are not included here.",
-              },
-              {
-                q: "What happens if I prepay part of my loan?",
-                a: "Prepaying reduces your Principal amount immediately. This means your future interest payments drop drastically. You can choose to either reduce your EMI amount or shorten your loan tenure.",
-              },
-              {
-                q: "Is a floating or fixed interest rate better?",
-                a: "Fixed rates keep your EMI constant, giving you peace of mind. Floating rates change with market conditions — if rates go down, you save money; if they go up, your EMI increases. Most home loan borrowers prefer floating rates.",
-              },
-            ].map((faq, i) => (
+            {faqSchema.mainEntity.map((faq, i) => (
               <details
                 key={i}
                 className="bg-white dark:bg-slate-800 p-6 rounded-2xl border border-slate-200 dark:border-slate-700 cursor-pointer group"
               >
                 <summary className="font-bold text-lg text-slate-900 dark:text-white flex justify-between items-center list-none">
-                  {faq.q}
+                  {faq.name}
                   <span className="text-primary group-open:rotate-180 transition-transform flex-shrink-0 ml-2">▼</span>
                 </summary>
-                <p className="mt-4 text-slate-600 dark:text-slate-400 leading-relaxed">{faq.a}</p>
+                <p className="mt-4 text-slate-600 dark:text-slate-400 leading-relaxed">{faq.acceptedAnswer.text}</p>
               </details>
             ))}
           </div>
@@ -413,5 +444,6 @@ export default function EmiCalculator() {
       </section>
 
     </div>
+    </>
   );
-}
+        }
