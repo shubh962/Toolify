@@ -11,6 +11,47 @@ import { Label } from '@/components/ui/label';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Slider } from '@/components/ui/slider';
+
+// ✅ FAQ Schema — JSON-LD structured data
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: [
+    {
+      "@type": "Question",
+      name: "Do QR codes generated here expire?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "No. These are Static QR Codes — the information is embedded directly into the pattern. As long as your destination URL works, the QR code works forever. No subscription or account needed.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "Can I use the generated barcode for Amazon FBA?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Yes. Amazon typically uses UPC or EAN-13 for retail products and Code 128 for shipping labels. Select the correct barcode format from the dropdown before generating and downloading.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "Is there a limit on how many QR codes I can generate?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Zero limits. Generate and download as many QR codes or barcodes as you need for personal or business use — completely free, forever. No signup required.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "What size should I use for printing QR codes?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "For print use, set the size to at least 512px using the size slider. This ensures the QR code remains sharp on business cards, flyers, banners, and product packaging without pixelation.",
+      },
+    },
+  ],
+};
+
 import {
   Download, QrCode, ScanBarcode, Settings2, Palette, ShieldCheck, Zap,
   Globe, Lock, HelpCircle, FileImage, Scissors, ScanText, MoveRight,
@@ -108,7 +149,9 @@ export default function QrBarcodeGenerator() {
   };
 
   return (
-    <div className="max-w-6xl mx-auto space-y-16">
+    <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
+      <div className="max-w-6xl mx-auto space-y-16">
 
       <Tabs defaultValue="qr" className="w-full mt-8" onValueChange={setActiveTab}>
 
@@ -355,39 +398,22 @@ export default function QrBarcodeGenerator() {
           </div>
         </section>
 
-        {/* ✅ FIX 3: 4 FAQs instead of 3 */}
+        {/* ✅ FAQ — renders from faqSchema, no duplicate */}
         <section className="bg-slate-50 dark:bg-slate-900 p-10 rounded-3xl">
           <h2 className="text-2xl font-bold mb-6 text-center text-slate-900 dark:text-white">
             Frequently Asked Questions
           </h2>
           <div className="space-y-4">
-            {[
-              {
-                q: "Do these QR codes expire?",
-                a: "No. These are Static QR Codes. The information is embedded directly into the pattern. As long as your destination link works, the QR code will work forever — no subscription needed.",
-              },
-              {
-                q: "Can I use the generated barcode for Amazon FBA?",
-                a: "Yes. Amazon typically uses UPC or EAN-13 for retail products and Code 128 for shipping labels. Select the correct format from the dropdown before downloading.",
-              },
-              {
-                q: "Is there a limit on how many codes I can generate?",
-                a: "Zero limits. Generate and download as many QR codes or barcodes as you need for business or personal use — completely free, forever.",
-              },
-              {
-                q: "What size should I use for printing QR codes?",
-                a: "For print, set the size to at least 512px using the size slider. This ensures the QR code remains sharp when printed on business cards, flyers, or large banners without any blur.",
-              },
-            ].map((faq, i) => (
+            {faqSchema.mainEntity.map((faq, i) => (
               <details
                 key={i}
                 className="bg-white dark:bg-slate-800 p-5 rounded-xl shadow-sm cursor-pointer group"
               >
                 <summary className="font-semibold flex justify-between items-center list-none text-slate-900 dark:text-white">
-                  {faq.q}
-                  <HelpCircle className="w-4 h-4 text-muted-foreground flex-shrink-0 ml-2" />
+                  {faq.name}
+                  <span className="transition-transform group-open:rotate-180 text-muted-foreground flex-shrink-0 ml-2">▼</span>
                 </summary>
-                <p className="mt-3 text-muted-foreground text-sm leading-relaxed">{faq.a}</p>
+                <p className="mt-3 text-muted-foreground text-sm leading-relaxed">{faq.acceptedAnswer.text}</p>
               </details>
             ))}
           </div>
@@ -431,5 +457,6 @@ export default function QrBarcodeGenerator() {
       </section>
 
     </div>
+    </>
   );
 }
