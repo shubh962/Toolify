@@ -253,4 +253,4 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
       <MoreTools />
     </main>
   );
-          }
+}
