@@ -18,7 +18,7 @@ const faqSchema = {
       name: "Does this EMI calculator work for all banks?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Yes. Whether it is SBI, HDFC, ICICI, Axis, or Bank of America, the mathematical formula for EMI is universal. Processing fees from individual banks are not included in this calculation.",
+        text: "Yes. Whether it is SBI, HDFC, ICICI, Axis, or any other bank, the EMI formula is universal: EMI = P × r × (1+r)^n ÷ ((1+r)^n−1). Individual bank processing fees are not included.",
       },
     },
     {
@@ -26,7 +26,7 @@ const faqSchema = {
       name: "What happens if I prepay part of my loan?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Prepaying reduces your principal amount immediately, causing future interest payments to drop drastically. You can then choose to either reduce your monthly EMI amount or shorten your loan tenure.",
+        text: "Prepaying reduces your principal immediately, causing future interest to drop significantly. You can then choose to reduce your monthly EMI or shorten your loan tenure — both save you money.",
       },
     },
     {
@@ -34,7 +34,7 @@ const faqSchema = {
       name: "Is a floating or fixed interest rate better?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Fixed rates keep your EMI constant, giving you predictability. Floating rates change with market conditions — if rates drop you save money, if they rise your EMI increases. Most home loan borrowers prefer floating rates for long tenures.",
+        text: "Fixed rates give predictable EMIs. Floating rates move with market conditions — if rates fall you save, if they rise your EMI increases. Most home loan borrowers prefer floating rates for long tenures.",
       },
     },
     {
@@ -42,7 +42,7 @@ const faqSchema = {
       name: "How accurate is this EMI calculator?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "The calculator uses the standard EMI formula: EMI = P × r × (1+r)^n ÷ ((1+r)^n - 1). Results are mathematically precise for the values entered. Actual bank EMIs may differ slightly due to processing fees or rounding.",
+        text: "Results are mathematically precise using the standard EMI formula. Actual bank EMIs may vary slightly due to processing fees, rounding methods, or loan disbursement dates.",
       },
     },
   ],
@@ -388,7 +388,6 @@ export default function EmiCalculator() {
           </ul>
         </section>
 
-        {/* ✅ FAQ — renders from faqSchema, no duplicate */}
         <section className="border-t border-slate-200 dark:border-slate-800 pt-12">
           <h2 className="text-3xl font-bold text-slate-900 dark:text-white mb-8 text-center flex items-center justify-center gap-2">
             <HelpCircle className="w-8 h-8 text-primary" /> Frequently Asked Questions
@@ -446,4 +445,4 @@ export default function EmiCalculator() {
     </div>
     </>
   );
-        }
+}
