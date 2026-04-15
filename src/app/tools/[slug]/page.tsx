@@ -146,67 +146,68 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
           )}
         </div>
 
-        {/* SEO Content Section */}
-        <div className="max-w-4xl mx-auto py-12 border-t mt-12">
+        {/* ✅ SEO Content — only shown for tools WITHOUT their own rich content */}
+        {!tool.hasOwnFaq && (
+          <div className="max-w-4xl mx-auto py-12 border-t mt-12">
 
-          {'content' in tool && tool.content && (
-            <div
-              className="text-base text-muted-foreground leading-relaxed space-y-4 mb-16 [&_h2]:text-xl [&_h2]:font-bold [&_h2]:text-foreground [&_h3]:text-lg [&_h3]:font-semibold [&_h3]:text-foreground [&_strong]:text-foreground [&_ul]:list-disc [&_ul]:pl-5 [&_ol]:list-decimal [&_ol]:pl-5"
-              dangerouslySetInnerHTML={{ __html: tool.content as string }}
-            />
-          )}
+            {/* tool.content from tools.ts (if defined) */}
+            {'content' in tool && tool.content && (
+              <div
+                className="text-base text-muted-foreground leading-relaxed space-y-4 mb-16 [&_h2]:text-xl [&_h2]:font-bold [&_h2]:text-foreground [&_h3]:text-lg [&_h3]:font-semibold [&_h3]:text-foreground [&_strong]:text-foreground [&_ul]:list-disc [&_ul]:pl-5 [&_ol]:list-decimal [&_ol]:pl-5"
+                dangerouslySetInnerHTML={{ __html: tool.content as string }}
+              />
+            )}
 
-          {/* Trust Signals */}
-          <div className="grid md:grid-cols-2 gap-8 mb-16">
-            <div className="bg-slate-50 dark:bg-slate-900 p-8 rounded-2xl">
-              <h3 className="text-xl font-bold mb-4 flex items-center gap-2">
-                <Lock className="w-5 h-5 text-green-600" />
-                Privacy & Security
-              </h3>
-              <p className="text-muted-foreground text-sm leading-relaxed">
-                Your privacy is our priority. When you use our <strong>{tool.title}</strong>,
-                all processing happens securely. We do not store your files on our servers permanently.
-                Files are automatically deleted after processing to ensure your data remains private
-                and confidential.
-              </p>
+            {/* Trust Signals */}
+            <div className="grid md:grid-cols-2 gap-8 mb-16">
+              <div className="bg-slate-50 dark:bg-slate-900 p-8 rounded-2xl">
+                <h3 className="text-xl font-bold mb-4 flex items-center gap-2">
+                  <Lock className="w-5 h-5 text-green-600" />
+                  Privacy & Security
+                </h3>
+                <p className="text-muted-foreground text-sm leading-relaxed">
+                  Your privacy is our priority. When you use our <strong>{tool.title}</strong>,
+                  all processing happens securely. We do not store your files on our servers permanently.
+                  Files are automatically deleted after processing to ensure your data remains private
+                  and confidential.
+                </p>
+              </div>
+              <div className="bg-slate-50 dark:bg-slate-900 p-8 rounded-2xl">
+                <h3 className="text-xl font-bold mb-4 flex items-center gap-2">
+                  <Zap className="w-5 h-5 text-yellow-500" />
+                  Why Use This Tool?
+                </h3>
+                <p className="text-muted-foreground text-sm leading-relaxed">
+                  TaskGuru provides this <strong>{tool.title}</strong> for free to help students,
+                  professionals, and creators work faster. Unlike other paid software,
+                  our tool runs directly in your browser, requiring no installation and
+                  no credit card registration.
+                </p>
+              </div>
             </div>
-            <div className="bg-slate-50 dark:bg-slate-900 p-8 rounded-2xl">
-              <h3 className="text-xl font-bold mb-4 flex items-center gap-2">
-                <Zap className="w-5 h-5 text-yellow-500" />
-                Why Use This Tool?
-              </h3>
-              <p className="text-muted-foreground text-sm leading-relaxed">
-                TaskGuru provides this <strong>{tool.title}</strong> for free to help students,
-                professionals, and creators work faster. Unlike other paid software,
-                our tool runs directly in your browser, requiring no installation and
-                no credit card registration.
-              </p>
-            </div>
-          </div>
 
-          {/* How-To Guide */}
-          <div className="space-y-6">
-            <h2 className="text-2xl font-bold text-foreground">
-              How to use {tool.title} online?
-            </h2>
-            <div className="space-y-4">
-              {[
-                `Upload your file or enter your data into the ${tool.title} box above.`,
-                "Wait a few moments while our AI algorithm processes your request securely.",
-                "Preview the result and click the Download or Copy button to get your output instantly.",
-              ].map((step, i) => (
-                <div key={i} className="flex gap-4">
-                  <span className="flex-shrink-0 w-8 h-8 bg-primary/10 text-primary rounded-full flex items-center justify-center font-bold text-sm">
-                    {i + 1}
-                  </span>
-                  <p className="text-muted-foreground pt-1">{step}</p>
-                </div>
-              ))}
+            {/* How-To Guide */}
+            <div className="space-y-6">
+              <h2 className="text-2xl font-bold text-foreground">
+                How to use {tool.title} online?
+              </h2>
+              <div className="space-y-4">
+                {[
+                  `Upload your file or enter your data into the ${tool.title} tool above.`,
+                  "Wait a moment while our tool processes your request securely in your browser.",
+                  "Preview the result and click Download or Copy to get your output instantly.",
+                ].map((step, i) => (
+                  <div key={i} className="flex gap-4">
+                    <span className="flex-shrink-0 w-8 h-8 bg-primary/10 text-primary rounded-full flex items-center justify-center font-bold text-sm">
+                      {i + 1}
+                    </span>
+                    <p className="text-muted-foreground pt-1">{step}</p>
+                  </div>
+                ))}
+              </div>
             </div>
-          </div>
 
-          {/* ✅ Generic FAQ — only for tools WITHOUT their own faqSchema */}
-          {!tool.hasOwnFaq && (
+            {/* Generic FAQ — accordion format */}
             <div className="mt-16 space-y-4">
               <h2 className="text-2xl font-bold text-foreground">
                 Frequently Asked Questions
@@ -214,20 +215,20 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
               <div className="space-y-3">
                 {[
                   {
-                    q: `Is the ${tool.title} really free?`,
-                    a: `Yes — completely free. No subscription, no credit card, no account required. Use it unlimited times.`,
+                    q: `Is ${tool.title} really free?`,
+                    a: `Yes — completely free. No subscription, no credit card, no account required. Use it unlimited times with no limits.`,
                   },
                   {
                     q: `Is my data safe when using ${tool.title}?`,
-                    a: "Yes. Most TaskGuru tools process files directly in your browser — your files never leave your device. For server-processed tools, files are deleted immediately after processing.",
+                    a: "Yes. TaskGuru tools process files directly in your browser — your files never leave your device and are never uploaded to any server.",
                   },
                   {
                     q: `Does ${tool.title} work on mobile?`,
-                    a: "Yes. All TaskGuru tools work on any device — desktop, tablet, and mobile (iOS/Android) — directly in your browser without any app download.",
+                    a: "Yes. All TaskGuru tools work on any device — desktop, tablet, iPhone, and Android — directly in your browser with no app download needed.",
                   },
                   {
-                    q: `Do I need an account to use ${tool.title}?`,
-                    a: "No account needed. Open the tool, use it, download your result — no signup or email required. Ever.",
+                    q: `Do I need to create an account to use ${tool.title}?`,
+                    a: "No. Open the tool, use it, download your result. TaskGuru never requires signup, email, or any registration — ever.",
                   },
                 ].map((faq, i) => (
                   <details
@@ -245,12 +246,12 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
                 ))}
               </div>
             </div>
-          )}
 
-        </div>
+          </div>
+        )}
       </div>
 
       <MoreTools />
     </main>
   );
-}
+              }
