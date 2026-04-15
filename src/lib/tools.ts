@@ -29,7 +29,7 @@ export interface Tool {
   isPlaceholder?: boolean;
   imageUrl?: string;
   content?: string;
-  hasOwnFaq?: boolean;
+  hasOwnFaq?: boolean; // ✅ Prevents duplicate generic FAQ from [slug]/page.tsx
 }
 
 export const tools: Tool[] = [
@@ -40,6 +40,7 @@ export const tools: Tool[] = [
       'Remove image backgrounds instantly using advanced AI. Create transparent PNG images for eCommerce, thumbnails, product photos and social media in seconds.',
     icon: ImageMinus,
     isGenAI: true,
+    hasOwnFaq: true,
     imageUrl: '/tool-previews/bg-remover.png',
     content: `
       <h3>Professional Quality Transparencies</h3>
@@ -73,6 +74,7 @@ export const tools: Tool[] = [
       'Rewrite sentences and paragraphs instantly with AI. Improve clarity, remove plagiarism, enhance tone and generate professional content for essays and blogs.',
     icon: PenSquare,
     isGenAI: true,
+    hasOwnFaq: true,
     imageUrl: '/tool-previews/paraphraser.png',
     content: `
       <h3>Paraphrase with Precision</h3>
@@ -90,6 +92,7 @@ export const tools: Tool[] = [
     description: 'Instantly detect AI-generated patterns from ChatGPT, Gemini, and Claude using advanced Perplexity and Burstiness analysis to ensure your content is 100% human-like, unique, and free from AI-driven plagiarism.',
     icon: ScanText,
     isGenAI: true,
+    hasOwnFaq: true,
     isPlaceholder: false,
     content: `
       <h3>Verify Content Authenticity Instantly</h3>
@@ -116,6 +119,7 @@ export const tools: Tool[] = [
     description: 'Test your typing speed in WPM and accuracy. Choose 30, 60, or 120 second tests. Real-time feedback. No signup required.',
     icon: Keyboard,
     isGenAI: false,
+    hasOwnFaq: true,
     isPlaceholder: false,
     content: `
       <h3>Improve Your Typing Speed</h3>
@@ -140,6 +144,7 @@ export const tools: Tool[] = [
       'Convert PDF files into fully editable Word documents online while preserving formatting, fonts, tables and layout with fast processing.',
     icon: FileText,
     isGenAI: false,
+    hasOwnFaq: true,
     isPlaceholder: false,
     imageUrl: '/tool-previews/pdf-to-word.png',
     content: `
@@ -213,6 +218,7 @@ export const tools: Tool[] = [
       'Combine multiple PDF files into a single document securely. Ideal for reports, assignments, invoices and digital portfolios.',
     icon: Combine,
     isGenAI: false,
+    hasOwnFaq: true,
     isPlaceholder: false,
     imageUrl: '/tool-previews/merge-pdf.png',
     content: `
@@ -228,6 +234,7 @@ export const tools: Tool[] = [
       'Split large PDF files into smaller documents instantly. Extract specific pages securely with no uploads or watermarks.',
     icon: Scissors,
     isGenAI: false,
+    hasOwnFaq: true,
     isPlaceholder: false,
     imageUrl: '/tool-previews/split-pdf.png',
     content: `
@@ -242,6 +249,7 @@ export const tools: Tool[] = [
       'Compress PDF files and reduce their size instantly in your browser. No uploads, no sign-up, 100% private. See before/after size comparison with every compression.',
     icon: FileDown,
     isGenAI: false,
+    hasOwnFaq: true,
     isPlaceholder: false,
     imageUrl: '/tool-previews/pdf-compressor.png',
     content: `
@@ -261,6 +269,7 @@ export const tools: Tool[] = [
       'Compress JPG and PNG images online without losing quality. Optimize images for websites, SEO speed and faster sharing.',
     icon: Minimize,
     isGenAI: false,
+    hasOwnFaq: true,
     isPlaceholder: false,
     imageUrl: '/tool-previews/compressor.png',
     content: `
@@ -280,6 +289,7 @@ export const tools: Tool[] = [
       'Convert JPG and PNG images into high-quality PDF documents instantly. Perfect for documents, ID proofs, homework and receipts.',
     icon: FileText,
     isGenAI: false,
+    hasOwnFaq: true,
     isPlaceholder: false,
     imageUrl: '/tool-previews/image-to-pdf.png',
     content: `
@@ -294,6 +304,7 @@ export const tools: Tool[] = [
       'Create professional and ATS-friendly resumes online in minutes. Build, preview and download clean CVs instantly.',
     icon: FileText,
     isGenAI: false,
+    hasOwnFaq: true,
     isPlaceholder: false,
     imageUrl: '/tool-previews/resume-maker.png',
     content: `
@@ -331,6 +342,7 @@ export const tools: Tool[] = [
       'Generate strong, random passwords instantly. Choose length, character types, and generate up to 10 passwords at once. 100% private — runs in your browser.',
     icon: KeyRound,
     isGenAI: false,
+    hasOwnFaq: true,
     isPlaceholder: false,
     content: `
     <h3>Free Password Generator — Strong & Secure</h3>
@@ -352,6 +364,7 @@ export const tools: Tool[] = [
       'Calculate your exact age in years, months, weeks and days instantly. Find remaining time until your next birthday accurately.',
     icon: CalendarDays,
     isGenAI: false,
+    hasOwnFaq: true,
     isPlaceholder: false,
     imageUrl: '/tool-previews/age-calculator.png',
     content: `
@@ -366,6 +379,7 @@ export const tools: Tool[] = [
     'Permanently redact sensitive information from PDF files. Black out SSN, account numbers, names, and confidential text. Draw boxes or search text. 100% private — your PDF never leaves your device.',
   icon: EyeOff,
   isGenAI: false,
+    hasOwnFaq: true,
   isPlaceholder: false,
   content: '',
 },
@@ -385,6 +399,7 @@ export const tools: Tool[] = [
       'Download YouTube thumbnails in 1080p HD, 4K and SD quality instantly. Extract original cover images without watermark.',
     icon: Youtube,
     isGenAI: false,
+    hasOwnFaq: true,
     isPlaceholder: false,
     imageUrl: '/tool-previews/youtube-thumbnail.png',
     content: `
@@ -405,6 +420,7 @@ export const tools: Tool[] = [
       'Calculate metal weight instantly using length, width, thickness and density. Supports steel, iron, aluminum, copper and more materials.',
     icon: Calculator,
     isGenAI: false,
+    hasOwnFaq: true,
     isPlaceholder: false,
     imageUrl: '/tool-previews/metal-weight-calculator.png',
     content: `
