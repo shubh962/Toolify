@@ -18,6 +18,7 @@ import {
   Type,
   EyeOff,
   Unlock,
+  LockKeyholeOpen,
   Receipt,
 } from 'lucide-react';
 
@@ -384,16 +385,24 @@ export const tools: Tool[] = [
   isPlaceholder: false,
   content: '',
 },
-// 'icon' ko element <Unlock /> ki jagah sirf component name 'Unlock' dein
-{
-  slug: "unlock-pdf-no-upload",
-  name: "Unlock PDF (No Upload)",
-  description: "Remove PDF passwords 100% privately in your browser. No server uploads, zero data risk.",
-  href: "/tools/unlock-pdf-no-upload",
-  icon: Unlock, // Yahan component reference dein, JSX nahi
-  cta: "Unlock Now",
-  category: "PDF Tools",
-  isNew: true,
+  {
+  slug: 'unlock-pdf-no-upload',
+  title: 'Unlock PDF Privately (No-Upload)',
+  description:
+    'Remove PDF passwords 100% privately in your browser. No server uploads, zero data risk. Safe for bank statements, legal papers, and sensitive documents.',
+  icon: LockKeyholeOpen, // Ensure LockKeyholeOpen is imported from lucide-react
+  isGenAI: false, // Kyunki ye utility tool hai, AI generative nahi
+  hasOwnFaq: true,
+  imageUrl: '/tool-previews/unlock-pdf.png', // Ensure this image exists or use a placeholder
+  content: `
+    <h3>Secure & Private PDF Unlocking</h3>
+    <p>Handling sensitive documents like bank statements or legal contracts requires a high level of privacy. TaskGuru transforms your browser into a standalone software application using WebAssembly technology.</p>
+    <ul>
+      <li><strong>Zero Server Risk:</strong> Your PDF never leaves your local machine.</li>
+      <li><strong>High-Speed Extraction:</strong> Decrypt large files in seconds using your own hardware power.</li>
+      <li><strong>100% Original Quality:</strong> We reset security flags without altering your document's text or images.</li>
+    </ul>
+  `,
 },
     
 {
