@@ -5,7 +5,7 @@ import { PDFDocument } from "pdf-lib";
 import { motion, AnimatePresence } from "framer-motion";
 import { 
   LockKeyhole, FileKey, Check, RefreshCw, CloudOff, 
-  ShieldCheck, Scissors, Zap, ShieldQuestion, Globe 
+  ShieldCheck, ShieldQuestion 
 } from "lucide-react";
 import Link from "next/link";
 
@@ -16,346 +16,302 @@ export default function UnlockPdf() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [unlockedUrl, setUnlockedUrl] = useState<string | null>(null);
-  const [success, setSuccess] = useState(false);
 
-  // Cleanup object URL on unmount or reset
   useEffect(() => {
     return () => {
       if (unlockedUrl) URL.revokeObjectURL(unlockedUrl);
     };
   }, [unlockedUrl]);
 
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const selectedFile = e.target.files?.[0] || null;
+    if (selectedFile && selectedFile.type !== "application/pdf") {
+      setError("Please select a valid PDF file.");
+      return;
+    }
+    setFile(selectedFile);
+    setError("");
+    setPassword("");
+    setUnlockedUrl(null);
+  };
+
   const handleUnlock = async () => {
     if (!file || !password || !isOwner) return;
 
     setLoading(true);
     setError("");
-    setSuccess(false);
 
     try {
       const arrayBuffer = await file.arrayBuffer();
-      
-      // Load PDF with password (pdf-lib will throw if password is wrong)
       const pdfDoc = await PDFDocument.load(arrayBuffer, { 
         password, 
         ignoreEncryption: false 
       });
 
-      // Save the unlocked document
       const pdfBytes = await pdfDoc.save();
       const blob = new Blob([pdfBytes], { type: "application/pdf" });
-      
-      const newUrl = URL.createObjectURL(blob);
-      
-      // Clean up previous URL if exists
+      const url = URL.createObjectURL(blob);
+
       if (unlockedUrl) URL.revokeObjectURL(unlockedUrl);
-      
-      setUnlockedUrl(newUrl);
-      setSuccess(true);
+      setUnlockedUrl(url);
     } catch (err: any) {
       console.error(err);
-      if (err.message?.includes("password") || err.message?.includes("decrypt")) {
-        setError("Incorrect password. Please check and try again.");
-      } else {
-        setError("Failed to unlock the PDF. The file may use advanced encryption or DRM not supported by standard tools.");
-      }
+      setError(
+        err.message?.toLowerCase().includes("password") 
+          ? "Incorrect password. Please check and try again." 
+          : "Failed to unlock the PDF. The file may use advanced encryption or DRM not supported by standard tools."
+      );
     } finally {
       setLoading(false);
     }
   };
 
   const handleReset = () => {
-    if (unlockedUrl) {
-      URL.revokeObjectURL(unlockedUrl);
-    }
+    if (unlockedUrl) URL.revokeObjectURL(unlockedUrl);
     setFile(null);
     setPassword("");
     setIsOwner(false);
     setError("");
     setUnlockedUrl(null);
-    setSuccess(false);
-  };
-
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const selectedFile = e.target.files?.[0] || null;
-    if (selectedFile && selectedFile.type !== "application/pdf") {
-      setError("Please upload a valid PDF file.");
-      return;
-    }
-    setFile(selectedFile);
-    setError("");
   };
 
   return (
-    <div className="min-h-screen bg-[#F2F2F7] dark:bg-black font-sans pb-20">
-      <div className="max-w-6xl mx-auto px-6 py-24">
+    <div className="min-h-screen bg-zinc-100 dark:bg-zinc-950 py-12 px-4 font-sans">
+      <div className="max-w-2xl mx-auto">
         
-        {/* Header */}
-        <header className="text-center mb-20 space-y-6">
-          <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }}>
-            <div className="inline-flex items-center gap-2 px-4 py-2 bg-blue-100 dark:bg-blue-950 text-blue-700 dark:text-blue-300 rounded-full text-xs font-bold uppercase tracking-widest mb-6 shadow-sm">
-              <Globe className="w-4 h-4" /> 100% Private • No Uploads • Browser Only
-            </div>
+        {/* Header - Matches Screenshot */}
+        <div className="text-center mb-12">
+          <h1 className="text-5xl md:text-6xl font-bold tracking-tighter">
+            Unlock PDF <span className="text-emerald-500">Privately</span>
+          </h1>
+          <p className="mt-4 text-lg text-zinc-600 dark:text-zinc-400 max-w-md mx-auto">
+            Remove password protection from your PDFs entirely in your browser.<br />
+            No data is uploaded, stored, or tracked — ever.
+          </p>
+        </div>
 
-            <h1 className="text-6xl md:text-8xl font-black tracking-tighter text-slate-900 dark:text-white leading-none">
-              Unlock PDF <span className="text-emerald-500">Privately</span>
-            </h1>
-
-            <p className="text-xl md:text-2xl text-slate-600 dark:text-slate-400 max-w-3xl mx-auto mt-8 font-medium">
-              Remove password protection from your PDFs entirely in your browser.<br />
-              No data is uploaded, stored, or tracked — ever.
-            </p>
-          </motion.div>
-        </header>
-
-        {/* Main Tool Card */}
-        <div className="max-w-2xl mx-auto bg-white/95 dark:bg-slate-900/95 backdrop-blur-3xl rounded-[3.5rem] shadow-2xl border border-white dark:border-slate-800 p-10 md:p-14 relative overflow-hidden">
+        {/* Main Tool Card - Closely Matches Screenshot */}
+        <div className="bg-white dark:bg-zinc-900 rounded-3xl shadow-2xl p-8 md:p-10">
           <AnimatePresence mode="wait">
             {!file ? (
               /* Upload Area */
               <motion.div
                 key="upload"
-                initial={{ opacity: 0, scale: 0.95 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.95 }}
-                onClick={() => document.getElementById("pdf-in")?.click()}
-                className="group border-4 border-dashed border-slate-200 dark:border-slate-700 rounded-[2.75rem] py-32 flex flex-col items-center justify-center gap-8 hover:border-emerald-400 transition-all cursor-pointer bg-slate-50/50 dark:bg-slate-950/50"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                onClick={() => document.getElementById("file-input")?.click()}
+                className="border-2 border-dashed border-zinc-300 dark:border-zinc-700 rounded-2xl py-20 text-center cursor-pointer hover:border-emerald-400 transition-all"
               >
-                <div className="w-28 h-28 bg-emerald-100 dark:bg-emerald-950 text-emerald-600 dark:text-emerald-400 rounded-3xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                  <LockKeyhole className="w-14 h-14" />
-                </div>
-                <div className="text-center">
-                  <p className="text-4xl font-black text-slate-800 dark:text-white">Drop your PDF here</p>
-                  <p className="text-emerald-600 dark:text-emerald-400 mt-3 font-medium">or click to browse</p>
-                  <p className="text-xs text-slate-400 mt-6 uppercase tracking-[0.125em]">Processed locally • Zero cloud storage</p>
-                </div>
-                <input 
-                  id="pdf-in" 
-                  type="file" 
-                  accept=".pdf" 
-                  className="hidden" 
-                  onChange={handleFileChange} 
+                <LockKeyhole className="w-16 h-16 mx-auto text-emerald-500 mb-6" />
+                <p className="text-2xl font-semibold text-zinc-800 dark:text-white">Drop PDF Here</p>
+                <p className="text-zinc-500 mt-2">or click to browse your files</p>
+                <input
+                  id="file-input"
+                  type="file"
+                  accept=".pdf"
+                  className="hidden"
+                  onChange={handleFileChange}
                 />
               </motion.div>
-            ) : (
-              /* Processing Area */
+            ) : !unlockedUrl ? (
+              /* Processing Screen - Matches Screenshot Design */
               <motion.div 
                 key="process" 
-                initial={{ opacity: 0, x: 30 }} 
-                animate={{ opacity: 1, x: 0 }}
-                className="space-y-10"
+                initial={{ opacity: 0, y: 10 }} 
+                animate={{ opacity: 1, y: 0 }}
+                className="space-y-8"
               >
-                {/* File Info */}
-                <div className="flex items-center gap-4 p-6 bg-slate-100 dark:bg-slate-800 rounded-3xl border border-slate-200 dark:border-slate-700">
-                  <FileKey className="w-9 h-9 text-emerald-500 flex-shrink-0" />
+                {/* File Info Box */}
+                <div className="bg-zinc-100 dark:bg-zinc-800 rounded-2xl p-5 flex items-center gap-4">
+                  <div className="w-10 h-10 bg-emerald-100 dark:bg-emerald-900 rounded-xl flex items-center justify-center flex-shrink-0">
+                    <FileKey className="w-6 h-6 text-emerald-600" />
+                  </div>
                   <div className="flex-1 min-w-0">
-                    <p className="font-semibold text-slate-900 dark:text-white truncate">{file.name}</p>
-                    <p className="text-xs text-slate-500">{(file.size / 1024 / 1024).toFixed(2)} MB</p>
+                    <p className="font-medium text-zinc-900 dark:text-white truncate">{file.name}</p>
+                    <p className="text-xs text-zinc-500">{(file.size / 1024 / 1024).toFixed(2)} MB</p>
                   </div>
                   <button 
                     onClick={handleReset}
-                    className="text-red-500 hover:text-red-600 font-medium text-sm px-4 py-2 rounded-2xl hover:bg-red-50 dark:hover:bg-red-950 transition-colors"
+                    className="text-emerald-600 hover:text-emerald-700 font-medium text-sm whitespace-nowrap"
                   >
                     Change File
                   </button>
                 </div>
 
-                {!unlockedUrl ? (
-                  <div className="space-y-8">
-                    <div>
-                      <input 
-                        type="password" 
-                        placeholder="Enter PDF Password"
-                        autoComplete="off"
-                        className="w-full p-8 bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-700 rounded-3xl outline-none focus:border-emerald-500 text-center text-4xl font-semibold tracking-tight placeholder:text-slate-400"
-                        value={password} 
-                        onChange={(e) => setPassword(e.target.value)}
-                      />
-                    </div>
+                {/* Password Field */}
+                <div>
+                  <input
+                    type="password"
+                    placeholder="Enter PDF Password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    className="w-full bg-white dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 rounded-2xl px-6 py-5 text-center text-2xl tracking-[4px] placeholder:text-zinc-400 focus:outline-none focus:border-emerald-500"
+                  />
+                </div>
 
-                    {/* Security Notice */}
-                    <div className="bg-amber-50 dark:bg-amber-950/50 border border-amber-200 dark:border-amber-800 p-8 rounded-3xl space-y-5">
-                      <div className="flex items-center gap-3 text-amber-700 dark:text-amber-400 text-sm font-bold uppercase tracking-widest">
-                        <CloudOff className="w-5 h-5" />
-                        100% Local Processing
-                      </div>
-                      <p className="text-slate-700 dark:text-slate-300 text-[15px] leading-relaxed">
-                        This tool runs entirely in your browser using WebAssembly. 
-                        Your document and password never leave your device. 
-                        Ideal for sensitive financial, legal, and medical documents.
-                      </p>
-
-                      <div className="flex items-start gap-4 pt-4 border-t border-amber-200 dark:border-amber-800">
-                        <input 
-                          type="checkbox" 
-                          id="legal" 
-                          className="w-6 h-6 mt-0.5 accent-emerald-600 rounded-lg" 
-                          checked={isOwner} 
-                          onChange={(e) => setIsOwner(e.target.checked)} 
-                        />
-                        <label htmlFor="legal" className="text-sm text-slate-700 dark:text-slate-300 cursor-pointer select-none">
-                          I confirm I have the legal right to unlock and modify this document.
-                        </label>
-                      </div>
-                    </div>
-
-                    {error && (
-                      <div className="text-red-600 dark:text-red-400 text-sm bg-red-50 dark:bg-red-950 p-4 rounded-2xl border border-red-100 dark:border-red-900">
-                        {error}
-                      </div>
-                    )}
-
-                    <button 
-                      onClick={handleUnlock} 
-                      disabled={!password || !isOwner || loading}
-                      className="w-full py-8 bg-emerald-600 hover:bg-emerald-700 disabled:bg-emerald-800 text-white rounded-3xl font-bold text-3xl shadow-xl transition-all active:scale-[0.985] flex items-center justify-center gap-3"
-                    >
-                      {loading ? (
-                        <>
-                          <RefreshCw className="w-7 h-7 animate-spin" />
-                          Decrypting...
-                        </>
-                      ) : (
-                        "Unlock PDF Now"
-                      )}
-                    </button>
+                {/* 100% Local Processing Box - Matches Screenshot */}
+                <div className="bg-amber-50 dark:bg-amber-950/50 border border-amber-200 dark:border-amber-800 rounded-2xl p-6">
+                  <div className="flex items-center gap-2 text-amber-700 dark:text-amber-400 font-semibold text-sm mb-3">
+                    <CloudOff className="w-5 h-5" />
+                    100% LOCAL PROCESSING
                   </div>
-                ) : (
-                  /* Success Screen */
-                  <div className="space-y-10 text-center">
-                    <div className="py-20 bg-emerald-50 dark:bg-emerald-950/60 rounded-3xl border border-emerald-100 dark:border-emerald-900">
-                      <Check className="w-20 h-20 text-emerald-500 mx-auto" />
-                      <h3 className="text-4xl font-bold text-emerald-700 dark:text-emerald-400 mt-6">
-                        PDF Successfully Unlocked
-                      </h3>
-                      <p className="text-emerald-600 dark:text-emerald-500 mt-3">Processed locally in your browser</p>
-                    </div>
+                  <p className="text-sm text-zinc-700 dark:text-zinc-300 leading-relaxed">
+                    This tool runs entirely in your browser using WebAssembly. Your document and password never leave your device. 
+                    Ideal for sensitive financial, legal, and medical documents.
+                  </p>
 
-                    <a 
-                      href={unlockedUrl!} 
-                      download={`unlocked_${file.name}`}
-                      className="block w-full py-8 bg-blue-600 hover:bg-blue-700 text-white rounded-3xl font-bold text-3xl shadow-xl transition-all active:scale-[0.985]"
-                    >
-                      Download Unlocked PDF
-                    </a>
+                  {/* Legal Checkbox */}
+                  <div className="mt-6 flex items-start gap-3">
+                    <input
+                      type="checkbox"
+                      id="legal"
+                      checked={isOwner}
+                      onChange={(e) => setIsOwner(e.target.checked)}
+                      className="mt-1 w-5 h-5 accent-emerald-600 rounded"
+                    />
+                    <label htmlFor="legal" className="text-sm text-zinc-700 dark:text-zinc-300 cursor-pointer select-none">
+                      I confirm I have the legal right to unlock and modify this document.
+                    </label>
+                  </div>
+                </div>
 
-                    <button 
-                      onClick={handleReset}
-                      className="text-slate-500 hover:text-slate-600 dark:text-slate-400 dark:hover:text-slate-300 font-medium text-sm tracking-widest"
-                    >
-                      Unlock Another Document →
-                    </button>
+                {/* Error Message - Matches Screenshot Style */}
+                {error && (
+                  <div className="bg-red-50 dark:bg-red-950 border border-red-200 dark:border-red-800 text-red-700 dark:text-red-400 text-sm p-4 rounded-2xl">
+                    {error}
                   </div>
                 )}
+
+                {/* Unlock Button */}
+                <button
+                  onClick={handleUnlock}
+                  disabled={!password || !isOwner || loading}
+                  className="w-full bg-emerald-600 hover:bg-emerald-700 disabled:bg-emerald-800 text-white font-semibold text-xl py-6 rounded-2xl transition-all active:scale-[0.985] flex items-center justify-center gap-3"
+                >
+                  {loading ? (
+                    <>
+                      <RefreshCw className="w-6 h-6 animate-spin" />
+                      Unlocking...
+                    </>
+                  ) : (
+                    "Unlock PDF Now"
+                  )}
+                </button>
+              </motion.div>
+            ) : (
+              /* Success Screen */
+              <motion.div 
+                key="success" 
+                initial={{ opacity: 0 }} 
+                animate={{ opacity: 1 }}
+                className="text-center space-y-8 py-8"
+              >
+                <div className="mx-auto w-20 h-20 bg-emerald-100 dark:bg-emerald-900 rounded-full flex items-center justify-center">
+                  <Check className="w-12 h-12 text-emerald-600" />
+                </div>
+                <div>
+                  <h3 className="text-3xl font-bold text-emerald-700 dark:text-emerald-400">PDF Successfully Unlocked</h3>
+                  <p className="text-zinc-500 mt-2">Processed securely in your browser</p>
+                </div>
+
+                <a
+                  href={unlockedUrl!}
+                  download={`unlocked_${file.name}`}
+                  className="block w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold text-xl py-6 rounded-2xl transition-all"
+                >
+                  Download Unlocked PDF
+                </a>
+
+                <button onClick={handleReset} className="text-zinc-500 hover:text-zinc-600 font-medium">
+                  Unlock Another PDF →
+                </button>
               </motion.div>
             )}
           </AnimatePresence>
         </div>
 
-        {/* Expanded Content Section */}
-        <article className="mt-32 space-y-24 text-left max-w-4xl mx-auto">
-          
-          <section className="space-y-12">
-            <h2 className="text-5xl md:text-7xl font-black tracking-tighter text-slate-900 dark:text-white leading-none">
-              Why Professionals Trust TaskGuru for Secure PDF Unlocking
-            </h2>
-
-            <div className="grid md:grid-cols-2 gap-12 text-lg">
-              <div className="space-y-6">
-                <h4 className="text-3xl font-bold text-emerald-600">Financial & Banking Documents</h4>
-                <p className="text-slate-600 dark:text-slate-400 leading-relaxed">
-                  Safely unlock bank statements, tax returns, mortgage agreements, and payroll records. 
-                  Perfect for accountants, financial advisors, and individuals who need to process 
-                  sensitive documents without risking cloud exposure.
-                </p>
-              </div>
-
-              <div className="space-y-6">
-                <h4 className="text-3xl font-bold text-blue-600">Legal & Compliance Workflows</h4>
-                <p className="text-slate-600 dark:text-slate-400 leading-relaxed">
-                  Lawyers, paralegals, and compliance officers worldwide use TaskGuru to remove 
-                  password protection from contracts, NDAs, court filings, and discovery documents — 
-                  all while maintaining strict client confidentiality.
-                </p>
-              </div>
-            </div>
-          </section>
-
-          {/* Internal Linking */}
+        {/* Why Professionals Trust Section */}
+        <div className="mt-20">
+          <h2 className="text-4xl font-bold tracking-tight text-center mb-12">
+            Why Professionals Trust TaskGuru for Secure PDF Unlocking
+          </h2>
           <div className="grid md:grid-cols-2 gap-8">
-            <Link href="/tools/split-pdf" className="group p-12 bg-white dark:bg-slate-900 rounded-3xl border border-slate-100 dark:border-slate-800 hover:shadow-2xl transition-all flex items-center justify-between">
-              <div>
-                <h5 className="text-2xl font-bold mb-3">Split PDF</h5>
-                <p className="text-slate-500 dark:text-slate-400">Extract specific pages from your unlocked document locally.</p>
-              </div>
-              <Scissors className="w-12 h-12 text-purple-500 group-hover:rotate-12 transition-transform" />
-            </Link>
+            <div className="bg-white dark:bg-zinc-900 p-8 rounded-3xl">
+              <h4 className="text-emerald-600 font-bold text-xl mb-4">Financial & Banking</h4>
+              <p className="text-zinc-600 dark:text-zinc-400">
+                Safely unlock bank statements, tax documents, mortgage papers, and payroll records without exposing them to the cloud.
+              </p>
+            </div>
+            <div className="bg-white dark:bg-zinc-900 p-8 rounded-3xl">
+              <h4 className="text-blue-600 font-bold text-xl mb-4">Legal & Compliance</h4>
+              <p className="text-zinc-600 dark:text-zinc-400">
+                Lawyers and compliance teams use TaskGuru to process contracts, NDAs, and case files while maintaining strict confidentiality.
+              </p>
+            </div>
+          </div>
+        </div>
 
-            <Link href="/tools/image-compressor" className="group p-12 bg-white dark:bg-slate-900 rounded-3xl border border-slate-100 dark:border-slate-800 hover:shadow-2xl transition-all flex items-center justify-between">
-              <div>
-                <h5 className="text-2xl font-bold mb-3">Compress Images</h5>
-                <p className="text-slate-500 dark:text-slate-400">Optimize extracted images for faster loading and smaller file sizes.</p>
-              </div>
-              <Zap className="w-12 h-12 text-yellow-500 group-hover:scale-125 transition-transform" />
-            </Link>
+        {/* Expanded FAQ Section - 6 Questions */}
+        <div className="mt-24">
+          <div className="flex items-center gap-4 mb-10">
+            <ShieldQuestion className="w-9 h-9 text-emerald-500" />
+            <h3 className="text-4xl font-bold tracking-tight">Frequently Asked Questions</h3>
           </div>
 
-          {/* Trust Section */}
-          <section className="bg-slate-900 text-white p-16 md:p-20 rounded-[3.5rem] relative overflow-hidden">
-            <Globe className="absolute -top-20 -right-20 w-96 h-96 text-white/5 pointer-events-none" />
-            
-            <h3 className="text-4xl md:text-5xl font-black tracking-tighter max-w-2xl">
-              Built for Global Privacy Standards
-            </h3>
-
-            <div className="grid md:grid-cols-3 gap-6 mt-12">
-              <div className="p-8 bg-white/5 rounded-3xl border border-white/10 text-center">
-                <ShieldCheck className="mx-auto mb-6 text-emerald-400 w-10 h-10" />
-                <p className="font-bold">GDPR Compliant</p>
-              </div>
-              <div className="p-8 bg-white/5 rounded-3xl border border-white/10 text-center">
-                <ShieldCheck className="mx-auto mb-6 text-emerald-400 w-10 h-10" />
-                <p className="font-bold">HIPAA Ready</p>
-              </div>
-              <div className="p-8 bg-white/5 rounded-3xl border border-white/10 text-center">
-                <ShieldCheck className="mx-auto mb-6 text-emerald-400 w-10 h-10" />
-                <p className="font-bold">ISO 27001 Aligned</p>
-              </div>
+          <div className="space-y-6">
+            <div className="bg-white dark:bg-zinc-900 rounded-3xl p-8 border border-zinc-100 dark:border-zinc-800">
+              <h5 className="font-semibold text-lg mb-3">Is TaskGuru completely free to use?</h5>
+              <p className="text-zinc-600 dark:text-zinc-400">Yes. All our PDF tools are 100% free with no sign-up required, no usage limits, and no hidden fees. Available worldwide.</p>
             </div>
 
-            <p className="mt-12 text-lg text-slate-300 max-w-2xl">
-              TaskGuru's client-side architecture ensures your sensitive documents and passwords 
-              never leave your device. Trusted by professionals in finance, law, healthcare, 
-              and government sectors across the USA, UK, EU, and beyond.
-            </p>
-          </section>
+            <div className="bg-white dark:bg-zinc-900 rounded-3xl p-8 border border-zinc-100 dark:border-zinc-800">
+              <h5 className="font-semibold text-lg mb-3">Does this tool really keep my files private?</h5>
+              <p className="text-zinc-600 dark:text-zinc-400">Absolutely. Everything runs locally in your browser using WebAssembly. Your PDF and password never leave your device and are not stored anywhere.</p>
+            </div>
 
-          {/* FAQ */}
-          <section className="space-y-12">
-            <h3 className="text-4xl font-bold flex items-center gap-4">
-              <ShieldQuestion className="text-emerald-500 w-9 h-9" /> 
-              Frequently Asked Questions
-            </h3>
+            <div className="bg-white dark:bg-zinc-900 rounded-3xl p-8 border border-zinc-100 dark:border-zinc-800">
+              <h5 className="font-semibold text-lg mb-3">What types of PDFs can I unlock?</h5>
+              <p className="text-zinc-600 dark:text-zinc-400">You can unlock standard password-protected PDFs. However, files with advanced DRM (like some eBooks or enterprise rights-managed documents) may not be supported.</p>
+            </div>
 
-            <div className="grid md:grid-cols-2 gap-8">
-              <div className="bg-slate-50 dark:bg-slate-900 p-10 rounded-3xl border border-slate-100 dark:border-slate-800">
-                <h5 className="font-bold text-xl mb-4">Is TaskGuru really free?</h5>
-                <p className="text-slate-600 dark:text-slate-400">
-                  Yes. All our PDF tools are completely free to use with no sign-up, no limits, 
-                  and no hidden fees — available worldwide.
-                </p>
-              </div>
+            <div className="bg-white dark:bg-zinc-900 rounded-3xl p-8 border border-zinc-100 dark:border-zinc-800">
+              <h5 className="font-semibold text-lg mb-3">Can I unlock PDFs on mobile devices?</h5>
+              <p className="text-zinc-600 dark:text-zinc-400">Yes, the tool works on most modern mobile browsers (Chrome, Safari, Firefox). For best performance, we recommend using a desktop browser for larger files.</p>
+            </div>
 
-              <div className="bg-slate-50 dark:bg-slate-900 p-10 rounded-3xl border border-slate-100 dark:border-slate-800">
-                <h5 className="font-bold text-xl mb-4">What kind of PDFs can I unlock?</h5>
-                <p className="text-slate-600 dark:text-slate-400">
-                  Standard password-protected PDFs. Note: Advanced DRM-protected files (e.g., some eBooks or enterprise rights-managed documents) may not be supported.
-                </p>
+            <div className="bg-white dark:bg-zinc-900 rounded-3xl p-8 border border-zinc-100 dark:border-zinc-800">
+              <h5 className="font-semibold text-lg mb-3">Is there a file size limit?</h5>
+              <p className="text-zinc-600 dark:text-zinc-400">There is no strict limit, but very large files (over 100MB) may take longer to process depending on your device’s hardware and available RAM.</p>
+            </div>
+
+            <div className="bg-white dark:bg-zinc-900 rounded-3xl p-8 border border-zinc-100 dark:border-zinc-800">
+              <h5 className="font-semibold text-lg mb-3">What should I do if the password is correct but it still fails?</h5>
+              <p className="text-zinc-600 dark:text-zinc-400">Some PDFs use owner-level passwords or advanced encryption not fully supported by browser-based tools. In such cases, try using Adobe Acrobat with the correct password.</p>
+            </div>
+          </div>
+        </div>
+
+        {/* Optional Internal Links */}
+        <div className="mt-20 grid md:grid-cols-2 gap-6">
+          <Link href="/tools/split-pdf" className="block p-8 bg-white dark:bg-zinc-900 rounded-3xl border border-zinc-100 dark:border-zinc-800 hover:shadow-xl transition-all">
+            <div className="flex justify-between items-start">
+              <div>
+                <h5 className="font-bold text-xl">Split PDF</h5>
+                <p className="text-zinc-500 mt-2 text-sm">Extract specific pages from your unlocked document locally.</p>
               </div>
             </div>
-          </section>
-        </article>
+          </Link>
+          <Link href="/tools/image-compressor" className="block p-8 bg-white dark:bg-zinc-900 rounded-3xl border border-zinc-100 dark:border-zinc-800 hover:shadow-xl transition-all">
+            <div className="flex justify-between items-start">
+              <div>
+                <h5 className="font-bold text-xl">Compress Images</h5>
+                <p className="text-zinc-500 mt-2 text-sm">Optimize images after extraction for smaller file sizes.</p>
+              </div>
+            </div>
+          </Link>
+        </div>
       </div>
     </div>
   );
-}
+                }
