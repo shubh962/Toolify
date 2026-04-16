@@ -384,16 +384,18 @@ export const tools: Tool[] = [
   isPlaceholder: false,
   content: '',
 },
-  {
+// 'icon' ko element <Unlock /> ki jagah sirf component name 'Unlock' dein
+{
   slug: "unlock-pdf-no-upload",
   name: "Unlock PDF (No Upload)",
   description: "Remove PDF passwords 100% privately in your browser. No server uploads, zero data risk.",
   href: "/tools/unlock-pdf-no-upload",
-  icon: <Unlock className="w-6 h-6 text-emerald-500" />, 
+  icon: Unlock, // Yahan component reference dein, JSX nahi
   cta: "Unlock Now",
-  category: "PDF Tools", // Agar aapne categories banayi hain
-  isNew: true, // Naye tool ko highlight karne ke liye
-  },
+  category: "PDF Tools",
+  isNew: true,
+},
+    
 {
   slug: "youtube-to-pdf",
   title: "YouTube to PDF Notes Generator",
