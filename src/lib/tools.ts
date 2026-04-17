@@ -2,6 +2,7 @@ import type { LucideIcon } from 'lucide-react';
 import {
   FileText,
   Combine,
+  Penline,
   ImageMinus,
   Minimize,
   ScanText,
@@ -404,7 +405,25 @@ export const tools: Tool[] = [
     </ul>
   `,
 },
+    {
+  "slug": "esign-pdf-no-upload",
+  "title": "Secure E-Sign PDF (No Upload)",
+  "description": "Sign legal documents and contracts 100% privately in your browser. No server uploads, no data storage. Draw or upload your signature locally with complete privacy.",
+  "icon": "PenLine",
+  "isGenAI": false,
+  "hasOwnFaq": true,
+  "imageUrl": "/tool-previews/esign-pdf.png",
+  "content": `
+    <h3>Legally Sign PDFs — Entirely in Your Browser</h3>
+    <p>TaskGuru brings enterprise-grade electronic signatures directly to your browser with true zero-upload technology. Your contracts and sensitive documents never leave your device — everything is processed locally in your RAM.</p>
     
+    <ul>
+      <li><strong>100% Private:</strong> Complete on-device processing. Your documents are never uploaded to any server.</li>
+      <li><strong>Legally Compliant:</strong> Built to meet e-signature standards in the USA (ESIGN Act, UETA), UK, and EU (eIDAS).</li>
+      <li><strong>Instant & Efficient:</strong> Sign even large PDFs instantly with zero upload delays or latency.</li>
+    </ul>
+  `
+    },
 {
   slug: "youtube-to-pdf",
   title: "YouTube to PDF Notes Generator",
