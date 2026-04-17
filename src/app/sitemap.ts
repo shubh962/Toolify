@@ -54,6 +54,7 @@ const toolSlugs = [
   "word-counter",
   "pdf-redactor",
   "unlock-pdf-no-upload",
+  "esign-pdf-no-upload",
   "invoice-generator",
 ];
 
