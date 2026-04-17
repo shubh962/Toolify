@@ -30,6 +30,7 @@ import PdfRedactor from '@/components/tools/PdfRedactor';
 import WordToPdf from '@/components/tools/WordToPdf';
 import InvoiceGenerator from '@/components/tools/InvoiceGenerator';
 import UnlockPdf from "@/components/tools/UnlockPdf";
+import ESignPdf from '@/components/tools/ESignPdf';
 import { ShieldCheck, Lock, Zap } from 'lucide-react';
 
 export async function generateStaticParams() {
@@ -92,6 +93,7 @@ const toolComponentMap: { [key: string]: React.ComponentType<any> } = {
   "word-counter": WordCounter,
   "pdf-redactor": PdfRedactor,
   "unlock-pdf-no-upload": UnlockPdf,
+  "esign-pdf-no-upload": ESignPdf,
   "invoice-generator": InvoiceGenerator,
 };
 
