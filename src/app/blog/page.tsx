@@ -45,6 +45,12 @@ const posts = [
   featured: true,
 },
   {
+  slug: "free-online-tools-students-2026-no-login",
+  title: "20 Free Online Tools for Students in 2026 — No Login, No Paywall, No Watermark",
+  summary: "Discover 20 best free online tools for students in 2026 including AI paraphraser, OCR image to text, PDF to Word, background remover, QR code generator, and more — no signup, no watermark, completely free.",
+  component: "toolsBlog",
+  },
+  {
   slug: "free-productivity-tools-2026",
   title: "4 Free Tools Everyone Needs in 2026 — Password, Typing, PDF & Excel",
   summary: "A complete guide to four essential free browser-based tools — secure password generator, typing speed test, PDF to Excel converter, and Excel to PDF converter. No signup, no paywall.",
