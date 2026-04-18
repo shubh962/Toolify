@@ -36,6 +36,14 @@ const categoryColors: Record<string, string> = {
 const posts = [
   // ✅ Founder story — earliest, most personal
   {
+  slug: "make-ai-text-undetectable-free-2026",
+  title: "How to Make AI Text Undetectable for Free (Pass Turnitin in 2026)",
+  summary: "A practical guide to humanizing AI-generated text so it passes Turnitin, GPTZero, and other detectors — using free tools, real examples, and simple steps that actually work.",
+  description: "Learn how to make AI text undetectable for free in 2026. Step-by-step methods to humanize ChatGPT and Gemini content, reduce AI detection scores, and pass Turnitin without paid tools.",
+  component: "aiHumanizerBlog",
+    featured: true,
+  },
+  {
   slug: "how-to-create-invoice-free",
   title: "How to Create a Professional Invoice for Free (2026 Guide)",
   summary: "Everything freelancers and small businesses need to know — what to include, tax rates for USA, UK, Canada and Australia, payment terms, and how to get paid faster.",
