@@ -247,7 +247,7 @@ export const tools: Tool[] = [
   },
   {
     slug: 'pdf-compressor',
-    title: 'Free PDF Compressor Online (Reduce PDF Size)',
+    title: 'Compress Image to 20KB, 50KB Online Free (No Upload, No Signup)',
     description:
       'Compress PDF files and reduce their size instantly in your browser. No uploads, no sign-up, 100% private. See before/after size comparison with every compression.',
     icon: FileDown,
