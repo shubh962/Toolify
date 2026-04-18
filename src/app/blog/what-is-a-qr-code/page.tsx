@@ -21,7 +21,7 @@ export const metadata: Metadata = {
 const articleSchema = {
   '@context': 'https://schema.org',
   '@type': 'Article',
-  headline: 'What is a QR Code and How Does It Work? (2026 Guide)',
+  headline: 'What is a QR Code? How It Works + Create One Free in 30 Seconds (2026)',
   description:
     'A complete plain-English guide to QR codes — what they are, how they encode data, types, use cases, and how to generate one free online.',
   author: {
