@@ -3,14 +3,14 @@ import Link from 'next/link';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'What is a QR Code and How Does It Work? (2026 Guide) | TaskGuru',
+  title: 'What is a QR Code? Create One Free in 30 Seconds (2026 Guide) | TaskGuru',
   description:
-    'Learn what QR codes are, how they work, the different types, and how to create and scan them for free — complete plain-English guide for 2026.',
+    'What is a QR code and how does it work? Learn in simple terms and create your own QR code free in 30 seconds. No signup, no watermark.',
   alternates: {
     canonical: 'https://www.taskguru.online/blog/what-is-a-qr-code',
   },
   openGraph: {
-    title: 'What is a QR Code and How Does It Work?',
+    title: 'What is a QR Code? Create One Free in 30 Seconds',
     description:
       'A complete guide to QR codes — what they are, how they store data, types of QR codes, and how to generate one free in seconds.',
     url: 'https://www.taskguru.online/blog/what-is-a-qr-code',
