@@ -2,6 +2,7 @@ import { MetadataRoute } from "next";
 
 const blogSlugs = [
   "extract-text-scanned-pdf",
+  "free-online-tools-students-2026-no-login",
   "what-is-a-qr-code",
   "reduce-image-size-kb-without-losing-quality",
   "local-first-web-apps-trend-2026",
