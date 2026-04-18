@@ -27,6 +27,7 @@ const blogSlugs = [
   "why-i-built-free-pdf-merger",
   "why-i-built-free-image-to-text-ocr",
   "free-productivity-tools-2026",
+  "how-to-make-ai-text-undetectable-free-2026",
   "how-to-create-invoice-free",
 ];
 const toolSlugs = [
