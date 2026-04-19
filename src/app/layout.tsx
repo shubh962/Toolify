@@ -312,23 +312,6 @@ export default function RootLayout({
                       </p>
                     </div>
                   </a>
-
-                  {/* ✅ Product Hunt Badge */}
-                  <a
-                    href="https://www.producthunt.com/products/taskguru?embed=true&utm_source=badge-featured&utm_medium=badge&utm_campaign=badge-taskguru"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="hover:-translate-y-1 transition-all w-fit block"
-                  >
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img
-                      alt="TaskGuru on Product Hunt"
-                      src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=1115474&theme=light&t=1775298886428"
-                      width="250"
-                      height="54"
-                      style={{ width: '250px', height: '54px' }}
-                    />
-                  </a>
                 </div>
 
                 {/* Resources */}
@@ -458,4 +441,4 @@ export default function RootLayout({
       </body>
     </html>
   );
-}
+          }
