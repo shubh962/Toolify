@@ -251,7 +251,7 @@ const toolComponentMap: { [key: string]: React.ComponentType<any> } = {
   "word-counter": WordCounter,
   "pdf-redactor": PdfRedactor,
   "invoice-generator": InvoiceGenerator,
-  "pdf-password-remover": UnlockPdf,
+  "unlock-pdf-no-upload": UnlockPdf,
 };
 
 // ✅ Next.js 15 compatibility: params awaited
