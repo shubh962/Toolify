@@ -29,6 +29,7 @@ export interface Tool {
   description: string;
   icon: LucideIcon;
   isGenAI: boolean;
+  category?: string; // Added category field
   isPlaceholder?: boolean;
   imageUrl?: string;
   content?: string;
@@ -43,6 +44,7 @@ export const tools: Tool[] = [
       'Remove image backgrounds instantly using advanced AI. Create transparent PNG images for eCommerce, thumbnails, product photos and social media in seconds.',
     icon: ImageMinus,
     isGenAI: true,
+    category: 'image',
     hasOwnFaq: true,
     imageUrl: '/tool-previews/bg-remover.png',
     content: `
@@ -58,13 +60,14 @@ export const tools: Tool[] = [
     `,
   },
   {
-  slug: 'image-to-text',
-  title: 'Image to Text Converter',
-  description: 'Extract text from images, screenshots, and scanned documents instantly using OCR. Convert photos to editable text online with high accuracy — free, fast, and 100% private.',
-  icon: ScanText,
-  isGenAI: true,
-  imageUrl: '/tool-previews/ocr-tool.png',
-  content: `
+    slug: 'image-to-text',
+    title: 'Image to Text Converter',
+    description: 'Extract text from images, screenshots, and scanned documents instantly using OCR. Convert photos to editable text online with high accuracy — free, fast, and 100% private.',
+    icon: ScanText,
+    isGenAI: true,
+    category: 'ai',
+    imageUrl: '/tool-previews/ocr-tool.png',
+    content: `
     <p>Our <strong>Free Online OCR</strong> tool converts scanned documents, screenshots, and photos into editable text instantly.</p>
 
     <h3>How it works:</h3>
@@ -77,6 +80,7 @@ export const tools: Tool[] = [
       'Rewrite sentences and paragraphs instantly with AI. Improve clarity, remove plagiarism, enhance tone and generate professional content for essays and blogs.',
     icon: PenSquare,
     isGenAI: true,
+    category: 'ai',
     hasOwnFaq: true,
     imageUrl: '/tool-previews/paraphraser.png',
     content: `
@@ -89,12 +93,13 @@ export const tools: Tool[] = [
       </ul>
     `,
   },
-    {
+  {
     slug: 'ai-content-detector',
     title: 'Free AI Content Detector & Plagiarism Checker',
     description: 'Instantly detect AI-generated patterns from ChatGPT, Gemini, and Claude using advanced Perplexity and Burstiness analysis to ensure your content is 100% human-like, unique, and free from AI-driven plagiarism.',
     icon: ScanText,
     isGenAI: true,
+    category: 'ai',
     hasOwnFaq: true,
     isPlaceholder: false,
     content: `
@@ -115,13 +120,13 @@ export const tools: Tool[] = [
       <p>This tool is essential for students, bloggers, and professionals who want to maintain their digital reputation and ensure 100% original, human-crafted content.</p>
     `,
   },
-  
   {
     slug: 'typing-speed-test',
     title: 'Free Typing Speed Test — WPM & Accuracy',
     description: 'Test your typing speed in WPM and accuracy. Choose 30, 60, or 120 second tests. Real-time feedback. No signup required.',
     icon: Keyboard,
     isGenAI: false,
+    category: 'utility',
     hasOwnFaq: true,
     isPlaceholder: false,
     content: `
@@ -130,16 +135,17 @@ export const tools: Tool[] = [
     ` 
   },
   {
-  slug: 'word-counter',
-  title: 'Free Word Counter & Character Count Online',
-  description:
-    'Count words, characters, sentences, paragraphs and reading time instantly. Check keyword density and platform character limits for Twitter, Instagram, LinkedIn and more. No signup required.',
-  icon: Type,
-  isGenAI: false,
+    slug: 'word-counter',
+    title: 'Free Word Counter & Character Count Online',
+    description:
+      'Count words, characters, sentences, paragraphs and reading time instantly. Check keyword density and platform character limits for Twitter, Instagram, LinkedIn and more. No signup required.',
+    icon: Type,
+    isGenAI: false,
+    category: 'utility',
     hasOwnFaq: true,
-  isPlaceholder: false,
-  content: '',
-},
+    isPlaceholder: false,
+    content: '',
+  },
   {
     slug: 'pdf-to-word',
     title: 'PDF to Word Converter Online (DOCX)',
@@ -147,6 +153,7 @@ export const tools: Tool[] = [
       'Convert PDF files into fully editable Word documents online while preserving formatting, fonts, tables and layout with fast processing.',
     icon: FileText,
     isGenAI: false,
+    category: 'pdf',
     hasOwnFaq: true,
     isPlaceholder: false,
     imageUrl: '/tool-previews/pdf-to-word.png',
@@ -157,16 +164,17 @@ export const tools: Tool[] = [
     `,
   },
   {
-  slug: 'word-to-pdf',
-  title: 'Free Word to PDF Converter Online — Convert DOCX to PDF',
-  description:
-    'Convert Word documents to PDF free online. Upload .docx files and download clean PDF instantly. No Microsoft Office needed. 100% private — your file never leaves your device.',
-  icon: FileText,
-  isGenAI: false,
+    slug: 'word-to-pdf',
+    title: 'Free Word to PDF Converter Online — Convert DOCX to PDF',
+    description:
+      'Convert Word documents to PDF free online. Upload .docx files and download clean PDF instantly. No Microsoft Office needed. 100% private — your file never leaves your device.',
+    icon: FileText,
+    isGenAI: false,
+    category: 'pdf',
     hasOwnFaq: true,
-  isPlaceholder: false,
-  content: '',
-},
+    isPlaceholder: false,
+    content: '',
+  },
   {
     slug: 'excel-to-pdf',
     title: 'Free Excel to PDF Converter (No Upload, Secure & Instant)',
@@ -174,6 +182,7 @@ export const tools: Tool[] = [
       'Convert Excel to PDF instantly with our secure, browser-based tool. No upload required — your files stay private. Supports XLSX/XLS, preview sheets, and download high-quality PDFs without watermark or signup.',
     icon: Table,
     isGenAI: false,
+    category: 'pdf',
     hasOwnFaq: true,
     isPlaceholder: false,
     content: `
@@ -204,16 +213,17 @@ export const tools: Tool[] = [
     `,
   },
   {
-  slug: 'pdf-to-excel',
-  title: 'Free PDF to Excel Converter Online',
-  description:
-    'Convert PDF to Excel spreadsheet free. Extract tables, bank statements, invoices and financial data from PDF to .xlsx instantly. 100% private — no upload.',
-  icon: Table,
-  isGenAI: false,
+    slug: 'pdf-to-excel',
+    title: 'Free PDF to Excel Converter Online',
+    description:
+      'Convert PDF to Excel spreadsheet free. Extract tables, bank statements, invoices and financial data from PDF to .xlsx instantly. 100% private — no upload.',
+    icon: Table,
+    isGenAI: false,
+    category: 'pdf',
     hasOwnFaq: true,
-  isPlaceholder: false,
-  content: '',
-},
+    isPlaceholder: false,
+    content: '',
+  },
   {
     slug: 'merge-pdf',
     title: 'Merge PDF Files Online (Free PDF Combiner)',
@@ -221,6 +231,7 @@ export const tools: Tool[] = [
       'Combine multiple PDF files into a single document securely. Ideal for reports, assignments, invoices and digital portfolios.',
     icon: Combine,
     isGenAI: false,
+    category: 'pdf',
     hasOwnFaq: true,
     isPlaceholder: false,
     imageUrl: '/tool-previews/merge-pdf.png',
@@ -237,6 +248,7 @@ export const tools: Tool[] = [
       'Split large PDF files into smaller documents instantly. Extract specific pages securely with no uploads or watermarks.',
     icon: Scissors,
     isGenAI: false,
+    category: 'pdf',
     hasOwnFaq: true,
     isPlaceholder: false,
     imageUrl: '/tool-previews/split-pdf.png',
@@ -252,6 +264,7 @@ export const tools: Tool[] = [
       'Compress PDF files and reduce their size instantly in your browser. No uploads, no sign-up, 100% private. See before/after size comparison with every compression.',
     icon: FileDown,
     isGenAI: false,
+    category: 'pdf',
     hasOwnFaq: true,
     isPlaceholder: false,
     imageUrl: '/tool-previews/pdf-compressor.png',
@@ -272,6 +285,7 @@ export const tools: Tool[] = [
       'Compress JPG and PNG images online without losing quality. Optimize images for websites, SEO speed and faster sharing.',
     icon: Minimize,
     isGenAI: false,
+    category: 'image',
     hasOwnFaq: true,
     isPlaceholder: false,
     imageUrl: '/tool-previews/compressor.png',
@@ -292,6 +306,7 @@ export const tools: Tool[] = [
       'Convert JPG and PNG images into high-quality PDF documents instantly. Perfect for documents, ID proofs, homework and receipts.',
     icon: FileText,
     isGenAI: false,
+    category: 'pdf',
     hasOwnFaq: true,
     isPlaceholder: false,
     imageUrl: '/tool-previews/image-to-pdf.png',
@@ -307,6 +322,7 @@ export const tools: Tool[] = [
       'Create professional and ATS-friendly resumes online in minutes. Build, preview and download clean CVs instantly.',
     icon: FileText,
     isGenAI: false,
+    category: 'utility',
     hasOwnFaq: true,
     isPlaceholder: false,
     imageUrl: '/tool-previews/resume-maker.png',
@@ -322,22 +338,24 @@ export const tools: Tool[] = [
       'All-in-one generator for custom QR Codes (URL, WiFi) and Barcodes (EAN, UPC, CODE128). Download high-quality PNGs instantly.',
     icon: QrCode,
     isGenAI: false,
+    category: 'utility',
     hasOwnFaq: true,
     isPlaceholder: false,
     imageUrl: '/tool-previews/qr-barcode.png',
     content: '',
   },
   {
-  slug: 'invoice-generator',
-  title: 'Free Invoice Generator — Create Professional PDF Invoices',
-  description:
-    'Create professional PDF invoices free. Add your business details, client info, line items, tax, and payment terms. Download instantly. No signup. No watermark. Perfect for freelancers and small businesses.',
-  icon: Receipt,
-  isGenAI: false,
+    slug: 'invoice-generator',
+    title: 'Free Invoice Generator — Create Professional PDF Invoices',
+    description:
+      'Create professional PDF invoices free. Add your business details, client info, line items, tax, and payment terms. Download instantly. No signup. No watermark. Perfect for freelancers and small businesses.',
+    icon: Receipt,
+    isGenAI: false,
+    category: 'utility',
     hasOwnFaq: true,
-  isPlaceholder: false,
-  content: '',
-},
+    isPlaceholder: false,
+    content: '',
+  },
   {
     slug: 'password-generator',
     title: 'Free Password Generator — Strong & Secure',
@@ -345,6 +363,7 @@ export const tools: Tool[] = [
       'Generate strong, random passwords instantly. Choose length, character types, and generate up to 10 passwords at once. 100% private — runs in your browser.',
     icon: KeyRound,
     isGenAI: false,
+    category: 'utility',
     hasOwnFaq: true,
     isPlaceholder: false,
     content: `
@@ -367,6 +386,7 @@ export const tools: Tool[] = [
       'Calculate your exact age in years, months, weeks and days instantly. Find remaining time until your next birthday accurately.',
     icon: CalendarDays,
     isGenAI: false,
+    category: 'calculator',
     hasOwnFaq: true,
     isPlaceholder: false,
     imageUrl: '/tool-previews/age-calculator.png',
@@ -376,26 +396,28 @@ export const tools: Tool[] = [
     `,
   },
   {
-  slug: 'pdf-redactor',
-  title: 'Free PDF Redactor Online — Redact PDF Text & Areas',
-  description:
-    'Permanently redact sensitive information from PDF files. Black out SSN, account numbers, names, and confidential text. Draw boxes or search text. 100% private — your PDF never leaves your device.',
-  icon: EyeOff,
-  isGenAI: false,
+    slug: 'pdf-redactor',
+    title: 'Free PDF Redactor Online — Redact PDF Text & Areas',
+    description:
+      'Permanently redact sensitive information from PDF files. Black out SSN, account numbers, names, and confidential text. Draw boxes or search text. 100% private — your PDF never leaves your device.',
+    icon: EyeOff,
+    isGenAI: false,
+    category: 'pdf',
     hasOwnFaq: true,
-  isPlaceholder: false,
-  content: '',
-},
+    isPlaceholder: false,
+    content: '',
+  },
   {
-  slug: 'unlock-pdf-no-upload',
-  title: 'Unlock PDF Privately (No-Upload)',
-  description:
-    'Remove PDF passwords 100% privately in your browser. No server uploads, zero data risk. Safe for bank statements, legal papers, and sensitive documents.',
-  icon: LockKeyholeOpen, // Ensure LockKeyholeOpen is imported from lucide-react
-  isGenAI: false, // Kyunki ye utility tool hai, AI generative nahi
-  hasOwnFaq: true,
-  imageUrl: '/tool-previews/unlock-pdf.png', // Ensure this image exists or use a placeholder
-  content: `
+    slug: 'unlock-pdf-no-upload',
+    title: 'Unlock PDF Privately (No-Upload)',
+    description:
+      'Remove PDF passwords 100% privately in your browser. No server uploads, zero data risk. Safe for bank statements, legal papers, and sensitive documents.',
+    icon: LockKeyholeOpen,
+    isGenAI: false,
+    category: 'pdf',
+    hasOwnFaq: true,
+    imageUrl: '/tool-previews/unlock-pdf.png',
+    content: `
     <h3>Secure & Private PDF Unlocking</h3>
     <p>Handling sensitive documents like bank statements or legal contracts requires a high level of privacy. TaskGuru transforms your browser into a standalone software application using WebAssembly technology.</p>
     <ul>
@@ -404,16 +426,17 @@ export const tools: Tool[] = [
       <li><strong>100% Original Quality:</strong> We reset security flags without altering your document's text or images.</li>
     </ul>
   `,
-},
-    {
-  "slug": "esign-pdf-no-upload",
-  "title": "Secure E-Sign PDF (No Upload)",
-  "description": "Sign legal documents and contracts 100% privately in your browser. No server uploads, no data storage. Draw or upload your signature locally with complete privacy.",
-  "icon": "PenLine",
-  "isGenAI": false,
-  "hasOwnFaq": true,
-  "imageUrl": "/tool-previews/esign-pdf.png",
-  "content": `
+  },
+  {
+    slug: "esign-pdf-no-upload",
+    title: "Secure E-Sign PDF (No Upload)",
+    description: "Sign legal documents and contracts 100% privately in your browser. No server uploads, no data storage. Draw or upload your signature locally with complete privacy.",
+    icon: Penline,
+    isGenAI: false,
+    category: 'pdf',
+    hasOwnFaq: true,
+    imageUrl: "/tool-previews/esign-pdf.png",
+    content: `
     <h3>Legally Sign PDFs — Entirely in Your Browser</h3>
     <p>TaskGuru brings enterprise-grade electronic signatures directly to your browser with true zero-upload technology. Your contracts and sensitive documents never leave your device — everything is processed locally in your RAM.</p>
     
@@ -423,16 +446,17 @@ export const tools: Tool[] = [
       <li><strong>Instant & Efficient:</strong> Sign even large PDFs instantly with zero upload delays or latency.</li>
     </ul>
   `
-    },
-{
-  slug: "youtube-to-pdf",
-  title: "YouTube to PDF Notes Generator",
-  description: "Convert long educational YouTube videos, podcasts, and lectures into clean, readable PDF study notes instantly. No signup required.",
-  icon: Youtube,
-  isGenAI: false,
+  },
+  {
+    slug: "youtube-to-pdf",
+    title: "YouTube to PDF Notes Generator",
+    description: "Convert long educational YouTube videos, podcasts, and lectures into clean, readable PDF study notes instantly. No signup required.",
+    icon: Youtube,
+    isGenAI: false,
+    category: 'utility',
     hasOwnFaq: true,
-  isPlaceholder: false,
-},
+    isPlaceholder: false,
+  },
   {
     slug: 'youtube-thumbnail-downloader',
     title: 'YouTube Thumbnail Downloader (HD & 4K)',
@@ -440,6 +464,7 @@ export const tools: Tool[] = [
       'Download YouTube thumbnails in 1080p HD, 4K and SD quality instantly. Extract original cover images without watermark.',
     icon: Youtube,
     isGenAI: false,
+    category: 'utility',
     hasOwnFaq: true,
     isPlaceholder: false,
     imageUrl: '/tool-previews/youtube-thumbnail.png',
@@ -461,6 +486,7 @@ export const tools: Tool[] = [
       'Calculate metal weight instantly using length, width, thickness and density. Supports steel, iron, aluminum, copper and more materials.',
     icon: Calculator,
     isGenAI: false,
+    category: 'calculator',
     hasOwnFaq: true,
     isPlaceholder: false,
     imageUrl: '/tool-previews/metal-weight-calculator.png',
@@ -481,6 +507,7 @@ export const tools: Tool[] = [
       'Calculate monthly EMI for Home Loan, Car Loan, and Personal Loan. Get instant breakdown of principal and interest amounts.',
     icon: Calculator,
     isGenAI: false,
+    category: 'calculator',
     hasOwnFaq: true,
     isPlaceholder: false,
     imageUrl: '/tool-previews/emi-calculator.png',
