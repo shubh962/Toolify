@@ -5,6 +5,7 @@ import {
   Penline,
   ImageMinus,
   Minimize,
+  PenLine,
   ScanText,
   PenSquare,
   CalendarDays,
