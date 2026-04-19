@@ -29,8 +29,7 @@ import WordCounter from '@/components/tools/WordCounter';
 import PdfRedactor from '@/components/tools/PdfRedactor';
 import WordToPdf from '@/components/tools/WordToPdf';
 import InvoiceGenerator from '@/components/tools/InvoiceGenerator';
-import UnlockPdf from "@/components/tools/UnlockPdf";
-import ESignPdf from '@/components/tools/ESignPdf';
+import PdfPasswordRemover from '@/components/tools/PdfPasswordRemover';
 import { ShieldCheck, Lock, Zap } from 'lucide-react';
 
 export async function generateStaticParams() {
@@ -40,6 +39,119 @@ export async function generateStaticParams() {
       slug: tool.slug,
     }));
 }
+
+// ✅ Per-tool SEO overrides — targeting Search Console queries
+// These already include "| TaskGuru" — so we DON'T append it again
+const toolSeoOverrides: Record<string, { title: string; description: string }> = {
+  "text-paraphraser": {
+    title: "Free AI Paraphraser — Paraphrase & Humanize Text Online | TaskGuru",
+    description: "Free AI paraphrasing tool — rewrite any text instantly. Convert AI text to human text, remove plagiarism. No signup, no word limit. Used by students & professionals worldwide.",
+  },
+  "qr-barcode-generator": {
+    title: "Free QR Code Generator — Create QR Codes Instantly Online | TaskGuru",
+    description: "Generate free QR codes for URLs, WiFi, text, email & more. Also create barcodes (EAN-13, UPC, Code128). Download HD PNG. No signup, unlimited, 100% free.",
+  },
+  "ai-content-detector": {
+    title: "Free AI Content Detector — Check if Text is AI or Human Written | TaskGuru",
+    description: "Detect AI-generated text from ChatGPT, Gemini & Claude free. Check if content is AI-written or human. No signup, instant results, 100% free.",
+  },
+  "image-to-text": {
+    title: "Free Image to Text Converter (OCR) — Extract Text from Any Image | TaskGuru",
+    description: "Extract text from JPG, PNG, screenshots & scanned documents free. OCR runs in your browser — 100% private, no upload, no signup.",
+  },
+  "resume-maker": {
+    title: "Free Resume Maker — Build ATS-Friendly Resume & Download PDF | TaskGuru",
+    description: "Create a professional ATS-friendly resume free — no signup, no watermark, no paywall. Real-time ATS score. Download PDF instantly.",
+  },
+  "background-remover": {
+    title: "Free AI Background Remover — Remove Image Background Instantly | TaskGuru",
+    description: "Remove image backgrounds free using AI — no signup, no watermark, instant results. Create transparent PNGs for eCommerce, thumbnails, and social media.",
+  },
+  "image-compressor": {
+    title: "Free Image Compressor — Reduce Image Size to 20KB, 50KB, 100KB | TaskGuru",
+    description: "Compress JPG, PNG, WebP images free — reduce to exact KB without quality loss. Perfect for scholarship forms, passport photos, and websites. No signup.",
+  },
+  "pdf-to-word": {
+    title: "Free PDF to Word Converter — Convert PDF to Editable DOCX | TaskGuru",
+    description: "Convert PDF to editable Word document free — no signup, no watermark. Works in your browser on Windows, Mac, Android, iOS.",
+  },
+  "merge-pdf": {
+    title: "Free PDF Merger — Merge PDF Files Online Instantly | TaskGuru",
+    description: "Merge multiple PDF files into one free — no signup, no watermark, instant download. Drag to reorder pages. Perfect for visa, job applications.",
+  },
+  "password-generator": {
+    title: "Free Password Generator — Create Strong Secure Passwords | TaskGuru",
+    description: "Generate strong secure passwords free — 4 to 64 characters, custom symbols. Cryptographically secure. No signup, 100% private.",
+  },
+  "invoice-generator": {
+    title: "Free Invoice Generator — Create PDF Invoices Instantly | TaskGuru",
+    description: "Create professional PDF invoices free — add line items, tax (GST/VAT), payment terms. No signup, no watermark. Perfect for freelancers.",
+  },
+  "emi-calculator": {
+    title: "Free EMI Calculator — Calculate Loan EMI, Interest & Schedule | TaskGuru",
+    description: "Calculate loan EMI instantly — principal, interest rate, tenure. Monthly EMI, total interest, and payment schedule. Works for SBI, HDFC, ICICI & all banks.",
+  },
+  "word-to-pdf": {
+    title: "Free Word to PDF Converter — Convert DOCX to PDF Online | TaskGuru",
+    description: "Convert Word documents to PDF free — no Microsoft Office needed. Works in browser on Windows, Mac, iOS, Android. No signup, no watermark.",
+  },
+  "pdf-compressor": {
+    title: "Free PDF Compressor — Reduce PDF Size Without Quality Loss | TaskGuru",
+    description: "Compress PDF files free — reduce size for email, upload, and storage. No signup, instant, runs in browser. Files never uploaded to server.",
+  },
+  "split-pdf": {
+    title: "Free PDF Splitter — Split PDF Into Individual Pages Online | TaskGuru",
+    description: "Split PDF into separate pages free — download as ZIP. No signup, no watermark. Uses WebAssembly in your browser — your PDF never leaves device.",
+  },
+  "youtube-thumbnail-downloader": {
+    title: "Free YouTube Thumbnail Downloader — Download HD & 4K Thumbnails | TaskGuru",
+    description: "Download any YouTube video thumbnail free — HD, Full HD, 4K quality. Paste URL and download instantly. Works for Shorts too. No signup.",
+  },
+  "typing-speed-test": {
+    title: "Free Typing Speed Test — Check WPM & Accuracy Online | TaskGuru",
+    description: "Test your typing speed in WPM and accuracy free. Choose 30, 60, or 120 second tests. Real-time feedback. Perfect for government job exam preparation.",
+  },
+  "word-counter": {
+    title: "Free Word Counter — Count Words, Characters & Reading Time | TaskGuru",
+    description: "Count words, characters, sentences, and reading time instantly. Check keyword density and platform limits (Twitter, Instagram, LinkedIn). No signup.",
+  },
+  "pdf-redactor": {
+    title: "Free PDF Redactor — Redact & Black Out PDF Text Online | TaskGuru",
+    description: "Permanently redact sensitive text from PDFs free — draw black boxes or search text. HIPAA & GDPR compliant. 100% private, runs in browser.",
+  },
+  "age-calculator": {
+    title: "Free Age Calculator — Calculate Exact Age in Years, Months & Days | TaskGuru",
+    description: "Calculate your exact age in years, months, days, hours, and minutes. Enter date of birth and get results instantly. No signup required.",
+  },
+  "metal-weight-calculator": {
+    title: "Free Metal Weight Calculator — Steel, Aluminium, Copper & More | TaskGuru",
+    description: "Calculate metal weight online free — steel, SS, aluminium, copper, brass. 12 shapes: sheets, bars, pipes, beams. Instant results in KG/LB.",
+  },
+  "excel-to-pdf": {
+    title: "Free Excel to PDF Converter — Convert XLSX to PDF Online | TaskGuru",
+    description: "Convert Excel spreadsheets to PDF free — no Microsoft Office needed. Preview sheets, download clean PDF. 100% private, runs in browser.",
+  },
+  "pdf-to-excel": {
+    title: "Free PDF to Excel Converter — Extract Tables & Data to XLSX | TaskGuru",
+    description: "Convert PDF to Excel free — extract tables, bank statements, invoices to .xlsx instantly. Works in browser, no upload, 100% private.",
+  },
+  "image-to-pdf": {
+    title: "Free Image to PDF Converter — Convert JPG & PNG to PDF | TaskGuru",
+    description: "Convert images to PDF free — JPG, PNG, WebP supported. Instant A4 PDF download, no signup, no watermark. Your images never leave your device.",
+  },
+  "youtube-to-pdf": {
+    title: "Free YouTube to PDF Converter — Convert Video Transcripts to Notes | TaskGuru",
+    description: "Convert YouTube videos to PDF notes free — extract transcripts for studying. Perfect for students and researchers. No signup required.",
+  },
+  "unlock-pdf-no-upload": {
+    title: "Free PDF Password Remover — Remove PDF Password Instantly | TaskGuru",
+    description: "Remove password from PDF files free — no upload, no signup, no watermark. Unlock user passwords and owner restrictions in your browser. 100% private.",
+  },
+  "esign-pdf-no-upload": {
+    title: "Free E-Sign PDF Online — Sign PDF Without Uploading | TaskGuru",
+    description: "Sign PDF documents free — draw or type signature, no upload to server. Free DocuSign alternative. Legally valid in India, USA, UK, EU. No account.",
+  },
+};
 
 // ✅ Next.js 15 compatibility: params awaited
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
@@ -53,17 +165,63 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     };
   }
 
-  return {
-    title: `${tool.title} — Free Online Tool | TaskGuru`,
-    description: tool.description,
-    alternates: {
-      canonical: `https://www.taskguru.online/tools/${tool.slug}`,
+  // ✅ AUDIT FIX: Use override title directly (already has | TaskGuru)
+  // For tools without override, use tool.title + | TaskGuru (no double append)
+  const override = toolSeoOverrides[slug];
+  const finalTitle = override?.title ?? `${tool.title} | TaskGuru`;
+  const finalDesc = override?.description ?? tool.description;
+  const canonical = `https://www.taskguru.online/tools/${slug}`;
+
+  // ✅ BreadcrumbList schema for every tool page
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: "https://www.taskguru.online" },
+      { "@type": "ListItem", position: 2, name: "Tools", item: "https://www.taskguru.online/tools" },
+      { "@type": "ListItem", position: 3, name: tool.title, item: canonical },
+    ],
+  };
+
+  // ✅ SoftwareApplication schema for tool pages
+  const appSchema = {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    name: finalTitle.replace(" | TaskGuru", ""),
+    url: canonical,
+    applicationCategory: "WebApplication",
+    operatingSystem: "All",
+    offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+    description: finalDesc,
+    publisher: {
+      "@type": "Organization",
+      name: "TaskGuru",
+      url: "https://www.taskguru.online",
     },
+  };
+
+  return {
+    // ✅ AUDIT FIX: No duplicate | TaskGuru — override already has it
+    title: finalTitle,
+    description: finalDesc,
+    keywords: `${tool.title.toLowerCase()}, free, online, no signup, taskguru`,
+    alternates: { canonical },
     openGraph: {
-      title: `${tool.title} — Free Online Tool | TaskGuru`,
-      description: tool.description,
+      title: finalTitle,
+      description: finalDesc,
       type: "website",
-      url: `https://www.taskguru.online/tools/${tool.slug}`,
+      url: canonical,
+      siteName: "TaskGuru",
+      images: [{ url: "https://www.taskguru.online/og-image.png", width: 1200, height: 630 }],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: finalTitle,
+      description: finalDesc,
+      site: "@Shubham_962",
+    },
+    other: {
+      "application/ld+json": JSON.stringify([breadcrumbSchema, appSchema]),
     },
   };
 }
@@ -92,9 +250,8 @@ const toolComponentMap: { [key: string]: React.ComponentType<any> } = {
   "pdf-compressor": PdfCompressor,
   "word-counter": WordCounter,
   "pdf-redactor": PdfRedactor,
-  "unlock-pdf-no-upload": UnlockPdf,
-  "esign-pdf-no-upload": ESignPdf,
   "invoice-generator": InvoiceGenerator,
+  "pdf-password-remover": PdfPasswordRemover,
 };
 
 // ✅ Next.js 15 compatibility: params awaited
@@ -109,6 +266,22 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
   return (
     <main className="flex-1 pt-32 pb-12 md:pt-40 md:pb-16 min-h-screen">
       <div className="container mx-auto px-6">
+
+        {/* ✅ AUDIT FIX: Inline schema scripts for crawlers */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "BreadcrumbList",
+              itemListElement: [
+                { "@type": "ListItem", position: 1, name: "Home", item: "https://www.taskguru.online" },
+                { "@type": "ListItem", position: 2, name: "Free Tools", item: "https://www.taskguru.online/tools" },
+                { "@type": "ListItem", position: 3, name: tool.title, item: `https://www.taskguru.online/tools/${tool.slug}` },
+              ],
+            }),
+          }}
+        />
 
         {/* Title Section */}
         <div className="text-center mb-12 animate-in fade-in slide-in-from-bottom-4 duration-700">
@@ -258,4 +431,4 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
       <MoreTools />
     </main>
   );
-              }
+}
