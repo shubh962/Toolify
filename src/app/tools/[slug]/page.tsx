@@ -41,7 +41,6 @@ export async function generateStaticParams() {
 }
 
 // ✅ Per-tool SEO overrides — targeting Search Console queries
-// These already include "| TaskGuru" — so we DON'T append it again
 const toolSeoOverrides: Record<string, { title: string; description: string }> = {
   "text-paraphraser": {
     title: "Free AI Paraphraser — Paraphrase & Humanize Text Online | TaskGuru",
@@ -153,7 +152,6 @@ const toolSeoOverrides: Record<string, { title: string; description: string }> =
   },
 };
 
-// ✅ Next.js 15 compatibility: params awaited
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const tool = tools.find((t) => t.slug === slug);
@@ -165,14 +163,11 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     };
   }
 
-  // ✅ AUDIT FIX: Use override title directly (already has | TaskGuru)
-  // For tools without override, use tool.title + | TaskGuru (no double append)
   const override = toolSeoOverrides[slug];
   const finalTitle = override?.title ?? `${tool.title} | TaskGuru`;
   const finalDesc = override?.description ?? tool.description;
   const canonical = `https://www.taskguru.online/tools/${slug}`;
 
-  // ✅ BreadcrumbList schema for every tool page
   const breadcrumbSchema = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
@@ -183,7 +178,6 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     ],
   };
 
-  // ✅ SoftwareApplication schema for tool pages
   const appSchema = {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
@@ -201,7 +195,6 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   };
 
   return {
-    // ✅ AUDIT FIX: No duplicate | TaskGuru — override already has it
     title: finalTitle,
     description: finalDesc,
     keywords: `${tool.title.toLowerCase()}, free, online, no signup, taskguru`,
@@ -254,7 +247,6 @@ const toolComponentMap: { [key: string]: React.ComponentType<any> } = {
   "unlock-pdf-no-upload": UnlockPdf,
 };
 
-// ✅ Next.js 15 compatibility: params awaited
 export default async function ToolPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const tool = tools.find((t) => t.slug === slug);
@@ -263,11 +255,22 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
     notFound();
   }
 
+  // ADDED: Related tools logic
+  const relatedToolsRaw = tools.filter(
+    (t) => t.slug !== tool.slug && t.category === tool.category
+  );
+
+  const relatedTools =
+    relatedToolsRaw.length >= 3
+      ? relatedToolsRaw.slice(0, 5)
+      : tools
+          .filter((t) => t.slug !== tool.slug)
+          .slice(0, 5);
+
   return (
     <main className="flex-1 pt-32 pb-12 md:pt-40 md:pb-16 min-h-screen">
       <div className="container mx-auto px-6">
 
-        {/* ✅ AUDIT FIX: Inline schema scripts for crawlers */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -283,7 +286,6 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
           }}
         />
 
-        {/* Title Section */}
         <div className="text-center mb-12 animate-in fade-in slide-in-from-bottom-4 duration-700">
           <h1 className="text-3xl md:text-5xl font-extrabold font-headline tracking-tight text-foreground">
             {tool.title}
@@ -304,7 +306,6 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
           </div>
         </div>
 
-        {/* Tool Render Section */}
         <div className="min-h-[400px] mb-20">
           {tool.slug === "resume-maker" ? (
             <ResumeMakerFlow />
@@ -323,11 +324,8 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
           )}
         </div>
 
-        {/* ✅ SEO Content — only shown for tools WITHOUT their own rich content */}
         {!tool.hasOwnFaq && (
           <div className="max-w-4xl mx-auto py-12 border-t mt-12">
-
-            {/* tool.content from tools.ts (if defined) */}
             {'content' in tool && tool.content && (
               <div
                 className="text-base text-muted-foreground leading-relaxed space-y-4 mb-16 [&_h2]:text-xl [&_h2]:font-bold [&_h2]:text-foreground [&_h3]:text-lg [&_h3]:font-semibold [&_h3]:text-foreground [&_strong]:text-foreground [&_ul]:list-disc [&_ul]:pl-5 [&_ol]:list-decimal [&_ol]:pl-5"
@@ -335,7 +333,6 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
               />
             )}
 
-            {/* Trust Signals */}
             <div className="grid md:grid-cols-2 gap-8 mb-16">
               <div className="bg-slate-50 dark:bg-slate-900 p-8 rounded-2xl">
                 <h3 className="text-xl font-bold mb-4 flex items-center gap-2">
@@ -363,7 +360,6 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
               </div>
             </div>
 
-            {/* How-To Guide */}
             <div className="space-y-6">
               <h2 className="text-2xl font-bold text-foreground">
                 How to use {tool.title} online?
@@ -384,7 +380,6 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
               </div>
             </div>
 
-            {/* Generic FAQ — accordion format */}
             <div className="mt-16 space-y-4">
               <h2 className="text-2xl font-bold text-foreground">
                 Frequently Asked Questions
@@ -422,6 +417,26 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
                   </details>
                 ))}
               </div>
+            </div>
+
+            {/* ADDED: Related Tools Section */}
+            <div className="mt-12 border-t pt-8">
+              <h3 className="text-xl font-bold mb-4">
+                Related Tools
+              </h3>
+
+              <ul className="grid grid-cols-2 md:grid-cols-3 gap-3">
+                {relatedTools.map((t) => (
+                  <li key={t.slug}>
+                    <Link
+                      href={`/tools/${t.slug}`}
+                      className="block p-3 border rounded-xl hover:bg-gray-50 dark:hover:bg-gray-900 transition"
+                    >
+                      {t.title}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
             </div>
 
           </div>
