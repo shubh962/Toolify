@@ -29,7 +29,7 @@ import WordCounter from '@/components/tools/WordCounter';
 import PdfRedactor from '@/components/tools/PdfRedactor';
 import WordToPdf from '@/components/tools/WordToPdf';
 import InvoiceGenerator from '@/components/tools/InvoiceGenerator';
-import PdfPasswordRemover from '@/components/tools/PdfPasswordRemover';
+import UnlockPdf from "@/components/tools/UnlockPdf";
 import { ShieldCheck, Lock, Zap } from 'lucide-react';
 
 export async function generateStaticParams() {
@@ -251,7 +251,7 @@ const toolComponentMap: { [key: string]: React.ComponentType<any> } = {
   "word-counter": WordCounter,
   "pdf-redactor": PdfRedactor,
   "invoice-generator": InvoiceGenerator,
-  "pdf-password-remover": PdfPasswordRemover,
+  "pdf-password-remover": UnlockPdf,
 };
 
 // ✅ Next.js 15 compatibility: params awaited
