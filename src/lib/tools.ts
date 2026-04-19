@@ -432,7 +432,7 @@ export const tools: Tool[] = [
     slug: "esign-pdf-no-upload",
     title: "Secure E-Sign PDF (No Upload)",
     description: "Sign legal documents and contracts 100% privately in your browser. No server uploads, no data storage. Draw or upload your signature locally with complete privacy.",
-    icon: Penline,
+    icon: PenLine,
     isGenAI: false,
     category: 'pdf',
     hasOwnFaq: true,
