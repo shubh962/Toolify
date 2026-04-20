@@ -30,6 +30,7 @@ import PdfRedactor from '@/components/tools/PdfRedactor';
 import WordToPdf from '@/components/tools/WordToPdf';
 import InvoiceGenerator from '@/components/tools/InvoiceGenerator';
 import UnlockPdf from "@/components/tools/UnlockPdf";
+import PdfEditorPro from '@/components/tools/PdfEditorPro';
 import { ShieldCheck, Lock, Zap } from 'lucide-react';
 
 export async function generateStaticParams() {
@@ -245,6 +246,7 @@ const toolComponentMap: { [key: string]: React.ComponentType<any> } = {
   "pdf-redactor": PdfRedactor,
   "invoice-generator": InvoiceGenerator,
   "unlock-pdf-no-upload": UnlockPdf,
+  "pdf-editor-pro": PdfEditorPro,
 };
 
 export default async function ToolPage({ params }: { params: Promise<{ slug: string }> }) {
