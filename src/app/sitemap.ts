@@ -58,6 +58,7 @@ const toolSlugs = [
   "unlock-pdf-no-upload",
   "esign-pdf-no-upload",
   "invoice-generator",
+  "pdf-editor-pro",
 ];
 
 const staticPages = [
