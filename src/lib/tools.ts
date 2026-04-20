@@ -226,6 +226,28 @@ export const tools: Tool[] = [
     content: '',
   },
   {
+    slug: 'pdf-editor-pro',
+    title: 'Free Online PDF Editor — Edit PDF Text No Watermark',
+    description: 'Edit PDF text free online using same font matching. Erase content, add images, and sign documents 100% privately in your browser. No signup, no watermark, no upload.',
+    icon: PenLine,
+    isGenAI: false,
+    category: 'pdf',
+    hasOwnFaq: true,
+    content: `
+      <h2>The Best Free Online PDF Editor No Sign Up</h2>
+      <p>TaskGuru offers a professional <strong>free PDF editor online</strong> that works directly in your browser. Unlike other "giants" that require file uploads, our tool uses <strong>client-side WebAssembly</strong> to ensure your data never leaves your device.</p>
+      
+      <h3>Key Features for 2026:</h3>
+      <ul>
+        <li><strong>Edit PDF Text Same Font:</strong> Detect original fonts for seamless text editing.</li>
+        <li><strong>Free PDF Editor No Watermark:</strong> Export professional documents without branding.</li>
+        <li><strong>Erase PDF Content:</strong> Permanently white-out or mask sensitive information.</li>
+        <li><strong>Fill and Sign PDF Forms:</strong> Add electronic signatures without an account.</li>
+      </ul>
+      <p>Our <strong>no-upload PDF technology</strong> provides a secure, private, and <strong>HIPAA-compliant PDF workflow</strong>.</p>
+    `,
+  },
+  {
     slug: 'merge-pdf',
     title: 'Merge PDF Files Online (Free PDF Combiner)',
     description:
