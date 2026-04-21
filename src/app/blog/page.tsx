@@ -44,6 +44,15 @@ const posts = [
     featured: true,
   },
   {
+    title: "How to Create a Free QR Code in 2 Seconds — No App, No Signup",
+    slug: "how-to-create-free-qr-code",
+    summary: "Step-by-step guide to creating QR codes for URLs, WiFi, and more.",
+    date: "2026-04-19",
+    readTime: "6 min read",
+    category: "QR Codes",
+    featured: true,
+  },
+  {
   slug: "how-to-create-invoice-free",
   title: "How to Create a Professional Invoice for Free (2026 Guide)",
   summary: "Everything freelancers and small businesses need to know — what to include, tax rates for USA, UK, Canada and Australia, payment terms, and how to get paid faster.",
