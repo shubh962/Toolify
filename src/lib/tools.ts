@@ -524,6 +524,24 @@ export const tools: Tool[] = [
     `,
   },
   {
+    slug: 'credit-card-eligibility-checker',
+    title: 'Smart Credit Card Eligibility Tool — Check Approval Instantly',
+    description: 'Check your credit card eligibility online in seconds without affecting your credit score. Get instant matching for travel, cashback, and student cards based on your profile.',
+    icon: Calculator,
+    isGenAI: false,
+    category: 'calculator',
+    hasOwnFaq: true,
+    content: `
+      <h2>Check Credit Card Odds with 90%+ Accuracy</h2>
+      <p>Our <strong>credit card eligibility checker</strong> analyzes your financial profile against 2026 banking criteria to predict your approval probability without a hard credit pull.</p>
+      <ul>
+        <li><strong>No Credit Score Impact:</strong> We use soft-search technology to keep your report safe.</li>
+        <li><strong>Instant Approval Odds:</strong> See which cards you qualify for instantly for travel, rewards, or cashback.</li>
+        <li><strong>Global Standards:</strong> Matches your income level to the best available banking products.</li>
+      </ul>
+    `,
+  },
+  {
     slug: 'emi-calculator',
     title: 'Loan EMI Calculator',
     description:
