@@ -153,6 +153,11 @@ export default function RootLayout({
           {`window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-XE6BHLH4J6');`}
         </Script>
 
+        {/* 👇 Popunder (add here) */}
+<Script
+  src="https://pl29209918.profitablecpmratenetwork.com/xxxx.js"
+  strategy="afterInteractive"
+/>
         {/* ── ADSENSE ── */}
         <Script
           async
