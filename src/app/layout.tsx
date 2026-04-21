@@ -221,7 +221,7 @@ export default function RootLayout({
             className="flex md:hidden justify-center items-center bg-gray-50/60 dark:bg-gray-900/60 border-b border-gray-100 dark:border-gray-800"
             style={{ minHeight: "58px" }}
           >
-            <Script id="adsterra-mobile" strategy="afterInteractive">
+            <Script id="adsterra-mobile" strategy="lazyOnload">
               {`atOptions={'key':'8cb3dbb1415fe81d88c9fd2790183227','format':'iframe','height':50,'width':320,'params':{}};`}
             </Script>
             <Script
