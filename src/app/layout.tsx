@@ -155,7 +155,7 @@ export default function RootLayout({
 
         {/* 👇 Popunder (add here) */}
 <Script
-  src="https://pl29209918.profitablecpmratenetwork.com/xxxx.js"
+  src="https://pl29209918.profitablecpmratenetwork.com/27/ef/d9/27efd9b5d96e77f31282f288b5d9ca58.js"
   strategy="afterInteractive"
 />
         {/* ── ADSENSE ── */}
