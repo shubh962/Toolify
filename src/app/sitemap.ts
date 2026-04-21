@@ -59,6 +59,7 @@ const toolSlugs = [
   "esign-pdf-no-upload",
   "invoice-generator",
   "pdf-editor-pro",
+  "credit-card-eligibility-checker",
 ];
 
 const staticPages = [
