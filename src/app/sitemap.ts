@@ -31,6 +31,7 @@ const blogSlugs = [
   "how-to-create-invoice-free",
   "how-to-create-free-qr-code",
   "how-to-paraphrase-text-free",
+  "how-to-remove-plagiarism-free",
 ];
 const toolSlugs = [
   "background-remover",
