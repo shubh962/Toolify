@@ -30,6 +30,7 @@ const blogSlugs = [
   "how-to-make-ai-text-undetectable-free-2026",
   "how-to-create-invoice-free",
   "how-to-create-free-qr-code",
+  "how-to-paraphrase-text-free",
 ];
 const toolSlugs = [
   "background-remover",
