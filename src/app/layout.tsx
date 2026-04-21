@@ -201,12 +201,12 @@ export default function RootLayout({
             className="hidden md:flex justify-center items-center bg-gray-50/60 dark:bg-gray-900/60 border-b border-gray-100 dark:border-gray-800"
             style={{ minHeight: "106px" }}
           >
-            <Script id="adsterra-desktop" strategy="afterInteractive">
+            <Script id="adsterra-desktop" strategy="lazyOnload">
               {`atOptions={'key':'fb655d1f226a75af352c670dc47cb003','format':'iframe','height':90,'width':728,'params':{}};`}
             </Script>
             <Script
               src="https://www.highperformanceformat.com/fb655d1f226a75af352c670dc47cb003/invoke.js"
-              strategy="afterInteractive"
+              strategy="lazyOnload"
             />
           </div>
 
