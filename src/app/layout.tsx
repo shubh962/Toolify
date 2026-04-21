@@ -204,6 +204,7 @@ export default function RootLayout({
             <Script id="adsterra-desktop" strategy="lazyOnload">
               {`atOptions={'key':'fb655d1f226a75af352c670dc47cb003','format':'iframe','height':90,'width':728,'params':{}};`}
             </Script>
+            
             <Script
               src="https://www.highperformanceformat.com/fb655d1f226a75af352c670dc47cb003/invoke.js"
               strategy="lazyOnload"
@@ -224,9 +225,10 @@ export default function RootLayout({
             <Script id="adsterra-mobile" strategy="lazyOnload">
               {`atOptions={'key':'8cb3dbb1415fe81d88c9fd2790183227','format':'iframe','height':50,'width':320,'params':{}};`}
             </Script>
+            
             <Script
               src="https://www.highperformanceformat.com/8cb3dbb1415fe81d88c9fd2790183227/invoke.js"
-              strategy="afterInteractive"
+              strategy="lazyOnload"
             />
           </div>
 
