@@ -172,7 +172,10 @@ export default function RootLayout({
           src="https://pl27365402.profitablecpmratenetwork.com/ae/52/0f/ae520f3c967ee911772a55229589d894.js"
           strategy="lazyOnload"
         />
-
+<Script 
+  src="/adController.js" 
+  strategy="afterInteractive" 
+/>
         {/* ── JSON-LD ── */}
         <Script
           id="ld-json"
