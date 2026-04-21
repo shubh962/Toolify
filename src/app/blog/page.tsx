@@ -44,6 +44,15 @@ const posts = [
     featured: true,
   },
   {
+  title: "How to Paraphrase Text Properly — Without Sounding Robotic",
+  slug: "how-to-paraphrase-text-free",
+  summary: "Step-by-step guide to paraphrasing text naturally without plagiarism.",
+  date: "2026-04-19",
+  readTime: "8 min read",
+  category: "Writing Guide",
+  featured: true,
+  },
+  {
     title: "How to Create a Free QR Code in 2 Seconds — No App, No Signup",
     slug: "how-to-create-free-qr-code",
     summary: "Step-by-step guide to creating QR codes for URLs, WiFi, and more.",
