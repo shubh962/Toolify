@@ -31,6 +31,7 @@ import WordToPdf from '@/components/tools/WordToPdf';
 import InvoiceGenerator from '@/components/tools/InvoiceGenerator';
 import UnlockPdf from "@/components/tools/UnlockPdf";
 import PdfEditorPro from '@/components/tools/PdfEditorPro';
+import CreditCardEligibility from '@/components/tools/CreditCardEligibility';
 import { ShieldCheck, Lock, Zap } from 'lucide-react';
 
 export async function generateStaticParams() {
@@ -247,6 +248,7 @@ const toolComponentMap: { [key: string]: React.ComponentType<any> } = {
   "invoice-generator": InvoiceGenerator,
   "unlock-pdf-no-upload": UnlockPdf,
   "pdf-editor-pro": PdfEditorPro,
+  "credit-card-eligibility-checker": CreditCardEligibility,
 };
 
 export default async function ToolPage({ params }: { params: Promise<{ slug: string }> }) {
