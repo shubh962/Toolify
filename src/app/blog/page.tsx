@@ -44,6 +44,15 @@ const posts = [
     featured: true,
   },
   {
+  title: "How to Remove Plagiarism From Your Essay — Methods That Actually Work",
+  slug: "how-to-remove-plagiarism-free",
+  summary: "Learn how to reduce similarity score and remove plagiarism using real methods.",
+  date: "2026-04-19",
+  readTime: "7 min read",
+  category: "Plagiarism Guide",
+  featured: true,
+  },
+  {
   title: "How to Paraphrase Text Properly — Without Sounding Robotic",
   slug: "how-to-paraphrase-text-free",
   summary: "Step-by-step guide to paraphrasing text naturally without plagiarism.",
