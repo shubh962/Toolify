@@ -1,9 +1,5 @@
 "use client";
 
-// src/components/StickyAdBanner.tsx
-// ✅ "use client" — required for onClick in Next.js App Router
-// This is a separate client component so layout.tsx stays a Server Component
-
 import { useState, useEffect } from "react";
 import Script from "next/script";
 
@@ -11,7 +7,6 @@ export default function StickyAdBanner() {
   const [visible, setVisible] = useState(true);
   const [mounted, setMounted] = useState(false);
 
-  // Avoid hydration mismatch — only render after moun
   useEffect(() => {
     setMounted(true);
   }, []);
@@ -20,20 +15,15 @@ export default function StickyAdBanner() {
 
   return (
     <>
-      {/* ── STICKY BOTTOM MOBILE BANNER (320×50) ─────────────────────
-          Type: Sticky banner — $0.726 CPM — HIGHEST REVENUE placement
-          Shows: Fixed bottom — mobile only (md:hidden)
-          Compliant: Close button + safe-area-inset for iPhone notch
-      ───────────────────────────────────────────────────────────── */}
+      {/* ── MOBILE BANNER (320×50) — NOW NON-STICKY ───────────────────── */}
       <div
-        className="fixed bottom-0 left-0 right-0 z-40 flex md:hidden justify-center items-end bg-white dark:bg-gray-950 border-t border-gray-200 dark:border-gray-800 shadow-[0_-4px_24px_rgba(0,0,0,0.08)]"
+        className="w-full flex md:hidden justify-center items-center my-6 bg-white dark:bg-gray-950 border border-gray-200 dark:border-gray-800 rounded-xl shadow-sm relative"
         style={{
           minHeight: "62px",
-          paddingBottom: "env(safe-area-inset-bottom, 0px)",
         }}
         aria-label="Advertisement"
       >
-        {/* Close button — required for Google policy compliance on sticky ads */}
+        {/* Close button (still working) */}
         <button
           aria-label="Close advertisement"
           onClick={() => setVisible(false)}
@@ -41,6 +31,11 @@ export default function StickyAdBanner() {
         >
           ✕
         </button>
+
+        {/* Optional label (CTR boost) */}
+        <p className="absolute -top-5 text-[10px] text-gray-400 uppercase tracking-widest font-bold">
+          Sponsored
+        </p>
 
         {/* 320×50 banner */}
         <div
