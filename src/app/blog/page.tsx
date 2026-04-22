@@ -36,6 +36,15 @@ const categoryColors: Record<string, string> = {
 const posts = [
   // ✅ Founder story — earliest, most personal
   {
+  title: "How to Compress PDF File Size Free — Reduce to Any Limit",
+  slug: "how-to-compress-pdf-free",
+  summary: "Compress PDF files instantly to meet size limits like 200KB or 1MB.",
+  date: "2026-04-22",
+  readTime: "6 min read",
+  category: "PDF Tools",
+  featured: true,
+  },
+  {
   title: "How to Merge PDF Files Free — Combine PDFs in Seconds",
   slug: "how-to-merge-pdf-files-free",
   summary: "Combine multiple PDFs into one file instantly — no watermark, no signup.",
