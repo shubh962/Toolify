@@ -197,43 +197,81 @@ export default function RootLayout({
               UX: Contained with min-height → no layout shift (CLS=0)
               Load: afterInteractive — after hydration, before scroll
           ───────────────────────────────────────────────────────────── */}
+          {/* ── AD 2: DESKTOP LEADERBOARD (728×90) ───────────────────────
+              CPM: $0.724 — same as mobile but only 19 impressions
+              Fix: Load strategy changed to afterInteractive (was lazyOnload)
+              This ensures it renders BEFORE user scrolls away
+          ───────────────────────────────────────────────────────────── */}
           <div
             className="hidden md:flex justify-center items-center bg-gray-50/60 dark:bg-gray-900/60 border-b border-gray-100 dark:border-gray-800"
             style={{ minHeight: "106px" }}
           >
-            <Script id="adsterra-desktop" strategy="lazyOnload">
+            <Script id="adsterra-desktop" strategy="afterInteractive">
               {`atOptions={'key':'fb655d1f226a75af352c670dc47cb003','format':'iframe','height':90,'width':728,'params':{}};`}
             </Script>
-            
             <Script
               src="https://www.highperformanceformat.com/fb655d1f226a75af352c670dc47cb003/invoke.js"
-              strategy="lazyOnload"
+              strategy="afterInteractive"
             />
           </div>
 
-          {/* ── AD 3: MOBILE BANNER (320×50) ─────────────────────────────
-              Type: Banner
+          {/* ── AD 3: MOBILE BANNER (320×50) — BELOW HEADER ──────────────
+              Type: Banner — HIGHEST REVENUE ($0.726 CPM, $0.71/day)
               Shows: Below header — mobile only
-              Why here: Equivalent of desktop leaderboard for mobile
               UX: Slim 50px bar — minimal intrusion
-              Load: afterInteractive
           ───────────────────────────────────────────────────────────── */}
           <div
             className="flex md:hidden justify-center items-center bg-gray-50/60 dark:bg-gray-900/60 border-b border-gray-100 dark:border-gray-800"
             style={{ minHeight: "58px" }}
           >
-            <Script id="adsterra-mobile" strategy="lazyOnload">
+            <Script id="adsterra-mobile-top" strategy="afterInteractive">
               {`atOptions={'key':'8cb3dbb1415fe81d88c9fd2790183227','format':'iframe','height':50,'width':320,'params':{}};`}
             </Script>
-            
             <Script
               src="https://www.highperformanceformat.com/8cb3dbb1415fe81d88c9fd2790183227/invoke.js"
-              strategy="lazyOnload"
+              strategy="afterInteractive"
             />
           </div>
 
+          {/* ── AD 3B: MOBILE STICKY BOTTOM BANNER (320×50) ───────────────
+              Type: Sticky bottom banner — HIGHEST CPM placement
+              Shows: Fixed at bottom of viewport — mobile only (md:hidden)
+              Why: User scrolls past top banner — sticky ensures permanent visibility
+              Revenue impact: Same $0.726 CPM but 3-5x more impressions
+              UX: Dismissible with close button — Google-policy compliant
+              Padding: 62px added to main so content isn't hidden behind sticky bar
+          ───────────────────────────────────────────────────────────── */}
+          <div
+            id="adsterra-sticky-mobile"
+            className="fixed bottom-0 left-0 right-0 z-40 flex md:hidden justify-center items-end bg-white dark:bg-gray-950 border-t border-gray-200 dark:border-gray-800 shadow-[0_-4px_24px_rgba(0,0,0,0.08)]"
+            style={{ minHeight: "62px", paddingBottom: "env(safe-area-inset-bottom)" }}
+          >
+            {/* Close button — required for Google AdSense compliance */}
+            <button
+              aria-label="Close ad"
+              onClick={() => {
+                const el = document.getElementById("adsterra-sticky-mobile");
+                if (el) el.style.display = "none";
+                document.documentElement.style.setProperty("--sticky-ad-height", "0px");
+              }}
+              className="absolute top-1 right-2 w-5 h-5 flex items-center justify-center text-[10px] text-gray-400 hover:text-gray-600 bg-gray-100 dark:bg-gray-800 rounded-full leading-none font-bold z-50"
+            >
+              ✕
+            </button>
+            <div className="flex items-center justify-center w-full" style={{ minHeight: "50px" }}>
+              <Script id="adsterra-mobile-sticky" strategy="lazyOnload">
+                {`atOptions={'key':'8cb3dbb1415fe81d88c9fd2790183227','format':'iframe','height':50,'width':320,'params':{}};`}
+              </Script>
+              <Script
+                src="https://www.highperformanceformat.com/8cb3dbb1415fe81d88c9fd2790183227/invoke.js"
+                strategy="lazyOnload"
+              />
+            </div>
+          </div>
+
           {/* ── MAIN CONTENT — clean, no ads ── */}
-          <main className="flex-1">{children}</main>
+          {/* pb-16 md:pb-0 — adds 64px padding-bottom on mobile to prevent sticky banner from covering content */}
+          <main className="flex-1 pb-16 md:pb-0">{children}</main>
 
           {/* ── AD 4: NATIVE BANNER ───────────────────────────────────────
               Type: Native (blends with content)
