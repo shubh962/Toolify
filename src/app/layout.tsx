@@ -254,6 +254,15 @@ export default function RootLayout({
           <Toaster />
           <GlobalShare />
 
+          {/* ── AD: POPUNDER ── */}
+          {/* Is jagah rakhne se script sabse last mein execute hogi 
+              aur auto-redirect ke chances kam ho jayenge */}
+          <Script
+            id="adsterra-popunder"
+            src="https://pl29209918.profitablecpmratenetwork.com/27/ef/d9/27efd9b5d96e77f31282f288b5d9ca58.js"
+            strategy="lazyOnload" 
+          />
+
           {/* ── FOOTER ── */}
           <footer className="py-20 bg-gray-50/50 dark:bg-gray-900/50 border-t border-gray-200 dark:border-gray-800">
             <div className="container mx-auto px-6">
