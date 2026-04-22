@@ -5,6 +5,7 @@ import Header from "@/components/Header";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import GlobalShare from "@/components/GlobalShare";
+import StickyAdBanner from "@/components/StickyAdBanner";
 import {
   Dialog,
   DialogContent,
