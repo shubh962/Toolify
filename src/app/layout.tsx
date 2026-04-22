@@ -189,7 +189,7 @@ export default function RootLayout({
               </Script>
               <Script
                 src="https://www.highperformanceformat.com/fb655d1f226a75af352c670dc47cb003/invoke.js"
-                strategy="lazyOnload"
+               
               />
             </div>
           </div>
