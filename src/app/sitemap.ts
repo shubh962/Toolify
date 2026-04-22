@@ -32,6 +32,7 @@ const blogSlugs = [
   "how-to-create-free-qr-code",
   "how-to-paraphrase-text-free",
   "how-to-remove-plagiarism-free",
+  "how-to-sign-pdf-online-free",
 ];
 const toolSlugs = [
   "background-remover",
