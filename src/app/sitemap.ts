@@ -35,6 +35,7 @@ const blogSlugs = [
   "how-to-sign-pdf-online-free",
   "how-to-remove-background-from-image-free",
   "how-to-merge-pdf-files-free",
+  "how-to-compress-pdf-free",
 ];
 const toolSlugs = [
   "background-remover",
