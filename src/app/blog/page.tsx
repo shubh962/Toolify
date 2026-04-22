@@ -36,6 +36,15 @@ const categoryColors: Record<string, string> = {
 const posts = [
   // ✅ Founder story — earliest, most personal
   {
+  title: "How to Sign a PDF Online Free — No Adobe, No DocuSign",
+  slug: "how-to-sign-pdf-online-free",
+  summary: "Sign PDFs online for free using your browser — no signup, no upload required.",
+  date: "2026-04-22",
+  readTime: "7 min read",
+  category: "PDF Tools",
+  featured: true,
+  },
+  {
   slug: "how-to-make-ai-text-undetectable-free-2026",
   title: "How to Make AI Text Undetectable for Free (Pass Turnitin in 2026)",
   summary: "A practical guide to humanizing AI-generated text so it passes Turnitin, GPTZero, and other detectors — using free tools, real examples, and simple steps that actually work.",
