@@ -36,6 +36,15 @@ const categoryColors: Record<string, string> = {
 const posts = [
   // ✅ Founder story — earliest, most personal
   {
+  title: "How to Merge PDF Files Free — Combine PDFs in Seconds",
+  slug: "how-to-merge-pdf-files-free",
+  summary: "Combine multiple PDFs into one file instantly — no watermark, no signup.",
+  date: "2026-04-22",
+  readTime: "5 min read",
+  category: "PDF Tools",
+  featured: true,
+  },
+  {
   title: "How to Remove Background From Image Free — AI in Seconds",
   slug: "how-to-remove-background-from-image-free",
   summary: "Remove photo backgrounds instantly using AI — no Photoshop required.",
