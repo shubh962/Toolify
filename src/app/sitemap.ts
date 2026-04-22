@@ -34,6 +34,7 @@ const blogSlugs = [
   "how-to-remove-plagiarism-free",
   "how-to-sign-pdf-online-free",
   "how-to-remove-background-from-image-free",
+  "how-to-merge-pdf-files-free",
 ];
 const toolSlugs = [
   "background-remover",
