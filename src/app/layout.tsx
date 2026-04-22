@@ -5,7 +5,6 @@ import Header from "@/components/Header";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import GlobalShare from "@/components/GlobalShare";
-import StickyAdBanner from "@/components/StickyAdBanner";
 import {
   Dialog,
   DialogContent,
@@ -150,11 +149,6 @@ export default function RootLayout({
           src="https://www.googletagmanager.com/gtag/js?id=G-XE6BHLH4J6"
           strategy="afterInteractive"
         />
-        {/*popunder ad */}
-        <Script
-  src="https://pl29209918.profitablecpmratenetwork.com/27/ef/d9/27efd9b5d96e77f31282f288b5d9ca58.js"
-  strategy="afterInteractive"
-/>
         <Script id="google-analytics" strategy="afterInteractive">
           {`window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-XE6BHLH4J6');`}
         </Script>
@@ -232,11 +226,7 @@ export default function RootLayout({
           </div>
 
           {/* ── MAIN CONTENT — clean, no ads ── */}
-          <main className="flex-1">
-  {children}
-
-  <StickyAdBanner />
-</main>
+          <main className="flex-1">{children}</main>
 
           {/* ── AD 4: NATIVE BANNER ───────────────────────────────────────
               Type: Native (blends with content)
@@ -451,4 +441,4 @@ export default function RootLayout({
       </body>
     </html>
   );
-                      }
+}
