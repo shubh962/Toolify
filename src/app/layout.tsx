@@ -231,7 +231,11 @@ export default function RootLayout({
           </div>
 
           {/* ── MAIN CONTENT — clean, no ads ── */}
-          <main className="flex-1">{children}</main>
+          <main className="flex-1">
+  {children}
+
+  <StickyAdBanner />
+</main>
 
           {/* ── AD 4: NATIVE BANNER ───────────────────────────────────────
               Type: Native (blends with content)
