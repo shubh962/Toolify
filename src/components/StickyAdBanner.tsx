@@ -11,7 +11,7 @@ export default function StickyAdBanner() {
   const [visible, setVisible] = useState(true);
   const [mounted, setMounted] = useState(false);
 
-  // Avoid hydration mismatch — only render after mount
+  // Avoid hydration mismatch — only render after moun
   useEffect(() => {
     setMounted(true);
   }, []);
