@@ -179,8 +179,8 @@ export default function RootLayout({
 
           {/* ── AD 1: DESKTOP LEADERBOARD (728×90) MOVED HERE ── */}
           <div
-            className="hidden md:flex flex-col items-center justify-center w-full bg-gray-50/60 dark:bg-gray-900/60 border-b border-gray-100 dark:border-gray-800 py-4"
-            style={{ minHeight: "125px" }}
+            className="hidden md:flex flex-col items-center justify-center w-full bg-gray-50/60 dark:bg-gray-900/60 border-b border-gray-100 dark:border-gray-800 mt-20"
+            style={{ minHeight: "135px" }}
           >
             <p className="text-[10px] text-gray-400 uppercase tracking-[0.3em] font-bold mb-2">Advertisement</p>
             <div className="flex justify-center items-center">
