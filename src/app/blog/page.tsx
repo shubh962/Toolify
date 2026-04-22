@@ -36,6 +36,15 @@ const categoryColors: Record<string, string> = {
 const posts = [
   // ✅ Founder story — earliest, most personal
   {
+  title: "How to Remove Background From Image Free — AI in Seconds",
+  slug: "how-to-remove-background-from-image-free",
+  summary: "Remove photo backgrounds instantly using AI — no Photoshop required.",
+  date: "2026-04-22",
+  readTime: "6 min read",
+  category: "Image Tools",
+  featured: true,
+  },
+  {
   title: "How to Sign a PDF Online Free — No Adobe, No DocuSign",
   slug: "how-to-sign-pdf-online-free",
   summary: "Sign PDFs online for free using your browser — no signup, no upload required.",
