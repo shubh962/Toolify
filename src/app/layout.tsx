@@ -143,7 +143,8 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning className={sora.variable}>
       <body className="font-sans antialiased min-h-screen flex flex-col bg-white dark:bg-gray-950 selection:bg-blue-600 selection:text-white">
-        {/* ANALYTICS & ADSENSE */}
+
+        {/* ── ANALYTICS ── */}
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-XE6BHLH4J6"
           strategy="afterInteractive"
@@ -151,6 +152,8 @@ export default function RootLayout({
         <Script id="google-analytics" strategy="afterInteractive">
           {`window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-XE6BHLH4J6');`}
         </Script>
+
+        {/* ── ADSENSE ── */}
         <Script
           async
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2427221337462218"
@@ -158,14 +161,19 @@ export default function RootLayout({
           strategy="afterInteractive"
         />
 
-        {/* ADSTERRA SOCIAL BAR */}
+        {/* ── AD 1: SOCIAL BAR ──────────────────────────────────────────
+            Type: Popunder/Social Bar
+            Shows: Floating corner button — every page
+            UX: Non-intrusive, user chooses to interact
+            Load: lazyOnload — zero impact on page speed
+        ───────────────────────────────────────────────────────────── */}
         <Script
           id="adsterra-social-bar"
           src="https://pl27365402.profitablecpmratenetwork.com/ae/52/0f/ae520f3c967ee911772a55229589d894.js"
           strategy="lazyOnload"
         />
 
-        {/* JSON-LD */}
+        {/* ── JSON-LD ── */}
         <Script
           id="ld-json"
           type="application/ld+json"
@@ -177,24 +185,33 @@ export default function RootLayout({
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <Header themeToggle={<ThemeToggle />} />
 
-          {/* ── AD 1: DESKTOP LEADERBOARD (728×90) MOVED HERE ── */}
+          {/* ── AD 2: DESKTOP LEADERBOARD (728×90) ───────────────────────
+              Type: Banner
+              Shows: Below header — desktop only (md+)
+              Why here: First visible ad, high viewability
+              UX: Contained with min-height → no layout shift (CLS=0)
+              Load: afterInteractive — after hydration, before scroll
+          ───────────────────────────────────────────────────────────── */}
           <div
-            className="hidden md:flex flex-col items-center justify-center w-full bg-gray-50/60 dark:bg-gray-900/60 border-b border-gray-100 dark:border-gray-800 mt-20"
-            style={{ minHeight: "135px" }}
+            className="hidden md:flex justify-center items-center bg-gray-50/60 dark:bg-gray-900/60 border-b border-gray-100 dark:border-gray-800"
+            style={{ minHeight: "106px" }}
           >
-            <p className="text-[10px] text-gray-400 uppercase tracking-[0.3em] font-bold mb-2">Advertisement</p>
-            <div className="flex justify-center items-center">
-              <Script id="adsterra-desktop-opts">
-                {`atOptions = {'key':'fb655d1f226a75af352c670dc47cb003','format':'iframe','height':90,'width':728,'params':{}};`}
-              </Script>
-              <Script
-                src="https://www.highperformanceformat.com/fb655d1f226a75af352c670dc47cb003/invoke.js"
-               
-              />
-            </div>
+            <Script id="adsterra-desktop" strategy="afterInteractive">
+              {`atOptions={'key':'fb655d1f226a75af352c670dc47cb003','format':'iframe','height':90,'width':728,'params':{}};`}
+            </Script>
+            <Script
+              src="https://www.highperformanceformat.com/fb655d1f226a75af352c670dc47cb003/invoke.js"
+              strategy="afterInteractive"
+            />
           </div>
 
-          {/* ── AD 2: MOBILE BANNER (320×50) ── */}
+          {/* ── AD 3: MOBILE BANNER (320×50) ─────────────────────────────
+              Type: Banner
+              Shows: Below header — mobile only
+              Why here: Equivalent of desktop leaderboard for mobile
+              UX: Slim 50px bar — minimal intrusion
+              Load: afterInteractive
+          ───────────────────────────────────────────────────────────── */}
           <div
             className="flex md:hidden justify-center items-center bg-gray-50/60 dark:bg-gray-900/60 border-b border-gray-100 dark:border-gray-800"
             style={{ minHeight: "58px" }}
@@ -208,9 +225,16 @@ export default function RootLayout({
             />
           </div>
 
+          {/* ── MAIN CONTENT — clean, no ads ── */}
           <main className="flex-1">{children}</main>
 
-          {/* ── AD 3: NATIVE BANNER ── */}
+          {/* ── AD 4: NATIVE BANNER ───────────────────────────────────────
+              Type: Native (blends with content)
+              Shows: Between content and footer — every page
+              Why here: User has finished reading → high intent moment
+              UX: Labeled "Sponsored" — transparent, non-deceptive
+              Load: lazyOnload — only loads when user scrolls near footer
+          ───────────────────────────────────────────────────────────── */}
           <div className="w-full border-t border-gray-100 dark:border-gray-800 bg-gray-50/30 dark:bg-gray-900/30 py-6 flex flex-col items-center">
             <p className="text-[9px] text-gray-400 uppercase tracking-widest font-bold mb-3">
               Sponsored
@@ -230,16 +254,12 @@ export default function RootLayout({
           <Toaster />
           <GlobalShare />
 
-          {/* ── AD 4: POPUNDER SCRIPT ── */}
-          <Script
-            id="adsterra-popunder"
-            src="https://pl29209918.profitablecpmratenetwork.com/27/ef/d9/27efd9b5d96e77f31282f288b5d9ca58.js"
-            strategy="lazyOnload"
-          />
-
+          {/* ── FOOTER ── */}
           <footer className="py-20 bg-gray-50/50 dark:bg-gray-900/50 border-t border-gray-200 dark:border-gray-800">
             <div className="container mx-auto px-6">
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
+
+                {/* Brand */}
                 <div className="space-y-6">
                   <div>
                     <h3 className="text-3xl font-black text-blue-600 tracking-tighter mb-4">
@@ -247,54 +267,37 @@ export default function RootLayout({
                     </h3>
                     <p className="text-sm text-gray-500 dark:text-gray-400 leading-relaxed font-medium">
                       The internet&apos;s favorite 100% free AI toolkit.
-                      High-performance utilities designed for global
-                      productivity, privacy, and speed.
+                      High-performance utilities designed for global productivity,
+                      privacy, and speed.
                     </p>
                   </div>
+                  {/* Social icons */}
                   <div className="grid grid-cols-5 sm:flex gap-3">
                     {[
-                      {
-                        href: "https://github.com/Shubh962",
-                        icon: <Github className="w-5 h-5" />,
-                        label: "GitHub",
-                      },
-                      {
-                        href: "https://facebook.com/share/1K97T5Q5wp/",
-                        icon: <Facebook className="w-5 h-5" />,
-                        label: "Facebook",
-                      },
-                      {
-                        href: "https://x.com/Shubham_962",
-                        icon: <Twitter className="w-5 h-5" />,
-                        label: "Twitter",
-                      },
-                      {
-                        href: "https://www.instagram.com/m_just_shubham",
-                        icon: <Instagram className="w-5 h-5" />,
-                        label: "Instagram",
-                      },
-                      {
-                        href: "https://youtube.com/@factfusions0-x4k",
-                        icon: <Youtube className="w-5 h-5" />,
-                        label: "YouTube",
-                      },
-                    ].map((social) => (
+                      { href: "https://github.com/Shubh962", icon: <Github className="w-5 h-5" />, label: "GitHub" },
+                      { href: "https://facebook.com/share/1K97T5Q5wp/", icon: <Facebook className="w-5 h-5" />, label: "Facebook" },
+                      { href: "https://x.com/Shubham_962", icon: <Twitter className="w-5 h-5" />, label: "Twitter" },
+                      { href: "https://instagram.com/m_just_shubham", icon: <Instagram className="w-5 h-5" />, label: "Instagram" },
+                      { href: "https://youtube.com/@factfusions0-x4k", icon: <Youtube className="w-5 h-5" />, label: "YouTube" },
+                    ].map((s) => (
                       <a
-                        key={social.label}
-                        href={social.href}
+                        key={s.label}
+                        href={s.href}
                         target="_blank"
                         rel="noopener noreferrer"
-                        aria-label={social.label}
-                        className="p-3 bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 hover:-translate-y-1 transition-all group"
+                        aria-label={s.label}
+                        className="p-3 bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 hover:-translate-y-1 transition-all"
                       >
-                        {social.icon}
+                        {s.icon}
                       </a>
                     ))}
                   </div>
+                  {/* Amazon badge */}
                   <a
                     href="https://www.amazon.in/TECH-GAUTAM-TaskGuru-AI/dp/B0GJRW5RXR"
                     target="_blank"
                     rel="noopener noreferrer"
+                    aria-label="Download TaskGuru on Amazon Appstore"
                     className="inline-flex items-center gap-3 px-4 py-2.5 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-2xl shadow-sm hover:border-orange-400 hover:-translate-y-1 transition-all w-fit"
                   >
                     <div className="w-8 h-8 bg-orange-500 rounded-lg flex items-center justify-center flex-shrink-0">
@@ -311,85 +314,46 @@ export default function RootLayout({
                   </a>
                 </div>
 
+                {/* Resources */}
                 <div>
                   <h4 className="font-black text-gray-900 dark:text-white mb-6 uppercase text-[11px] tracking-[0.2em]">
                     Resources
                   </h4>
                   <nav className="flex flex-col gap-4 text-sm font-medium text-gray-500 dark:text-gray-400">
-                    <Link
-                      href="/about"
-                      className="hover:text-blue-600 flex items-center gap-2 font-bold text-gray-900 dark:text-white"
-                    >
+                    <Link href="/about" className="hover:text-blue-600 flex items-center gap-2 font-bold text-gray-900 dark:text-white">
                       <Info className="w-4 h-4 text-blue-500" /> About TaskGuru
                     </Link>
-                    <Link href="/blog" className="hover:text-blue-600">
-                      Productivity Blog
-                    </Link>
-                    <Link
-                      href="/help"
-                      className="hover:text-blue-600 flex items-center gap-2"
-                    >
+                    <Link href="/blog" className="hover:text-blue-600">Productivity Blog</Link>
+                    <Link href="/help" className="hover:text-blue-600 flex items-center gap-2">
                       <HelpCircle className="w-4 h-4" /> Help Center
                     </Link>
-                    <Link
-                      href="/contact"
-                      className="hover:text-blue-600 flex items-center gap-2"
-                    >
+                    <Link href="/contact" className="hover:text-blue-600 flex items-center gap-2">
                       <Mail className="w-4 h-4" /> Contact Support
                     </Link>
-                    <Link
-                      href="/sitemap.xml"
-                      className="hover:text-blue-600 flex items-center gap-2"
-                    >
+                    <Link href="/sitemap.xml" className="hover:text-blue-600 flex items-center gap-2">
                       <Map className="w-4 h-4" /> XML Sitemap
                     </Link>
                   </nav>
                 </div>
 
+                {/* Tools */}
                 <div>
                   <h4 className="font-black text-gray-900 dark:text-white mb-6 uppercase text-[11px] tracking-[0.2em]">
                     Popular Free Tools
                   </h4>
                   <nav className="flex flex-col gap-4 text-sm font-medium text-gray-500 dark:text-gray-400">
-                    <Link
-                      href="/tools/background-remover"
-                      className="hover:text-blue-600"
-                    >
-                      Background Remover
-                    </Link>
-                    <Link
-                      href="/tools/text-paraphraser"
-                      className="hover:text-blue-600"
-                    >
-                      AI Text Paraphraser
-                    </Link>
-                    <Link
-                      href="/tools/image-compressor"
-                      className="hover:text-blue-600"
-                    >
-                      Image Compressor
-                    </Link>
-                    <Link
-                      href="/tools/pdf-to-word"
-                      className="hover:text-blue-600"
-                    >
-                      PDF to Word
-                    </Link>
-                    <Link
-                      href="/tools/resume-maker"
-                      className="hover:text-blue-600 flex items-center gap-2"
-                    >
+                    <Link href="/tools/background-remover" className="hover:text-blue-600">Background Remover</Link>
+                    <Link href="/tools/text-paraphraser" className="hover:text-blue-600">AI Text Paraphraser</Link>
+                    <Link href="/tools/image-compressor" className="hover:text-blue-600">Image Compressor</Link>
+                    <Link href="/tools/pdf-to-word" className="hover:text-blue-600">PDF to Word</Link>
+                    <Link href="/tools/resume-maker" className="hover:text-blue-600 flex items-center gap-2">
                       Resume Maker <Zap className="w-3 h-3 text-yellow-500" />
                     </Link>
-                    <Link
-                      href="/tools/qr-barcode-generator"
-                      className="hover:text-blue-600"
-                    >
-                      QR Code Generator
-                    </Link>
+                    <Link href="/tools/qr-barcode-generator" className="hover:text-blue-600">QR Code Generator</Link>
                   </nav>
                 </div>
 
+                {/* Legal */}
                 <div>
                   <h4 className="font-black text-gray-900 dark:text-white mb-6 uppercase text-[11px] tracking-[0.2em]">
                     Legal & Partners
@@ -403,25 +367,15 @@ export default function RootLayout({
                     >
                       MetaTube Inspector <ExternalLink className="w-3.5 h-3.5" />
                     </a>
-                    <Link
-                      href="/privacy-policy"
-                      className="hover:text-blue-600 flex items-center gap-2 font-bold text-green-600 dark:text-green-500"
-                    >
+                    <Link href="/privacy-policy" className="hover:text-blue-600 flex items-center gap-2 font-bold text-green-600 dark:text-green-500">
                       <ShieldCheck className="w-4 h-4" /> Privacy Policy
                     </Link>
-                    <Link
-                      href="/terms"
-                      className="hover:text-blue-600 flex items-center gap-2"
-                    >
+                    <Link href="/terms" className="hover:text-blue-600 flex items-center gap-2">
                       <Scale className="w-4 h-4" /> Terms of Use
                     </Link>
-                    <Link
-                      href="/disclaimer"
-                      className="hover:text-blue-600 flex items-center gap-2"
-                    >
+                    <Link href="/disclaimer" className="hover:text-blue-600 flex items-center gap-2">
                       <FileText className="w-4 h-4" /> Disclaimer
                     </Link>
-
                     <Dialog>
                       <DialogTrigger asChild>
                         <button className="text-left hover:text-blue-600 font-bold underline underline-offset-4 decoration-blue-200">
@@ -435,27 +389,21 @@ export default function RootLayout({
                           </DialogTitle>
                         </DialogHeader>
                         <div className="space-y-6">
-                          <Card className="border-none bg-blue-50/50 dark:bg-blue-900/10 p-2">
+                          <Card className="border-none bg-blue-50/50 p-2">
                             <CardHeader>
-                              <CardTitle className="text-lg">
-                                Mission Statement
-                              </CardTitle>
+                              <CardTitle className="text-lg">Mission Statement</CardTitle>
                             </CardHeader>
-                            <CardContent className="text-sm text-gray-600 dark:text-gray-400">
-                              <strong>TaskGuru</strong> is a specialized AI
-                              utility project developed and maintained by{" "}
-                              <strong>Shubham Gautam</strong>. We believe
-                              premium software should be accessible, free, and
-                              private for everyone.
+                            <CardContent className="text-sm text-gray-600">
+                              <strong>TaskGuru</strong> is a specialized AI project by{" "}
+                              <strong>Shubham Gautam</strong>. We believe premium software
+                              should be free and private.
                             </CardContent>
                           </Card>
                           <div className="p-4 bg-red-50 dark:bg-red-900/10 rounded-2xl flex items-center gap-3">
                             <AlertTriangle className="text-red-500 h-5 w-5" />
-                            <p className="text-xs text-red-600 dark:text-red-400">
-                              © {new Date().getFullYear()} TaskGuru. All
-                              algorithmic logic is proprietary. Any
-                              unauthorized reproduction or duplication is
-                              strictly prohibited.
+                            <p className="text-xs text-red-600">
+                              © {new Date().getFullYear()} TaskGuru. All algorithmic logic
+                              is proprietary. All rights reserved.
                             </p>
                           </div>
                         </div>
