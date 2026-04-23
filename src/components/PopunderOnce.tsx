@@ -1,46 +1,44 @@
 "use client";
 
 // src/components/PopunderOnce.tsx
-// Fires the Adsterra popunder ONCE per user per 24 hours
-// Without this: every click on any page opens a new tab → user leaves immediately
-// With this: first click of the day → tab opens → rest of session = normal browsing
+// Popunder fires ONCE per browser session (sessionStorage clears on tab close)
+// sessionStorage = fresh every new tab/window = best balance of UX + revenue
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import Script from "next/script";
 
-const STORAGE_KEY = "tg_pu_last"; // short key, hard to spot/block
-const COOLDOWN_MS = 24 * 60 * 60 * 1000; // 24 hours in milliseconds
+const SESSION_KEY = "tg_pu_fired";
 
 export default function PopunderOnce() {
+  // null = checking, false = already fired, true = load it
+  const [shouldLoad, setShouldLoad] = useState<boolean | null>(null);
+
   useEffect(() => {
     try {
-      const last = localStorage.getItem(STORAGE_KEY);
-      const now = Date.now();
-
-      // If fired within last 24h → do nothing
-      if (last && now - parseInt(last, 10) < COOLDOWN_MS) return;
-
-      // Load the popunder script once
-      const script = document.createElement("script");
-      script.src =
-        "https://pl29209918.profitablecpmratenetwork.com/27/ef/d9/27efd9b5d96e77f31282f288b5d9ca58.js";
-      script.async = true;
-
-      // Record timestamp BEFORE appending so we don't double-fire
-      localStorage.setItem(STORAGE_KEY, String(now));
-
-      document.body.appendChild(script);
-
-      // Cleanup on unmount
-      return () => {
-        if (script.parentNode === document.body) {
-          document.body.removeChild(script);
-        }
-      };
+      const alreadyFired = sessionStorage.getItem(SESSION_KEY);
+      if (alreadyFired) {
+        // Already fired this session — don't load
+        setShouldLoad(false);
+      } else {
+        // First time this session — mark and load
+        sessionStorage.setItem(SESSION_KEY, "1");
+        setShouldLoad(true);
+      }
     } catch {
-      // localStorage blocked (private mode, etc.) — skip silently
+      // sessionStorage unavailable (some privacy modes) — skip
+      setShouldLoad(false);
     }
-  }, []); // Empty deps — runs once on mount, never again in same session
+  }, []);
 
-  return null; // No UI
+  // Still checking or already fired — render nothing
+  if (!shouldLoad) return null;
+
+  // Load the popunder script — fires on user's first click naturally
+  return (
+    <Script
+      id="adsterra-popunder"
+      src="https://pl29209918.profitablecpmratenetwork.com/27/ef/d9/27efd9b5d96e77f31282f288b5d9ca58.js"
+      strategy="afterInteractive"
+    />
+  );
 }
-
