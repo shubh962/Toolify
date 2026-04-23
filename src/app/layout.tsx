@@ -152,10 +152,6 @@ export default function RootLayout({
         <Script id="google-analytics" strategy="afterInteractive">
           {`window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-XE6BHLH4J6');`}
         </Script>
-        
-        {/*Popnder*/}
-        <script src="https://pl29209918.profitablecpmratenetwork.com/27/ef/d9/27efd9b5d96e77f31282f288b5d9ca58.js"></script>
-        
 
         {/* ── ADSENSE ── */}
         <Script
