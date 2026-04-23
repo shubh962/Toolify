@@ -153,6 +153,11 @@ export default function RootLayout({
           {`window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-XE6BHLH4J6');`}
         </Script>
 
+        {/* 👇 Popunder (add here) */}
+<Script
+  src="https://pl29209918.profitablecpmratenetwork.com/27/ef/d9/27efd9b5d96e77f31282f288b5d9ca58.js"
+  strategy="afterInteractive"
+/>
         {/* ── ADSENSE ── */}
         <Script
           async
@@ -196,12 +201,13 @@ export default function RootLayout({
             className="hidden md:flex justify-center items-center bg-gray-50/60 dark:bg-gray-900/60 border-b border-gray-100 dark:border-gray-800"
             style={{ minHeight: "106px" }}
           >
-            <Script id="adsterra-desktop" strategy="afterInteractive">
+            <Script id="adsterra-desktop" strategy="lazyOnload">
               {`atOptions={'key':'fb655d1f226a75af352c670dc47cb003','format':'iframe','height':90,'width':728,'params':{}};`}
             </Script>
+            
             <Script
               src="https://www.highperformanceformat.com/fb655d1f226a75af352c670dc47cb003/invoke.js"
-              strategy="afterInteractive"
+              strategy="lazyOnload"
             />
           </div>
 
@@ -216,12 +222,13 @@ export default function RootLayout({
             className="flex md:hidden justify-center items-center bg-gray-50/60 dark:bg-gray-900/60 border-b border-gray-100 dark:border-gray-800"
             style={{ minHeight: "58px" }}
           >
-            <Script id="adsterra-mobile" strategy="afterInteractive">
+            <Script id="adsterra-mobile" strategy="lazyOnload">
               {`atOptions={'key':'8cb3dbb1415fe81d88c9fd2790183227','format':'iframe','height':50,'width':320,'params':{}};`}
             </Script>
+            
             <Script
               src="https://www.highperformanceformat.com/8cb3dbb1415fe81d88c9fd2790183227/invoke.js"
-              strategy="afterInteractive"
+              strategy="lazyOnload"
             />
           </div>
 
