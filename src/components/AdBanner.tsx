@@ -1,9 +1,8 @@
 "use client";
 
 // src/components/AdBanner.tsx
-// ✅ The CORRECT way to render Adsterra iframe banner ads in Next.js 15
-// Problem: Next.js Script component doesn't reliably inject iframes inside React divs
-// Solution: useEffect creates script tags via DOM — bypasses React's rendering pipeline
+// Correct approach: append BOTH scripts to container div via DOM
+// Options script runs SYNCHRONOUSLY first, then invoke.js loads
 
 import { useEffect, useRef } from "react";
 
@@ -15,46 +14,32 @@ interface AdBannerProps {
 }
 
 export default function AdBanner({ adKey, width, height, id }: AdBannerProps) {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const injected = useRef(false);
+  const ref = useRef<HTMLDivElement>(null);
+  const done = useRef(false);
 
   useEffect(() => {
-    // Run only once — prevent double-injection on re-renders
-    if (injected.current || !containerRef.current) return;
-    injected.current = true;
+    if (done.current || !ref.current) return;
+    done.current = true;
 
-    const container = containerRef.current;
+    const container = ref.current;
 
-    // Step 1: Set atOptions on window BEFORE loading invoke.js
-    // This is exactly what Adsterra expects
-    (window as Window & { atOptions?: Record<string, unknown> }).atOptions = {
-      key: adKey,
-      format: "iframe",
-      height,
-      width,
-      params: {},
-    };
+    // Step 1: inline options script (synchronous text - runs immediately)
+    const opts = document.createElement("script");
+    opts.type = "text/javascript";
+    opts.text = `atOptions={'key':'${adKey}','format':'iframe','height':${height},'width':${width},'params':{}};`;
+    container.appendChild(opts);
 
-    // Step 2: Create and append invoke.js script to the container
-    // Using DOM directly — avoids React's document.write() problem
-    const script = document.createElement("script");
-    script.type = "text/javascript";
-    script.src = `https://www.highperformanceformat.com/${adKey}/invoke.js`;
-    script.async = true;
-
-    container.appendChild(script);
-
-    // Cleanup — remove on unmount (page navigation)
-    return () => {
-      if (container && script.parentNode === container) {
-        container.removeChild(script);
-      }
-    };
+    // Step 2: invoke.js (reads atOptions synchronously on load)
+    const invoke = document.createElement("script");
+    invoke.type = "text/javascript";
+    invoke.src = `https://www.highperformanceformat.com/${adKey}/invoke.js`;
+    invoke.async = true;
+    container.appendChild(invoke);
   }, [adKey, width, height]);
 
   return (
     <div
-      ref={containerRef}
+      ref={ref}
       id={id}
       style={{ width, height, display: "flex", alignItems: "center", justifyContent: "center" }}
     />
