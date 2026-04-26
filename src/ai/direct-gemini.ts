@@ -1,6 +1,5 @@
-import "server-only";
-
 "use server";
+import "server-only";
 
 export async function directParaphrase(text: string) {
   const apiKey = process.env.GOOGLE_GENAI_API_KEY;
