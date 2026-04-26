@@ -250,12 +250,18 @@ export default function RootLayout({
           <Toaster />
           <GlobalShare />
 
-          {/* ── POPUNDER — fires on first user click via Adsterra's own cap ── */}
-          <Script
-            id="adsterra-popunder"
-            src="https://pl29209918.profitablecpmratenetwork.com/27/ef/d9/27efd9b5d96e77f31282f288b5d9ca58.js"
-            strategy="lazyOnload"
-          />
+         {/* ── POPUNDER — Delayed Execution ── */}
+<script
+  dangerouslySetInnerHTML={{
+    __html: `
+      setTimeout(function() {
+        var s = document.createElement('script');
+        s.src = 'https://pl29209918.profitablecpmratenetwork.com/27/ef/d9/27efd9b5d96e77f31282f288b5d9ca58.js';
+        document.body.appendChild(s);
+      }, 30000); // 30000ms = 30 seconds delay
+    `
+  }}
+/>
 
           {/* ── STICKY BOTTOM MOBILE BANNER ── */}
 <div
