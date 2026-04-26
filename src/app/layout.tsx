@@ -196,20 +196,23 @@ export default function RootLayout({
           </div>
 
           {/* ── 320×50 MOBILE BANNER ─────────────────────────────────
-              Static iframe — same domain = always loads
-              Sticky version inline below (no component needed)
-          ───────────────────────────────────────────────────────── */}
-          <div className="flex md:hidden justify-center items-center bg-gray-50/60 dark:bg-gray-900/60 border-b border-gray-100 dark:border-gray-800" style={{ minHeight: "58px" }}>
-            <iframe
-              src="/ads/banner-320x50.html"
-              width="320"
-              height="50"
-              frameBorder="0"
-              scrolling="no"
-              title="Advertisement"
-              style={{ display: "block", overflow: "hidden" }}
-            />
-          </div>
+    Static iframe — same domain = always loads
+    mt-16 added to clear the fixed mobile header ✅
+───────────────────────────────────────────────────────── */}
+<div 
+  className="flex md:hidden justify-center items-center bg-gray-50/60 dark:bg-gray-900/60 border-b border-gray-100 dark:border-gray-800 mt-16" 
+  style={{ minHeight: "58px" }}
+>
+  <iframe
+    src="/ads/banner-320x50.html"
+    width="320"
+    height="50"
+    frameBorder="0"
+    scrolling="no"
+    title="Advertisement"
+    style={{ display: "block", overflow: "hidden" }}
+  />
+</div>
 
           {/* pb-16 on mobile leaves space for sticky bottom banner */}
           <main className="flex-1 pb-[62px] md:pb-0">{children}</main>
