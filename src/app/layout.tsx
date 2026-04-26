@@ -250,18 +250,35 @@ export default function RootLayout({
           <Toaster />
           <GlobalShare />
 
-         {/* ── POPUNDER — Delayed Execution ── */}
-<script
-  dangerouslySetInnerHTML={{
-    __html: `
-      setTimeout(function() {
-        var s = document.createElement('script');
-        s.src = 'https://pl29209918.profitablecpmratenetwork.com/27/ef/d9/27efd9b5d96e77f31282f288b5d9ca58.js';
+         {/* ── SMART POPUNDER: 20s Initial + 5m Repeat ── */}
+<Script id="taskguru-smart-ad-logic" strategy="lazyOnload">
+  {`
+    (function() {
+      const POP_URL = 'https://pl29209918.profitablecpmratenetwork.com/27/ef/d9/27efd9b5d96e77f31282f288b5d9ca58.js';
+      
+      const fireAd = () => {
+        console.log("Triggering Popunder...");
+        const s = document.createElement('script');
+        s.src = POP_URL;
+        s.async = true;
         document.body.appendChild(s);
-      }, 30000); // 30000ms = 30 seconds delay
-    `
-  }}
-/>
+        // DOM clean up
+        setTimeout(() => { if(s) s.remove(); }, 5000); 
+      };
+
+      // 1. Pehla ad user ke aane ke 20 seconds baad
+      setTimeout(function() {
+        fireAd();
+
+        // 2. Uske baad har 5 minutes (300,000ms) mein repeat loop
+        setInterval(function() {
+          fireAd();
+        }, 300000); 
+
+      }, 20000); 
+    })();
+  `}
+</Script>
 
           {/* ── STICKY BOTTOM MOBILE BANNER ── */}
 <div
