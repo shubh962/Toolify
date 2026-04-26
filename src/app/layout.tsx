@@ -181,7 +181,8 @@ export default function RootLayout({
               Served from /public/ads/banner-728x90.html
               iframe src="/ads/..." = taskguru.online origin = Adsterra verified ✅
           ───────────────────────────────────────────────────────── */}
-          <div className="hidden md:flex flex-col items-center justify-center w-full bg-gray-50/60 dark:bg-gray-900/60 border-b border-gray-100 dark:border-gray-800" style={{ minHeight: "110px" }}>
+         <div className="hidden md:flex flex-col items-center justify-center w-full bg-gray-50/60 dark:bg-gray-900/60 border-b border-gray-100 dark:border-gray-800 mt-20" // Added mt-20
+  style={{ minHeight: "110px" }} >
             <p className="text-[9px] text-gray-400 uppercase tracking-widest font-bold mb-1">Advertisement</p>
             <iframe
               src="/ads/banner-728x90.html"
