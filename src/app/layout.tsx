@@ -250,32 +250,36 @@ export default function RootLayout({
           <Toaster />
           <GlobalShare />
 
-         {/* ── SMART POPUNDER: 20s Initial + 5m Repeat ── */}
-<Script id="taskguru-smart-ad-logic" strategy="lazyOnload">
+         {/* ── FINAL SMART POPUNDER LOGIC ── */}
+<Script id="adsterra-smart-capping" strategy="afterInteractive">
   {`
     (function() {
-      const POP_URL = 'https://pl29209918.profitablecpmratenetwork.com/27/ef/d9/27efd9b5d96e77f31282f288b5d9ca58.js';
+      // 1. Double-loading protection
+      if (window.adsterra_logic_running) return;
+      window.adsterra_logic_running = true;
+
+      const AD_URL = 'https://pl29209918.profitablecpmratenetwork.com/27/ef/d9/27efd9b5d96e77f31282f288b5d9ca58.js';
       
-      const fireAd = () => {
-        console.log("Triggering Popunder...");
+      const triggerPop = () => {
+        console.log("TaskGuru: Triggering Popunder...");
         const s = document.createElement('script');
-        s.src = POP_URL;
+        s.src = AD_URL;
         s.async = true;
         document.body.appendChild(s);
-        // DOM clean up
-        setTimeout(() => { if(s) s.remove(); }, 5000); 
+        // DOM cleanup to prevent multiple script tags
+        setTimeout(() => { if(s && s.parentNode) s.parentNode.removeChild(s); }, 3000);
       };
 
-      // 1. Pehla ad user ke aane ke 20 seconds baad
+      // Initial Delay: 20 Seconds
       setTimeout(function() {
-        fireAd();
+        triggerPop();
 
-        // 2. Uske baad har 5 minutes (300,000ms) mein repeat loop
+        // Repeat Cycle: 5 Minutes
         setInterval(function() {
-          fireAd();
+          triggerPop();
         }, 300000); 
 
-      }, 20000); 
+      }, 20000);
     })();
   `}
 </Script>
