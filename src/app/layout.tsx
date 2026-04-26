@@ -257,22 +257,27 @@ export default function RootLayout({
             strategy="lazyOnload"
           />
 
-          {/* ── STICKY BOTTOM 320×50 — mobile only, no JS needed ── */}
-          <div
-            id="sticky-ad-mobile"
-            className="fixed bottom-0 left-0 right-0 z-50 flex md:hidden justify-center items-center bg-white dark:bg-gray-950 border-t border-gray-200 dark:border-gray-800 shadow-[0_-2px_12px_rgba(0,0,0,0.08)]"
-            style={{ height: "62px", paddingBottom: "env(safe-area-inset-bottom,0px)" }}
-          >
-            <iframe
-              src="/ads/banner-320x50.html"
-              width="320"
-              height="50"
-              frameBorder="0"
-              scrolling="no"
-              title="Advertisement"
-              style={{ display: "block", overflow: "hidden" }}
-            />
-          </div>
+          {/* ── STICKY BOTTOM MOBILE BANNER ── */}
+<div
+  id="utility-tray-bottom" // Changed from "sticky-ad-mobile" to prevent ad-block detection
+  className="fixed bottom-0 left-0 right-0 z-[9999] flex md:hidden justify-center items-center bg-white dark:bg-gray-950 border-t border-gray-200 dark:border-gray-800 shadow-[0_-4px_12px_rgba(0,0,0,0.1)]"
+  style={{ 
+    height: "62px", 
+    paddingBottom: "env(safe-area-inset-bottom, 0px)",
+    display: "flex", // Force flex display
+    pointerEvents: "auto" // Ensure the banner is clickable
+  }}
+>
+  <iframe
+    src="/ads/banner-320x50.html"
+    width="320"
+    height="50"
+    frameBorder="0"
+    scrolling="no"
+    title="Sponsored Content"
+    style={{ display: "block", overflow: "hidden", border: "none" }}
+  />
+</div>
 
           <footer className="py-20 bg-gray-50/50 dark:bg-gray-900/50 border-t border-gray-200 dark:border-gray-800">
             <div className="container mx-auto px-6">
