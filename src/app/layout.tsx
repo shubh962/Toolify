@@ -200,7 +200,7 @@ export default function RootLayout({
     mt-16 added to clear the fixed mobile header ✅
 ───────────────────────────────────────────────────────── */}
 <div 
-  className="flex md:hidden justify-center items-center bg-gray-50/60 dark:bg-gray-900/60 border-b border-gray-100 dark:border-gray-800 mt-16" 
+  className="flex md:hidden justify-center items-center bg-gray-50/60 dark:bg-gray-900/60 border-b border-gray-100 dark:border-gray-800 mt-20" 
   style={{ minHeight: "58px" }}
 >
   <iframe
