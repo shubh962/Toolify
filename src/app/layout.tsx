@@ -251,35 +251,40 @@ export default function RootLayout({
           <GlobalShare />
 
          {/* ── FINAL SMART POPUNDER LOGIC ── */}
-<Script id="adsterra-smart-capping" strategy="afterInteractive">
+          
+<Script id="taskguru-smart-ad-logic" strategy="afterInteractive">
   {`
     (function() {
-      // 1. Double-loading protection
-      if (window.adsterra_logic_running) return;
-      window.adsterra_logic_running = true;
+      // Hard check to prevent double execution
+      if (window.AD_LOGIC_INITIALIZED) return;
+      window.AD_LOGIC_INITIALIZED = true;
 
       const AD_URL = 'https://pl29209918.profitablecpmratenetwork.com/27/ef/d9/27efd9b5d96e77f31282f288b5d9ca58.js';
       
-      const triggerPop = () => {
-        console.log("TaskGuru: Triggering Popunder...");
+      const injectPop = () => {
+        console.log("TaskGuru Ads: Injecting Popunder...");
         const s = document.createElement('script');
         s.src = AD_URL;
         s.async = true;
         document.body.appendChild(s);
-        // DOM cleanup to prevent multiple script tags
-        setTimeout(() => { if(s && s.parentNode) s.parentNode.removeChild(s); }, 3000);
+        setTimeout(() => { if(s && s.parentNode) s.parentNode.removeChild(s); }, 2000);
       };
 
-      // Initial Delay: 20 Seconds
-      setTimeout(function() {
-        triggerPop();
+      // Wait for the window to be fully loaded before starting the 20s timer
+      window.addEventListener('load', function() {
+        console.log("TaskGuru: Page loaded. 20s countdown started.");
+        
+        // 1. Initial 20-second delay
+        setTimeout(function() {
+          injectPop();
 
-        // Repeat Cycle: 5 Minutes
-        setInterval(function() {
-          triggerPop();
-        }, 300000); 
+          // 2. Repeat every 5 minutes
+          setInterval(function() {
+            injectPop();
+          }, 300000); 
 
-      }, 20000);
+        }, 20000); 
+      });
     })();
   `}
 </Script>
