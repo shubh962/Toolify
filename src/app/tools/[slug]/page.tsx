@@ -33,6 +33,7 @@ import UnlockPdf from "@/components/tools/UnlockPdf";
 import PdfEditorPro from '@/components/tools/PdfEditorPro';
 import CreditCardEligibility from '@/components/tools/CreditCardEligibility';
 import ESignPdf from '@/components/tools/ESignPdf';
+import GrammarChecker from '@/components/tools/GrammarChecker';
 import { ShieldCheck, Lock, Zap } from 'lucide-react';
 
 export async function generateStaticParams() {
@@ -153,6 +154,10 @@ const toolSeoOverrides: Record<string, { title: string; description: string }> =
     title: "Free E-Sign PDF Online — Sign PDF Without Uploading | TaskGuru",
     description: "Sign PDF documents free — draw or type signature, no upload to server. Free DocuSign alternative. Legally valid in India, USA, UK, EU. No account.",
   },
+  "grammar-checker": {
+  title: "Free Grammar Checker Online — Fix English Errors Instantly | TaskGuru",
+  description: "Check grammar, spelling, and punctuation errors free — no sign-up, no word limit. Paste your text and get instant corrections. Works for essays, emails, and reports.",
+},
 };
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
@@ -245,6 +250,7 @@ const toolComponentMap: { [key: string]: React.ComponentType<any> } = {
   "emi-calculator": EmiCalculator,
   "pdf-compressor": PdfCompressor,
   "word-counter": WordCounter,
+  "grammar-checker": GrammarChecker,
   "pdf-redactor": PdfRedactor,
   "invoice-generator": InvoiceGenerator,
   "unlock-pdf-no-upload": UnlockPdf,
