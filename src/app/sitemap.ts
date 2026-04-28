@@ -36,6 +36,8 @@ const blogSlugs = [
   "how-to-remove-background-from-image-free",
   "how-to-merge-pdf-files-free",
   "how-to-compress-pdf-free",
+  "how-to-write-professional-english-emails",
+  "grammarly-free-vs-free-grammar-checker",
 ];
 const toolSlugs = [
   "background-remover",
