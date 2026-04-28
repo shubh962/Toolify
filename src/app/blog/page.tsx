@@ -36,6 +36,26 @@ const categoryColors: Record<string, string> = {
 const posts = [
   // ✅ Founder story — earliest, most personal
   {
+  title: "Grammarly Free vs Free Grammar Checker — Which One Is Actually Better in 2026?",
+  slug: "grammarly-free-vs-free-grammar-checker",
+  summary: "Grammarly's free plan sounds great — until you hit the paywall every 30 seconds. Here's an honest feature-by-feature breakdown of what you actually get for free, and when a no-account grammar checker beats it completely.",
+  date: "2026-04-28",
+  displayDate: "April 28, 2026",
+  readTime: "9 min read",
+  category: "Writing Skills",
+  featured: true,
+},
+{
+  title: "How to Write Professional Emails in English — Grammar Guide for Non-Native Speakers",
+  slug: "how-to-write-professional-english-emails",
+  summary: "The grammar patterns that make emails sound unprofessional — wrong articles, tense shifts, 'please advice', 'revert back' — and how to fix every single one before you hit send.",
+  date: "2026-04-28",
+  displayDate: "April 28, 2026",
+  readTime: "11 min read",
+  category: "Writing Skills",
+  featured: true,
+},
+  {
   title: "How to Compress PDF File Size Free — Reduce to Any Limit",
   slug: "how-to-compress-pdf-free",
   summary: "Compress PDF files instantly to meet size limits like 200KB or 1MB.",
