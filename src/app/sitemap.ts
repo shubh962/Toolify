@@ -66,6 +66,7 @@ const toolSlugs = [
   "esign-pdf-no-upload",
   "invoice-generator",
   "pdf-editor-pro",
+  "grammar-checker",
   "credit-card-eligibility-checker",
 ];
 
