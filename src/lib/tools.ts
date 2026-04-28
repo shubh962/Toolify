@@ -19,6 +19,7 @@ import {
   Table,
   Type,
   EyeOff,
+  CheckSquare,
   Unlock,
   LockKeyholeOpen,
   Receipt,
@@ -147,6 +148,15 @@ export const tools: Tool[] = [
     isPlaceholder: false,
     content: '',
   },
+  {
+  slug: "grammar-checker",
+  name: "Grammar Checker",
+  title: "Free Grammar Checker",
+  description: "Check and fix grammar, spelling, and punctuation errors in your English text — free, instant, no sign-up.",
+  category: "Writing",
+  icon: "CheckSquare",
+  hasOwnFaq: true,
+},
   {
     slug: 'pdf-to-word',
     title: 'PDF to Word Converter Online (DOCX)',
