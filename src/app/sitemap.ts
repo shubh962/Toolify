@@ -69,6 +69,7 @@ const toolSlugs = [
   "invoice-generator",
   "pdf-editor-pro",
   "grammar-checker",
+  "pomodoro-timer",
   "credit-card-eligibility-checker",
 ];
 
