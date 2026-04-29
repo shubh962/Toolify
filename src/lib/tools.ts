@@ -16,6 +16,7 @@ import {
   FileDown,
   Keyboard,
   KeyRound,
+  Timer,
   Table,
   Type,
   EyeOff,
@@ -512,6 +513,15 @@ export const tools: Tool[] = [
       </ul>
     `,
   },
+  {
+  slug: "pomodoro-timer",
+  name: "Pomodoro Timer",
+  title: "Free Pomodoro Timer",
+  description: "Free online Pomodoro timer with task list, custom intervals, sound alerts, and session tracking. No download or sign-up needed.",
+  category: "Productivity",
+  icon: Timer,
+  hasOwnFaq: true,
+},
   {
     slug: 'metal-weight-calculator',
     title: 'Metal Weight Calculator Online (Steel, Iron, Aluminum)',
