@@ -34,6 +34,7 @@ import PdfEditorPro from '@/components/tools/PdfEditorPro';
 import CreditCardEligibility from '@/components/tools/CreditCardEligibility';
 import ESignPdf from '@/components/tools/ESignPdf';
 import GrammarChecker from '@/components/tools/GrammarChecker';
+import PomodoroTimer from '@/components/tools/PomodoroTimer';
 import { ShieldCheck, Lock, Zap } from 'lucide-react';
 
 export async function generateStaticParams() {
@@ -158,6 +159,11 @@ const toolSeoOverrides: Record<string, { title: string; description: string }> =
   title: "Free Grammar Checker Online — Fix English Errors Instantly | TaskGuru",
   description: "Check grammar, spelling, and punctuation errors free — no sign-up, no word limit. Paste your text and get instant corrections. Works for essays, emails, and reports.",
 },
+  "pomodoro-timer": {
+  title: "Free Pomodoro Timer Online — Focus Timer with Task List | TaskGuru",
+  description: "Free Pomodoro timer with 25/5/15 intervals, task list, sound alerts, and session tracking. No download, no sign-up. Start focusing in seconds.",
+  canonical: "https://www.taskguru.online/tools/pomodoro-timer",
+},
 };
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
@@ -256,6 +262,7 @@ const toolComponentMap: { [key: string]: React.ComponentType<any> } = {
   "unlock-pdf-no-upload": UnlockPdf,
   "pdf-editor-pro": PdfEditorPro,
   "esign-pdf-no-upload": ESignPdf,
+  "pomodoro-timer": PomodoroTimer,
   "credit-card-eligibility-checker": CreditCardEligibility,
 };
 
