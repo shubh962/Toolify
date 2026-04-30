@@ -164,6 +164,10 @@ const toolSeoOverrides: Record<string, { title: string; description: string }> =
   description: "Free Pomodoro timer with 25/5/15 intervals, task list, sound alerts, and session tracking. No download, no sign-up. Start focusing in seconds.",
   canonical: "https://www.taskguru.online/tools/pomodoro-timer",
 },
+  "credit-card-eligibility-checker": {
+  title: "Free Credit Card Eligibility Checker — Check Without Affecting CIBIL Score | TaskGuru",
+  description: "Check which credit cards you're eligible for free — no hard inquiry, no CIBIL score impact. Enter basic details and get instant results. No signup required.",
+},
 };
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
