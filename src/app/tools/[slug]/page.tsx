@@ -48,9 +48,9 @@ export async function generateStaticParams() {
 // ✅ Per-tool SEO overrides — targeting Search Console queries
 const toolSeoOverrides: Record<string, { title: string; description: string }> = {
   "text-paraphraser": {
-    title: "Free AI Paraphraser — Paraphrase & Humanize Text Online | TaskGuru",
-    description: "Free AI paraphrasing tool — rewrite any text instantly. Convert AI text to human text, remove plagiarism. No signup, no word limit. Used by students & professionals worldwide.",
-  },
+  title: "Free AI Paraphraser Online — Rewrite, Humanize & Paraphrase Text | TaskGuru",
+  description: "Free AI paraphrasing tool — rewrite essays, emails, and articles instantly. Humanize AI text, remove plagiarism, change tone. No signup, no word limit. 100% free.",
+},
   "qr-barcode-generator": {
     title: "Free QR Code Generator — Create QR Codes Instantly Online | TaskGuru",
     description: "Generate free QR codes for URLs, WiFi, text, email & more. Also create barcodes (EAN-13, UPC, Code128). Download HD PNG. No signup, unlimited, 100% free.",
