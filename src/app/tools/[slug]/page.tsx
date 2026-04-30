@@ -64,9 +64,9 @@ const toolSeoOverrides: Record<string, { title: string; description: string }> =
     description: "Extract text from JPG, PNG, screenshots & scanned documents free. OCR runs in your browser — 100% private, no upload, no signup.",
   },
   "resume-maker": {
-    title: "Free Resume Maker — Build ATS-Friendly Resume & Download PDF | TaskGuru",
-    description: "Create a professional ATS-friendly resume free — no signup, no watermark, no paywall. Real-time ATS score. Download PDF instantly.",
-  },
+  title: "Free ATS Resume Builder — Create & Download ATS-Friendly Resume | TaskGuru",
+  description: "Build a free ATS-friendly resume in minutes — choose from professional templates, get real-time ATS score, download PDF instantly. No signup, no watermark, no paywall.",
+},
   "background-remover": {
     title: "Free AI Background Remover — Remove Image Background Instantly | TaskGuru",
     description: "Remove image backgrounds free using AI — no signup, no watermark, instant results. Create transparent PNGs for eCommerce, thumbnails, and social media.",
