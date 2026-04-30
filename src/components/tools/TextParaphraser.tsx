@@ -83,7 +83,7 @@ const toolSchema = {
   "@context": "https://schema.org",
   "@type": "WebApplication",
   "name": "Free AI Text Humanizer & Paraphraser",
-  "url": "https://taskguru.online/tools/text-paraphraser",
+  "url": "https://www.taskguru.online/tools/text-paraphraser",
   "applicationCategory": "Utility",
   "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
   "publisher": {
@@ -378,6 +378,8 @@ export default function TextParaphraser() {
             {[
               { label: "AI Content Detector", href: "/tools/ai-content-detector", highlight: true },
               { label: "YouTube to PDF", href: "/tools/youtube-to-pdf" },
+      { label: "Grammar Checker", href: "/tools/grammar-checker" },
+{ label: "Pomodoro Timer", href: "/tools/pomodoro-timer" },
               { label: "Image to Text", href: "/tools/image-to-text" },
               { label: "Word Counter", href: "/tools/word-counter" },
               { label: "Resume Maker", href: "/tools/resume-maker" },
