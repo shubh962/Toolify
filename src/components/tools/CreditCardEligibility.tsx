@@ -11,6 +11,21 @@ import {
 // FAQ SCHEMA — JSON-LD for Google rich results
 // Targets 10+ long-tail keywords globally
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+const toolSchema = {
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  name: "Free Credit Card Eligibility Checker",
+  url: "https://www.taskguru.online/tools/credit-card-eligibility-checker",
+  applicationCategory: "FinanceApplication",
+  operatingSystem: "All",
+  offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+  description: "Check credit card eligibility free — no hard inquiry, no CIBIL score impact. Covers USA, UK, Canada, and India.",
+  publisher: {
+    "@type": "Organization",
+    name: "TaskGuru",
+    url: "https://www.taskguru.online",
+  },
+};
 const faqSchema = {
   "@context": "https://schema.org",
   "@type": "FAQPage",
