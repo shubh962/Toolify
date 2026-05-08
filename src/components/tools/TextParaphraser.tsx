@@ -153,17 +153,6 @@ export default function TextParaphraser() {
 
       <section className="container mx-auto px-4">
 
-        {/* ✅ FIX 3: H1 was missing entirely — this is the most critical SEO fix */}
-        <div className="max-w-5xl mx-auto text-center pt-10 pb-6 px-4">
-          <h1 className="text-4xl md:text-5xl font-extrabold text-foreground mb-3">
-            Free AI Paraphrasing Tool — Rewrite Text Instantly
-          </h1>
-          <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-            Paste any text and get a natural, human-sounding rewrite in seconds.
-            No signup, no limits, completely free.
-          </p>
-        </div>
-
         {/* ── TOOL CARD ── */}
         <Card className="w-full max-w-5xl mx-auto shadow-xl border-t-4 border-t-primary bg-card mt-8">
           <CardContent className="p-6 md:p-8">
