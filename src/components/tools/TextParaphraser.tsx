@@ -153,6 +153,17 @@ export default function TextParaphraser() {
 
       <section className="container mx-auto px-4">
 
+        {/* ✅ FIX 3: H1 was missing entirely — this is the most critical SEO fix */}
+        <div className="max-w-5xl mx-auto text-center pt-10 pb-6 px-4">
+          <h1 className="text-4xl md:text-5xl font-extrabold text-foreground mb-3">
+            Free AI Paraphrasing Tool — Rewrite Text Instantly
+          </h1>
+          <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
+            Paste any text and get a natural, human-sounding rewrite in seconds.
+            No signup, no limits, completely free.
+          </p>
+        </div>
+
         {/* ── TOOL CARD ── */}
         <Card className="w-full max-w-5xl mx-auto shadow-xl border-t-4 border-t-primary bg-card mt-8">
           <CardContent className="p-6 md:p-8">
@@ -164,7 +175,7 @@ export default function TextParaphraser() {
                 <Textarea
                   id="input-text"
                   className="h-80 resize-none text-base p-4 focus-visible:ring-primary"
-                  placeholder="Enter text here to paraphrase and remove plagiarism..."
+                  placeholder="Paste AI-generated or any text here to rephrase it instantly..."
                   value={inputText}
                   onChange={(e) => setInputText(e.target.value)}
                   disabled={isLoading}
@@ -239,7 +250,8 @@ export default function TextParaphraser() {
 
         {/* Features Grid */}
         <section className="max-w-5xl mx-auto mt-16">
-          <h2 className="text-3xl font-bold text-center mb-10">Why Use Our Free Online Paraphrasing Tool?</h2>
+          {/* ✅ FIX 4: Stronger keyword-rich H2 */}
+          <h2 className="text-3xl font-bold text-center mb-10">Why TaskGuru is the Best Free AI Paraphrasing Tool</h2>
           <div className="grid md:grid-cols-3 gap-6">
             {[
               { icon: <ShieldCheck className="text-green-500 h-6 w-6" />, title: "Plagiarism Remover", desc: <>Our <strong>AI Text Rewriter</strong> completely changes sentence structures to create unique content. Perfect for academic essays and SEO articles.</> },
@@ -378,8 +390,8 @@ export default function TextParaphraser() {
             {[
               { label: "AI Content Detector", href: "/tools/ai-content-detector", highlight: true },
               { label: "YouTube to PDF", href: "/tools/youtube-to-pdf" },
-      { label: "Grammar Checker", href: "/tools/grammar-checker" },
-{ label: "Pomodoro Timer", href: "/tools/pomodoro-timer" },
+              { label: "Grammar Checker", href: "/tools/grammar-checker" },
+              { label: "Pomodoro Timer", href: "/tools/pomodoro-timer" },
               { label: "Image to Text", href: "/tools/image-to-text" },
               { label: "Word Counter", href: "/tools/word-counter" },
               { label: "Resume Maker", href: "/tools/resume-maker" },
