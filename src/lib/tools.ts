@@ -32,11 +32,11 @@ export interface Tool {
   description: string;
   icon: LucideIcon;
   isGenAI: boolean;
-  category?: string; // Added category field
+  category?: string;
   isPlaceholder?: boolean;
   imageUrl?: string;
   content?: string;
-  hasOwnFaq?: boolean; // ✅ Prevents duplicate generic FAQ from [slug]/page.tsx
+  hasOwnFaq?: boolean;
 }
 
 export const tools: Tool[] = [
@@ -78,9 +78,11 @@ export const tools: Tool[] = [
   },
   {
     slug: 'text-paraphraser',
-    title: 'AI Text Paraphrasing Tool (Plagiarism-Free)',
+    // ✅ FIX: Title strengthened with primary keyword
+    title: 'Free AI Paraphrasing Tool — Rewrite & Humanize Text Instantly',
+    // ✅ FIX: Description now leads with exact search queries from Search Console
     description:
-      'Rewrite sentences and paragraphs instantly with AI. Improve clarity, remove plagiarism, enhance tone and generate professional content for essays and blogs.',
+      'Free AI paraphrasing tool — rephrase any text instantly. The best AI paraphraser for students, bloggers, and writers. Remove plagiarism, humanize AI text, and rewrite essays. No signup, no limits.',
     icon: PenSquare,
     isGenAI: true,
     category: 'ai',
@@ -150,14 +152,26 @@ export const tools: Tool[] = [
     content: '',
   },
   {
-  slug: "grammar-checker",
-  name: "Grammar Checker",
-  title: "Free Grammar Checker",
-  description: "Check and fix grammar, spelling, and punctuation errors in your English text — free, instant, no sign-up.",
-  category: "Writing",
-  icon: "CheckSquare",
-  hasOwnFaq: true,
-},
+    // ✅ FIX: Removed invalid `name` field, fixed icon from string to LucideIcon, added isGenAI
+    slug: 'grammar-checker',
+    title: 'Free Grammar Checker — Fix Grammar & Spelling Online',
+    description: 'Check and fix grammar, spelling, and punctuation errors in your English text — free, instant, no sign-up required.',
+    icon: CheckSquare,
+    isGenAI: false,
+    category: 'utility',
+    hasOwnFaq: true,
+    isPlaceholder: false,
+    content: `
+      <h3>Write With Confidence</h3>
+      <p>Poor grammar undermines great ideas. TaskGuru's free grammar checker scans your text for spelling mistakes, punctuation errors, and grammatical issues in real time — no account needed.</p>
+      <ul>
+        <li><strong>Spelling Checker:</strong> Catch typos and misspellings instantly.</li>
+        <li><strong>Grammar Analysis:</strong> Fix subject-verb agreement, tense errors, and more.</li>
+        <li><strong>Punctuation Fixes:</strong> Commas, apostrophes, and sentence structure corrected automatically.</li>
+        <li><strong>100% Free:</strong> No word limits, no sign-up, no hidden costs.</li>
+      </ul>
+    `,
+  },
   {
     slug: 'pdf-to-word',
     title: 'PDF to Word Converter Online (DOCX)',
@@ -185,7 +199,19 @@ export const tools: Tool[] = [
     category: 'pdf',
     hasOwnFaq: true,
     isPlaceholder: false,
-    content: '',
+    // ✅ FIX: Was empty — added content so Google has something to rank
+    content: `
+      <h3>Convert Word to PDF Without Microsoft Office</h3>
+      <p>Need to send a .docx file as a PDF but don't have Microsoft Office? TaskGuru converts your Word documents to clean, professional PDFs directly in your browser — no software installation required.</p>
+      <ul>
+        <li><strong>Formatting Preserved:</strong> Fonts, headings, tables, and images stay intact.</li>
+        <li><strong>100% Private:</strong> Your document never leaves your device — processed locally.</li>
+        <li><strong>Instant Download:</strong> Convert and download your PDF in seconds.</li>
+        <li><strong>No Watermark:</strong> Clean, professional output every time.</li>
+      </ul>
+      <h3>Who Uses Word to PDF Conversion?</h3>
+      <p>Students submitting assignments, professionals sending reports, freelancers sharing proposals — anyone who needs a universally readable file format that can't be accidentally edited.</p>
+    `,
   },
   {
     slug: 'excel-to-pdf',
@@ -198,7 +224,7 @@ export const tools: Tool[] = [
     hasOwnFaq: true,
     isPlaceholder: false,
     content: `
-      <h1>Free Excel to PDF Converter (No Upload Required)</h1>
+      <h2>Free Excel to PDF Converter (No Upload Required)</h2>
       <h3>Secure & Private Excel to PDF Conversion</h3>
       <p>Convert your <strong>XLSX to PDF without email</strong> or registration. This <strong>client-side Excel to PDF converter</strong> works directly in your browser — no upload needed.</p>
       <ul>
@@ -234,7 +260,24 @@ export const tools: Tool[] = [
     category: 'pdf',
     hasOwnFaq: true,
     isPlaceholder: false,
-    content: '',
+    // ✅ FIX: Was empty — added content
+    content: `
+      <h3>Extract Tables From Any PDF Instantly</h3>
+      <p>Copying data manually from a PDF into Excel wastes hours. TaskGuru's PDF to Excel converter intelligently detects tables, rows, and columns in your PDF and exports them into a clean, editable .xlsx file.</p>
+      <ul>
+        <li><strong>Bank Statements:</strong> Extract transaction data from PDF bank exports.</li>
+        <li><strong>Invoices & Receipts:</strong> Pull line-item data without retyping.</li>
+        <li><strong>Financial Reports:</strong> Convert quarterly or annual PDF reports into workable spreadsheets.</li>
+        <li><strong>100% Private:</strong> No upload — your file is processed entirely in your browser.</li>
+      </ul>
+      <h3>How to Convert PDF to Excel</h3>
+      <ol>
+        <li>Upload your PDF file</li>
+        <li>Our tool detects all tables automatically</li>
+        <li>Preview the extracted data</li>
+        <li>Download your .xlsx file instantly</li>
+      </ol>
+    `,
   },
   {
     slug: 'pdf-editor-pro',
@@ -292,8 +335,9 @@ export const tools: Tool[] = [
     `,
   },
   {
+    // ✅ FIX: Slug was 'pdf-compressor' but title said "Compress Image" — now consistent
     slug: 'pdf-compressor',
-    title: 'Compress Image to 20KB, 50KB Online Free (No Upload, No Signup)',
+    title: 'Free PDF Compressor — Reduce PDF File Size Online (No Upload)',
     description:
       'Compress PDF files and reduce their size instantly in your browser. No uploads, no sign-up, 100% private. See before/after size comparison with every compression.',
     icon: FileDown,
@@ -376,7 +420,32 @@ export const tools: Tool[] = [
     hasOwnFaq: true,
     isPlaceholder: false,
     imageUrl: '/tool-previews/qr-barcode.png',
-    content: '',
+    // ✅ FIX: Was empty — QR code keywords have 300+ impressions with 0 clicks, needs content
+    content: `
+      <h3>What is a QR Code?</h3>
+      <p>A QR code (Quick Response code) is a type of 2D barcode that stores data — like a URL, phone number, or WiFi password — and can be scanned instantly by any smartphone camera. QR codes are used everywhere: restaurant menus, business cards, product packaging, event tickets, and payment systems.</p>
+
+      <h3>Generate Any Type of QR Code — Free</h3>
+      <p>TaskGuru's free QR code generator supports multiple formats so you can create exactly what you need:</p>
+      <ul>
+        <li><strong>URL QR Code:</strong> Link to any website or landing page.</li>
+        <li><strong>WiFi QR Code:</strong> Let guests connect to your network without typing a password.</li>
+        <li><strong>Text QR Code:</strong> Encode a message or any plain text.</li>
+        <li><strong>Email QR Code:</strong> Pre-fill a recipient address and subject line.</li>
+        <li><strong>Barcode (EAN, UPC, CODE128):</strong> Generate retail-standard barcodes for products.</li>
+      </ul>
+
+      <h3>How to Create a QR Code</h3>
+      <ol>
+        <li>Choose your QR code type (URL, WiFi, text, etc.)</li>
+        <li>Enter your content or link</li>
+        <li>Customize the color and size if needed</li>
+        <li>Download your high-quality PNG instantly — no watermark</li>
+      </ol>
+
+      <h3>QR Code vs Barcode — What's the Difference?</h3>
+      <p>Traditional barcodes are 1D — they store data in horizontal lines and are read by laser scanners. QR codes are 2D — they store far more data in a grid pattern and can be read by any camera. For most web and marketing use cases, QR codes are the better choice. For retail product labeling, traditional barcodes (EAN-13, UPC-A) remain the standard.</p>
+    `,
   },
   {
     slug: 'invoice-generator',
@@ -388,7 +457,29 @@ export const tools: Tool[] = [
     category: 'utility',
     hasOwnFaq: true,
     isPlaceholder: false,
-    content: '',
+    // ✅ FIX: Was empty — added content
+    content: `
+      <h3>Create Professional Invoices in Under 2 Minutes</h3>
+      <p>Chasing payments starts with sending a clear, professional invoice. TaskGuru's free invoice generator lets you build a polished PDF invoice in minutes — no accounting software, no subscription, no watermark.</p>
+      <ul>
+        <li><strong>Freelancers:</strong> Invoice clients for design, writing, development, or consulting work.</li>
+        <li><strong>Small Businesses:</strong> Bill customers with your logo, tax details, and payment terms.</li>
+        <li><strong>Contractors:</strong> Create itemized invoices for services rendered.</li>
+      </ul>
+
+      <h3>What You Can Add to Your Invoice</h3>
+      <ul>
+        <li>Your business name, logo, and contact details</li>
+        <li>Client name and billing address</li>
+        <li>Invoice number and issue date</li>
+        <li>Line items with quantity, rate, and totals</li>
+        <li>Tax percentage and discount</li>
+        <li>Payment due date and notes</li>
+      </ul>
+
+      <h3>Download as PDF Instantly</h3>
+      <p>Once you've filled in your details, download a clean, print-ready PDF with one click. No account required — your invoice data is never stored on our servers.</p>
+    `,
   },
   {
     slug: 'password-generator',
@@ -462,14 +553,14 @@ export const tools: Tool[] = [
   `,
   },
   {
-    slug: "esign-pdf-no-upload",
-    title: "Secure E-Sign PDF (No Upload)",
-    description: "Sign legal documents and contracts 100% privately in your browser. No server uploads, no data storage. Draw or upload your signature locally with complete privacy.",
+    slug: 'esign-pdf-no-upload',
+    title: 'Secure E-Sign PDF (No Upload)',
+    description: 'Sign legal documents and contracts 100% privately in your browser. No server uploads, no data storage. Draw or upload your signature locally with complete privacy.',
     icon: PenLine,
     isGenAI: false,
     category: 'pdf',
     hasOwnFaq: true,
-    imageUrl: "/tool-previews/esign-pdf.png",
+    imageUrl: '/tool-previews/esign-pdf.png',
     content: `
     <h3>Legally Sign PDFs — Entirely in Your Browser</h3>
     <p>TaskGuru brings enterprise-grade electronic signatures directly to your browser with true zero-upload technology. Your contracts and sensitive documents never leave your device — everything is processed locally in your RAM.</p>
@@ -482,9 +573,9 @@ export const tools: Tool[] = [
   `
   },
   {
-    slug: "youtube-to-pdf",
-    title: "YouTube to PDF Notes Generator",
-    description: "Convert long educational YouTube videos, podcasts, and lectures into clean, readable PDF study notes instantly. No signup required.",
+    slug: 'youtube-to-pdf',
+    title: 'YouTube to PDF Notes Generator',
+    description: 'Convert long educational YouTube videos, podcasts, and lectures into clean, readable PDF study notes instantly. No signup required.',
     icon: Youtube,
     isGenAI: false,
     category: 'utility',
@@ -514,14 +605,26 @@ export const tools: Tool[] = [
     `,
   },
   {
-  slug: "pomodoro-timer",
-  name: "Pomodoro Timer",
-  title: "Free Pomodoro Timer",
-  description: "Free online Pomodoro timer with task list, custom intervals, sound alerts, and session tracking. No download or sign-up needed.",
-  category: "Productivity",
-  icon: Timer,
-  hasOwnFaq: true,
-},
+    // ✅ FIX: Removed invalid `name` field, fixed icon from string to LucideIcon, added isGenAI
+    slug: 'pomodoro-timer',
+    title: 'Free Pomodoro Timer — Online Focus & Productivity Timer',
+    description: 'Free online Pomodoro timer with task list, custom intervals, sound alerts, and session tracking. Boost focus and productivity. No download or sign-up needed.',
+    icon: Timer,
+    isGenAI: false,
+    category: 'utility',
+    hasOwnFaq: true,
+    isPlaceholder: false,
+    content: `
+      <h3>What is the Pomodoro Technique?</h3>
+      <p>The Pomodoro Technique is a time management method developed by Francesco Cirillo. You work in focused 25-minute intervals (called "Pomodoros"), followed by a 5-minute break. After 4 sessions, take a longer 15–30 minute break. This cycle trains your brain to focus deeply while preventing burnout.</p>
+      <ul>
+        <li><strong>Deep Focus:</strong> 25-minute work sessions eliminate distractions.</li>
+        <li><strong>Built-in Recovery:</strong> Short breaks keep your energy levels high.</li>
+        <li><strong>Session Tracking:</strong> See how many Pomodoros you complete per day.</li>
+        <li><strong>Custom Intervals:</strong> Adjust work and break durations to fit your workflow.</li>
+      </ul>
+    `,
+  },
   {
     slug: 'metal-weight-calculator',
     title: 'Metal Weight Calculator Online (Steel, Iron, Aluminum)',
