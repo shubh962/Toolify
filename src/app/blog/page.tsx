@@ -36,6 +36,16 @@ const categoryColors: Record<string, string> = {
 const posts = [
   // ✅ Founder story — earliest, most personal
   {
+  title: "Check Credit Card Eligibility Without Hard Inquiry — Private Approval Check Guide",
+  slug: "check-credit-card-eligibility-without-hard-inquiry", 
+  summary:"Most eligibility checkers collect your personal data before showing results. Learn how to estimate your credit card approval chances privately without hard inquiries, spam calls, or affecting your credit score.",  
+  date: "2026-05-12", 
+  displayDate: "May 12, 2026", 
+  readTime: "8 min read", 
+  category: "Personal Finance",  
+  featured: true,
+  },
+  {
   title: "Grammarly Free vs Free Grammar Checker — Which One Is Actually Better in 2026?",
   slug: "grammarly-free-vs-free-grammar-checker",
   summary: "Grammarly's free plan sounds great — until you hit the paywall every 30 seconds. Here's an honest feature-by-feature breakdown of what you actually get for free, and when a no-account grammar checker beats it completely.",
