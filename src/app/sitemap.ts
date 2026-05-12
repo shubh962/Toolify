@@ -38,6 +38,7 @@ const blogSlugs = [
   "how-to-compress-pdf-free",
   "how-to-write-professional-english-emails",
   "grammarly-free-vs-free-grammar-checker",
+  "check-credit-card-eligibility-without-hard-inquiry",
 ];
 const toolSlugs = [
   "background-remover",
