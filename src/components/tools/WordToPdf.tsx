@@ -80,6 +80,7 @@ export default function WordToPdf() {
   const [pdfBlob, setPdfBlob] = useState<Blob | null>(null);
   const [preview, setPreview] = useState<string>('');
   const [wordCount, setWordCount] = useState(0);
+  const [isDragging, setIsDragging] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const validateAndSetFile = async (f: File) => {
@@ -165,10 +166,10 @@ export default function WordToPdf() {
       // Split into paragraphs first
       const paragraphs = text.split(/\n+/).filter((p) => p.trim().length > 0);
 
-      paragraphs.forEach((para) => {
+      paragraphs.forEach((para, paraIndex) => {
         // Check if it looks like a heading (short, no period at end)
         const isHeading = para.trim().length < 80 && !para.trim().endsWith('.');
-        const isFirstPara = paragraphs.indexOf(para) === 0 && isHeading;
+        const isFirstPara = paraIndex === 0 && isHeading;
 
         if (isFirstPara) {
           // Document title
@@ -210,7 +211,7 @@ export default function WordToPdf() {
       });
 
       // ✅ Footer on every page
-      const totalPages = (doc as any).internal.getNumberOfPages();
+      const totalPages = (doc as jsPDF & { internal: { getNumberOfPages(): number } }).internal.getNumberOfPages();
       for (let i = 1; i <= totalPages; i++) {
         doc.setPage(i);
         doc.setDrawColor(220, 220, 220);
@@ -228,9 +229,10 @@ export default function WordToPdf() {
       setIsDone(true);
       toast({ title: '✅ Conversion Complete!', description: `${totalPages} page${totalPages > 1 ? 's' : ''} generated.` });
 
-    } catch (err) {
-      console.error(err);
-      toast({ title: 'Conversion Failed', description: 'Could not convert this file. Please ensure it is a valid .docx file.', variant: 'destructive' });
+    } catch (err: unknown) {
+      if (process.env.NODE_ENV === 'development') console.error('[WordToPdf]', err);
+      const msg = err instanceof Error ? err.message : 'Could not convert this file. Please ensure it is a valid .docx file.';
+      toast({ title: 'Conversion Failed', description: msg, variant: 'destructive' });
     } finally {
       setIsConverting(false);
     }
@@ -270,10 +272,11 @@ export default function WordToPdf() {
             <>
               {/* Upload zone */}
               <div
-                className="flex flex-col items-center justify-center space-y-5 p-10 sm:p-14 border-2 border-dashed border-gray-200 dark:border-gray-700 rounded-[1.5rem] cursor-pointer hover:border-primary/50 hover:bg-gray-50 dark:hover:bg-gray-800 transition-all"
+                className={`flex flex-col items-center justify-center space-y-5 p-10 sm:p-14 border-2 border-dashed rounded-[1.5rem] cursor-pointer transition-all ${isDragging ? "border-primary bg-primary/5 scale-[1.01]" : "border-gray-200 dark:border-gray-700 hover:border-primary/50 hover:bg-gray-50 dark:hover:bg-gray-800"}`}
                 onClick={() => fileInputRef.current?.click()}
-                onDragOver={(e) => e.preventDefault()}
-                onDrop={handleDrop}
+                onDragOver={(e) => { e.preventDefault(); setIsDragging(true); }}
+                onDragLeave={() => setIsDragging(false)}
+                onDrop={(e) => { setIsDragging(false); handleDrop(e); }}
               >
                 <div className="p-5 bg-blue-50 dark:bg-blue-900/20 text-blue-600 rounded-full">
                   <FileText className="w-10 h-10" />
@@ -437,7 +440,7 @@ export default function WordToPdf() {
               { emoji: '📚', title: 'Reports & Assignments', desc: 'Academic institutions often require PDF submission. Convert your Word essay or report before submitting.' },
               { emoji: '⚖️', title: 'Contracts & Agreements', desc: 'Contracts should always be shared as PDFs to preserve the exact layout and prevent unauthorized modifications.' },
               { emoji: '📧', title: 'Email Attachments', desc: 'PDFs are universally readable. Not everyone has Word installed — a PDF opens on every device without any software.' },
-            ].map((item) => (
+          ].map((item) => (
               <div key={item.title} className="flex gap-3 p-4 bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-xl">
                 <span className="text-2xl flex-shrink-0">{item.emoji}</span>
                 <div>
@@ -450,7 +453,7 @@ export default function WordToPdf() {
         </section>
 
         {/* FAQ */}
-         <section className="space-y-5">
+        <section className="space-y-5">
           <h2 className="text-2xl font-black text-slate-900 dark:text-white flex items-center gap-2">
             <HelpCircle className="w-6 h-6 text-blue-600" /> Frequently Asked Questions
           </h2>
