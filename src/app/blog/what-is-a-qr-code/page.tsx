@@ -3,18 +3,26 @@ import Link from 'next/link';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'What Is a QR Code? How It Works, Types & Free Generator [2026]',
+  title: 'What is a QR Code? Meaning, How It Works & Free QR Code Generator | TaskGuru',
   description:
     'QR codes store links, WiFi passwords, contacts, and more in a scannable square pattern. Learn exactly how QR codes work, what types exist, and generate your own free QR code in 30 seconds — no app needed.',
+  keywords: 'what is a qr code, qr code meaning, how does a qr code work, qr code scanner, free qr code generator, create qr code online free, qr code vs barcode, static qr code, dynamic qr code, qr code full form',
   alternates: {
     canonical: 'https://www.taskguru.online/blog/what-is-a-qr-code',
   },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'What is a QR Code? Meaning, Types & Free Generator',
+    description: 'QR codes store links, WiFi passwords, contacts in a scannable square. Learn how they work and create one free in 30 seconds — no app or signup needed.',
+    site: '@Shubham_962',
+  },
   openGraph: {
-    title: 'What Is a QR Code? How It Works, Types & Free Generator [2026]',
+    title: 'What is a QR Code? Meaning, How It Works & Free QR Code Generator | TaskGuru',
     description:
       'QR codes store links, WiFi passwords, contacts, and more in a scannable square pattern. Learn exactly how QR codes work and generate your own free QR code in 30 seconds — no app needed.',
     url: 'https://www.taskguru.online/blog/what-is-a-qr-code',
     type: 'article',
+    images: [{ url: 'https://www.taskguru.online/og-image.png', width: 1200, height: 630 }],
   },
 };
 
@@ -105,6 +113,32 @@ const faqSchema = {
   ],
 };
 
+
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.taskguru.online' },
+    { '@type': 'ListItem', position: 2, name: 'Blog', item: 'https://www.taskguru.online/blog' },
+    { '@type': 'ListItem', position: 3, name: 'What is a QR Code?', item: 'https://www.taskguru.online/blog/what-is-a-qr-code' },
+  ],
+};
+
+const howToSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'HowTo',
+  name: 'How to Create a Free QR Code Online',
+  description: 'Create a static QR code for any URL, WiFi password, or text in under 30 seconds — free, no app, no signup.',
+  totalTime: 'PT1M',
+  tool: [{ '@type': 'HowToTool', name: 'TaskGuru Free QR Code Generator' }],
+  step: [
+    { '@type': 'HowToStep', position: 1, name: 'Open QR Code Generator', text: 'Go to TaskGuru QR & Barcode Generator — no sign-up required.', url: 'https://www.taskguru.online/tools/qr-barcode-generator' },
+    { '@type': 'HowToStep', position: 2, name: 'Select QR Code tab', text: 'Click the QR Code tab. The tool also supports barcode formats.' },
+    { '@type': 'HowToStep', position: 3, name: 'Enter your content', text: 'Paste a URL, WiFi password, or any text you want to encode. Preview updates in real time.' },
+    { '@type': 'HowToStep', position: 4, name: 'Set size and download', text: 'Choose 512px for cards, 1024px for print. Click Download PNG — ready instantly.' },
+  ],
+};
+
 const TOC = [
   { href: '#what-is', label: 'What Is a QR Code?' },
   { href: '#history', label: 'Who Invented the QR Code?' },
@@ -122,6 +156,8 @@ export default function BlogPost() {
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(howToSchema) }} />
 
       <div className="max-w-3xl mx-auto px-4 py-12 md:py-16">
 
@@ -622,6 +658,7 @@ export default function BlogPost() {
                 { title: 'How to Create a Free QR Code — Step by Step Guide', href: '/blog/how-to-create-free-qr-code' },
                 { title: 'What is OCR? How Image to Text Technology Works', href: '/blog/what-is-ocr-image-to-text' },
                 { title: 'Free Online Tools for Students 2026 — No Login Needed', href: '/blog/free-online-tools-students-2026-no-login' },
+                { title: 'Free AI Text Paraphraser — Rewrite Any Text Instantly', href: '/tools/text-paraphraser' },
               ].map((post) => (
                 <Link
                   key={post.href}
@@ -640,4 +677,4 @@ export default function BlogPost() {
       </div>
     </>
   );
-                     }
+}
