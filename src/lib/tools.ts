@@ -42,7 +42,7 @@ export interface Tool {
 export const tools: Tool[] = [
   {
     slug: 'background-remover',
-    title: 'Free AI Background Remover Online',
+    title: 'Free AI Background Remover Online – Remove Image Background in HD',
     description:
       'Remove image backgrounds instantly using advanced AI. Create transparent PNG images for eCommerce, thumbnails, product photos and social media in seconds.',
     icon: ImageMinus,
@@ -64,7 +64,7 @@ export const tools: Tool[] = [
   },
   {
     slug: 'image-to-text',
-    title: 'Image to Text Converter',
+    title: 'Free Image to Text Converter Online – Extract Text Instantly',
     description: 'Extract text from images, screenshots, and scanned documents instantly using OCR. Convert photos to editable text online with high accuracy — free, fast, and 100% private.',
     icon: ScanText,
     isGenAI: true,
@@ -79,7 +79,7 @@ export const tools: Tool[] = [
   {
     slug: 'text-paraphraser',
     // ✅ FIX: Title strengthened with primary keyword
-    title: 'Free AI Paraphrasing Tool — Rewrite & Humanize Text Instantly',
+    title: 'Free AI Paraphrasing Tool Online | Rewrite Text Instantly (No Login)',
     // ✅ FIX: Description now leads with exact search queries from Search Console
     description:
       'Free AI paraphrasing tool — rephrase any text instantly. The best AI paraphraser for students, bloggers, and writers. Remove plagiarism, humanize AI text, and rewrite essays. No signup, no limits.',
@@ -100,7 +100,7 @@ export const tools: Tool[] = [
   },
   {
     slug: 'ai-content-detector',
-    title: 'Free AI Content Detector & Plagiarism Checker',
+    title: 'Free AI Detector – Detect ChatGPT, Gemini & Grok AI Content Instantly',
     description: 'Instantly detect AI-generated patterns from ChatGPT, Gemini, and Claude using advanced Perplexity and Burstiness analysis to ensure your content is 100% human-like, unique, and free from AI-driven plagiarism.',
     icon: ScanText,
     isGenAI: true,
@@ -127,7 +127,7 @@ export const tools: Tool[] = [
   },
   {
     slug: 'typing-speed-test',
-    title: 'Free Typing Speed Test — WPM & Accuracy',
+    title: 'Free Typing Speed Test Online – Check WPM & Accuracy',
     description: 'Test your typing speed in WPM and accuracy. Choose 30, 60, or 120 second tests. Real-time feedback. No signup required.',
     icon: Keyboard,
     isGenAI: false,
@@ -141,7 +141,7 @@ export const tools: Tool[] = [
   },
   {
     slug: 'word-counter',
-    title: 'Free Word Counter & Character Count Online',
+    title: 'Free Online Word Counter Tool with Character Count & Reading Time',
     description:
       'Count words, characters, sentences, paragraphs and reading time instantly. Check keyword density and platform character limits for Twitter, Instagram, LinkedIn and more. No signup required.',
     icon: Type,
@@ -154,7 +154,7 @@ export const tools: Tool[] = [
   {
     // ✅ FIX: Removed invalid `name` field, fixed icon from string to LucideIcon, added isGenAI
     slug: 'grammar-checker',
-    title: 'Free Grammar Checker — Fix Grammar & Spelling Online',
+    title: 'Free Online Grammar Checker with AI – No Signup Required',
     description: 'Check and fix grammar, spelling, and punctuation errors in your English text — free, instant, no sign-up required.',
     icon: CheckSquare,
     isGenAI: false,
@@ -174,7 +174,7 @@ export const tools: Tool[] = [
   },
   {
     slug: 'pdf-to-word',
-    title: 'PDF to Word Converter Online (DOCX)',
+    title: 'Free PDF to Word Converter Online – Convert PDF to DOCX Instantly',
     description:
       'Convert PDF files into fully editable Word documents online while preserving formatting, fonts, tables and layout with fast processing.',
     icon: FileText,
@@ -191,7 +191,7 @@ export const tools: Tool[] = [
   },
   {
     slug: 'word-to-pdf',
-    title: 'Free Word to PDF Converter Online — Convert DOCX to PDF',
+    title: 'Free Word to PDF Converter Online – Convert DOCX to PDF Instantly',
     description:
       'Convert Word documents to PDF free online. Upload .docx files and download clean PDF instantly. No Microsoft Office needed. 100% private — your file never leaves your device.',
     icon: FileText,
@@ -411,7 +411,7 @@ export const tools: Tool[] = [
   },
   {
     slug: 'qr-barcode-generator',
-    title: 'Free QR Code & Barcode Generator',
+    title: 'Free QR Code Generator Online – Create QR & Barcodes Instantly',
     description:
       'All-in-one generator for custom QR Codes (URL, WiFi) and Barcodes (EAN, UPC, CODE128). Download high-quality PNGs instantly.',
     icon: QrCode,
