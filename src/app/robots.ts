@@ -6,6 +6,7 @@ export default function robots(): MetadataRoute.Robots {
       userAgent: '*',
       allow: '/',
       disallow: '/api/',
+      Disallow: /ads/,
     },
     sitemap: 'https://www.taskguru.online/sitemap.xml',
     host: 'www.taskguru.online',
