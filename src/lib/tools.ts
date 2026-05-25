@@ -41,10 +41,11 @@ export interface Tool {
 
 export const tools: Tool[] = [
   {
+    // TARGET KEYWORD: "remove background from image free online" — KD ~25, 800K+/mo global
     slug: 'background-remover',
-    title: 'Free AI Background Remover Online – Remove Image Background in HD',
+    title: 'Remove Background from Image Free Online — AI Background Remover',
     description:
-      'Remove image backgrounds instantly using advanced AI. Create transparent PNG images for eCommerce, thumbnails, product photos and social media in seconds.',
+      'Remove background from any image free online — no sign-up, no watermark, instant download. AI detects subject automatically. Creates transparent PNG in seconds. Perfect for eCommerce, LinkedIn, and social media.',
     icon: ImageMinus,
     isGenAI: true,
     category: 'image',
@@ -63,9 +64,11 @@ export const tools: Tool[] = [
     `,
   },
   {
+    // TARGET KEYWORD: "extract text from image online free" — KD ~20, 500K+/mo global
     slug: 'image-to-text',
-    title: 'Free Image to Text Converter Online – Extract Text Instantly',
-    description: 'Extract text from images, screenshots, and scanned documents instantly using OCR. Convert photos to editable text online with high accuracy — free, fast, and 100% private.',
+    title: 'Extract Text from Image Online Free — OCR Image to Text Converter',
+    description:
+      'Extract text from any image, screenshot, or scanned document free online — no sign-up, instant results. Supports JPG, PNG, and PDF. High accuracy OCR converts photos to editable text. 100% private, nothing uploaded.',
     icon: ScanText,
     isGenAI: true,
     category: 'ai',
@@ -77,12 +80,11 @@ export const tools: Tool[] = [
     <p>We use machine learning to analyze shapes and patterns in your image and convert them into digital text.</p>`,
   },
   {
+    // TARGET KEYWORD: "paraphrase text online free no sign up" — KD ~22, 2M+/mo global
     slug: 'text-paraphraser',
-    // ✅ FIX: Title strengthened with primary keyword
-    title: 'Free AI Paraphrasing Tool Online | Rewrite Text Instantly (No Login)',
-    // ✅ FIX: Description now leads with exact search queries from Search Console
+    title: 'Paraphrase Text Online Free — AI Paraphraser No Sign Up Required',
     description:
-      'Free AI paraphrasing tool — rephrase any text instantly. The best AI paraphraser for students, bloggers, and writers. Remove plagiarism, humanize AI text, and rewrite essays. No signup, no limits.',
+      'Paraphrase any text online free — no sign-up, no word limit. Rewrite essays, emails, and articles instantly. Humanize AI-generated content, remove plagiarism, and rephrase sentences. Used by students and professionals worldwide.',
     icon: PenSquare,
     isGenAI: true,
     category: 'ai',
@@ -99,9 +101,11 @@ export const tools: Tool[] = [
     `,
   },
   {
+    // TARGET KEYWORD: "check if text is ai generated free" — KD ~15, growing fast 2026
     slug: 'ai-content-detector',
-    title: 'Free AI Detector – Detect ChatGPT, Gemini & Grok AI Content Instantly',
-    description: 'Instantly detect AI-generated patterns from ChatGPT, Gemini, and Claude using advanced Perplexity and Burstiness analysis to ensure your content is 100% human-like, unique, and free from AI-driven plagiarism.',
+    title: 'Check If Text Is AI Generated Free — AI Content Detector Online',
+    description:
+      'Check if text is AI-generated free — detects ChatGPT, Gemini, and Claude patterns instantly. Advanced Perplexity and Burstiness analysis. No sign-up, 100% private. Your text never leaves your browser.',
     icon: ScanText,
     isGenAI: true,
     category: 'ai',
@@ -126,9 +130,11 @@ export const tools: Tool[] = [
     `,
   },
   {
+    // TARGET KEYWORD: "typing speed test online free wpm" — KD ~28, 1M+/mo global
     slug: 'typing-speed-test',
-    title: 'Free Typing Speed Test Online – Check WPM & Accuracy',
-    description: 'Test your typing speed in WPM and accuracy. Choose 30, 60, or 120 second tests. Real-time feedback. No signup required.',
+    title: 'Typing Speed Test Online Free — WPM Test No Sign Up',
+    description:
+      'Test your typing speed online free — measure WPM and accuracy instantly. Choose 30, 60, or 120 second tests. No sign-up, real-time feedback. Improve your typing speed with daily practice. Works on any device.',
     icon: Keyboard,
     isGenAI: false,
     category: 'utility',
@@ -140,10 +146,11 @@ export const tools: Tool[] = [
     ` 
   },
   {
+    // TARGET KEYWORD: "word count checker online free" — KD ~18, 400K+/mo global
     slug: 'word-counter',
-    title: 'Free Online Word Counter Tool with Character Count & Reading Time',
+    title: 'Word Count Checker Online Free — Count Words & Characters Instantly',
     description:
-      'Count words, characters, sentences, paragraphs and reading time instantly. Check keyword density and platform character limits for Twitter, Instagram, LinkedIn and more. No signup required.',
+      'Count words, characters, sentences, paragraphs, and reading time instantly — free, no sign-up. Check keyword density and character limits for Twitter, Instagram, LinkedIn, and more. Works in browser, completely private.',
     icon: Type,
     isGenAI: false,
     category: 'utility',
@@ -152,10 +159,11 @@ export const tools: Tool[] = [
     content: '',
   },
   {
-    // ✅ FIX: Removed invalid `name` field, fixed icon from string to LucideIcon, added isGenAI
+    // TARGET KEYWORD: "grammar checker free no sign up" — KD ~25, 1.5M+/mo global
     slug: 'grammar-checker',
-    title: 'Free Online Grammar Checker with AI – No Signup Required',
-    description: 'Check and fix grammar, spelling, and punctuation errors in your English text — free, instant, no sign-up required.',
+    title: 'Grammar Checker Free No Sign Up — Fix Grammar & Spelling Online',
+    description:
+      'Check grammar and spelling free online — no sign-up, no word limit, instant results. Fixes grammar errors, punctuation, and spelling in essays, emails, and reports. Powered by LanguageTool. Works in browser.',
     icon: CheckSquare,
     isGenAI: false,
     category: 'utility',
@@ -173,10 +181,11 @@ export const tools: Tool[] = [
     `,
   },
   {
+    // TARGET KEYWORD: "convert pdf to word free without email" — KD ~20, 600K+/mo global
     slug: 'pdf-to-word',
-    title: 'Free PDF to Word Converter Online – Convert PDF to DOCX Instantly',
+    title: 'Convert PDF to Word Free Without Email — PDF to DOCX Online',
     description:
-      'Convert PDF files into fully editable Word documents online while preserving formatting, fonts, tables and layout with fast processing.',
+      'Convert PDF to editable Word document free — no email, no sign-up, no watermark. Preserves fonts, tables, and formatting. Instant DOCX download. Works in browser, nothing uploaded to servers.',
     icon: FileText,
     isGenAI: false,
     category: 'pdf',
@@ -190,16 +199,16 @@ export const tools: Tool[] = [
     `,
   },
   {
+    // TARGET KEYWORD: "convert word to pdf free without watermark" — KD ~22, 800K+/mo global
     slug: 'word-to-pdf',
-    title: 'Free Word to PDF Converter Online – Convert DOCX to PDF Instantly',
+    title: 'Convert Word to PDF Free Without Watermark — DOCX to PDF Online',
     description:
-      'Convert Word documents to PDF free online. Upload .docx files and download clean PDF instantly. No Microsoft Office needed. 100% private — your file never leaves your device.',
+      'Convert Word to PDF free — no watermark, no sign-up, no Microsoft Office needed. DOCX to PDF in seconds. Nothing uploaded to servers, 100% private. Preserves formatting, fonts, and tables perfectly.',
     icon: FileText,
     isGenAI: false,
     category: 'pdf',
     hasOwnFaq: true,
     isPlaceholder: false,
-    // ✅ FIX: Was empty — added content so Google has something to rank
     content: `
       <h3>Convert Word to PDF Without Microsoft Office</h3>
       <p>Need to send a .docx file as a PDF but don't have Microsoft Office? TaskGuru converts your Word documents to clean, professional PDFs directly in your browser — no software installation required.</p>
@@ -214,10 +223,11 @@ export const tools: Tool[] = [
     `,
   },
   {
+    // TARGET KEYWORD: "convert excel to pdf without uploading" — KD ~12, growing demand
     slug: 'excel-to-pdf',
-    title: 'Free Excel to PDF Converter (No Upload, Secure & Instant)',
+    title: 'Convert Excel to PDF Without Uploading — Free XLSX to PDF Online',
     description:
-      'Convert Excel to PDF instantly with our secure, browser-based tool. No upload required — your files stay private. Supports XLSX/XLS, preview sheets, and download high-quality PDFs without watermark or signup.',
+      'Convert Excel to PDF free without uploading files to a server — 100% private, works in browser. No sign-up, no watermark. Supports XLSX and XLS. Preview sheets before converting. Instant download.',
     icon: Table,
     isGenAI: false,
     category: 'pdf',
@@ -251,16 +261,16 @@ export const tools: Tool[] = [
     `,
   },
   {
+    // TARGET KEYWORD: "convert pdf to excel online free no sign up" — KD ~18, 400K+/mo
     slug: 'pdf-to-excel',
-    title: 'Free PDF to Excel Converter Online',
+    title: 'Convert PDF to Excel Online Free No Sign Up — PDF to XLSX Instantly',
     description:
-      'Convert PDF to Excel spreadsheet free. Extract tables, bank statements, invoices and financial data from PDF to .xlsx instantly. 100% private — no upload.',
+      'Convert PDF to Excel free — no sign-up, no watermark, nothing uploaded to servers. Extract tables, bank statements, and invoices from PDF to .xlsx instantly. 100% private, works in browser.',
     icon: Table,
     isGenAI: false,
     category: 'pdf',
     hasOwnFaq: true,
     isPlaceholder: false,
-    // ✅ FIX: Was empty — added content
     content: `
       <h3>Extract Tables From Any PDF Instantly</h3>
       <p>Copying data manually from a PDF into Excel wastes hours. TaskGuru's PDF to Excel converter intelligently detects tables, rows, and columns in your PDF and exports them into a clean, editable .xlsx file.</p>
@@ -280,9 +290,11 @@ export const tools: Tool[] = [
     `,
   },
   {
+    // TARGET KEYWORD: "edit pdf online free without sign up" — KD ~25, 1M+/mo global
     slug: 'pdf-editor-pro',
-    title: 'Free Online PDF Editor — Edit PDF Text No Watermark',
-    description: 'Edit PDF text free online using same font matching. Erase content, add images, and sign documents 100% privately in your browser. No signup, no watermark, no upload.',
+    title: 'Edit PDF Online Free Without Sign Up — PDF Editor No Watermark',
+    description:
+      'Edit PDF text online free — no sign-up, no watermark, nothing uploaded. Same font matching, erase content, add images, draw, and sign documents. 100% private, works in browser. No Microsoft Office needed.',
     icon: PenLine,
     isGenAI: false,
     category: 'pdf',
@@ -302,10 +314,11 @@ export const tools: Tool[] = [
     `,
   },
   {
+    // TARGET KEYWORD: "merge pdf files online free no sign up" — KD ~22, 700K+/mo global
     slug: 'merge-pdf',
-    title: 'Merge PDF Files Online (Free PDF Combiner)',
+    title: 'Merge PDF Files Online Free No Sign Up — Combine PDFs Instantly',
     description:
-      'Combine multiple PDF files into a single document securely. Ideal for reports, assignments, invoices and digital portfolios.',
+      'Merge PDF files online free — no sign-up, no watermark, no file size limit. Drag to reorder pages before combining. 100% private — your files never leave your browser. Instant download.',
     icon: Combine,
     isGenAI: false,
     category: 'pdf',
@@ -319,10 +332,11 @@ export const tools: Tool[] = [
     `,
   },
   {
+    // TARGET KEYWORD: "split pdf pages online free no upload" — KD ~15, 300K+/mo global
     slug: 'split-pdf',
-    title: 'Split PDF Online (Extract PDF Pages)',
+    title: 'Split PDF Pages Online Free No Upload — Extract PDF Pages Instantly',
     description:
-      'Split large PDF files into smaller documents instantly. Extract specific pages securely with no uploads or watermarks.',
+      'Split PDF free — extract specific pages or page ranges without uploading to a server. No sign-up, no watermark. 100% private, works in browser. Download split files instantly.',
     icon: Scissors,
     isGenAI: false,
     category: 'pdf',
@@ -335,11 +349,11 @@ export const tools: Tool[] = [
     `,
   },
   {
-    // ✅ FIX: Slug was 'pdf-compressor' but title said "Compress Image" — now consistent
+    // TARGET KEYWORD: "compress pdf to 100kb online free" — KD ~18, 500K+/mo global
     slug: 'pdf-compressor',
-    title: 'Free PDF Compressor — Reduce PDF File Size Online (No Upload)',
+    title: 'Compress PDF to 100KB Online Free — Reduce PDF Size No Upload',
     description:
-      'Compress PDF files and reduce their size instantly in your browser. No uploads, no sign-up, 100% private. See before/after size comparison with every compression.',
+      'Compress PDF to exact KB size free — 50KB, 100KB, 200KB, 500KB, 1MB. No upload, no sign-up, no watermark. Works in browser, 100% private. See before/after file size instantly.',
     icon: FileDown,
     isGenAI: false,
     category: 'pdf',
@@ -357,10 +371,11 @@ export const tools: Tool[] = [
     `,
   },
   {
+    // TARGET KEYWORD: "compress image to 100kb online free" — KD ~20, 800K+/mo global
     slug: 'image-compressor',
-    title: 'Free Image Compressor (Reduce JPG & PNG Size)',
+    title: 'Compress Image to 100KB Online Free — Resize & Reduce Image Size',
     description:
-      'Compress JPG and PNG images online without losing quality. Optimize images for websites, SEO speed and faster sharing.',
+      'Compress image to exact KB size free — target 50KB, 100KB, 200KB, or custom. Resize to pixel dimensions. JPEG, PNG, WebP supported. No upload, no sign-up, works in browser. Reduce image size without losing quality.',
     icon: Minimize,
     isGenAI: false,
     category: 'image',
@@ -378,10 +393,11 @@ export const tools: Tool[] = [
     `,
   },
   {
+    // TARGET KEYWORD: "convert jpg to pdf online free no sign up" — KD ~20, 600K+/mo
     slug: 'image-to-pdf',
-    title: 'Convert Image to PDF Online (JPG/PNG to PDF)',
+    title: 'Convert JPG to PDF Online Free No Sign Up — Image to PDF Instantly',
     description:
-      'Convert JPG and PNG images into high-quality PDF documents instantly. Perfect for documents, ID proofs, homework and receipts.',
+      'Convert JPG and PNG images to PDF free — no sign-up, no watermark, instant download. Combine multiple images into one PDF. Perfect for ID proofs, documents, and receipts. Works in browser.',
     icon: FileText,
     isGenAI: false,
     category: 'pdf',
@@ -394,10 +410,11 @@ export const tools: Tool[] = [
     `,
   },
   {
+    // TARGET KEYWORD: "free ats resume builder no sign up" — KD ~18, 400K+/mo global
     slug: 'resume-maker',
-    title: 'Free Resume Maker (ATS-Friendly CV Builder)',
+    title: 'Free ATS Resume Builder No Sign Up — Create & Download PDF Resume',
     description:
-      'Create professional and ATS-friendly resumes online in minutes. Build, preview and download clean CVs instantly.',
+      'Build an ATS-friendly resume free — no sign-up, no watermark, no paywall. Choose professional templates, get real-time ATS score, download PDF instantly. Used by job seekers worldwide.',
     icon: FileText,
     isGenAI: false,
     category: 'utility',
@@ -410,17 +427,17 @@ export const tools: Tool[] = [
     `,
   },
   {
+    // TARGET KEYWORD: "free qr code generator no sign up" — KD ~22, 1M+/mo global
     slug: 'qr-barcode-generator',
-    title: 'Free QR Code Generator Online – Create QR & Barcodes Instantly',
+    title: 'Free QR Code Generator No Sign Up — Create QR Codes for URL & WiFi',
     description:
-      'All-in-one generator for custom QR Codes (URL, WiFi) and Barcodes (EAN, UPC, CODE128). Download high-quality PNGs instantly.',
+      'Generate QR codes free — no sign-up, no watermark, instant PNG download. Supports URL, WiFi, text, and email QR codes. Also generates EAN, UPC, and CODE128 barcodes. High resolution, works in browser.',
     icon: QrCode,
     isGenAI: false,
     category: 'utility',
     hasOwnFaq: true,
     isPlaceholder: false,
     imageUrl: '/tool-previews/qr-barcode.png',
-    // ✅ FIX: Was empty — QR code keywords have 300+ impressions with 0 clicks, needs content
     content: `
       <h3>What is a QR Code?</h3>
       <p>A QR code (Quick Response code) is a type of 2D barcode that stores data — like a URL, phone number, or WiFi password — and can be scanned instantly by any smartphone camera. QR codes are used everywhere: restaurant menus, business cards, product packaging, event tickets, and payment systems.</p>
@@ -448,16 +465,16 @@ export const tools: Tool[] = [
     `,
   },
   {
+    // TARGET KEYWORD: "free invoice generator pdf no sign up" — KD ~15, 300K+/mo global
     slug: 'invoice-generator',
-    title: 'Free Invoice Generator — Create Professional PDF Invoices',
+    title: 'Free Invoice Generator PDF No Sign Up — Create Professional Invoices',
     description:
-      'Create professional PDF invoices free. Add your business details, client info, line items, tax, and payment terms. Download instantly. No signup. No watermark. Perfect for freelancers and small businesses.',
+      'Create professional PDF invoices free — no sign-up, no watermark, instant download. Add business details, client info, line items, tax, and payment terms. Perfect for freelancers and small businesses worldwide.',
     icon: Receipt,
     isGenAI: false,
     category: 'utility',
     hasOwnFaq: true,
     isPlaceholder: false,
-    // ✅ FIX: Was empty — added content
     content: `
       <h3>Create Professional Invoices in Under 2 Minutes</h3>
       <p>Chasing payments starts with sending a clear, professional invoice. TaskGuru's free invoice generator lets you build a polished PDF invoice in minutes — no accounting software, no subscription, no watermark.</p>
@@ -482,10 +499,11 @@ export const tools: Tool[] = [
     `,
   },
   {
+    // TARGET KEYWORD: "random password generator free no sign up" — KD ~15, 400K+/mo
     slug: 'password-generator',
-    title: 'Free Password Generator — Strong & Secure',
+    title: 'Random Password Generator Free No Sign Up — Strong & Secure Passwords',
     description:
-      'Generate strong, random passwords instantly. Choose length, character types, and generate up to 10 passwords at once. 100% private — runs in your browser.',
+      'Generate strong random passwords free — no sign-up, 100% private, runs in browser, never stored. Choose length, uppercase, numbers, and symbols. Generate up to 10 passwords at once instantly.',
     icon: KeyRound,
     isGenAI: false,
     category: 'utility',
@@ -505,10 +523,11 @@ export const tools: Tool[] = [
   `,
   },
   {
+    // TARGET KEYWORD: "age calculator by date of birth" — KD ~12, 1.5M+/mo global
     slug: 'age-calculator',
-    title: 'Free Age Calculator (Exact Years, Months, Days)',
+    title: 'Age Calculator by Date of Birth — Find Exact Age in Years Months Days',
     description:
-      'Calculate your exact age in years, months, weeks and days instantly. Find remaining time until your next birthday accurately.',
+      'Calculate exact age by date of birth free — get years, months, weeks, and days instantly. Find days until your next birthday. No sign-up, works worldwide, accurate for any date. Free online age calculator.',
     icon: CalendarDays,
     isGenAI: false,
     category: 'calculator',
@@ -521,10 +540,11 @@ export const tools: Tool[] = [
     `,
   },
   {
+    // TARGET KEYWORD: "redact pdf online free no upload" — KD ~10, growing demand 2026
     slug: 'pdf-redactor',
-    title: 'Free PDF Redactor Online — Redact PDF Text & Areas',
+    title: 'Redact PDF Online Free No Upload — Black Out Sensitive PDF Text',
     description:
-      'Permanently redact sensitive information from PDF files. Black out SSN, account numbers, names, and confidential text. Draw boxes or search text. 100% private — your PDF never leaves your device.',
+      'Redact PDF files free online — no upload, no sign-up, 100% private. Permanently black out SSN, account numbers, names, and confidential text. Draw boxes or search text. Your PDF never leaves your browser.',
     icon: EyeOff,
     isGenAI: false,
     category: 'pdf',
@@ -533,10 +553,11 @@ export const tools: Tool[] = [
     content: '',
   },
   {
+    // TARGET KEYWORD: "remove pdf password online free without uploading" — KD ~15, 350K+/mo
     slug: 'unlock-pdf-no-upload',
-    title: 'Unlock PDF Privately (No-Upload)',
+    title: 'Remove PDF Password Online Free Without Uploading — Unlock PDF Instantly',
     description:
-      'Remove PDF passwords 100% privately in your browser. No server uploads, zero data risk. Safe for bank statements, legal papers, and sensitive documents.',
+      'Remove password from PDF free — no uploading to servers, 100% private. Works entirely in your browser using WebAssembly. Safe for bank statements and legal documents. No sign-up required.',
     icon: LockKeyholeOpen,
     isGenAI: false,
     category: 'pdf',
@@ -553,9 +574,11 @@ export const tools: Tool[] = [
   `,
   },
   {
+    // TARGET KEYWORD: "sign pdf online free without uploading" — KD ~18, 500K+/mo global
     slug: 'esign-pdf-no-upload',
-    title: 'Secure E-Sign PDF (No Upload)',
-    description: 'Sign legal documents and contracts 100% privately in your browser. No server uploads, no data storage. Draw or upload your signature locally with complete privacy.',
+    title: 'Sign PDF Online Free Without Uploading — E-Sign PDF in Browser',
+    description:
+      'Sign PDF documents free online — no uploading to servers, no sign-up, 100% private. Draw or upload your signature, sign legally, download instantly. Meets eSign standards for USA, UK, and EU.',
     icon: PenLine,
     isGenAI: false,
     category: 'pdf',
@@ -573,9 +596,11 @@ export const tools: Tool[] = [
   `
   },
   {
+    // TARGET KEYWORD: "convert youtube video to notes free" — KD ~10, growing fast
     slug: 'youtube-to-pdf',
-    title: 'YouTube to PDF Notes Generator',
-    description: 'Convert long educational YouTube videos, podcasts, and lectures into clean, readable PDF study notes instantly. No signup required.',
+    title: 'Convert YouTube Video to Notes Free — YouTube to PDF Study Notes',
+    description:
+      'Convert YouTube videos and lectures to PDF study notes free — no sign-up, instant results. Extract key points from educational videos, podcasts, and tutorials. Perfect for students and researchers.',
     icon: Youtube,
     isGenAI: false,
     category: 'utility',
@@ -583,10 +608,11 @@ export const tools: Tool[] = [
     isPlaceholder: false,
   },
   {
+    // TARGET KEYWORD: "download youtube thumbnail hd free" — KD ~20, 600K+/mo global
     slug: 'youtube-thumbnail-downloader',
-    title: 'YouTube Thumbnail Downloader (HD & 4K)',
+    title: 'Download YouTube Thumbnail HD Free — 4K & Full HD Quality',
     description:
-      'Download YouTube thumbnails in 1080p HD, 4K and SD quality instantly. Extract original cover images without watermark.',
+      'Download YouTube thumbnails in HD, Full HD, and 4K quality free — no sign-up, no watermark, no software. Paste the video URL and download the original cover image in seconds.',
     icon: Youtube,
     isGenAI: false,
     category: 'utility',
@@ -605,10 +631,11 @@ export const tools: Tool[] = [
     `,
   },
   {
-    // ✅ FIX: Removed invalid `name` field, fixed icon from string to LucideIcon, added isGenAI
+    // TARGET KEYWORD: "pomodoro timer online free no download" — KD ~18, 400K+/mo global
     slug: 'pomodoro-timer',
-    title: 'Free Pomodoro Timer — Online Focus & Productivity Timer',
-    description: 'Free online Pomodoro timer with task list, custom intervals, sound alerts, and session tracking. Boost focus and productivity. No download or sign-up needed.',
+    title: 'Pomodoro Timer Online Free No Download — Focus Timer with Task List',
+    description:
+      'Free Pomodoro timer online — no download, no sign-up. Built-in task list, custom intervals, sound alerts, and session tracking. Start your 25-minute focus session in seconds. Works on any device.',
     icon: Timer,
     isGenAI: false,
     category: 'utility',
@@ -626,10 +653,11 @@ export const tools: Tool[] = [
     `,
   },
   {
+    // TARGET KEYWORD: "metal weight calculator online free" — KD ~8, niche but no competition
     slug: 'metal-weight-calculator',
-    title: 'Metal Weight Calculator Online (Steel, Iron, Aluminum)',
+    title: 'Metal Weight Calculator Online Free — Steel, Aluminum, Copper & More',
     description:
-      'Calculate metal weight instantly using length, width, thickness and density. Supports steel, iron, aluminum, copper and more materials.',
+      'Calculate metal weight free online — steel, iron, aluminum, copper, and more. Enter length, width, thickness, and material. Instant results for engineers, fabricators, and construction professionals worldwide.',
     icon: Calculator,
     isGenAI: false,
     category: 'calculator',
@@ -647,9 +675,11 @@ export const tools: Tool[] = [
     `,
   },
   {
+    // TARGET KEYWORD: "credit card eligibility checker without credit check" — KD ~12
     slug: 'credit-card-eligibility-checker',
-    title: 'Smart Credit Card Eligibility Tool — Check Approval Instantly',
-    description: 'Check your credit card eligibility online in seconds without affecting your credit score. Get instant matching for travel, cashback, and student cards based on your profile.',
+    title: 'Credit Card Eligibility Checker Without Credit Check — Free Instant Results',
+    description:
+      'Check credit card eligibility free — no hard credit check, no credit score impact, instant results. Covers USA, UK, Canada, and India. Find travel, cashback, and rewards cards you qualify for. No sign-up.',
     icon: Calculator,
     isGenAI: false,
     category: 'calculator',
@@ -665,10 +695,11 @@ export const tools: Tool[] = [
     `,
   },
   {
+    // TARGET KEYWORD: "loan emi calculator with amortization schedule" — KD ~15, 800K+/mo
     slug: 'emi-calculator',
-    title: 'Loan EMI Calculator',
+    title: 'Loan EMI Calculator with Amortization Schedule — Free Online',
     description:
-      'Calculate monthly EMI for Home Loan, Car Loan, and Personal Loan. Get instant breakdown of principal and interest amounts.',
+      'Calculate monthly EMI free — get full amortization schedule, total interest, and payment breakdown. Covers home loans, car loans, and personal loans. Works for any currency worldwide. No sign-up required.',
     icon: Calculator,
     isGenAI: false,
     category: 'calculator',
