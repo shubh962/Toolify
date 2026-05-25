@@ -71,18 +71,22 @@ const toolSeoOverrides: Record<string, { title: string; description: string }> =
     title: "Free AI Background Remover — Remove Image Background Instantly | TaskGuru",
     description: "Remove image backgrounds free using AI — no signup, no watermark, instant results. Create transparent PNGs for eCommerce, thumbnails, and social media.",
   },
-  "image-compressor": {
-    title: "Free Image Compressor — Reduce Image Size to 20KB, 50KB, 100KB | TaskGuru",
-    description: "Compress JPG, PNG, WebP images free — reduce to exact KB without quality loss. Perfect for scholarship forms, passport photos, and websites. No signup.",
-  },
+"image-compressor": {
+  title: "Compress Image to 100KB Online Free — Resize & Reduce Image Size | TaskGuru",
+  description: "Compress image to exact KB size free — target 50KB, 100KB, 200KB. Resize to pixel dimensions. No upload, no sign-up. JPEG, PNG, WebP supported.",
+},
   "pdf-to-word": {
     title: "Free PDF to Word Converter — Convert PDF to Editable DOCX | TaskGuru",
     description: "Convert PDF to editable Word document free — no signup, no watermark. Works in your browser on Windows, Mac, Android, iOS.",
   },
+  "word-to-pdf": {
+  title: "Convert Word to PDF Free Without Watermark — DOCX to PDF Online | TaskGuru",
+  description: "Convert Word to PDF free — no watermark, no sign-up, no Microsoft Office needed. DOCX to PDF in seconds. Nothing uploaded to servers, 100% private.",
+},
   "merge-pdf": {
-    title: "Free PDF Merger — Merge PDF Files Online Instantly | TaskGuru",
-    description: "Merge multiple PDF files into one free — no signup, no watermark, instant download. Drag to reorder pages. Perfect for visa, job applications.",
-  },
+  title: "Merge PDF Files Online Free No Sign Up — Combine PDFs Instantly | TaskGuru",
+  description: "Merge PDF files online free — no sign-up, no watermark, no file size limit. Drag to reorder before combining. 100% private.",
+},
   "password-generator": {
     title: "Free Password Generator — Create Strong Secure Passwords | TaskGuru",
     description: "Generate strong secure passwords free — 4 to 64 characters, custom symbols. Cryptographically secure. No signup, 100% private.",
@@ -91,18 +95,18 @@ const toolSeoOverrides: Record<string, { title: string; description: string }> =
     title: "Free Invoice Generator — Create PDF Invoices Instantly | TaskGuru",
     description: "Create professional PDF invoices free — add line items, tax (GST/VAT), payment terms. No signup, no watermark. Perfect for freelancers.",
   },
-  "emi-calculator": {
-    title: "Free EMI Calculator — Calculate Loan EMI, Interest & Schedule | TaskGuru",
-    description: "Calculate loan EMI instantly — principal, interest rate, tenure. Monthly EMI, total interest, and payment schedule. Works for SBI, HDFC, ICICI & all banks.",
-  },
+  "age-calculator": {
+  title: "Age Calculator by Date of Birth — Exact Age in Years Months Days | TaskGuru",
+  description: "Calculate exact age by date of birth free — years, months, weeks, days. Find days until next birthday. No sign-up, works worldwide.",
+},
   "word-to-pdf": {
     title: "Free Word to PDF Converter — Convert DOCX to PDF Online | TaskGuru",
     description: "Convert Word documents to PDF free — no Microsoft Office needed. Works in browser on Windows, Mac, iOS, Android. No signup, no watermark.",
   },
   "pdf-compressor": {
-    title: "Free PDF Compressor — Reduce PDF Size Without Quality Loss | TaskGuru",
-    description: "Compress PDF files free — reduce size for email, upload, and storage. No signup, instant, runs in browser. Files never uploaded to server.",
-  },
+  title: "Compress PDF to 100KB Online Free — Reduce PDF Size No Upload | TaskGuru",
+  description: "Compress PDF to exact KB size free — 50KB, 100KB, 200KB, 500KB. No upload, no sign-up, no watermark. 100% private, works in browser.",
+},
   "split-pdf": {
     title: "Free PDF Splitter — Split PDF Into Individual Pages Online | TaskGuru",
     description: "Split PDF into separate pages free — download as ZIP. No signup, no watermark. Uses WebAssembly in your browser — your PDF never leaves device.",
@@ -123,10 +127,10 @@ const toolSeoOverrides: Record<string, { title: string; description: string }> =
     title: "Free PDF Redactor — Redact & Black Out PDF Text Online | TaskGuru",
     description: "Permanently redact sensitive text from PDFs free — draw black boxes or search text. HIPAA & GDPR compliant. 100% private, runs in browser.",
   },
-  "age-calculator": {
-    title: "Free Age Calculator — Calculate Exact Age in Years, Months & Days | TaskGuru",
-    description: "Calculate your exact age in years, months, days, hours, and minutes. Enter date of birth and get results instantly. No signup required.",
-  },
+  "emi-calculator": {
+  title: "Loan EMI Calculator with Amortization Schedule — Free Online | TaskGuru",
+  description: "Calculate monthly EMI with full amortization schedule — home, car, personal loans. Any currency worldwide. Free, no sign-up.",
+},
   "metal-weight-calculator": {
     title: "Free Metal Weight Calculator — Steel, Aluminium, Copper & More | TaskGuru",
     description: "Calculate metal weight online free — steel, SS, aluminium, copper, brass. 12 shapes: sheets, bars, pipes, beams. Instant results in KG/LB.",
@@ -148,13 +152,13 @@ const toolSeoOverrides: Record<string, { title: string; description: string }> =
     description: "Convert YouTube videos to PDF notes free — extract transcripts for studying. Perfect for students and researchers. No signup required.",
   },
   "unlock-pdf-no-upload": {
-    title: "Free PDF Password Remover — Remove PDF Password Instantly | TaskGuru",
-    description: "Remove password from PDF files free — no upload, no signup, no watermark. Unlock user passwords and owner restrictions in your browser. 100% private.",
-  },
+  title: "Remove PDF Password Online Free Without Uploading — Unlock PDF | TaskGuru",
+  description: "Remove PDF password free — nothing uploaded to servers, 100% private. Works in browser using WebAssembly. No sign-up required.",
+},
   "esign-pdf-no-upload": {
-    title: "Free E-Sign PDF Online — Sign PDF Without Uploading | TaskGuru",
-    description: "Sign PDF documents free — draw or type signature, no upload to server. Free DocuSign alternative. Legally valid in India, USA, UK, EU. No account.",
-  },
+  title: "Sign PDF Online Free Without Uploading — E-Sign PDF in Browser | TaskGuru",
+  description: "Sign PDF free — no uploading, no sign-up, 100% private. Draw or upload signature, download instantly. Legal in USA, UK, EU.",
+},
   "grammar-checker": {
   title: "Free Grammar Checker Online — Fix English Errors Instantly | TaskGuru",
   description: "Check grammar, spelling, and punctuation errors free — no sign-up, no word limit. Paste your text and get instant corrections. Works for essays, emails, and reports.",
@@ -165,8 +169,8 @@ const toolSeoOverrides: Record<string, { title: string; description: string }> =
   canonical: "https://www.taskguru.online/tools/pomodoro-timer",
 },
   "credit-card-eligibility-checker": {
-  title: "Free Credit Card Eligibility Checker — Check Without Affecting CIBIL Score | TaskGuru",
-  description: "Check which credit cards you're eligible for free — no hard inquiry, no CIBIL score impact. Enter basic details and get instant results. No signup required.",
+  title: "Credit Card Eligibility Checker Without Credit Check — Free | TaskGuru",
+  description: "Check credit card eligibility free — no hard credit check, no score impact. USA, UK, Canada, India. Instant results, no sign-up.",
 },
 };
 
