@@ -16,6 +16,17 @@ import { useToast } from '@/hooks/use-toast';
 const MAX_SIZE_MB = 50;
 const MAX_SIZE_BYTES = MAX_SIZE_MB * 1024 * 1024;
 
+const toolSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'SoftwareApplication',
+  name: 'Free Word to PDF Converter — TaskGuru',
+  url: 'https://www.taskguru.online/tools/word-to-pdf',
+  applicationCategory: 'UtilitiesApplication',
+  operatingSystem: 'All',
+  description: 'Convert Word documents to PDF free online — no watermark, no sign-up, no Microsoft Office needed. DOCX to PDF instantly in browser. Nothing uploaded to servers.',
+  offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+  publisher: { '@type': 'Organization', name: 'TaskGuru', url: 'https://www.taskguru.online' },
+};
 // ✅ FAQ Schema — outside component
 const faqSchema = {
   '@context': 'https://schema.org',
@@ -61,6 +72,30 @@ const faqSchema = {
         text: 'PDF files look identical on every device regardless of which fonts or software the recipient has installed. Converting Word documents to PDF before sharing ensures your formatting, layout, and fonts are preserved exactly as you intended. PDF is also the required format for most official submissions, job applications, and professional documents.',
       },
     },
+    {
+  '@type': 'Question',
+  name: 'Can I convert Word to PDF on iPhone or Android?',
+  acceptedAnswer: {
+    '@type': 'Answer',
+    text: 'Yes. TaskGuru\'s Word to PDF converter works on any device — iPhone, Android, tablet, or desktop. Open the page in your mobile browser, upload the file, and download the PDF. No app installation required.',
+  },
+},
+{
+  '@type': 'Question',
+  name: 'Will my formatting be preserved in the PDF?',
+  acceptedAnswer: {
+    '@type': 'Answer',
+    text: 'Headings, paragraphs, bold text, and basic layout are preserved in the conversion. Complex elements like images, tables, and advanced formatting may render differently depending on the document. For best results, use simple, well-structured Word documents.',
+  },
+},
+{
+  '@type': 'Question',
+  name: 'What is the maximum file size I can convert?',
+  acceptedAnswer: {
+    '@type': 'Answer',
+    text: 'TaskGuru supports Word documents up to 50MB. For most documents — resumes, reports, essays, proposals — this limit is more than sufficient. Very large documents with many embedded images may take a few extra seconds to process.',
+  },
+},
     {
       '@type': 'Question',
       name: 'Will the PDF have a watermark?',
@@ -122,7 +157,10 @@ export default function WordToPdf() {
     const f = e.target.files?.[0];
     if (f) validateAndSetFile(f);
   };
-
+<script
+  type="application/ld+json"
+  dangerouslySetInnerHTML={{ __html: JSON.stringify(toolSchema) }}
+/>
   const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
     const f = e.dataTransfer.files[0];
@@ -428,29 +466,46 @@ export default function WordToPdf() {
           </div>
         </section>
 
-        <section className="space-y-5">
-          <h2 className="text-2xl font-black text-slate-900 dark:text-white">
-            When Should You Convert Word to PDF?
-          </h2>
-          <div className="grid md:grid-cols-2 gap-4">
-            {[
-              { emoji: '📄', title: 'Job Applications', desc: 'Resumes and cover letters sent as PDF cannot be accidentally edited and look professional on any device recruiters use.' },
-              { emoji: '📋', title: 'Official Form Submissions', desc: 'Government portals, university applications, and grant submissions typically require PDF format.' },
-              { emoji: '💼', title: 'Business Proposals', desc: 'Client proposals and quotes look more professional as PDFs — and prevent clients from editing your pricing.' },
-              { emoji: '📚', title: 'Reports & Assignments', desc: 'Academic institutions often require PDF submission. Convert your Word essay or report before submitting.' },
-              { emoji: '⚖️', title: 'Contracts & Agreements', desc: 'Contracts should always be shared as PDFs to preserve the exact layout and prevent unauthorized modifications.' },
-              { emoji: '📧', title: 'Email Attachments', desc: 'PDFs are universally readable. Not everyone has Word installed — a PDF opens on every device without any software.' },
-          ].map((item) => (
-              <div key={item.title} className="flex gap-3 p-4 bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-xl">
-                <span className="text-2xl flex-shrink-0">{item.emoji}</span>
-                <div>
-                  <h3 className="font-bold text-slate-900 dark:text-white text-sm mb-1">{item.title}</h3>
-                  <p className="text-xs leading-relaxed">{item.desc}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </section>
+        <div className="grid md:grid-cols-2 gap-4">
+  {[
+    { label: 'PDF to Word Converter', sub: 'Convert PDF to editable Word document free', href: '/tools/pdf-to-word', color: 'hover:border-orange-400' },
+    { label: 'Merge PDF', sub: 'Combine multiple PDFs into one file', href: '/tools/merge-pdf', color: 'hover:border-blue-400' },
+    { label: 'PDF Compressor', sub: 'Reduce PDF size — target exact KB', href: '/tools/pdf-compressor', color: 'hover:border-green-400' },
+    { label: 'Sign PDF Online Free', sub: 'E-sign PDFs without uploading', href: '/tools/esign-pdf-no-upload', color: 'hover:border-purple-400' },
+    { label: 'Excel to PDF', sub: 'Convert XLSX to PDF without uploading', href: '/tools/excel-to-pdf', color: 'hover:border-yellow-400' },
+    { label: 'Resume Maker', sub: 'Build ATS-friendly resume, download as PDF', href: '/tools/resume-maker', color: 'hover:border-red-400' },
+  ].map((tool) => (
+    <Link key={tool.href} href={tool.href} className={`flex items-center justify-between p-5 bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 ${tool.color} rounded-2xl transition-colors group`}>
+      <div>
+        <p className="font-bold text-slate-900 dark:text-white text-sm">{tool.label}</p>
+        <p className="text-xs text-slate-500">{tool.sub}</p>
+      </div>
+      <ArrowRight className="w-4 h-4 text-slate-300 group-hover:text-slate-600 transition-colors flex-shrink-0" />
+    </Link>
+  ))}
+</div>
+
+{/* Blog links */}
+<div className="mt-6 p-5 rounded-xl border bg-slate-50 dark:bg-slate-900 space-y-3">
+  <p className="font-bold text-slate-900 dark:text-white text-sm">Related Reading</p>
+  <div className="space-y-2">
+    {[
+      { href: '/blog/how-to-convert-pdf-to-word-free', title: 'How to Convert PDF to Word Free — Complete Guide' },
+      { href: '/blog/how-to-sign-pdf-online-free', title: 'How to Sign PDF Online Free Without Uploading' },
+      { href: '/blog/how-to-compress-pdf-free', title: 'How to Compress PDF Free — Reduce File Size Guide' },
+      { href: '/blog/how-to-make-resume-with-no-experience', title: 'How to Make a Resume With No Experience' },
+    ].map((post) => (
+      <Link
+        key={post.href}
+        href={post.href}
+        className="flex items-center gap-2 text-sm text-blue-600 dark:text-blue-400 hover:underline"
+      >
+        <ArrowRight className="w-3.5 h-3.5 shrink-0" />
+        {post.title}
+      </Link>
+    ))}
+  </div>
+</div>
 
         {/* FAQ */}
         <section className="space-y-5">
