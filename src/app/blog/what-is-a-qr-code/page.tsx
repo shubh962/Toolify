@@ -659,6 +659,9 @@ export default function BlogPost() {
                 { title: 'What is OCR? How Image to Text Technology Works', href: '/blog/what-is-ocr-image-to-text' },
                 { title: 'Free Online Tools for Students 2026 — No Login Needed', href: '/blog/free-online-tools-students-2026-no-login' },
                 { title: 'Free AI Text Paraphraser — Rewrite Any Text Instantly', href: '/tools/text-paraphraser' },
+      { title: 'How to Write Professional English Emails', href: '/blog/how-to-write-professional-english-emails' },
+  { title: 'Free Online Tools for Students 2026', href: '/blog/free-online-tools-students-2026-no-login' },
+  { title: 'Pomodoro Timer — Stay Focused & Productive', href: '/tools/pomodoro-timer' },
               ].map((post) => (
                 <Link
                   key={post.href}
