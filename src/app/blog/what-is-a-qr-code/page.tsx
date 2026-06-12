@@ -659,6 +659,15 @@ export default function BlogPost() {
                 { title: 'What is OCR? How Image to Text Technology Works', href: '/blog/what-is-ocr-image-to-text' },
                 { title: 'Free Online Tools for Students 2026 — No Login Needed', href: '/blog/free-online-tools-students-2026-no-login' },
                 { title: 'Free AI Text Paraphraser — Rewrite Any Text Instantly', href: '/tools/text-paraphraser' },
+      // blog/how-to-create-free-qr-code/page.tsx mein:
+<Link href="/blog/what-is-a-qr-code">
+  What is a QR Code? Full technical explanation →
+</Link>
+
+// blog/why-i-built-free-qr-code-generator/page.tsx mein:
+<Link href="/blog/what-is-a-qr-code">
+  Complete QR Code Guide — How it works →
+</Link>
               ].map((post) => (
                 <Link
                   key={post.href}
