@@ -324,10 +324,10 @@ export default function BestFreeParaphrasingToolOnline2026() {
           <h3 className="text-lg font-bold text-foreground mb-4">Related Guides</h3>
           <div className="flex flex-col gap-3">
             {[
-              { label: 'How to Humanize AI Text for Free', href: '/blog/how-to-humanize-ai-text-free-2026' },
+              { label: 'How to Humanize AI Text for Free', href: '/tools/ai-content-detector' },
               { label: 'How to Remove Plagiarism Free', href: '/blog/how-to-remove-plagiarism-free' },
               { label: 'How to Make AI Text Undetectable (Free)', href: '/blog/how-to-make-ai-text-undetectable-free-2026' },
-              { label: 'How to Rewrite AI Content Naturally', href: '/blog/how-to-rewrite-ai-content-naturally' },
+              { label: 'How to Rewrite AI Content Naturally', href: '/tools/text-paraphraser' },
             ].map((post) => (
               <Link key={post.href} href={post.href} className="flex items-center justify-between p-4 rounded-xl border border-border hover:border-primary/40 hover:bg-muted/30 transition-colors group">
                 <span className="text-sm font-medium text-foreground group-hover:text-primary transition-colors">{post.label}</span>
