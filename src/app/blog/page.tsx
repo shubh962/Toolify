@@ -36,6 +36,16 @@ const categoryColors: Record<string, string> = {
 const posts = [
   // ✅ Founder story — earliest, most personal
   {
+  title: "Best Free Paraphrasing Tool Online in 2026 (Tested & Compared)",
+  slug: "best-free-paraphrasing-tool-online-2026",
+  summary: "We tested the most popular free paraphrasing tools including QuillBot, Wordtune, and TaskGuru. See which one offers the best rewrites, highest limits, and best value in 2026.",
+  date: "2026-06-08",
+  displayDate: "June 8, 2026",
+  readTime: "7 min read",
+  category: "Writing Skills",
+  featured: true,
+},
+  {
   title: "Check Credit Card Eligibility Without Hard Inquiry — Private Approval Check Guide",
   slug: "check-credit-card-eligibility-without-hard-inquiry", 
   summary:"Most eligibility checkers collect your personal data before showing results. Learn how to estimate your credit card approval chances privately without hard inquiries, spam calls, or affecting your credit score.",  
