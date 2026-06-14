@@ -39,6 +39,7 @@ const blogSlugs = [
   "how-to-write-professional-english-emails",
   "grammarly-free-vs-free-grammar-checker",
   "check-credit-card-eligibility-without-hard-inquiry",
+  "best-free-paraphrasing-tool-online-2026",
 ];
 const toolSlugs = [
   "background-remover",
