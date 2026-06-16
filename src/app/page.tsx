@@ -2,120 +2,54 @@
 
 import Link from "next/link";
 import { tools } from "@/lib/tools";
-import {
-  Card,
-  CardContent,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import {
-  ArrowRight,
-  Sparkles,
-  ShieldCheck,
-  Zap,
-  Globe,
-  MousePointer2,
-  CheckCircle2,
-  Lock,
-  Cpu,
-  Rocket,
-  FileText,
-  ImageIcon,
-  Gift,
-  Search,
-  PencilLine,
-  Youtube,
-  Languages,
-  Briefcase,
-} from "lucide-react";
+import { ArrowRight, Sparkles, ShieldCheck, Zap, Globe, MousePointer2, CheckCircle2, Lock, Cpu, Rocket, FileText, ImageIcon, Gift, Search, PencilLine, Youtube, Languages, Briefcase } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import NewsletterForm from "@/components/NewsletterForm";
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 
 // ✅ ALL blogs pool — 3 random ones shown on homepage each load
 const ALL_POSTS = [
-  {
-    slug: "how-to-paraphrase-text",
-    title: "How to Paraphrase Text (Without Plagiarism)",
-    summary: "5 proven techniques to rewrite sentences, avoid plagiarism, and improve your writing instantly.",
-    category: "Writing Skills",
-    color: "text-green-600",
-  },
-  {
-    slug: "what-is-ocr-image-to-text",
-    title: "What is OCR? How Image to Text Technology Works",
-    summary: "A plain-English guide to Optical Character Recognition — how it works and how to use it free.",
-    category: "Tech Explained",
-    color: "text-purple-600",
-  },
-  {
-    slug: "how-to-compress-images-without-losing-quality",
-    title: "How to Compress Images Without Losing Quality",
-    summary: "Step-by-step guide to compressing JPG, PNG, and WebP images for faster websites.",
-    category: "Image Optimization",
-    color: "text-blue-600",
-  },
-  {
-    slug: "how-to-convert-pdf-to-word-free",
-    title: "How to Convert PDF to Word for Free",
-    summary: "No software, no sign-up, no upload. Convert any PDF to editable Word in seconds.",
-    category: "PDF Tools",
-    color: "text-orange-600",
-  },
-  {
-    slug: "what-is-a-qr-code",
-    title: "What is a QR Code and How Does It Work?",
-    summary: "Everything about QR codes — history, anatomy, types, use cases, and how to create one free.",
-    category: "Tech Explained",
-    color: "text-red-600",
-  },
-  {
-    slug: "how-to-make-resume-with-no-experience",
-    title: "How to Make a Resume With No Experience",
-    summary: "Complete guide for students and fresh graduates — what to include instead of work experience.",
-    category: "Career Hacking",
-    color: "text-purple-600",
-  },
-  {
-    slug: "resume-ats-secrets",
-    title: "5 Hidden Keywords That ATS Scanners Look For",
-    summary: "Stop getting auto-rejected. Learn the exact keywords that get your resume past filters.",
-    category: "Career Hacking",
-    color: "text-purple-600",
-  },
-  {
-    slug: "extract-text-scanned-pdf",
-    title: "How to Extract Text from a Scanned PDF for Free",
-    summary: "Can't copy text from a scanned PDF? Here's the easiest fix — free, no software, 30 seconds.",
-    category: "PDF Tools",
-    color: "text-orange-600",
-  },
-  {
-    slug: "local-first-web-apps-trend-2026",
-    title: "The Rise of Local-First Web Apps in 2026",
-    summary: "How WebAssembly and Edge computing are killing expensive cloud subscriptions.",
-    category: "Tech Trends",
-    color: "text-teal-600",
-  },
-  {
-    slug: "image-compression-guide",
-    title: "JPG vs WebP: Which Format Boosts Your SEO Score?",
-    summary: "We tested JPG, PNG, and WebP to find which creates the fastest Core Web Vitals scores.",
-    category: "SEO Masterclass",
-    color: "text-green-600",
-  },
+  { slug: "how-to-paraphrase-text", title: "How to Paraphrase Text (Without Plagiarism)", summary: "5 proven techniques to rewrite sentences, avoid plagiarism, and improve your writing instantly.", category: "Writing Skills", color: "text-green-600" },
+  { slug: "what-is-ocr-image-to-text", title: "What is OCR? How Image to Text Technology Works", summary: "A plain-English guide to Optical Character Recognition — how it works and how to use it free.", category: "Tech Explained", color: "text-purple-600" },
+  { slug: "how-to-compress-images-without-losing-quality", title: "How to Compress Images Without Losing Quality", summary: "Step-by-step guide to compressing JPG, PNG, and WebP images for faster websites.", category: "Image Optimization", color: "text-blue-600" },
+  { slug: "how-to-convert-pdf-to-word-free", title: "How to Convert PDF to Word for Free", summary: "No software, no sign-up, no upload. Convert any PDF to editable Word in seconds.", category: "PDF Tools", color: "text-orange-600" },
+  { slug: "what-is-a-qr-code", title: "What is a QR Code and How Does It Work?", summary: "Everything about QR codes — history, anatomy, types, use cases, and how to create one free.", category: "Tech Explained", color: "text-red-600" },
+  { slug: "how-to-make-resume-with-no-experience", title: "How to Make a Resume With No Experience", summary: "Complete guide for students and fresh graduates — what to include instead of work experience.", category: "Career Hacking", color: "text-purple-600" },
+  { slug: "resume-ats-secrets", title: "5 Hidden Keywords That ATS Scanners Look For", summary: "Stop getting auto-rejected. Learn the exact keywords that get your resume past filters.", category: "Career Hacking", color: "text-purple-600" },
+  { slug: "extract-text-scanned-pdf", title: "How to Extract Text from a Scanned PDF for Free", summary: "Can't copy text from a scanned PDF? Here's the easiest fix — free, no software, 30 seconds.", category: "PDF Tools", color: "text-orange-600" },
+  { slug: "local-first-web-apps-trend-2026", title: "The Rise of Local-First Web Apps in 2026", summary: "How WebAssembly and Edge computing are killing expensive cloud subscriptions.", category: "Tech Trends", color: "text-teal-600" },
+  { slug: "image-compression-guide", title: "JPG vs WebP: Which Format Boosts Your SEO Score?", summary: "We tested JPG, PNG, and WebP to find which creates the fastest Core Web Vitals scores.", category: "SEO Masterclass", color: "text-green-600" },
 ];
 
-// ✅ Shuffle function — runs client-side only, no hydration error
 function getRandomPosts(count: number) {
   const shuffled = [...ALL_POSTS].sort(() => Math.random() - 0.5);
   return shuffled.slice(0, count);
 }
 
+// ✅ Category config — maps tools.ts category values to display labels
+const CATEGORIES = [
+  { key: "all", label: "All Tools" },
+  { key: "ai", label: "AI Writing" },
+  { key: "pdf", label: "PDF" },
+  { key: "image", label: "Image" },
+  { key: "utility", label: "Utility" },
+  { key: "calculator", label: "Calculator" },
+];
+
 export default function Home() {
-  // ✅ useMemo ensures shuffle runs once per mount, not on every render
   const featuredPosts = useMemo(() => getRandomPosts(3), []);
+
+  // ✅ Search + filter state for compact tools grid
+  const [search, setSearch] = useState("");
+  const [activeCategory, setActiveCategory] = useState("all");
+
+  const filteredTools = useMemo(() => {
+    return tools.filter((tool) => {
+      const matchCategory = activeCategory === "all" || tool.category === activeCategory;
+      const matchSearch = tool.title.toLowerCase().includes(search.toLowerCase());
+      return matchCategory && matchSearch;
+    });
+  }, [search, activeCategory]);
 
   return (
     <>
@@ -134,18 +68,14 @@ export default function Home() {
             Assistants, and Free Image Editors. Stop paying for SaaS subscriptions today.
           </p>
           <div className="mt-12 flex flex-col sm:flex-row justify-center gap-6">
-            <Button
-              size="lg"
-              asChild
-              className="bg-white text-primary hover:bg-gray-100 font-black text-xl px-12 h-16 rounded-full shadow-2xl transition-all hover:scale-105"
-            >
+            <Button size="lg" asChild className="bg-white text-primary hover:bg-gray-100 font-black text-xl px-12 h-16 rounded-full shadow-2xl transition-all hover:scale-105">
               <Link href="#tools">Use All Tools for Free</Link>
             </Button>
           </div>
         </div>
       </section>
 
-      {/* 📰 BLOG SECTION — shuffles on every page load */}
+      {/* 📰 BLOG SECTION */}
       <section className="py-12 bg-white dark:bg-gray-950 border-b border-gray-100 dark:border-gray-800">
         <div className="container mx-auto px-6">
           <div className="flex justify-between items-end mb-8">
@@ -157,15 +87,10 @@ export default function Home() {
                 Expert guides on productivity, file security, and career growth.
               </p>
             </div>
-            <Link
-              href="/blog"
-              className="hidden md:flex items-center text-primary font-bold hover:underline"
-            >
+            <Link href="/blog" className="hidden md:flex items-center text-primary font-bold hover:underline">
               View All Articles <ArrowRight className="ml-2 w-4 h-4" />
             </Link>
           </div>
-
-          {/* ✅ 3 random blogs — different every page load */}
           <div className="grid md:grid-cols-3 gap-8">
             {featuredPosts.map((post) => (
               <Link href={`/blog/${post.slug}`} key={post.slug} className="group">
@@ -186,7 +111,6 @@ export default function Home() {
               </Link>
             ))}
           </div>
-
           <div className="mt-6 text-center md:hidden">
             <Link href="/blog" className="text-primary font-bold text-sm hover:underline">
               View All Articles →
@@ -195,54 +119,104 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 🛠️ TOOLS GRID */}
-      <section id="tools" className="py-20 md:py-32 bg-background">
-        <div className="container mx-auto px-6">
-          <div className="mb-16 border-b pb-12">
-            <h2 className="text-3xl md:text-5xl font-black tracking-tighter text-gray-900 dark:text-white uppercase">
-              The Ultimate Free Toolkit
+      {/* ✅ 🛠️ COMPACT TOOLS GRID — replaces old big card grid */}
+      <section id="tools" className="py-14 bg-background">
+        <div className="container mx-auto px-4 md:px-6">
+
+          {/* Section header */}
+          <div className="mb-8">
+            <h2 className="text-2xl md:text-3xl font-black tracking-tight text-gray-900 dark:text-white">
+              Free Online Tools
             </h2>
-            <p className="mt-4 text-xl text-muted-foreground font-medium">
-              High-speed utilities including our Free Background Remover, Free Image to Text,
-              and Free PDF Merger.
+            <p className="mt-1 text-sm text-muted-foreground font-medium">
+              {tools.length} tools · No signup · Works in your browser
             </p>
           </div>
 
-          {tools && tools.length > 0 ? (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
-              {tools.map((tool) => (
-                <Link href={`/tools/${tool.slug}`} key={tool.slug} className="group">
-                  <Card className="w-full h-full flex flex-col transition-all duration-500 hover:shadow-2xl hover:-translate-y-3 border-2 border-muted rounded-[2.5rem] bg-card">
-                    <CardHeader className="p-8">
-                      <div className="flex justify-between items-start mb-6">
-                        <div className="bg-primary/5 p-5 rounded-2xl group-hover:bg-primary group-hover:text-white transition-all duration-500">
-                          <tool.icon className="w-10 h-10" />
-                        </div>
-                        <span className="px-3 py-1 bg-green-500/10 text-green-600 text-[10px] font-black uppercase rounded-full border border-green-500/20">
-                          100% Free
-                        </span>
-                      </div>
-                      <CardTitle className="text-2xl font-black">{tool.title}</CardTitle>
-                    </CardHeader>
-                    <CardContent className="px-8 flex-grow">
-                      <p className="text-muted-foreground font-medium leading-relaxed">
-                        {tool.description}
-                      </p>
-                    </CardContent>
-                    <CardFooter className="px-8 pb-8 pt-4">
-                      <div className="flex items-center text-sm font-black text-primary group-hover:translate-x-3 transition-transform uppercase tracking-widest">
-                        Start for Free <ArrowRight className="ml-2 h-5 w-5" />
-                      </div>
-                    </CardFooter>
-                  </Card>
+          {/* Search bar */}
+          <div className="relative mb-4 max-w-md">
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+            <input
+              type="text"
+              placeholder="Search tools..."
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              className="w-full pl-9 pr-4 py-2.5 rounded-xl border border-border bg-card text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition-all"
+            />
+          </div>
+
+          {/* Category filter tabs */}
+          <div className="flex gap-2 overflow-x-auto pb-2 mb-6 scrollbar-hide">
+            {CATEGORIES.map((cat) => (
+              <button
+                key={cat.key}
+                onClick={() => setActiveCategory(cat.key)}
+                className={`shrink-0 px-4 py-1.5 rounded-full text-xs font-bold border transition-all ${
+                  activeCategory === cat.key
+                    ? "bg-primary text-white border-primary shadow-sm"
+                    : "bg-card text-muted-foreground border-border hover:border-primary/40 hover:text-foreground"
+                }`}
+              >
+                {cat.label}
+              </button>
+            ))}
+          </div>
+
+          {/* Results count */}
+          <p className="text-xs text-muted-foreground mb-4">
+            Showing {filteredTools.length} tool{filteredTools.length !== 1 ? "s" : ""}
+          </p>
+
+          {/* ✅ Compact 3-col grid (mobile) → 4-col (tablet) → 6-col (desktop) */}
+          {filteredTools.length > 0 ? (
+            <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 gap-3">
+              {filteredTools.map((tool) => (
+                <Link
+                  href={`/tools/${tool.slug}`}
+                  key={tool.slug}
+                  className="group flex flex-col items-center justify-center gap-2 p-3 rounded-2xl bg-card border border-border hover:border-primary/50 hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 text-center min-h-[90px]"
+                >
+                  {/* Icon container */}
+                  <div className="w-9 h-9 rounded-xl bg-primary/5 group-hover:bg-primary/10 flex items-center justify-center transition-colors shrink-0">
+                    <tool.icon className="w-5 h-5 text-primary" />
+                  </div>
+
+                  {/* Tool name — short and tight */}
+                  <span className="text-[10px] sm:text-xs font-semibold text-foreground leading-tight line-clamp-2">
+                    {tool.title
+                      .replace("Free ", "")
+                      .replace(" Online", "")
+                      .replace(" (No Upload)", "")
+                      .replace(" — ", " ")
+                      .split("—")[0]
+                      .trim()}
+                  </span>
                 </Link>
               ))}
             </div>
           ) : (
-            <div className="text-center py-20 text-muted-foreground">
-              <p className="text-lg font-medium">Tools loading... Please refresh the page.</p>
+            <div className="text-center py-16 text-muted-foreground">
+              <p className="text-4xl mb-3">🔍</p>
+              <p className="font-medium">No tools found for &quot;{search}&quot;</p>
+              <button
+                onClick={() => { setSearch(""); setActiveCategory("all"); }}
+                className="mt-4 text-primary text-sm font-bold hover:underline"
+              >
+                Clear filters
+              </button>
             </div>
           )}
+
+          {/* View all tools link */}
+          <div className="mt-8 text-center">
+            <Link
+              href="/tools"
+              className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full border border-primary text-primary font-bold text-sm hover:bg-primary hover:text-white transition-all"
+            >
+              View All Tools <ArrowRight className="w-4 h-4" />
+            </Link>
+          </div>
+
         </div>
       </section>
 
@@ -276,18 +250,9 @@ export default function Home() {
               </p>
               <div className="grid md:grid-cols-3 gap-8">
                 {[
-                  {
-                    title: "Free PDF to Word",
-                    body: "Experience the best free PDF to Word conversion engine. We use advanced layout reconstruction technology to ensure your Word files look identical to the original PDF.",
-                  },
-                  {
-                    title: "Free Merge PDF",
-                    body: "Stop searching for how to merge PDFs for free. TaskGuru offers a high-speed, unlimited free PDF merger. Simply drag and drop your files and generate a single unified document.",
-                  },
-                  {
-                    title: "Free Image to PDF",
-                    body: "Convert your JPGs, PNGs, and WebPs into high-quality PDF portfolios. Perfect for creating digital document submissions without losing pixel quality.",
-                  },
+                  { title: "Free PDF to Word", body: "Experience the best free PDF to Word conversion engine. We use advanced layout reconstruction technology to ensure your Word files look identical to the original PDF." },
+                  { title: "Free Merge PDF", body: "Stop searching for how to merge PDFs for free. TaskGuru offers a high-speed, unlimited free PDF merger. Simply drag and drop your files and generate a single unified document." },
+                  { title: "Free Image to PDF", body: "Convert your JPGs, PNGs, and WebPs into high-quality PDF portfolios. Perfect for creating digital document submissions without losing pixel quality." },
                 ].map((item) => (
                   <div key={item.title} className="bg-muted/30 p-8 rounded-[2rem] border border-muted">
                     <h4 className="font-black text-foreground mb-4">{item.title}</h4>
@@ -309,25 +274,10 @@ export default function Home() {
               </p>
               <div className="space-y-12">
                 {[
-                  {
-                    title: "Free AI Paraphraser & Rewriter",
-                    desc: "Our Free AI Text Paraphraser is designed for those looking to rewrite content while maintaining the original meaning. Ideal for SEO experts and students, it uses context-aware models to ensure your content is human-readable and plagiarism-free.",
-                    quote: "\"How do I rewrite an essay for free?\"",
-                    note: "TaskGuru's AI Paraphraser is the answer for students and bloggers worldwide.",
-                    reverse: false,
-                  },
-                  {
-                    title: "Free Image to Text (OCR)",
-                    desc: "Manually typing data from a scanned document is a thing of the past. Our Free OCR tool extracts text from images with high accuracy. From receipts to handwritten notes, get your text instantly for free.",
-                    quote: "\"Best free image to text converter online.\"",
-                    note: "TaskGuru supports multiple languages for OCR processing.",
-                    reverse: true,
-                  },
+                  { title: "Free AI Paraphraser & Rewriter", desc: "Our Free AI Text Paraphraser is designed for those looking to rewrite content while maintaining the original meaning. Ideal for SEO experts and students, it uses context-aware models to ensure your content is human-readable and plagiarism-free.", quote: "\"How do I rewrite an essay for free?\"", note: "TaskGuru's AI Paraphraser is the answer for students and bloggers worldwide.", reverse: false },
+                  { title: "Free Image to Text (OCR)", desc: "Manually typing data from a scanned document is a thing of the past. Our Free OCR tool extracts text from images with high accuracy. From receipts to handwritten notes, get your text instantly for free.", quote: "\"Best free image to text converter online.\"", note: "TaskGuru supports multiple languages for OCR processing.", reverse: true },
                 ].map((item) => (
-                  <div
-                    key={item.title}
-                    className={`flex flex-col ${item.reverse ? "md:flex-row-reverse" : "md:flex-row"} gap-8 items-center ${item.reverse ? "border-t border-white/10 pt-10" : ""}`}
-                  >
+                  <div key={item.title} className={`flex flex-col ${item.reverse ? "md:flex-row-reverse" : "md:flex-row"} gap-8 items-center ${item.reverse ? "border-t border-white/10 pt-10" : ""}`}>
                     <div className="flex-1">
                       <h4 className="text-2xl font-bold mb-4">{item.title}</h4>
                       <p className="text-slate-400">{item.desc}</p>
@@ -353,17 +303,11 @@ export default function Home() {
               <div className="grid md:grid-cols-2 gap-10">
                 <div className="space-y-4">
                   <h4 className="text-xl font-bold text-foreground">Free Background Remover Online</h4>
-                  <p>
-                    Our AI automatically detects edges and removes backgrounds in one click. No
-                    masking or manual selection required — professional grade and 100% free.
-                  </p>
+                  <p>Our AI automatically detects edges and removes backgrounds in one click. No masking or manual selection required — professional grade and 100% free.</p>
                 </div>
                 <div className="space-y-4">
                   <h4 className="text-xl font-bold text-foreground">Free Image Compressor</h4>
-                  <p>
-                    Use our free online image compressor to reduce file size by up to 90% without
-                    losing visible quality. Perfect for WebP, JPG, and PNG formats.
-                  </p>
+                  <p>Use our free online image compressor to reduce file size by up to 90% without losing visible quality. Perfect for WebP, JPG, and PNG formats.</p>
                 </div>
               </div>
             </div>
@@ -413,32 +357,20 @@ export default function Home() {
               </h3>
               <div className="flex flex-wrap justify-center gap-4">
                 {[
-                  "Free PDF to Word No Email",
-                  "Free Background Remover AI",
-                  "Best Free AI Paraphraser 2026",
-                  "Free Online Image to Text",
-                  "Free Bulk Image Compressor",
-                  "Free Resume Builder No Cost",
-                  "Free Merge PDF Without Watermark",
-                  "Free JPG to PDF Converter",
-                  "Free Age Calculator Online",
-                  "Free Text Rewriter Online",
-                  "Free WebP to JPG",
-                  "Free Online Productivity Tools",
-                  "Extract Text from Scanned PDF Free",
-                  "Compress Image Without Losing Quality",
+                  "Free PDF to Word No Email", "Free Background Remover AI", "Best Free AI Paraphraser 2026",
+                  "Free Online Image to Text", "Free Bulk Image Compressor", "Free Resume Builder No Cost",
+                  "Free Merge PDF Without Watermark", "Free JPG to PDF Converter", "Free Age Calculator Online",
+                  "Free Text Rewriter Online", "Free WebP to JPG", "Free Online Productivity Tools",
+                  "Extract Text from Scanned PDF Free", "Compress Image Without Losing Quality",
                 ].map((kw) => (
-                  <span
-                    key={kw}
-                    className="px-5 py-2 bg-white dark:bg-gray-800 rounded-full text-xs font-bold border border-primary/20 shadow-sm text-primary"
-                  >
+                  <span key={kw} className="px-5 py-2 bg-white dark:bg-gray-800 rounded-full text-xs font-bold border border-primary/20 shadow-sm text-primary">
                     {kw}
                   </span>
                 ))}
               </div>
             </div>
 
-            {/* ✅ FIX: Removed local <footer> tag — replaced with plain div */}
+            {/* ✅ Footer text */}
             <div className="pt-20 text-center">
               <h3 className="text-4xl font-black text-foreground mb-6">
                 Built for Creators, Students, and Professionals
