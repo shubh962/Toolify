@@ -13,7 +13,7 @@ const Header = ({ themeToggle }: HeaderProps) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
-  // Effect to handle scroll shadow
+  // Effect to handle scroll shado
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 20);
