@@ -178,7 +178,7 @@ export default function RootLayout({
 
           {/* ── 728×90 DESKTOP LEADERBOARD ── */}
           <div
-            className="hidden md:flex flex-col items-center justify-center w-full bg-gray-50/60 dark:bg-gray-900/60 border-b border-gray-100 dark:border-gray-800 mt-20"
+            className="hidden md:flex flex-col items-center justify-center w-full bg-gray-50/60 dark:bg-gray-900/60 border-b border-gray-100 dark:border-gray-800 mt-0"
             style={{ minHeight: "110px" }}
           >
             <p className="text-[9px] text-gray-400 uppercase tracking-widest font-bold mb-1">
@@ -197,7 +197,7 @@ export default function RootLayout({
 
           {/* ── 320×50 MOBILE TOP BANNER ── */}
           <div
-            className="flex md:hidden justify-center items-center bg-gray-50/60 dark:bg-gray-900/60 border-b border-gray-100 dark:border-gray-800 mt-20"
+            className="flex md:hidden justify-center items-center bg-gray-50/60 dark:bg-gray-900/60 border-b border-gray-100 dark:border-gray-800 mt-0"
             style={{ minHeight: "58px" }}
           >
             <iframe
