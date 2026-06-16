@@ -435,6 +435,7 @@ export default function TextParaphraser() {
               { label: "YouTube to PDF", sub: "Convert video to notes", href: "/tools/youtube-to-pdf", highlight: false },
               { label: "Image to Text", sub: "Extract text from images", href: "/tools/image-to-text", highlight: false },
               { label: "Word Counter", sub: "Count words & characters", href: "/tools/word-counter", highlight: false },
+      { label: "Text Paraphrase Blog",sub: "How Paraphrase Text In Free", href: "/blog/best-free-paraphrasing-tool-online-2026", highlight: false },
             ].map((tool) => (
               <Link
                 key={tool.href}
