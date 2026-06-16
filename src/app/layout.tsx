@@ -143,7 +143,8 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning className={sora.variable}>
       <body className="font-sans antialiased min-h-screen flex flex-col bg-white dark:bg-gray-950 selection:bg-blue-600 selection:text-white">
-        {/* ANALYTICS & ADSENSE */}
+
+        {/* ── GOOGLE ANALYTICS ── */}
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-XE6BHLH4J6"
           strategy="afterInteractive"
@@ -151,6 +152,8 @@ export default function RootLayout({
         <Script id="google-analytics" strategy="afterInteractive">
           {`window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-XE6BHLH4J6');`}
         </Script>
+
+        {/* ── GOOGLE ADSENSE ── */}
         <Script
           async
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2427221337462218"
@@ -158,14 +161,10 @@ export default function RootLayout({
           strategy="afterInteractive"
         />
 
-        {/* ADSTERRA SOCIAL BAR */}
-        <Script
-          id="adsterra-social-bar"
-          src="https://pl27365402.profitablecpmratenetwork.com/ae/52/0f/ae520f3c967ee911772a55229589d894.js"
-          strategy="lazyOnload"
-        />
+        {/* ✅ REMOVED: Adsterra Social Bar — hurt UX and violated Google Better Ads Standards */}
+        {/* ✅ REMOVED: Smart Popunder Logic — Google penalizes popunders, hurts SEO rankings */}
 
-        {/* JSON-LD */}
+        {/* ── JSON-LD SCHEMA ── */}
         <Script
           id="ld-json"
           type="application/ld+json"
@@ -177,13 +176,14 @@ export default function RootLayout({
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <Header themeToggle={<ThemeToggle />} />
 
-          {/* ── 728×90 DESKTOP LEADERBOARD ─────────────────────────────
-              Served from /public/ads/banner-728x90.html
-              iframe src="/ads/..." = taskguru.online origin = Adsterra verified ✅
-          ───────────────────────────────────────────────────────── */}
-         <div className="hidden md:flex flex-col items-center justify-center w-full bg-gray-50/60 dark:bg-gray-900/60 border-b border-gray-100 dark:border-gray-800 mt-20" // Added mt-20
-  style={{ minHeight: "110px" }} >
-            <p className="text-[9px] text-gray-400 uppercase tracking-widest font-bold mb-1">Advertisement</p>
+          {/* ── 728×90 DESKTOP LEADERBOARD ── */}
+          <div
+            className="hidden md:flex flex-col items-center justify-center w-full bg-gray-50/60 dark:bg-gray-900/60 border-b border-gray-100 dark:border-gray-800 mt-20"
+            style={{ minHeight: "110px" }}
+          >
+            <p className="text-[9px] text-gray-400 uppercase tracking-widest font-bold mb-1">
+              Advertisement
+            </p>
             <iframe
               src="/ads/banner-728x90.html"
               width="728"
@@ -195,33 +195,30 @@ export default function RootLayout({
             />
           </div>
 
-          {/* ── 320×50 MOBILE BANNER ─────────────────────────────────
-    Static iframe — same domain = always loads
-    mt-16 added to clear the fixed mobile header ✅
-───────────────────────────────────────────────────────── */}
-<div 
-  className="flex md:hidden justify-center items-center bg-gray-50/60 dark:bg-gray-900/60 border-b border-gray-100 dark:border-gray-800 mt-20" 
-  style={{ minHeight: "58px" }}
->
-  <iframe
-    src="/ads/banner-320x50.html"
-    width="320"
-    height="50"
-    frameBorder="0"
-    scrolling="no"
-    title="Advertisement"
-    style={{ display: "block", overflow: "hidden" }}
-  />
-</div>
+          {/* ── 320×50 MOBILE TOP BANNER ── */}
+          <div
+            className="flex md:hidden justify-center items-center bg-gray-50/60 dark:bg-gray-900/60 border-b border-gray-100 dark:border-gray-800 mt-20"
+            style={{ minHeight: "58px" }}
+          >
+            <iframe
+              src="/ads/banner-320x50.html"
+              width="320"
+              height="50"
+              frameBorder="0"
+              scrolling="no"
+              title="Advertisement"
+              style={{ display: "block", overflow: "hidden" }}
+            />
+          </div>
 
-          {/* pb-16 on mobile leaves space for sticky bottom banner */}
+          {/* pb-[62px] on mobile reserves space for the sticky bottom banner */}
           <main className="flex-1 pb-[62px] md:pb-0">{children}</main>
 
-          {/* ── 300×250 RECTANGLE — DESKTOP ONLY ─────────────────────
-              Static iframe — highest CPM format globally
-          ───────────────────────────────────────────────────────── */}
+          {/* ── 300×250 RECTANGLE — DESKTOP ONLY ── */}
           <div className="hidden md:flex flex-col items-center w-full py-6 border-t border-gray-100 dark:border-gray-800 bg-gray-50/20 dark:bg-gray-900/20">
-            <p className="text-[9px] text-gray-400 uppercase tracking-widest font-bold mb-3">Sponsored</p>
+            <p className="text-[9px] text-gray-400 uppercase tracking-widest font-bold mb-3">
+              Sponsored
+            </p>
             <iframe
               src="/ads/banner-300x250.html"
               width="300"
@@ -253,70 +250,32 @@ export default function RootLayout({
           <Toaster />
           <GlobalShare />
 
-         {/* ── FINAL SMART POPUNDER LOGIC ── */}
-          
-<Script id="taskguru-smart-ad-logic" strategy="afterInteractive">
-  {`
-    (function() {
-      // Hard check to prevent double execution
-      if (window.AD_LOGIC_INITIALIZED) return;
-      window.AD_LOGIC_INITIALIZED = true;
-
-      const AD_URL = 'https://pl29209918.profitablecpmratenetwork.com/27/ef/d9/27efd9b5d96e77f31282f288b5d9ca58.js';
-      
-      const injectPop = () => {
-        console.log("TaskGuru Ads: Injecting Popunder...");
-        const s = document.createElement('script');
-        s.src = AD_URL;
-        s.async = true;
-        document.body.appendChild(s);
-        setTimeout(() => { if(s && s.parentNode) s.parentNode.removeChild(s); }, 2000);
-      };
-
-      // Wait for the window to be fully loaded before starting the 20s timer
-      window.addEventListener('load', function() {
-        console.log("TaskGuru: Page loaded. 20s countdown started.");
-        
-        // 1. Initial 20-second delay
-        setTimeout(function() {
-          injectPop();
-
-          // 2. Repeat every 5 minutes
-          setInterval(function() {
-            injectPop();
-          }, 300000); 
-
-        }, 20000); 
-      });
-    })();
-  `}
-</Script>
-
           {/* ── STICKY BOTTOM MOBILE BANNER ── */}
-<div
-  id="utility-tray-bottom" // Changed from "sticky-ad-mobile" to prevent ad-block detection
-  className="fixed bottom-0 left-0 right-0 z-[9999] flex md:hidden justify-center items-center bg-white dark:bg-gray-950 border-t border-gray-200 dark:border-gray-800 shadow-[0_-4px_12px_rgba(0,0,0,0.1)]"
-  style={{ 
-    height: "62px", 
-    paddingBottom: "env(safe-area-inset-bottom, 0px)",
-    display: "flex", // Force flex display
-    pointerEvents: "auto" // Ensure the banner is clickable
-  }}
->
-  <iframe
-    src="/ads/banner-320x50.html"
-    width="320"
-    height="50"
-    frameBorder="0"
-    scrolling="no"
-    title="Sponsored Content"
-    style={{ display: "block", overflow: "hidden", border: "none" }}
-  />
-</div>
+          <div
+            id="utility-tray-bottom"
+            className="fixed bottom-0 left-0 right-0 z-[9999] flex md:hidden justify-center items-center bg-white dark:bg-gray-950 border-t border-gray-200 dark:border-gray-800 shadow-[0_-4px_12px_rgba(0,0,0,0.1)]"
+            style={{
+              height: "62px",
+              paddingBottom: "env(safe-area-inset-bottom, 0px)",
+            }}
+          >
+            <iframe
+              src="/ads/banner-320x50.html"
+              width="320"
+              height="50"
+              frameBorder="0"
+              scrolling="no"
+              title="Sponsored Content"
+              style={{ display: "block", overflow: "hidden", border: "none" }}
+            />
+          </div>
 
+          {/* ── FOOTER ── */}
           <footer className="py-20 bg-gray-50/50 dark:bg-gray-900/50 border-t border-gray-200 dark:border-gray-800">
             <div className="container mx-auto px-6">
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
+
+                {/* Brand column */}
                 <div className="space-y-6">
                   <div>
                     <h3 className="text-3xl font-black text-blue-600 tracking-tighter mb-4">
@@ -330,31 +289,11 @@ export default function RootLayout({
                   </div>
                   <div className="grid grid-cols-5 sm:flex gap-3">
                     {[
-                      {
-                        href: "https://github.com/Shubh962",
-                        icon: <Github className="w-5 h-5" />,
-                        label: "GitHub",
-                      },
-                      {
-                        href: "https://facebook.com/share/1K97T5Q5wp/",
-                        icon: <Facebook className="w-5 h-5" />,
-                        label: "Facebook",
-                      },
-                      {
-                        href: "https://x.com/Shubham_962",
-                        icon: <Twitter className="w-5 h-5" />,
-                        label: "Twitter",
-                      },
-                      {
-                        href: "https://www.instagram.com/m_just_shubham",
-                        icon: <Instagram className="w-5 h-5" />,
-                        label: "Instagram",
-                      },
-                      {
-                        href: "https://youtube.com/@factfusions0-x4k",
-                        icon: <Youtube className="w-5 h-5" />,
-                        label: "YouTube",
-                      },
+                      { href: "https://github.com/Shubh962",                    icon: <Github className="w-5 h-5" />,    label: "GitHub"    },
+                      { href: "https://facebook.com/share/1K97T5Q5wp/",         icon: <Facebook className="w-5 h-5" />,  label: "Facebook"  },
+                      { href: "https://x.com/Shubham_962",                      icon: <Twitter className="w-5 h-5" />,   label: "Twitter"   },
+                      { href: "https://www.instagram.com/m_just_shubham",       icon: <Instagram className="w-5 h-5" />, label: "Instagram" },
+                      { href: "https://youtube.com/@factfusions0-x4k",          icon: <Youtube className="w-5 h-5" />,   label: "YouTube"   },
                     ].map((social) => (
                       <a
                         key={social.label}
@@ -388,6 +327,7 @@ export default function RootLayout({
                   </a>
                 </div>
 
+                {/* Resources */}
                 <div>
                   <h4 className="font-black text-gray-900 dark:text-white mb-6 uppercase text-[11px] tracking-[0.2em]">
                     Resources
@@ -402,54 +342,34 @@ export default function RootLayout({
                     <Link href="/blog" className="hover:text-blue-600">
                       Productivity Blog
                     </Link>
-                    <Link
-                      href="/help"
-                      className="hover:text-blue-600 flex items-center gap-2"
-                    >
+                    <Link href="/help" className="hover:text-blue-600 flex items-center gap-2">
                       <HelpCircle className="w-4 h-4" /> Help Center
                     </Link>
-                    <Link
-                      href="/contact"
-                      className="hover:text-blue-600 flex items-center gap-2"
-                    >
+                    <Link href="/contact" className="hover:text-blue-600 flex items-center gap-2">
                       <Mail className="w-4 h-4" /> Contact Support
                     </Link>
-                    <Link
-                      href="/sitemap.xml"
-                      className="hover:text-blue-600 flex items-center gap-2"
-                    >
+                    <Link href="/sitemap.xml" className="hover:text-blue-600 flex items-center gap-2">
                       <Map className="w-4 h-4" /> XML Sitemap
                     </Link>
                   </nav>
                 </div>
 
+                {/* Popular Tools */}
                 <div>
                   <h4 className="font-black text-gray-900 dark:text-white mb-6 uppercase text-[11px] tracking-[0.2em]">
                     Popular Free Tools
                   </h4>
                   <nav className="flex flex-col gap-4 text-sm font-medium text-gray-500 dark:text-gray-400">
-                    <Link
-                      href="/tools/background-remover"
-                      className="hover:text-blue-600"
-                    >
+                    <Link href="/tools/background-remover" className="hover:text-blue-600">
                       Background Remover
                     </Link>
-                    <Link
-                      href="/tools/text-paraphraser"
-                      className="hover:text-blue-600"
-                    >
+                    <Link href="/tools/text-paraphraser" className="hover:text-blue-600">
                       AI Text Paraphraser
                     </Link>
-                    <Link
-                      href="/tools/image-compressor"
-                      className="hover:text-blue-600"
-                    >
+                    <Link href="/tools/image-compressor" className="hover:text-blue-600">
                       Image Compressor
                     </Link>
-                    <Link
-                      href="/tools/pdf-to-word"
-                      className="hover:text-blue-600"
-                    >
+                    <Link href="/tools/pdf-to-word" className="hover:text-blue-600">
                       PDF to Word
                     </Link>
                     <Link
@@ -458,15 +378,13 @@ export default function RootLayout({
                     >
                       Resume Maker <Zap className="w-3 h-3 text-yellow-500" />
                     </Link>
-                    <Link
-                      href="/tools/qr-barcode-generator"
-                      className="hover:text-blue-600"
-                    >
+                    <Link href="/tools/qr-barcode-generator" className="hover:text-blue-600">
                       QR Code Generator
                     </Link>
                   </nav>
                 </div>
 
+                {/* Legal */}
                 <div>
                   <h4 className="font-black text-gray-900 dark:text-white mb-6 uppercase text-[11px] tracking-[0.2em]">
                     Legal & Partners
@@ -486,19 +404,12 @@ export default function RootLayout({
                     >
                       <ShieldCheck className="w-4 h-4" /> Privacy Policy
                     </Link>
-                    <Link
-                      href="/terms"
-                      className="hover:text-blue-600 flex items-center gap-2"
-                    >
+                    <Link href="/terms" className="hover:text-blue-600 flex items-center gap-2">
                       <Scale className="w-4 h-4" /> Terms of Use
                     </Link>
-                    <Link
-                      href="/disclaimer"
-                      className="hover:text-blue-600 flex items-center gap-2"
-                    >
+                    <Link href="/disclaimer" className="hover:text-blue-600 flex items-center gap-2">
                       <FileText className="w-4 h-4" /> Disclaimer
                     </Link>
-
                     <Dialog>
                       <DialogTrigger asChild>
                         <button className="text-left hover:text-blue-600 font-bold underline underline-offset-4 decoration-blue-200">
@@ -514,24 +425,20 @@ export default function RootLayout({
                         <div className="space-y-6">
                           <Card className="border-none bg-blue-50/50 dark:bg-blue-900/10 p-2">
                             <CardHeader>
-                              <CardTitle className="text-lg">
-                                Mission Statement
-                              </CardTitle>
+                              <CardTitle className="text-lg">Mission Statement</CardTitle>
                             </CardHeader>
                             <CardContent className="text-sm text-gray-600 dark:text-gray-400">
-                              <strong>TaskGuru</strong> is a specialized AI
-                              utility project developed and maintained by{" "}
-                              <strong>Shubham Gautam</strong>. We believe
-                              premium software should be accessible, free, and
-                              private for everyone.
+                              <strong>TaskGuru</strong> is a specialized AI utility project
+                              developed and maintained by{" "}
+                              <strong>Shubham Gautam</strong>. We believe premium software
+                              should be accessible, free, and private for everyone.
                             </CardContent>
                           </Card>
                           <div className="p-4 bg-red-50 dark:bg-red-900/10 rounded-2xl flex items-center gap-3">
-                            <AlertTriangle className="text-red-500 h-5 w-5" />
+                            <AlertTriangle className="text-red-500 h-5 w-5 flex-shrink-0" />
                             <p className="text-xs text-red-600 dark:text-red-400">
-                              © {new Date().getFullYear()} TaskGuru. All
-                              algorithmic logic is proprietary. Any
-                              unauthorized reproduction or duplication is
+                              © {new Date().getFullYear()} TaskGuru. All algorithmic logic is
+                              proprietary. Any unauthorized reproduction or duplication is
                               strictly prohibited.
                             </p>
                           </div>
@@ -540,6 +447,7 @@ export default function RootLayout({
                     </Dialog>
                   </nav>
                 </div>
+
               </div>
 
               {/* Bottom bar */}
@@ -564,8 +472,10 @@ export default function RootLayout({
                   </p>
                 </div>
               </div>
+
             </div>
           </footer>
+
         </ThemeProvider>
       </body>
     </html>
