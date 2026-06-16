@@ -34,7 +34,8 @@ const Header = ({ themeToggle }: HeaderProps) => {
   return (
     <>
       <header 
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 border-b ${
+        <header
+  className={`sticky top-0 left-0 right-0 z-[9999] transition-all duration-300 border-b ${
           scrolled 
             ? 'bg-white/80 dark:bg-gray-950/80 backdrop-blur-md border-gray-200 dark:border-gray-800 py-3 shadow-sm' 
             : 'bg-white dark:bg-gray-950 border-transparent py-5'
