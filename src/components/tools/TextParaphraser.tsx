@@ -185,9 +185,9 @@ const articleSchema = {
   description: "TaskGuru's free AI paraphrasing tool humanizes AI-generated text instantly. No login, no limits. Perfect for students, bloggers, writers, and marketers.",
   url: "https://www.taskguru.online/tools/text-paraphraser",
   // ✅ Update datePublished to the actual date this page first went live on your site
-  datePublished: "2024-01-01",
+  datePublished: "2024-08-02",
   // ✅ dateModified matches sitemap lastmod: 2026-06-22
-  dateModified: "2026-06-22",
+  dateModified: "2026-05-05",
   author: {
     "@type": "Person",
     name: "Shubham Gautam",
