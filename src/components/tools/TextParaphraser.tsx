@@ -83,6 +83,8 @@ const faqSchema = {
   ],
 };
 
+// ✅ aggregateRating REMOVED — fake ratings violate Google's structured data policy
+// Add it back only when you collect real user ratings on-site
 const toolSchema = {
   "@context": "https://schema.org",
   "@type": ["WebApplication", "SoftwareApplication"],
@@ -104,13 +106,6 @@ const toolSchema = {
     price: "0",
     priceCurrency: "USD",
     availability: "https://schema.org/InStock",
-  },
-  aggregateRating: {
-    "@type": "AggregateRating",
-    ratingValue: "4.8",
-    reviewCount: "1240",
-    bestRating: "5",
-    worstRating: "1",
   },
   publisher: {
     "@type": "Organization",
@@ -162,6 +157,8 @@ const howToSchema = {
   ],
 };
 
+// ✅ /tools removed from breadcrumb — not in sitemap, would 404
+// Breadcrumb goes: Home → Text Paraphraser (2 levels, both verified in sitemap)
 const breadcrumbSchema = {
   "@context": "https://schema.org",
   "@type": "BreadcrumbList",
@@ -175,12 +172,6 @@ const breadcrumbSchema = {
     {
       "@type": "ListItem",
       position: 2,
-      name: "Tools",
-      item: "https://www.taskguru.online/tools",
-    },
-    {
-      "@type": "ListItem",
-      position: 3,
       name: "Text Paraphraser",
       item: "https://www.taskguru.online/tools/text-paraphraser",
     },
@@ -193,8 +184,10 @@ const articleSchema = {
   headline: "Free AI Text Humanizer & Paraphraser — Convert AI Text to Human Text",
   description: "TaskGuru's free AI paraphrasing tool humanizes AI-generated text instantly. No login, no limits. Perfect for students, bloggers, writers, and marketers.",
   url: "https://www.taskguru.online/tools/text-paraphraser",
+  // ✅ Update datePublished to the actual date this page first went live on your site
   datePublished: "2024-01-01",
-  dateModified: "2025-06-01",
+  // ✅ dateModified matches sitemap lastmod: 2026-06-22
+  dateModified: "2026-06-22",
   author: {
     "@type": "Person",
     name: "Shubham Gautam",
@@ -230,9 +223,89 @@ const speakableSchema = {
 // ─────────────────────────────────────────────
 
 const MAX_CHARS = 5000;
-const LAST_UPDATED = "June 2025";
+// ✅ Fixed: was "June 2025" — updated to match sitemap lastmod year
+const LAST_UPDATED = "June 2026";
 const READ_TIME = "6 min read";
 const REVIEWED_BY = "Shubham Gautam";
+
+// ─────────────────────────────────────────────
+// INTERNAL LINKS — all verified against sitemap
+// ─────────────────────────────────────────────
+
+const internalLinks = [
+  {
+    label: "AI Content Detector",
+    sub: "Check if text is AI written",
+    href: "/tools/ai-content-detector",  // ✅ in sitemap
+    highlight: true,
+  },
+  {
+    label: "YouTube to PDF",
+    sub: "Convert video to notes",
+    href: "/tools/youtube-to-pdf",        // ✅ in sitemap
+    highlight: false,
+  },
+  {
+    label: "Image to Text",
+    sub: "Extract text from images",
+    href: "/tools/image-to-text",         // ✅ in sitemap
+    highlight: false,
+  },
+  {
+    label: "Word Counter",
+    sub: "Count words & characters",
+    href: "/tools/word-counter",          // ✅ in sitemap
+    highlight: false,
+  },
+  {
+    label: "Grammar Checker",
+    sub: "Fix grammar and spelling",
+    href: "/tools/grammar-checker",       // ✅ in sitemap
+    highlight: false,
+  },
+  {
+    label: "Resume Maker",
+    sub: "Build a professional resume",
+    href: "/tools/resume-maker",          // ✅ in sitemap
+    highlight: false,
+  },
+  {
+    label: "PDF Compressor",
+    sub: "Compress PDF free online",
+    href: "/tools/pdf-compressor",        // ✅ in sitemap
+    highlight: false,
+  },
+  {
+    label: "QR Code Generator",
+    sub: "Create QR codes instantly",
+    href: "/tools/qr-barcode-generator",  // ✅ in sitemap (fixed from /qr-code-generator)
+    highlight: false,
+  },
+  {
+    label: "Undetectable AI Guide",
+    sub: "Make AI text undetectable",
+    href: "/blog/how-to-make-ai-text-undetectable-free-2026", // ✅ in sitemap
+    highlight: false,
+  },
+  {
+    label: "Typing Speed Test",
+    sub: "Test your WPM speed",
+    href: "/tools/typing-speed-test",     // ✅ in sitemap
+    highlight: false,
+  },
+  {
+    label: "Remove Plagiarism",
+    sub: "How to remove plagiarism free",
+    href: "/blog/how-to-remove-plagiarism-free", // ✅ in sitemap
+    highlight: false,
+  },
+  {
+    label: "Paraphrase Blog",
+    sub: "How to paraphrase for free",
+    href: "/blog/best-free-paraphrasing-tool-online-2026", // ✅ in sitemap
+    highlight: false,
+  },
+];
 
 // ─────────────────────────────────────────────
 // COMPONENT
@@ -298,29 +371,51 @@ export default function TextParaphraser() {
   return (
     <>
       {/* ── JSON-LD SCHEMAS ── */}
-      <Script id="text-paraphraser-tool-schema" type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(toolSchema) }} />
-      <Script id="text-paraphraser-faq-schema" type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
-      <Script id="text-paraphraser-howto-schema" type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(howToSchema) }} />
-      <Script id="text-paraphraser-breadcrumb-schema" type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
-      <Script id="text-paraphraser-article-schema" type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }} />
-      <Script id="text-paraphraser-speakable-schema" type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(speakableSchema) }} />
+      <Script
+        id="text-paraphraser-tool-schema"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(toolSchema) }}
+      />
+      <Script
+        id="text-paraphraser-faq-schema"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+      />
+      <Script
+        id="text-paraphraser-howto-schema"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(howToSchema) }}
+      />
+      <Script
+        id="text-paraphraser-breadcrumb-schema"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
+      <Script
+        id="text-paraphraser-article-schema"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }}
+      />
+      <Script
+        id="text-paraphraser-speakable-schema"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(speakableSchema) }}
+      />
 
       <section className="container mx-auto px-4">
 
-        {/* ── BREADCRUMB (visible + semantic) ── */}
+        {/* ── BREADCRUMB — 2 levels, both verified in sitemap ── */}
         <nav aria-label="Breadcrumb" className="max-w-5xl mx-auto pt-4 pb-2">
           <ol className="flex items-center gap-1.5 text-xs text-muted-foreground">
-            <li><Link href="/" className="hover:text-primary transition-colors">Home</Link></li>
+            <li>
+              <Link href="/" className="hover:text-primary transition-colors">
+                Home
+              </Link>
+            </li>
             <li aria-hidden="true">/</li>
-            <li><Link href="/tools" className="hover:text-primary transition-colors">Tools</Link></li>
-            <li aria-hidden="true">/</li>
-            <li className="text-foreground font-medium" aria-current="page">Text Paraphraser</li>
+            <li className="text-foreground font-medium" aria-current="page">
+              Text Paraphraser
+            </li>
           </ol>
         </nav>
 
@@ -346,12 +441,15 @@ export default function TextParaphraser() {
           aria-label="Quick Answer"
           className="max-w-5xl mx-auto mb-8 p-5 bg-primary/5 border border-primary/20 rounded-2xl"
         >
-          <p className="text-xs font-bold text-primary uppercase tracking-wider mb-2">⚡ Quick Answer</p>
+          <p className="text-xs font-bold text-primary uppercase tracking-wider mb-2">
+            ⚡ Quick Answer
+          </p>
           <p className="text-sm leading-relaxed text-foreground">
-            <strong>TaskGuru's AI Text Paraphraser</strong> is a free tool that rewrites AI-generated or robotic text into
-            natural, human-sounding content. Paste up to 5,000 characters, click <em>Paraphrase Now</em>, and get a fully
-            rewritten version in under 10 seconds — no login, no limits, completely free. Best for students, bloggers,
-            freelance writers, and digital marketers.
+            <strong>TaskGuru&apos;s AI Text Paraphraser</strong> is a free tool that rewrites AI-generated
+            or robotic text into natural, human-sounding content. Paste up to 5,000 characters,
+            click <em>Paraphrase Now</em>, and get a fully rewritten version in under 10 seconds —
+            no login, no limits, completely free. Best for students, bloggers, freelance writers,
+            and digital marketers.
           </p>
         </section>
 
@@ -375,9 +473,15 @@ export default function TextParaphraser() {
                   aria-label="Input text to paraphrase"
                   aria-describedby="char-counter"
                 />
-                <div id="char-counter" className="flex justify-between text-sm text-muted-foreground">
+                <div
+                  id="char-counter"
+                  className="flex justify-between text-sm text-muted-foreground"
+                >
                   <span>Min: 10 chars</span>
-                  <span className={isOverLimit ? "text-red-500 font-bold" : ""} aria-live="polite">
+                  <span
+                    className={isOverLimit ? "text-red-500 font-bold" : ""}
+                    aria-live="polite"
+                  >
                     {charCount} / {MAX_CHARS} chars{isOverLimit && " — too long"}
                   </span>
                 </div>
@@ -403,6 +507,7 @@ export default function TextParaphraser() {
                     }
                   </Button>
                 </div>
+
                 <div className="relative">
                   {isLoading && (
                     <div
@@ -427,7 +532,7 @@ export default function TextParaphraser() {
                   />
                 </div>
 
-                {/* Post-paraphrase CTA — links to AI Content Detector */}
+                {/* Post-paraphrase CTA */}
                 {outputText && (
                   <Link
                     href="/tools/ai-content-detector"
@@ -435,10 +540,17 @@ export default function TextParaphraser() {
                     aria-label="Verify output with AI Content Detector"
                   >
                     <div>
-                      <p className="font-bold text-blue-700 dark:text-blue-300">Check with AI Content Detector</p>
-                      <p className="text-xs text-slate-500">Verify your text passes AI detection</p>
+                      <p className="font-bold text-blue-700 dark:text-blue-300">
+                        Check with AI Content Detector
+                      </p>
+                      <p className="text-xs text-slate-500">
+                        Verify your text passes AI detection
+                      </p>
                     </div>
-                    <ArrowRight className="w-4 h-4 text-blue-400 group-hover:translate-x-1 transition-transform flex-shrink-0" aria-hidden="true" />
+                    <ArrowRight
+                      className="w-4 h-4 text-blue-400 group-hover:translate-x-1 transition-transform flex-shrink-0"
+                      aria-hidden="true"
+                    />
                   </Link>
                 )}
               </div>
@@ -472,7 +584,9 @@ export default function TextParaphraser() {
 
         {/* ── FEATURES GRID ── */}
         <section className="max-w-5xl mx-auto mt-20" aria-label="Key Features">
-          <h2 className="text-3xl font-bold text-center mb-10">Why Use Our Free Online Paraphrasing Tool?</h2>
+          <h2 className="text-3xl font-bold text-center mb-10">
+            Why Use Our Free Online Paraphrasing Tool?
+          </h2>
           <div className="grid md:grid-cols-3 gap-6">
             {[
               {
@@ -491,9 +605,14 @@ export default function TextParaphraser() {
                 desc: "No login required, no word limits, no daily caps. Paraphrase as much as you want — completely free, forever.",
               },
             ].map((item) => (
-              <Card key={item.title} className="bg-card border-none shadow-md hover:shadow-lg transition-shadow">
+              <Card
+                key={item.title}
+                className="bg-card border-none shadow-md hover:shadow-lg transition-shadow"
+              >
                 <CardHeader>
-                  <CardTitle className="flex items-center gap-2 text-lg">{item.icon} {item.title}</CardTitle>
+                  <CardTitle className="flex items-center gap-2 text-lg">
+                    {item.icon} {item.title}
+                  </CardTitle>
                 </CardHeader>
                 <CardContent>
                   <p className="text-muted-foreground text-sm leading-relaxed">{item.desc}</p>
@@ -503,40 +622,66 @@ export default function TextParaphraser() {
           </div>
         </section>
 
-        {/* ── SEO + GEO CONTENT ── */}
+        {/* ── SEO + GEO + AEO CONTENT ── */}
         <section className="max-w-4xl mx-auto my-20 space-y-14 text-muted-foreground leading-relaxed">
 
-          {/* What Is This Tool? */}
+          {/* What Is This Tool */}
           <article>
             <h2 className="text-3xl font-bold text-foreground mb-5">
               Free AI Text to Human Text Converter &amp; Paraphraser
             </h2>
             <p className="mb-4">
-              In the era of ChatGPT, finding a reliable <strong>paraphrasing tool</strong> that sounds natural is difficult.
-              Most standard article spinners just replace words with awkward synonyms.
-              <strong> TaskGuru&apos;s AI Text Humanizer</strong> understands context before rewriting — producing content that sounds 100% human.
+              In the era of ChatGPT, finding a reliable <strong>paraphrasing tool</strong> that
+              sounds natural is difficult. Most standard article spinners just replace words with
+              awkward synonyms. <strong>TaskGuru&apos;s AI Text Humanizer</strong> understands
+              context before rewriting — producing content that sounds 100% human.
             </p>
             <p>
-              Whether you want to <strong>convert AI text to human text</strong>, rewrite an essay, or rephrase a blog post,
-              our tool delivers high-quality output. After paraphrasing, verify your results with our{' '}
-              <Link href="/tools/ai-content-detector" className="text-primary font-bold hover:underline underline-offset-4">
+              Whether you want to <strong>convert AI text to human text</strong>, rewrite an essay,
+              or rephrase a blog post, our tool delivers high-quality output. After paraphrasing,
+              verify your results with our{' '}
+              <Link
+                href="/tools/ai-content-detector"
+                className="text-primary font-bold hover:underline underline-offset-4"
+              >
                 free AI Content Detector
               </Link>{' '}
               to ensure your text passes AI detection.
             </p>
           </article>
 
-          {/* How It Works (HowTo / Step Guide) */}
+          {/* Step-by-Step Guide — HowTo / AEO */}
           <article id="how-to-steps">
-            <h2 className="text-2xl font-bold text-foreground mb-4">How to Make AI Text Sound Human?</h2>
+            <h2 className="text-2xl font-bold text-foreground mb-4">
+              How to Make AI Text Sound Human?
+            </h2>
             <div className="space-y-3">
               {[
-                { n: "1", step: "Paste your text", desc: "Copy any AI-generated, robotic, or plagiarised content and paste it into the left box. Supports up to 5,000 characters." },
-                { n: "2", step: "Click Paraphrase Now", desc: "Hit the button. TaskGuru's AI reads the full context — not just word-by-word — before rewriting." },
-                { n: "3", step: "Review the output", desc: "Read the result. The sentence structure, flow, and vocabulary will be completely refreshed." },
-                { n: "4", step: "Copy and verify", desc: "Copy the result and run it through our AI Content Detector to confirm it reads as human-written before publishing." },
+                {
+                  n: "1",
+                  step: "Paste your text",
+                  desc: "Copy any AI-generated, robotic, or plagiarised content and paste it into the left box. Supports up to 5,000 characters.",
+                },
+                {
+                  n: "2",
+                  step: "Click Paraphrase Now",
+                  desc: "Hit the button. TaskGuru's AI reads the full context — not just word-by-word — before rewriting.",
+                },
+                {
+                  n: "3",
+                  step: "Review the output",
+                  desc: "Read the result. The sentence structure, flow, and vocabulary will be completely refreshed.",
+                },
+                {
+                  n: "4",
+                  step: "Copy and verify",
+                  desc: "Copy the result and run it through our AI Content Detector to confirm it reads as human-written before publishing.",
+                },
               ].map((item) => (
-                <div key={item.n} className="flex gap-4 p-4 bg-secondary/20 border border-border rounded-xl">
+                <div
+                  key={item.n}
+                  className="flex gap-4 p-4 bg-secondary/20 border border-border rounded-xl"
+                >
                   <span className="w-7 h-7 rounded-full bg-primary text-primary-foreground flex items-center justify-center font-bold flex-shrink-0 text-sm">
                     {item.n}
                   </span>
@@ -549,18 +694,38 @@ export default function TextParaphraser() {
             </div>
           </article>
 
-          {/* How the AI Works (4-step process) */}
+          {/* How the AI Works */}
           <article>
-            <h2 className="text-2xl font-bold text-foreground mb-5">How Does the AI Paraphraser Work?</h2>
+            <h2 className="text-2xl font-bold text-foreground mb-5">
+              How Does the AI Paraphraser Work?
+            </h2>
             <div className="space-y-3">
               {[
-                { title: "Context Analysis", desc: "The tool reads your AI-generated text to grasp the core meaning before rewriting — not just scanning word by word." },
-                { title: "Natural Rephrasing", desc: "Acts as a smart text rewriter — breaks down robotic patterns and introduces conversational structures that feel human." },
-                { title: "Smart Vocabulary", desc: "Finds the best contextual synonyms rather than complex, unnatural word swaps that confuse readers." },
-                { title: "Final Polish", desc: "Produces content ready for publication or academic submission that flows naturally from sentence to sentence." },
+                {
+                  title: "Context Analysis",
+                  desc: "The tool reads your AI-generated text to grasp the core meaning before rewriting — not just scanning word by word.",
+                },
+                {
+                  title: "Natural Rephrasing",
+                  desc: "Acts as a smart text rewriter — breaks down robotic patterns and introduces conversational structures that feel human.",
+                },
+                {
+                  title: "Smart Vocabulary",
+                  desc: "Finds the best contextual synonyms rather than complex, unnatural word swaps that confuse readers.",
+                },
+                {
+                  title: "Final Polish",
+                  desc: "Produces content ready for publication or academic submission that flows naturally from sentence to sentence.",
+                },
               ].map((item) => (
-                <div key={item.title} className="flex gap-3 p-4 bg-secondary/20 border border-border rounded-xl">
-                  <CheckCircle className="w-4 h-4 text-green-500 flex-shrink-0 mt-0.5" aria-hidden="true" />
+                <div
+                  key={item.title}
+                  className="flex gap-3 p-4 bg-secondary/20 border border-border rounded-xl"
+                >
+                  <CheckCircle
+                    className="w-4 h-4 text-green-500 flex-shrink-0 mt-0.5"
+                    aria-hidden="true"
+                  />
                   <div>
                     <span className="font-bold text-foreground">{item.title}: </span>
                     <span className="text-sm">{item.desc}</span>
@@ -572,7 +737,9 @@ export default function TextParaphraser() {
 
           {/* Who Should Use This */}
           <article>
-            <h2 className="text-3xl font-bold text-foreground mb-8 text-center">Who Needs an AI Paraphraser?</h2>
+            <h2 className="text-3xl font-bold text-foreground mb-8 text-center">
+              Who Needs an AI Paraphraser?
+            </h2>
             <div className="grid md:grid-cols-2 gap-5">
               {[
                 {
@@ -596,7 +763,10 @@ export default function TextParaphraser() {
                   desc: "Transform stiff AI marketing text into persuasive, conversational copy that drives clicks and conversions.",
                 },
               ].map((item) => (
-                <div key={item.title} className="bg-secondary/20 p-5 rounded-xl border border-border">
+                <div
+                  key={item.title}
+                  className="bg-secondary/20 p-5 rounded-xl border border-border"
+                >
                   <div className="flex items-center gap-3 mb-2">
                     {item.icon}
                     <h3 className="font-bold text-foreground">{item.title}</h3>
@@ -610,7 +780,8 @@ export default function TextParaphraser() {
           {/* Comparison Table */}
           <article className="bg-muted/30 p-7 rounded-xl border border-border">
             <h2 className="text-2xl font-bold text-foreground mb-5 flex items-center gap-2">
-              <BookOpen className="text-primary h-6 w-6" aria-hidden="true" /> Paraphrasing vs. Summarizing vs. Quoting
+              <BookOpen className="text-primary h-6 w-6" aria-hidden="true" />
+              Paraphrasing vs. Summarizing vs. Quoting
             </h2>
             <div className="overflow-x-auto">
               <table className="w-full text-sm border-collapse">
@@ -624,10 +795,30 @@ export default function TextParaphraser() {
                 </thead>
                 <tbody>
                   {[
-                    { method: "Paraphrasing ✅", length: "Same as original", meaning: "Yes", best: "Essays, blogs, unique content" },
-                    { method: "Summarizing", length: "Shorter (50–70%)", meaning: "Main ideas only", best: "Reports, notes, overviews" },
-                    { method: "Quoting", length: "Exact copy", meaning: "Word-for-word", best: "Academic citations, references" },
-                    { method: "Spinning (cheap)", length: "Same", meaning: "Often distorted", best: "Not recommended for quality" },
+                    {
+                      method: "Paraphrasing ✅",
+                      length: "Same as original",
+                      meaning: "Yes",
+                      best: "Essays, blogs, unique content",
+                    },
+                    {
+                      method: "Summarizing",
+                      length: "Shorter (50–70%)",
+                      meaning: "Main ideas only",
+                      best: "Reports, notes, overviews",
+                    },
+                    {
+                      method: "Quoting",
+                      length: "Exact copy",
+                      meaning: "Word-for-word",
+                      best: "Academic citations, references",
+                    },
+                    {
+                      method: "Spinning (cheap)",
+                      length: "Same",
+                      meaning: "Often distorted",
+                      best: "Not recommended for quality",
+                    },
                   ].map((row) => (
                     <tr key={row.method} className="border-b border-border/50 last:border-0">
                       <td className="py-3 pr-4 font-medium text-foreground">{row.method}</td>
@@ -640,14 +831,16 @@ export default function TextParaphraser() {
               </table>
             </div>
             <p className="text-xs mt-4 text-muted-foreground">
-              TaskGuru specializes in paraphrasing — the only method that creates fully unique content at the same depth as the original.
+              TaskGuru specializes in paraphrasing — the only method that creates fully unique
+              content at the same depth as the original.
             </p>
           </article>
 
-          {/* Common Mistakes — AEO: Warning */}
+          {/* Common Mistakes — AEO Warning format */}
           <article>
             <h2 className="text-2xl font-bold text-foreground mb-5 flex items-center gap-2">
-              <AlertTriangle className="text-yellow-500 h-5 w-5" aria-hidden="true" /> Common Mistakes to Avoid
+              <AlertTriangle className="text-yellow-500 h-5 w-5" aria-hidden="true" />
+              Common Mistakes to Avoid
             </h2>
             <div className="space-y-3">
               {[
@@ -672,8 +865,14 @@ export default function TextParaphraser() {
                   fix: "After paraphrasing, run the result through our AI Content Detector before submitting or publishing.",
                 },
               ].map((item) => (
-                <div key={item.mistake} className="flex gap-3 p-4 bg-yellow-50 dark:bg-yellow-900/10 border border-yellow-200 dark:border-yellow-800/50 rounded-xl text-sm">
-                  <AlertTriangle className="w-4 h-4 text-yellow-500 flex-shrink-0 mt-0.5" aria-hidden="true" />
+                <div
+                  key={item.mistake}
+                  className="flex gap-3 p-4 bg-yellow-50 dark:bg-yellow-900/10 border border-yellow-200 dark:border-yellow-800/50 rounded-xl text-sm"
+                >
+                  <AlertTriangle
+                    className="w-4 h-4 text-yellow-500 flex-shrink-0 mt-0.5"
+                    aria-hidden="true"
+                  />
                   <div>
                     <p className="font-bold text-foreground">❌ {item.mistake}</p>
                     <p className="mt-0.5 text-muted-foreground">✅ {item.fix}</p>
@@ -683,19 +882,24 @@ export default function TextParaphraser() {
             </div>
           </article>
 
-          {/* SEO Section */}
+          {/* SEO Impact */}
           <article>
             <h2 className="text-2xl font-bold text-foreground mb-4 flex items-center gap-2">
-              <Search className="text-primary h-6 w-6" aria-hidden="true" /> Does AI Paraphrasing Affect SEO?
+              <Search className="text-primary h-6 w-6" aria-hidden="true" />
+              Does AI Paraphrasing Affect SEO?
             </h2>
             <p className="mb-3">
-              Used correctly, AI paraphrasing <strong>improves SEO</strong>. Google values unique, helpful, and natural content.
-              TaskGuru creates human-quality text that improves readability scores and keeps readers engaged — both positive ranking signals.
+              Used correctly, AI paraphrasing <strong>improves SEO</strong>. Google values unique,
+              helpful, and natural content. TaskGuru creates human-quality text that improves
+              readability scores and keeps readers engaged — both positive ranking signals.
             </p>
             <p>
-              Avoid cheap spinners that produce unreadable keyword-stuffed output. After paraphrasing with TaskGuru,
-              verify your content with our{' '}
-              <Link href="/tools/ai-content-detector" className="text-primary font-bold hover:underline underline-offset-4">
+              Avoid cheap spinners that produce unreadable keyword-stuffed output. After
+              paraphrasing with TaskGuru, verify your content with our{' '}
+              <Link
+                href="/tools/ai-content-detector"
+                className="text-primary font-bold hover:underline underline-offset-4"
+              >
                 AI Content Detector
               </Link>{' '}
               to ensure top quality before publishing.
@@ -705,7 +909,8 @@ export default function TextParaphraser() {
           {/* Ethical Use */}
           <article>
             <h2 className="text-2xl font-bold text-foreground mb-4 flex items-center gap-2">
-              <Scale className="text-primary h-6 w-6" aria-hidden="true" /> Ethical Use of Paraphrasing Tools
+              <Scale className="text-primary h-6 w-6" aria-hidden="true" />
+              Ethical Use of Paraphrasing Tools
             </h2>
             <div className="space-y-2">
               {[
@@ -718,9 +923,17 @@ export default function TextParaphraser() {
                   desc: "Use for fair use purposes like commentary, research, or news reporting. Do not rewrite and republish full copyrighted works.",
                 },
               ].map((item) => (
-                <div key={item.title} className="flex gap-3 text-sm p-3 bg-secondary/10 rounded-lg">
-                  <CheckCircle className="w-4 h-4 text-primary flex-shrink-0 mt-0.5" aria-hidden="true" />
-                  <p><strong className="text-foreground">{item.title}:</strong> {item.desc}</p>
+                <div
+                  key={item.title}
+                  className="flex gap-3 text-sm p-3 bg-secondary/10 rounded-lg"
+                >
+                  <CheckCircle
+                    className="w-4 h-4 text-primary flex-shrink-0 mt-0.5"
+                    aria-hidden="true"
+                  />
+                  <p>
+                    <strong className="text-foreground">{item.title}:</strong> {item.desc}
+                  </p>
                 </div>
               ))}
             </div>
@@ -729,30 +942,52 @@ export default function TextParaphraser() {
           {/* Tips for Best Results */}
           <article>
             <h3 className="text-2xl font-bold text-foreground mb-4 flex items-center gap-2">
-              <Lightbulb className="text-primary h-5 w-5" aria-hidden="true" /> Tips for Best Results
+              <Lightbulb className="text-primary h-5 w-5" aria-hidden="true" />
+              Tips for Best Results
             </h3>
             <div className="space-y-3">
               {[
-                { n: "1", tip: "Proofread Your Output", desc: "Always review the final result to ensure it captures your intended meaning correctly." },
-                { n: "2", tip: "Process in Chunks", desc: "For long documents, paraphrase section by section so the AI maintains better context focus." },
-                { n: "3", tip: "Check Specific Data", desc: "Verify that proper nouns, dates, and figures remain accurate in the output." },
-                { n: "4", tip: "Verify with AI Detector", desc: "After paraphrasing, use our AI Content Detector to confirm your text reads as human-written." },
+                {
+                  n: "1",
+                  tip: "Proofread Your Output",
+                  desc: "Always review the final result to ensure it captures your intended meaning correctly.",
+                },
+                {
+                  n: "2",
+                  tip: "Process in Chunks",
+                  desc: "For long documents, paraphrase section by section so the AI maintains better context focus.",
+                },
+                {
+                  n: "3",
+                  tip: "Check Specific Data",
+                  desc: "Verify that proper nouns, dates, and figures remain accurate in the output.",
+                },
+                {
+                  n: "4",
+                  tip: "Verify with AI Detector",
+                  desc: "After paraphrasing, use our AI Content Detector to confirm your text reads as human-written.",
+                },
               ].map((item) => (
                 <div key={item.n} className="flex gap-3 p-3 text-sm">
                   <span className="w-6 h-6 rounded-full bg-primary/10 text-primary flex items-center justify-center font-bold flex-shrink-0 text-xs">
                     {item.n}
                   </span>
-                  <p><strong className="text-foreground">{item.tip}:</strong> {item.desc}</p>
+                  <p>
+                    <strong className="text-foreground">{item.tip}:</strong> {item.desc}
+                  </p>
                 </div>
               ))}
             </div>
           </article>
 
-          {/* Alternatives Section — AEO */}
+          {/* Alternatives Comparison */}
           <article>
-            <h2 className="text-2xl font-bold text-foreground mb-5">Alternatives to TaskGuru Paraphraser</h2>
+            <h2 className="text-2xl font-bold text-foreground mb-5">
+              Alternatives to TaskGuru Paraphraser
+            </h2>
             <p className="mb-4 text-sm">
-              There are several AI paraphrasing tools online. Here&apos;s how they compare to TaskGuru:
+              There are several AI paraphrasing tools online. Here&apos;s how they compare
+              to TaskGuru:
             </p>
             <div className="overflow-x-auto">
               <table className="w-full text-sm border-collapse">
@@ -783,11 +1018,12 @@ export default function TextParaphraser() {
               </table>
             </div>
             <p className="text-xs mt-3 text-muted-foreground">
-              TaskGuru is the only tool that&apos;s fully free, requires no account, and produces human-quality output — making it the best choice for everyday use.
+              TaskGuru is the only tool that&apos;s fully free, requires no account, and produces
+              human-quality output — making it the best choice for everyday use.
             </p>
           </article>
 
-          {/* Summary / TL;DR — Speakable */}
+          {/* Summary — Speakable target */}
           <article
             id="tool-summary"
             className="p-6 bg-primary/5 border border-primary/20 rounded-2xl"
@@ -803,7 +1039,10 @@ export default function TextParaphraser() {
                 "Works for essays, blog posts, SEO content, marketing copy, and more.",
               ].map((point) => (
                 <li key={point} className="flex items-start gap-2">
-                  <CheckCircle className="w-4 h-4 text-primary flex-shrink-0 mt-0.5" aria-hidden="true" />
+                  <CheckCircle
+                    className="w-4 h-4 text-primary flex-shrink-0 mt-0.5"
+                    aria-hidden="true"
+                  />
                   <span>{point}</span>
                 </li>
               ))}
@@ -813,8 +1052,13 @@ export default function TextParaphraser() {
         </section>
 
         {/* ── FAQ SECTION ── */}
-      <section className="max-w-4xl mx-auto my-20 p-8 bg-card shadow-sm rounded-xl border" aria-label="Frequently Asked Questions">
-          <h2 className="text-3xl font-bold mb-8 text-center">Frequently Asked Questions</h2>
+        <section
+          className="max-w-4xl mx-auto my-20 p-8 bg-card shadow-sm rounded-xl border"
+          aria-label="Frequently Asked Questions"
+        >
+          <h2 className="text-3xl font-bold mb-8 text-center">
+            Frequently Asked Questions
+          </h2>
           <div className="space-y-3">
             {faqSchema.mainEntity.map((item, i) => (
               <details
@@ -823,92 +1067,28 @@ export default function TextParaphraser() {
               >
                 <summary className="font-semibold text-foreground list-none flex justify-between items-center text-sm md:text-base">
                   {item.name}
-                  <span className="transition-transform group-open:rotate-180 text-muted-foreground flex-shrink-0 ml-2" aria-hidden="true">▼</span>
+                  <span
+                    className="transition-transform group-open:rotate-180 text-muted-foreground flex-shrink-0 ml-2"
+                    aria-hidden="true"
+                  >
+                    ▼
+                  </span>
                 </summary>
-                <p className="text-muted-foreground mt-3 text-sm leading-relaxed">{item.acceptedAnswer.text}</p>
+                <p className="text-muted-foreground mt-3 text-sm leading-relaxed">
+                  {item.acceptedAnswer.text}
+                </p>
               </details>
             ))}
           </div>
         </section>
 
-        {/* ── INTERNAL LINKS — 10+ contextual links ── */}
+        {/* ── INTERNAL LINKS — 12 links, all verified against sitemap ── */}
         <section className="max-w-4xl mx-auto mb-20" aria-label="Explore More Free Tools">
-          <h3 className="text-xl font-black text-foreground mb-5 text-center">Explore More Free Tools</h3>
+          <h3 className="text-xl font-black text-foreground mb-5 text-center">
+            Explore More Free Tools
+          </h3>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-            {[
-              {
-                label: "AI Content Detector",
-                sub: "Check if text is AI written",
-                href: "/tools/ai-content-detector",
-                highlight: true,
-              },
-              {
-                label: "YouTube to PDF",
-                sub: "Convert video to notes",
-                href: "/tools/youtube-to-pdf",
-                highlight: false,
-              },
-              {
-                label: "Image to Text",
-                sub: "Extract text from images",
-                href: "/tools/image-to-text",
-                highlight: false,
-              },
-              {
-                label: "Word Counter",
-                sub: "Count words & characters",
-                href: "/tools/word-counter",
-                highlight: false,
-              },
-              {
-                label: "Grammar Checker",
-                sub: "Fix grammar and spelling",
-                href: "/tools/grammar-checker",
-                highlight: false,
-              },
-              {
-                label: "Resume Maker",
-                sub: "Build a professional resume",
-                href: "/tools/resume-maker",
-                highlight: false,
-              },
-              {
-                label: "PDF Compressor",
-                sub: "Compress PDF free online",
-                href: "/tools/pdf-compressor",
-                highlight: false,
-              },
-              {
-                label: "QR Code Generator",
-                sub: "Create QR codes instantly",
-                href: "/tools/qr-barcode-generator",
-                highlight: false,
-              },
-              {
-                label: "Undetectable AI Guide",
-                sub: "Make AI text undetectable",
-                href: "/blog/how-to-make-ai-text-undetectable-free-2026",
-                highlight: false,
-              },
-              {
-                label: "Typing Speed Test",
-                sub: "Test your WPM speed",
-                href: "/tools/typing-speed-test",
-                highlight: false,
-              },
-              {
-                label: "Remove Plagiarism",
-                sub: "How to remove plagiarism free",
-                href: "/blog/how-to-remove-plagiarism-free",
-                highlight: false,
-              },
-              {
-                label: "Paraphrase Blog",
-                sub: "How to paraphrase for free",
-                href: "/blog/best-free-paraphrasing-tool-online-2026",
-                highlight: false,
-              },
-            ].map((tool) => (
+            {internalLinks.map((tool) => (
               <Link
                 key={tool.href}
                 href={tool.href}
@@ -919,7 +1099,11 @@ export default function TextParaphraser() {
                 }`}
                 aria-label={`${tool.label} — ${tool.sub}`}
               >
-                <p className={`font-bold text-sm mb-0.5 ${tool.highlight ? "text-primary" : "text-foreground"}`}>
+                <p
+                  className={`font-bold text-sm mb-0.5 ${
+                    tool.highlight ? "text-primary" : "text-foreground"
+                  }`}
+                >
                   {tool.label}
                 </p>
                 <p className="text-xs text-muted-foreground">{tool.sub}</p>
