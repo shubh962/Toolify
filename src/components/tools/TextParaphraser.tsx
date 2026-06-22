@@ -867,9 +867,9 @@ export default function TextParaphraser() {
                 highlight: false,
               },
               {
-                label: "Summarizer",
-                sub: "Summarize long articles",
-                href: "/tools/text-summarizer",
+                label: "Resume Maker",
+                sub: "Build a professional resume",
+                href: "/tools/resume-maker",
                 highlight: false,
               },
               {
@@ -881,13 +881,13 @@ export default function TextParaphraser() {
               {
                 label: "QR Code Generator",
                 sub: "Create QR codes instantly",
-                href: "/tools/qr-code-generator",
+                href: "/tools/qr-barcode-generator",
                 highlight: false,
               },
               {
-                label: "Case Converter",
-                sub: "Change text case instantly",
-                href: "/tools/case-converter",
+                label: "Undetectable AI Guide",
+                sub: "Make AI text undetectable",
+                href: "/blog/how-to-make-ai-text-undetectable-free-2026",
                 highlight: false,
               },
               {
@@ -897,9 +897,9 @@ export default function TextParaphraser() {
                 highlight: false,
               },
               {
-                label: "Plagiarism Checker",
-                sub: "Check for duplicate content",
-                href: "/tools/plagiarism-checker",
+                label: "Remove Plagiarism",
+                sub: "How to remove plagiarism free",
+                href: "/blog/how-to-remove-plagiarism-free",
                 highlight: false,
               },
               {
