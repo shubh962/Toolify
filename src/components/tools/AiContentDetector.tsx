@@ -156,7 +156,7 @@ const articleSchema = {
   headline: "Free AI Content Detector — Check If Text Is AI Written",
   description: "TaskGuru's free AI Content Detector checks whether text was written by ChatGPT, Gemini, or Claude using perplexity and burstiness analysis. No login, completely free.",
   url: TOOL_URL,
-  datePublished: "2024-01-01", // ✅ update to your real publish date
+  datePublished: "2025-10-01", // ✅ update to your real publish date
   dateModified: "2026-06-22",
   author: {
     "@type": "Person",
