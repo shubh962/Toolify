@@ -75,6 +75,78 @@ export default function Home() {
         </div>
       </section>
 
+      {/* 📱 APP DOWNLOAD BANNER */}
+      <section className="py-10 bg-gradient-to-r from-violet-600 via-purple-600 to-indigo-600">
+        <div className="container mx-auto px-6">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-6">
+            {/* Left: text */}
+            <div className="text-center md:text-left">
+              <div className="inline-flex items-center gap-2 px-3 py-1 bg-white/20 rounded-full text-white/90 text-xs font-bold mb-3 backdrop-blur-sm">
+                <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse inline-block" />
+                Now Available on Mobile
+              </div>
+              <h2 className="text-2xl md:text-3xl font-black text-white leading-tight">
+                Pro Resume Maker & CV Builder
+              </h2>
+              <p className="text-white/80 text-sm mt-1 font-medium">
+                Build ATS-friendly resumes on your phone • 9 Professional Templates • Free
+              </p>
+            </div>
+
+            {/* Right: store buttons */}
+            <div className="flex flex-col sm:flex-row items-center gap-3 shrink-0">
+              {/* Indus App Store — LIVE */}
+              <a
+                href="https://www.indusappstore.com/apps/business/pro-resume-maker/com.shubham.proresumemakerapp/?page=details&id=com.shubham.proresumemakerapp"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group flex items-center gap-3 px-5 py-3 bg-white rounded-2xl shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all min-w-[180px]"
+              >
+                {/* Indus logo placeholder — replace src with real logo if you have it */}
+                <div className="w-9 h-9 bg-gradient-to-br from-orange-500 to-pink-500 rounded-xl flex items-center justify-center shrink-0">
+                  <span className="text-white font-black text-sm">IN</span>
+                </div>
+                <div className="text-left">
+                  <p className="text-[10px] text-gray-400 uppercase tracking-wider leading-none font-bold">
+                    Download on
+                  </p>
+                  <p className="text-sm font-black text-gray-900 leading-tight">
+                    Indus App Store
+                  </p>
+                </div>
+              </a>
+
+              {/* Google Play — COMING SOON */}
+              <div
+                className="relative flex items-center gap-3 px-5 py-3 bg-white/10 border border-white/20 rounded-2xl min-w-[180px] cursor-not-allowed backdrop-blur-sm"
+                title="Coming soon to Google Play"
+              >
+                {/* Coming soon badge */}
+                <span className="absolute -top-2.5 left-1/2 -translate-x-1/2 px-2.5 py-0.5 bg-yellow-400 text-yellow-900 text-[9px] font-black uppercase tracking-widest rounded-full whitespace-nowrap shadow">
+                  Coming Soon
+                </span>
+                <div className="w-9 h-9 bg-white/10 rounded-xl flex items-center justify-center shrink-0">
+                  {/* Google Play triangle icon (pure CSS) */}
+                  <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none">
+                    <path d="M3 3.5L13.5 12L3 20.5V3.5Z" fill="white" fillOpacity="0.5"/>
+                    <path d="M13.5 12L20.5 8L13.5 12Z" fill="white" fillOpacity="0.4"/>
+                    <path d="M13.5 12L20.5 16L13.5 12Z" fill="white" fillOpacity="0.4"/>
+                  </svg>
+                </div>
+                <div className="text-left">
+                  <p className="text-[10px] text-white/50 uppercase tracking-wider leading-none font-bold">
+                    Get it on
+                  </p>
+                  <p className="text-sm font-black text-white/60 leading-tight">
+                    Google Play
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* 📰 BLOG SECTION */}
       <section className="py-12 bg-white dark:bg-gray-950 border-b border-gray-100 dark:border-gray-800">
         <div className="container mx-auto px-6">
