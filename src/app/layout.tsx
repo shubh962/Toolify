@@ -307,6 +307,7 @@ export default function RootLayout({
                       </a>
                     ))}
                   </div>
+                  {/* Amazon Appstore */}
                   <a
                     href="https://www.amazon.in/TECH-GAUTAM-TaskGuru-AI/dp/B0GJRW5RXR"
                     target="_blank"
@@ -325,6 +326,51 @@ export default function RootLayout({
                       </p>
                     </div>
                   </a>
+
+                  {/* Indus App Store — LIVE */}
+                  <a
+                    href="https://www.indusappstore.com/apps/business/pro-resume-maker/com.shubham.proresumemakerapp/?page=details&id=com.shubham.proresumemakerapp"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-3 px-4 py-2.5 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-2xl shadow-sm hover:border-pink-400 hover:-translate-y-1 transition-all w-fit"
+                  >
+                    <div className="w-8 h-8 bg-gradient-to-br from-orange-500 to-pink-500 rounded-lg flex items-center justify-center flex-shrink-0">
+                      <span className="text-white font-black text-xs">IN</span>
+                    </div>
+                    <div className="text-left">
+                      <p className="text-[10px] text-gray-400 uppercase tracking-wider leading-none">
+                        Download on
+                      </p>
+                      <p className="text-sm font-black text-gray-900 dark:text-white leading-tight">
+                        Indus App Store
+                      </p>
+                    </div>
+                  </a>
+
+                  {/* Google Play — Coming Soon */}
+                  <div
+                    className="relative inline-flex items-center gap-3 px-4 py-2.5 bg-gray-100 dark:bg-gray-800/50 border border-dashed border-gray-300 dark:border-gray-600 rounded-2xl w-fit cursor-not-allowed opacity-70"
+                    title="Coming soon to Google Play"
+                  >
+                    <span className="absolute -top-2.5 left-1/2 -translate-x-1/2 px-2 py-0.5 bg-yellow-400 text-yellow-900 text-[8px] font-black uppercase tracking-widest rounded-full whitespace-nowrap">
+                      Soon
+                    </span>
+                    <div className="w-8 h-8 bg-gray-300 dark:bg-gray-600 rounded-lg flex items-center justify-center flex-shrink-0">
+                      <svg className="w-4 h-4 text-gray-500" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M3 3.5L13.5 12L3 20.5V3.5Z" fillOpacity="0.6"/>
+                        <path d="M13.5 12L20.5 8" stroke="currentColor" strokeWidth="1.5" strokeOpacity="0.4"/>
+                        <path d="M13.5 12L20.5 16" stroke="currentColor" strokeWidth="1.5" strokeOpacity="0.4"/>
+                      </svg>
+                    </div>
+                    <div className="text-left">
+                      <p className="text-[10px] text-gray-400 uppercase tracking-wider leading-none">
+                        Get it on
+                      </p>
+                      <p className="text-sm font-black text-gray-500 dark:text-gray-400 leading-tight">
+                        Google Play
+                      </p>
+                    </div>
+                  </div>
                 </div>
 
                 {/* Resources */}
@@ -480,4 +526,4 @@ export default function RootLayout({
       </body>
     </html>
   );
-}
+              }
