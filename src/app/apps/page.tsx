@@ -616,7 +616,7 @@ export default function AppsPage() {
               </Link>
 
               <Link
-                href="/guides"
+                href="/blog"
                 className="bg-white rounded-2xl p-8 border hover:shadow-lg transition"
               >
 
@@ -791,7 +791,7 @@ export default function AppsPage() {
               </a>
 
               <Link
-                href="/guides"
+                href="/blog"
                 className="rounded-xl border border-white text-white px-10 py-4 font-bold hover:bg-white hover:text-indigo-700 transition"
               >
 
