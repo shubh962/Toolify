@@ -53,24 +53,132 @@ export default function Home() {
 
   return (
     <>
-      {/* 🚀 HERO */}
-      <section className="relative overflow-hidden py-24 md:py-40 text-center bg-gradient-to-br from-slate-950 via-primary to-indigo-950">
-        <div className="container mx-auto px-6 relative z-10">
-          <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/10 rounded-full text-white/90 text-sm font-bold mb-8 backdrop-blur-md border border-white/20">
-            <Gift className="w-4 h-4 text-accent" /> 100% Free Forever • No Credit Card Required
-          </div>
-          <h1 className="text-5xl md:text-8xl font-black tracking-tight text-white mb-8 leading-[1.05]">
-            Unlimited <span className="text-accent">Free Online Tools</span> <br />
-            No Sign-Up, No Catch.
-          </h1>
-          <p className="mt-6 text-lg md:text-2xl max-w-4xl mx-auto text-white/80 leading-relaxed font-medium">
-            Access the internet&apos;s most powerful suite of Free PDF Tools, Free AI Writing
-            Assistants, and Free Image Editors. Stop paying for SaaS subscriptions today.
-          </p>
-          <div className="mt-12 flex flex-col sm:flex-row justify-center gap-6">
-            <Button size="lg" asChild className="bg-white text-primary hover:bg-gray-100 font-black text-xl px-12 h-16 rounded-full shadow-2xl transition-all hover:scale-105">
-              <Link href="#tools">Use All Tools for Free</Link>
-            </Button>
+      {/* 🚀 HERO — Premium Redesign */}
+      <section className="relative overflow-hidden bg-[#080818] min-h-[92vh] flex items-center">
+
+        {/* Background: deep radial glow */}
+        <div className="absolute inset-0 z-0">
+          <div className="absolute top-[-20%] left-1/2 -translate-x-1/2 w-[900px] h-[600px] bg-violet-700/30 rounded-full blur-[120px]" />
+          <div className="absolute bottom-0 left-[-10%] w-[400px] h-[400px] bg-indigo-800/20 rounded-full blur-[100px]" />
+          <div className="absolute bottom-10 right-[-5%] w-[300px] h-[300px] bg-purple-900/20 rounded-full blur-[80px]" />
+          {/* Subtle grid overlay */}
+          <div className="absolute inset-0 opacity-[0.04]" style={{backgroundImage:"linear-gradient(#fff 1px,transparent 1px),linear-gradient(90deg,#fff 1px,transparent 1px)",backgroundSize:"60px 60px"}} />
+        </div>
+
+        <div className="container mx-auto px-6 py-24 md:py-32 relative z-10">
+          <div className="flex flex-col lg:flex-row items-center gap-16 lg:gap-20">
+
+            {/* LEFT: Text content */}
+            <div className="flex-1 text-center lg:text-left">
+
+              {/* Eyebrow badge */}
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-violet-500/30 bg-violet-500/10 text-violet-300 text-xs font-bold tracking-widest uppercase mb-8 backdrop-blur-sm">
+                <span className="w-1.5 h-1.5 rounded-full bg-violet-400 animate-pulse" />
+                100% Free · No Account Needed
+              </div>
+
+              {/* Headline */}
+              <h1 className="text-5xl md:text-6xl lg:text-7xl font-black text-white leading-[1.04] tracking-tight mb-6">
+                Every Tool
+                <br />
+                <span className="relative inline-block">
+                  <span className="relative z-10 bg-gradient-to-r from-violet-400 via-purple-300 to-indigo-400 bg-clip-text text-transparent">
+                    You Actually Need.
+                  </span>
+                  {/* Underline glow */}
+                  <span className="absolute bottom-1 left-0 right-0 h-[3px] bg-gradient-to-r from-violet-500/60 via-purple-400/60 to-transparent rounded-full blur-sm" />
+                </span>
+                <br />
+                <span className="text-white/90">All Free.</span>
+              </h1>
+
+              {/* Subtext */}
+              <p className="text-base md:text-lg text-white/50 max-w-xl mx-auto lg:mx-0 leading-relaxed mb-10">
+                PDF tools, AI writing, image editors, resume builder — no subscriptions,
+                no uploads stored, no sign-up. Just open and use.
+              </p>
+
+              {/* CTA buttons */}
+              <div className="flex flex-col sm:flex-row items-center lg:items-start justify-center lg:justify-start gap-4">
+                <Button size="lg" asChild className="bg-violet-600 hover:bg-violet-500 text-white font-black text-base px-8 h-14 rounded-2xl shadow-[0_0_30px_rgba(139,92,246,0.4)] hover:shadow-[0_0_40px_rgba(139,92,246,0.6)] transition-all hover:scale-[1.03] border-0">
+                  <Link href="#tools">
+                    <Zap className="w-4 h-4 mr-2" /> Explore All Tools
+                  </Link>
+                </Button>
+                <Button size="lg" variant="outline" asChild className="border-white/15 text-white/80 hover:bg-white/5 hover:text-white font-bold text-base px-8 h-14 rounded-2xl transition-all bg-transparent">
+                  <Link href="/blog">Read Guides <ArrowRight className="w-4 h-4 ml-2" /></Link>
+                </Button>
+              </div>
+
+              {/* Trust row */}
+              <div className="mt-10 flex flex-wrap items-center justify-center lg:justify-start gap-x-6 gap-y-3">
+                {[
+                  { icon: ShieldCheck, label: "Zero Data Stored" },
+                  { icon: Zap,         label: "Instant Results"  },
+                  { icon: Globe,       label: "Works Worldwide"  },
+                ].map(({ icon: Icon, label }) => (
+                  <div key={label} className="flex items-center gap-2 text-xs text-white/40 font-semibold">
+                    <Icon className="w-3.5 h-3.5 text-violet-400" />
+                    {label}
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* RIGHT: Floating UI mockup cards */}
+            <div className="flex-1 relative w-full max-w-sm lg:max-w-md mx-auto lg:mx-0 select-none">
+
+              {/* Main card */}
+              <div className="relative rounded-3xl border border-white/10 bg-white/5 backdrop-blur-xl p-6 shadow-2xl">
+                {/* Card header */}
+                <div className="flex items-center gap-3 mb-5">
+                  <div className="flex gap-1.5">
+                    <span className="w-3 h-3 rounded-full bg-red-500/60" />
+                    <span className="w-3 h-3 rounded-full bg-yellow-500/60" />
+                    <span className="w-3 h-3 rounded-full bg-green-500/60" />
+                  </div>
+                  <div className="flex-1 h-6 rounded-lg bg-white/5 flex items-center px-3">
+                    <span className="text-[10px] text-white/30 font-mono">taskguru.online/tools</span>
+                  </div>
+                </div>
+
+                {/* Tool list rows */}
+                {[
+                  { icon: FileText,    label: "PDF to Word",          tag: "Free",  color: "text-orange-400", bg: "bg-orange-500/10" },
+                  { icon: ImageIcon,   label: "Background Remover",   tag: "AI",    color: "text-violet-400", bg: "bg-violet-500/10" },
+                  { icon: PencilLine,  label: "AI Paraphraser",       tag: "Free",  color: "text-blue-400",   bg: "bg-blue-500/10"   },
+                  { icon: Briefcase,   label: "Resume Builder",       tag: "ATS",   color: "text-green-400",  bg: "bg-green-500/10"  },
+                  { icon: Youtube,     label: "YouTube Thumbnail",    tag: "Free",  color: "text-red-400",    bg: "bg-red-500/10"    },
+                ].map(({ icon: Icon, label, tag, color, bg }) => (
+                  <div key={label} className="flex items-center gap-3 py-2.5 border-b border-white/5 last:border-0">
+                    <div className={`w-8 h-8 rounded-xl ${bg} flex items-center justify-center shrink-0`}>
+                      <Icon className={`w-4 h-4 ${color}`} />
+                    </div>
+                    <span className="text-sm text-white/80 font-semibold flex-1">{label}</span>
+                    <span className={`text-[10px] font-black px-2 py-0.5 rounded-full ${bg} ${color}`}>{tag}</span>
+                  </div>
+                ))}
+              </div>
+
+              {/* Floating stat pill — top right */}
+              <div className="absolute -top-4 -right-4 flex items-center gap-2 px-4 py-2.5 rounded-2xl bg-violet-600 shadow-[0_0_24px_rgba(139,92,246,0.5)] border border-violet-400/30">
+                <Sparkles className="w-4 h-4 text-white" />
+                <div>
+                  <p className="text-white font-black text-sm leading-none">40+ Tools</p>
+                  <p className="text-violet-200/70 text-[10px] leading-none mt-0.5">Always Free</p>
+                </div>
+              </div>
+
+              {/* Floating stat pill — bottom left */}
+              <div className="absolute -bottom-4 -left-4 flex items-center gap-2 px-4 py-2.5 rounded-2xl bg-[#0f0f1f] border border-white/10 shadow-2xl backdrop-blur-xl">
+                <CheckCircle2 className="w-4 h-4 text-green-400" />
+                <div>
+                  <p className="text-white font-black text-sm leading-none">No Sign-Up</p>
+                  <p className="text-white/40 text-[10px] leading-none mt-0.5">Open & use instantly</p>
+                </div>
+              </div>
+
+            </div>
           </div>
         </div>
       </section>
@@ -79,7 +187,6 @@ export default function Home() {
       <section className="py-10 bg-gradient-to-r from-violet-600 via-purple-600 to-indigo-600">
         <div className="container mx-auto px-6">
           <div className="flex flex-col md:flex-row items-center justify-between gap-6">
-            {/* Left: text */}
             <div className="text-center md:text-left">
               <div className="inline-flex items-center gap-2 px-3 py-1 bg-white/20 rounded-full text-white/90 text-xs font-bold mb-3 backdrop-blur-sm">
                 <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse inline-block" />
@@ -92,54 +199,29 @@ export default function Home() {
                 Build ATS-friendly resumes on your phone • 9 Professional Templates • Free
               </p>
             </div>
-
-            {/* Right: store buttons */}
             <div className="flex flex-col sm:flex-row items-center gap-3 shrink-0">
-              {/* Indus App Store — LIVE */}
               <a
                 href="https://www.indusappstore.com/apps/business/pro-resume-maker/com.shubham.proresumemakerapp/?page=details&id=com.shubham.proresumemakerapp"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="group flex items-center gap-3 px-5 py-3 bg-white rounded-2xl shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all min-w-[180px]"
               >
-                {/* Indus logo placeholder — replace src with real logo if you have it */}
                 <div className="w-9 h-9 bg-gradient-to-br from-orange-500 to-pink-500 rounded-xl flex items-center justify-center shrink-0">
                   <span className="text-white font-black text-sm">IN</span>
                 </div>
                 <div className="text-left">
-                  <p className="text-[10px] text-gray-400 uppercase tracking-wider leading-none font-bold">
-                    Download on
-                  </p>
-                  <p className="text-sm font-black text-gray-900 leading-tight">
-                    Indus App Store
-                  </p>
+                  <p className="text-[10px] text-gray-400 uppercase tracking-wider leading-none font-bold">Download on</p>
+                  <p className="text-sm font-black text-gray-900 leading-tight">Indus App Store</p>
                 </div>
               </a>
-
-              {/* Google Play — COMING SOON */}
-              <div
-                className="relative flex items-center gap-3 px-5 py-3 bg-white/10 border border-white/20 rounded-2xl min-w-[180px] cursor-not-allowed backdrop-blur-sm"
-                title="Coming soon to Google Play"
-              >
-                {/* Coming soon badge */}
-                <span className="absolute -top-2.5 left-1/2 -translate-x-1/2 px-2.5 py-0.5 bg-yellow-400 text-yellow-900 text-[9px] font-black uppercase tracking-widest rounded-full whitespace-nowrap shadow">
-                  Coming Soon
-                </span>
+              <div className="relative flex items-center gap-3 px-5 py-3 bg-white/10 border border-white/20 rounded-2xl min-w-[180px] cursor-not-allowed backdrop-blur-sm" title="Coming soon to Google Play">
+                <span className="absolute -top-2.5 left-1/2 -translate-x-1/2 px-2.5 py-0.5 bg-yellow-400 text-yellow-900 text-[9px] font-black uppercase tracking-widest rounded-full whitespace-nowrap shadow">Coming Soon</span>
                 <div className="w-9 h-9 bg-white/10 rounded-xl flex items-center justify-center shrink-0">
-                  {/* Google Play triangle icon (pure CSS) */}
-                  <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none">
-                    <path d="M3 3.5L13.5 12L3 20.5V3.5Z" fill="white" fillOpacity="0.5"/>
-                    <path d="M13.5 12L20.5 8L13.5 12Z" fill="white" fillOpacity="0.4"/>
-                    <path d="M13.5 12L20.5 16L13.5 12Z" fill="white" fillOpacity="0.4"/>
-                  </svg>
+                  <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none"><path d="M3 3.5L13.5 12L3 20.5V3.5Z" fill="white" fillOpacity="0.5"/></svg>
                 </div>
                 <div className="text-left">
-                  <p className="text-[10px] text-white/50 uppercase tracking-wider leading-none font-bold">
-                    Get it on
-                  </p>
-                  <p className="text-sm font-black text-white/60 leading-tight">
-                    Google Play
-                  </p>
+                  <p className="text-[10px] text-white/50 uppercase tracking-wider leading-none font-bold">Get it on</p>
+                  <p className="text-sm font-black text-white/60 leading-tight">Google Play</p>
                 </div>
               </div>
             </div>
@@ -240,7 +322,7 @@ export default function Home() {
           </p>
 
           {/* ✅ Compact 3-col grid (mobile) → 4-col (tablet) → 6-col (desktop) */}
-          {filteredTools.length > 0 ? (
+           {filteredTools.length > 0 ? (
             <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 gap-3">
               {filteredTools.map((tool) => (
                 <Link
@@ -480,4 +562,4 @@ export default function Home() {
       </section>
     </>
   );
-}
+                    }
