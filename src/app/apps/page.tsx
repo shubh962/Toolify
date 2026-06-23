@@ -128,7 +128,7 @@ export default function AppsPage() {
                 </Link>
 
                 <Link
-                  href="/guides"
+                  href="/blog"
                   className="rounded-xl border border-gray-300 px-8 py-4 font-semibold hover:bg-gray-50 transition"
                 >
                   Read Guides
