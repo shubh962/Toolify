@@ -1,5 +1,7 @@
 import { MetadataRoute } from "next";
 
+const BASE = "https://www.taskguru.online";
+
 const blogSlugs = [
   "extract-text-scanned-pdf",
   "free-online-tools-students-2026-no-login",
@@ -41,6 +43,7 @@ const blogSlugs = [
   "check-credit-card-eligibility-without-hard-inquiry",
   "best-free-paraphrasing-tool-online-2026",
 ];
+
 const toolSlugs = [
   "background-remover",
   "image-compressor",
@@ -58,7 +61,7 @@ const toolSlugs = [
   "qr-barcode-generator",
   "password-generator",
   "age-calculator",
- "youtube-thumbnail-downloader",
+  "youtube-thumbnail-downloader",
   "youtube-to-pdf",
   "metal-weight-calculator",
   "emi-calculator",
@@ -75,40 +78,48 @@ const toolSlugs = [
   "credit-card-eligibility-checker",
 ];
 
-const staticPages = [
-  "",
-  "/about",
-  "/help",
-  "/privacy-policy",
-  "/terms",
-  "/blog",
-  "/contact",
-  "/disclaimer",
+// Priority tiers for static pages
+const staticPages: {
+  path: string;
+  priority: number;
+  changeFrequency: MetadataRoute.Sitemap[number]["changeFrequency"];
+}[] = [
+  { path: "",                 priority: 1.0,  changeFrequency: "daily"   },
+  { path: "/tools",           priority: 0.95, changeFrequency: "daily"   },
+  { path: "/blog",            priority: 0.9,  changeFrequency: "daily"   },
+  { path: "/apps",            priority: 0.85, changeFrequency: "weekly"  },
+  { path: "/about",           priority: 0.7,  changeFrequency: "monthly" },
+  { path: "/contact",         priority: 0.6,  changeFrequency: "monthly" },
+  { path: "/help",            priority: 0.6,  changeFrequency: "monthly" },
+  { path: "/privacy-policy",  priority: 0.4,  changeFrequency: "yearly"  },
+  { path: "/terms",           priority: 0.4,  changeFrequency: "yearly"  },
+  { path: "/disclaimer",      priority: 0.4,  changeFrequency: "yearly"  },
 ];
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = "https://www.taskguru.online";   // ← FIXED (WWW ONLY)
-  const currentDate = new Date().toISOString().split("T")[0];
+  const today = new Date().toISOString().split("T")[0];
 
-  const staticEntries: MetadataRoute.Sitemap = staticPages.map((page) => ({
-    url: `${baseUrl}${page}`,
-    lastModified: currentDate,
-    changeFrequency: page === "" || page === "/blog" ? "daily" : "weekly",
-    priority: page === "" ? 1.0 : page === "/blog" ? 0.85 : 0.6,
-  }));
+  const staticEntries: MetadataRoute.Sitemap = staticPages.map(
+    ({ path, priority, changeFrequency }) => ({
+      url: `${BASE}${path}`,
+      lastModified: today,
+      changeFrequency,
+      priority,
+    })
+  );
 
   const toolEntries: MetadataRoute.Sitemap = toolSlugs.map((slug) => ({
-    url: `${baseUrl}/tools/${slug}`,
-    lastModified: currentDate,
-    changeFrequency: "daily",
+    url: `${BASE}/tools/${slug}`,
+    lastModified: today,
+    changeFrequency: "weekly",
     priority: 0.9,
   }));
 
   const blogEntries: MetadataRoute.Sitemap = blogSlugs.map((slug) => ({
-    url: `${baseUrl}/blog/${slug}`,
-    lastModified: currentDate,
+    url: `${BASE}/blog/${slug}`,
+    lastModified: today,
     changeFrequency: "weekly",
-    priority: 0.8,
+    priority: 0.75,
   }));
 
   return [...staticEntries, ...toolEntries, ...blogEntries];
