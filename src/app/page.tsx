@@ -53,133 +53,94 @@ export default function Home() {
 
   return (
     <>
-      {/* 🚀 HERO — Premium Redesign */}
-      <section className="relative overflow-hidden bg-[#080818] min-h-[92vh] flex items-center">
+      {/* 🚀 HERO — Premium Light */}
+      <section className="relative overflow-hidden bg-white dark:bg-gray-950 min-h-[94vh] flex flex-col items-center justify-center text-center px-6 py-28">
 
-        {/* Background: deep radial glow */}
-        <div className="absolute inset-0 z-0">
-          <div className="absolute top-[-20%] left-1/2 -translate-x-1/2 w-[900px] h-[600px] bg-violet-700/30 rounded-full blur-[120px]" />
-          <div className="absolute bottom-0 left-[-10%] w-[400px] h-[400px] bg-indigo-800/20 rounded-full blur-[100px]" />
-          <div className="absolute bottom-10 right-[-5%] w-[300px] h-[300px] bg-purple-900/20 rounded-full blur-[80px]" />
-          {/* Subtle grid overlay */}
-          <div className="absolute inset-0 opacity-[0.04]" style={{backgroundImage:"linear-gradient(#fff 1px,transparent 1px),linear-gradient(90deg,#fff 1px,transparent 1px)",backgroundSize:"60px 60px"}} />
+        {/* Geometric corner accents */}
+        <div className="absolute top-0 right-0 w-[380px] h-[380px] bg-gradient-to-bl from-violet-100 to-transparent dark:from-violet-950/40 dark:to-transparent pointer-events-none"
+          style={{ clipPath: "polygon(100% 0, 0 0, 100% 100%)" }} />
+        <div className="absolute bottom-0 left-0 w-[260px] h-[260px] bg-gradient-to-tr from-amber-50 to-transparent dark:from-amber-950/20 dark:to-transparent pointer-events-none"
+          style={{ clipPath: "polygon(0 100%, 0 0, 100% 100%)" }} />
+
+        {/* Dot grid */}
+        <div className="absolute inset-0 opacity-[0.035] dark:opacity-[0.06] pointer-events-none"
+          style={{ backgroundImage: "radial-gradient(circle, #6d28d9 1px, transparent 1px)", backgroundSize: "28px 28px" }} />
+
+        {/* Content */}
+        <div className="relative z-10 max-w-3xl w-full flex flex-col items-center">
+
+          {/* Eyebrow */}
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-violet-50 dark:bg-violet-950/60 border border-violet-200 dark:border-violet-800 text-violet-700 dark:text-violet-300 text-[11px] font-black tracking-[0.08em] uppercase mb-8">
+            <span className="w-1.5 h-1.5 rounded-full bg-violet-500 animate-pulse" />
+            40+ Tools · Zero Subscriptions · No Login
+          </div>
+
+          {/* Headline */}
+          <h1 className="text-5xl md:text-6xl lg:text-[72px] font-black text-gray-950 dark:text-white leading-[1.03] tracking-[-0.04em] mb-5">
+            Stop Paying for Tools<br />
+            That Should Be{" "}
+            <span className="relative inline-block">
+              <span className="bg-gradient-to-r from-violet-600 to-indigo-500 bg-clip-text text-transparent">Free.</span>
+              <span className="absolute -bottom-1 left-0 right-0 h-[5px] bg-amber-400 rounded-full" />
+            </span>
+          </h1>
+
+          {/* Sub */}
+          <p className="text-base md:text-lg text-gray-500 dark:text-gray-400 max-w-xl leading-relaxed font-medium mb-9">
+            PDF converter, AI writer, resume builder, image editor —
+            open any tool and start in seconds. No account. No watermark. No catch.
+          </p>
+
+          {/* CTAs */}
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-3 mb-12 w-full max-w-sm sm:max-w-none">
+            <Button size="lg" asChild className="bg-gray-950 hover:bg-gray-800 dark:bg-white dark:hover:bg-gray-100 dark:text-gray-950 text-white font-black text-sm px-8 h-12 rounded-2xl shadow-md hover:shadow-lg transition-all border-0 w-full sm:w-auto">
+              <Link href="#tools">
+                <Zap className="w-4 h-4 mr-2" /> Explore All Tools
+              </Link>
+            </Button>
+            <Button size="lg" variant="outline" asChild className="border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 font-bold text-sm px-8 h-12 rounded-2xl transition-all w-full sm:w-auto">
+              <Link href="/blog">Read Guides <ArrowRight className="w-4 h-4 ml-2" /></Link>
+            </Button>
+          </div>
+
+          {/* Quick-access tool chips — retention hook */}
+          <p className="text-[10px] font-black uppercase tracking-[0.14em] text-gray-400 mb-3">Jump straight into a tool</p>
+          <div className="flex flex-wrap justify-center gap-2">
+            {[
+              { icon: FileText,   label: "PDF to Word",     sub: "Free",     href: "/tools/pdf-to-word",          iconCls: "bg-orange-50 dark:bg-orange-950/40 text-orange-500" },
+              { icon: ImageIcon,  label: "BG Remover",      sub: "AI · Free", href: "/tools/background-remover",  iconCls: "bg-violet-50 dark:bg-violet-950/40 text-violet-600" },
+              { icon: PencilLine, label: "AI Paraphraser",  sub: "Free",     href: "/tools/text-paraphraser",     iconCls: "bg-blue-50 dark:bg-blue-950/40 text-blue-600"       },
+              { icon: Briefcase,  label: "Resume Builder",  sub: "ATS · Free",href: "/tools/resume-maker",        iconCls: "bg-green-50 dark:bg-green-950/40 text-green-600"    },
+              { icon: ImageIcon,  label: "Compress Image",  sub: "Free",     href: "/tools/image-compressor",     iconCls: "bg-pink-50 dark:bg-pink-950/40 text-pink-600"       },
+              { icon: FileText,   label: "Merge PDF",       sub: "Free",     href: "/tools/merge-pdf",            iconCls: "bg-amber-50 dark:bg-amber-950/40 text-amber-600"    },
+            ].map(({ icon: Icon, label, sub, href, iconCls }) => (
+              <Link key={label} href={href}
+                className="flex items-center gap-2.5 px-3.5 py-2.5 rounded-2xl bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 shadow-sm hover:border-violet-400 hover:shadow-md hover:-translate-y-0.5 transition-all">
+                <div className={`w-8 h-8 rounded-xl flex items-center justify-center shrink-0 ${iconCls}`}>
+                  <Icon className="w-4 h-4" />
+                </div>
+                <div className="text-left">
+                  <p className="text-xs font-black text-gray-900 dark:text-white leading-none">{label}</p>
+                  <p className="text-[10px] text-gray-400 leading-none mt-0.5">{sub}</p>
+                </div>
+              </Link>
+            ))}
+          </div>
         </div>
 
-        <div className="container mx-auto px-6 py-24 md:py-32 relative z-10">
-          <div className="flex flex-col lg:flex-row items-center gap-16 lg:gap-20">
-
-            {/* LEFT: Text content */}
-            <div className="flex-1 text-center lg:text-left">
-
-              {/* Eyebrow badge */}
-              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-violet-500/30 bg-violet-500/10 text-violet-300 text-xs font-bold tracking-widest uppercase mb-8 backdrop-blur-sm">
-                <span className="w-1.5 h-1.5 rounded-full bg-violet-400 animate-pulse" />
-                100% Free · No Account Needed
-              </div>
-
-              {/* Headline */}
-              <h1 className="text-5xl md:text-6xl lg:text-7xl font-black text-white leading-[1.04] tracking-tight mb-6">
-                Every Tool
-                <br />
-                <span className="relative inline-block">
-                  <span className="relative z-10 bg-gradient-to-r from-violet-400 via-purple-300 to-indigo-400 bg-clip-text text-transparent">
-                    You Actually Need.
-                  </span>
-                  {/* Underline glow */}
-                  <span className="absolute bottom-1 left-0 right-0 h-[3px] bg-gradient-to-r from-violet-500/60 via-purple-400/60 to-transparent rounded-full blur-sm" />
-                </span>
-                <br />
-                <span className="text-white/90">All Free.</span>
-              </h1>
-
-              {/* Subtext */}
-              <p className="text-base md:text-lg text-white/50 max-w-xl mx-auto lg:mx-0 leading-relaxed mb-10">
-                PDF tools, AI writing, image editors, resume builder — no subscriptions,
-                no uploads stored, no sign-up. Just open and use.
-              </p>
-
-              {/* CTA buttons */}
-              <div className="flex flex-col sm:flex-row items-center lg:items-start justify-center lg:justify-start gap-4">
-                <Button size="lg" asChild className="bg-violet-600 hover:bg-violet-500 text-white font-black text-base px-8 h-14 rounded-2xl shadow-[0_0_30px_rgba(139,92,246,0.4)] hover:shadow-[0_0_40px_rgba(139,92,246,0.6)] transition-all hover:scale-[1.03] border-0">
-                  <Link href="#tools">
-                    <Zap className="w-4 h-4 mr-2" /> Explore All Tools
-                  </Link>
-                </Button>
-                <Button size="lg" variant="outline" asChild className="border-white/15 text-white/80 hover:bg-white/5 hover:text-white font-bold text-base px-8 h-14 rounded-2xl transition-all bg-transparent">
-                  <Link href="/blog">Read Guides <ArrowRight className="w-4 h-4 ml-2" /></Link>
-                </Button>
-              </div>
-
-              {/* Trust row */}
-              <div className="mt-10 flex flex-wrap items-center justify-center lg:justify-start gap-x-6 gap-y-3">
-                {[
-                  { icon: ShieldCheck, label: "Zero Data Stored" },
-                  { icon: Zap,         label: "Instant Results"  },
-                  { icon: Globe,       label: "Works Worldwide"  },
-                ].map(({ icon: Icon, label }) => (
-                  <div key={label} className="flex items-center gap-2 text-xs text-white/40 font-semibold">
-                    <Icon className="w-3.5 h-3.5 text-violet-400" />
-                    {label}
-                  </div>
-                ))}
-              </div>
+        {/* Trust bar */}
+        <div className="relative z-10 mt-14 flex flex-wrap justify-center gap-x-8 gap-y-3">
+          {[
+            { icon: ShieldCheck, label: "Zero Data Stored" },
+            { icon: Zap,         label: "Instant Results"  },
+            { icon: Globe,       label: "Works Worldwide"  },
+            { icon: CheckCircle2,label: "No Sign-Up Ever"  },
+          ].map(({ icon: Icon, label }) => (
+            <div key={label} className="flex items-center gap-1.5 text-xs font-semibold text-gray-400 dark:text-gray-500">
+              <Icon className="w-3.5 h-3.5 text-violet-500" />
+              {label}
             </div>
-
-            {/* RIGHT: Floating UI mockup cards */}
-            <div className="flex-1 relative w-full max-w-sm lg:max-w-md mx-auto lg:mx-0 select-none">
-
-              {/* Main card */}
-              <div className="relative rounded-3xl border border-white/10 bg-white/5 backdrop-blur-xl p-6 shadow-2xl">
-                {/* Card header */}
-                <div className="flex items-center gap-3 mb-5">
-                  <div className="flex gap-1.5">
-                    <span className="w-3 h-3 rounded-full bg-red-500/60" />
-                    <span className="w-3 h-3 rounded-full bg-yellow-500/60" />
-                    <span className="w-3 h-3 rounded-full bg-green-500/60" />
-                  </div>
-                  <div className="flex-1 h-6 rounded-lg bg-white/5 flex items-center px-3">
-                    <span className="text-[10px] text-white/30 font-mono">taskguru.online/tools</span>
-                  </div>
-                </div>
-
-                {/* Tool list rows */}
-                {[
-                  { icon: FileText,    label: "PDF to Word",          tag: "Free",  color: "text-orange-400", bg: "bg-orange-500/10" },
-                  { icon: ImageIcon,   label: "Background Remover",   tag: "AI",    color: "text-violet-400", bg: "bg-violet-500/10" },
-                  { icon: PencilLine,  label: "AI Paraphraser",       tag: "Free",  color: "text-blue-400",   bg: "bg-blue-500/10"   },
-                  { icon: Briefcase,   label: "Resume Builder",       tag: "ATS",   color: "text-green-400",  bg: "bg-green-500/10"  },
-                  { icon: Youtube,     label: "YouTube Thumbnail",    tag: "Free",  color: "text-red-400",    bg: "bg-red-500/10"    },
-                ].map(({ icon: Icon, label, tag, color, bg }) => (
-                  <div key={label} className="flex items-center gap-3 py-2.5 border-b border-white/5 last:border-0">
-                    <div className={`w-8 h-8 rounded-xl ${bg} flex items-center justify-center shrink-0`}>
-                      <Icon className={`w-4 h-4 ${color}`} />
-                    </div>
-                    <span className="text-sm text-white/80 font-semibold flex-1">{label}</span>
-                    <span className={`text-[10px] font-black px-2 py-0.5 rounded-full ${bg} ${color}`}>{tag}</span>
-                  </div>
-                ))}
-              </div>
-
-              {/* Floating stat pill — top right */}
-              <div className="absolute -top-4 -right-4 flex items-center gap-2 px-4 py-2.5 rounded-2xl bg-violet-600 shadow-[0_0_24px_rgba(139,92,246,0.5)] border border-violet-400/30">
-                <Sparkles className="w-4 h-4 text-white" />
-                <div>
-                  <p className="text-white font-black text-sm leading-none">40+ Tools</p>
-                  <p className="text-violet-200/70 text-[10px] leading-none mt-0.5">Always Free</p>
-                </div>
-              </div>
-
-              {/* Floating stat pill — bottom left */}
-              <div className="absolute -bottom-4 -left-4 flex items-center gap-2 px-4 py-2.5 rounded-2xl bg-[#0f0f1f] border border-white/10 shadow-2xl backdrop-blur-xl">
-                <CheckCircle2 className="w-4 h-4 text-green-400" />
-                <div>
-                  <p className="text-white font-black text-sm leading-none">No Sign-Up</p>
-                  <p className="text-white/40 text-[10px] leading-none mt-0.5">Open & use instantly</p>
-                </div>
-              </div>
-
-            </div>
-          </div>
+          ))}
         </div>
       </section>
 
@@ -562,4 +523,4 @@ export default function Home() {
       </section>
     </>
   );
-                    }
+}
