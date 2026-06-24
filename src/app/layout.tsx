@@ -34,6 +34,7 @@ import {
   Scale,
   FileText,
   Map,
+  Rocket,
 } from "lucide-react";
 import { Sora } from "next/font/google";
 import Script from "next/script";
@@ -60,52 +61,98 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.taskguru.online"),
   title: {
-    default: "TaskGuru AI • 100% Free Online PDF, Image & Text Tools",
-    template: "%s | TaskGuru",
+    default: "TaskGuru AI • 100% Free Online PDF, Image & AI Writing Tools — No Login",
+    template: "%s | TaskGuru — Free Online Tools",
   },
   description:
-    "Free AI-powered tools for everyone. Convert PDF to Word, remove image backgrounds, compress images, extract text via OCR, and paraphrase content instantly. No login required. 100% private.",
+    "Free AI-powered tools for everyone. Convert PDF to Word, remove image backgrounds, compress images, extract text via OCR, build ATS resumes, and paraphrase content instantly. No login. 100% private. Works in your browser.",
   keywords:
-    "free ai tools, taskguru online, background remover free, pdf to word no login, image compressor online, resume maker 2026, ocr free, image to text free, merge pdf free",
+    "free ai tools, taskguru online, background remover free, pdf to word no login, image compressor online, resume maker 2026, ocr free, image to text free, merge pdf free, free online tools no signup, ats resume builder free, ai paraphraser free, compress images online, jpg to pdf free, webp to jpg free",
   authors: [{ name: "Shubham Gautam", url: "https://www.taskguru.online" }],
   creator: "Shubham Gautam",
   publisher: "TaskGuru",
-  alternates: { canonical: "https://www.taskguru.online" },
+  category: "Technology",
+  classification: "Free Online Tools / AI Productivity",
+  alternates: {
+    canonical: "https://www.taskguru.online",
+    languages: {
+      "x-default": "https://www.taskguru.online",
+      
+      
+    },
+  },
   openGraph: {
     type: "website",
     url: "https://www.taskguru.online",
-    title: "TaskGuru AI • 100% Free Online PDF, Image & Text Tools",
+    title: "TaskGuru AI • 100% Free Online PDF, Image & AI Writing Tools",
     description:
-      "Free AI-powered tools — PDF converter, background remover, image compressor, OCR, resume builder. No login. 100% private.",
+      "Free AI-powered tools — PDF converter, background remover, image compressor, OCR, resume builder. No login. 100% private. Works instantly in your browser.",
     siteName: "TaskGuru",
+    locale: "en",
     images: [
       {
         url: "https://www.taskguru.online/og-image.png",
         width: 1200,
         height: 630,
-        alt: "TaskGuru — Free AI Tools",
+        alt: "TaskGuru — Free AI Tools. PDF, Image, Writing & Resume tools. No login.",
+        type: "image/png",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "TaskGuru AI • 100% Free Online Tools",
-    description: "Free PDF, image, and AI writing tools. No login. No subscription.",
+    title: "TaskGuru AI • 100% Free Online Tools — No Login",
+    description:
+      "Free PDF, image, AI writing & resume tools. No login. No subscription. Works instantly in your browser.",
     creator: "@Shubham_962",
+    site: "@Shubham_962",
     images: ["https://www.taskguru.online/og-image.png"],
   },
   robots: {
     index: true,
     follow: true,
+    nocache: false,
     googleBot: {
       index: true,
       follow: true,
+      noimageindex: false,
       "max-video-preview": -1,
       "max-image-preview": "large",
       "max-snippet": -1,
     },
   },
-  verification: { google: "XhRtp6rO2MNQX-BucHlUxVhNLbBPfdis_RzXY5ZodlU" },
+  verification: {
+    google: "XhRtp6rO2MNQX-BucHlUxVhNLbBPfdis_RzXY5ZodlU",
+  },
+  appLinks: {
+    android: {
+      package: "com.shubham.proresumemakerapp",
+      app_name: "Pro Resume Maker & CV Builder",
+    },
+  },
+  other: {
+    
+    
+    
+    
+    // ── LANGUAGE + CONTENT ──
+    language: "English",
+    "content-language": "en",
+    rating: "general",
+    revisit: "3 days",
+    // ── APP STORE LINKS ──
+    "al:android:package": "com.shubham.proresumemakerapp",
+    "al:android:app_name": "Pro Resume Maker",
+    "al:android:url":
+      "https://www.indusappstore.com/apps/business/pro-resume-maker/com.shubham.proresumemakerapp/",
+    // ── AEO: Answer Engine Optimization ──
+    "ai:description":
+      "TaskGuru provides 40+ free browser-based tools including PDF to Word converter, background remover, image compressor, AI paraphraser, OCR, resume builder, and more. No account required. Zero data storage.",
+    "ai:capabilities":
+      "PDF conversion, image editing, AI writing assistance, resume building, file compression, QR code generation, age calculation",
+    "ai:pricing": "Free, no subscription, no sign-up",
+    "ai:privacy": "Zero data storage, files processed in-browser and deleted immediately",
+  },
 };
 
 export default function RootLayout({
@@ -113,30 +160,174 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  // ── SCHEMA: WebSite ──
   const siteLdJson = {
     "@context": "https://schema.org",
     "@type": "WebSite",
     url: "https://www.taskguru.online",
     name: "TaskGuru",
+    description:
+      "Free AI-powered online tools — PDF converter, image editor, resume builder, AI paraphraser, and more. No login required.",
+    inLanguage: "en",
     potentialAction: {
       "@type": "SearchAction",
-      target: "https://www.taskguru.online/tools/{search_term_string}",
+      target: {
+        "@type": "EntryPoint",
+        urlTemplate:
+          "https://www.taskguru.online/tools/{search_term_string}",
+      },
       "query-input": "required name=search_term_string",
     },
   };
 
+  // ── SCHEMA: Organization ──
   const orgLdJson = {
     "@context": "https://schema.org",
     "@type": "Organization",
     url: "https://www.taskguru.online",
     name: "TaskGuru",
-    logo: "https://www.taskguru.online/logo.png",
+    legalName: "TaskGuru by Shubham Gautam",
+    logo: {
+      "@type": "ImageObject",
+      url: "https://www.taskguru.online/logo.png",
+      width: 512,
+      height: 512,
+    },
+    foundingDate: "2024",
+    founder: {
+      "@type": "Person",
+      name: "Shubham Gautam",
+      url: "https://github.com/shubh962",
+    },
+    contactPoint: {
+      "@type": "ContactPoint",
+      contactType: "customer support",
+      url: "https://www.taskguru.online/contact",
+      availableLanguage: ["English"],
+    },
+    areaServed: "Worldwide",
     sameAs: [
       "https://github.com/Shubh962",
       "https://facebook.com/share/1K97T5Q5wp/",
       "https://x.com/Shubham_962",
       "https://www.instagram.com/m_just_shubham",
       "https://youtube.com/@factfusions0-x4k",
+    ],
+  };
+
+  // ── SCHEMA: SoftwareApplication (for app stores) ──
+  const appLdJson = {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    name: "Pro Resume Maker & CV Builder",
+    operatingSystem: "Android",
+    applicationCategory: "BusinessApplication",
+    offers: {
+      "@type": "Offer",
+      price: "0",
+      priceCurrency: "USD",
+    },
+    aggregateRating: {
+      "@type": "AggregateRating",
+      ratingValue: "4.5",
+      ratingCount: "10",
+    },
+    author: {
+      "@type": "Person",
+      name: "Shubham Gautam",
+    },
+    url: "https://www.indusappstore.com/apps/business/pro-resume-maker/com.shubham.proresumemakerapp/",
+    downloadUrl:
+      "https://www.indusappstore.com/apps/business/pro-resume-maker/com.shubham.proresumemakerapp/",
+  };
+
+  // ── SCHEMA: WebApplication (for the website itself) ──
+  const webAppLdJson = {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    name: "TaskGuru Online Tools",
+    url: "https://www.taskguru.online",
+    applicationCategory: "UtilitiesApplication",
+    operatingSystem: "All — works in any browser",
+    browserRequirements: "Requires JavaScript",
+    offers: {
+      "@type": "Offer",
+      price: "0",
+      priceCurrency: "USD",
+      description: "All tools are 100% free, no subscription required",
+    },
+    featureList: [
+      "PDF to Word Converter",
+      "Background Remover",
+      "Image Compressor",
+      "AI Paraphraser",
+      "OCR Image to Text",
+      "Resume Builder",
+      "QR Code Generator",
+      "Merge PDF",
+      "JPG to PDF",
+      "Age Calculator",
+    ],
+    screenshot: "https://www.taskguru.online/og-image.png",
+  };
+
+  // ── SCHEMA: FAQPage (AEO — feeds AI answer engines) ──
+  const faqLdJson = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: [
+      {
+        "@type": "Question",
+        name: "Is TaskGuru really free?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "Yes. All 40+ tools on TaskGuru are 100% free with no subscription, no credit card, and no account required.",
+        },
+      },
+      {
+        "@type": "Question",
+        name: "Does TaskGuru store my files?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "No. TaskGuru uses zero-storage architecture. Your files are processed in your browser and deleted immediately. We never store, sell, or share your data.",
+        },
+      },
+      {
+        "@type": "Question",
+        name: "What tools does TaskGuru offer?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "TaskGuru offers PDF to Word conversion, background remover, image compressor, AI paraphraser, OCR image-to-text, resume builder, QR code generator, merge PDF, JPG to PDF, age calculator, and 30+ more tools — all free.",
+        },
+      },
+      {
+        "@type": "Question",
+        name: "Do I need to create an account to use TaskGuru?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "No. You can use every tool on TaskGuru without creating an account, signing up, or providing any personal information.",
+        },
+      },
+      {
+        "@type": "Question",
+        name: "Is TaskGuru available as a mobile app?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "Yes. The Pro Resume Maker & CV Builder app by TaskGuru is available on the Indus App Store for Android. Google Play version is coming soon.",
+        },
+      },
+    ],
+  };
+
+  // ── SCHEMA: BreadcrumbList ──
+  const breadcrumbLdJson = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: "https://www.taskguru.online" },
+      { "@type": "ListItem", position: 2, name: "Tools", item: "https://www.taskguru.online/tools" },
+      { "@type": "ListItem", position: 3, name: "Blog", item: "https://www.taskguru.online/blog" },
+      { "@type": "ListItem", position: 4, name: "Apps", item: "https://www.taskguru.online/apps" },
     ],
   };
 
@@ -161,15 +352,19 @@ export default function RootLayout({
           strategy="afterInteractive"
         />
 
-        {/* ✅ REMOVED: Adsterra Social Bar — hurt UX and violated Google Better Ads Standards */}
-        {/* ✅ REMOVED: Smart Popunder Logic — Google penalizes popunders, hurts SEO rankings */}
-
-        {/* ── JSON-LD SCHEMA ── */}
+        {/* ── JSON-LD SCHEMA (SEO + AEO) ── */}
         <Script
           id="ld-json"
           type="application/ld+json"
           dangerouslySetInnerHTML={{
-            __html: JSON.stringify([siteLdJson, orgLdJson]),
+            __html: JSON.stringify([
+              siteLdJson,
+              orgLdJson,
+              appLdJson,
+              webAppLdJson,
+              faqLdJson,
+              breadcrumbLdJson,
+            ]),
           }}
         />
 
@@ -211,7 +406,6 @@ export default function RootLayout({
             />
           </div>
 
-          {/* pb-[62px] on mobile reserves space for the sticky bottom banner */}
           <main className="flex-1 pb-[62px] md:pb-0">{children}</main>
 
           {/* ── 300×250 RECTANGLE — DESKTOP ONLY ── */}
@@ -307,68 +501,58 @@ export default function RootLayout({
                       </a>
                     ))}
                   </div>
-                  {/* Amazon Appstore */}
-                  <a
-                    href="https://www.amazon.in/TECH-GAUTAM-TaskGuru-AI/dp/B0GJRW5RXR"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-3 px-4 py-2.5 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-2xl shadow-sm hover:border-orange-400 hover:-translate-y-1 transition-all w-fit"
-                  >
-                    <div className="w-8 h-8 bg-orange-500 rounded-lg flex items-center justify-center flex-shrink-0">
-                      <span className="text-white font-black text-sm">a</span>
-                    </div>
-                    <div className="text-left">
-                      <p className="text-[10px] text-gray-400 uppercase tracking-wider leading-none">
-                        Available on
-                      </p>
-                      <p className="text-sm font-black text-gray-900 dark:text-white leading-tight">
-                        Amazon Appstore
-                      </p>
-                    </div>
-                  </a>
 
-                  {/* Indus App Store — LIVE */}
-                  <a
-                    href="https://www.indusappstore.com/apps/business/pro-resume-maker/com.shubham.proresumemakerapp/?page=details&id=com.shubham.proresumemakerapp"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-3 px-4 py-2.5 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-2xl shadow-sm hover:border-pink-400 hover:-translate-y-1 transition-all w-fit"
-                  >
-                    <div className="w-8 h-8 bg-gradient-to-br from-orange-500 to-pink-500 rounded-lg flex items-center justify-center flex-shrink-0">
-                      <span className="text-white font-black text-xs">IN</span>
-                    </div>
-                    <div className="text-left">
-                      <p className="text-[10px] text-gray-400 uppercase tracking-wider leading-none">
-                        Download on
-                      </p>
-                      <p className="text-sm font-black text-gray-900 dark:text-white leading-tight">
-                        Indus App Store
-                      </p>
-                    </div>
-                  </a>
+                  {/* App Store buttons */}
+                  <div className="flex flex-col gap-3">
+                    {/* Amazon Appstore */}
+                    <a
+                      href="https://www.amazon.in/TECH-GAUTAM-TaskGuru-AI/dp/B0GJRW5RXR"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-3 px-4 py-2.5 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-2xl shadow-sm hover:border-orange-400 hover:-translate-y-1 transition-all w-fit"
+                    >
+                      <div className="w-8 h-8 bg-orange-500 rounded-lg flex items-center justify-center flex-shrink-0">
+                        <span className="text-white font-black text-sm">a</span>
+                      </div>
+                      <div className="text-left">
+                        <p className="text-[10px] text-gray-400 uppercase tracking-wider leading-none">Available on</p>
+                        <p className="text-sm font-black text-gray-900 dark:text-white leading-tight">Amazon Appstore</p>
+                      </div>
+                    </a>
 
-                  {/* Google Play — Coming Soon */}
-                  <div
-                    className="relative inline-flex items-center gap-3 px-4 py-2.5 bg-gray-100 dark:bg-gray-800/50 border border-dashed border-gray-300 dark:border-gray-600 rounded-2xl w-fit cursor-not-allowed opacity-70"
-                    title="Coming soon to Google Play"
-                  >
-                    <span className="absolute -top-2.5 left-1/2 -translate-x-1/2 px-2 py-0.5 bg-yellow-400 text-yellow-900 text-[8px] font-black uppercase tracking-widest rounded-full whitespace-nowrap">
-                      Soon
-                    </span>
-                    <div className="w-8 h-8 bg-gray-300 dark:bg-gray-600 rounded-lg flex items-center justify-center flex-shrink-0">
-                      <svg className="w-4 h-4 text-gray-500" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M3 3.5L13.5 12L3 20.5V3.5Z" fillOpacity="0.6"/>
-                        <path d="M13.5 12L20.5 8" stroke="currentColor" strokeWidth="1.5" strokeOpacity="0.4"/>
-                        <path d="M13.5 12L20.5 16" stroke="currentColor" strokeWidth="1.5" strokeOpacity="0.4"/>
-                      </svg>
-                    </div>
-                    <div className="text-left">
-                      <p className="text-[10px] text-gray-400 uppercase tracking-wider leading-none">
-                        Get it on
-                      </p>
-                      <p className="text-sm font-black text-gray-500 dark:text-gray-400 leading-tight">
-                        Google Play
-                      </p>
+                    {/* Indus App Store */}
+                    <a
+                      href="https://indusapp.store/d6vxlznp"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-3 px-4 py-2.5 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-2xl shadow-sm hover:border-pink-400 hover:-translate-y-1 transition-all w-fit"
+                    >
+                      <div className="w-8 h-8 bg-gradient-to-br from-orange-500 to-pink-500 rounded-lg flex items-center justify-center flex-shrink-0">
+                        <span className="text-white font-black text-xs">IN</span>
+                      </div>
+                      <div className="text-left">
+                        <p className="text-[10px] text-gray-400 uppercase tracking-wider leading-none">Download on</p>
+                        <p className="text-sm font-black text-gray-900 dark:text-white leading-tight">Indus App Store</p>
+                      </div>
+                    </a>
+
+                    {/* Google Play — Coming Soon */}
+                    <div
+                      className="relative inline-flex items-center gap-3 px-4 py-2.5 bg-gray-100 dark:bg-gray-800/50 border border-dashed border-gray-300 dark:border-gray-600 rounded-2xl w-fit cursor-not-allowed opacity-70"
+                      title="Coming soon to Google Play"
+                    >
+                      <span className="absolute -top-2.5 left-1/2 -translate-x-1/2 px-2 py-0.5 bg-yellow-400 text-yellow-900 text-[8px] font-black uppercase tracking-widest rounded-full whitespace-nowrap">
+                        Soon
+                      </span>
+                      <div className="w-8 h-8 bg-gray-300 dark:bg-gray-600 rounded-lg flex items-center justify-center flex-shrink-0">
+                        <svg className="w-4 h-4 text-gray-500" viewBox="0 0 24 24" fill="currentColor">
+                          <path d="M3 3.5L13.5 12L3 20.5V3.5Z" fillOpacity="0.6"/>
+                        </svg>
+                      </div>
+                      <div className="text-left">
+                        <p className="text-[10px] text-gray-400 uppercase tracking-wider leading-none">Get it on</p>
+                        <p className="text-sm font-black text-gray-500 dark:text-gray-400 leading-tight">Google Play</p>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -379,6 +563,12 @@ export default function RootLayout({
                     Resources
                   </h4>
                   <nav className="flex flex-col gap-4 text-sm font-medium text-gray-500 dark:text-gray-400">
+                    <Link
+                      href="/apps"
+                      className="hover:text-violet-600 flex items-center gap-2 font-bold text-violet-600 dark:text-violet-400"
+                    >
+                      <Rocket className="w-4 h-4" /> Our Apps
+                    </Link>
                     <Link
                       href="/about"
                       className="hover:text-blue-600 flex items-center gap-2 font-bold text-gray-900 dark:text-white"
@@ -406,27 +596,14 @@ export default function RootLayout({
                     Popular Free Tools
                   </h4>
                   <nav className="flex flex-col gap-4 text-sm font-medium text-gray-500 dark:text-gray-400">
-                    <Link href="/tools/background-remover" className="hover:text-blue-600">
-                      Background Remover
-                    </Link>
-                    <Link href="/tools/text-paraphraser" className="hover:text-blue-600">
-                      AI Text Paraphraser
-                    </Link>
-                    <Link href="/tools/image-compressor" className="hover:text-blue-600">
-                      Image Compressor
-                    </Link>
-                    <Link href="/tools/pdf-to-word" className="hover:text-blue-600">
-                      PDF to Word
-                    </Link>
-                    <Link
-                      href="/tools/resume-maker"
-                      className="hover:text-blue-600 flex items-center gap-2"
-                    >
+                    <Link href="/tools/background-remover" className="hover:text-blue-600">Background Remover</Link>
+                    <Link href="/tools/text-paraphraser" className="hover:text-blue-600">AI Text Paraphraser</Link>
+                    <Link href="/tools/image-compressor" className="hover:text-blue-600">Image Compressor</Link>
+                    <Link href="/tools/pdf-to-word" className="hover:text-blue-600">PDF to Word</Link>
+                    <Link href="/tools/resume-maker" className="hover:text-blue-600 flex items-center gap-2">
                       Resume Maker <Zap className="w-3 h-3 text-yellow-500" />
                     </Link>
-                    <Link href="/tools/qr-barcode-generator" className="hover:text-blue-600">
-                      QR Code Generator
-                    </Link>
+                    <Link href="/tools/qr-barcode-generator" className="hover:text-blue-600">QR Code Generator</Link>
                   </nav>
                 </div>
 
@@ -526,4 +703,4 @@ export default function RootLayout({
       </body>
     </html>
   );
-              }
+}
