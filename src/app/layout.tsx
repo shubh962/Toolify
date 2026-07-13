@@ -77,6 +77,8 @@ export const metadata: Metadata = {
     canonical: "https://www.taskguru.online",
     languages: {
       "x-default": "https://www.taskguru.online",
+      
+      
     },
   },
   openGraph: {
@@ -129,14 +131,21 @@ export const metadata: Metadata = {
     },
   },
   other: {
+    
+    
+    
+    
+    // ── LANGUAGE + CONTENT ──
     language: "English",
     "content-language": "en",
     rating: "general",
     revisit: "3 days",
+    // ── APP STORE LINKS ──
     "al:android:package": "com.shubham.proresumemakerapp",
     "al:android:app_name": "Pro Resume Maker",
     "al:android:url":
-      "https://play.google.com/store/apps/details?id=com.shubham.proresumemakerapp&pcampaignid=web_share",
+      "https://www.indusappstore.com/apps/business/pro-resume-maker/com.shubham.proresumemakerapp/",
+    // ── AEO: Answer Engine Optimization ──
     "ai:description":
       "TaskGuru provides 40+ free browser-based tools including PDF to Word converter, background remover, image compressor, AI paraphraser, OCR, resume builder, and more. No account required. Zero data storage.",
     "ai:capabilities":
@@ -227,9 +236,9 @@ export default function RootLayout({
       "@type": "Person",
       name: "Shubham Gautam",
     },
-    url: "https://play.google.com/store/apps/details?id=com.shubham.proresumemakerapp&pcampaignid=web_share",
+    url: "https://www.indusappstore.com/apps/business/pro-resume-maker/com.shubham.proresumemakerapp/",
     downloadUrl:
-      "https://play.google.com/store/apps/details?id=com.shubham.proresumemakerapp&pcampaignid=web_share",
+      "https://www.indusappstore.com/apps/business/pro-resume-maker/com.shubham.proresumemakerapp/",
   };
 
   // ── SCHEMA: WebApplication (for the website itself) ──
@@ -304,7 +313,7 @@ export default function RootLayout({
         name: "Is TaskGuru available as a mobile app?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "Yes. The Pro Resume Maker & CV Builder app by TaskGuru is available to download on the Google Play Store, Amazon Appstore, and Indus App Store.",
+          text: "Yes. The Pro Resume Maker & CV Builder app by TaskGuru is available on the Indus App Store for Android. Google Play version is coming soon.",
         },
       },
     ],
@@ -326,7 +335,7 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning className={sora.variable}>
       <body className="font-sans antialiased min-h-screen flex flex-col bg-white dark:bg-gray-950 selection:bg-blue-600 selection:text-white">
 
-        {/* GOOGLE ANALYTICS */}
+        {/* ── GOOGLE ANALYTICS ── */}
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-XE6BHLH4J6"
           strategy="afterInteractive"
@@ -335,7 +344,7 @@ export default function RootLayout({
           {`window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-XE6BHLH4J6');`}
         </Script>
 
-        {/* GOOGLE ADSENSE */}
+        {/* ── GOOGLE ADSENSE ── */}
         <Script
           async
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2427221337462218"
@@ -343,7 +352,7 @@ export default function RootLayout({
           strategy="afterInteractive"
         />
 
-        {/* JSON-LD SCHEMA */}
+        {/* ── JSON-LD SCHEMA (SEO + AEO) ── */}
         <Script
           id="ld-json"
           type="application/ld+json"
@@ -362,7 +371,7 @@ export default function RootLayout({
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <Header themeToggle={<ThemeToggle />} />
 
-          {/* DESKTOP BANNER */}
+          {/* ── 728×90 DESKTOP LEADERBOARD ── */}
           <div
             className="hidden md:flex flex-col items-center justify-center w-full bg-gray-50/60 dark:bg-gray-900/60 border-b border-gray-100 dark:border-gray-800 mt-0"
             style={{ minHeight: "110px" }}
@@ -381,7 +390,7 @@ export default function RootLayout({
             />
           </div>
 
-          {/* MOBILE TOP BANNER */}
+          {/* ── 320×50 MOBILE TOP BANNER ── */}
           <div
             className="flex md:hidden justify-center items-center bg-gray-50/60 dark:bg-gray-900/60 border-b border-gray-100 dark:border-gray-800 mt-0"
             style={{ minHeight: "58px" }}
@@ -399,7 +408,7 @@ export default function RootLayout({
 
           <main className="flex-1 pb-[62px] md:pb-0">{children}</main>
 
-          {/* SPONSORED DESKTOP */}
+          {/* ── 300×250 RECTANGLE — DESKTOP ONLY ── */}
           <div className="hidden md:flex flex-col items-center w-full py-6 border-t border-gray-100 dark:border-gray-800 bg-gray-50/20 dark:bg-gray-900/20">
             <p className="text-[9px] text-gray-400 uppercase tracking-widest font-bold mb-3">
               Sponsored
@@ -415,7 +424,7 @@ export default function RootLayout({
             />
           </div>
 
-          {/* NATIVE BANNER */}
+          {/* ── NATIVE BANNER ── */}
           <div className="w-full border-t border-gray-100 dark:border-gray-800 bg-gray-50/30 dark:bg-gray-900/30 py-6 flex flex-col items-center">
             <p className="text-[9px] text-gray-400 uppercase tracking-widest font-bold mb-3">
               Sponsored
@@ -435,7 +444,7 @@ export default function RootLayout({
           <Toaster />
           <GlobalShare />
 
-          {/* STICKY BOTTOM MOBILE */}
+          {/* ── STICKY BOTTOM MOBILE BANNER ── */}
           <div
             id="utility-tray-bottom"
             className="fixed bottom-0 left-0 right-0 z-[9999] flex md:hidden justify-center items-center bg-white dark:bg-gray-950 border-t border-gray-200 dark:border-gray-800 shadow-[0_-4px_12px_rgba(0,0,0,0.1)]"
@@ -455,7 +464,7 @@ export default function RootLayout({
             />
           </div>
 
-          {/* FOOTER */}
+          {/* ── FOOTER ── */}
           <footer className="py-20 bg-gray-50/50 dark:bg-gray-900/50 border-t border-gray-200 dark:border-gray-800">
             <div className="container mx-auto px-6">
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
@@ -493,26 +502,8 @@ export default function RootLayout({
                     ))}
                   </div>
 
-                  {/* App Store buttons — Google Play is now 1st Choice */}
+                  {/* App Store buttons */}
                   <div className="flex flex-col gap-3">
-                    {/* Google Play */}
-                    <a
-                      href="https://play.google.com/store/apps/details?id=com.shubham.proresumemakerapp&pcampaignid=web_share"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-3 px-4 py-2.5 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-2xl shadow-sm hover:border-blue-500 hover:-translate-y-1 transition-all w-fit"
-                    >
-                      <div className="w-8 h-8 bg-black rounded-lg flex items-center justify-center flex-shrink-0">
-                        <svg className="w-4 h-4 text-white" viewBox="0 0 24 24" fill="currentColor">
-                          <path d="M3 3.5L13.5 12L3 20.5V3.5Z"/>
-                        </svg>
-                      </div>
-                      <div className="text-left">
-                        <p className="text-[10px] text-gray-400 uppercase tracking-wider leading-none">Get it on</p>
-                        <p className="text-sm font-black text-gray-900 dark:text-white leading-tight">Google Play</p>
-                      </div>
-                    </a>
-
                     {/* Amazon Appstore */}
                     <a
                       href="https://www.amazon.in/TECH-GAUTAM-TaskGuru-AI/dp/B0GJRW5RXR"
@@ -544,6 +535,25 @@ export default function RootLayout({
                         <p className="text-sm font-black text-gray-900 dark:text-white leading-tight">Indus App Store</p>
                       </div>
                     </a>
+
+                    {/* Google Play — Coming Soon */}
+                    <div
+                      className="relative inline-flex items-center gap-3 px-4 py-2.5 bg-gray-100 dark:bg-gray-800/50 border border-dashed border-gray-300 dark:border-gray-600 rounded-2xl w-fit cursor-not-allowed opacity-70"
+                      title="Coming soon to Google Play"
+                    >
+                      <span className="absolute -top-2.5 left-1/2 -translate-x-1/2 px-2 py-0.5 bg-yellow-400 text-yellow-900 text-[8px] font-black uppercase tracking-widest rounded-full whitespace-nowrap">
+                        Soon
+                      </span>
+                      <div className="w-8 h-8 bg-gray-300 dark:bg-gray-600 rounded-lg flex items-center justify-center flex-shrink-0">
+                        <svg className="w-4 h-4 text-gray-500" viewBox="0 0 24 24" fill="currentColor">
+                          <path d="M3 3.5L13.5 12L3 20.5V3.5Z" fillOpacity="0.6"/>
+                        </svg>
+                      </div>
+                      <div className="text-left">
+                        <p className="text-[10px] text-gray-400 uppercase tracking-wider leading-none">Get it on</p>
+                        <p className="text-sm font-black text-gray-500 dark:text-gray-400 leading-tight">Google Play</p>
+                      </div>
+                    </div>
                   </div>
                 </div>
 
@@ -576,7 +586,8 @@ export default function RootLayout({
                     </Link>
                     <Link href="/sitemap.xml" className="hover:text-blue-600 flex items-center gap-2">
                       <Map className="w-4 h-4" /> XML Sitemap
-                    </nav>
+                    </Link>
+                  </nav>
                 </div>
 
                 {/* Popular Tools */}
