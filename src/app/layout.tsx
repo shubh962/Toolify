@@ -125,11 +125,12 @@ export const metadata: Metadata = {
     google: "XhRtp6rO2MNQX-BucHlUxVhNLbBPfdis_RzXY5ZodlU",
   },
   appLinks: {
-    android: {
-      package: "com.shubham.proresumemakerapp",
-      app_name: "Pro Resume Maker & CV Builder",
-    },
+  android: {
+    package: "com.shubham.proresumemakerapp",
+    app_name: "Pro Resume Maker & CV Builder",
+    url: "https://play.google.com/store/apps/details?id=com.shubham.proresumemakerapp",
   },
+},
   other: {
     
     
@@ -216,30 +217,31 @@ export default function RootLayout({
   };
 
   // ── SCHEMA: SoftwareApplication (for app stores) ──
-  const appLdJson = {
-    "@context": "https://schema.org",
-    "@type": "SoftwareApplication",
-    name: "Pro Resume Maker & CV Builder",
-    operatingSystem: "Android",
-    applicationCategory: "BusinessApplication",
-    offers: {
-      "@type": "Offer",
-      price: "0",
-      priceCurrency: "USD",
-    },
-    aggregateRating: {
-      "@type": "AggregateRating",
-      ratingValue: "4.5",
-      ratingCount: "10",
-    },
-    author: {
-      "@type": "Person",
-      name: "Shubham Gautam",
-    },
-    url: "https://www.indusappstore.com/apps/business/pro-resume-maker/com.shubham.proresumemakerapp/",
-    downloadUrl:
-      "https://www.indusappstore.com/apps/business/pro-resume-maker/com.shubham.proresumemakerapp/",
-  };
+ // REPLACE the entire appLdJson object with this:
+const appLdJson = {
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  name: "Pro Resume Maker & CV Builder",
+  operatingSystem: "Android",
+  applicationCategory: "BusinessApplication",
+  offers: {
+    "@type": "Offer",
+    price: "0",
+    priceCurrency: "USD",
+  },
+  // ✅ aggregateRating removed — add back once you have real Play Store reviews
+  author: {
+    "@type": "Person",
+    name: "Shubham Gautam",
+  },
+  url: "https://play.google.com/store/apps/details?id=com.shubham.proresumemakerapp",
+  downloadUrl: "https://play.google.com/store/apps/details?id=com.shubham.proresumemakerapp",
+  sameAs: [
+    "https://play.google.com/store/apps/details?id=com.shubham.proresumemakerapp",
+    "https://www.indusappstore.com/apps/business/pro-resume-maker/com.shubham.proresumemakerapp/",
+    "https://www.amazon.in/TECH-GAUTAM-TaskGuru-AI/dp/B0GJRW5RXR",
+  ],
+};
 
   // ── SCHEMA: WebApplication (for the website itself) ──
   const webAppLdJson = {
@@ -313,7 +315,7 @@ export default function RootLayout({
         name: "Is TaskGuru available as a mobile app?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "Yes. The Pro Resume Maker & CV Builder app by TaskGuru is available on the Indus App Store for Android. Google Play version is coming soon.",
+          text: "Yes. The Pro Resume Maker & CV Builder app by TaskGuru is now live on Google Play and the Indus App Store for Android. Download free at play.google.com/store/apps/details?id=com.shubham.proresumemakerapp",
         },
       },
     ],
@@ -536,23 +538,24 @@ export default function RootLayout({
                       </div>
                     </a>
 
-                    {/* Google Play — Coming Soon */}
-                    <div
-                      className="relative inline-flex items-center gap-3 px-4 py-2.5 bg-gray-100 dark:bg-gray-800/50 border border-dashed border-gray-300 dark:border-gray-600 rounded-2xl w-fit cursor-not-allowed opacity-70"
-                      title="Coming soon to Google Play"
-                    >
-                      <span className="absolute -top-2.5 left-1/2 -translate-x-1/2 px-2 py-0.5 bg-yellow-400 text-yellow-900 text-[8px] font-black uppercase tracking-widest rounded-full whitespace-nowrap">
-                        Soon
-                      </span>
-                      <div className="w-8 h-8 bg-gray-300 dark:bg-gray-600 rounded-lg flex items-center justify-center flex-shrink-0">
-                        <svg className="w-4 h-4 text-gray-500" viewBox="0 0 24 24" fill="currentColor">
-                          <path d="M3 3.5L13.5 12L3 20.5V3.5Z" fillOpacity="0.6"/>
-                        </svg>
-                      </div>
-                      <div className="text-left">
-                        <p className="text-[10px] text-gray-400 uppercase tracking-wider leading-none">Get it on</p>
-                        <p className="text-sm font-black text-gray-500 dark:text-gray-400 leading-tight">Google Play</p>
-                      </div>
+                    // REPLACE the entire "Google Play — Coming Soon" <div> block with:
+
+  href="https://play.google.com/store/apps/details?id=com.shubham.proresumemakerapp"
+  target="_blank"
+  rel="noopener noreferrer"
+  aria-label="Download Pro Resume Maker on Google Play"
+  className="inline-flex items-center gap-3 px-4 py-2.5 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-2xl shadow-sm hover:border-green-400 hover:-translate-y-1 transition-all w-fit"
+>
+  <div className="w-8 h-8 bg-gradient-to-br from-green-500 to-blue-500 rounded-lg flex items-center justify-center flex-shrink-0">
+    <svg className="w-4 h-4 text-white" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+      <path d="M3 3.5L13.5 12L3 20.5V3.5Z" />
+    </svg>
+  </div>
+  <div className="text-left">
+    <p className="text-[10px] text-gray-400 uppercase tracking-wider leading-none">Get it on</p>
+    <p className="text-sm font-black text-gray-900 dark:text-white leading-tight">Google Play</p>
+  </div>
+</a>
                     </div>
                   </div>
                 </div>
