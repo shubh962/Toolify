@@ -334,6 +334,8 @@ export default function Home() {
               </p>
             </div>
             <div className="flex flex-col sm:flex-row items-center gap-3 shrink-0">
+
+              {/* Indus App Store */}
               <a href="https://indusapp.store/d6vxlznp" target="_blank" rel="noopener noreferrer"
                 aria-label="Download Pro Resume Maker on Indus App Store"
                 className="flex items-center gap-3 px-5 py-3 bg-white rounded-2xl shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all min-w-[180px]">
@@ -345,16 +347,26 @@ export default function Home() {
                   <p className="text-sm font-black text-gray-900 leading-tight">Indus App Store</p>
                 </div>
               </a>
-              <div className="relative flex items-center gap-3 px-5 py-3 bg-white/10 border border-white/20 rounded-2xl min-w-[180px] cursor-not-allowed backdrop-blur-sm" aria-label="Google Play — coming soon">
-                <span className="absolute -top-2.5 left-1/2 -translate-x-1/2 px-2.5 py-0.5 bg-yellow-400 text-yellow-900 text-[9px] font-black uppercase tracking-widest rounded-full whitespace-nowrap shadow">Coming Soon</span>
-                <div className="w-9 h-9 bg-white/10 rounded-xl flex items-center justify-center shrink-0" aria-hidden="true">
-                  <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3 3.5L13.5 12L3 20.5V3.5Z" fill="white" fillOpacity="0.5"/></svg>
+
+              {/* ✅ Google Play — Now Live */}
+              <a
+                href="https://play.google.com/store/apps/details?id=com.shubham.proresumemakerapp"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Download Pro Resume Maker on Google Play"
+                className="flex items-center gap-3 px-5 py-3 bg-white rounded-2xl shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all min-w-[180px]"
+              >
+                <div className="w-9 h-9 bg-gradient-to-br from-green-500 to-blue-500 rounded-xl flex items-center justify-center shrink-0" aria-hidden="true">
+                  <svg className="w-5 h-5 text-white" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                    <path d="M3 3.5L13.5 12L3 20.5V3.5Z" />
+                  </svg>
                 </div>
                 <div className="text-left">
-                  <p className="text-[10px] text-white/50 uppercase tracking-wider leading-none font-bold">Get it on</p>
-                  <p className="text-sm font-black text-white/60 leading-tight">Google Play</p>
+                  <p className="text-[10px] text-gray-400 uppercase tracking-wider leading-none font-bold">Get it on</p>
+                  <p className="text-sm font-black text-gray-900 leading-tight">Google Play</p>
                 </div>
-              </div>
+              </a>
+
             </div>
           </div>
         </div>
@@ -477,7 +489,7 @@ export default function Home() {
             {search && <span> for &ldquo;{search}&rdquo;</span>}
           </p>
 
-          {/* Grid — new card design */}
+          {/* Grid */}
           {filteredTools.length > 0 ? (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
               {filteredTools.map((tool) => {
@@ -815,4 +827,4 @@ export default function Home() {
 
     </>
   );
-      }
+                }
