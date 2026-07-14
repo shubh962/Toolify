@@ -77,8 +77,6 @@ export const metadata: Metadata = {
     canonical: "https://www.taskguru.online",
     languages: {
       "x-default": "https://www.taskguru.online",
-      
-      
     },
   },
   openGraph: {
@@ -124,27 +122,24 @@ export const metadata: Metadata = {
   verification: {
     google: "XhRtp6rO2MNQX-BucHlUxVhNLbBPfdis_RzXY5ZodlU",
   },
+  // ✅ Updated: Play Store URL now live
   appLinks: {
     android: {
       package: "com.shubham.proresumemakerapp",
       app_name: "Pro Resume Maker & CV Builder",
+      url: "https://play.google.com/store/apps/details?id=com.shubham.proresumemakerapp",
     },
   },
   other: {
-    
-    
-    
-    
     // ── LANGUAGE + CONTENT ──
     language: "English",
     "content-language": "en",
     rating: "general",
     revisit: "3 days",
-    // ── APP STORE LINKS ──
+    // ── APP STORE LINKS — ✅ updated to Play Store (now live) ──
     "al:android:package": "com.shubham.proresumemakerapp",
     "al:android:app_name": "Pro Resume Maker",
-    "al:android:url":
-      "https://www.indusappstore.com/apps/business/pro-resume-maker/com.shubham.proresumemakerapp/",
+    "al:android:url": "https://play.google.com/store/apps/details?id=com.shubham.proresumemakerapp",
     // ── AEO: Answer Engine Optimization ──
     "ai:description":
       "TaskGuru provides 40+ free browser-based tools including PDF to Word converter, background remover, image compressor, AI paraphraser, OCR, resume builder, and more. No account required. Zero data storage.",
@@ -216,6 +211,9 @@ export default function RootLayout({
   };
 
   // ── SCHEMA: SoftwareApplication (for app stores) ──
+  // ✅ aggregateRating REMOVED — fake ratings violate Google schema policies.
+  // Add it back once you have real Play Store reviews to reference.
+  // ✅ url + downloadUrl updated to Google Play (now live)
   const appLdJson = {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
@@ -227,18 +225,17 @@ export default function RootLayout({
       price: "0",
       priceCurrency: "USD",
     },
-    aggregateRating: {
-      "@type": "AggregateRating",
-      ratingValue: "4.5",
-      ratingCount: "10",
-    },
     author: {
       "@type": "Person",
       name: "Shubham Gautam",
     },
-    url: "https://www.indusappstore.com/apps/business/pro-resume-maker/com.shubham.proresumemakerapp/",
-    downloadUrl:
+    url: "https://play.google.com/store/apps/details?id=com.shubham.proresumemakerapp",
+    downloadUrl: "https://play.google.com/store/apps/details?id=com.shubham.proresumemakerapp",
+    sameAs: [
+      "https://play.google.com/store/apps/details?id=com.shubham.proresumemakerapp",
       "https://www.indusappstore.com/apps/business/pro-resume-maker/com.shubham.proresumemakerapp/",
+      "https://www.amazon.in/TECH-GAUTAM-TaskGuru-AI/dp/B0GJRW5RXR",
+    ],
   };
 
   // ── SCHEMA: WebApplication (for the website itself) ──
@@ -272,6 +269,7 @@ export default function RootLayout({
   };
 
   // ── SCHEMA: FAQPage (AEO — feeds AI answer engines) ──
+  // ✅ Mobile app FAQ answer updated — Play Store now live
   const faqLdJson = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
@@ -313,7 +311,7 @@ export default function RootLayout({
         name: "Is TaskGuru available as a mobile app?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "Yes. The Pro Resume Maker & CV Builder app by TaskGuru is available on the Indus App Store for Android. Google Play version is coming soon.",
+          text: "Yes. The Pro Resume Maker & CV Builder app by TaskGuru is now live on Google Play and the Indus App Store for Android. Download free at play.google.com/store/apps/details?id=com.shubham.proresumemakerapp",
         },
       },
     ],
@@ -324,10 +322,10 @@ export default function RootLayout({
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Home", item: "https://www.taskguru.online" },
+      { "@type": "ListItem", position: 1, name: "Home",  item: "https://www.taskguru.online" },
       { "@type": "ListItem", position: 2, name: "Tools", item: "https://www.taskguru.online/tools" },
-      { "@type": "ListItem", position: 3, name: "Blog", item: "https://www.taskguru.online/blog" },
-      { "@type": "ListItem", position: 4, name: "Apps", item: "https://www.taskguru.online/apps" },
+      { "@type": "ListItem", position: 3, name: "Blog",  item: "https://www.taskguru.online/blog" },
+      { "@type": "ListItem", position: 4, name: "Apps",  item: "https://www.taskguru.online/apps" },
     ],
   };
 
@@ -504,11 +502,13 @@ export default function RootLayout({
 
                   {/* App Store buttons */}
                   <div className="flex flex-col gap-3">
+
                     {/* Amazon Appstore */}
                     <a
                       href="https://www.amazon.in/TECH-GAUTAM-TaskGuru-AI/dp/B0GJRW5RXR"
                       target="_blank"
                       rel="noopener noreferrer"
+                      aria-label="Download Pro Resume Maker on Amazon Appstore"
                       className="inline-flex items-center gap-3 px-4 py-2.5 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-2xl shadow-sm hover:border-orange-400 hover:-translate-y-1 transition-all w-fit"
                     >
                       <div className="w-8 h-8 bg-orange-500 rounded-lg flex items-center justify-center flex-shrink-0">
@@ -525,6 +525,7 @@ export default function RootLayout({
                       href="https://indusapp.store/d6vxlznp"
                       target="_blank"
                       rel="noopener noreferrer"
+                      aria-label="Download Pro Resume Maker on Indus App Store"
                       className="inline-flex items-center gap-3 px-4 py-2.5 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-2xl shadow-sm hover:border-pink-400 hover:-translate-y-1 transition-all w-fit"
                     >
                       <div className="w-8 h-8 bg-gradient-to-br from-orange-500 to-pink-500 rounded-lg flex items-center justify-center flex-shrink-0">
@@ -536,24 +537,25 @@ export default function RootLayout({
                       </div>
                     </a>
 
-                    {/* Google Play — Coming Soon */}
-                    <div
-                      className="relative inline-flex items-center gap-3 px-4 py-2.5 bg-gray-100 dark:bg-gray-800/50 border border-dashed border-gray-300 dark:border-gray-600 rounded-2xl w-fit cursor-not-allowed opacity-70"
-                      title="Coming soon to Google Play"
+                    {/* ✅ Google Play — Now Live */}
+                    <a
+                      href="https://play.google.com/store/apps/details?id=com.shubham.proresumemakerapp"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label="Download Pro Resume Maker on Google Play"
+                      className="inline-flex items-center gap-3 px-4 py-2.5 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-2xl shadow-sm hover:border-green-400 hover:-translate-y-1 transition-all w-fit"
                     >
-                      <span className="absolute -top-2.5 left-1/2 -translate-x-1/2 px-2 py-0.5 bg-yellow-400 text-yellow-900 text-[8px] font-black uppercase tracking-widest rounded-full whitespace-nowrap">
-                        Soon
-                      </span>
-                      <div className="w-8 h-8 bg-gray-300 dark:bg-gray-600 rounded-lg flex items-center justify-center flex-shrink-0">
-                        <svg className="w-4 h-4 text-gray-500" viewBox="0 0 24 24" fill="currentColor">
-                          <path d="M3 3.5L13.5 12L3 20.5V3.5Z" fillOpacity="0.6"/>
+                      <div className="w-8 h-8 bg-gradient-to-br from-green-500 to-blue-500 rounded-lg flex items-center justify-center flex-shrink-0">
+                        <svg className="w-4 h-4 text-white" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                          <path d="M3 3.5L13.5 12L3 20.5V3.5Z" />
                         </svg>
                       </div>
                       <div className="text-left">
                         <p className="text-[10px] text-gray-400 uppercase tracking-wider leading-none">Get it on</p>
-                        <p className="text-sm font-black text-gray-500 dark:text-gray-400 leading-tight">Google Play</p>
+                        <p className="text-sm font-black text-gray-900 dark:text-white leading-tight">Google Play</p>
                       </div>
-                    </div>
+                    </a>
+
                   </div>
                 </div>
 
