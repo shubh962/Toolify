@@ -59,7 +59,7 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://www.taskguru.online"),
+  metadataBase: new URL("https://www.taskguru.site"),
   title: {
     default: "TaskGuru AI • 100% Free Online PDF, Image & AI Writing Tools — No Login",
     template: "%s | TaskGuru — Free Online Tools",
@@ -68,20 +68,20 @@ export const metadata: Metadata = {
     "Free AI-powered tools for everyone. Convert PDF to Word, remove image backgrounds, compress images, extract text via OCR, build ATS resumes, and paraphrase content instantly. No login. 100% private. Works in your browser.",
   keywords:
     "free ai tools, taskguru online, background remover free, pdf to word no login, image compressor online, resume maker 2026, ocr free, image to text free, merge pdf free, free online tools no signup, ats resume builder free, ai paraphraser free, compress images online, jpg to pdf free, webp to jpg free",
-  authors: [{ name: "Shubham Gautam", url: "https://www.taskguru.online" }],
+  authors: [{ name: "Shubham Gautam", url: "https://www.taskguru.site" }],
   creator: "Shubham Gautam",
   publisher: "TaskGuru",
   category: "Technology",
   classification: "Free Online Tools / AI Productivity",
   alternates: {
-    canonical: "https://www.taskguru.online",
+    canonical: "https://www.taskguru.site",
     languages: {
-      "x-default": "https://www.taskguru.online",
+      "x-default": "https://www.taskguru.site",
     },
   },
   openGraph: {
     type: "website",
-    url: "https://www.taskguru.online",
+    url: "https://www.taskguru.site",
     title: "TaskGuru AI • 100% Free Online PDF, Image & AI Writing Tools",
     description:
       "Free AI-powered tools — PDF converter, background remover, image compressor, OCR, resume builder. No login. 100% private. Works instantly in your browser.",
@@ -89,7 +89,7 @@ export const metadata: Metadata = {
     locale: "en",
     images: [
       {
-        url: "https://www.taskguru.online/og-image.png",
+        url: "https://www.taskguru.site/og-image.png",
         width: 1200,
         height: 630,
         alt: "TaskGuru — Free AI Tools. PDF, Image, Writing & Resume tools. No login.",
@@ -104,7 +104,7 @@ export const metadata: Metadata = {
       "Free PDF, image, AI writing & resume tools. No login. No subscription. Works instantly in your browser.",
     creator: "@Shubham_962",
     site: "@Shubham_962",
-    images: ["https://www.taskguru.online/og-image.png"],
+    images: ["https://www.taskguru.site/og-image.png"],
   },
   robots: {
     index: true,
@@ -159,7 +159,7 @@ export default function RootLayout({
   const siteLdJson = {
     "@context": "https://schema.org",
     "@type": "WebSite",
-    url: "https://www.taskguru.online",
+    url: "https://www.taskguru.site",
     name: "TaskGuru",
     description:
       "Free AI-powered online tools — PDF converter, image editor, resume builder, AI paraphraser, and more. No login required.",
@@ -169,7 +169,7 @@ export default function RootLayout({
       target: {
         "@type": "EntryPoint",
         urlTemplate:
-          "https://www.taskguru.online/tools/{search_term_string}",
+          "https://www.taskguru.site/tools/{search_term_string}",
       },
       "query-input": "required name=search_term_string",
     },
@@ -179,12 +179,12 @@ export default function RootLayout({
   const orgLdJson = {
     "@context": "https://schema.org",
     "@type": "Organization",
-    url: "https://www.taskguru.online",
+    url: "https://www.taskguru.site",
     name: "TaskGuru",
     legalName: "TaskGuru by Shubham Gautam",
     logo: {
       "@type": "ImageObject",
-      url: "https://www.taskguru.online/logo.png",
+      url: "https://www.taskguru.site/logo.png",
       width: 512,
       height: 512,
     },
@@ -197,7 +197,7 @@ export default function RootLayout({
     contactPoint: {
       "@type": "ContactPoint",
       contactType: "customer support",
-      url: "https://www.taskguru.online/contact",
+      url: "https://www.taskguru.site/contact",
       availableLanguage: ["English"],
     },
     areaServed: "Worldwide",
@@ -243,7 +243,7 @@ export default function RootLayout({
     "@context": "https://schema.org",
     "@type": "WebApplication",
     name: "TaskGuru Online Tools",
-    url: "https://www.taskguru.online",
+    url: "https://www.taskguru.site",
     applicationCategory: "UtilitiesApplication",
     operatingSystem: "All — works in any browser",
     browserRequirements: "Requires JavaScript",
@@ -265,7 +265,7 @@ export default function RootLayout({
       "JPG to PDF",
       "Age Calculator",
     ],
-    screenshot: "https://www.taskguru.online/og-image.png",
+    screenshot: "https://www.taskguru.site/og-image.png",
   };
 
   // ── SCHEMA: FAQPage (AEO — feeds AI answer engines) ──
@@ -322,10 +322,10 @@ export default function RootLayout({
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Home",  item: "https://www.taskguru.online" },
-      { "@type": "ListItem", position: 2, name: "Tools", item: "https://www.taskguru.online/tools" },
-      { "@type": "ListItem", position: 3, name: "Blog",  item: "https://www.taskguru.online/blog" },
-      { "@type": "ListItem", position: 4, name: "Apps",  item: "https://www.taskguru.online/apps" },
+      { "@type": "ListItem", position: 1, name: "Home",  item: "https://www.taskguru.site" },
+      { "@type": "ListItem", position: 2, name: "Tools", item: "https://www.taskguru.site/tools" },
+      { "@type": "ListItem", position: 3, name: "Blog",  item: "https://www.taskguru.site/blog" },
+      { "@type": "ListItem", position: 4, name: "Apps",  item: "https://www.taskguru.site/apps" },
     ],
   };
 
