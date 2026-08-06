@@ -27,7 +27,7 @@ import {
 const LAST_UPDATED = 'June 2026';
 const READ_TIME    = '8 min read';
 const REVIEWED_BY  = 'Shubham Gautam';
-const TOOL_URL     = 'https://www.taskguru.online/tools/qr-barcode-generator';
+const TOOL_URL     = 'https://www.taskguru.site/tools/qr-barcode-generator';
 
 // ─────────────────────────────────────────────────────────────────
 // FAQ — single source for schema + render (10 unique questions)
@@ -110,10 +110,10 @@ const toolSchema = {
   publisher: {
     '@type': 'Organization',
     name: 'TaskGuru',
-    url: 'https://www.taskguru.online',
+    url: 'https://www.taskguru.site',
     logo: {
       '@type': 'ImageObject',
-      url: 'https://www.taskguru.online/logo.png',
+      url: 'https://www.taskguru.site/logo.png',
     },
   },
 };
@@ -194,7 +194,7 @@ const sanitizeFilename = (value: string) =>
 export default function QrBarcodeGenerator() {
 
   // ── QR STATE — unchanged ──
-  const [qrText, setQrText]       = useState('https://taskguru.online');
+  const [qrText, setQrText]       = useState('https://taskguru.site');
   const [qrSize, setQrSize]       = useState(256);
   const [qrFgColor, setQrFgColor] = useState('#000000');
   const [qrBgColor, setQrBgColor] = useState('#ffffff');
@@ -351,7 +351,7 @@ export default function QrBarcodeGenerator() {
                     <Label className="text-sm font-semibold text-muted-foreground">Quick Examples</Label>
                     <div className="flex flex-wrap gap-2" role="group" aria-label="QR code content presets">
                       {[
-                        { label: 'URL',   value: 'https://taskguru.online',              icon: Link2 },
+                        { label: 'URL',   value: 'https://taskguru.site',              icon: Link2 },
                         { label: 'WiFi',  value: 'WIFI:T:WPA;S:NetworkName;P:Password;;', icon: Wifi  },
                         { label: 'Email', value: 'mailto:hello@example.com',              icon: Mail  },
                         { label: 'Text',  value: 'Hello from TaskGuru!',                  icon: Type  },
