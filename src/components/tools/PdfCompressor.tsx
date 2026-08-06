@@ -59,7 +59,7 @@ const toolSchema = {
   '@context': 'https://schema.org',
   '@type': ['WebApplication', 'SoftwareApplication'],
   name: 'Free PDF Compressor — No Quality Loss | TaskGuru',
-  url: 'https://www.taskguru.online/tools/pdf-compressor',
+  url: 'https://www.taskguru.site/tools/pdf-compressor',
   applicationCategory: 'Utility',
   operatingSystem: 'Any',
   browserRequirements: 'Requires JavaScript',
@@ -73,7 +73,7 @@ const toolSchema = {
     'Password-protected PDF detection',
   ],
   offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD', availability: 'https://schema.org/InStock' },
-  publisher: { '@type': 'Organization', name: 'TaskGuru', url: 'https://www.taskguru.online', logo: { '@type': 'ImageObject', url: 'https://www.taskguru.online/logo.png' } },
+  publisher: { '@type': 'Organization', name: 'TaskGuru', url: 'https://www.taskguru.site', logo: { '@type': 'ImageObject', url: 'https://www.taskguru.site/logo.png' } },
 };
 
 const faqSchema = {
