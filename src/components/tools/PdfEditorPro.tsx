@@ -86,7 +86,7 @@ const toolSchema = {
   '@context': 'https://schema.org',
   '@type': ['WebApplication', 'SoftwareApplication'],
   name: 'Free Online PDF Editor — No Upload, No Watermark | TaskGuru',
-  url: 'https://www.taskguru.online/tools/pdf-editor-pro',
+  url: 'https://www.taskguru.site/tools/pdf-editor-pro',
   applicationCategory: 'Utility',
   operatingSystem: 'Any',
   browserRequirements: 'Requires JavaScript',
@@ -105,7 +105,7 @@ const toolSchema = {
     'No watermark on download',
   ],
   offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD', availability: 'https://schema.org/InStock' },
-  publisher: { '@type': 'Organization', name: 'TaskGuru', url: 'https://www.taskguru.online', logo: { '@type': 'ImageObject', url: 'https://www.taskguru.online/logo.png' } },
+  publisher: { '@type': 'Organization', name: 'TaskGuru', url: 'https://www.taskguru.site', logo: { '@type': 'ImageObject', url: 'https://www.taskguru.site/logo.png' } },
 };
 
 const howToSchema = {
