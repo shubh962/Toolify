@@ -1,6 +1,6 @@
 import { MetadataRoute } from "next";
 
-const BASE = "https://www.taskguru.online";
+const BASE = "https://www.taskguru.site";
 
 const blogSlugs = [
   "extract-text-scanned-pdf",
