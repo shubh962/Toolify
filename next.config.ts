@@ -16,7 +16,7 @@ const nextConfig = {
     remotePatterns: [
       { protocol: "https", hostname: "placehold.co" },
       { protocol: "https", hostname: "taskguru.online" },
-      { protocol: "https", hostname: "www.taskguru.online" },
+      { protocol: "https", hostname: "www.taskguru.site" },
       { protocol: "https", hostname: "images.unsplash.com" },
       { protocol: "https", hostname: "i.imgur.com" },
       { protocol: "https", hostname: "cdn.pixabay.com" },
@@ -39,15 +39,15 @@ const nextConfig = {
       {
         source: "/:path*",
         has: [{ type: "host", value: "toolify-liard.vercel.app" }],
-        destination: "https://www.taskguru.online/:path*",
+        destination: "https://www.taskguru.site/:path*",
         permanent: true,
       },
 
       // 🔹 5.2 Redirect NON-WWW → WWW (SEO Best Practice)
       {
         source: "/:path*",
-        has: [{ type: "host", value: "taskguru.online" }],
-        destination: "https://www.taskguru.online/:path*",
+        has: [{ type: "host", value: "taskguru.site" }],
+        destination: "https://www.taskguru.site/:path*",
         permanent: true,
       },
     ];
