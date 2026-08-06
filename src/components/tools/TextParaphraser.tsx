@@ -89,7 +89,7 @@ const toolSchema = {
   "@context": "https://schema.org",
   "@type": ["WebApplication", "SoftwareApplication"],
   name: "Free AI Text Humanizer & Paraphraser",
-  url: "https://www.taskguru.online/tools/text-paraphraser",
+  url: "https://www.taskguru.site/tools/text-paraphraser",
   applicationCategory: "Utility",
   operatingSystem: "Any",
   browserRequirements: "Requires JavaScript",
@@ -110,10 +110,10 @@ const toolSchema = {
   publisher: {
     "@type": "Organization",
     name: "TaskGuru",
-    url: "https://www.taskguru.online",
+    url: "https://www.taskguru.site",
     logo: {
       "@type": "ImageObject",
-      url: "https://www.taskguru.online/logo.png",
+      url: "https://www.taskguru.site/logo.png",
     },
   },
 };
@@ -167,13 +167,13 @@ const breadcrumbSchema = {
       "@type": "ListItem",
       position: 1,
       name: "Home",
-      item: "https://www.taskguru.online",
+      item: "https://www.taskguru.site",
     },
     {
       "@type": "ListItem",
       position: 2,
       name: "Text Paraphraser",
-      item: "https://www.taskguru.online/tools/text-paraphraser",
+      item: "https://www.taskguru.site/tools/text-paraphraser",
     },
   ],
 };
@@ -183,7 +183,7 @@ const articleSchema = {
   "@type": "Article",
   headline: "Free AI Text Humanizer & Paraphraser — Convert AI Text to Human Text",
   description: "TaskGuru's free AI paraphrasing tool humanizes AI-generated text instantly. No login, no limits. Perfect for students, bloggers, writers, and marketers.",
-  url: "https://www.taskguru.online/tools/text-paraphraser",
+  url: "https://www.taskguru.site/tools/text-paraphraser",
   // ✅ Update datePublished to the actual date this page first went live on your site
   datePublished: "2024-08-02",
   // ✅ dateModified matches sitemap lastmod: 2026-06-22
@@ -191,14 +191,14 @@ const articleSchema = {
   author: {
     "@type": "Person",
     name: "Shubham Gautam",
-    url: "https://www.taskguru.online/about",
+    url: "https://www.taskguru.site/about",
   },
   publisher: {
     "@type": "Organization",
     name: "TaskGuru",
     logo: {
       "@type": "ImageObject",
-      url: "https://www.taskguru.online/logo.png",
+      url: "https://www.taskguru.site/logo.png",
     },
   },
   reviewedBy: {
@@ -211,7 +211,7 @@ const speakableSchema = {
   "@context": "https://schema.org",
   "@type": "WebPage",
   name: "Free AI Text Humanizer & Paraphraser",
-  url: "https://www.taskguru.online/tools/text-paraphraser",
+  url: "https://www.taskguru.site/tools/text-paraphraser",
   speakable: {
     "@type": "SpeakableSpecification",
     cssSelector: ["#quick-answer", "#how-to-steps", "#tool-summary"],
