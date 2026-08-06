@@ -15,7 +15,7 @@ const nextConfig = {
   images: {
     remotePatterns: [
       { protocol: "https", hostname: "placehold.co" },
-      { protocol: "https", hostname: "taskguru.online" },
+      { protocol: "https", hostname: "taskguru.site" },
       { protocol: "https", hostname: "www.taskguru.site" },
       { protocol: "https", hostname: "images.unsplash.com" },
       { protocol: "https", hostname: "i.imgur.com" },
