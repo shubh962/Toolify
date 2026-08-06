@@ -52,7 +52,7 @@ interface GrammarMatch {
 const LAST_UPDATED = "June 2026";
 const READ_TIME    = "8 min read";
 const REVIEWED_BY  = "Shubham Gautam";
-const TOOL_URL     = "https://www.taskguru.online/tools/grammar-checker";
+const TOOL_URL     = "https://www.taskguru.site/tools/grammar-checker";
 
 /* ─── Category Badge Colors — unchanged ─────────────────────────────────── */
 
@@ -152,10 +152,10 @@ const toolSchema = {
   publisher: {
     "@type": "Organization",
     name: "TaskGuru",
-    url: "https://www.taskguru.online",
+    url: "https://www.taskguru.site",
     logo: {
       "@type": "ImageObject",
-      url: "https://www.taskguru.online/logo.png",
+      url: "https://www.taskguru.site/logo.png",
     },
   },
 };
