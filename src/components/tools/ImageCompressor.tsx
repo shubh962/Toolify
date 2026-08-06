@@ -25,12 +25,12 @@ const softwareSchema = {
   '@context': 'https://schema.org',
   '@type': 'SoftwareApplication',
   name: 'Free Image Compressor Online — TaskGuru',
-  url: 'https://www.taskguru.online/tools/image-compressor',
+  url: 'https://www.taskguru.site/tools/image-compressor',
   operatingSystem: 'All',
   applicationCategory: 'MultimediaApplication',
   description: 'Free online image compressor — compress JPG, PNG, WebP by quality, target KB size, or exact dimensions. No upload, no sign-up, works in browser.',
   offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
-  publisher: { '@type': 'Organization', name: 'TaskGuru', url: 'https://www.taskguru.online' },
+  publisher: { '@type': 'Organization', name: 'TaskGuru', url: 'https://www.taskguru.site' },
 };
 
 const faqSchema = {
