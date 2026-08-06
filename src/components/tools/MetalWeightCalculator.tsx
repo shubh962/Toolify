@@ -43,11 +43,11 @@ const SHAPES = [
 const softwareSchema = {
   '@context':'https://schema.org','@type':'SoftwareApplication',
   name:'Metal Weight Calculator Online Free — TaskGuru',
-  url:'https://www.taskguru.online/tools/metal-weight-calculator',
+  url:'https://www.taskguru.site/tools/metal-weight-calculator',
   applicationCategory:'EngineeringApplication',operatingSystem:'All',
   description:'Free metal weight calculator online — steel, aluminium, copper, brass, iron. 12 shapes, 4 unit systems. Instant results for engineers and fabricators.',
   offers:{'@type':'Offer',price:'0',priceCurrency:'USD'},
-  publisher:{'@type':'Organization',name:'TaskGuru',url:'https://www.taskguru.online'},
+  publisher:{'@type':'Organization',name:'TaskGuru',url:'https://www.taskguru.site'},
 };
 
 const faqs = [
