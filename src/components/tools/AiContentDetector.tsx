@@ -22,7 +22,7 @@ import Link from 'next/link';
 const LAST_UPDATED  = "June 2026";
 const READ_TIME     = "7 min read";
 const REVIEWED_BY   = "Shubham Gautam";
-const TOOL_URL      = "https://www.taskguru.online/tools/ai-content-detector";
+const TOOL_URL      = "https://www.taskguru.site/tools/ai-content-detector";
 
 // ─────────────────────────────────────────────
 // SCHEMAS — no fake ratings, no fake reviews
@@ -98,10 +98,10 @@ const detectorSchema = {
   publisher: {
     "@type": "Organization",
     name: "TaskGuru",
-    url: "https://www.taskguru.online",
+    url: "https://www.taskguru.site",
     logo: {
       "@type": "ImageObject",
-      url: "https://www.taskguru.online/logo.png",
+      url: "https://www.taskguru.site/logo.png",
     },
   },
 };
@@ -145,7 +145,7 @@ const breadcrumbSchema = {
   "@context": "https://schema.org",
   "@type": "BreadcrumbList",
   itemListElement: [
-    { "@type": "ListItem", position: 1, name: "Home",             item: "https://www.taskguru.online" },
+    { "@type": "ListItem", position: 1, name: "Home",             item: "https://www.taskguru.site" },
     { "@type": "ListItem", position: 2, name: "AI Content Detector", item: TOOL_URL },
   ],
 };
@@ -161,12 +161,12 @@ const articleSchema = {
   author: {
     "@type": "Person",
     name: "Shubham Gautam",
-    url: "https://www.taskguru.online/about",
+    url: "https://www.taskguru.site/about",
   },
   publisher: {
     "@type": "Organization",
     name: "TaskGuru",
-    logo: { "@type": "ImageObject", url: "https://www.taskguru.online/logo.png" },
+    logo: { "@type": "ImageObject", url: "https://www.taskguru.site/logo.png" },
   },
   reviewedBy: { "@type": "Person", name: "Shubham Gautam" },
 };
