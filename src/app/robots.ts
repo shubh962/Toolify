@@ -7,7 +7,7 @@ export default function robots(): MetadataRoute.Robots {
       allow: "/",
       disallow: ["/api/", "/ads/", "/Ads/"],
     },
-    sitemap: "https://www.taskguru.online/sitemap.xml",
+    sitemap: "https://www.taskguru.site/sitemap.xml",
     host: "www.taskguru.online",
   };
 }
