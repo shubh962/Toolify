@@ -10,12 +10,12 @@ const toolSchema = {
   "@context": "https://schema.org",
   "@type": "SoftwareApplication",
   name: "Free Credit Card Eligibility Checker",
-  url: "https://www.taskguru.online/tools/credit-card-eligibility-checker",
+  url: "https://www.taskguru.site/tools/credit-card-eligibility-checker",
   applicationCategory: "FinanceApplication",
   operatingSystem: "All",
   offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
   description: "Check credit card eligibility free — no hard inquiry, no credit score impact. Covers USA, UK, Canada, and India.",
-  publisher: { "@type": "Organization", name: "TaskGuru", url: "https://www.taskguru.online" },
+  publisher: { "@type": "Organization", name: "TaskGuru", url: "https://www.taskguru.site" },
 };
 
 const faqSchema = {
