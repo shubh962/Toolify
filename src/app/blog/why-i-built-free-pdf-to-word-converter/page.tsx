@@ -7,13 +7,13 @@ export const metadata: Metadata = {
   description:
     'A student struggled to edit a PDF and wasted hours searching for a solution. Years later, after completing his degree, he built a free PDF to Word converter so no one else has to go through the same frustration.',
   alternates: {
-    canonical: 'https://www.taskguru.online/blog/why-i-built-free-pdf-to-word-converter',
+    canonical: 'https://www.taskguru.site/blog/why-i-built-free-pdf-to-word-converter',
   },
   openGraph: {
     title: 'I Could Not Edit a PDF in School. Years Later, I Built a Free PDF to Word Converter.',
     description:
       'From a frustrated school student to a developer who built the solution — the real story behind TaskGuru\'s free PDF to Word converter.',
-    url: 'https://www.taskguru.online/blog/why-i-built-free-pdf-to-word-converter',
+    url: 'https://www.taskguru.site/blog/why-i-built-free-pdf-to-word-converter',
     type: 'article',
   },
 };
@@ -27,19 +27,19 @@ const articleSchema = {
   author: {
     '@type': 'Person',
     name: 'Shubham Gautam',
-    url: 'https://www.taskguru.online/about',
+    url: 'https://www.taskguru.site/about',
     jobTitle: 'Developer & Founder, TaskGuru',
   },
   publisher: {
     '@type': 'Organization',
     name: 'TaskGuru',
-    logo: { '@type': 'ImageObject', url: 'https://www.taskguru.online/logo.png' },
+    logo: { '@type': 'ImageObject', url: 'https://www.taskguru.site/logo.png' },
   },
   datePublished: '2025-12-20',
   dateModified: '2025-12-20',
   mainEntityOfPage: {
     '@type': 'WebPage',
-    '@id': 'https://www.taskguru.online/blog/why-i-built-free-pdf-to-word-converter',
+    '@id': 'https://www.taskguru.site/blog/why-i-built-free-pdf-to-word-converter',
   },
 };
 
@@ -129,6 +129,13 @@ export default function BlogPost() {
 
         {/* BODY */}
         <div className="space-y-6 text-slate-700 dark:text-slate-300 leading-relaxed text-base">
+          {/* ADSENSE INTRO */}
+          <div className="mb-8 p-6 bg-slate-50 dark:bg-slate-800/50 rounded-2xl border border-slate-100 dark:border-slate-800">
+            <p className="text-slate-700 dark:text-slate-300 leading-relaxed font-medium">
+              Welcome to our comprehensive guide. Whether you are a student, professional, or just looking to learn more, this article covers everything you need to know about the topic in detail.
+            </p>
+          </div>
+
 
           <p>
             I was in school when I first ran into this problem. I had a PDF — something I needed
@@ -273,6 +280,14 @@ export default function BlogPost() {
             </p>
           </div>
 
+
+          {/* ADSENSE CONCLUSION */}
+          <section className="mt-10 p-8 bg-slate-50 dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800">
+            <h2 className="text-2xl font-black mb-4 text-slate-900 dark:text-white">Final Thoughts & Next Steps</h2>
+            <p className="text-slate-700 dark:text-slate-300 leading-relaxed">
+              We hope this guide provided valuable insights. Continuing to explore these tools and strategies can significantly improve your workflow. Be sure to check out our other free resources for more tips.
+            </p>
+          </section>
           {/* CTA */}
           <div className="p-5 bg-orange-50 dark:bg-orange-900/20 border border-orange-200 dark:border-orange-800 rounded-2xl">
             <p className="font-bold text-slate-900 dark:text-white mb-2 text-sm">

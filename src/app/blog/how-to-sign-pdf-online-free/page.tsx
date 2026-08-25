@@ -9,14 +9,14 @@ export const metadata: Metadata = {
   description: "Sign any PDF document free in your browser — draw your signature, type your name, or add a stamp. No Adobe, no DocuSign subscription, no upload to any server. Works on phone and PC.",
   keywords: "how to sign pdf online free, sign pdf without adobe, free docusign alternative, add signature to pdf free, esign pdf online no account, sign pdf on phone free, electronic signature free online, sign pdf without uploading",
   alternates: {
-    canonical: "https://www.taskguru.online/blog/how-to-sign-pdf-online-free",
+    canonical: "https://www.taskguru.site/blog/how-to-sign-pdf-online-free",
   },
   openGraph: {
     title: "How to Sign a PDF Free — No Adobe, No DocuSign, No Subscription",
     description: "Draw your signature, type a stamp, download a clean signed PDF. Free, no account, works on any device.",
-    url: "https://www.taskguru.online/blog/how-to-sign-pdf-online-free",
+    url: "https://www.taskguru.site/blog/how-to-sign-pdf-online-free",
     type: "article",
-    images: [{ url: "https://www.taskguru.online/og-image.png", width: 1200, height: 630 }],
+    images: [{ url: "https://www.taskguru.site/og-image.png", width: 1200, height: 630 }],
   },
   twitter: {
     card: "summary_large_image",
@@ -31,17 +31,17 @@ const articleSchema = {
   "@type": "Article",
   headline: "How to Sign a PDF Online Free — Without Adobe Acrobat or DocuSign",
   description: "Complete guide to signing PDF documents free — draw, type, or stamp your signature in the browser with no account and no subscription.",
-  author: { "@type": "Person", name: "Shubham Gautam", url: "https://www.taskguru.online/about" },
+  author: { "@type": "Person", name: "Shubham Gautam", url: "https://www.taskguru.site/about" },
   publisher: {
     "@type": "Organization",
     name: "TaskGuru",
-    logo: { "@type": "ImageObject", url: "https://www.taskguru.online/logo.png" },
+    logo: { "@type": "ImageObject", url: "https://www.taskguru.site/logo.png" },
   },
   datePublished: "2026-04-22",
   dateModified: "2026-04-22",
   mainEntityOfPage: {
     "@type": "WebPage",
-    "@id": "https://www.taskguru.online/blog/how-to-sign-pdf-online-free",
+    "@id": "https://www.taskguru.site/blog/how-to-sign-pdf-online-free",
   },
 };
 
@@ -70,7 +70,7 @@ const faqSchema = {
       name: "Can I sign a PDF on my phone for free?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Yes. Open taskguru.online/tools/esign-pdf-no-upload in Chrome or Safari on your Android or iPhone. Upload the PDF, use your finger on the touchscreen canvas to draw your signature, and download the signed PDF directly to your phone. No app download required — it runs entirely in the mobile browser.",
+        text: "Yes. Open taskguru.site/tools/esign-pdf-no-upload in Chrome or Safari on your Android or iPhone. Upload the PDF, use your finger on the touchscreen canvas to draw your signature, and download the signed PDF directly to your phone. No app download required — it runs entirely in the mobile browser.",
       },
     },
     {
@@ -86,7 +86,7 @@ const faqSchema = {
       name: "How do I sign a PDF without printing it?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Use an online e-sign tool like TaskGuru's free PDF signer at taskguru.online/tools/esign-pdf-no-upload. Upload the PDF, draw your signature using your mouse or touchscreen, and download the signed version as a PDF. The entire process takes under a minute — no printing, no scanning, no ink required.",
+        text: "Use an online e-sign tool like TaskGuru's free PDF signer at taskguru.site/tools/esign-pdf-no-upload. Upload the PDF, draw your signature using your mouse or touchscreen, and download the signed version as a PDF. The entire process takes under a minute — no printing, no scanning, no ink required.",
       },
     },
   ],
@@ -193,7 +193,7 @@ export default function BlogPost() {
         </p>
 
         <p>
-          The same tool works on Android and iOS. Open <Link href="/tools/esign-pdf-no-upload" className="text-primary font-bold underline underline-offset-4">taskguru.online/tools/esign-pdf-no-upload</Link> in Chrome or Safari on your phone, tap to upload the PDF from your files, and use your finger to draw on the signature canvas. It detects touch events the same way it detects mouse events. When you download the signed PDF on iPhone, it opens in the Files app. On Android, it goes to your Downloads folder.
+          The same tool works on Android and iOS. Open <Link href="/tools/esign-pdf-no-upload" className="text-primary font-bold underline underline-offset-4">taskguru.site/tools/esign-pdf-no-upload</Link> in Chrome or Safari on your phone, tap to upload the PDF from your files, and use your finger to draw on the signature canvas. It detects touch events the same way it detects mouse events. When you download the signed PDF on iPhone, it opens in the Files app. On Android, it goes to your Downloads folder.
         </p>
 
         <p>

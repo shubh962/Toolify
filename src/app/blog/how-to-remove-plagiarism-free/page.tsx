@@ -8,13 +8,13 @@ export const metadata: Metadata = {
   title: "How to Remove Plagiarism From Your Essay Free — Tested Methods That Actually Work | TaskGuru",
   description: "High similarity score on Turnitin or Grammarly? Here's how to genuinely reduce plagiarism — not trick detectors, but actually rewrite content so it's yours. Free tools included.",
   keywords: "how to remove plagiarism free, plagiarism remover online, reduce similarity index free, remove plagiarism from essay, make text plagiarism free, lower turnitin similarity score",
-  alternates: { canonical: "https://www.taskguru.online/blog/how-to-remove-plagiarism-free" },
+  alternates: { canonical: "https://www.taskguru.site/blog/how-to-remove-plagiarism-free" },
   openGraph: {
     title: "How to Remove Plagiarism From Your Essay Free — What Actually Works",
     description: "High similarity score? Here's how to genuinely fix it — free, no tricks, just methods that work on Turnitin and Grammarly.",
-    url: "https://www.taskguru.online/blog/how-to-remove-plagiarism-free",
+    url: "https://www.taskguru.site/blog/how-to-remove-plagiarism-free",
     type: "article",
-    images: [{ url: "https://www.taskguru.online/og-image.png", width: 1200, height: 630 }],
+    images: [{ url: "https://www.taskguru.site/og-image.png", width: 1200, height: 630 }],
   },
   twitter: {
     card: "summary_large_image",
@@ -29,15 +29,15 @@ const articleSchema = {
   "@type": "Article",
   headline: "How to Remove Plagiarism From Your Essay Free — Tested Methods That Actually Work",
   description: "Practical guide to genuinely reducing plagiarism — not tricking detectors but actually rewriting content properly.",
-  author: { "@type": "Person", name: "Shubham Gautam", url: "https://www.taskguru.online/about" },
+  author: { "@type": "Person", name: "Shubham Gautam", url: "https://www.taskguru.site/about" },
   publisher: {
     "@type": "Organization",
     name: "TaskGuru",
-    logo: { "@type": "ImageObject", url: "https://www.taskguru.online/logo.png" },
+    logo: { "@type": "ImageObject", url: "https://www.taskguru.site/logo.png" },
   },
   datePublished: "2026-04-19",
   dateModified: "2026-04-19",
-  mainEntityOfPage: { "@type": "WebPage", "@id": "https://www.taskguru.online/blog/how-to-remove-plagiarism-free" },
+  mainEntityOfPage: { "@type": "WebPage", "@id": "https://www.taskguru.site/blog/how-to-remove-plagiarism-free" },
 };
 
 const faqSchema = {
@@ -65,7 +65,7 @@ const faqSchema = {
       name: "Can I use a free tool to remove plagiarism from my essay?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "TaskGuru's free AI Paraphraser (taskguru.online/tools/text-paraphraser) rewrites text contextually, which significantly reduces similarity scores by changing sentence structures, not just vocabulary. For best results: paraphrase, manually edit to add your own perspective, then re-run through a plagiarism checker.",
+        text: "TaskGuru's free AI Paraphraser (taskguru.site/tools/text-paraphraser) rewrites text contextually, which significantly reduces similarity scores by changing sentence structures, not just vocabulary. For best results: paraphrase, manually edit to add your own perspective, then re-run through a plagiarism checker.",
       },
     },
     {

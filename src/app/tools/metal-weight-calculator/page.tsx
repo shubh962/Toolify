@@ -4,7 +4,7 @@ import MetalWeightCalculator from '@/components/tools/MetalWeightCalculator';
 // title/description come from tools.ts via generateMetadata in [slug]/page.tsx
 export const metadata: Metadata = {
   alternates: {
-    canonical: 'https://www.taskguru.online/tools/metal-weight-calculator',
+    canonical: 'https://www.taskguru.site/tools/metal-weight-calculator',
   },
 };
 

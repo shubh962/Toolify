@@ -361,6 +361,14 @@ export default function ReduceImageSizePage() {
           </div>
         </section>
 
+
+          {/* ADSENSE CONCLUSION */}
+          <section className="mt-10 p-8 bg-slate-50 dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800">
+            <h2 className="text-2xl font-black mb-4 text-slate-900 dark:text-white">Final Thoughts & Next Steps</h2>
+            <p className="text-slate-700 dark:text-slate-300 leading-relaxed">
+              We hope this guide provided valuable insights. Continuing to explore these tools and strategies can significantly improve your workflow. Be sure to check out our other free resources for more tips.
+            </p>
+          </section>
         {/* CTA */}
         <section className="bg-gradient-to-br from-teal-500 to-cyan-600 rounded-3xl p-8 md:p-10 text-center text-white">
           <h2 className="text-2xl md:text-3xl font-bold mb-3">Reduce Your Image Size Right Now — Free</h2>

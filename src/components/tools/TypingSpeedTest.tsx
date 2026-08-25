@@ -90,7 +90,7 @@ const toolSchema = {
   '@context': 'https://schema.org',
   '@type': ['WebApplication', 'SoftwareApplication'],
   name: 'Free Typing Speed Test Online — TaskGuru',
-  url: 'https://www.taskguru.online/tools/typing-speed-test',
+  url: 'https://www.taskguru.site/tools/typing-speed-test',
   applicationCategory: 'Utility',
   operatingSystem: 'Any',
   browserRequirements: 'Requires JavaScript',
@@ -106,7 +106,7 @@ const toolSchema = {
     'Real-time character highlighting',
   ],
   offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD', availability: 'https://schema.org/InStock' },
-  publisher: { '@type': 'Organization', name: 'TaskGuru', url: 'https://www.taskguru.online', logo: { '@type': 'ImageObject', url: 'https://www.taskguru.online/logo.png' } },
+  publisher: { '@type': 'Organization', name: 'TaskGuru', url: 'https://www.taskguru.site', logo: { '@type': 'ImageObject', url: 'https://www.taskguru.site/logo.png' } },
 };
 
 const faqSchema = {

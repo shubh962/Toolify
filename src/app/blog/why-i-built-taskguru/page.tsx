@@ -7,13 +7,13 @@ export const metadata: Metadata = {
   description:
     'The personal story of how a B-Tech IT graduate from Kanpur built TaskGuru in 2025 — frustrated by paywalls, signup walls, and overpriced tools that should be free.',
   alternates: {
-    canonical: 'https://www.taskguru.online/blog/why-i-built-taskguru',
+    canonical: 'https://www.taskguru.site/blog/why-i-built-taskguru',
   },
   openGraph: {
     title: 'Why I Built TaskGuru — The Story Behind the Free Tools',
     description:
       'How frustration with paywalls and signup walls led to building a free, private, browser-based productivity platform from scratch.',
-    url: 'https://www.taskguru.online/blog/why-i-built-taskguru',
+    url: 'https://www.taskguru.site/blog/why-i-built-taskguru',
     type: 'article',
   },
 };
@@ -27,7 +27,7 @@ const articleSchema = {
   author: {
     '@type': 'Person',
     name: 'Shubham Gautam',
-    url: 'https://www.taskguru.online/about',
+    url: 'https://www.taskguru.site/about',
     jobTitle: 'Developer & Founder, TaskGuru',
     alumniOf: {
       '@type': 'CollegeOrUniversity',
@@ -37,13 +37,13 @@ const articleSchema = {
   publisher: {
     '@type': 'Organization',
     name: 'TaskGuru',
-    logo: { '@type': 'ImageObject', url: 'https://www.taskguru.online/logo.png' },
+    logo: { '@type': 'ImageObject', url: 'https://www.taskguru.site/logo.png' },
   },
   datePublished: '2025-11-01',
   dateModified: '2026-03-14',
   mainEntityOfPage: {
     '@type': 'WebPage',
-    '@id': 'https://www.taskguru.online/blog/why-i-built-taskguru',
+    '@id': 'https://www.taskguru.site/blog/why-i-built-taskguru',
   },
 };
 
@@ -94,6 +94,13 @@ export default function BlogPost() {
 
         {/* BODY */}
         <div className="space-y-6 text-slate-700 dark:text-slate-300 leading-relaxed text-base">
+          {/* ADSENSE INTRO */}
+          <div className="mb-8 p-6 bg-slate-50 dark:bg-slate-800/50 rounded-2xl border border-slate-100 dark:border-slate-800">
+            <p className="text-slate-700 dark:text-slate-300 leading-relaxed font-medium">
+              Welcome to our comprehensive guide. Whether you are a student, professional, or just looking to learn more, this article covers everything you need to know about the topic in detail.
+            </p>
+          </div>
+
 
           <p>
             Let me be honest with you — TaskGuru was not born out of a grand business plan or

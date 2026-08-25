@@ -11,16 +11,16 @@ export const metadata: Metadata = {
   keywords:
     "how to make ai text undetectable, bypass ai detection free, humanize ai text free, chatgpt text to human text, turnitin ai detection, ai text to human converter, make chatgpt essay undetectable, free ai humanizer, rewrite ai text to avoid detection, ai content detector bypass",
   alternates: {
-    canonical: "https://www.taskguru.online/blog/how-to-make-ai-text-undetectable-free-2026",
+    canonical: "https://www.taskguru.site/blog/how-to-make-ai-text-undetectable-free-2026",
   },
   openGraph: {
     title: "Your Professor Ran Your Essay Through an AI Detector. Here's What to Do.",
     description: "Step-by-step: how to humanize ChatGPT and Gemini text so it passes Turnitin and GPTZero. Free, tested methods — no paid tools.",
-    url: "https://www.taskguru.online/blog/how-to-make-ai-text-undetectable-free-2026",
+    url: "https://www.taskguru.site/blog/how-to-make-ai-text-undetectable-free-2026",
     type: "article",
     images: [
       {
-        url: "https://www.taskguru.online/og-image.png",
+        url: "https://www.taskguru.site/og-image.png",
         width: 1200,
         height: 630,
         alt: "How to make AI text undetectable — TaskGuru",
@@ -46,7 +46,7 @@ const faqSchema = {
       name: "How do I make AI-generated text undetectable for free?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "The most effective free method is to paraphrase the AI-generated text using a humanizer tool, then verify the result with an AI content detector before submitting. TaskGuru's free AI Paraphraser (taskguru.online/tools/text-paraphraser) rewrites ChatGPT and Gemini text to sound natural. After paraphrasing, check it with the free AI Content Detector. You should also manually edit the output — add your own examples, opinions, and specific details that an AI wouldn't know.",
+        text: "The most effective free method is to paraphrase the AI-generated text using a humanizer tool, then verify the result with an AI content detector before submitting. TaskGuru's free AI Paraphraser (taskguru.site/tools/text-paraphraser) rewrites ChatGPT and Gemini text to sound natural. After paraphrasing, check it with the free AI Content Detector. You should also manually edit the output — add your own examples, opinions, and specific details that an AI wouldn't know.",
       },
     },
     {
@@ -78,7 +78,7 @@ const faqSchema = {
       name: "What is the best free AI humanizer in 2026?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "TaskGuru's free AI Text Paraphraser (taskguru.online/tools/text-paraphraser) is one of the best free AI humanizers available in 2026. It rewrites text contextually — not just word-by-word — to produce natural, human-sounding output. It requires no signup, has no word limit, and is completely free. After humanizing, use TaskGuru's free AI Content Detector to verify the result before submitting.",
+        text: "TaskGuru's free AI Text Paraphraser (taskguru.site/tools/text-paraphraser) is one of the best free AI humanizers available in 2026. It rewrites text contextually — not just word-by-word — to produce natural, human-sounding output. It requires no signup, has no word limit, and is completely free. After humanizing, use TaskGuru's free AI Content Detector to verify the result before submitting.",
       },
     },
     {

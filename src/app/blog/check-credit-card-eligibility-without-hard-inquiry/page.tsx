@@ -70,7 +70,7 @@ export const metadata: Metadata = {
 
   alternates: {
     canonical:
-      "https://www.taskguru.online/blog/check-credit-card-eligibility-without-hard-inquiry",
+      "https://www.taskguru.site/blog/check-credit-card-eligibility-without-hard-inquiry",
   },
 
   openGraph: {
@@ -78,7 +78,7 @@ export const metadata: Metadata = {
       "Check Credit Card Eligibility Without Hard Inquiry — Private Approval Check Guide",
     description:
       "Estimate your credit card approval chances privately. No hard inquiry. No spam calls. No signup required. Learn the smart way to check eligibility in 2026.",
-    url: "https://www.taskguru.online/blog/check-credit-card-eligibility-without-hard-inquiry",
+    url: "https://www.taskguru.site/blog/check-credit-card-eligibility-without-hard-inquiry",
     type: "article",
     publishedTime: "2026-05-12T00:00:00Z",
     authors: ["TaskGuru"],
@@ -114,17 +114,17 @@ const articleSchema = {
   author: {
     "@type": "Organization",
     name: "TaskGuru",
-    url: "https://www.taskguru.online",
+    url: "https://www.taskguru.site",
   },
   publisher: {
     "@type": "Organization",
     name: "TaskGuru",
-    url: "https://www.taskguru.online",
+    url: "https://www.taskguru.site",
   },
   mainEntityOfPage: {
     "@type": "WebPage",
     "@id":
-      "https://www.taskguru.online/blog/check-credit-card-eligibility-without-hard-inquiry",
+      "https://www.taskguru.site/blog/check-credit-card-eligibility-without-hard-inquiry",
   },
 };
 
@@ -629,7 +629,7 @@ export default function CreditEligibilityBlog() {
                 },
                 {
                   title: "Open TaskGuru's Credit Card Eligibility Checker",
-                  body: "Navigate to taskguru.online/tools/credit-card-eligibility-checker. No account creation, no OTP, no PAN or Aadhaar entry. The tool loads entirely in your browser.",
+                  body: "Navigate to taskguru.site/tools/credit-card-eligibility-checker. No account creation, no OTP, no PAN or Aadhaar entry. The tool loads entirely in your browser.",
                 },
                 {
                   title: "Enter your financial details in the local form",

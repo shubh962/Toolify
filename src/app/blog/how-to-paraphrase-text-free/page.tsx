@@ -8,13 +8,13 @@ export const metadata: Metadata = {
   title: "How to Paraphrase Text Properly — Free Methods That Don't Sound Robotic | TaskGuru",
   description: "Most paraphrasing makes text sound worse, not better. Here's how to actually paraphrase — what it means, when to do it, and which free tools produce natural output without synonym swapping.",
   keywords: "how to paraphrase text, paraphrase tool free online, rewrite text free, paraphrase without plagiarizing, how to paraphrase ai text, free paraphrasing tool no signup",
-  alternates: { canonical: "https://www.taskguru.online/blog/how-to-paraphrase-text-free" },
+  alternates: { canonical: "https://www.taskguru.site/blog/how-to-paraphrase-text-free" },
   openGraph: {
     title: "How to Paraphrase Text Properly — Free, No Robotic Output",
     description: "What paraphrasing actually means, when to do it, and which free tools produce natural results. Not synonym swapping.",
-    url: "https://www.taskguru.online/blog/how-to-paraphrase-text-free",
+    url: "https://www.taskguru.site/blog/how-to-paraphrase-text-free",
     type: "article",
-    images: [{ url: "https://www.taskguru.online/og-image.png", width: 1200, height: 630 }],
+    images: [{ url: "https://www.taskguru.site/og-image.png", width: 1200, height: 630 }],
   },
   twitter: {
     card: "summary_large_image",
@@ -29,15 +29,15 @@ const articleSchema = {
   "@type": "Article",
   headline: "How to Paraphrase Text Properly — Free Methods That Don't Sound Robotic",
   description: "A practical guide to paraphrasing — what it actually means, how to do it well, and which free tools produce genuinely natural output.",
-  author: { "@type": "Person", name: "Shubham Gautam", url: "https://www.taskguru.online/about" },
+  author: { "@type": "Person", name: "Shubham Gautam", url: "https://www.taskguru.site/about" },
   publisher: {
     "@type": "Organization",
     name: "TaskGuru",
-    logo: { "@type": "ImageObject", url: "https://www.taskguru.online/logo.png" },
+    logo: { "@type": "ImageObject", url: "https://www.taskguru.site/logo.png" },
   },
   datePublished: "2026-04-19",
   dateModified: "2026-04-19",
-  mainEntityOfPage: { "@type": "WebPage", "@id": "https://www.taskguru.online/blog/how-to-paraphrase-text-free" },
+  mainEntityOfPage: { "@type": "WebPage", "@id": "https://www.taskguru.site/blog/how-to-paraphrase-text-free" },
 };
 
 const faqSchema = {
@@ -65,7 +65,7 @@ const faqSchema = {
       name: "What is the best free paraphrasing tool that sounds natural?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "TaskGuru's free AI Paraphraser (taskguru.online/tools/text-paraphraser) uses contextual rewriting — not synonym swapping — to produce natural output. It understands the meaning of sentences before rewriting them. No word limit, no account, completely free. After paraphrasing, check the result with TaskGuru's free AI Content Detector.",
+        text: "TaskGuru's free AI Paraphraser (taskguru.site/tools/text-paraphraser) uses contextual rewriting — not synonym swapping — to produce natural output. It understands the meaning of sentences before rewriting them. No word limit, no account, completely free. After paraphrasing, check the result with TaskGuru's free AI Content Detector.",
       },
     },
     {

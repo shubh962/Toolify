@@ -10,7 +10,7 @@ export default function GlobalShare() {
   // Home page par share button na dikhane ke liye (Optional)
   if (pathname === '/') return null;
 
-  const currentUrl = `https://www.taskguru.online${pathname}`;
+  const currentUrl = `https://www.taskguru.site${pathname}`;
 
   const handleShare = async () => {
     if (navigator.share) {

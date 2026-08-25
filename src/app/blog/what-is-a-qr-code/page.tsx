@@ -8,7 +8,7 @@ export const metadata: Metadata = {
     'QR codes store links, WiFi passwords, contacts, and more in a scannable square pattern. Learn exactly how QR codes work, what types exist, and generate your own free QR code in 30 seconds — no app needed.',
   keywords: 'what is a qr code, qr code meaning, how does a qr code work, qr code scanner, free qr code generator, create qr code online free, qr code vs barcode, static qr code, dynamic qr code, qr code full form',
   alternates: {
-    canonical: 'https://www.taskguru.online/blog/what-is-a-qr-code',
+    canonical: 'https://www.taskguru.site/blog/what-is-a-qr-code',
   },
   twitter: {
     card: 'summary_large_image',
@@ -20,9 +20,9 @@ export const metadata: Metadata = {
     title: 'What is a QR Code? Meaning, How It Works & Free QR Code Generator | TaskGuru',
     description:
       'QR codes store links, WiFi passwords, contacts, and more in a scannable square pattern. Learn exactly how QR codes work and generate your own free QR code in 30 seconds — no app needed.',
-    url: 'https://www.taskguru.online/blog/what-is-a-qr-code',
+    url: 'https://www.taskguru.site/blog/what-is-a-qr-code',
     type: 'article',
-    images: [{ url: 'https://www.taskguru.online/og-image.png', width: 1200, height: 630 }],
+    images: [{ url: 'https://www.taskguru.site/og-image.png', width: 1200, height: 630 }],
   },
 };
 
@@ -35,18 +35,18 @@ const articleSchema = {
   author: {
     '@type': 'Person',
     name: 'Shubham Gautam',
-    url: 'https://www.taskguru.online/about',
+    url: 'https://www.taskguru.site/about',
   },
   publisher: {
     '@type': 'Organization',
     name: 'TaskGuru',
-    logo: { '@type': 'ImageObject', url: 'https://www.taskguru.online/logo.png' },
+    logo: { '@type': 'ImageObject', url: 'https://www.taskguru.site/logo.png' },
   },
   datePublished: '2026-03-14',
   dateModified: '2026-04-29',
   mainEntityOfPage: {
     '@type': 'WebPage',
-    '@id': 'https://www.taskguru.online/blog/what-is-a-qr-code',
+    '@id': 'https://www.taskguru.site/blog/what-is-a-qr-code',
   },
 };
 
@@ -118,9 +118,9 @@ const breadcrumbSchema = {
   '@context': 'https://schema.org',
   '@type': 'BreadcrumbList',
   itemListElement: [
-    { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.taskguru.online' },
-    { '@type': 'ListItem', position: 2, name: 'Blog', item: 'https://www.taskguru.online/blog' },
-    { '@type': 'ListItem', position: 3, name: 'What is a QR Code?', item: 'https://www.taskguru.online/blog/what-is-a-qr-code' },
+    { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.taskguru.site' },
+    { '@type': 'ListItem', position: 2, name: 'Blog', item: 'https://www.taskguru.site/blog' },
+    { '@type': 'ListItem', position: 3, name: 'What is a QR Code?', item: 'https://www.taskguru.site/blog/what-is-a-qr-code' },
   ],
 };
 
@@ -132,7 +132,7 @@ const howToSchema = {
   totalTime: 'PT1M',
   tool: [{ '@type': 'HowToTool', name: 'TaskGuru Free QR Code Generator' }],
   step: [
-    { '@type': 'HowToStep', position: 1, name: 'Open QR Code Generator', text: 'Go to TaskGuru QR & Barcode Generator — no sign-up required.', url: 'https://www.taskguru.online/tools/qr-barcode-generator' },
+    { '@type': 'HowToStep', position: 1, name: 'Open QR Code Generator', text: 'Go to TaskGuru QR & Barcode Generator — no sign-up required.', url: 'https://www.taskguru.site/tools/qr-barcode-generator' },
     { '@type': 'HowToStep', position: 2, name: 'Select QR Code tab', text: 'Click the QR Code tab. The tool also supports barcode formats.' },
     { '@type': 'HowToStep', position: 3, name: 'Enter your content', text: 'Paste a URL, WiFi password, or any text you want to encode. Preview updates in real time.' },
     { '@type': 'HowToStep', position: 4, name: 'Set size and download', text: 'Choose 512px for cards, 1024px for print. Click Download PNG — ready instantly.' },
@@ -647,6 +647,14 @@ export default function BlogPost() {
             </p>
           </section>
 
+
+          {/* ADSENSE CONCLUSION */}
+          <section className="mt-10 p-8 bg-slate-50 dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800">
+            <h2 className="text-2xl font-black mb-4 text-slate-900 dark:text-white">Final Thoughts & Next Steps</h2>
+            <p className="text-slate-700 dark:text-slate-300 leading-relaxed">
+              We hope this guide provided valuable insights. Continuing to explore these tools and strategies can significantly improve your workflow. Be sure to check out our other free resources for more tips.
+            </p>
+          </section>
           {/* RELATED ARTICLES */}
           <div className="pt-8 border-t border-slate-200 dark:border-slate-700">
             <h3 className="text-base font-black text-slate-900 dark:text-white mb-4">

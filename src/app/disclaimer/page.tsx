@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   description:
     "Official legal disclaimer for TaskGuru. Understand the limitations of our AI-driven productivity tools, our data handling ethics, and user responsibilities.",
   alternates: {
-    canonical: "https://www.taskguru.online/disclaimer",
+    canonical: "https://www.taskguru.site/disclaimer",
   },
   robots: {
     index: true,
@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     description:
       "Official legal disclaimer for TaskGuru. Understand the limitations of our AI tools, data handling ethics, and user responsibilities.",
     type: "website",
-    url: "https://www.taskguru.online/disclaimer",
+    url: "https://www.taskguru.site/disclaimer",
   },
 };
 
@@ -153,7 +153,7 @@ export default function DisclaimerPage() {
                 <Globe className="w-6 h-6 text-indigo-600 flex-shrink-0" />
                 <div>
                   <span className="text-xs font-bold text-gray-400 uppercase tracking-widest">Main Domain</span>
-                  <p className="font-bold underline">https://taskguru.online</p>
+                  <p className="font-bold underline">https://taskguru.site</p>
                 </div>
               </div>
             </div>

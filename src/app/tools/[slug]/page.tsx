@@ -166,7 +166,7 @@ const toolSeoOverrides: Record<string, { title: string; description: string }> =
   "pomodoro-timer": {
   title: "Free Pomodoro Timer Online — Focus Timer with Task List | TaskGuru",
   description: "Free Pomodoro timer with 25/5/15 intervals, task list, sound alerts, and session tracking. No download, no sign-up. Start focusing in seconds.",
-  canonical: "https://www.taskguru.online/tools/pomodoro-timer",
+  canonical: "https://www.taskguru.site/tools/pomodoro-timer",
 },
   "credit-card-eligibility-checker": {
   title: "Credit Card Eligibility Checker Without Credit Check — Free | TaskGuru",
@@ -188,14 +188,14 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const override = toolSeoOverrides[slug];
   const finalTitle = override?.title ?? `${tool.title} | TaskGuru`;
   const finalDesc = override?.description ?? tool.description;
-  const canonical = `https://www.taskguru.online/tools/${slug}`;
+  const canonical = `https://www.taskguru.site/tools/${slug}`;
 
   const breadcrumbSchema = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Home", item: "https://www.taskguru.online" },
-      { "@type": "ListItem", position: 2, name: "Tools", item: "https://www.taskguru.online/tools" },
+      { "@type": "ListItem", position: 1, name: "Home", item: "https://www.taskguru.site" },
+      { "@type": "ListItem", position: 2, name: "Tools", item: "https://www.taskguru.site/tools" },
       { "@type": "ListItem", position: 3, name: tool.title, item: canonical },
     ],
   };
@@ -212,7 +212,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     publisher: {
       "@type": "Organization",
       name: "TaskGuru",
-      url: "https://www.taskguru.online",
+      url: "https://www.taskguru.site",
     },
   };
 
@@ -227,7 +227,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
       type: "website",
       url: canonical,
       siteName: "TaskGuru",
-      images: [{ url: "https://www.taskguru.online/og-image.png", width: 1200, height: 630 }],
+      images: [{ url: "https://www.taskguru.site/og-image.png", width: 1200, height: 630 }],
     },
     twitter: {
       card: "summary_large_image",
@@ -305,9 +305,9 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
               "@context": "https://schema.org",
               "@type": "BreadcrumbList",
               itemListElement: [
-                { "@type": "ListItem", position: 1, name: "Home", item: "https://www.taskguru.online" },
-                { "@type": "ListItem", position: 2, name: "Free Tools", item: "https://www.taskguru.online/tools" },
-                { "@type": "ListItem", position: 3, name: tool.title, item: `https://www.taskguru.online/tools/${tool.slug}` },
+                { "@type": "ListItem", position: 1, name: "Home", item: "https://www.taskguru.site" },
+                { "@type": "ListItem", position: 2, name: "Free Tools", item: "https://www.taskguru.site/tools" },
+                { "@type": "ListItem", position: 3, name: tool.title, item: `https://www.taskguru.site/tools/${tool.slug}` },
               ],
             }),
           }}

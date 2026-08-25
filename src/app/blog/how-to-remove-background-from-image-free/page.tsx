@@ -9,14 +9,14 @@ export const metadata: Metadata = {
   description: "Remove the background from any photo free — AI does it in seconds, works in your browser, no Photoshop, no app, no account. Download transparent PNG or white background instantly.",
   keywords: "how to remove background from image free, remove background free online, background remover no signup, remove white background from image, transparent background maker free, remove photo background without photoshop, background remover ai free",
   alternates: {
-    canonical: "https://www.taskguru.online/blog/how-to-remove-background-from-image-free",
+    canonical: "https://www.taskguru.site/blog/how-to-remove-background-from-image-free",
   },
   openGraph: {
     title: "Remove Background From Image Free — AI Does It in Seconds, No Photoshop",
     description: "AI background removal, instant download, transparent PNG or white background. No account, no app, completely free.",
-    url: "https://www.taskguru.online/blog/how-to-remove-background-from-image-free",
+    url: "https://www.taskguru.site/blog/how-to-remove-background-from-image-free",
     type: "article",
-    images: [{ url: "https://www.taskguru.online/og-image.png", width: 1200, height: 630 }],
+    images: [{ url: "https://www.taskguru.site/og-image.png", width: 1200, height: 630 }],
   },
   twitter: {
     card: "summary_large_image",
@@ -31,17 +31,17 @@ const articleSchema = {
   "@type": "Article",
   headline: "How to Remove Background From an Image Free — No Photoshop, No App",
   description: "Complete guide to AI-powered background removal — how it works, when to use it, and how to get the best results for ID photos, product images, and thumbnails.",
-  author: { "@type": "Person", name: "Shubham Gautam", url: "https://www.taskguru.online/about" },
+  author: { "@type": "Person", name: "Shubham Gautam", url: "https://www.taskguru.site/about" },
   publisher: {
     "@type": "Organization",
     name: "TaskGuru",
-    logo: { "@type": "ImageObject", url: "https://www.taskguru.online/logo.png" },
+    logo: { "@type": "ImageObject", url: "https://www.taskguru.site/logo.png" },
   },
   datePublished: "2026-04-22",
   dateModified: "2026-04-22",
   mainEntityOfPage: {
     "@type": "WebPage",
-    "@id": "https://www.taskguru.online/blog/how-to-remove-background-from-image-free",
+    "@id": "https://www.taskguru.site/blog/how-to-remove-background-from-image-free",
   },
 };
 
@@ -54,7 +54,7 @@ const faqSchema = {
       name: "Which is the best free background remover online without signup?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "TaskGuru's free Background Remover (taskguru.online/tools/background-remover) uses AI to remove backgrounds instantly — no account, no signup, no watermark on the download. It works on people, products, and objects. The output is a transparent PNG that you can place on any background in your design tool.",
+        text: "TaskGuru's free Background Remover (taskguru.site/tools/background-remover) uses AI to remove backgrounds instantly — no account, no signup, no watermark on the download. It works on people, products, and objects. The output is a transparent PNG that you can place on any background in your design tool.",
       },
     },
     {
@@ -70,7 +70,7 @@ const faqSchema = {
       name: "Can I remove the background from a photo on my phone for free?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Yes. Open taskguru.online/tools/background-remover in Chrome or Safari on your Android or iPhone. Upload a photo from your camera roll, the AI processes it, and you download the transparent PNG directly to your phone. No app download required. On iPhone, save it from Safari's share sheet to Photos or Files.",
+        text: "Yes. Open taskguru.site/tools/background-remover in Chrome or Safari on your Android or iPhone. Upload a photo from your camera roll, the AI processes it, and you download the transparent PNG directly to your phone. No app download required. On iPhone, save it from Safari's share sheet to Photos or Files.",
       },
     },
     {

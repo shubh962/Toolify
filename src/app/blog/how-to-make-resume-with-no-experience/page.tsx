@@ -7,13 +7,13 @@ export const metadata: Metadata = {
   description:
     'Learn how to write a professional resume with no work experience in 2026. Step-by-step guide for students, fresh graduates, and career changers — with free templates.',
   alternates: {
-    canonical: 'https://www.taskguru.online/blog/how-to-make-resume-with-no-experience',
+    canonical: 'https://www.taskguru.site/blog/how-to-make-resume-with-no-experience',
   },
   openGraph: {
     title: 'How to Make a Resume With No Experience (2026 Guide)',
     description:
       'A complete guide to writing a resume when you have no work experience — covering skills, education, projects, and free ATS-friendly templates.',
-    url: 'https://www.taskguru.online/blog/how-to-make-resume-with-no-experience',
+    url: 'https://www.taskguru.site/blog/how-to-make-resume-with-no-experience',
     type: 'article',
   },
 };
@@ -27,18 +27,18 @@ const articleSchema = {
   author: {
     '@type': 'Person',
     name: 'Shubham Gautam',
-    url: 'https://www.taskguru.online/about',
+    url: 'https://www.taskguru.site/about',
   },
   publisher: {
     '@type': 'Organization',
     name: 'TaskGuru',
-    logo: { '@type': 'ImageObject', url: 'https://www.taskguru.online/logo.png' },
+    logo: { '@type': 'ImageObject', url: 'https://www.taskguru.site/logo.png' },
   },
   datePublished: '2026-03-14',
   dateModified: '2026-03-14',
   mainEntityOfPage: {
     '@type': 'WebPage',
-    '@id': 'https://www.taskguru.online/blog/how-to-make-resume-with-no-experience',
+    '@id': 'https://www.taskguru.site/blog/how-to-make-resume-with-no-experience',
   },
 };
 
@@ -645,6 +645,14 @@ export default function BlogPost() {
             </p>
           </section>
 
+
+          {/* ADSENSE CONCLUSION */}
+          <section className="mt-10 p-8 bg-slate-50 dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800">
+            <h2 className="text-2xl font-black mb-4 text-slate-900 dark:text-white">Final Thoughts & Next Steps</h2>
+            <p className="text-slate-700 dark:text-slate-300 leading-relaxed">
+              We hope this guide provided valuable insights. Continuing to explore these tools and strategies can significantly improve your workflow. Be sure to check out our other free resources for more tips.
+            </p>
+          </section>
           {/* RELATED ARTICLES */}
           <div className="pt-8 border-t border-slate-200 dark:border-slate-700">
             <h3 className="text-base font-black text-slate-900 dark:text-white mb-4">

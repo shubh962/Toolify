@@ -7,13 +7,13 @@ export const metadata: Metadata = {
   description:
     'Learn what OCR (Optical Character Recognition) is, how it works, and how to extract text from images and scanned PDFs for free — no software required.',
   alternates: {
-    canonical: 'https://www.taskguru.online/blog/what-is-ocr-image-to-text',
+    canonical: 'https://www.taskguru.site/blog/what-is-ocr-image-to-text',
   },
   openGraph: {
     title: 'What is OCR? How Image to Text Technology Works',
     description:
       'A complete plain-English guide to Optical Character Recognition — what it is, how it works, and how to use it free in your browser today.',
-    url: 'https://www.taskguru.online/blog/what-is-ocr-image-to-text',
+    url: 'https://www.taskguru.site/blog/what-is-ocr-image-to-text',
     type: 'article',
   },
 };
@@ -27,18 +27,18 @@ const articleSchema = {
   author: {
     '@type': 'Person',
     name: 'Shubham Gautam',
-    url: 'https://www.taskguru.online/about',
+    url: 'https://www.taskguru.site/about',
   },
   publisher: {
     '@type': 'Organization',
     name: 'TaskGuru',
-    logo: { '@type': 'ImageObject', url: 'https://www.taskguru.online/logo.png' },
+    logo: { '@type': 'ImageObject', url: 'https://www.taskguru.site/logo.png' },
   },
   datePublished: '2026-03-14',
   dateModified: '2026-03-14',
   mainEntityOfPage: {
     '@type': 'WebPage',
-    '@id': 'https://www.taskguru.online/blog/what-is-ocr-image-to-text',
+    '@id': 'https://www.taskguru.site/blog/what-is-ocr-image-to-text',
   },
 };
 

@@ -9,14 +9,14 @@ export const metadata: Metadata = {
   description: "Compress any PDF file size free online — reduce to 200KB, 1MB, or 2MB without losing quality. No software, no account, no watermark. Works on Windows, Mac, Android, iPhone.",
   keywords: "how to compress pdf free, compress pdf file size online, reduce pdf size to 1mb, compress pdf to 200kb, pdf compressor free no watermark, reduce pdf size without losing quality, compress pdf for email free",
   alternates: {
-    canonical: "https://www.taskguru.online/blog/how-to-compress-pdf-free",
+    canonical: "https://www.taskguru.site/blog/how-to-compress-pdf-free",
   },
   openGraph: {
     title: "How to Compress PDF Size Free — Reduce to 200KB, 1MB, or Any Target",
     description: "Compress any PDF free in your browser. No software, no account, no quality loss you can see. Works on any device.",
-    url: "https://www.taskguru.online/blog/how-to-compress-pdf-free",
+    url: "https://www.taskguru.site/blog/how-to-compress-pdf-free",
     type: "article",
-    images: [{ url: "https://www.taskguru.online/og-image.png", width: 1200, height: 630 }],
+    images: [{ url: "https://www.taskguru.site/og-image.png", width: 1200, height: 630 }],
   },
   twitter: {
     card: "summary_large_image",
@@ -31,17 +31,17 @@ const articleSchema = {
   "@type": "Article",
   headline: "How to Compress PDF File Size Free — Reduce PDF to 200KB, 1MB, 2MB Online",
   description: "Complete guide to compressing PDF files free — for email, government portals, college portals, and anywhere with size limits.",
-  author: { "@type": "Person", name: "Shubham Gautam", url: "https://www.taskguru.online/about" },
+  author: { "@type": "Person", name: "Shubham Gautam", url: "https://www.taskguru.site/about" },
   publisher: {
     "@type": "Organization",
     name: "TaskGuru",
-    logo: { "@type": "ImageObject", url: "https://www.taskguru.online/logo.png" },
+    logo: { "@type": "ImageObject", url: "https://www.taskguru.site/logo.png" },
   },
   datePublished: "2026-04-22",
   dateModified: "2026-04-22",
   mainEntityOfPage: {
     "@type": "WebPage",
-    "@id": "https://www.taskguru.online/blog/how-to-compress-pdf-free",
+    "@id": "https://www.taskguru.site/blog/how-to-compress-pdf-free",
   },
 };
 
@@ -54,7 +54,7 @@ const faqSchema = {
       name: "How do I compress a PDF to under 1MB free?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Use TaskGuru's free PDF Compressor at taskguru.online/tools/pdf-compressor. Upload your PDF, the tool compresses embedded images and optimizes the file structure, and you download a smaller version. Most PDFs reduce by 60-80%. A 5MB PDF typically compresses to 1MB or under. No account, no watermark, runs in your browser.",
+        text: "Use TaskGuru's free PDF Compressor at taskguru.site/tools/pdf-compressor. Upload your PDF, the tool compresses embedded images and optimizes the file structure, and you download a smaller version. Most PDFs reduce by 60-80%. A 5MB PDF typically compresses to 1MB or under. No account, no watermark, runs in your browser.",
       },
     },
     {
