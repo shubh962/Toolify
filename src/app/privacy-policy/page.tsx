@@ -21,7 +21,7 @@ export const metadata: Metadata = {
   description:
     "Read the TaskGuru Privacy Policy. We detail our Zero-Storage guarantee, Google AdSense compliance, DART cookies, GDPR rights, and data security practices.",
   alternates: {
-    canonical: "https://www.taskguru.online/privacy-policy",
+    canonical: "https://www.taskguru.site/privacy-policy",
   },
 };
 
@@ -62,7 +62,7 @@ export default function PrivacyPolicyPage() {
           </h2>
           <p className="mb-4 text-gray-600 dark:text-gray-400 leading-relaxed">
             TaskGuru (&quot;we&quot;, &quot;us&quot;, or &quot;our&quot;) operates the website{" "}
-            <strong>taskguru.online</strong>. This Privacy Policy explains what information
+            <strong>taskguru.site</strong>. This Privacy Policy explains what information
             we collect, how we use it, and what rights you have over your data. By using
             our website, you agree to the practices described in this policy.
           </p>

@@ -7,13 +7,13 @@ export const metadata: Metadata = {
   description:
     'Learn how to paraphrase text correctly — 5 proven techniques to rewrite sentences, avoid plagiarism, and improve your writing. Includes free paraphrasing tool.',
   alternates: {
-    canonical: 'https://www.taskguru.online/blog/how-to-paraphrase-text',
+    canonical: 'https://www.taskguru.site/blog/how-to-paraphrase-text',
   },
   openGraph: {
     title: 'How to Paraphrase Text (Without Plagiarism) — 2026 Guide',
     description:
       'A complete guide to paraphrasing — techniques, examples, and a free AI tool to rewrite any text instantly.',
-    url: 'https://www.taskguru.online/blog/how-to-paraphrase-text',
+    url: 'https://www.taskguru.site/blog/how-to-paraphrase-text',
     type: 'article',
   },
 };
@@ -27,18 +27,18 @@ const articleSchema = {
   author: {
     '@type': 'Person',
     name: 'Shubham Gautam',
-    url: 'https://www.taskguru.online/about',
+    url: 'https://www.taskguru.site/about',
   },
   publisher: {
     '@type': 'Organization',
     name: 'TaskGuru',
-    logo: { '@type': 'ImageObject', url: 'https://www.taskguru.online/logo.png' },
+    logo: { '@type': 'ImageObject', url: 'https://www.taskguru.site/logo.png' },
   },
   datePublished: '2026-03-14',
   dateModified: '2026-03-14',
   mainEntityOfPage: {
     '@type': 'WebPage',
-    '@id': 'https://www.taskguru.online/blog/how-to-paraphrase-text',
+    '@id': 'https://www.taskguru.site/blog/how-to-paraphrase-text',
   },
 };
 

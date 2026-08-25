@@ -11,14 +11,14 @@ export const metadata: Metadata = {
     "ats score app", "cover letter builder", "resume templates android",
     "free resume app 2026", "Ai Resume Maker",
   ],
-  alternates: { canonical: "https://www.taskguru.online/apps/pro-resume-maker" },
+  alternates: { canonical: "https://www.taskguru.site/apps/pro-resume-maker" },
   openGraph: {
     title: "Pro Resume Maker & CV Builder — Free ATS Resume App",
     description: "9 ATS templates, PDF export, offline editing, ATS scoring — free Android app. No login required.",
-    url: "https://www.taskguru.online/apps/pro-resume-maker",
+    url: "https://www.taskguru.site/apps/pro-resume-maker",
     siteName: "TaskGuru",
     type: "website",
-    images: [{ url: "https://www.taskguru.online/og-image.png", width: 1200, height: 630 }],
+    images: [{ url: "https://www.taskguru.site/og-image.png", width: 1200, height: 630 }],
   },
   twitter: {
     card: "summary_large_image",
@@ -38,7 +38,7 @@ const appSchema = {
     "Build ATS-friendly resumes with 9 professional templates, instant PDF export, ATS scoring and offline editing. No login required.",
   offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
   author: { "@type": "Person", name: "Shubham Gautam", url: "https://github.com/shubh962" },
-  publisher: { "@type": "Organization", name: "TaskGuru", url: "https://www.taskguru.online" },
+  publisher: { "@type": "Organization", name: "TaskGuru", url: "https://www.taskguru.site" },
   url: "https://indusapp.store/d6vxlznp",
   downloadUrl: "https://indusapp.store/d6vxlznp",
   featureList: [
@@ -50,7 +50,7 @@ const appSchema = {
     "No Login Required",
     "Privacy First",
   ],
-  screenshot: "https://www.taskguru.online/og-image.png",
+  screenshot: "https://www.taskguru.site/og-image.png",
   aggregateRating: { "@type": "AggregateRating", ratingValue: "4.5", ratingCount: "10" },
 };
 
@@ -105,9 +105,9 @@ const breadcrumbSchema = {
   "@context": "https://schema.org",
   "@type": "BreadcrumbList",
   itemListElement: [
-    { "@type": "ListItem", position: 1, name: "Home", item: "https://www.taskguru.online" },
-    { "@type": "ListItem", position: 2, name: "Apps", item: "https://www.taskguru.online/apps" },
-    { "@type": "ListItem", position: 3, name: "Pro Resume Maker", item: "https://www.taskguru.online/apps/pro-resume-maker" },
+    { "@type": "ListItem", position: 1, name: "Home", item: "https://www.taskguru.site" },
+    { "@type": "ListItem", position: 2, name: "Apps", item: "https://www.taskguru.site/apps" },
+    { "@type": "ListItem", position: 3, name: "Pro Resume Maker", item: "https://www.taskguru.site/apps/pro-resume-maker" },
   ],
 };
 

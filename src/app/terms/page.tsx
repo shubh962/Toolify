@@ -9,13 +9,13 @@ export const metadata: Metadata = {
   title: 'Terms of Service | TaskGuru Official Usage Policy',
   description: "Read the comprehensive Terms of Service for TaskGuru. Learn about our acceptable use policy, intellectual property rights, and founder Shubham Gautam's commitment to a secure web.",
   alternates: {
-    canonical: 'https://www.taskguru.online/terms',
+    canonical: 'https://www.taskguru.site/terms',
   },
   openGraph: {
     title: 'Terms of Service | TaskGuru Official Usage Policy',
     description: "Read the Terms of Service for TaskGuru. Learn about acceptable use, intellectual property rights, and our commitment to a secure web.",
     type: 'website',
-    url: 'https://www.taskguru.online/terms',
+    url: 'https://www.taskguru.site/terms',
   },
 };
 
@@ -85,7 +85,7 @@ export default function TermsPage() {
             TaskGuru is a passion-led project founded by <strong>Shubham Gautam</strong>. Our mission is to provide professional digital utilities — ranging from AI-powered background removal to secure PDF processing — without the burden of subscriptions or data mining.
           </p>
           <p>
-            When we refer to &quot;Services,&quot; we mean all tools, content, and features available at taskguru.online. These terms govern your access to these services and explain your responsibilities as a user.
+            When we refer to &quot;Services,&quot; we mean all tools, content, and features available at taskguru.site. These terms govern your access to these services and explain your responsibilities as a user.
           </p>
         </section>
 
@@ -136,7 +136,7 @@ export default function TermsPage() {
             TaskGuru provides its services on an &quot;AS IS&quot; and &quot;AS AVAILABLE&quot; basis. We strive for 100% accuracy, but we cannot guarantee that the results of AI tools will always be perfect.
           </p>
           <p className="text-sm italic leading-relaxed text-red-800 dark:text-red-300">
-            <strong>Limitation of Liability:</strong> Under no legal circumstances shall TaskGuru, or its developer Shubham Gautam, be liable for any data loss, financial loss, or incidental damages arising from the use or inability to use our tools. Your use of taskguru.online is entirely at your own risk.
+            <strong>Limitation of Liability:</strong> Under no legal circumstances shall TaskGuru, or its developer Shubham Gautam, be liable for any data loss, financial loss, or incidental damages arising from the use or inability to use our tools. Your use of taskguru.site is entirely at your own risk.
           </p>
         </section>
 

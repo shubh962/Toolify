@@ -7,13 +7,13 @@ export const metadata: Metadata = {
   description:
     'Discover 4 essential free tools for 2026: a secure password generator, typing speed test, PDF to Excel converter, and Excel to PDF converter. No signup, no paywall, works in your browser.',
   alternates: {
-    canonical: 'https://www.taskguru.online/blog/free-productivity-tools-2026',
+    canonical: 'https://www.taskguru.site/blog/free-productivity-tools-2026',
   },
   openGraph: {
     title: '4 Free Tools Everyone Needs in 2026',
     description:
       'Password generator, typing speed test, PDF to Excel, and Excel to PDF — four essential free tools with no signup and no paywall.',
-    url: 'https://www.taskguru.online/blog/free-productivity-tools-2026',
+    url: 'https://www.taskguru.site/blog/free-productivity-tools-2026',
     type: 'article',
   },
 };
@@ -27,18 +27,18 @@ const articleSchema = {
   author: {
     '@type': 'Person',
     name: 'Shubham Gautam',
-    url: 'https://www.taskguru.online/about',
+    url: 'https://www.taskguru.site/about',
   },
   publisher: {
     '@type': 'Organization',
     name: 'TaskGuru',
-    logo: { '@type': 'ImageObject', url: 'https://www.taskguru.online/logo.png' },
+    logo: { '@type': 'ImageObject', url: 'https://www.taskguru.site/logo.png' },
   },
   datePublished: '2026-02-01',
   dateModified: '2026-02-01',
   mainEntityOfPage: {
     '@type': 'WebPage',
-    '@id': 'https://www.taskguru.online/blog/free-productivity-tools-2026',
+    '@id': 'https://www.taskguru.site/blog/free-productivity-tools-2026',
   },
 };
 

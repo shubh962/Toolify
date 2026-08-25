@@ -7,13 +7,13 @@ export const metadata: Metadata = {
   description:
     'At work, I needed to extract text from an image. Manually retyping it took hours. Every free OCR tool online had paywalls or poor accuracy. So I built my own using Tesseract.js — completely free.',
   alternates: {
-    canonical: 'https://www.taskguru.online/blog/why-i-built-free-image-to-text-ocr',
+    canonical: 'https://www.taskguru.site/blog/why-i-built-free-image-to-text-ocr',
   },
   openGraph: {
     title: 'I Spent Hours Typing Text From an Image at Work. Then I Built a Free OCR Tool.',
     description:
       'The real story behind TaskGuru\'s free Image to Text converter — a frustrating workday, manual retyping, and a decision to build a better solution.',
-    url: 'https://www.taskguru.online/blog/why-i-built-free-image-to-text-ocr',
+    url: 'https://www.taskguru.site/blog/why-i-built-free-image-to-text-ocr',
     type: 'article',
   },
 };
@@ -27,19 +27,19 @@ const articleSchema = {
   author: {
     '@type': 'Person',
     name: 'Shubham Gautam',
-    url: 'https://www.taskguru.online/about',
+    url: 'https://www.taskguru.site/about',
     jobTitle: 'Developer & Founder, TaskGuru',
   },
   publisher: {
     '@type': 'Organization',
     name: 'TaskGuru',
-    logo: { '@type': 'ImageObject', url: 'https://www.taskguru.online/logo.png' },
+    logo: { '@type': 'ImageObject', url: 'https://www.taskguru.site/logo.png' },
   },
   datePublished: '2026-01-20',
   dateModified: '2026-01-20',
   mainEntityOfPage: {
     '@type': 'WebPage',
-    '@id': 'https://www.taskguru.online/blog/why-i-built-free-image-to-text-ocr',
+    '@id': 'https://www.taskguru.site/blog/why-i-built-free-image-to-text-ocr',
   },
 };
 
@@ -137,6 +137,13 @@ export default function BlogPost() {
 
         {/* BODY */}
         <div className="space-y-6 text-slate-700 dark:text-slate-300 leading-relaxed text-base">
+          {/* ADSENSE INTRO */}
+          <div className="mb-8 p-6 bg-slate-50 dark:bg-slate-800/50 rounded-2xl border border-slate-100 dark:border-slate-800">
+            <p className="text-slate-700 dark:text-slate-300 leading-relaxed font-medium">
+              Welcome to our comprehensive guide. Whether you are a student, professional, or just looking to learn more, this article covers everything you need to know about the topic in detail.
+            </p>
+          </div>
+
 
           <p>
             It was a regular workday. I had received an image — a screenshot of some data
@@ -282,6 +289,14 @@ export default function BlogPost() {
             </p>
           </div>
 
+
+          {/* ADSENSE CONCLUSION */}
+          <section className="mt-10 p-8 bg-slate-50 dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800">
+            <h2 className="text-2xl font-black mb-4 text-slate-900 dark:text-white">Final Thoughts & Next Steps</h2>
+            <p className="text-slate-700 dark:text-slate-300 leading-relaxed">
+              We hope this guide provided valuable insights. Continuing to explore these tools and strategies can significantly improve your workflow. Be sure to check out our other free resources for more tips.
+            </p>
+          </section>
           {/* CTA */}
           <div className="p-5 bg-teal-50 dark:bg-teal-900/20 border border-teal-200 dark:border-teal-800 rounded-2xl">
             <p className="font-bold text-slate-900 dark:text-white mb-2 text-sm">

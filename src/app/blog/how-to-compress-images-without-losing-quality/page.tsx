@@ -7,13 +7,13 @@ export const metadata: Metadata = {
   description:
     'Learn how to compress JPG, PNG, and WebP images without losing quality. Step-by-step guide covering compression tools, formats, and best practices for faster websites.',
   alternates: {
-    canonical: 'https://www.taskguru.online/blog/how-to-compress-images-without-losing-quality',
+    canonical: 'https://www.taskguru.site/blog/how-to-compress-images-without-losing-quality',
   },
   openGraph: {
     title: 'How to Compress Images Without Losing Quality (2026 Guide)',
     description:
       'Everything you need to know about image compression — formats, tools, and techniques to reduce file sizes without sacrificing visual quality.',
-    url: 'https://www.taskguru.online/blog/how-to-compress-images-without-losing-quality',
+    url: 'https://www.taskguru.site/blog/how-to-compress-images-without-losing-quality',
     type: 'article',
   },
 };
@@ -27,18 +27,18 @@ const articleSchema = {
   author: {
     '@type': 'Person',
     name: 'Shubham Gautam',
-    url: 'https://www.taskguru.online/about',
+    url: 'https://www.taskguru.site/about',
   },
   publisher: {
     '@type': 'Organization',
     name: 'TaskGuru',
-    logo: { '@type': 'ImageObject', url: 'https://www.taskguru.online/logo.png' },
+    logo: { '@type': 'ImageObject', url: 'https://www.taskguru.site/logo.png' },
   },
   datePublished: '2026-03-14',
   dateModified: '2026-03-14',
   mainEntityOfPage: {
     '@type': 'WebPage',
-    '@id': 'https://www.taskguru.online/blog/how-to-compress-images-without-losing-quality',
+    '@id': 'https://www.taskguru.site/blog/how-to-compress-images-without-losing-quality',
   },
 };
 

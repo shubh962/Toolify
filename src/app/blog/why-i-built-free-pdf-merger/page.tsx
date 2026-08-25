@@ -7,13 +7,13 @@ export const metadata: Metadata = {
   description:
     'A scholarship form required all documents in a single PDF. Merging them for free turned out to be nearly impossible. So I built a free PDF merger — no signup, no paywall, works in your browser.',
   alternates: {
-    canonical: 'https://www.taskguru.online/blog/why-i-built-free-pdf-merger',
+    canonical: 'https://www.taskguru.site/blog/why-i-built-free-pdf-merger',
   },
   openGraph: {
     title: 'A Government Portal Wanted One File. I Had Seven. Here Is What I Built.',
     description:
       'The real story behind TaskGuru\'s free PDF merger — a scholarship form, a government portal, and hours of wasted time.',
-    url: 'https://www.taskguru.online/blog/why-i-built-free-pdf-merger',
+    url: 'https://www.taskguru.site/blog/why-i-built-free-pdf-merger',
     type: 'article',
   },
 };
@@ -27,19 +27,19 @@ const articleSchema = {
   author: {
     '@type': 'Person',
     name: 'Shubham Gautam',
-    url: 'https://www.taskguru.online/about',
+    url: 'https://www.taskguru.site/about',
     jobTitle: 'Developer & Founder, TaskGuru',
   },
   publisher: {
     '@type': 'Organization',
     name: 'TaskGuru',
-    logo: { '@type': 'ImageObject', url: 'https://www.taskguru.online/logo.png' },
+    logo: { '@type': 'ImageObject', url: 'https://www.taskguru.site/logo.png' },
   },
   datePublished: '2026-01-10',
   dateModified: '2026-01-10',
   mainEntityOfPage: {
     '@type': 'WebPage',
-    '@id': 'https://www.taskguru.online/blog/why-i-built-free-pdf-merger',
+    '@id': 'https://www.taskguru.site/blog/why-i-built-free-pdf-merger',
   },
 };
 
@@ -137,6 +137,13 @@ export default function BlogPost() {
 
         {/* BODY */}
         <div className="space-y-6 text-slate-700 dark:text-slate-300 leading-relaxed text-base">
+          {/* ADSENSE INTRO */}
+          <div className="mb-8 p-6 bg-slate-50 dark:bg-slate-800/50 rounded-2xl border border-slate-100 dark:border-slate-800">
+            <p className="text-slate-700 dark:text-slate-300 leading-relaxed font-medium">
+              Welcome to our comprehensive guide. Whether you are a student, professional, or just looking to learn more, this article covers everything you need to know about the topic in detail.
+            </p>
+          </div>
+
 
           <p>
             The scholarship form was straightforward enough. Fill in your details, attach
@@ -301,6 +308,14 @@ export default function BlogPost() {
             </p>
           </div>
 
+
+          {/* ADSENSE CONCLUSION */}
+          <section className="mt-10 p-8 bg-slate-50 dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800">
+            <h2 className="text-2xl font-black mb-4 text-slate-900 dark:text-white">Final Thoughts & Next Steps</h2>
+            <p className="text-slate-700 dark:text-slate-300 leading-relaxed">
+              We hope this guide provided valuable insights. Continuing to explore these tools and strategies can significantly improve your workflow. Be sure to check out our other free resources for more tips.
+            </p>
+          </section>
           {/* CTA */}
           <div className="p-5 bg-orange-50 dark:bg-orange-900/20 border border-orange-200 dark:border-orange-800 rounded-2xl">
             <p className="font-bold text-slate-900 dark:text-white mb-2 text-sm">

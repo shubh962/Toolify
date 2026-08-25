@@ -8,14 +8,14 @@ export const metadata: Metadata = {
   description: "Free AI paraphraser, image to text OCR, PDF to Word, background remover, QR code generator, compress image to 20KB — 20 tools that actually work free in 2026. No signup, no credit card, no watermark.",
   keywords: "free online tools for students, free ai paraphraser no login, image to text converter online free, compress image to 20kb, pdf to word converter free, free background remover, ocr online free, free qr code generator, remove pdf password free, free resume maker 2026",
   alternates: {
-    canonical: "https://www.taskguru.online/blog/free-online-tools-students-2026-no-login",
+    canonical: "https://www.taskguru.site/blog/free-online-tools-students-2026-no-login",
   },
   openGraph: {
     title: "20 Free Online Tools for Students 2026 — No Login, No Paywall",
     description: "AI paraphraser, OCR, PDF to Word, background remover, QR codes — 20 tools that work free with no account. Updated April 2026.",
-    url: "https://www.taskguru.online/blog/free-online-tools-students-2026-no-login",
+    url: "https://www.taskguru.site/blog/free-online-tools-students-2026-no-login",
     type: "article",
-    images: [{ url: "https://www.taskguru.online/og-image.png", width: 1200, height: 630 }],
+    images: [{ url: "https://www.taskguru.site/og-image.png", width: 1200, height: 630 }],
   },
   twitter: {
     card: "summary_large_image",
@@ -34,7 +34,7 @@ const faqSchema = {
       name: "What is the best free AI paraphraser online in 2026?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "TaskGuru's free AI paraphraser (taskguru.online/tools/text-paraphraser) is one of the best free paraphrasing tools in 2026. It rewrites text instantly with no signup, no word limit, and no paywall. It's used by students and content creators to humanize AI-generated text from ChatGPT, Gemini, and other AI tools.",
+        text: "TaskGuru's free AI paraphraser (taskguru.site/tools/text-paraphraser) is one of the best free paraphrasing tools in 2026. It rewrites text instantly with no signup, no word limit, and no paywall. It's used by students and content creators to humanize AI-generated text from ChatGPT, Gemini, and other AI tools.",
       },
     },
     {
@@ -42,7 +42,7 @@ const faqSchema = {
       name: "How do I convert image to text online for free without signup?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Use TaskGuru's free OCR tool at taskguru.online/tools/image-to-text. Upload any JPG, PNG, or WebP image and it extracts the text instantly using Tesseract.js running in your browser. No account needed, no file upload to any server, completely private and free.",
+        text: "Use TaskGuru's free OCR tool at taskguru.site/tools/image-to-text. Upload any JPG, PNG, or WebP image and it extracts the text instantly using Tesseract.js running in your browser. No account needed, no file upload to any server, completely private and free.",
       },
     },
     {
@@ -50,7 +50,7 @@ const faqSchema = {
       name: "How do I compress an image to 20KB or 50KB for free?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Use TaskGuru's Image Compressor at taskguru.online/tools/image-compressor. Use the quality slider to reduce the image to your target size — 20KB, 50KB, 100KB, or any custom size. Works for JPG, PNG, and WebP. Runs in your browser — no upload, no signup, completely free.",
+        text: "Use TaskGuru's Image Compressor at taskguru.site/tools/image-compressor. Use the quality slider to reduce the image to your target size — 20KB, 50KB, 100KB, or any custom size. Works for JPG, PNG, and WebP. Runs in your browser — no upload, no signup, completely free.",
       },
     },
     {
@@ -58,7 +58,7 @@ const faqSchema = {
       name: "Is there a free PDF to Word converter without watermark?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Yes — TaskGuru's free PDF to Word converter (taskguru.online/tools/pdf-to-word) converts PDF files to editable DOCX without any watermarks, no account required, and no file size limits. The converted document downloads directly to your device.",
+        text: "Yes — TaskGuru's free PDF to Word converter (taskguru.site/tools/pdf-to-word) converts PDF files to editable DOCX without any watermarks, no account required, and no file size limits. The converted document downloads directly to your device.",
       },
     },
     {
@@ -66,7 +66,7 @@ const faqSchema = {
       name: "How do I make AI text undetectable for free?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Paste your AI-generated text into TaskGuru's free AI Paraphraser (taskguru.online/tools/text-paraphraser). It rewrites ChatGPT and Gemini text to sound natural and human-written. After paraphrasing, verify the result with TaskGuru's free AI Content Detector to confirm it passes detection.",
+        text: "Paste your AI-generated text into TaskGuru's free AI Paraphraser (taskguru.site/tools/text-paraphraser). It rewrites ChatGPT and Gemini text to sound natural and human-written. After paraphrasing, verify the result with TaskGuru's free AI Content Detector to confirm it passes detection.",
       },
     },
     {
@@ -74,7 +74,7 @@ const faqSchema = {
       name: "What is the best free QR code generator in 2026?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "TaskGuru's free QR code generator (taskguru.online/tools/qr-barcode-generator) creates QR codes for URLs, WiFi passwords, text, and email. It also generates barcodes (EAN-13, UPC, Code128). Free, no signup, unlimited, download as high-resolution PNG.",
+        text: "TaskGuru's free QR code generator (taskguru.site/tools/qr-barcode-generator) creates QR codes for URLs, WiFi passwords, text, and email. It also generates barcodes (EAN-13, UPC, Code128). Free, no signup, unlimited, download as high-resolution PNG.",
       },
     },
     {
@@ -82,7 +82,7 @@ const faqSchema = {
       name: "How do I remove a password from a PDF for free?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Use TaskGuru's free PDF Password Remover (taskguru.online/tools/unlock-pdf-no-upload). It removes both open-passwords and owner restrictions from PDF files entirely in your browser — your PDF never gets uploaded to any server. Free, no signup, no watermark.",
+        text: "Use TaskGuru's free PDF Password Remover (taskguru.site/tools/unlock-pdf-no-upload). It removes both open-passwords and owner restrictions from PDF files entirely in your browser — your PDF never gets uploaded to any server. Free, no signup, no watermark.",
       },
     },
     {
@@ -90,7 +90,7 @@ const faqSchema = {
       name: "Is there a free ATS-friendly resume maker for 2026?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Yes — TaskGuru's free Resume Maker (taskguru.online/tools/resume-maker) builds ATS-optimized resumes with real-time ATS scoring. Choose from Classic ATS, Modern, Minimal, or Executive templates. Download as PDF with no watermark, no account, no payment required.",
+        text: "Yes — TaskGuru's free Resume Maker (taskguru.site/tools/resume-maker) builds ATS-optimized resumes with real-time ATS scoring. Choose from Classic ATS, Modern, Minimal, or Executive templates. Download as PDF with no watermark, no account, no payment required.",
       },
     },
   ],
@@ -507,6 +507,14 @@ export default function BlogPost() {
               ))}
             </div>
 
+
+          {/* ADSENSE CONCLUSION */}
+          <section className="mt-10 p-8 bg-slate-50 dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800">
+            <h2 className="text-2xl font-black mb-4 text-slate-900 dark:text-white">Final Thoughts & Next Steps</h2>
+            <p className="text-slate-700 dark:text-slate-300 leading-relaxed">
+              We hope this guide provided valuable insights. Continuing to explore these tools and strategies can significantly improve your workflow. Be sure to check out our other free resources for more tips.
+            </p>
+          </section>
             {/* CTA */}
             <Link
               href={tool.href}

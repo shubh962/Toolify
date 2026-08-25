@@ -9,13 +9,13 @@ export const metadata: Metadata = {
     title: "Grammarly Free vs Free Grammar Checker — Which One Is Actually Better in 2026?",
     description:
       "Grammarly free vs no-login grammar checkers — what the comparison sites don't tell you. Real breakdown, no fluff.",
-    url: "https://www.taskguru.online/blog/grammarly-free-vs-free-grammar-checker",
+    url: "https://www.taskguru.site/blog/grammarly-free-vs-free-grammar-checker",
     type: "article",
     publishedTime: "2026-04-28T00:00:00Z",
     authors: ["Shubham Gautam"],
   },
   alternates: {
-    canonical: "https://www.taskguru.online/blog/grammarly-free-vs-free-grammar-checker",
+    canonical: "https://www.taskguru.site/blog/grammarly-free-vs-free-grammar-checker",
   },
 };
 
@@ -29,15 +29,15 @@ const articleSchema = {
   author: {
     "@type": "Person",
     name: "Shubham Gautam",
-    url: "https://taskguru.online",
+    url: "https://taskguru.site",
   },
   publisher: {
     "@type": "Organization",
     name: "TaskGuru",
-    url: "https://www.taskguru.online",
+    url: "https://www.taskguru.site",
     logo: {
       "@type": "ImageObject",
-      url: "https://www.taskguru.online/logo.png",
+      url: "https://www.taskguru.site/logo.png",
     },
   },
   datePublished: "2026-04-28",
@@ -45,9 +45,9 @@ const articleSchema = {
   mainEntityOfPage: {
     "@type": "WebPage",
     "@id":
-      "https://www.taskguru.online/blog/grammarly-free-vs-free-grammar-checker",
+      "https://www.taskguru.site/blog/grammarly-free-vs-free-grammar-checker",
   },
-  url: "https://www.taskguru.online/blog/grammarly-free-vs-free-grammar-checker",
+  url: "https://www.taskguru.site/blog/grammarly-free-vs-free-grammar-checker",
   keywords: [
     "grammarly free vs paid",
     "grammarly alternative free no sign up",

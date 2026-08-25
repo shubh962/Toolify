@@ -8,13 +8,13 @@ export const metadata: Metadata = {
   title: "How to Create a Free QR Code in 2 Seconds — No App, No Signup | TaskGuru",
   description: "Step-by-step guide to creating free QR codes for URLs, WiFi, text, and more. Static QR codes that never expire. Works on any phone or computer — no account needed.",
   keywords: "how to create qr code free, free qr code generator, create qr code for url free, qr code maker no signup, static qr code free, generate wifi qr code free",
-  alternates: { canonical: "https://www.taskguru.online/blog/how-to-create-free-qr-code" },
+  alternates: { canonical: "https://www.taskguru.site/blog/how-to-create-free-qr-code" },
   openGraph: {
     title: "How to Create a Free QR Code in 2 Seconds — No App, No Signup",
     description: "Step-by-step: free QR codes for URLs, WiFi, text. Static, no expiry, no account. Works everywhere.",
-    url: "https://www.taskguru.online/blog/how-to-create-free-qr-code",
+    url: "https://www.taskguru.site/blog/how-to-create-free-qr-code",
     type: "article",
-    images: [{ url: "https://www.taskguru.online/og-image.png", width: 1200, height: 630 }],
+    images: [{ url: "https://www.taskguru.site/og-image.png", width: 1200, height: 630 }],
   },
   twitter: {
     card: "summary_large_image",
@@ -29,15 +29,15 @@ const articleSchema = {
   "@type": "Article",
   headline: "How to Create a Free QR Code in 2 Seconds — No App, No Signup",
   description: "Complete guide to creating free QR codes that never expire — for URLs, WiFi, text, and more.",
-  author: { "@type": "Person", name: "Shubham Gautam", url: "https://www.taskguru.online/about" },
+  author: { "@type": "Person", name: "Shubham Gautam", url: "https://www.taskguru.site/about" },
   publisher: {
     "@type": "Organization",
     name: "TaskGuru",
-    logo: { "@type": "ImageObject", url: "https://www.taskguru.online/logo.png" },
+    logo: { "@type": "ImageObject", url: "https://www.taskguru.site/logo.png" },
   },
   datePublished: "2026-04-19",
   dateModified: "2026-04-19",
-  mainEntityOfPage: { "@type": "WebPage", "@id": "https://www.taskguru.online/blog/how-to-create-free-qr-code" },
+  mainEntityOfPage: { "@type": "WebPage", "@id": "https://www.taskguru.site/blog/how-to-create-free-qr-code" },
 };
 
 const faqSchema = {
@@ -57,7 +57,7 @@ const faqSchema = {
       name: "What is the best free QR code generator with no signup?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "TaskGuru's free QR code generator (taskguru.online/tools/qr-barcode-generator) generates QR codes for URLs, WiFi, text, email, and phone numbers. It also creates barcodes (EAN-13, UPC, Code128). No account, no signup, no watermark, unlimited use.",
+        text: "TaskGuru's free QR code generator (taskguru.site/tools/qr-barcode-generator) generates QR codes for URLs, WiFi, text, email, and phone numbers. It also creates barcodes (EAN-13, UPC, Code128). No account, no signup, no watermark, unlimited use.",
       },
     },
     {
@@ -210,6 +210,14 @@ export default function BlogPost() {
             ))}
           </div>
 
+
+          {/* ADSENSE CONCLUSION */}
+          <section className="mt-10 p-8 bg-slate-50 dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800">
+            <h2 className="text-2xl font-black mb-4 text-slate-900 dark:text-white">Final Thoughts & Next Steps</h2>
+            <p className="text-slate-700 dark:text-slate-300 leading-relaxed">
+              We hope this guide provided valuable insights. Continuing to explore these tools and strategies can significantly improve your workflow. Be sure to check out our other free resources for more tips.
+            </p>
+          </section>
           {/* CTA */}
           <Link href="/tools/qr-barcode-generator" className="flex items-center justify-between p-5 bg-primary text-white rounded-2xl group hover:bg-primary/90 transition-colors">
             <div>

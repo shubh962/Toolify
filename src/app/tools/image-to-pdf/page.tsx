@@ -7,7 +7,7 @@ export const metadata = {
   // ✅ FIX 3: Object format — string format is ignored in Next.js App Router
   robots: { index: true, follow: true },
   alternates: {
-    canonical: "https://www.taskguru.online/tools/image-to-pdf",
+    canonical: "https://www.taskguru.site/tools/image-to-pdf",
   },
 };
 

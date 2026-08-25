@@ -9,14 +9,14 @@ export const metadata: Metadata = {
   description: "Merge multiple PDF files into one document free — no account, no file size limit, no watermark. Reorder pages before combining. Works on phone and PC. Your files never leave your device.",
   keywords: "how to merge pdf files free, combine pdf files online free, merge pdf no signup, join multiple pdf into one, pdf combiner free online, merge pdf without watermark, how to combine pdf on phone",
   alternates: {
-    canonical: "https://www.taskguru.online/blog/how-to-merge-pdf-files-free",
+    canonical: "https://www.taskguru.site/blog/how-to-merge-pdf-files-free",
   },
   openGraph: {
     title: "How to Merge PDF Files Free — Combine Any Number of PDFs Instantly",
     description: "Combine multiple PDFs into one. Drag to reorder. Free, no account, no watermark, no size limit.",
-    url: "https://www.taskguru.online/blog/how-to-merge-pdf-files-free",
+    url: "https://www.taskguru.site/blog/how-to-merge-pdf-files-free",
     type: "article",
-    images: [{ url: "https://www.taskguru.online/og-image.png", width: 1200, height: 630 }],
+    images: [{ url: "https://www.taskguru.site/og-image.png", width: 1200, height: 630 }],
   },
   twitter: {
     card: "summary_large_image",
@@ -31,17 +31,17 @@ const articleSchema = {
   "@type": "Article",
   headline: "How to Merge PDF Files Free Online — Combine Multiple PDFs Into One in Seconds",
   description: "Complete guide to merging PDF files free — including the right order, use cases, and what to do after merging.",
-  author: { "@type": "Person", name: "Shubham Gautam", url: "https://www.taskguru.online/about" },
+  author: { "@type": "Person", name: "Shubham Gautam", url: "https://www.taskguru.site/about" },
   publisher: {
     "@type": "Organization",
     name: "TaskGuru",
-    logo: { "@type": "ImageObject", url: "https://www.taskguru.online/logo.png" },
+    logo: { "@type": "ImageObject", url: "https://www.taskguru.site/logo.png" },
   },
   datePublished: "2026-04-22",
   dateModified: "2026-04-22",
   mainEntityOfPage: {
     "@type": "WebPage",
-    "@id": "https://www.taskguru.online/blog/how-to-merge-pdf-files-free",
+    "@id": "https://www.taskguru.site/blog/how-to-merge-pdf-files-free",
   },
 };
 
@@ -54,7 +54,7 @@ const faqSchema = {
       name: "How do I merge PDF files for free without watermark?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Use TaskGuru's free PDF Merger at taskguru.online/tools/merge-pdf. Upload multiple PDF files, drag to reorder them, and click Merge. The combined PDF downloads with no watermark, no account required. The tool runs in your browser — no files are uploaded to any server.",
+        text: "Use TaskGuru's free PDF Merger at taskguru.site/tools/merge-pdf. Upload multiple PDF files, drag to reorder them, and click Merge. The combined PDF downloads with no watermark, no account required. The tool runs in your browser — no files are uploaded to any server.",
       },
     },
     {
@@ -70,7 +70,7 @@ const faqSchema = {
       name: "Can I merge PDFs on my phone without an app?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Yes. Open taskguru.online/tools/merge-pdf in Chrome or Safari on your Android or iPhone. Upload the PDFs from your device storage, reorder if needed, and download the merged PDF. No app download required — it runs entirely in the mobile browser.",
+        text: "Yes. Open taskguru.site/tools/merge-pdf in Chrome or Safari on your Android or iPhone. Upload the PDFs from your device storage, reorder if needed, and download the merged PDF. No app download required — it runs entirely in the mobile browser.",
       },
     },
     {

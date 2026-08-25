@@ -10,13 +10,13 @@ export const metadata: Metadata = {
   title: "Contact TaskGuru | 24/7 Support for AI Tools",
   description: "Get in touch with TaskGuru support. Founded by Shubham Gautam, we provide fast and secure assistance for PDF, Image, and AI productivity tools.",
   alternates: {
-    canonical: "https://www.taskguru.online/contact",
+    canonical: "https://www.taskguru.site/contact",
   },
   openGraph: {
     title: "Contact TaskGuru | 24/7 Support for AI Tools",
     description: "Get in touch with TaskGuru support. We provide fast assistance for PDF, Image, and AI productivity tools.",
     type: "website",
-    url: "https://www.taskguru.online/contact",
+    url: "https://www.taskguru.site/contact",
   },
 };
 
@@ -98,7 +98,7 @@ export default function ContactPage() {
             >
               <input type="text" name="_honey" style={{ display: "none" }} />
               <input type="hidden" name="_captcha" value="false" />
-              <input type="hidden" name="_next" value="https://www.taskguru.online/contact" />
+              <input type="hidden" name="_next" value="https://www.taskguru.site/contact" />
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div className="space-y-2">

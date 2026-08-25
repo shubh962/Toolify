@@ -67,7 +67,7 @@ export const metadata: Metadata = {
   description:
     "Free AI-powered tools for everyone. Convert PDF to Word, remove image backgrounds, compress images, extract text via OCR, build ATS resumes, and paraphrase content instantly. No login. 100% private. Works in your browser.",
   keywords:
-    "free ai tools, taskguru online, background remover free, pdf to word no login, image compressor online, resume maker 2026, ocr free, image to text free, merge pdf free, free online tools no signup, ats resume builder free, ai paraphraser free, compress images online, jpg to pdf free, webp to jpg free",
+    "free ai tools, tools, free utility, blog, productivity, taskguru.site, background remover free, pdf to word no login, image compressor online, resume maker 2026, ocr free, image to text free, merge pdf free, free online tools no signup, ats resume builder free, ai paraphraser free, compress images online, jpg to pdf free, webp to jpg free",
   authors: [{ name: "Shubham Gautam", url: "https://www.taskguru.site" }],
   creator: "Shubham Gautam",
   publisher: "TaskGuru",
@@ -242,7 +242,7 @@ export default function RootLayout({
   const webAppLdJson = {
     "@context": "https://schema.org",
     "@type": "WebApplication",
-    name: "TaskGuru Online Tools",
+    name: "taskguru.site Tools",
     url: "https://www.taskguru.site",
     applicationCategory: "UtilitiesApplication",
     operatingSystem: "All — works in any browser",

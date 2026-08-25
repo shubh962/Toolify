@@ -5,7 +5,7 @@ import Link from "next/link";
 export const metadata = {
   title: "Free Online PDF Splitter | Extract Pages Securely",
   description: "Split PDF pages instantly with our free, browser-based tool. 100% private processing. No uploads required.",
-  alternates: { canonical: "https://www.taskguru.online/tools/split-pdf" },
+  alternates: { canonical: "https://www.taskguru.site/tools/split-pdf" },
 };
 
 export default function Page() {

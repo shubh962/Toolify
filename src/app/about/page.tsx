@@ -24,7 +24,7 @@ export const metadata: Metadata = {
   description:
     "Discover the story of TaskGuru, founded by Shubham Gautam. Learn about our AI-driven free tools, zero-storage data policy, and mission to make the web accessible for everyone.",
   alternates: {
-    canonical: "https://www.taskguru.online/about",
+    canonical: "https://www.taskguru.site/about",
   },
   robots: {
     index: true,
@@ -35,7 +35,7 @@ export const metadata: Metadata = {
     description:
       "Meet Shubham Gautam, founder of TaskGuru. Learn how we build free, private, and fast tools for everyone.",
     type: "website",
-    url: "https://www.taskguru.online/about",
+    url: "https://www.taskguru.site/about",
   },
 };
 

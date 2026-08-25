@@ -12,7 +12,7 @@ import Script from "next/script";
 export const metadata: Metadata = {
   title: "Free Online Tools — PDF Converter, AI Paraphraser, Image Compressor | TaskGuru",
   description: `Access ${tools.length}+ free online tools including PDF to Word converter, free AI paraphraser, image background remover, OCR image to text, ATS resume builder, and more. No signup, no watermark, 100% private and free forever.`,
-  alternates: { canonical: "https://www.taskguru.online/tools" },
+  alternates: { canonical: "https://www.taskguru.site/tools" },
   keywords: [
     "free online tools", "free pdf converter", "free ai paraphraser", "free image compressor",
     "free background remover", "free ocr tool", "free resume builder", "free pdf to word",
@@ -24,7 +24,7 @@ export const metadata: Metadata = {
     title: "Free Online Tools — PDF, AI Writing, Image & More | TaskGuru",
     description: `${tools.length}+ free tools. No signup, no watermark, 100% private. Convert PDFs, compress images, paraphrase text, build resumes and more.`,
     type: "website",
-    url: "https://www.taskguru.online/tools",
+    url: "https://www.taskguru.site/tools",
   },
 };
 
@@ -34,12 +34,12 @@ const toolsPageSchema = {
   "@type": "CollectionPage",
   "name": "Free Online Tools — TaskGuru",
   "description": `${tools.length}+ free online tools including PDF converter, AI paraphraser, image compressor, and more. No signup required.`,
-  "url": "https://www.taskguru.online/tools",
+  "url": "https://www.taskguru.site/tools",
   "publisher": {
     "@type": "Organization",
     "name": "TaskGuru",
-    "url": "https://www.taskguru.online",
-    "logo": "https://www.taskguru.online/logo.png",
+    "url": "https://www.taskguru.site",
+    "logo": "https://www.taskguru.site/logo.png",
   },
 };
 

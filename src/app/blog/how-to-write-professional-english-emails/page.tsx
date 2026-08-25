@@ -9,14 +9,14 @@ export const metadata: Metadata = {
     title: "How to Write Professional Emails in English — Grammar Guide for Non-Native Speakers",
     description:
       "The grammar patterns that make emails sound unprofessional — and how to fix every one free, without Grammarly.",
-    url: "https://www.taskguru.online/blog/how-to-write-professional-english-emails",
+    url: "https://www.taskguru.site/blog/how-to-write-professional-english-emails",
     type: "article",
     publishedTime: "2026-04-28T00:00:00Z",
     authors: ["Shubham Gautam"],
   },
   alternates: {
     canonical:
-      "https://www.taskguru.online/blog/how-to-write-professional-english-emails",
+      "https://www.taskguru.site/blog/how-to-write-professional-english-emails",
   },
 };
 
@@ -30,15 +30,15 @@ const articleSchema = {
   author: {
     "@type": "Person",
     name: "Shubham Gautam",
-    url: "https://www.taskguru.online",
+    url: "https://www.taskguru.site",
   },
   publisher: {
     "@type": "Organization",
     name: "TaskGuru",
-    url: "https://www.taskguru.online",
+    url: "https://www.taskguru.site",
     logo: {
       "@type": "ImageObject",
-      url: "https://www.taskguru.online/logo.png",
+      url: "https://www.taskguru.site/logo.png",
     },
   },
   datePublished: "2026-04-28",
@@ -46,9 +46,9 @@ const articleSchema = {
   mainEntityOfPage: {
     "@type": "WebPage",
     "@id":
-      "https://www.taskguru.online/blog/how-to-write-professional-english-emails",
+      "https://www.taskguru.site/blog/how-to-write-professional-english-emails",
   },
-  url: "https://www.taskguru.online/blog/how-to-write-professional-english-emails",
+  url: "https://www.taskguru.site/blog/how-to-write-professional-english-emails",
   keywords: [
     "how to write professional email in english",
     "english email grammar mistakes",

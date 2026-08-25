@@ -7,13 +7,13 @@ export const metadata: Metadata = {
   description:
     'A B-Tech final year student needed to paraphrase his project report. Every free tool had grammar errors, word limits, and paywalls. So he built his own — free, no login, instant.',
   alternates: {
-    canonical: 'https://www.taskguru.online/blog/why-i-built-free-paraphraser',
+    canonical: 'https://www.taskguru.site/blog/why-i-built-free-paraphraser',
   },
   openGraph: {
     title: 'My B-Tech Project Report and Why I Built a Free Paraphrasing Tool',
     description:
       'A real story about broken English, project deadlines, and why every free paraphrase online tool is not actually free.',
-    url: 'https://www.taskguru.online/blog/why-i-built-free-paraphraser',
+    url: 'https://www.taskguru.site/blog/why-i-built-free-paraphraser',
     type: 'article',
   },
 };
@@ -27,19 +27,19 @@ const articleSchema = {
   author: {
     '@type': 'Person',
     name: 'Shubham Gautam',
-    url: 'https://www.taskguru.online/about',
+    url: 'https://www.taskguru.site/about',
     jobTitle: 'Developer & Founder, TaskGuru',
   },
   publisher: {
     '@type': 'Organization',
     name: 'TaskGuru',
-    logo: { '@type': 'ImageObject', url: 'https://www.taskguru.online/logo.png' },
+    logo: { '@type': 'ImageObject', url: 'https://www.taskguru.site/logo.png' },
   },
   datePublished: '2025-09-10',
   dateModified: '2025-09-10',
   mainEntityOfPage: {
     '@type': 'WebPage',
-    '@id': 'https://www.taskguru.online/blog/why-i-built-free-paraphraser',
+    '@id': 'https://www.taskguru.site/blog/why-i-built-free-paraphraser',
   },
 };
 
@@ -87,6 +87,13 @@ export default function BlogPost() {
 
         {/* BODY */}
         <div className="space-y-6 text-slate-700 dark:text-slate-300 leading-relaxed text-base">
+          {/* ADSENSE INTRO */}
+          <div className="mb-8 p-6 bg-slate-50 dark:bg-slate-800/50 rounded-2xl border border-slate-100 dark:border-slate-800">
+            <p className="text-slate-700 dark:text-slate-300 leading-relaxed font-medium">
+              Welcome to our comprehensive guide. Whether you are a student, professional, or just looking to learn more, this article covers everything you need to know about the topic in detail.
+            </p>
+          </div>
+
 
           <p>
             Final year of B.Tech. Project report submission coming up. I had done the actual
@@ -227,6 +234,14 @@ export default function BlogPost() {
             </p>
           </div>
 
+
+          {/* ADSENSE CONCLUSION */}
+          <section className="mt-10 p-8 bg-slate-50 dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800">
+            <h2 className="text-2xl font-black mb-4 text-slate-900 dark:text-white">Final Thoughts & Next Steps</h2>
+            <p className="text-slate-700 dark:text-slate-300 leading-relaxed">
+              We hope this guide provided valuable insights. Continuing to explore these tools and strategies can significantly improve your workflow. Be sure to check out our other free resources for more tips.
+            </p>
+          </section>
           {/* CTA */}
           <div className="p-5 bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-2xl">
             <p className="font-bold text-slate-900 dark:text-white mb-2 text-sm">

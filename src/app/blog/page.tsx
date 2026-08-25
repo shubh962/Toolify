@@ -7,12 +7,12 @@ export const metadata: Metadata = {
   title: "Blog — Digital Strategy & Free Tool Guides | TaskGuru",
   description:
     "Expert guides on image compression, PDF tools, resume writing, SEO, and productivity. Free tips and deep dives from the TaskGuru team.",
-  alternates: { canonical: "https://www.taskguru.online/blog" },
+  alternates: { canonical: "https://www.taskguru.site/blog" },
   openGraph: {
     title: "Blog — Digital Strategy & Free Tool Guides | TaskGuru",
     description: "Expert guides on image compression, PDF tools, resume writing, SEO, and productivity.",
     type: "website",
-    url: "https://www.taskguru.online/blog",
+    url: "https://www.taskguru.site/blog",
   },
 };
 
@@ -423,14 +423,14 @@ const blogListSchema = {
   "@context": "https://schema.org",
   "@type": "Blog",
   name: "TaskGuru Blog",
-  url: "https://www.taskguru.online/blog",
+  url: "https://www.taskguru.site/blog",
   description: "Expert guides on image compression, PDF tools, resume writing, SEO, and productivity.",
   blogPost: posts.map((post) => ({
     "@type": "BlogPosting",
     headline: post.title,
     description: post.summary,
     datePublished: post.date,
-    url: `https://www.taskguru.online/blog/${post.slug}`,
+    url: `https://www.taskguru.site/blog/${post.slug}`,
     author: { "@type": "Person", name: "Shubham Gautam" },
   })),
 };

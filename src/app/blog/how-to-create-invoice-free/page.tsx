@@ -7,13 +7,13 @@ export const metadata: Metadata = {
   description:
     'Step-by-step guide to creating a professional invoice for free. Covers what to include, tax rates for USA, UK, Canada and Australia, how to send invoices, and common mistakes to avoid.',
   alternates: {
-    canonical: 'https://www.taskguru.online/blog/how-to-create-invoice-free',
+    canonical: 'https://www.taskguru.site/blog/how-to-create-invoice-free',
   },
   openGraph: {
     title: 'How to Create a Professional Invoice for Free (2026 Guide)',
     description:
       'Everything freelancers and small businesses need to know about creating professional invoices — what to include, tax rates, payment terms, and how to get paid faster.',
-    url: 'https://www.taskguru.online/blog/how-to-create-invoice-free',
+    url: 'https://www.taskguru.site/blog/how-to-create-invoice-free',
     type: 'article',
   },
 };
@@ -27,18 +27,18 @@ const articleSchema = {
   author: {
     '@type': 'Person',
     name: 'Shubham Gautam',
-    url: 'https://www.taskguru.online/about',
+    url: 'https://www.taskguru.site/about',
   },
   publisher: {
     '@type': 'Organization',
     name: 'TaskGuru',
-    logo: { '@type': 'ImageObject', url: 'https://www.taskguru.online/logo.png' },
+    logo: { '@type': 'ImageObject', url: 'https://www.taskguru.site/logo.png' },
   },
   datePublished: '2026-03-20',
   dateModified: '2026-03-20',
   mainEntityOfPage: {
     '@type': 'WebPage',
-    '@id': 'https://www.taskguru.online/blog/how-to-create-invoice-free',
+    '@id': 'https://www.taskguru.site/blog/how-to-create-invoice-free',
   },
 };
 
@@ -308,6 +308,14 @@ export default function BlogPost() {
             </div>
           </section>
 
+
+          {/* ADSENSE CONCLUSION */}
+          <section className="mt-10 p-8 bg-slate-50 dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800">
+            <h2 className="text-2xl font-black mb-4 text-slate-900 dark:text-white">Final Thoughts & Next Steps</h2>
+            <p className="text-slate-700 dark:text-slate-300 leading-relaxed">
+              We hope this guide provided valuable insights. Continuing to explore these tools and strategies can significantly improve your workflow. Be sure to check out our other free resources for more tips.
+            </p>
+          </section>
           {/* CTA */}
           <div className="p-6 bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-2xl text-center space-y-3">
             <h3 className="font-black text-slate-900 dark:text-white text-lg">Ready to Create Your Invoice?</h3>

@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   description:
     'Looking for the best free paraphrasing tool online? Rewrite essays, blogs, and AI text instantly — no word limits, no signup, no cost. Tested and ranked for 2026.',
   alternates: {
-    canonical: 'https://www.taskguru.online/blog/best-free-paraphrasing-tool-online-2026',
+    canonical: 'https://www.taskguru.site/blog/best-free-paraphrasing-tool-online-2026',
   },
   openGraph: {
     title: 'Best Free Paraphrasing Tool Online in 2026 (No Word Limits)',
@@ -82,13 +82,13 @@ const articleSchema = {
   publisher: {
     '@type': 'Organization',
     name: 'TaskGuru',
-    logo: { '@type': 'ImageObject', url: 'https://taskguru.online/logo.png' },
+    logo: { '@type': 'ImageObject', url: 'https://taskguru.site/logo.png' },
   },
   datePublished: '2026-06-14',
   dateModified: '2026-06-14',
   mainEntityOfPage: {
     '@type': 'WebPage',
-    '@id': 'https://www.taskguru.online/blog/best-free-paraphrasing-tool-online-2026',
+    '@id': 'https://www.taskguru.site/blog/best-free-paraphrasing-tool-online-2026',
   },
 };
 
