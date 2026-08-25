@@ -5,7 +5,7 @@
 **The Institutional-Grade AI Toolkit & Tech Publication.**
 Toolify (rebranded as TaskGuru) is a Next.js platform that combines high-performance developer utilities with deep-dive technical research. It is designed for speed, privacy, and algorithmic authority.
 
-🔗 **Live URL:** [https://taskguru.online](https://taskguru.online)
+🔗 **Live URL:** [https://taskguru.online](https://taskguru.site)
 
 ---
 
