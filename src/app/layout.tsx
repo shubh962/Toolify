@@ -431,12 +431,14 @@ export default function RootLayout({
               id="container-d39855ca15bcb0b839000465de518edb"
               className="w-full max-w-5xl flex justify-center px-4"
             />
+            {/* Adsterra script temporarily disabled for AdSense review
             <Script
               id="adsterra-native"
               src="https://pl29034152.profitablecpmratenetwork.com/d39855ca15bcb0b839000465de518edb/invoke.js"
               strategy="lazyOnload"
               data-cfasync="false"
             />
+            */}
           </div>
 
           <Toaster />
