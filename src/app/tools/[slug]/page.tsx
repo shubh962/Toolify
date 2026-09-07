@@ -219,6 +219,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   return {
     title: finalTitle,
     description: finalDesc,
+    robots: { index: true, follow: true },
     keywords: `${tool.title.toLowerCase()}, free, online, no signup, taskguru`,
     alternates: { canonical },
     openGraph: {

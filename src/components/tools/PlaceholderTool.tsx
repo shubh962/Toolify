@@ -1,10 +1,4 @@
 // ✅ FIX 1: Removed 'use client' — this component has no hooks or state
-// ✅ FIX 1: metadata must be exported from a Server Component (page.tsx), not here
-// Add this to your tools/[slug]/page.tsx generateMetadata instead:
-//
-//   if (!toolData) {
-//     return { robots: { index: false, follow: false } }
-//   }
 
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
